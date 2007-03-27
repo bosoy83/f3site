@@ -1,0 +1,44 @@
+* F3Site 2.1 *
+- indeks zdarzeñ
+- blokada dostêpu
+- licznik odwiedzin i liczba obecnych osób
+- emotikony
+- zapis wizyty Google do indeksu
+- masowa zmiana kategorii i dostêpno¶ci
+- centrum ustawieñ
+- poprawione zliczanie pozycji w kategoriach
+- inne zmiany i poprawki
+- obs³uga XMLHTTPRequest (inc/adv.js)
+- wykrywanie domy¶lnego jêzyka przegl±darki
+
+* F3Site 2.0 *
+- u¿ycie sesji PHP do logowania
+- poprawa dzia³ania BBCode
+- nowe przyciski BBCode/HTML
+- zamiana (cenzura) s³ów
+- eksport bazy danych
+- rozszerzony formularz do pisania komentarzy
+- grupy u¿ytkowników
+- potwierdzanie kodu z obrazka
+- wczytywanie menu z pliku jako opcja
+- przetwarzanie kodu PHP w artyku³ach i stronach inf.
+- wyszukiwarka u¿ytkowników i zawarto¶ci
+- g³ówna strona mo¿e byæ kategori± lub stron± inf.
+- lepszy wygl±d ustawieñ
+- poprawki xHTML i CS
+- poprawione wy¶wietlanie galerii
+- opcje kategorii (SCRO)
+- inne poprawki
+
+* F3Site 1.4 *
+- generator nowych hase³
+- poprawione wysy³anie wiadomo¶ci e-mail
+- czas ostatniej wizyty u¿ytkowników
+- prywatne wiadomo¶ci
+- zapisywanie liczby pozycji w kategoriach
+- znaki specjalne
+- bezpieczniejsza instalacja wtyczek
+- inne poprawki
+- poprawka: resetowanie g³osów w sondach
+- poprawka: wy¶wietlanie sond
+- poprawka: zarz±dzanie i wy¶wietlanie emotikon

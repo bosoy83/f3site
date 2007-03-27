@@ -1,0 +1,43 @@
+F3Site - informacje
+
+1. Rozpowszechnianie i zasady korzystania.
+
+Copyright 2006 COMPMaster
+Niniejszy skrypt jest wolnym oprogramowaniem; mo¿esz go rozprowadzaæ dalej, modyfikowaæ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundacjê Wolnego Oprogramowania - wg 2. werjsi tej Licencji lub którejœ z póŸniejszych.
+
+Skrypt rozpowszechniany jest z nadziej¹, i¿ bêdzie on u¿yteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI,nawet domyœlnej gwarancji PRZYDATNOŒCI HANDLOWEJ albo PRZYDATNOŒCI DO OKREŒLONYCH ZASTOSOWAÑ. W celu uzyskania bli¿szych informacji - Powszechna Licencja Publiczna GNU.
+
+F3Site korzysta z komponentów:
+- ikony Silk - http://www.famfamfam.com/lab/icons/silk
+
+
+2. Wymagania:
+- PHP 4.3 lub nowszy
+- Baza danych, np. MySQL
+- obs³uga sesji PHP
+
+
+3. Instalacja i korzystanie.
+
+W przypadku aktualizacji do nowej wersji, nie wykonuj ponownie instalacji. PrzejdŸ do katalogu UPDATES, aby dowiedzieæ siê wiêcej.
+
+W przypadku nowej instalacji, za³aduj pliki w katalogu UPLOAD na serwer. Mo¿esz wczeœniej tak¿e usun¹æ niepotrzebne skóry (oprócz CONTINUOUS, która od wersji 1.1 jest domyœln¹) i jêzyki. Nastêpnie nadaj plikom i folderom atrybuty (CHMOD):
+- katalog CFG - 0777
+- pliki w kat. CFG - 0766
+- katalogi FILES, IMG - 0777 (nieobowi¹zkowo).
+
+PrzejdŸ do katalogu INSTALL w przegl¹darce internetowej, wpisuj¹c np.
+- http://adres.strony.pl/install/
+Aby instalacja przebieg³a poprawnie, u¿ytkownik bazy SQL musi byæ pe³noprawny. Po instalacji USUÑ KATALOG INSTALL! Nastêpnie zmieñ ustawienia skryptu w panelu administracyjnym.
+
+
+4. Nowe wersje, aktualizacje i pomoc techniczna.
+Oficjaln¹ stron¹ skryptu jest wortal COMPMaster (compmaster.go.pl). Pomoc techniczn¹ dotycz¹c¹ skryptu mo¿esz uzyskaæ na forum.
+UWAGA! Strony nielegalne lub nieprzyzwoite (np. WAREZ, erotyka, sex) nie bêd¹ uzyskiwaæ pomocy technicznej.
+
+
+5. Uwagi.
+Co jakiœ czas zaleca siê utworzenie KOPII BAZY DANYCH.
+Jeœli maskowanie adresu przez aliasy przeszkadza, zamiast do pliku index.php mo¿na skierowaæ je do domain.php, który przerwie maskowanie.
+Do panelu administracyjnego mo¿na siê te¿ dostaæ, wpisuj¹c rêcznie œcie¿kê katalogu ADMIN. Jest to przydatne np. wtedy, gdy blok logowania jest ukryty.
+Aby jeszcze bardziej zwiêkszyæ bezpieczeñstwo, po instalacji mo¿esz nadaæ plikowi cfg/db.php prawa 444 (tylko odczyt).

@@ -1,0 +1,1 @@
+<?php $emodata=Array(Array(":)","smile.png",":)"),Array(":D","happy.png",":D"),Array(":(","unhappy.png",":("),Array(":O","surprised.png",":O"),Array(":P","tongue.png",":P"),Array(":]","waii.png",":]"),) ?>
