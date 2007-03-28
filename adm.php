@@ -112,9 +112,10 @@ if(LOGD==1)
  #Menu
  function amenu($co,$adr,$cd)
  {
-  if(ChPrv($cd)) mlink($co,'?a='.$adr,0);
+  if(ChPrv($cd)) echo '<li><a href="?a='.$adr.'">'.$co.'</a></li>';
  }
  $adgmenu.='<a href="index.php">'.$lang['escadm'].'</a> &nbsp;&nbsp;&nbsp;<a href="adm.php">'.$lang['admhp'].'</a> &nbsp;&nbsp;&nbsp;<a href="login.php?logout=1">'.$lang['logout'].'</a>';
+ 
  #Wtyczki
  function ShowMP()
  {
@@ -123,11 +124,13 @@ if(LOGD==1)
   if(isset($admenu[0][0]))
   {
    mnew($lang['plugs'],'');
+	 echo '<ul>';
    $ile=count($admenu);
    for($i=0;$i<$ile;$i++)
    {
-    if($admenu[$i][3]!=1) { amenu($admenu[$i][1],$admenu[$i][2],$admenu[$i][0]); }
+    if($admenu[$i][3]!=1) amenu($admenu[$i][1],$admenu[$i][2],$admenu[$i][0]);
    }
+	 echo '</ul>';
    mend();
   }
  }

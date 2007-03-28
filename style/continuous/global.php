@@ -1,4 +1,6 @@
 <?php
+
+#Ikony
 define('CATIMG','img/icon/folder.gif');
 define('ARTIMG','img/icon/art.png');
 define('HARTIMG','img/icon/hart.png');
@@ -7,7 +9,9 @@ define('HLINKIMG','img/icon/hlink.png');
 define('HIMGFILE','img/icon/file.png');
 define('IMGFILE','img/icon/file.png');
 define('SCIMG','img/icon/fldm.gif');
-function cTable($t,$cs) { #Tabela
+
+#Nowa tabela
+function cTable($t,$cs) {
 ?>
 <table cellpadding="4" cellspacing="1" class="tb">
 <tbody class="bg">
@@ -16,23 +20,22 @@ function cTable($t,$cs) { #Tabela
 </tr>
 
 <?php }
-function eTable() { #Koniec tabeli
+
+#Koniec tabeli
+function eTable() {
 ?>
 </tbody>
 </table>
 
 <?php }
-function Info($co) {
+
+#Informacja
+function Info($co)
+{
  global $lang;
  cTable($lang['info'],1);
- echo('<tr><td style="padding: 10px" class="txt">'.$co.'</td></tr>');
+ echo '<tr><td style="padding: 10px" class="txt">'.$co.'</td></tr>';
  eTable();
-}
-
-#Link menu
-function mlink($txt,$url,$t)
-{
-  echo '&bull; <a href="'.$url.'"'.(($t==1)?' target="_blank"':'').'>'.$txt.'</a><br />';
 }
 
 #Pocz±tek menu
@@ -43,6 +46,8 @@ function mnew($title,$bg) {
 </div>
 <div class="menu"<?= $bg ?>>
  
-<?php } function mend() { #Koniec menu ?>
-</div>
-<?php } ?>
+<?php }
+
+#Koniec menu
+function mend() { echo '</div>'; }
+?>

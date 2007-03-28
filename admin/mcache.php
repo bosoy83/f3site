@@ -45,16 +45,21 @@ if(is_writable('cfg'))
 			#Linki
       else {
        $ileym=count($item);
-       for($ym=0;$ym<$ileym;$ym++) {
-        if($item[$ym][0]==$mnew[$i]['ID']) {
-         switch($item[$ym][1]) {
-          case 1: $_xm[$_xt].='mlink(\''.Ap($item[$ym][2]).'\',\''.Ap($item[$ym][3]).'\','.$item[$ym][4].'); '; break;
-          case 2: $_xm[$_xt].='mlink(\''.Ap($item[$ym][2]).'\',\'?d='.Ap($item[$ym][3]).'\','.$item[$ym][4].'); '; break;
-          case 3: $_xm[$_xt].='mlink(\''.Ap($item[$ym][2]).'\',\'?co=page&amp;id='.Ap($item[$ym][3]).'\','.$item[$ym][4].'); '; break;
+			 $_xm[$_xt].='?><ul>';
+       for($ym=0;$ym<$ileym;$ym++)
+			 {
+        if($item[$ym][0]==$mnew[$i]['ID'])
+				{
+         switch($item[$ym][1])
+				 {
+          case 1: $_xm[$_xt].='<li><a href="'.Ap($item[$ym][3]).'"'.(($item[$ym][4]==1)?' target="_blank"':'').'>'.Ap($item[$ym][2]).'</a></li>'; break;
+          case 2: $_xm[$_xt].='<li><a href="?d='.Ap($item[$ym][3]).'"'.(($item[$ym][4]==1)?' target="_blank"':'').'>'.Ap($item[$ym][2]).'</a></li>'; break;
+          case 3: $_xm[$_xt].='<li><a href="?co=page&amp;id='.Ap($item[$ym][3]).'"'.(($item[$ym][4]==1)?' target="_blank"':'').'>'.Ap($item[$ym][2]).'</a></li>'; break;
          }
         }
        }
        unset($ileym,$ym);
+			 $_xm[$_xt].='<ul><?php ';
       }
       $_xm[$_xt].='mend(); ';
      }

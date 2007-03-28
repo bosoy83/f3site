@@ -11,15 +11,36 @@ optgroup {font-style: normal}
 /*Nag³ówek i stopka*/
 #header {background-color: #E4E4E4}
 #header table {border-spacing: 0; width: 100%}
-#footer {background-color: #DCDCD6; padding: 2px; width: 874px; margin-bottom: 5px; border: 1px solid #ACACA4; border-top: 0}
+#footer {
+	background-color: #DCDCD6;
+	padding: 2px;
+	width: 874px;
+	margin-bottom: 5px;
+	border: 1px solid #ACACA4;
+	border-top: 0
+}
 #gm {background-color: #F0F0EE; padding: 3px 8px 3px 8px}
 #gm a {color: #2872AE; font-weight: bold}
 td.nav {width: 175px; padding: 9px}
 td.mid {background-color: #EDEDEB; padding: 9px}
 
 /*Menu*/
-.menu {background-color: #F4F4F2; padding: 2px 3px; margin-bottom: 7px; border: 1px solid #C9C9C7}
-.mnag {color: #616161; background: #EDEDEB url(img/mth.png) repeat-x; text-align: center; padding: 1px; border: 1px solid #C9C9C7; border-bottom: 0}
+.menu {
+	background-color: #F4F4F2;
+	padding: 2px 3px;
+	margin-bottom: 7px;
+	border: 1px solid #C9C9C7
+}
+.mnag {
+	color: #616161;
+	background: #EDEDEB url(img/mth.png) repeat-x;
+	text-align: center;
+	padding: 1px;
+	border: 1px solid #C9C9C7;
+	border-bottom: 0
+}
+.menu ul {margin: 0; padding-left: 14px; text-indent: -2px}
+.menu ul a {display: block}
 
 /*Bloki*/
 .tb {background-color: #C6CDC2; width: 100%; margin-bottom: 8px}

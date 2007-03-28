@@ -1,18 +1,29 @@
 <?php
 if(iCMS!='E123') exit;
 global $cfg,$lang,$user;
+
+#Zalogowany
 if(LOGD==1)
 {
- echo str_replace('%n','<a href="?co=user&amp;id='.$user[UID]['ID'].'">'.$user[UID]['login'].'</a>',$lang['uwlogd']).' <br />';
- if($user[UID]['lv']==3 || $user[UID]['lv']==2) mlink($lang['cpanel'],'adm.php',0);
- if($cfg['pms_on']==1) mlink((($user[UID]['pms']=='0')?$lang['pms']:'<b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>'),'?co=pms',0);
- mlink($lang['upanel'],'?co=uedit',0);
- mlink($lang['logout'],'login.php?logout=1',0);
+	echo
+		str_replace('%n','<a href="?co=user&amp;id='.$user[UID]['ID'].'">'.$user[UID]['login'].'</a>',$lang['uwlogd']).'<ul>'.
+ 
+	(($user[UID]['lv']==3 || $user[UID]['lv']==2)?
+		'<li><a href="adm.php">'.$lang['cpanel'].'</a></li>':'').
+		
+	(($cfg['pms_on']==1)?
+		'<li><a href="?co=pms"'.(($user[UID]['pms']=='0')?'>'.$lang['pms']
+		:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a>':'').
+		
+	'<li><a href="?co=uedit">'.$lang['upanel'].'</a></li>
+	<li><a href="login.php?logout=1">'.$lang['logout'].'</a></li>';
 }
+
+#Form
 else
 {
  ?>
- <form style="margin: 0" action="login.php" method="post">
+ <form action="login.php" method="post">
  <div align="center">
  Login:<br />
  <input name="snduser" style="height: 15px; width: 93%" /><br />

@@ -32,6 +32,7 @@ function newnav($co)
    }
    #Linki?
    else {
+	  echo '<ul>';
     $ileym=count($item);
     for($y=0;$y<$ileym;$y++)
     {
@@ -39,12 +40,13 @@ function newnav($co)
      {
       switch($item[$y][1])
       {
-       case 1: mlink($item[$y][2],$item[$y][3],$item[$y][4]); break;
-       case 2: mlink($item[$y][2],'?d='.$item[$y][3],$item[$y][4]); break;
-       case 3: mlink($item[$y][2],'?co=page&amp;id='.$item[$y][3],$item[$y][4]); break;
+				case 1: echo '<li><a href="'.$item[$y][3].'"'.(($item[$y][4]==1)?' target="_blank"':'').'>'.$item[$y][2].'</a></li>'; break;
+				case 2: echo '<li><a href="?d='.$item[$y][3].'"'.(($item[$y][4]==1)?' target="_blank"':'').'>'.$item[$y][2].'</a></li>'; break;
+				case 3: echo '<li><a href="?co=page&amp;id='.$item[$y][3].'"'.(($item[$y][4]==1)?' target="_blank"':'').'>'.$item[$y][2].'</a></li>'; break;
       }
      } 
     }
+		echo '</ul>';
     unset($ileym,$y);
    }
    mend();
