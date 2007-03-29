@@ -1,0 +1,40 @@
+<?php
+$lang+=Array(
+'bugs_dis'=>'Przerwa techniczna.',
+'bugs_new'=>'Dodaj zg³oszenie',
+'bugs_mp'=>'Spis tre¶ci',
+'reqerr'=>'Wyst±pi³ b³±d.',
+'wait'=>'Czekaj...',
+'legend'=>'Legenda',
+'giver'=>'Podaj ocenê',
+'voted'=>'G³osowa³e¶ ju¿ - twoja ocena:',
+'logtov'=>'Zaloguj siê, aby móc g³osowaæ.',
+
+'level'=>'Poziom',
+'bugs_s1'=>'Krytyczny',
+'bugs_s2'=>'Wa¿ny',
+'bugs_s3'=>'Naturalny',
+'bugs_s4'=>'Ma³o znacz±cy',
+
+'status'=>'Status',
+'bugs_1'=>'Gotowe',
+'bugs_2'=>'Odrzucony',
+'bugs_3'=>'Trwaj± prace',
+'bugs_4'=>'Nowy',
+'bugs_5'=>'Oczekuje na akceptacjê',
+
+'bugs_s'=>'Wys³any ',
+'bugs_nr'=>'Nie masz uprawieñ do edycji tego zg³oszenia.',
+'bugs_e'=>'Edytuj zg³oszenie',
+'bugs_f'=>'Wype³nij wymagane pola.',
+'bugs_fix'=>'W zg³oszeniu znaleziono nastêpuj±ce b³êdy:',
+'bugs_max'=>'Tre¶æ mo¿e zawieraæ maks. % znaków.',
+'bugs_p'=>'¦rodowisko',
+'bugs_o'=>'(opcjonalnie)',
+'guest'=>'Go¶æ',
+'bugs_i'=>'Kod z obrazka zosta³ przepisany nieprawid³owo.',
+'bugs_t'=>'Nie mo¿esz wys³aæ kolejnego zg³oszenia lub komentarza tak szybko po poprzednim. Spróbuj za chwilê.',
+'bugs_sv'=>'Zg³oszenie zosta³o zapisane.',
+'bugs_sm'=>'Zg³oszenie zosta³o przyjête i bêdzie widoczne po zaakceptowaniu go przez moderatora.',
+);
+?>

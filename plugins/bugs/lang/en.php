@@ -1,0 +1,40 @@
+<?php
+$lang+=Array(
+'bugs_dis'=>'Mainterance in progress..',
+'bugs_new'=>'Add issue',
+'bugs_mp'=>'Start',
+'reqerr'=>'An error occured.',
+'wait'=>'Wait...',
+'legend'=>'Legend',
+'giver'=>'Type your mark',
+'voted'=>'You have already marked:',
+'logtov'=>'Log in to mark it.',
+
+'level'=>'Level',
+'bugs_s1'=>'Critical',
+'bugs_s2'=>'Important',
+'bugs_s3'=>'Natural',
+'bugs_s4'=>'Minor',
+
+'status'=>'Status',
+'bugs_1'=>'Done',
+'bugs_2'=>'Rejected',
+'bugs_3'=>'In progress',
+'bugs_4'=>'New',
+'bugs_5'=>'Not approved yet',
+
+'bugs_s'=>'Sent ',
+'bugs_nr'=>'You cannot edit this issue.',
+'bugs_e'=>'Edit issue',
+'bugs_f'=>'Fill out required fields.',
+'bugs_fix'=>'Fix following errors:',
+'bugs_max'=>'Content may contain at most % characters.',
+'bugs_p'=>'Enviroment',
+'bugs_o'=>'(optional)',
+'guest'=>'Guest',
+'bugs_i'=>'The code from the image is incorrect.',
+'bugs_t'=>'You cannot post another issue after previous quickly. Wait for a while and try again.',
+'bugs_sv'=>'The issue has been saved.',
+'bugs_sm'=>'The issue has been saved and it will published after moderator\'s approval.',
+);
+?>

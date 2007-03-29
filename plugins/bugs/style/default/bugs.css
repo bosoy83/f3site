@@ -1,0 +1,21 @@
+/*Status*/
+.bug1,.bug1 a {color: #0e703f}
+.bug2,.bug2 a {color: #8b1888}
+.bug3,.bug3 a {color: #7a7a3d}
+.bug4,.bug4 a {color: #115384}
+.bug5,.bug5 a {color: #707070}
+#chst {width: 150px}
+#brate span {cursor: pointer}
+#brate span:hover {background-color: #ffffcc}
+
+/*Poziom*/
+.lv1,.lv2,.lv3,.lv4,.cat,.catnew,.bugimg,.bugnew {background-repeat: no-repeat; background-position: center}
+.lv1 {background-image: url(s1.png)}
+.lv2 {background-image: url(s2.png)}
+.lv3 {background-image: url(s3.png)}
+.lv4 {background-image: url(s4.png)}
+
+/*Kategoria*/
+.cat,.catnew {width: 40px; text-align: center}
+.cat,.bugimg {background-image: url(../../../../img/icon/cs1.png)}
+.catnew,.bugnew {background-image: url(../../../../img/icon/cs.png)}
