@@ -39,38 +39,40 @@ td.mid {background-color: #EDEDEB; padding: 9px}
 	border: 1px solid #C9C9C7;
 	border-bottom: 0
 }
-.menu ul {margin: 0; padding-left: 14px; text-indent: -2px}
+.menu ul {margin: 0; padding-left: 14px; text-indent: }
 .menu ul a {display: block}
 
 /*Bloki*/
 .tb {background-color: #C6CDC2; width: 100%; margin-bottom: 8px}
 .info {border: 1px solid #8C9F9B; background-color: #F0F0EE}
 .th {background: #F0F4F1 url(img/th.png) repeat-x; text-align: center; color: #396F79}
-.eth {font-weight: bold; color: #236978; background: #F1F3F2 url(img/eth.png); text-align: center; padding: 2px}
-.eth td, .pth td {padding: 2px}
-.pth,th {background-color: #E9EFEC; padding: 2px; font-weight: normal}
+.eth {font-weight: bold; color: #236978; background: #F1F3F2 url(img/eth.png); text-align: center}
+.pth,th {background-color: #E9EFEC; font-weight: normal}
 .bg,.cs {background-color: #F7F7F7}
 .cs {border: 1px solid #C6CDC2; padding: 5px 3px 5px 28px; margin-bottom: 8px; background: url(../../img/icon/cs.png) 3px 3px no-repeat #F7F7F7}
+
+.eth td,.pth td,th,.pth,.code,.quote,.pollq {padding: 2px}
 
 /*Tekst i inne*/
 .newsimg {padding: 3px; padding-right: 5px; float: left}
 .txt,.post1,.pollb {padding: 3px}
 .post2 {padding: 3px; background-color: #F1F5F5}
 .itm {height: 16px; width: 20px; font-size: 12px; padding: 0}
-.big {font-size: 15px}
+big,.big {font-size: 15px}
 .nag {background-color: #D9E6DB}
 .txtm,small {font-size: 11px}
 .apag {background-color: #D1E9DA; border: 1px solid #C6D7D9; font-weight: bold}
 .upag {background-color: #DAE8E9; border: 1px solid #C2D2D3}
-.code {background-color: #EFEFE7; border: 1px solid #DBDBCA; padding: 2px}
-.quote {background-color: #E7EFEF; border: 1px solid #ACC8C8; padding: 2px}
+.code {background-color: #EFEFE7; border: 1px solid #DBDBCA}
+.quote {background-color: #E7EFEF; border: 1px solid #ACC8C8}
 .listlink {color: #23456D; font-weight: bold}
-.pollq {padding: 2px; text-align: center}
+.pollq {text-align: center}
 .pollstrip {background-color: #8088C1; border: 1px outset #6B75B8}
 
 /*DHTML*/
 .hint {border: 1px solid #7dbfd2; background-color: #ebfbfe; position: absolute; display: none}
 .hint .title {background-color: #b3dbf2; margin: 0; padding: 2px; font-weight: bold; text-align: center}
 .menulist ul {margin: 0; padding: 0; list-style-type: none}
-.menulist li {padding: 2px; cursor: pointer}
-.hint li:hover {background-color: #fbf9db}
+.menulist li,.hintbut {padding: 2px; cursor: pointer}
+.menulist li:hover {background-color: #fbf9db}
+.hintbut {border: 1px solid #c7c7ba; color: #438689; text-align: center; cursor: pointer; background: url(../../img/icon/d.png) right no-repeat #F4F4F2}

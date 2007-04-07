@@ -59,7 +59,7 @@ if(is_writable('cfg'))
         }
        }
        unset($ileym,$ym);
-			 $_xm[$_xt].='<ul><?php ';
+			 $_xm[$_xt].='</ul><?php ';
       }
       $_xm[$_xt].='mend(); ';
      }

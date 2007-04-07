@@ -25,7 +25,7 @@ if($_POST)
    {
     case 2: $x.=' AND (name LIKE "'.$y[$i].'"'.(($s_ot==1)?'':' OR dsc LIKE "'.$y[$i].'" OR fulld LIKE "'.$y[$i].'"').')'; break;
     case 3: $x.=' AND (name LIKE "'.$y[$i].'"'.(($s_ot==1)?'':' OR dsc LIKE "'.$y[$i].'"').')'; break;
-    case 4: $x.=' AND (n.name LIKE "'.$y[$i].'"'.(($s_ot==1)?'':' OR n.dsc LIKE "'.$y[$i].'" OR f.text LIKE "'.$y[$i].'"').')'; break;
+    case 4: $x.=' AND (n.name LIKE "'.$y[$i].'"'.(($s_ot==1)?'':' OR n.text LIKE "'.$y[$i].'" OR f.text LIKE "'.$y[$i].'"').')'; break;
     default: $x.=' AND (a.name LIKE "'.$y[$i].'"'.(($s_ot==1)?'':' OR a.dsc LIKE "'.$y[$i].'" OR f.text LIKE "'.$y[$i].'"').')';
    }
   }
@@ -57,7 +57,7 @@ if($_POST)
     $cat[][0]=0;
     for($i=0;$i<$ile;$i++)
     {
-     if(!in_array(array($find[$i][1]),$cat)) $_SESSION['find'][]=$find[$i][0];
+     if(!in_array($find[$i][1],$cat)) $_SESSION['find'][]=$find[$i][0];
     }
     if(count($_SESSION['find'])>0)
     {

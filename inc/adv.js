@@ -17,24 +17,26 @@ document.onclick=function()
  var l=toHide.length;
  if(l>0)
  {
-  for(i=0;i<l;i++) { Hint(toHide[i],cx,cy,1) }
+  for(var i=0;i<l;i++) { Hint(toHide[i],0,0,1) }
  }
 }
 
 //HINTY
 function Hint(i,l,t,u)
 {
- if(d(i).style.display!='block')
+ with(d(i).style)
  {
-	d(i).style.left=l+'px';
-	d(i).style.top=t+'px';
-	d(i).style.display='block';
-	if(u==1) setTimeout('toHide.push("'+i+'")',10);
- }
- else
- {
-  if(u==1) toHide.pop(i);
-  d(i).style.display='none'; 
+	if(display!='block')
+	{
+   if(t!=0) { left=l+'px'; top=t+'px' }
+	 display='block';
+	 if(u==1) setTimeout('toHide.push("'+i+'")',10);
+	}
+	else
+	{
+	 if(u==1) toHide.pop(i);
+	 display='none';
+	}
  }
 }
 
@@ -55,42 +57,45 @@ function Request()
 	this.p1=new Array();
  }
  this.reset();
- this.run=function()
+}
+
+//Start HTTP
+Request.prototype.run=function()
+{
+ if(window.XMLHttpRequest)
  {
-  if(window.XMLHttpRequest)
-  {
-   this.http=new XMLHttpRequest();
-	 if(this.http.overrideMimeType) this.http.overrideMimeType('text/xml');
-  }
-  //IE
-  else if(window.ActiveXObject)
-  {
-   try { this.http=new ActiveXObject("Msxml2.XMLHTTP"); } catch(e) { try { this.http=new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) { if(this.errmsg) alert(this.errmsg); } }
-  }
-  if(!this.http) return false;
-	var self=this;
-  this.http.onreadystatechange=function()
-  {
-   switch(self.http.readyState)
-   {
-    case 4: self.Done(self.http.responseText); break;
-		default: self.Loading();
-	 }
-	}
-	if(this.url!='')
+	this.http=new XMLHttpRequest();
+	if(this.http.overrideMimeType) this.http.overrideMimeType('text/xml');
+ }
+ //IE
+ else if(window.ActiveXObject)
+ {
+	try { this.http=new ActiveXObject("Msxml2.XMLHTTP"); } catch(e) { try { this.http=new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) { if(this.errmsg) alert(this.errmsg); } }
+ }
+ if(!this.http) return false;
+ 
+ var self=this;
+ this.http.onreadystatechange=function()
+ {
+	switch(self.http.readyState)
 	{
-	 //Parametry
-	 if(this.method!='POST')
-	 {
-	  this.p=null;
-	 }
-	 else
-	 {
-		this.p=this.p1.join('&');
-	 }
-	 this.http.open(this.method,this.url,true);
-	 if(this.method=='POST') this.http.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-	 this.http.send(this.p);
+	 case 4: self.Done(self.http.responseText); break;
+	 default: self.Loading();
 	}
+ }
+ if(this.url!='')
+ {
+	//Parametry
+	if(this.method!='POST')
+	{
+	 this.p=null;
+	}
+	else
+	{
+	 this.p=this.p1.join('&');
+	}
+	this.http.open(this.method,this.url,true);
+	if(this.method=='POST') this.http.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	this.http.send(this.p);
  }
 }

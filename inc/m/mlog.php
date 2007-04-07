@@ -13,10 +13,9 @@ if(LOGD==1)
 		
 	(($cfg['pms_on']==1)?
 		'<li><a href="?co=pms"'.(($user[UID]['pms']=='0')?'>'.$lang['pms']
-		:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a>':'').
+		:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a></li>':'').
 		
-	'<li><a href="?co=uedit">'.$lang['upanel'].'</a></li>
-	<li><a href="login.php?logout=1">'.$lang['logout'].'</a></li>';
+	'<li><a href="?co=uedit">'.$lang['upanel'].'</a></li><li><a href="login.php?logout=1">'.$lang['logout'].'</a></li></ul>';
 }
 
 #Form
