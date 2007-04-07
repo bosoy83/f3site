@@ -41,7 +41,7 @@ else
    '.$xit.'F"'.DPrvs('F').' /> '.$lang['files'].'<br />
    '.$xit.'L"'.DPrvs('L').' /> '.$lang['links'].'<br />
    '.$xit.'N"'.DPrvs('N').' /> '.$lang['news'].'<br />
-   '.$xit.'G"'.DPrvs('G').' /> '.$lang['gallery'].'<br />
+   '.$xit.'G"'.DPrvs('G').' /> '.$lang['imgs'].'<br />
    '.$xit.'IP"'.DPrvs('IP').' /> '.$lang['ipages'].'<br />
    '.$xit.'f3s"'.DPrvs('f3s').' /> '.$lang['poll'].'<br /><br />
    '.$xit.'U"'.DPrvs('U').' /> '.$lang['users'].'<br />

@@ -66,7 +66,7 @@ echo '
 </tr>';
 #Odczyt
 db_read('ID,name,access,type,sc,num','cats','dinfo','ta',((isset($_GET['co']))?' WHERE type='.$_GET['co']:'').' ORDER BY name, ID DESC');
-$xtypes=Array('',$lang['arts'],$lang['files'],$lang['gallery'],$lang['links'],$lang['news']);
+$xtypes=Array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
 $ile=count($dinfo);
 for($i=0;$i<$ile;$i++)
 {

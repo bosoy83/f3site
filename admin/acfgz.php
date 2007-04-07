@@ -93,7 +93,7 @@ echo '
  <td><input type="checkbox" name="u_news_nw"'.(($cfg['news_nw']==1)?' checked="checked"':'').' /></td>
 </tr>
 <tr>
- <th colspan="2">'.$lang['gallery'].'</th>
+ <th colspan="2">'.$lang['imgs'].'</th>
 </tr>
 <tr>
  <td><b>17. '.$lang['ap_hmir'].':</b></td>

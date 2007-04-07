@@ -51,7 +51,7 @@ if(!$_POST['sav'])
 </tr>
 <tr>
  <td><b>4. '.$lang['ap_type'].':</b></td>
- <td><select name="xc_t"><option value="1">'.$lang['arts'].'</option><option value="2"'.(($dinfo['type']==2)?' selected="selected"':'').'>'.$lang['files'].'</option><option value="3"'.(($dinfo['type']==3)?' selected="selected"':'').'>'.$lang['gallery'].'</option><option value="4"'.(($dinfo['type']==4)?' selected="selected"':'').'>'.$lang['links'].'</option><option value="5"'.(($dinfo['type']==5)?' selected="selected"':'').'>'.$lang['news'].'</option></select></td>
+ <td><select name="xc_t"><option value="1">'.$lang['arts'].'</option><option value="2"'.(($dinfo['type']==2)?' selected="selected"':'').'>'.$lang['files'].'</option><option value="3"'.(($dinfo['type']==3)?' selected="selected"':'').'>'.$lang['imgs'].'</option><option value="4"'.(($dinfo['type']==4)?' selected="selected"':'').'>'.$lang['links'].'</option><option value="5"'.(($dinfo['type']==5)?' selected="selected"':'').'>'.$lang['news'].'</option></select></td>
 </tr>
 <tr>
  <td><b>5. '.$lang['ap_wtxt'].':</b><div class="txtm">'.$lang['ap_wtxtd'].'</div></td>

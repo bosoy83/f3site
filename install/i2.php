@@ -116,7 +116,7 @@ echo $lang['a'].$p.'mitems...<br />';
 db_q($p2.'mitems VALUES (1,1,1,"'.$lang['mainpage'].'","index.php",2)');
 db_q($p2.'mitems VALUES (2,1,1,"'.$lang['narch'].'","?co=arch",2)');
 db_q($p2.'mitems VALUES (3,1,1,"'.$lang['links'].'","?co=cats&amp;id=4",2)');
-db_q($p2.'mitems VALUES (4,1,1,"'.$lang['gallery'].'","?co=cats&amp;id=3",2)');
+db_q($p2.'mitems VALUES (4,1,1,"'.$lang['imgs'].'","?co=cats&amp;id=3",2)');
 db_q($p2.'mitems VALUES (5,1,1,"'.$lang['search'].'","?co=s&amp;new=1",2)');
 db_q($p2.'mitems VALUES (6,1,1,"'.$lang['users'].'","?co=users",2)');
 db_q($p2.'mitems VALUES (7,1,1,"'.$lang['groups'].'","?co=groups",2)');

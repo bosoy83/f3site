@@ -187,7 +187,7 @@ function CatStr($c)
  {
   case 1: echo $lang['arts']; break;
   case 2: echo $lang['files']; break;
-  case 3: echo $lang['gallery']; break;
+  case 3: echo $lang['imgs']; break;
   case 4: echo $lang['links']; break;
   default: echo $lang['news']; break;
  }

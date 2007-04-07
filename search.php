@@ -45,7 +45,7 @@ elseif(!$_POST || $_GET['new'])
  </tr>
  <tr>
   <td><b>'.$lang['s_3'].'</b></td>
-  <td><input type="radio" name="s_t" value="1" checked="checked" /> '.$lang['arts'].'<br /><input type="radio" name="s_t" value="2" /> '.$lang['files'].'<br /><input type="radio" name="s_t" value="3" /> '.$lang['gallery'].'<br /><input type="radio" name="s_t" value="4" /> '.$lang['news'].'</td>
+  <td><input type="radio" name="s_t" value="1" checked="checked" /> '.$lang['arts'].'<br /><input type="radio" name="s_t" value="2" /> '.$lang['files'].'<br /><input type="radio" name="s_t" value="3" /> '.$lang['imgs'].'<br /><input type="radio" name="s_t" value="4" /> '.$lang['news'].'</td>
  </tr>
  <tr>
   <td class="eth" colspan="2"><input type="submit" value="OK" /></td>
