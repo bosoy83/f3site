@@ -32,8 +32,19 @@ $c2='';
 $c1='';
 $get='ID';
 
+//Modu³
+switch($_GET['co'])
+{
+ case 'art': $type=1; break;
+ case 'file': $type=2; break;
+ case 'img': $type=3; break;
+ case 'link': $type=4; break;
+ case 'news': $type=5; break;
+ default: $type=mt_rand(1,5);
+}
+
 //Typ
-switch(mt_rand(1,5))
+switch($type)
 {
  case 2:
 	$name='files';

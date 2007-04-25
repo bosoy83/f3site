@@ -5,8 +5,8 @@ var toHide=new Array();
 //Mysz
 function XY(e)
 {
- if(IE) { cx=event.clientX+document.body.scrollLeft; cy=event.clientY+document.body.scrollTop }
- else { cx=e.pageX; cy=e.pageY }  
+ if(IE){cx=event.clientX+document.body.scrollLeft;cy=event.clientY+document.body.scrollTop}
+ else{cx=e.pageX;cy=e.pageY}
  if(cx<0){cx=0}
  if(cy<0){cy=0}
 }
@@ -15,25 +15,19 @@ document.onmousedown=XY;
 document.onclick=function()
 {
  var l=toHide.length;
- if(l>0)
- {
-  for(var i=0;i<l;i++) { Hint(toHide[i],0,0,1) }
- }
+ if(l>0){for(var i=0;i<l;i++){Hint(toHide[i],0,0,1)}}
 }
 
 //HINTY
 function Hint(i,l,t,u)
 {
- with(d(i).style)
- {
-	if(display!='block')
-	{
-   if(t!=0) { left=l+'px'; top=t+'px' }
+ with(d(i).style){
+	if(display!='block'){
+   if(t!=0){left=l+'px';top=t+'px'}
 	 display='block';
-	 if(u==1) setTimeout('toHide.push("'+i+'")',10);
+	 if(u==1)setTimeout('toHide.push("'+i+'")',10);
 	}
-	else
-	{
+	else{
 	 if(u==1) toHide.pop(i);
 	 display='none';
 	}
@@ -59,7 +53,7 @@ function Request()
  this.reset();
 }
 
-//Start HTTP
+//Start
 Request.prototype.run=function()
 {
  if(window.XMLHttpRequest)
@@ -77,8 +71,7 @@ Request.prototype.run=function()
  var self=this;
  this.http.onreadystatechange=function()
  {
-	switch(self.http.readyState)
-	{
+	switch(self.http.readyState) {
 	 case 4: self.Done(self.http.responseText); break;
 	 default: self.Loading();
 	}

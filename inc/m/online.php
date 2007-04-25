@@ -42,6 +42,7 @@ else
  db_q('INSERT INTO {pre}online VALUES ("'.$r.'",'.UID.',NOW(),"")');
  $_SESSION['online']=time();
 }
+global $lang;
 echo $lang['visits'].'<br /><b>'.$licznik.'</b><br />'.$lang['online'].'<br /><b>'.db_count('IP','online','').'</b>';
 ?>
 </center>

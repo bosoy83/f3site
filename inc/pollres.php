@@ -3,8 +3,8 @@ if(iCMS!='E123') exit;
 if($_mpoll!=1)
 {
  $poll['ID']='';
- if(!$_GET['id']) { exit('ID problem!'); } else { $id=$_GET['id']; }
- db_read('*','polls','poll','oa',' WHERE access="'.$nlang.'" && ID='.$id);
+ if(!$_GET['id']) { $q='ORDER BY ID DESC LIMIT 1'; } else { $q=' && ID='.$_GET['id']; }
+ db_read('*','polls','poll','oa',' WHERE access="'.$nlang.'" '.$q);
 }
 #Brak?
 if($poll['ID']=='')
@@ -29,13 +29,13 @@ else
  #Wyniki
  if($_mpoll==1)
  {
-  require('inc/pollres/'.$cfg['pollr1'].'.php');
+  require('inc/pollres/'.$cfg['pollr2'].'.php');
  }
  else
  {
   cTable($poll['name'],1);
   echo '<tr><td>';
-  require('inc/pollres/'.$cfg['pollr2'].'.php');
+  require('inc/pollres/'.$cfg['pollr1'].'.php');
   echo '</td></tr>';
   eTable();
   #Kom.

@@ -38,14 +38,13 @@ function mlink($txt,$url,$t)
 }
 
 #MENU
-function mnew($title,$bg) {
- cTable($title,1);
-?>
-<tr>
- <td style="padding: 1px; background-image: <?= $bg ?>">
-<?php } function mend() { #KONIEC ?>
- </td>
-</tr>
-</tbody>
-</table>
-<?php } ?>
+function mnew($title,$bg)
+{
+ echo '<div class="mnag"'.$bg.'>'.$title.'</div><div class="menu">';
+}
+
+#Koniec
+function mend()
+{ 
+echo '</div>';
+} ?>

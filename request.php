@@ -32,7 +32,7 @@ switch($_GET['co'])
 		break;
 	 case 5:
 		$name='news';
-		if($cfg['news_nw']==1) { $c1='javascript:nw(\'art\','; $c2=')'; } else { $c1='?co=file&amp;id='; }
+		if($cfg['news_nw']==1) { $c1='javascript:nw(\'art\','; $c2=')'; } else { $c1='?co=news&amp;id='; }
 		break;
 	 default:
 		$name='arts';

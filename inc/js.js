@@ -24,9 +24,9 @@ function BBC(t,x,y) {
 function setCookie(n,txt,c)
 {
  t=new Date();
- t.setTime(cz=(c*60*60*1000) + t.getTime());
+ t.setTime(cz=(c*60*60*1000)+t.getTime());
  cz=(t.toGMTString());
  document.cookie=n+'='+escape(txt)+'; expires='+cz;
 }
-function d(c) { return document.getElementById(c) }
-function Show(c) { if(d(c).style.display=='none') d(c).style.display='block'; else d(c).style.display='none' }
+function d(c){return document.getElementById(c)}
+function Show(c){if(d(c).style.display=='none') d(c).style.display='block'; else d(c).style.display='none'}

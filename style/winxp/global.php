@@ -9,7 +9,7 @@ define('SCIMG','img/icon/fldm.gif');
 define('CATIMG','img/icon/folder.gif');
 function cTable($t,$cs) { #Tabela
 ?>
-<table class="tb" cellspacing="1">
+<table class="tb" cellspacing="1" cellpadding="4">
 <tbody class="bg">
 <tr class="th">
  <td style="padding: 1px" colspan="<?= $cs.'"><b>'.$t ?></b></td>
