@@ -1,29 +1,22 @@
-<?php if(iCMS!='E123') { exit; } ?>
+<script type="text/javascript" src="inc/editor.js"></script>
 <script type="text/javascript">
-<!--
-function InsLink(f,t)
-{
- a=prompt('<?= $lang['adr'] ?>:','http://');
- if(a) {
-  b=prompt('<?= $lang['text'] ?>:','');
-  if(b) {
-   if(t==1) { d=confirm('<?= $lang['ap_nw'] ?>'); c='<a href="'+a+'"'+((d)?' target="_blank"':'')+'>'+b+'</a>' } else { c='[url='+a+']'+b+'[/url]' }
-   BBC(f,c,'');
-  }
- }
-}
-function InsMail(f,t)
-{
- a=prompt('<?= $lang['adr'] ?>:','');
- if(a) {
-  b=a.replace('@','&#64;');
-  if(t==1) { c='<a href="mailto:'+b+'">'+b+'</a>' } else { c='[email]'+b+'[/email]' }
-  BBC(f,c,'');
- }
-}
--->
-</script>
 <?php
+if(iCMS!='E123') exit;
+echo '
+var langadr="'.$lang['adr'].':";
+var langtxt="'.$lang['text'].':";
+var langnw="'.$lang['ap_nw'].'";
+</script>';
+
+#Pole tekstowe z panelami
+function Tools($id,$bbc=0)
+{
+	echo '
+	<script type="text/javascript">
+	TextTools("'.$id.'","'.$bbc.'");
+	</script>';
+}
+
 function Btns($t,$o,$f)
 {
 global $lang;

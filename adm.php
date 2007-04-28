@@ -83,7 +83,8 @@ switch($_GET['x']) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<script type="text/javascript" src="inc/js.js"></script>
+ <script type="text/javascript" src="inc/js.js"></script>
+ <script type="text/javascript" src="inc/adv.js"></script>
  <meta http-equiv="Content-type" content="text/html; charset=iso-8859-2" />
  <meta name="Robots" content="no-index" />
  <?php echo '<link type="text/css" rel="stylesheet" href="'.$catst.'s.css" />

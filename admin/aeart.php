@@ -121,7 +121,12 @@ if(!$_POST['sav'])
  cTable($lang['text'],1);
  echo '
  <tr>
-  <td align="center">'; Colors('xu_txt',1); FontBtn('xu_txt',1); echo '<textarea style="width: 95%; margin: 3px 0px 3px 0px" rows="12" id="xu_txt" name="xu_txt">'.htmlspecialchars( (($send==1)?$xu_txt:$fart['text']) ).'</textarea><br />';  Btns(1,1,'xu_txt'); SpecChr('xu_txt'); echo '</td>
+  <td align="center">';
+	
+	Tools('xu_txt');
+	echo '<textarea cols="70" rows="12" id="xu_txt" name="xu_txt">'.htmlspecialchars( (($send==1)?$xu_txt:$fart['text']) ).'</textarea>';
+
+	echo '</td>
  </tr>
  <tr class="eth">
   <td><input type="hidden" name="send" /><input type="submit" name="preview" value="'.$lang['preview'].'" /> <input type="submit" name="sav" value="'.$lang['save'].'" /></td>

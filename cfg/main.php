@@ -23,11 +23,12 @@ $cfg=Array(
 'ban'=>'',
 'cnp'=>15,
 'gcomm'=>1,
+'imgsec'=>1,
 'bbc'=>1,
 'coml'=>30,
 'csort'=>2,
 'pcomm'=>1,
 'cproc'=>0,
 'pollr1'=>'standard',
-'pollr2'=>'standard',
+'pollr2'=>'little',
 ); ?>
