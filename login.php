@@ -52,7 +52,7 @@ else
  else
  {
   require($catl.'special.php');
-  define('SPECIAL',$lang['s2'].(($cfg['pswp']==1)?'<br /><br />'.$lang['pswp']:''));
+  define('SPECIAL',$lang['s2'].(($cfg['pswp']==1)?'<br /><br /><a href="index.php?co=psw">'.$lang['pswp'].'</a>':''));
  }
  require('special.php');
 }

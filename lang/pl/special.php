@@ -8,7 +8,7 @@ $lang+=Array(
 's6'=>'G³osowa³e¶ ju¿!',
 'good'=>'dobry',
 'vgood'=>'bardzo dobry',
-'pswp'=>'<a href="?co=psw">Nie pamiêtasz has³a? Kliknij tutaj.</a>',
+'pswp'=>'Nie pamiêtasz has³a? Kliknij tutaj.',
 'dstg'=>'¶redni',
 'weak'=>'s³aby',
 'fatal'=>'fatalny',

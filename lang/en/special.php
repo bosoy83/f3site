@@ -9,7 +9,7 @@ $lang+=Array(
 'good'=>'good',
 'vgood'=>'very good',
 'dstg'=>'average',
-'pswp'=>'<a href="?co=psw">Have you forgotten your password?</a>',
+'pswp'=>'Have you forgotten your password?',
 'weak'=>'poor',
 'fatal'=>'fatal',
 'vote'=>'Rate',
