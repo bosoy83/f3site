@@ -23,7 +23,7 @@ else
   else
   {
    $xusr[0]='';
-   db_read('ID,mail','users','xusr','on',' WHERE login='.db_esc($x_n));
+   db_read('ID,mail','users','xusr','on',' WHERE login="'.db_esc($x_n).'"');
    if($xusr[0]==1)
    {
     Info($lang['psw_7']);
@@ -65,7 +65,7 @@ else
  </tr>
  <tr>
   <td><b>2. E-mail:</b></td>
-  <td><input name="x_e" maxlength="50" /></td>
+  <td><input name="x_m" maxlength="50" /></td>
  </tr>
  <tr>
   <td class="eth" colspan="2" align="center"><input type="submit" value="OK" name="sav" /></td>
