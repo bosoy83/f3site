@@ -1,0 +1,48 @@
+/*G³ówne*/
+body {font: 13px Verdana,Helvetica,Arial,Times; background-color: #B3CACE; margin: 1%}
+form {margin: 0}
+a {text-decoration: none; color: #000097}
+a:hover {text-decoration: underline; color: #0C5BB4}
+img {vertical-align: middle; border: 0}
+#gm {padding: 3px 5px}
+#gm a {color: #2872AE; font-weight: bold}
+.nag {background-color: #D9E6DB}
+.top,#gm {background-color: #f4f2ec}
+
+/*Bloki*/
+.th,.mnag {background: #D9E6DB url(img/gr.png) repeat-x; font-weight: bold; color: #236978; text-align: center}
+.menu,.mnag {border: 1px solid #8C9F9B; padding: 1px 2px}
+.mnag {border-bottom: 0}
+.menu,.tb {margin-bottom: 7px}
+.info {border: 1px solid #8C9F9B; background-color: #F0F0EE}
+.tb {background-color: #8C9F9B; width: 100%}
+.eth {background: #D9E6DB url(img/gr1.png) bottom repeat-x; font-weight: bold; color: #236978; text-align: center; padding: 1px}
+th,.pth {background-color: #E5E5E5; font-weight: normal}
+.bg,.menu {background-color: #F0F0EE}
+.cs {border: 1px solid #8C9F9B; padding: 5px 3px 5px 28px; margin-bottom: 8px; background: url(../../img/icon/cs.png) 3px 3px no-repeat #F5F5F5}
+
+.menu ul {margin: 0; padding-left: 15px}
+.menu ul a {display: block}
+
+/*Inne*/
+.txtm {font-size: 11px}
+.newsimg {padding: 3px; padding-right: 5px; float: left}
+.apag {background-color: #E1E8E1; border: 1px solid #C5DAD5; font-weight: bold}
+.upag {background-color: #E8EAE3; border: 1px solid #D5D5CE}
+.code {background-color: #EFEFE7; border: 1px solid #DBDBCA; padding: 2px}
+.quote {background-color: #E7EFEF; border: 1px solid #ACC8C8; padding: 2px}
+.listlink {color: #23456D; font-weight: bold}
+.pollstrip {background-color: #7691cf; border: 1px solid #3f6da7}
+.txt,.post1 {padding: 3px; background-color: #F5F5F5; color: #282828}
+.post2 {padding: 3px; background-color: #EFF1F3}
+.itm {height: 16px; width: 20px; font-size: 12px; padding: 0}
+
+/*DHTML*/
+.hint {border: 1px solid #b88f45; background-color: #efe9c7; position: absolute; display: none}
+.hint .title {background-color: #e3c58a; margin: 0; padding: 2px; font-weight: bold; text-align: center}
+.menulist ul {margin: 0; padding: 0; list-style-type: none}
+.menulist li,.hintbut,.tab {padding: 2px; cursor: pointer}
+.hint li:hover {background-color: #fbf9db}
+.hintbut,.tab {border: 1px solid #c7c7ba; text-align: center; background: url(../../img/icon/d.gif) right no-repeat #F4F4F2}
+.tab {padding-right: 12px}
+#chars td:hover {background: #c7ecf3}
