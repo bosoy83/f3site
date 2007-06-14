@@ -1,3 +1,0 @@
-Witaj w panelu administracyjnym F3Site. Aby kontynuowaæ, wybierz odpowiedni modu³ z menu nawigacyjnego po lewej stronie. Nowe wersje skryptu, skórki, wtyczki i inne dodatki mo¿na znale¶æ w&nbsp;serwisie <a href="http://compmaster.for.pl" target="_blank">COMP Master</a>.
-<br /><br />
-<b>Kursy:</b> <a href="http://kurshtml.boo.pl">HTML (od podstaw)</a> :: <a href="http://web.reporter.pl">HTML, JS, CSS (Reporter)</a> :: <a href="http://www.famfamfam.com/lab/icons/silk">Ikony Silk</a>
