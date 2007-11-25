@@ -1,0 +1,9 @@
+body {background-color: #99B9DF; font: 13px Verdana,Helvetica,Arial}
+table {background-color: #7C8477; width: 500px; border-spacing: 1px; margin: auto; margin-bottom: 9px}
+td,th {padding: 4px}
+span {color: green; font-weight: bold}
+del {color: brown; text-decoration: none}
+tbody {background-color: #EDF0F1}
+th {background-color: #DDE9DC; text-align: center}
+small {font-size: 11px}
+input[disabled] {background-color: #e5e5e5}
