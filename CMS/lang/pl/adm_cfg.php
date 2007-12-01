@@ -20,9 +20,6 @@ $lang+=Array(
 'ap_iflw'=>'tylko odsy³acze',
 'ap_ncoo'=>'Nazwa cookie',
 'ap_styl'=>'Domy¶lny styl (skórka)',
-'ap_num'=>'Numerowaæ listy',
-'ap_mc'=>'Wczytywanie menu z pliku',
-'ap_mcd'=>'Przyspiesza skrypt. Wczytuje menu z katalogu CFG.',
 
 'ap_date'=>'Ustawienia daty',
 'ap_dateaf'=>'Format aktualnej daty',

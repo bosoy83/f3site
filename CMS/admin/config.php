@@ -21,7 +21,7 @@ OpenBox($lang['opt'],1);
 		<td><a href="?a=cfg"><img src="img/admin/c1.png" alt="" /><br /><?= $lang['conf1'] ?></a></td>
 		<td><a href="?a=cfgz"><img src="img/admin/c2.png" alt="" /><br /><?= $lang['content'] ?></a></td>
 		<td><a href="?a=cfgm"><img src="img/admin/c3.png" alt="" /><br />E-mail</a></td>
-		<td><a href="?a=wr"><img src="img/admin/c5.png" alt="" /><br /><?= $lang['conf5'] ?></a></td>
+		<td><a href="?a=wordrep"><img src="img/admin/c5.png" alt="" /><br /><?= $lang['conf5'] ?></a></td>
 		<td><a href="?a=emots"><img src="img/admin/c6.png" alt="" /><br /><?= $lang['emots'] ?></a></td>
 		<td><a href="?a=cfguser"><img src="" alt="" /><br /><?= $lang['users'] ?></a></td>
 	</tr>

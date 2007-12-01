@@ -34,7 +34,7 @@ $lang+=Array(
 
 'add2'=>'Dodaj plik',
 'edit2'=>'Edytuj plik',
-'i2'=>'Pliki przechowywane s± w katalogu "files". Kliknij na nazwê, aby wy¶wietliæ szczegó³y.',
+'i2'=>'Kliknij tytu³ pliku, aby wy¶wietliæ szczegó³y o nim.',
 'fulld'=>'Pe³ny opis',
 'type'=>'Typ',
 
@@ -45,14 +45,14 @@ $lang+=Array(
 
 'add5'=>'Dodaj nowo¶æ',
 'edit5'=>'Edytuj nowo¶æ',
-'i5'=>'Nowo¶ci mog± byæ komentowane. Kliknij na nazwê nowo¶ci, aby j± wy¶wietliæ.',
+'i5'=>'Nowo¶ci mog± byæ komentowane. Kliknij tytu³, aby go wy¶wietliæ.',
 'ftxt'=>'Pe³na tre¶æ',
 'ap_nvtit'=>'Zarz±dzanie nowo¶ciami',
 'img'=>'Obraz',
 
 'add3'=>'Dodaj obraz',
 'edit3'=>'Edytuj obraz',
-'i3'=>'Kliknij na tytu³ obrazu, aby go wy¶wietliæ.',
+'i3'=>'Kliknij tytu³ obrazu, aby go wy¶wietliæ.',
 'images'=>'Obrazy',
 'minimg'=>'Miniaturka',
 'minimgd'=>'Wy¶wietlana na li¶cie obrazów.',

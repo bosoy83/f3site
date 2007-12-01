@@ -4,6 +4,9 @@ if(iCMSa!=1 || !Admit('CFG')) exit;
 #Zapisz
 if($_POST)
 {
+	$_POST['mailban']=empty($_POST['mailban'])?array():explode("\n",$_POST['mailban']);
+	$_POST['nickban']=empty($_POST['nickban'])?array():explode("\n",$_POST['nickban']);
+
 	require('./lib/config.php');
 	$f=new Config('account');
 	if($f->save($_POST))
@@ -21,7 +24,7 @@ include('./cfg/mail.php');
 #Jêzyk
 require($catl.'adm_cfgm.php');
 
-echo '<form action="?a=config&amp;file=user" method="post">';
+echo '<form action="?a=cfguser" method="post">';
 OpenBox($lang['opt'].' :: '.$lang['regme'],2);
 ?>
 
@@ -39,7 +42,7 @@ OpenBox($lang['opt'].' :: '.$lang['regme'],2);
 		<small><?= $lang['domainex'] ?></small>
 	</td>
 	<td>
-		<textarea cols="30" rows="4" name="mailban"><?= $cfg['mailban'] ?></textarea>
+		<textarea cols="30" rows="4" name="mailban"><?= join("\n",$cfg['mailban']) ?></textarea>
 	</td>
 </tr>
 <tr>
@@ -48,7 +51,7 @@ OpenBox($lang['opt'].' :: '.$lang['regme'],2);
 		<small><?= $lang['nickex'] ?></small>
 	</td>
 	<td>
-		<textarea cols="30" rows="4" name="nickban"><?= $cfg['nickban'] ?></textarea>
+		<textarea cols="30" rows="4" name="nickban"><?= join("\n",$cfg['nickban']) ?></textarea>
 	</td>
 </tr>
 <tr>

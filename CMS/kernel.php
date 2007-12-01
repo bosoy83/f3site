@@ -218,8 +218,8 @@ function Admit($id,$type=null,$a=null)
 	#Kategoria
 	if($type)
 	{
-		return db_get('all','acl',' WHERE CatID='.(int)$id.' && UID='.UID.
-			' && type="'.$type.'"'.(($a==null || $a==UID)?'':' && all=1')); //1 = wszystkie
+		return db_get('`all`','acl',' WHERE CatID='.(int)$id.' && UID='.UID.
+			' && type="'.$type.'"'.(($a==null || $a==UID)?'':' && `all`=1')); //1 = wszystkie
 	}
 	else
 	{

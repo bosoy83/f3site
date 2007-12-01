@@ -42,7 +42,7 @@ switch($act)
 #Parametry - ID kategorii lub typ
 if(isset($_GET['id']))
 {
-	$param='cat='.$_GET['id'];
+	$param=' && cat='.$_GET['id'].' && ';
 }
 else
 {
@@ -61,6 +61,7 @@ else
 }
 
 #Masowe zmiany?
+/* DO NOT WORK YET
 if($_POST && count($_POST['chk'])>0)
 {
 	$ids=GetIDs($_POST['chk']);
@@ -68,8 +69,8 @@ if($_POST && count($_POST['chk'])>0)
 	{
 		if(Admit('DEL'))
 		{
-			$db->q('DELETE FROM '.PRE.$xco.'s WHERE ID IN '.join(',',$ids).')');
-			$db->q('DELETE FROM '.PRE.'comms WHERE type='.$co.' AND CID IN ('.join(',',$ids).')');
+			$db->exec('DELETE FROM '.PRE.$xco.'s'.$join.' WHERE ID IN ('.join(',',$ids).') '.$param);
+			$db->exec('DELETE FROM '.PRE.'comms WHERE type='.$co.' AND CID IN ('.join(',',$ids).')');
 			if($co==1||$co==5) db_q('DELETE FROM '.PRE.''.(($co==1)?'artstxt':'fnews').' WHERE ID='.join(' || ID=',$ids));
 		}
 	}
@@ -81,10 +82,10 @@ if($_POST && count($_POST['chk'])>0)
 		if(count($_q)>0) db_q('UPDATE '.PRE.$xco.'s SET '.join(', ',$_q).' WHERE ID IN ('.join(',',$ids).')');
 	}
 	unset($ids,$_q);
-}
+} */
 
 #Informacja
-Info($lang['i'.$act].'<br /><br /><a href="javascript:Se()">'.$lang['search'].'</a> | <a href="?co=edit&amp;act='.$name.'">'.$lang['add'.$act].'</a>'.((Admit('C'))?' | <a href="adm.php?a=cats&amp;co='.$act.'">'.$lang['cats'].': '.$type.'</a>':''));
+Info('<center>'.$lang['i'.$act].'<br /><br /><a href="javascript:Se()">'.$lang['search'].'</a> | <a href="?co=edit&amp;act='.$name.'">'.$lang['add'.$act].'</a>'.((Admit('C'))?' | <a href="adm.php?a=cats&amp;co='.$act.'">'.$lang['cats'].': '.$type.'</a>':'').'</center>');
 
 #Strona
 if(isset($_GET['page']) && $_GET['page']!=1)
@@ -100,7 +101,7 @@ else
 
 #Szukaj
 $find=isset($_GET['find']) ? Clean($_GET['find'],30) : '';
-if($find) $param.='name LIKE '.$db->quote($find.'%');
+if($find) $param.=' && name LIKE '.$db->quote($find.'%');
 
 #Czêœæ URL
 $url='?co=edit&amp;act='.$name.(($id)?'&amp;id='.$id:'');
@@ -129,7 +130,7 @@ function Se()
 echo '<form action="'.$url.'&amp;page='.$page.'&amp;find='.$find.'" method="post">';
 
 #Iloœæ wszystkich
-$total=db_count('ID',$name.'s',(($param)?' WHERE '.$param:''));
+$total=db_count('ID',$name.'s'.$join,(($param)?' WHERE'.substr($param,3):''));
 
 #Nag³ówek
 OpenBox($type,4);
@@ -141,8 +142,8 @@ echo '<tr>
 </tr>';
 
 #Pobierz pozycje
-$res=$db->query('SELECT ID,name,access FROM '.PRE.$name.'s'.(($param)?' WHERE '.$param:'').
-	' ORDER BY ID DESC LIMIT '.$st.',25');
+$res=$db->query('SELECT ID,name,access FROM '.PRE.$name.'s'.$join.
+	(($param)?' WHERE'.substr($param,3):'').' ORDER BY ID DESC LIMIT '.$st.',25');
 $res->setFetchMode(3);
 
 #Lista

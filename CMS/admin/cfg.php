@@ -77,14 +77,6 @@ echo '
 	<td><b>'.$lang['ap_styl'].':</b></td>
 	<td><select name="o[cms_styl]">'.ListBox('style',1,$cfg['cms_styl']).'</select></td>
 </tr>
-<tr>
-	<td><b>'.$lang['ap_num'].'?</b></td>
-	<td><input type="checkbox" name="o[num]"'.((isset($cfg['num']))?' checked="checked"':'').' /></td>
-</tr>
-<tr>
-	<td><b>'.$lang['ap_mc'].':</b><div class="txtm">'.$lang['ap_mcd'].'</div></td>
-	<td><input type="checkbox" name="o[mc]"'.((isset($cfg['mc']))?' checked="checked"':'').' /></td>
-</tr>
 
 <tr>
 	<th colspan="2">'.$lang['ap_date'].'</th>

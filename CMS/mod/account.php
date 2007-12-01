@@ -4,60 +4,83 @@ require($catl.'profile.php'); #Jêzyk
 require('cfg/account.php'); #Opcje
 $error=array();
 
+#Aktywacja
+if(isset($_GET['keyid']))
+{
+	if(strlen($_GET['keyid'])==26)
+	{
+		$res=$db->query('SELECT UID FROM '.PRE.'tmp WHERE type="REG" && KEYID='.$db->quote($_GET['keyid']));
+		$id=$res->fetchColumn();
+		if(is_numeric($id))
+		{
+			$db->exec('UPDATE '.PRE.'users SET lv=1 WHERE ID='.$id);
+			Info($lang['act_ok']);
+		}
+		else
+		{
+			Info($lang['badkey']);
+		}
+		unset($id,$res);
+	}
+	else Info($lang['badkey']);
+	return;
+}
+
 #Rejestracja wy³¹czona?
 if($cfg['reg_on']!=1 && LOGD!=1)
 {
 	Info($lang['regoff']);
 }
 
-#Aktywacja
-if(isset($_GET['keyid']))
-{
-	if(strlen($_GET['keyid'])==26)
-	{
-		$res=$db->query('SELECT UID FROM '.PRE.'tmp WHERE type="REG" && KEYID="'.$db->quote($_GET['keyid']).'"');
-		$id=$res->fetchColumn();
-		if(is_numeric($uid))
-		{
-			$db->exec('UPDATE '.PRE.'users SET lv=1 WHERE ID='.$id);
-		}
-		else
-		{
-			Info($lang['u_badkey']); return;
-		}
-		unset($id,$res);
-	}
-	else { Info($lang['u_badkey']); return; }
-}
-
 #Zapis
-elseif($_POST)
+if($_POST)
 {
+	#WWW
+	$x_w=Clean($_POST['x_w'],200);
+	$x_w=str_replace('javascript:','java_script',$x_w);
+	$x_w=str_replace('vbscript:','vb_script',$x_w);
+	if($x_w==='http://') $x_w='';
+
+	#Dane
+	$u=array(
+	'gg'  =>is_numeric($_POST['x_gg'])?$_POST['x_gg']:'',
+	'tlen'=>Clean($_POST['x_tl'],30),
+	'icq' =>is_numeric($_POST['x_icq'])?$_POST['x_icq']:'',
+	'www' =>$x_w,
+	'mvis'=>isset($_POST['x_mvis'])?1:0,
+	'mails'=>isset($_POST['x_mails'])?1:0,
+	'city'=>Clean($_POST['x_city'],30),
+	'skype'=>Clean($_POST['x_sk'],30),
+	'about'=>Clean($_POST['x_ab'],999)
+	);
+
+	#O sobie - za d³ugi?
+	if(isset($x_ab[501])) $error[]=$lang['ab_err'];
+
 	#Niezalogowani
 	if(LOGD==2)
 	{
 		#Login
-		$xu_l=Clean($_POST['xu_l'],30);
-		if(strlen($xu_l)>20 || strlen($xu_l)<3)
+		$u['login']=Clean($_POST['x_l'],30);
+		if(isset($u['login'][21]) || !isset($u['login'][2]))
 		{
-			$error[]=$lang['u loginerr'];
+			$error[]=$lang['login_err'];
 		}
 
 		#Login istnieje w bazie?
-		$res=$db->query('SELECT COUNT(login) FROM '.PRE.'users WHERE login="'.$db->quote($xu_l).'"');
+		$res=$db->query('SELECT COUNT(login) FROM '.PRE.'users WHERE login='.$db->quote($u['login']));
 		if($res->fetchColumn() > 0)
 		{
-			$error[]=$lang['u loginex'];
+			$error[]=$lang['login_ex'];
 		}
 		$res=null;
 
 		#Zabronione loginy
-		if(count($cfg['nickban'])>0)
+		if($cfg['nickban'])
 		{
-			$nicks=explode("\n",$cfg['nickban']);
-			foreach($nicks as $n)
+			foreach($cfg['nickban'] as $n)
 			{
-				if(strpos($nicks,$n)!==false) $error[]=$lang['u nickban'];
+				if(strpos($u['login'],$n)!==false) $error[]=$lang['login_ex'];
 			}
 			unset($n,$nicks);
 		}
@@ -65,77 +88,54 @@ elseif($_POST)
 		#Kod
 		if($cfg['imgsec']==1)
 		{
-			if($_POST['xu_code']!=$_SESSION['code'] || empty($_SESSION['code']))
+			if($_POST['x_code']!=$_SESSION['code'] || empty($_SESSION['code']))
 			{
-				$error[]=$lang['epbcode'];
+				$error[]=$lang['ver_err'];
 			}
 			$_SESSION['code']=false;
 		}
 	}
 
 	#Has³o
-	if(empty($_POST['xu_p']) && LOGD==1)
+	if(LOGD==1 && empty($_POST['x_p']))
 	{
-		$xu_p=$user[UID]['pass'];
+		$u['pass']=$user[UID]['pass'];
 	}
 	else
 	{
-		$xu_p=$_POST['xu_p'];
-		if(!ereg('^[a-zA-Z0-9_-]{5,20}$',$xu_p))
+		$u['pass']=$_POST['x_p'];
+		if(!ereg('^[a-zA-Z0-9_-]{5,20}$',$u['pass']))
 		{
-			$error[]=$lang['eperrp'];
+			$error[]=$lang['pass_err'];
 		}
-		if($xu_p!=$_POST['xu_p2'])
+		#Has³a równe?
+		if($u['pass']!=$_POST['x_p2'])
 		{
-			$error[]=$lang['eperrp2'];
+			$error[]=$lang['pass2'];
 		}
-		$xu_p=md5($xu_p);
+		$u['pass']=md5($u['pass']);
 	}
 
-	#E-mail
-	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$_POST['xu_m']))
+	#E-mail	
+	$u['mail']=$_POST['x_m'];
+	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
-		$xu_m=$_POST['xu_m'];
-
 		#E-mail istnieje w bazie?
-		if(db_count('*','users',' WHERE mail="'.$xu_m.'"'.((LOGD==1)?' && ID!='.UID:''))!=0)
+		if(db_count('*','users',' WHERE mail="'.$u['mail'].'"'.((LOGD==1)?' && ID!='.UID:''))!=0)
 		{
-			$error[]=$lang['eperrm'];
+			$error[]=$lang['mail_ex'];
 		}
 	}
 	else
 	{
-		$xu_m=$user[UID]['mail'];
+		$u['mail']=Clean($u['mail']); $error[]=$lang['mail_err'];
 	}
-	
+
 	#Zabrioniony e-mail?
-	if($xu_m!='' && count($cfg['mailban'])>0)
+	if($cfg['mailban'])
 	{
-		if(in_array(substr(strstr($xu_m,'@'),1),$cfg['mailban'])) $error[]=$lang['u mailban'];
+		if(in_array(substr(strstr($u['mail'],'@'),1),$cfg['mailban'])) $error[]=$lang['mail_ex'];
 	}
-
-	#O sobie
-	$xu_ab=Clean($_POST['xu_ab']);
-	if(isset($xu_ab[501])) $error[]=$lang['eperrab'];
-
-	#Sk¹d
-	$xu_fr=Clean($_POST['xu_fr']);
-
-	#Komunikatory
-	$xu_gg=(is_numeric($_POST['xu_gg']))?$_POST['xu_gg']:'';
-	$xu_icq=(is_numeric($_POST['xu_icq']))?$_POST['xu_icq']:'';
-	$xu_tl=Clean($_POST['xu_tl'],30);
-	$xu_sk=Clean($_POST['xu_sk'],30);
-
-	#WWW
-	$xu_w=Clean($_POST['xu_w'],200);
-	$xu_w=str_replace('javascript:','java_script',$xu_w);
-	$xu_w=str_replace('vbscript:','vb_script',$xu_w);
-
-	#Inne
-	if(isset($xu_m[71])) exit('E-mail too long!');
-	$xu_mvis=isset($_POST['xu_mvis'])?1:0;
-	$xu_mails=isset($_POST['xu_mails'])?1:0;
 
 	#B³êdy?
 	if($error)
@@ -146,16 +146,15 @@ elseif($_POST)
 	#Zapis
 	else
 	{
+		#Konto aktywne?
+		$u['lv']=($cfg['actmeth']==1)?1:0;
+
 		#Nowy
 		if(LOGD!=1)
 		{
 			$q=$db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,mvis,gid,lv,
 			regt,about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,
-			:mail,:mvis,1,:lv,:date,:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
-
-			$q->bindValue(':login',$xu_l);
-			$q->bindValue(':date',NOW);
-			$q->bindValue(':lv', (($cfg['actmeth']=='auto')?1:0) );
+			:mail,:mvis,1,:lv,"'.NOW.'",:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
 		}
 
 		#Edycja
@@ -166,21 +165,8 @@ elseif($_POST)
 			tlen=:tlen, gg=:gg WHERE ID='.UID);
 		}
 
-		#Parametry
-		$q->bindValue(':pass',$xu_p);
-		$q->bindValue(':mail',$xu_m);
-		$q->bindValue(':mvis',$xu_mvis,1); //INT
-		$q->bindParam(':about',$xu_ab);
-		$q->bindValue(':mails',$xu_mails,1); //INT
-		$q->bindValue(':www',$xu_w);
-		$q->bindValue(':city',$xu_fr);
-		$q->bindValue(':icq',$xu_icq);
-		$q->bindValue(':skype',$xu_sk);
-		$q->bindValue(':tlen',$xu_tl);
-		$q->bindValue(':gg',$xu_gg);
-
 		#Aktywacja e-mail
-		if(LOGD==2 && $cfg['actmeth']=='mail')
+		if(LOGD==2 && $cfg['actmeth']==2)
 		{
 			#Klucz
 			$key=uniqid(mt_rand(100,999),1);
@@ -188,16 +174,16 @@ elseif($_POST)
 			#Przygotuj e-mail
 			include('./lib/mail.php');
 			$m=new Mailer();
-			$m->topic=$lang['u topic'].$xu_l;
+			$m->topic=$lang['u topic'].$x_l;
 			$m->text=file_get_contents($catl.'mail_account.php');
 			$m->text=str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
 
 			#Wyœlij i zapisz u¿ytkownika
-			if(SendTo($xu_l,$xu_m))
+			if(SendTo($x_l,$x_m))
 			{
-				if($q->execute())
+				if($q->execute($u))
 				{
-					Info($lang['u bymail'].$xu_l.'<br /><br />'.$lang['u nomail']);
+					Info($lang['u bymail'].$x_l.'<br /><br />'.$lang['u nomail']);
 					$db->exec('INSERT INTO '.PRE.'tmp VALUES ("'.$key.'",'.$db->lastInsertId().',"REG")');
 				}
 			}
@@ -208,54 +194,34 @@ elseif($_POST)
 			unset($m,$key);
 		}
 		#Inne
-		elseif($q->execute())
+		elseif($q->execute($u))
 		{
-			if(LOGD==1) { Info($lang['u upd']); }
-			elseif($cfg['actmeth']!='auto') { Info($lang['u noauto'].$xu_l); }
-			else { Info($lang['u auto'].$xu_l); }
+			if(LOGD==1) Info($lang['u upd']);
+			elseif($cfg['actmeth']!=1) Info($lang['u noauto'].$u['login']);
+			else Info($lang['u auto'].$u['login']);
+			return;
 		}
-		else { Info($lang['u error']); $error[]=1; }
+		else { Info($lang['u error']); }
 	}
 }
 
 #Form
-if(!$_POST || $error)
+else
 {
-	if(LOGD==1 && !$error)
+	#Odczyt
+	if(LOGD==1)
 	{
-		#Odczyt
 		$res=$db->query('SELECT * FROM '.PRE.'users WHERE ID='.UID);
-		$user[UID]=$res->fetch(2);
+		$u=$res->fetch(2);
 		$res=null;
-	}
-
-	#Dane dla FORM
-	if($_POST)
-	{
-		$data=array(
-		'mail'=>$xu_m,	'mvis'=>(($xu_mvis)?'checked="checked"':''),
-		'city'=>$xu_fr,	'mails'=>(($xu_mails)?'checked="checked"':''),
-		'gg'=>$xu_gg,		'tlen'=>$xu_tl,
-		'icq'=>$xu_icq,	'sk'=>$xu_sk,
-		'www'=>$xu_www,	'about'=>&$xu_ab );
 	}
 	else
 	{
-		$data=array(
-		'mail'=>$user[UID]['mail'],
-		'city'=>$user[UID]['city'],
-		'mvis'=>(($user[UID]['mvis']==1)?'checked="checked"':''),
-		'mails'=>(($user[UID]['mails']==1 || LOGD==2)?'checked="checked"':''),
-		'gg'=>$user[UID]['gg'],
-		'tlen'=>$user[UID]['tlen'],
-		'icq'=>$user[UID]['icq'],
-		'city'=>$user[UID]['city'],
-		'www'=>$user[UID]['www'],
-		'sk'=>$user[UID]['skype'],
-		'about'=>&$user[UID]['about'] );
+		$u=array('login'=>'','mail'=>'','city'=>'','mvis'=>1,'mails'=>1,'gg'=>null,'icq'=>null,'tlen'=>'','www'=>'http://','about'=>'','skype'=>'');
 	}
-
-	#Szablon
-	include($catst.'account.php');
 }
+
+#Szablon
+include($catst.'account.php');
+unset($u);
 ?>

@@ -34,7 +34,7 @@ else
  </div>
 
  <input type="submit" value="<?= $lang['logme'] ?>" />
- <?= (($cfg['reg_on']==1)?'<input type="button" value="'.$lang['regme'].'" onclick="location=\'?co=account\'" />':'') ?>
+ <input type="button" value="<?= $lang['regme'] ?>" onclick="location='?co=account'" />
  </div>
  </form>
  <?php

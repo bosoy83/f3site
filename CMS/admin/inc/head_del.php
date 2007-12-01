@@ -9,7 +9,8 @@ switch($_POST['co'])
 	if(!Admit('NM')) exit;
 	$db->exec('DELETE FROM '.PRE.'menu WHERE ID='.$id);
 	$db->exec('UPDATE '.PRE.'menu SET seq=seq-1 WHERE seq>'.$id);
-	if($cfg['mc']==1) require('admin/inc/mcache.php');
+	require('./admin/inc/mcache.php');
+	RenderMenu();
  break;
 
  case 'cat':

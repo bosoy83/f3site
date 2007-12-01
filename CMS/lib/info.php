@@ -3,7 +3,7 @@ include_once($catl.'special.php');
 
 function Notify($txt,$where='')
 {
-	global $lang;
+	global $lang,$cfg;
 	if(is_numeric($txt))
 	{
 		$txt=$lang['s'.$txt];

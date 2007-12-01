@@ -32,7 +32,7 @@ elseif(LOGD==2)
 	$res=null;
 
 	#Ban?
-	if($u['lv']===0)
+	if($u['lv']==0)
 	{
 		Notify(16);
 	}
@@ -44,7 +44,7 @@ elseif(LOGD==2)
 		session_regenerate_id(1);
 
 		#Pamiêtanie
-		if($_POST['sndr'])
+		if(isset($_POST['sndr']))
 		{
 			setcookie($cfg['c'].'login',$u['ID'].':'.$xpass,time()+25920000) or exit('Cookies problem!');
 		}

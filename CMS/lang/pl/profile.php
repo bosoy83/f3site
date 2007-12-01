@@ -1,32 +1,12 @@
 <?php
 $lang+=Array(
-'u topic'=>'Aktywacja konta: ',
-'u auto'=>'Rejestracja zakoñczona. Twój login to: ',
-'u noauto'=>'Rejestracja zakoñczona, jednak twoje konto musi najpierw zostaæ aktywowane przez administratora. Twój login to: ',
-
-'u nook'=>'Wys³anie wiadomo¶ci e-mail z linkiem aktywuj±cym by³o niemo¿liwe. Wci¶nij F5, aby ponowiæ próbê i dokoñczyæ rejestracjê. Je¿eli problem bêdzie wystêpowa³ nadal, skontaktuj siê z administratorem.',
-'u error'=>'Wyst±pi³ problem z zapisem danych. Wy¶lij ten formularz ponownie.',
-
-'u bymail'=>'Na adres e-mail podany przy rejestracji wys³ano wiadomo¶æ z linkiem aktywuj±cym. Twój login to: ',
-
-'u nomail'=>'<b>P:</b> Brak wiadomo¶ci w ci±gu kilku minut?<br /><b>O:</b> Sprawd¼, czy nie znajduje siê w folderze SPAM.',
-
-'u upd'=>'Zaktualizowano ustawienia konta.',
-
 'ufrom'=>'Sk±d?',
 'group'=>'Grupa',
 'tlenwot'=>'Tylko login (bez @tlen.pl)',
-'eploginex'=>'Wpisana nazwa u¿ytkownika ju¿ istnieje.',
-'eperrm'=>'Adres e-mail jest nieprawid³owy.',
 'editup'=>'Dane podstawowe (obowi±zkowe)',
 'cont'=>' zawiera',
 'editu'=>'Dane u¿ytkownika',
 'editus'=>'Dodatkowe dane i opcje',
-'epmailex'=>'Podany adres e-mail jest ju¿ u¿ywany.',
-'eploginex'=>'Wpisany login jest ju¿ zajêty.',
-'eperrp'=>'Has³o wpisane niepoprawnie. Sprawd¼, czy nie zawiera niedozwolonych znaków oraz jego d³ugo¶æ jest poprawna.',
-'eperrp2'=>'Wpisane has³a nie pasuj± do siebie.',
-'eplerr'=>'Login jest wpisany niepoprawnie. Sprawd¼, czy jego d³ugo¶æ jest poprawna.',
 'vismail'=>'Wy¶wietlaæ adres e-mail',
 'vismaild'=>'Ujawnia adres e-mail innym osobom.',
 'getmails'=>'Dostarczaæ masowe listy',
@@ -41,7 +21,6 @@ $lang+=Array(
 'wwwp'=>'Strona WWW',
 'newpass'=>'Nowe has³o',
 'retpass'=>'Powtórz has³o',
-'epbcode'=>'Kod z obrazka zosta³ przepisany niepoprawnie.',
 'regoff'=>'Rejestracja nowych u¿ytkowników zosta³a wy³±czona.',
 'moder'=>'Moderator',
 'notp'=>'-',
@@ -53,4 +32,26 @@ $lang+=Array(
 'admin'=>'Administrator',
 'writepm'=>'Wy¶lij prywatn± wiadomo¶æ',
 'usrne'=>'U¿ytkownik o podanym ID nie istnieje.',
+
+'act_ok'=>'Rejestracja zosta³a potwierdzona. Mo¿esz zalogowaæ siê.',
+'badkey'=>'Klucz aktywuj±cy konto jest niepoprawny. Sprawd¼, czy odno¶nik do tej strony podany w wiadomo¶ci e-mail nie zosta³ uciêty.',
+
+'u topic'=>'Aktywacja konta: ',
+'u auto'=>'Rejestracja zakoñczona. Twój login to: ',
+'u noauto'=>'Rejestracja zakoñczona, jednak twoje konto musi najpierw zostaæ aktywowane przez administratora. Twój login to: ',
+'u nook'=>'Wys³anie wiadomo¶ci e-mail z linkiem aktywuj±cym by³o niemo¿liwe. Wci¶nij F5, aby ponowiæ próbê i dokoñczyæ rejestracjê. Je¿eli problem bêdzie wystêpowa³ nadal, skontaktuj siê z administratorem.',
+'u error'=>'Wyst±pi³ problem z zapisem danych. Wy¶lij ten formularz ponownie.',
+
+'u bymail'=>'Na adres e-mail podany przy rejestracji wys³ano wiadomo¶æ z linkiem aktywuj±cym. Twój login to: ',
+'u nomail'=>'<b>P:</b> Brak wiadomo¶ci w ci±gu kilku minut?<br /><b>O:</b> Sprawd¼, czy nie znajduje siê w folderze SPAM.',
+'u upd'=>'Zaktualizowano ustawienia konta.',
+
+'mail_ex'=>'Podany adres e-mail jest ju¿ u¿ywany.',
+'mail_err'=>'Adres e-mail jest nieprawid³owy.',
+'pass2'=>'Wpisane has³a nie pasuj± do siebie.',
+'login_ex'=>'Wpisany login jest ju¿ zajêty.',
+'login_err'=>'Login jest wpisany niepoprawnie. Sprawd¼, czy jego d³ugo¶æ jest poprawna.',
+'ver_err'=>'Kod z obrazka zosta³ przepisany niepoprawnie.',
+'ab_err'=>'Zawarto¶æ pola "o sobie" jest za d³uga.',
+'pass_err'=>'Has³o wpisane niepoprawnie. Sprawd¼, czy nie zawiera niedozwolonych znaków oraz jego d³ugo¶æ jest poprawna.',
 );
