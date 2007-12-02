@@ -24,7 +24,7 @@ if($c_total!==0)
 {
 	#SQL
 	$res=$db->query('SELECT c.ID,c.name,c.author,c.ip,c.date,c.text,u.login
-		FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.author=u.ID AND c.guest=1
+		FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.author=u.ID AND c.guest!=1
 		WHERE c.TYPE='.CT.' AND c.CID='.$id.(($cfg['csort']==2)?'':' ORDER BY ID DESC').
 		(($cfg['cnp']!=0)?' LIMIT '.$st.','.$cfg['cnp']:''));
 
@@ -37,7 +37,7 @@ if($c_total!==0)
 	foreach($res as $c)
 	{
 		$comm[]=array(
-		'author'=>(($c['author'])?'<a href="?co=user&amp;id='.$c['author'].'">'.$c['login'].'</a>':$c['author']),
+		'author'=>(($c['login'])?'<a href="?co=user&amp;id='.$c['author'].'">'.$c['login'].'</a>':$c['author']),
 		'edit_url'=>'?co=comm&amp;id='.$c['ID'].'&amp;turl='.$_GET['co'],
 		'del_url'=>'?',
 		'class'=>'post'.$y,

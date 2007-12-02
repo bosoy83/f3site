@@ -29,7 +29,7 @@ if(isset($_GET['keyid']))
 #Rejestracja wy³¹czona?
 if($cfg['reg_on']!=1 && LOGD!=1)
 {
-	Info($lang['regoff']);
+	Info($lang['regoff']); return;
 }
 
 #Zapis
