@@ -1,1 +1,0 @@
-var emots=[[":)","smile.png",":)"],[":D","happy.png",":D"],[":(","unhappy.png",":("],[":O","surprised.png",":O"],[":P","tongue.png",":P"],[":]","waii.png",":]"]]
