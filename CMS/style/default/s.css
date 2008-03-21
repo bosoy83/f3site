@@ -1,0 +1,109 @@
+/*G³ówne*/
+body {font: 13px Verdana,Helvetica,Arial,Times; background-color: #9CBCC0}
+form {margin: 0}
+.all {width: 880px; background-color: #ACACA4}
+a {text-decoration: none; color: #000097}
+a:hover {text-decoration: underline; color: #0C5BB4}
+img {vertical-align: middle; border: 0}
+optgroup {font-style: normal}
+textarea {font: 13px Verdana,Helvetica}
+ul {margin: 9px; padding-left: 25px}
+
+/*ul.go {list-style: none; background: url(../../img/icon/go.png) repeat-y 0 0}*/
+ul.go {list-style-image: url(../../img/icon/go.png)}
+ul.list {list-style: none; background: url(../../)}
+
+/*Nag³ówek i stopka*/
+#header {background-color: #E4E4E4}
+#header table {border-spacing: 0; width: 100%}
+#footer {
+	background-color: #DCDCD6;
+	padding: 2px;
+	width: 874px;
+	margin-bottom: 5px;
+	border: 1px solid #ACACA4;
+	border-top: 0
+}
+#gm {background-color: #F0F0EE; padding: 3px 8px 3px 8px}
+#gm a {color: #2872AE; font-weight: bold}
+td.nav {width: 175px; padding: 9px}
+td#main {background-color: #EDEDEB; padding: 9px}
+
+/*Menu*/
+.menu {
+	background-color: #F4F4F2;
+	padding: 2px 3px;
+	margin-bottom: 7px;
+	border: 1px solid #C9C9C7
+}
+.mh {
+	font-weight: bold;
+	color: #616161;
+	background: #EDEDEB url(img/mth.png) repeat-x;
+	text-align: center;
+	padding: 1px;
+	border: 1px solid #C9C9C7;
+	border-bottom: 0
+}
+.menu ul {margin: 0; padding-left: 14px}
+.menu ul a {display: block}
+#online {text-align: center; line-height: 22px}
+
+/*Bloki*/
+.tb {background-color: #C6CDC2; width: 100%; margin-bottom: 8px}
+.h {background: #F0F4F1 url(img/th.png) repeat-x; text-align: center; color: #396F79; padding: 1px !important}
+.eth {font-weight: bold; color: #236978; background: #F1F3F2 url(img/eth.png); text-align: center}
+.pth,th {background-color: #E9EFEC; font-weight: normal}
+.bg,.cs {background-color: #F7F7F7}
+.bg td {padding: 3px}
+.cs {border: 1px solid #C6CDC2; padding: 5px 3px 5px 28px; margin-bottom: 8px; background: url(../../img/icon/cs.png) 3px 3px no-repeat #F7F7F7}
+
+.eth td,.pth td,th,.pth,.code,.quote {padding: 2px}
+
+/*Tekst i inne*/
+.newsimg {padding: 3px; padding-right: 5px; float: left}
+.txt,.post1 {padding: 3px}
+.post2 {padding: 3px; background-color: #F1F5F5}
+big,.big {font-size: 15px}
+.nag {background-color: #D9E6DB}
+.txtm,small {font-size: 11px}
+.code {background-color: #EFEFE7; border: 1px solid #DBDBCA}
+.quote {background-color: #E7EFEF; border: 1px solid #ACC8C8}
+.listlink {color: #23456D; font-weight: bold}
+.pollstrip {background-color: #73bcdf; border: 1px outset #4f99c6}
+
+.pages .pageAct {
+	background-color: #D1E9DA;
+	border: 1px solid #C6D7D9;
+	font-weight: bold
+}
+.pages a {
+	background-color: #DAE8E9;
+	border: 1px solid #C2D2D3;
+	padding: 2px 4px;
+	margin: 3px
+}
+.pages {padding: 8px !important; text-align: center}
+
+/*DHTML*/
+.hint {
+	border: 1px solid #7dbfd2;
+	background-color: #ebfbfe;
+	position: absolute;
+	display: none;
+	margin: 0
+}
+ul.hint {margin: 0; padding: 0; list-style-type: none}
+.hint li,.tab {padding: 2px; cursor: pointer}
+.hint li:hover {background-color: #fbf9db}
+/*
+.hint .title {background-color: #b3dbf2; margin: 0; padding: 2px; font-weight: bold; text-align: center}
+.menulist ul {margin: 0; padding: 0}
+
+.tab {border: 1px solid #c7c7ba; color: #438689; text-align: center; background: url(../../img/icon/d.gif) right no-repeat #F4F4F2; padding-right: 12px}
+#chars td:hover {background: #c7ecf3}
+*/
+/*Edytor*/
+.editor {margin: 2px}
+.editor img, .editor span {cursor: pointer; border: 1px solid #F7F7F7; padding: 3px}
+.editor img:hover, .editor span:hover {background-color: #fffdd9; border-color: #dedbc0}

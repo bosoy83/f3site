@@ -1,0 +1,21 @@
+<?php
+$lang+=Array(
+'ap_dbwarn'=>'Wpisanie nieprawid³owych danych dostêpowych do bazy danych SQL spowoduje, ¿e dzia³anie skryptu nie bêdzie mo¿liwe. Wtedy nale¿y poprawiæ te dane rêcznie w pliku <b>cfg/db.php</b>.',
+'ap_cfgdb'=>'Ustawienia bazy SQL i jêzyka',
+'ap_cfglang'=>'Ustawienia jêzykowe',
+'ap_dbsets'=>'Dostêp do bazy SQL',
+'ap_dbh'=>'Nazwa hosta',
+'ap_dbd'=>'Baza danych',
+'ap_dbpre'=>'Prefix',
+'ap_metac'=>'Kodowanie znaków',
+'ap_lang'=>'Domy¶lny jêzyk',
+'adb_i'=>'Tutaj mo¿esz dokonaæ eksportu zawarto¶ci wybranych tabel bazy danych do pliku .SQL, który zostanie przes³any na twój komputer. Operacja mo¿e trochê potrwaæ, w zale¿no¶ci od ilo¶ci danych. Aby zaznaczyæ kilka tabel, przytrzymaj klawisz CTRL podczas wyboru.',
+'adb_z'=>'Zaznacz wszystkie',
+'adb_t'=>'Wykonywanie kopii bazy danych',
+'adb_c1'=>'Dodaj polecenie utworzenia tabel.',
+'adb_c2'=>'Wybierz tabele',
+'adb_c3'=>'Kasowanie tabel w przypadku ich istnienia.',
+'adb_fn'=>'Nazwa pliku (bez rozszerzenia)',
+'adb_co'=>'Kompresja: ',
+'adb_nco'=>'Nie kompresuj pliku.',
+); ?>

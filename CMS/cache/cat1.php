@@ -1,0 +1,1 @@
+<a href="?d=1">Strona g³ówna</a>

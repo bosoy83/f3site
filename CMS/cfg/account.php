@@ -1,0 +1,1 @@
+<?php $cfg+=array('reg_on'=>1,'mailban'=>array(),'nickban'=>array(),'actmeth'=>1,); ?>
