@@ -1,0 +1,41 @@
+<script type="text/javascript">
+//<![CDATA[
+function Del(id)
+{
+ if(confirm("{lang.delc}"))
+ {
+	del=new Request("adm.php?x=del&id="+id,'i'+id);
+	del.method='POST';
+	del.add('co','page')
+	del.run()
+ }
+}
+//]]>
+</script>
+
+<table cellspacing="1" class="tb">
+<tbody class="bg">
+<tr>
+	<td class="h" colspan="5"><b>{lang.ipages}</b></td>
+</tr>
+<tr>
+	<th>{lang.name}</th>
+	<th style="width: 50px">ID</th>
+	<th style="width: 70px">{lang.disp}</th>
+	<th>{lang.opt}</th>
+</tr>
+
+<!-- START pages -->
+<tr>
+  <td id="i{id}">{num}. <a href="index.php?co=page&amp;id={id}">{title}</a></td>
+  <td align="center">{id}</td>
+  <td align="center">{access}</td>
+  <td align="center">
+		<a href="adm.php?a=editPage&amp;id={id}">{lang.edit}</a>
+		&middot; <a href="javascript:Del({id})">{lang.del}</a>
+	</td>
+</tr>
+<!-- STOP -->
+
+</tbody>
+</table>

@@ -1,0 +1,50 @@
+<form action="?a=configUsers" method="post" f3:array="cfg" f3:mode="isset">
+<h2>{lang.opt} :: {lang.regme}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody class="bg">
+<tr>
+	<td style="width: 35%">
+		<b>{lang.reg_on}?</b><br />
+	</td>
+	<td>
+		<input type="checkbox" name="reg_on" />
+	</td>
+</tr>
+<tr>
+	<td>
+		<b>{lang.domainban}:</b><br /><br />
+		<small>{lang.domainex}</small>
+	</td>
+	<td>
+		<textarea cols="30" rows="4" name="mailban">{mailBan}</textarea>
+	</td>
+</tr>
+<tr>
+	<td>
+		<b>{lang.nickban}:</b><br /><br />
+		<small>{lang.nickex}</small>
+	</td>
+	<td>
+		<textarea cols="30" rows="4" name="nickban">{nickBan}</textarea>
+	</td>
+</tr>
+<tr>
+	<td>
+		<b>{lang.u_meth}:</b>
+	</td>
+	<td>
+		<input type="radio" name="actmeth" value="1" id="a1" />
+		<label for="a1">{lang.auto}</label><br />
+		<input type="radio" name="actmeth" value="2" id="a2" />
+		<label for="a2">{lang.bymail}</label><br />
+		<input type="radio" name="actmeth" value="3" id="a3" />
+		<label for="a3">{lang.byadmin}</label>
+	</td>
+</tr>
+<tr>
+	<td class="eth" colspan="2"><input type="submit" value="OK" /></td>
+</tr>
+</tbody>
+</table>
+</form>

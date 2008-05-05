@@ -1,0 +1,26 @@
+System wtyczek w budowie... Aktualnie instalacja nie dzia³a.<h2>{lang.plugs}</h2>
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<th>{lang.name}</th>
+	<th>Category (ID)</th>
+	<th>{lang.opt}</th>
+</tr>
+
+<!-- START plugin -->
+<tr>
+	<td><span style="color: {color}">{name}</span></td>
+	<td>{id}</td>
+	<td><a href="{del}">{lang.uninst}</a></td>
+</tr>
+<!-- STOP -->
+
+</tbody>
+</table>
+
+<div class="box" style="padding: 7px; text-align: center">
+	<form action="?a=plugins" method="post">
+	ID: <select name="idp">{list}</select>
+	<input type="submit" value="{lang.inst}" />
+	</form>
+</div>

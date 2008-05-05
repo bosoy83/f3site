@@ -1,0 +1,30 @@
+<?php
+if(iCMSa!=1 || !Admit('AD')) exit;
+require LANG_DIR.'rights.php';
+
+#Odczyt
+$res=$db->query('SELECT ID,login,adm FROM '.PRE.'users WHERE lv>1');
+$res->setFetchMode(3); //NUM
+
+#Info
+$content->info($lang['iadms']);
+
+/* PLIK NIEDOKOÑCZONY */
+
+$num  = 0;
+$adms = array();
+
+foreach($res as $adm)
+{
+	$adms[] = array(
+		'url'   => MOD_REWRITE ? '/user/'.$adm[0] : 'index.php?co=user&amp;id='.$adm[0],
+		'rights'=> str_replace('|',' ',$adm[2]),
+		'login' => $adm[1],
+		'url1'  => '?a=editAdmin&amp;id='.$adm[0],
+		'url2'  => '?a=editUser&amp;id='.$adm[0]
+	);
+}
+
+$content->title = $lang['admins'];
+$content->data['admin'] =& $adms;
+?>

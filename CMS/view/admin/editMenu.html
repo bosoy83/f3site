@@ -1,0 +1,93 @@
+<script type="text/javascript">
+<!--
+ile=0;
+
+function Dodaj(name,adr,nw)
+{
+	var div=document.createElement('div');
+	div.style.margin='8px';
+	div.id='d'+ ++ile;
+
+	div.innerHTML=['<input size="1" name="i_seq[]" value="'+ile+'" /> &nbsp;',
+	'<?=$lang['title']?>: <input name="i_txt[]" value="'+name+'" /> &nbsp;',
+	'<?=$lang['adr']?>: <input name="i_adr[]" value="'+adr+'" /> ',
+	'<input type="checkbox" name="i_nw['+(ile-1)+']" '+((nw==1)?' checked="checked"':'')+'/>'].join('');
+
+	d('box').appendChild(div);
+}
+-->
+</script>
+
+<form action="{url}" method="post" f3:array="menu">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<td width="38%"><b>1. {lang.navbtit}</b></td>
+	<td><input name="text" maxlength="50" value="{menu.text}" /></td>
+</tr>
+<tr>
+	<td><b>2. {lang.acc}:</b></td>
+	<td>
+		<select name="disp">
+			<option value="1">{lang.on}</option>
+			{langlist}
+			<option value="2">{lang.hidden}</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><b>3. {lang.page}:</b></td>
+	<td>
+		<label><input type="radio" name="menu" value="1" /> {lang.leftp}</label> &nbsp;
+		<label><input type="radio" name="menu" value="2" /> {lang.rightp}</label>
+	</td>
+</tr>
+<tr>
+	<td><b>4. {lang.mtype}:</b></td>
+	<td>
+		<label><input type="radio" value="1" name="type" /> {lang.txt}</label> &nbsp;
+		<label><input type="radio" value="2" name="type" /> {lang.file}</label> &nbsp;
+		<label><input type="radio" value="3" name="type" /> {lang.urls}</label>
+	</td>
+</tr>
+<tr>
+	<td><b>5. {lang.bgimg}:</b><br /><small>{lang.0off}</small></td>
+	<td>
+		<input id="m_img" name="img" maxlength="200" value="{menu.img}" />
+		<!-- IF fileman -->
+		<input type="button" value="{lang.files} &raquo;" onclick="Okno('?x=fm&amp;ff=m_img',580,400,150,150)" />
+		<!-- END -->
+	</td>
+</tr>
+<tr>
+	<td><b>6. {lang.txtfile}</b><br /><small>{lang.nmlink}</small></td>
+	<td>
+		<textarea rows="4" name="value" cols="45">{Clean: menu.value}</textarea>
+	</td>
+</tr>
+<tr>
+	<th colspan="2"><b>{lang.navbody}</b></td>
+</tr>
+<tr>
+	<td colspan="2" align="center"><div id="box">
+
+	</div><br />
+	<center>
+  <a href="javascript:Dodaj('','http://',0)"><b>{lang.navadd}</b></a>
+  <br /><br />
+  <input type="checkbox" checked="checked" disabled="disabled" /> = {lang.nwn}
+	</center>
+	<br />{lang.whdelmi}
+	</td>
+</tr>
+<tr class="eth">
+	<td colspan="2">
+		<input type="submit" value="{lang.save}" />
+		<input type="submit" value="{lang.savenew}" name="savenew" />
+	</td>
+</tr>
+</tbody>
+</table>
+</form>

@@ -1,0 +1,39 @@
+<div class="cs">
+
+	<!-- IF art.edit -->
+	<div style="float: right">
+		<img src="img/icon/edit.png" alt="&rarr;" /> <a href="{art.edit}">{lang.edit}</a>
+	</div>
+	<!-- END -->
+
+	<a href="?co=cats&amp;id=1">{lang.arts}</a> &raquo; {path}
+</div>
+
+<table cellspacing="1" class="tb">
+<tbody class="bg">
+<tr>
+	<td class="h"><b>{art.date} - {art.name}</b></td>
+</tr>
+<tr>
+	<td class="txt">
+	{art.text}
+	
+	<!-- IF pages --><br /><br /><div class="pages">{pages}</div><!-- END -->
+
+	</td>
+</tr>
+<tr>
+	<td class="eth" style="font-weight: normal">
+
+		<!-- IF art.rate -->
+		<span style="float: right; width: 150px">{lang.rate}: {art.rate}</span>
+		<!-- END -->
+
+		<!-- IF art.ent -->
+		<span style="float: left; width: 150px">{lang.disps}: {art.ent}</span>
+		<!-- END -->
+
+		<span style="width: 150px">{lang.wrote}: {art.author}</span>
+	</td>
+</tr>
+</tbody></table>

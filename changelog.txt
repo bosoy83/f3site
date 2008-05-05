@@ -1,0 +1,43 @@
+* F3Site 2.1 *
+- events log
+- banning
+- visits and on-line users counter
+- emoticons
+- saving Google visit to the log
+- mass category and access changing
+- settings center
+- fixed counting number of items in categories
+- other changes and fixes
+- XMLHTTPRequest support (inc/adv.js)
+- detecting system language
+
+* F3Site 2.0 *
+- using PHP sessions to loginning
+- BBCode improvement
+- new BBCode / HTML buttons
+- word replacement
+- database backup
+- extended form to posting comments
+- user groups
+- security code (registering and posting by guests)
+- fast menu loading feature
+- executing PHP code in info-pages and articles as option
+- searching content and users
+- main page may be category or info-page
+- optimized options interface
+- enhanced xHTML/CSS code
+- improved gallery displaying
+- other improvements
+- bug fixed: displaying and managing emoticons
+
+* F3Site 1.4 *
+- new password generator
+- improved e-mail sending (from external server too)
+- user's last visit time saving
+- private messages
+- saving number of content in category
+- special characters links
+- safer plugins installation
+- other improvements
+- bug fixed: reseting votes after editing polls
+- bug fixed: displaying polls

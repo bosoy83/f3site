@@ -1,0 +1,92 @@
+<form action="index.php?co=account" method="post" f3:array="u">
+
+<table cellspacing="1" class="tb">
+<tbody class="bg">
+<tr>
+	<td class="h" colspan="2"><b>{this->title}</b></td>
+</tr>
+
+<tr>
+	<th colspan="2">{lang.editup}</th>
+</tr>
+
+<!-- IF LOGD == 2 -->
+<tr>
+	<td><b>{lang.login}:</b><br /><small>{lang.logind}</small></td>
+	<td><input name="login" maxlength="30" value="{u.login}" /></td>
+</tr>
+<!-- END -->
+
+<tr>
+	<td><b>{lang.newpass}:</b><div class="txtm">{lang.passd}</div></td>
+	<td><input type="password" name="pass" maxlength="30" /></td>
+</tr>
+<tr>
+	<td width="45%"><b>{lang.retpass}:</b></td>
+	<td><input maxlength="30" type="password" name="pass2" /></td>
+</tr>
+<tr>
+	<td><b>{lang.mail}:</b></td>
+	<td><input name="mail" value="{u.mail}" maxlength="50" /></td>
+</tr>
+
+<!-- IF code -->
+<tr>
+	<td><b>{lang.imgcode}:</b></td>
+	<td>
+		<img src="code.php" alt="test" style="margin-bottom: 5px; border: 1px solid gray" />
+		<br /><input name="code" />
+	</td>
+</tr>
+<!-- END -->
+
+<tr>
+	<th colspan="2">{lang.editus}</th>
+</tr>
+<tr>
+	<td><b>{lang.ufrom}</b></td>
+	<td><input name="city" maxlength="50" value="{u.city}" /></td>
+</tr>
+<tr>
+	<td><b>Gadu-Gadu:</b></td>
+	<td><input name="gg" maxlength="15" value="{u.gg}" /></td>
+</tr>
+<tr>
+	<td><b>Tlen.pl ID:</b><div class="txtm">{lang.tlenwot}</div></td>
+	<td><input name="tlen" maxlength="50" value="{u.tlen}" /></td>
+</tr>
+<tr>
+	<td><b>ICQ:</b></td>
+	<td><input name="icq" maxlength="20" value="{u.icq}" /></td>
+</tr>
+<tr>
+	<td><b>Skype ID:</b></td>
+	<td><input name="skype" maxlength="50" value="{u.skype}" /></td>
+</tr>
+<tr>
+	<td><b>{lang.wwwp}:</b></td>
+	<td><input name="www" size="30" maxlength="120" value="{u.www}" /></td>
+</tr>
+<tr>
+	<td><b>{lang.opt}:</b></td>
+	<td>
+		<input id="mv" type="checkbox" name="mvis" />
+		<label for="mv">{lang.vismail}</label><br />
+		<input id="ms" type="checkbox" name="mails" />
+		<label for="ms">{lang.getmails}</label>
+	</td>
+</tr>
+<tr>
+	<th colspan="2">{lang.abouty}</th>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+		<textarea name="about" rows="7" cols="45" style="width: 99%">{u.about}</textarea>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" class="eth"><input type="submit" value="OK" /></td>
+</tr>
+</tbody>
+</table>
+</form>
