@@ -69,4 +69,3 @@ $content->data = array(
 	'search'=> $s,
 	'pages' => Pages($page,$total,30,'adm.php?a=users&amp;s='.$s.(($gid)?'&amp;gid='.$gid:''),1)
 );
-?>

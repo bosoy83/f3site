@@ -18,6 +18,20 @@ if($_POST)
 		'value'=> &$_POST['value']
 	);
 
+	#Opcje menu
+	$o = array();
+
+	$ile = isset($_POST['adr']) ? count($_POST['adr']) : 0;
+	for($i=0;$i<$ile;++$i)
+	{
+		$o[] = array(
+			0 => &$_POST['txt'][$i],
+			1 => Clean($_POST['adr'][$i]),
+			2 => isset($_POST['nw'][$i]) ? 1 : 0,
+			3 => $i
+		);
+	}
+
 	#START
 	try
 	{
@@ -26,7 +40,7 @@ if($_POST)
 		#Edytuj
 		if($id && !isset($_POST['savenew']))
 		{
-			$q = $db->prepare('UPDATE '.PRE.'menu SET text=:title, disp=:disp, menu=:menu,
+			$q = $db->prepare('UPDATE '.PRE.'menu SET text=:text, disp=:disp, menu=:menu,
 				type=:type, img=:img, value=:value WHERE ID='.$id);
 			$db->exec('DELETE FROM '.PRE.'mitems WHERE menu='.$id);
 		}
@@ -34,44 +48,35 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,img,value)
-				VALUES ('.(db_count('ID','menu')+1).',:title,:disp,:menu,:type,:img,:value)');
+				VALUES ('.(db_count('ID','menu')+1).',:text,:disp,:menu,:type,:img,:value)');
 		}
-		$q->execute();
+		$q->execute($m);
+
+		#ID
+		if(!$id OR isset($_POST['savenew'])) $id = $db->lastInsertId();
 
 		#Linki
 		if($m['type']==3)
 		{
-			#ID
-			if(!$id) $id = $db->lastInsertId();
-
-			#Zapytanie i pozycje menu
-			$q = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,url,nw) VALUES ('.$id.',?,?,?)');
-			$o = array();
-
-			$ile = count($_POST['i_seq']);
-			for($i=0;$i<$ile;++$i)
+			#Dodaj pozycje menu
+			$q = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,url,nw,seq) VALUES ('.$id.',?,?,?,?)');
+			foreach($o as &$i)
 			{
-				if(!empty($_POST['i_seq'][$i]))
-				{
-					$o[$i] = array(
-						2 => &$_POST['txt'][$i],
-						3 => Clean($_POST['adr'][$i]),
-						4 => isset($_POST['nw'][$i]) ? 1 : 0
-					);
-					$q->execute($o[$i]);
-				}
+				$q->execute($i);
 			}
 		}
 		$db->commit();
 
 		#Generuj menu
-		include('./admin/inc/mcache.php');
+		include './admin/inc/mcache.php';
 		RenderMenu();
 
 		#Lista
 		unset($q,$id);
 		$_POST = array();
-		include './admin/nav.php';
+		$content->file = 'admin/menu';
+		include './admin/menu.php';
+		return 1;
 	}
 	catch(PDOException $e)
 	{
@@ -89,32 +94,19 @@ elseif($id)
 	{
 		$o = $db->query('SELECT text,url,nw FROM '.PRE.'mitems WHERE menu='.$id.' ORDER BY seq') -> fetchAll(3);
 	}
+	else $o = array();
 }
 else
 {
 	$m = array('text'=>'', 'disp'=>'', 'img'=>'0', 'menu'=>1, 'type'=>3, 'value'=>'');
-	$o = array( array('', '', true) );
+	$o = array(array('', '', 0));
 }
 
+$content->addScript('lib/forms.js');
 $content->data = array(
 	'menu' => &$m,
-	'url'  => '?a=editnav'.(($id) ? '&amp;id='.$id : ''),
+	'item' => &$o,
+	'url'  => '?a=editMenu'.(($id) ? '&amp;id='.$id : ''),
 	'fileman'  => Admit('FM'),
 	'langlist' => ListBox('lang', 1, $m['disp'])
 );
-
-/*
-#ID
-	if($id && $m.type']==3)
-	{
-		$res=$db->query('SELECT text,url,nw FROM '.PRE.'mitems WHERE menu={id.' ORDER BY seq');
-		$res->setFetchMode(3);
-		$s='<script type="text/javascript">';
-
-		#Linki
-		foreach($res as $i)
-		{
-			$s.='Dodaj("'.Clean($i[0]).'","{i[1].'",{i[2].');';
-		}
-		echo $s.'</script>';
-	}*/

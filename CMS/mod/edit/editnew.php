@@ -6,19 +6,21 @@ if($_POST)
 {
 	//Nowe dane
 	$news = array(
-	'opt' => (($_POST['x_br']) ? 1:0) + (($_POST['x_emo']) ? 2:0) + (($_POST['x_fn']) ? 4:0),
-	'name'=> Clean($_POST['x_n']),
-	'img' => Clean($_POST['x_i']),
-	'txt' => &$_POST['x_txt'],
-	'cat'	=> (int)$_POST['x_c'],
-	'access'=> isset($_POST['x_a']) ? 1:2);
+	'opt'  => (isset($_POST['br']) ? 1:0) + (isset($_POST['emo']) ? 2:0) + (isset($_POST['fn']) ? 4:0),
+	'name' => Clean($_POST['name']),
+	'img'  => Clean($_POST['img']),
+	'txt'  => &$_POST['txt'],
+	'cat'	 => (int)$_POST['cat'],
+	'access' => isset($_POST['access']) ? 1 : 2);
+
+	//Pe³na treœæ
+	$full = &$_POST['text'];
 
 	//Start
-	$e = new Saver($news,$id,'news');
-
-	//Ma prawa?
-	if($e->hasRight('N'))
+	try
 	{
+		$e = new Saver($news,$id,'news');
+
 		//Query
 		if($id)
 		{
@@ -35,28 +37,24 @@ if($_POST)
 		//Nowe ID
 		$nid = $id ? $id : $db->lastInsertId();
 
-		//Pe³ny tekst
-		$news['text'] =& $_POST['x_ftxt'];
-
 		$q = $db->prepare('REPLACE INTO '.PRE.'fnews (id,cat,text) VALUES ('.$nid.',?,?)');
-		$q-> bindValue(1,$news['cat'],1); //INT
-		$q-> bindParam(2,$news['text']);
-		$q-> execute();
+		$q->bindValue(1,$news['cat'],1); //INT
+		$q->bindParam(2,$full);
+		$q->execute();
 
 		//OK?
-		if($e->apply())
-		{
-			$content->info( $lang['saved'], array(
-				'?co=edit&amp;act=news'=> $lang['add5'],
-				'?co=edit&amp;act=5'	 => $lang['news'],
-				'?co=news&amp;id='.$nid=> $lang['seeit']));
-			unset($e,$news);
-			return;
-		}
+		$e->apply();
+		$content->info( $lang['saved'], array(
+			'?co=edit&amp;act=news'=> $lang['add5'],
+			'?co=list&amp;act=5'	 => $lang['news'],
+			'?co=news&amp;id='.$nid=> $lang['seeit']));
+		unset($e,$news);
+		return;
 	}
-
-	//B³±d?
-	$e->showError();
+	catch(Exception $e)
+	{
+		$content->info($e->getMessage());
+	}
 }
 
 //Formularz
@@ -67,18 +65,22 @@ else
 	{
 		$news = $db->query('SELECT n.*,f.text FROM '.PRE.'news n LEFT JOIN '.
 			PRE.'fnews f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2); //ASSOC
+		$full = &$news['text'];
 
 		//Prawa
-		if(!$news || !Admit('N') || !Admit($news['cat'],'CAT',$news['author']))
-		{
-			return;
-		}
+		if(!$news || !Admit($news['cat'],'CAT',$news['author'])) return;
 	}
 	else
 	{
-		$news = array('cat'=>$lastCat,'name'=>'','txt'=>'','text'=>'','access'=>1,'img'=>'','opt'=>1);
+		$news = array('cat'=>$lastCat,'name'=>'','txt'=>'','access'=>1,'img'=>'','opt'=>1);
+		$full = '';
 	}
 }
+
+//Pola checkbox
+$news['br']  = $news['opt'] & 1;
+$news['emo'] = $news['opt'] & 2;
+$news['fn']  = $news['opt'] & 4;
 
 //Edytor JS
 $content->addScript(LANG_DIR.'edit.js');
@@ -92,6 +94,8 @@ $content->file  = 'edit_news';
 //Dane
 $content->data = array(
 	'news' => &$news,
+	'full' => &$full,
+	'url'  => '?co=edit&amp;act=new&amp;id='.$id,
 	'cats' => Slaves(5,$news['cat'],'N'),
-	'url'  => '?co=edit&amp;act=new&amp;id='.$id
+	'fileman' => Admit('FM')
 );

@@ -6,20 +6,20 @@ if($_POST)
 {
 	#Dane
 	$file = array(
-	'cat' =>(int)$_POST['x_c'],
-	'dsc' =>Clean($_POST['x_d']),
-	'name'=>Clean($_POST['x_n']),
-	'file'=>Clean($_POST['x_f']),
-	'size'=>Clean($_POST['x_s']),
-	'fulld'=>$_POST['x_fd'],
-	'author'=>Clean($_POST['x_au']),
-	'access'=>((isset($_POST['x_a']))?1:2),
-	'priority'=>(int)$_POST['x_p']);
+	'cat'  => (int)$_POST['cat'],
+	'dsc'  => Clean($_POST['dsc']),
+	'name' => Clean($_POST['name']),
+	'file' => Clean($_POST['file']),
+	'size' => Clean($_POST['size']),
+	'fulld' => &$_POST['full'],
+	'author' => Clean($_POST['author']),
+	'access' => isset($_POST['access']) ? 1 : 2,
+	'priority' => (int)$_POST['priority']);
 
-	$e = new Saver($file,$id,'files');
-
-	if($e->hasRight('F'))
+	try
 	{
+		$e = new Saver($file, $id, 'files');
+
 		#Zapytanie
 		if($id)
 		{
@@ -32,22 +32,21 @@ if($_POST)
 				priority,fulld) VALUES (:cat,:name,:author,'.DATETIME.',:dsc,:file,:access,:size,:priority,:fulld)');
 		}
 		$q->execute($file);
-		$nid = $id ? $id : $db->lastInsertId();
+		if(!$id) $id = $db->lastInsertId();
 
 		#OK?
-		if($e->apply())
-		{
-			$content->info( $lang['saved'], array(
-				'?co=edit&amp;act=file'=> $lang['add2'],
-				'?co=edit&amp;act=2'	 => $lang['files'],
-				'?co=file&amp;id='.$nid=> $lang['seeit']));
-			unset($e,$file);
-			return;
-		}
+		$e->apply();
+		$content->info( $lang['saved'], array(
+			'?co=edit&amp;act=file'=> $lang['add2'],
+			'?co=list&amp;act=2'	 => $lang['files'],
+			'?co=file&amp;id='.$id => $file['name']));
+		unset($e,$file);
+		return;
 	}
-
-	#B³±d?
-	$e->showError();
+	catch(Exception $e)
+	{
+		$content->info($e->getMessage());
+	}
 }
 
 #Form
@@ -56,16 +55,16 @@ else
 	#Odczyt
 	if($id)
 	{
-		$file=$db->query('SELECT * FROM '.PRE.'files WHERE ID='.$id)->fetch(2);
+		$file = $db->query('SELECT * FROM '.PRE.'files WHERE ID='.$id)->fetch(2);
 
-		if(!$file || !Admit('F') || !Admit($file['cat'],'CAT',$file['author']))
+		if(!$file || !Admit($file['cat'],'CAT',$file['author']))
 		{
 			return;
 		}
 	}
 	else
 	{
-		$file=array('cat'=>$lastCat,'name'=>'','dsc'=>'','priority'=>2,'file'=>'files/',
+		$file = array('cat'=>$lastCat,'name'=>'','dsc'=>'','priority'=>2,'file'=>'files/',
 			'size'=>'','author'=>UID,'fulld'=>'','access'=>1);
 	}
 }
@@ -82,5 +81,6 @@ $content->title = $id ? $lang['edit2'] : $lang['add2'];
 $content->data = array(
 	'file' => &$file,
 	'url'  => '?co=edit&amp;act=file&amp;id='.$id,
-	'cats' => Slaves(2,$file['cat'],'F')
+	'cats' => Slaves(2,$file['cat'],'F'),
+	'fileman' => Admit('FM') ? true : false
 );

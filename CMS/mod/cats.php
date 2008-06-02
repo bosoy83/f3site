@@ -2,33 +2,45 @@
 if(iCMS!=1) exit;
 
 #Typ kategorii - domyœlnie: news
-$id = isset($_GET['id']) ? $_GET['id'] : 5;
+if(!$id) $id = 5;
 
 #Odczyt
 $res = $db->query('SELECT ID,name,dsc,nums FROM '.PRE.'cats WHERE sc=0
 	AND type='.$id.' AND (access=1 OR access="'.$nlang.'") ORDER BY lft');
 
 $res->setFetchMode(3);
-$total=0;
+$total = 0;
+$cat = array();
 
 #Do szablonu
-foreach($res as $cat)
+foreach($res as $x)
 {
-	$content->data['cats'][++$total] = array(
-		'id'   => $cat[0],
-		'title'=> $cat[1],
-		'url'  => '?d='.$cat[0],
-		'desc' => $cat[2],
-		'num'  => $cat[3]
+	$cat[] = array(
+		'title'=> $x[1],
+		'url'  => MOD_REWRITE ? '/'.$x[0] : '?d='.$x[0],
+		'desc' => $x[2],
+		'num'  => $x[3]
 	);
+	++$total;
 }
 
 #Brak kategorii?
 if($total === 0)
 {
-	$content -> info($lang['nocats']);
+	$content -> info($lang['nocats']); return;
+}
+#Tylko 1 - przekierowaæ?
+elseif($total === 1)
+{
+	require './cfg/content.php';
+	if(isset($cfg['goCat']))
+	{
+		$_GET['d'] = $x[0];
+		unset($cat,$x,$total,$res);
+		require './lib/category.php';
+	}
 }
 
-$res=null;
-unset($cat,$total,$id);
-?>
+#Szablon
+$content->data['cat'] =& $cat;
+unset($res,$x,$total);

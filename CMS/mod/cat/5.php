@@ -60,4 +60,3 @@ if($num > 0)
 }
 $res=null;
 unset($comm,$rights,$n);
-?>

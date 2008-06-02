@@ -1,23 +1,3 @@
-<script type="text/javascript">
-<!--
-ile=0;
-
-function Dodaj(name,adr,nw)
-{
-	var div=document.createElement('div');
-	div.style.margin='8px';
-	div.id='d'+ ++ile;
-
-	div.innerHTML=['<input size="1" name="i_seq[]" value="'+ile+'" /> &nbsp;',
-	'<?=$lang['title']?>: <input name="i_txt[]" value="'+name+'" /> &nbsp;',
-	'<?=$lang['adr']?>: <input name="i_adr[]" value="'+adr+'" /> ',
-	'<input type="checkbox" name="i_nw['+(ile-1)+']" '+((nw==1)?' checked="checked"':'')+'/>'].join('');
-
-	d('box').appendChild(div);
-}
--->
-</script>
-
 <form action="{url}" method="post" f3:array="menu">
 <h2>{this->title}</h2>
 
@@ -71,23 +51,47 @@ function Dodaj(name,adr,nw)
 	<th colspan="2"><b>{lang.navbody}</b></td>
 </tr>
 <tr>
-	<td colspan="2" align="center"><div id="box">
-
-	</div><br />
-	<center>
-  <a href="javascript:Dodaj('','http://',0)"><b>{lang.navadd}</b></a>
-  <br /><br />
-  <input type="checkbox" checked="checked" disabled="disabled" /> = {lang.nwn}
-	</center>
-	<br />{lang.whdelmi}
-	</td>
+	<td colspan="2" align="center" id="items">
+	<!-- START item -->
+		<div id="i1">
+		{lang.title}: <input name="txt[]" value="{0}" />
+		{lang.adr}: <input name="adr[]" value="{1}" />
+		<!-- IF 2 -->
+		<input type="checkbox" name="nw[]" checked="checked" />
+		<!-- ELSE -->
+		<input type="checkbox" name="nw[]" />
+		<!-- END -->
+		<input type="image" src="img/icon/add.png" alt="+" />
+		<input type="image" src="img/icon/del.png" alt="-" />
+		<input type="image" src="img/icon/up.png" alt="UP" />
+		<input type="image" src="img/icon/down.png" alt="DOWN" />
+	</div><!-- STOP --></td>
 </tr>
-<tr class="eth">
-	<td colspan="2">
+<tr>
+	<td colspan="2" class="eth">
+		<input type="button" value="{lang.navadd}" onclick="f.addItem()" style="width: 99px" />
 		<input type="submit" value="{lang.save}" />
-		<input type="submit" value="{lang.savenew}" name="savenew" />
+		<input type="submit" value="{lang.savenew}" name="savenew" style="width: 142px" />
 	</td>
 </tr>
 </tbody>
 </table>
 </form>
+
+<div id="tpl" style="display: none">
+	{lang.title}: <input name="txt[]" />
+	{lang.adr}: <input name="adr[]" />
+	<input type="checkbox" name="nw[]" />
+	<input type="image" src="img/icon/add.png" alt="+" />
+	<input type="image" src="img/icon/del.png" alt="-" />
+	<input type="image" src="img/icon/up.png" alt="UP" />
+	<input type="image" src="img/icon/down.png" alt="DOWN" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var f = new Request()
+f.addForm(0)
+f.watch('items',{depth:1,html:d('tpl')})
+//]]>
+</script>

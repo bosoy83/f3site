@@ -57,4 +57,3 @@ $content->data = array(
 	'pages'=> &$pages,
 	'path' => CatPath($art['cat'])
 );
-?>

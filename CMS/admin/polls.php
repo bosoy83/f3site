@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('Q')) exit;
-require LANG_DIR.'f3s.php';
+require LANG_DIR.'poll.php';
 
 #Operacje
 if($_POST)
@@ -26,7 +26,7 @@ if($_POST)
 }
 
 #Info
-$content->info($lang['ipoll'], array('?a=editpoll'=>$lang['addpoll']));
+$content->info($lang['ipoll'], array('?a=editPoll'=>$lang['addPoll']));
 
 #Odczyt
 $res=$db->query('SELECT ID,name,num,access FROM '.PRE.'polls ORDER BY ID DESC');

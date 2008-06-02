@@ -1,11 +1,8 @@
 <form action="index.php?co=account" method="post" f3:array="u">
+<h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h" colspan="2"><b>{this->title}</b></td>
-</tr>
-
+<tbody>
 <tr>
 	<th colspan="2">{lang.editup}</th>
 </tr>
@@ -18,7 +15,7 @@
 <!-- END -->
 
 <tr>
-	<td><b>{lang.newpass}:</b><div class="txtm">{lang.passd}</div></td>
+	<td><b>{lang.newpass}:</b><br /><small>{lang.passd}</small></td>
 	<td><input type="password" name="pass" maxlength="30" /></td>
 </tr>
 <tr>
@@ -52,7 +49,7 @@
 	<td><input name="gg" maxlength="15" value="{u.gg}" /></td>
 </tr>
 <tr>
-	<td><b>Tlen.pl ID:</b><div class="txtm">{lang.tlenwot}</div></td>
+	<td><b>Tlen.pl ID:</b><br /><small>{lang.tlenwot}</div></td>
 	<td><input name="tlen" maxlength="50" value="{u.tlen}" /></td>
 </tr>
 <tr>

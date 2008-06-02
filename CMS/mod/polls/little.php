@@ -6,15 +6,15 @@ echo '<center>'.$poll['q'].'</center>';
 <tbody>
 <?php
 #Generowanie
-for($i=0;$i<$ile;$i++)
+foreach($item as &$o)
 {
 	echo '<tr>
-  <td>'.$option[$i][1].'</td>
-	<td>&nbsp;<b>'.$option[$i][2].'</b></td>
+  <td>'.$o['label'].'</td>
+	<td>&nbsp;<b>'.$o['num'].'</b></td>
 </tr>
 <tr>
-  <td><div style="height: 10px; width: '.$pollproc[$i].'%" class="pollstrip"></div></td>
-  <td style="width: 20px">&nbsp;'.$pollproc[$i].'%</td>
+  <td><div style="height: 10px; width: '.$o['percent'].'%" class="pollstrip"></div></td>
+  <td style="width: 20px">&nbsp;'.$o['percent'].'%</td>
 </tr>';
 }
 ?>

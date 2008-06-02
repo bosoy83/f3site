@@ -9,23 +9,15 @@
 	<a href="?co=cats&amp;id=5">{lang.news}</a> &raquo; {path}
 </div>
 
-<table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h" colspan="2"><b>{news.date} - {news.name}</b></td>
-</tr>
-<tr>
-	<td class="txt">
+<h2>{news.date} - {news.name}</h2>
+<div class="box">
 
-		<!-- IF news.img -->
-		<img src="{news.img}" alt="NEWS" />
-		<!-- END -->
+	<!-- IF news.img -->
+	<img src="{news.img}" alt="NEWS" class="news" />
+	<!-- END -->
 
-		<div>{news.txt}</div><br />
-		<div>{full}</div><br />
+	<div>{news.txt}</div><br />
+	<div>{full}</div><br />
 
-		<div align="right">{lang.wrote}: {news.wrote}</div>
-	</td>
-</tr>
-</tbody>
-</table>
+	<div align="right">{lang.wrote}: {news.wrote}</div>
+</div>

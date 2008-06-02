@@ -1,7 +1,7 @@
 <?php
 $bbc[0]=Array('b','i','u','g','d','code','quote','big','small','center','right');
-$bbc[1]=Array('b','i','u','sup','sub','div style="padding: 5px"><b>'.$lang['code'].':</b><div class="code"><code','div style="padding: 5px"><b>'.$lang['quote'].':</b><div class="quote"','big','span class="txtm"','center','div align="right"');
-$bbc[2]=Array('b','i','u','sup','sub','code></div></div','div></div','big','span','center','div');
+$bbc[1]=Array('b','i','u','sup','sub','div style="padding: 5px"><b>'.$lang['code'].':</b><div class="code"><code','div style="padding: 5px"><b>'.$lang['quote'].':</b><div class="quote"','big','small','center','div align="right"');
+$bbc[2]=Array('b','i','u','sup','sub','code></div></div','div></div','big','small','center','div');
 #Pomoc: Generator BBCode - bbcode.strefaphp.net
 function ParseBBC($t) {
 global $lang,$bbc,$cfg;

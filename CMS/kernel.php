@@ -66,12 +66,6 @@ else
 define('SKIN_DIR', './style/'.$nstyl.'/');
 define('VIEW_DIR', './cache/view/');
 
-/* SKIN DEVELOPER MODE
-require './lib/compiler.php';
-$comp = new Compiler();
-$comp -> examine();
-Aktualnie wy³±czony */
-
 #Jêzyk
 $nlang = $cfg['lang'];
 
@@ -130,7 +124,7 @@ try
 	#MySQL
 	else
 	{
-		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p,$cfg['sqlpc']);
+		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p); //Potem: $cfg['sqlpc']
 		$db-> exec('SET CHARACTER SET "latin2"'); //!!!!!!!!!!!!
 		define('DB_RAND', 'RAND()');
 	}
@@ -209,14 +203,13 @@ if(is_numeric($xuid))
 }
 unset($xuid,$xpass);
 
-#Ost. wizyta
+#Data wej¶cia na stronê, RECENT w sesji = data ostatniej wizyty
 if(defined('LOGD'))
 {
-	if(isset($cfg['lastVisit']))
+	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
 	{
 		$db->exec('UPDATE '.PRE.'users SET lvis='.NOW.' WHERE ID='.UID);
-		#Zapisz datê do sesji
-		if(!isset($_SESSION['recent'])) $_SESSION['recent'] = $user[UID]['lvis'];
+		$_SESSION['recent'] = $user[UID]['lvis'];
 	}
 }
 else
@@ -346,7 +339,7 @@ function Emots($txt=null)
 }
 
 #Data
-function genDate($x)
+function genDate($x, $hour=true)
 {
 	static $time;
 	if(!isset($time)) $time=getdate();
@@ -366,7 +359,7 @@ function genDate($x)
 		$d=str_replace('%m',$e[1],$d);
 		$d=str_replace('%y',$e[0],$d);
 	}
-	if(!empty($f[1]) && $f[1]!='00:00:00')
+	if($hour && !empty($f[1]) && $f[1]!='00:00:00')
 	{
 		$g=explode(':',$f[1]);
 		$d.=str_replace('%h',$g[0],$GLOBALS['cfg']['timeFormat']);

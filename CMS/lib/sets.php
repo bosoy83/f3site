@@ -11,5 +11,5 @@ if($_GET['ch_s'])
 }
 Header(URL);
 require('./lib/info.php');
-Notify(15,'index.php');
+$content->message(15,'index.php');
 ?>

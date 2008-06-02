@@ -6,6 +6,6 @@
 	<input type="hidden" name="as_sitesearch" value="http://<?= $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']) ?>" />
  <input type="submit" value="<?= $lang['search'] ?>" />
  <br />
- <span class="txtm">Powered by <a href="http://www.google.com">Google</a>.</span>
+ <small>Powered by <a href="http://www.google.com">Google</a>.</small>
 </div>
 </form>

@@ -1,82 +1,5 @@
 <?php /* Instrumentacja kategorii i tre¶ci */
 
-/*Struktura kategorii
-function CatPath($id=0,$type,$code='')
-{
-	global $cat,$nlang;
-	if($GLOBALS['cfg']['catStr']!=1 || strpos($cat['opt'],'S')!==false) return false;
-	$out='<div class="cs">';
-
-	#Nadkategorie
-	if($cat['sc']!=0)
-	{
-		$res=$GLOBALS['db']->query('SELECT ID,name FROM '.PRE.'cats WHERE lft<'.$cat['lft'].
-		' && rgt>'.$cat['rgt'].' && (access=1 || access="'.$nlang.'") ORDER BY lft DESC');
-
-		foreach($res as $c)
-			$out.=' &raquo; <a href="?d='.$c['ID'].'">'.$c['name'].'</a>';
-	}
-
-	echo $out.'</div>';
-}
-*/
-
-/* Klasa - dobry pomys³, ale spróbujmy proceduralnie
-class Cat
-{
-	public
-		$name,
-		$dsc,
-		$type,
-		$sc,
-		$sort,
-		$text,
-		$num,
-		$opt,
-		$lft,
-		$rgt,
-		$slaves='';
-
-	function __construct($id)
-	{
-		#Podkategorie
-		if(!$cat['opt']&8)
-		{
-			$GLOBALS['db']->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE
-				sc='.$cat['ID'].' AND (access=1 OR access="'.$GLOBALS['nlang'].'") ORDER BY name');
-		}
-	}
-} */
-
-/* Powitanie i podkategorie - prawdopodobnie funkcja zbêdna, gdy u¿ywamy szablonów
-function CatStart() 
-{
-	global $cat;
-	if(strpos($cat['opt'],'A')!==false) return; //Wy³.?
-
-	#Pobierz Podkategorie
-	$res=$GLOBALS['db']->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE
-		sc='.$cat['ID'].' AND (access=1 OR access="'.$GLOBALS['nlang'].'") ORDER BY name');
-	$i=0;
-	$out=array('','');
-	foreach($res as $c)
-	{
-		$out[$i].='<li><a href="?d='.$c['ID'].'">'.$c['name'].'</a> ('.$c['nums'].')</li>';
-		if($i==1) $i=0; else ++$i;
-	}
-
-	#Powitanie
-	if($cat['text'] || $out[0])
-	{
-		OpenBox($cat['name'],1);
-		echo '<tr><td class="txt">'.nl2br($cat['text']).(($out[0])?
-			'<div><ul style="float: left; background-image: url(img/icon/folder.png)" class="go">'.$out[0].
-			'</ul><ul style="float: right; background-image: url(img/icon/folder.png); width: 40%" class="go">'.$out[1].'</ul></div>':'').
-			'</td></tr>';
-		CloseBox();
-	}
-}*/
-
 #Sortowanie
 function CatSort($sort)
 {
@@ -115,7 +38,7 @@ if(!$cat) return;
 $content->title = $cat['name'];
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
 	$st = ($page-1) * (($cat['type']==3) ? $cfg['inp'] : $cfg['np']);
@@ -128,7 +51,7 @@ else
 
 #Opcja: lista pozycji z wszystkich podkategorii
 #TODO: SELECT * FROM items JOIN cats ON items.cat_id = cats.id
-if($cat['opt'] & 8)
+if($cat['opt'] & 4)
 {
 	$cats = 'cat IN (SELECT ID FROM '.PRE.'cats WHERE lft BETWEEN '.$cat['lft'].' AND '.$cat['rgt'].')';
 	$cat['num'] = $cat['nums'];
@@ -139,7 +62,7 @@ else
 }
 
 #Podkategorie
-if($cat['opt'] & 16 === false)
+if($cat['opt'])
 {
 	$res = $db->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
 		' AND (access=1 OR access="'.$nlang.'") ORDER BY name');
@@ -159,12 +82,12 @@ if($cat['opt'] & 16 === false)
 #Do szablonu
 $content->data = array(
 	'cat'  => &$cat,
-	'path' => file_get_contents('./cache/cat'.$d.'.php'),
+	'path' => $cat['opt'] & 1 ? file_get_contents('./cache/cat'.$d.'.php') : null,
 	'subcats' => isset($sc) ? $sc : null,
 	'options' => Admit($d,'CAT'),
 	'cats_url'=> '?co=cats&id='.$cat['type'],
-	'add_url' => '?co=edit&act=t'.$cat['type'].'&catid='.$d,
-	'list_url'=> '?co=edit&act='.$cat['type'].'&id='.$d
+	'add_url' => '?co=edit&act='.$cat['type'].'&catid='.$d,
+	'list_url'=> '?co=list&act='.$cat['type'].'&id='.$d
 );
 
 #Do³±cz generator listy pozycji
@@ -178,4 +101,3 @@ else
 	$content->data['cat_type'] = $lang['cats'];
 	$content->file = 'cat';
 }
-?>

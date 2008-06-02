@@ -3,7 +3,7 @@
 Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
 
 #TYLKO W WERSJI ROBOCZEJ
-$time1=microtime();
+$time1=microtime(1);
 
 #J±dro
 require('./kernel.php');
@@ -45,6 +45,6 @@ require './cache/menu'.$nlang.'.php';
 include VIEW_DIR.'body.html';
 
 //DO USUNIÊCIAAAAAAAAAAAAA!!!!!!!
-echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',microtime()-$time1.' s, do³±czonych plików: '.count(get_included_files());
-#var_dump(get_defined_constants(true));
-?>
+$time2=microtime(1);
+echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());
+//var_dump(get_included_files());

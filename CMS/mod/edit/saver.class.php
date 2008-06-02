@@ -1,16 +1,15 @@
-<?php
+<?php /* Klasa wspomaga operacje: zmieñ ilo¶æ pozycji w kategoriach, sprawd¼ prawa... */
 class Saver
 {
 	public
 		$id=0,
 		$data=array(),
 		$old=array(),
-		$old_cat,
-		$error=null;
+		$old_cat;
 
 	function __construct(&$data, $id, $table, $cols='cat,author,access')
 	{
-		# Stare dane
+		//Stare dane
 		if($id)
 		{
 			$this->old = $GLOBALS['db'] -> query('SELECT '.$cols.' FROM '.PRE.$table.' WHERE ID='.$id) -> fetch(2);
@@ -18,49 +17,34 @@ class Saver
 		}
 		else
 		{
-			$this->old_cat = $data['cat'];
+			$this->old_cat = &$data['cat'];
 		}
 
-		# ID, dane
+		//ID, dane
 		$this->id = $id;
 		$this->data =& $data;
 
-		# Dane istniej±?
+		//Dane istniej±?
 		if($this->old_cat !== null)
 		{
 			$GLOBALS['db']->beginTransaction();
 		}
 		else
 		{
-			$this->error = $GLOBALS['lang']['noex']; return false;
+			throw new Exception($GLOBALS['lang']['noex']);
 		}
-	}
 
-	# Prawa
-	function hasRight($char, $u=UID)
-	{
-		# Gdy b³±d obecny
-		if($this->error !==null ) return false;
-
-		# Prawa
-		if(!Admit($char))
+		//Prawa do kategorii
+		if(!Admit($this->data['cat'], 'CAT') || ($this->data['cat'] != $this->old_cat && !Admit($this->old_cat, 'CAT')))
 		{
-			if(!Admit($this->data['cat'], 'CAT', $u) || ($this->data['cat'] != $this->old_cat && !Admit($this->old_cat, 'CAT', $u)))
-			{
-				$this->error = $GLOBALS['lang']['nor'];
-				return false; //Skoñcz
-			}
+			throw new Exception($GLOBALS['lang']['nor']); //Skoñcz
 		}
-		return true;
 	}
 
-	# Koniec
+	//Koniec
 	function apply()
 	{
-		# B³±d?
-		if($this->error !== null) { $GLOBALS['db']->rollBack(); return false; }
-
-		# Ilo¶æ pozycji w kategorii
+		//Ilo¶æ pozycji w kategorii
 		if($this->id)
 		{
 			if($this->old_cat != $this->data['cat'])
@@ -86,14 +70,7 @@ class Saver
 		}
 		catch(PDOException $e)
 		{
-			$this->error = $e->errorInfo[0];
+			throw new Exception($e->errorInfo[2]);
 		}
 	}
-
-	//Poka¿ b³±d
-	function showError()
-	{
-		$GLOBALS['content'] -> info($this->error);
-	}
 }
-?>

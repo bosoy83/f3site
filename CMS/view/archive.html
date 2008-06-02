@@ -1,10 +1,8 @@
-<table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h" colspan="2"><b>{this->title}</b></td>
-</tr>
-
 <!-- IF newslist -->
+
+<h2>{this->title}</h2>
+<table cellspacing="1" class="tb">
+<tbody>
 <tr>
 	<th>{lang.title}</th>
 	<th>{lang.added}</th>
@@ -17,19 +15,18 @@
 </tr>
 <!-- STOP -->
 
+</tbody>
+</table>
+
 <!-- ELSE -->
 
-<tr>
-	<td class="txt" style="line-height: 150%; text-align: center">
+<h2>{this->title}</h2>
+<div class="box" style="line-height: 150%; text-align: center">
 	
 	<!-- START dates -->
 		<!-- IF url --><a href="{url}">{title}</a><br /><!-- ELSE --><br /><!-- END -->
 	<!-- STOP -->
 
-	</td>
-</tr>
+</div>
 
 <!-- END -->
-
-</tbody>
-</table>

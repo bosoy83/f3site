@@ -1,60 +1,51 @@
 <?php
 if(iCMS!=1) exit;
-CatPath(0,$lang['imgs']);
-CatStart();
 
 #Odczyt
-$res=$db->query('SELECT ID,name,date,filem FROM '.PRE.'imgs WHERE cat='.$d.' &&
-	access=1 ORDER BY priority, '.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['inp']);
+$res = $db->query('SELECT ID,name,date,filem FROM '.PRE.'imgs WHERE '.$cats.
+	' AND access=1 ORDER BY priority, '.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['inp']);
 
-OpenBox($cat['name'],1);
-$ile=0;
+$res->setFetchMode(3);
+$total = 0;
+$img = array();
 
 #Lista
-echo '<tr><td><table style="width: 100%" cellpadding="5"><tbody align="center">';
-$if=1;
-
-foreach($res as $img)
+foreach($res as $x)
 {
-	#<tr>
-	if($if==1)
-	{
-		echo '<tr>';
-	}
+	$img[] = array(
+		'num'   => ++$total,
+		'title' => $x[1],
+		'src'   => $x[3],
+		'url'   => MOD_REWRITE ? 'img/'.$x[0] : '?co=img&amp;id='.$x[0],
+		'date'  => genDate($x[2], false)
+	);
 
-	#Obrazek
-	echo '<td>
-		<a href="?co=img&amp;id='.$img['ID'].'"><img src="'.$img['filem'].'" alt="[click]" /></a>
-		<br />
-		<b>'.$img['name'].'</b>
-		<br />
-		('.genDate($img['date']).')
-	</td>';
-	
-	#</tr>
+	/*</tr>
   if($if==$cfg['imgsRow'] || $if==$cfg['inp'])
   {
 		echo '</tr>';
 		$if=1;
   }
-	else { ++$if; }
-
-	++$ile;
+	else { ++$if; }*/
 }
 
 #Brak?
-if($ile==0)
-	echo '<tr><td align="center">'.$lang['noc'].'</td></tr>';
-
-echo '</tbody></table></td></tr>';
+if($total === 0): $content->info($lang['noc']); return 1; endif;
 
 #Strony
-if($cat['num']>$ile)
+if($cat['num'] > $total)
 {
-	echo '<tr><td align="center" colspan="2">'.Pages($page,$cat['num'],$cfg['inp'],'?d='.$d,2).'</td></tr>';
+	$pages = Pages($page,$cat['num'],$cfg['np'], MOD_REWRITE ? '/'.$d : '?d='.$d);
 }
-CloseBox();
+else $pages = null;
 
-$res=null;
-unset($ile,$img,$if);
-?>
+#Do szablonu
+$content->file = 'cat_images';
+$content->data += array(
+	'pages' => &$pages,
+	'img'   => &$img,
+	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=link' : null,
+	'cat_type'=> $lang['imgs']
+);
+
+unset($res,$total,$x);

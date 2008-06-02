@@ -13,11 +13,9 @@ function Del(id)
 //]]>
 </script>
 
+<h2>{lang.catman}</h2>
 <table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h" colspan="5"><b>{lang.catman}</b></td>
-</tr>
+<tbody>
 <tr>
 	<th>{lang.name}</th>
 	<th style="width: 30px">ID</th>
@@ -33,7 +31,7 @@ function Del(id)
 		<a href="{url}">{name}</a> ({num})
 	</td>
 	<td align="center">{id}</td>
-	<td align="center"></td>
+	<td align="center">{disp}</td>
 	<td align="center">{type}</td>
 	<td align="center">
 		<a href="adm.php?a=editCat&amp;id={id}">{lang.edit}</a>

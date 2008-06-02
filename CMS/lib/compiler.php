@@ -47,9 +47,6 @@ class Compiler
 			throw new Exception('Template does not exist.');
 		}
 
-		#Gdy istniej± formularze
-		if($pos = strpos($this->data, '<form') !== false) $this->forms($pos);
-
 		#Wyrzuæ PHP, je¶li w³±czono (code taken from PhpBB 3 - GPL v2 forum)
 		if($this->removePHP)
 		{
@@ -58,6 +55,9 @@ class Compiler
 				'#<script\s+language\s*=\s*(["\']?)php\1\s*>.*?</script\s*>#s',
 				'#<\?php(?:\r\n?|[ \n\t]).*?\?>#s'), '', $this->data);
 		}
+
+		#Gdy istniej± formularze
+		if(($pos = strpos($this->data, '<form')) !== false) $this->forms($pos);
 
 		#Sta³e predefiniowane i niepotrzebne znaki
 		$in  = array(
@@ -117,7 +117,7 @@ class Compiler
 		if($c1 != $c2 OR $c3 > $c1) { throw new Exception('IF condition is not closed.'); }
 
 		#Optymalizacja otwaræ PHP
-		$this->data = str_replace( array('?><?php', '?><?=', "?>\n<?php"), ' ', $this->data);
+		$this->data = str_replace( array('?><?php', '?><?=', "?>\n<?php"), array('','echo ',''), $this->data);
 
 		#Wyrzuæ komentarze HTML
 		$this->data = preg_replace('#\<!--*--\>#', '', $this->data);
@@ -241,7 +241,7 @@ class Compiler
 					$var = f3var($attr['f3:var']);
 					array_pop($list[0]);
 				}
-				elseif($array && isset($attr['name']))
+				elseif($array && isset($attr['name']) && strpos($attr['name'],'[')===false)
 				{
 					$var = '$'.$array[1].'[\''.$attr['name'].'\']';
 				}
@@ -250,16 +250,16 @@ class Compiler
 				#Pola CHECKBOX
 				if($attr['type']==='checkbox' && !$isset)
 				{
-					$out[] = '<input'.join(',',$list[0]).'<?php if('.$var.') echo \' checked="checked"\'?> />';
+					$out[] = '<input'.join('',$list[0]).'<?php if('.$var.') echo \' checked="checked"\'?> />';
 				}
 				elseif($attr['type']==='checkbox')
 				{
-					$out[] = '<input'.join(',',$list[0]).'<?php if(isset('.$var.')) echo \' checked="checked"\'?> />';
+					$out[] = '<input'.join('',$list[0]).'<?php if(isset('.$var.')) echo \' checked="checked"\'?> />';
 				}
 				#Pola RADIO
 				else
 				{
-					$out[] = '<input'.join(',',$list[0]).'<?php if('.$var.'=='.((is_numeric($attr['value'])) ? $attr['value'] : '\''.$attr['value'].'\'').') echo \'checked="checked"\'?> />';
+					$out[] = '<input'.join('',$list[0]).'<?php if('.$var.'=='.((is_numeric($attr['value'])) ? $attr['value'] : '\''.$attr['value'].'\'').') echo \'checked="checked"\'?> />';
 				}
 				$in[] = $tag;
 			}
@@ -270,7 +270,7 @@ class Compiler
 			{
 				if(strpos($tag[2], 'f3:var'))
 				{
-					$var = f3var(preg_replace('/f3:var="([A-Za-z0-9_].*?)"/i', '\\1', $tag[2]));
+					$var = f3var(preg_replace('/f3:var="([A-Za-z0-9_.].*?)"/i', '\\1', $tag[2]));
 				}
 				elseif($array)
 				{
@@ -289,14 +289,6 @@ class Compiler
 					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\1</option>'
 				), $tag[4]) . '</select>';
 			}
-		}
-		else
-		{
-			/* $form = preg_replace(
-				'#\<input(.*?)type="checkbox"(.*?)f3:var="([A-Z])+"(.*?)>#i',
-				'<input//1type="checkbox"//2<?php if($//3) echo \' checked="checked"\'?>>', $form);
-			NA RAZIE NIE DZIA£A */
-			//$form = preg_replace_callback('#<select name="[[:alnum:]]+">(.*?)</select>#si', 'RegSelect', $form);
 		}
 		$this->data = substr_replace($this->data, str_replace($in, $out, $form), $pos, $end);
 	}

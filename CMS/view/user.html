@@ -1,8 +1,6 @@
+<h2>{u.login}</h2>
 <table cellpadding="4" cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td colspan="2" class="h"><b>{u.login}</b></td>
-</tr>
+<tbody>
 <tr>
 	<td style="width: 30%"><b>{lang.joined}:</b></td>
 	<td>{join_date}</td>
@@ -13,7 +11,7 @@
 </tr>
 <tr>
 	<td><b>{lang.ufrom}</b></td>
-	<td id="testx">{u.city}</td>
+	<td>{u.city}</td>
 </tr>
 <tr>
 	<td><b>{lang.wwwp}:</b></td>
@@ -21,7 +19,7 @@
 </tr>
 <tr>
  <td><b>{lang.mail}:</b></td>
- <td><!-- IF u.mvis --><a href="{u.mail}">{u.mail}</a><!-- ELSE -->{lang.private}<!-- END --></td>
+ <td><!-- IF u.mvis --><a href="mailto:{u.mail}">{u.mail}</a><!-- ELSE -->{lang.private}<!-- END --></td>
 </tr>
 <tr>
 	<td><b>Gadu-Gadu:</b></td>
@@ -79,14 +77,6 @@
 </table>
 
 <!-- IF u.about -->
-<table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h"><b>{lang.abouty}</b></td>
-</tr>
-<tr>
-	<td class="txt">{u.about}</td>
-</tr>
-</tbody>
-</table>
+<h2>{lang.abouty}</h2>
+<div class="box">{u.about}</div>
 <!-- END -->

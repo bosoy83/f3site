@@ -20,28 +20,19 @@
 <!-- END -->
 
 <!-- IF cat.text OR subcats -->
-<table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h" colspan="2"><b>{cat.name}</b></td>
-</tr>
-<tr>
-	<td class="txt">
+<h2>{cat.name}</h2>
+<div class="box">
 
-	<!-- IF cat.text -->
-		{nl2br: cat.text}
-	<!-- END -->
+<!-- IF cat.text -->
+	{nl2br: cat.text}
+<!-- END -->
 
 	<!-- IF subcats -->
-		<ul>
-			<!-- START subcats -->
-			<li><a href="{url}">{name}</a> ({nums})</li>
-			<!-- STOP -->
-		</ul>
+	<ul class="cats">
+		<!-- START subcats -->
+		<li><a href="{url}">{name}</a> ({num})</li>
+		<!-- STOP -->
+	</ul>
 	<!-- END -->
-	</td>
-</tr>
-
-</tbody>
-</table>
+</div>
 <!-- END -->

@@ -9,31 +9,22 @@
 	<a href="?co=cats&amp;id=1">{lang.arts}</a> &raquo; {path}
 </div>
 
-<table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h"><b>{art.date} - {art.name}</b></td>
-</tr>
-<tr>
-	<td class="txt">
+<h2>{art.date} - {art.name}</h2>
+<div class="box">
 	{art.text}
-	
-	<!-- IF pages --><br /><br /><div class="pages">{pages}</div><!-- END -->
 
-	</td>
-</tr>
-<tr>
-	<td class="eth" style="font-weight: normal">
+	<!-- IF pages --><div class="pages" style="margin-top: 12px">{pages}</div><!-- END -->
 
-		<!-- IF art.rate -->
+	<div style="margin-top: 12px">
+
+	<!-- IF art.rate -->
 		<span style="float: right; width: 150px">{lang.rate}: {art.rate}</span>
-		<!-- END -->
+	<!-- END -->
 
-		<!-- IF art.ent -->
+	<!-- IF art.ent -->
 		<span style="float: left; width: 150px">{lang.disps}: {art.ent}</span>
-		<!-- END -->
+	<!-- END -->
 
 		<span style="width: 150px">{lang.wrote}: {art.author}</span>
-	</td>
-</tr>
-</tbody></table>
+	</div>
+</div>

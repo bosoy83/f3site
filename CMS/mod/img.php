@@ -1,37 +1,50 @@
 <?php
-if(CONTENT!=1) exit;
+if(iCMS!=1) exit;
+require './cfg/content.php';
 
-#Prawa
-//CatPath(1, $lang['imgs'], ((Admit('I'))?'<img src="img/icon/edit.png" alt="E" />
-//<a href="?co=edit&amp;act=img&amp;id='.$id.'">'.$lang['edit'].'</a>':''));
+#Pobierz dane
+$res = $db->query('SELECT i.*,c.opt as catOpt FROM '.PRE.'imgs i LEFT JOIN '.
+	PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$id);
+
+#Do tablicy
+if(!$img = $res->fetch(2)) return;  $res = null;
 
 #Rozm.
-$xs=explode('||',$content['size']);
+$size = strpos($img['size'], '||') ? explode('||', $img['size']) : null;
 
-#Ocena
-$rate=''; //P”èNIEJ!!!!!!!
-
-#Typ
-if($content['type']==1)
+#Animacja?
+if($img['type'] !== 1)
 {
-	$img='<a href="'.$content['file'].'"><img src="'.$content['file'].'" alt="[IMAGE]"'.(($xs[0])?' style="width: '.$xs[0].'px; height: '.$xs[1].'px"':'').'" /></a>';
+	include './lib/movie.php';
+	if($img['type'] == 2)
+	{
+		$movie = Flash($img['file'], $size[0], $size[1]);
+	}
+	else
+	{
+		$movie = Movie($img['file'], $size[0], $size[1]);
+	}
 }
-else
-{
-	include('./lib/movie.php');
-}
 
-$content['dsc']=nl2br($content['dsc']);
-$date=genDate($content['date']);
+#Opis, data, autor
+$img['dsc'] = nl2br($img['dsc']);
+$img['date'] = genDate($img['date']);
+$img['author'] = Autor($img['author']);
 
-require(VIEW_DIR.'img.php');
-
-unset($content,$img,$rate,$date,$xs);
+#Moøe edytowaÊ?
+$img['edit'] = Admit($img['cat'],'CAT') ? '?co=edit&amp;act=img&amp;id='.$id : false;
 
 #Komentarze
-if($cfg['icomm']==1 && $cat['opt']&2)
+if($cfg['icomm']==1 && $img['catOpt']&2)
 {
 	define('CT','3');
-	require('lib/comm.php');
+	//require('lib/comm.php');
 }
-?>
+
+#Do szablonu
+$content->data = array(
+	'img'  => &$img,
+	'size' => &$size,
+	'movie'=> $img['type'] === 1 ? true : false,
+	'path' => CatPath($img['cat']),
+);

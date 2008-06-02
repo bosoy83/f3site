@@ -1,8 +1,6 @@
+<h2>{lang.admins}</h2>
 <table cellspacing="1" class="tb">
-<tbody class="bg">
-<tr>
-	<td class="h" colspan="5"><b>{lang.admins}</b></td>
-</tr>
+<tbody>
 <tr>
 	<th>{lang.login}</th>
 	<th style="width: 40%">{lang.privs}</th>
@@ -14,7 +12,9 @@
 	<td><a href="{url}">{login}</a></td>
 	<td align="center">{rights}</td>
 	<td align="center">
+		<!-- IF allow -->
 		<a href="{url1}">{lang.privs}</a> &middot; <a href="{url2}">{lang.profile}</a>
+		<!-- END -->
 	</td>
 </tr>
 <!-- STOP -->

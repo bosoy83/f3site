@@ -165,11 +165,11 @@ CREATE TABLE IF NOT EXISTS `{pre}menu` (
 `value` text);
 
 CREATE TABLE IF NOT EXISTS `{pre}mitems` (
-`seq` int(11) NOT NULL,
 `menu` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
 `url` varchar(255) NOT NULL,
-`nw` tinyint(1) NOT NULL);
+`nw` tinyint(1) NOT NULL DEFAULT 0,
+`seq` tinyint(2) NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `{pre}news` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

@@ -1,70 +1,54 @@
 <?php
 if(iCMSa!=1 || !Admit('CFG')) exit;
-require(LANG_DIR.'adm_conf.php');
+require LANG_DIR.'adm_conf.php';
+
+#Tytu³ strony
+$content->title = $lang['aw_t'];
 
 #Zapis
 if($_POST)
 {
-	$ile=count($_POST['x_1']);
-	$list1=Array();
-	$list2=Array();
+	$num = count($_POST['bad']);
+	$words1 = Array();
+	$words2 = Array();
 
-	for($i=0;$i<$ile;++$i)
+	for($i=0; $i<$num; ++$i)
 	{
-		if(!isset($_POST['x_del'][$i]) && !empty($_POST['x_1'][$i]))
-		{
-			$list1[]=htmlspecialchars(substr($_POST['x_1'][$i],0,50));
-			$list2[]=substr($_POST['x_2'][$i],0,50);
-		}
+		$words1[] = substr($_POST['bad'][$i],0,50);
+		$words2[] = substr($_POST['good'][$i],0,50);
 	}
 
 	#Klasa zapisu do pliku PHP
 	require('./lib/config.php');
-	$f=new Config('words');
-	$f->add('words1',$list1);
-	$f->add('words2',$list2);
-
-	if($f->save()) $content->info($lang['saved']);
+	try
+	{
+		$f = new Config('words');
+		$f->add('words1', $words1);
+		$f->add('words2', $words2);
+		$f->save();
+		$content->info($lang['saved']);
+	}
+	catch(Exception $e)
+	{
+		$content->info($lang['error'].$e);
+	}
 }
 
-#Form
-include('./cfg/words.php');
-$ile=count($words1);
+#Odczyt danych
+else
+{
+	include './cfg/words.php';
+	$num  = count($words1);
+}
+
+#FORM
+$word = array();
+for($i=0; $i<$num; ++$i)
+{
+	$word[] = array(Clean($words1[$i]), Clean($words2[$i]));
+}
+
+#Do szablonu
+$content->addScript('lib/forms.js');
 $content->info($lang['aw_i'].(($cfg['censor']==1)?'':'<br />'.$lang['aw_f']));
-?>
-<script type="text/javascript">
-//<![CDATA[
-var ile=<?= $ile ?>;
-function Dodaj()
-{
-	document.getElementById("itm"+ile).innerHTML='<div style="margin: 5px"><input maxlength="50" name="x_1['+ile+']" /> <?= $lang['aw_c'] ?> <input maxlength="50" name="x_2['+ile+']" /> <input type="checkbox" name="x_del['+ile+']" /> <?= $lang['del'] ?></div><div id="itm'+(ile+1)+'"></div>';
-	++ile;
-}
-//]]>
-</script>
-<form action="?a=wordrep" method="post">
-<?php
-OpenBox($lang['aw_t'],1);
-echo '<tr><td align="center">';
-
-#Lista
-for($i=0;$i<$ile;$i++)
-{
-	echo '<div style="margin: 5px">
-	<input maxlength="50" value="'.$words1[$i].'" name="x_1['.$i.']" /> '.$lang['aw_c'].'
-	<input maxlength="50" value="'.htmlspecialchars($words2[$i]).'" name="x_2['.$i.']" />
-	<input type="checkbox" name="x_del['.$i.']" /> '.$lang['del'].'
-</div>';
-}
-echo '<div id="itm'.$ile.'" align="center"></div>
-	<div style="padding: 5px">
-		<a href="javascript:Dodaj()"><b>'.$lang['add'].'</b></a>
-	</div>
-	</td>
-</tr>
-<tr>
-	<td class="eth"><input type="submit" value="'.$lang['save'].'" /></td>
-</tr>';
-CloseBox();
-?>
-</form>
+$content->data['word'] =& $word;

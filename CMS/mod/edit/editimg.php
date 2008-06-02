@@ -4,53 +4,53 @@ if(EC!=1) exit;
 #Zapis?
 if($_POST)
 {
-	$img=array(
-	'cat' => (int)$_POST['x_c'],
-	'name' => Clean($_POST['x_n']),
-	'author'=> Clean($_POST['x_au']),
-	'dsc' 	=> Clean($_POST['x_d']),
-	'file'	=> Clean($_POST['x_f']),
-	'filem' => Clean($_POST['x_fm']),
-	'access'=> ((isset($_POST['x_a'])) ? 1 : 0),
-	'priority'=> (int)$_POST['x_p'],
-	'type'	=> (int)$_POST['x_t'],
-	'size'  => (($_POST['x_s1']) ? $_POST['x_s1'].'|'.$_POST['x_s2'] : '') );
+	$img = array(
+	'cat'   => (int)$_POST['cat'],
+	'name'  => Clean($_POST['name']),
+	'author'=> Clean($_POST['author']),
+	'file'	=> Clean($_POST['file']),
+	'filem' => Clean($_POST['fm']),
+	'access'=> isset($_POST['access']) ? 1 : 0,
+	'priority'=> (int)$_POST['priority'],
+	'type'	=> (int)$_POST['type'],
+	'dsc' 	=> &$_POST['dsc'],
+	'size'  => $_POST['s1'] ? $_POST['s1'].'|'.$_POST['s2'] : '');
 
-	$e=new Saver($img,$id,'imgs');
-
-	if($e->hasRight('I'))
+	try
 	{
+		$e = new Saver($img, $id, 'imgs');
+
 		#Zapytanie
 		if($id)
 		{
-			$q=$db->prepare('UPDATE '.PRE.'imgs SET cat=:cat, name=:name, author=:author,
+			$q = $db->prepare('UPDATE '.PRE.'imgs SET cat=:cat, name=:name, author=:author,
 				dsc=:dsc, file=:file, filem=:filem, access=:access, priority=:priority,
 				type=:type, size=:size WHERE ID='.$id);
 		}
 		else
 		{
-			$q=$db->prepare('INSERT INTO '.PRE.'imgs (cat,name,dsc,type,date,priority,
+			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat,name,dsc,type,date,priority,
 				access,author,file,filem,size) VALUES (:cat,:name,:dsc,:type,'.DATETIME.',
 				:priority,:access,:author,:file,:filem,:size)');
 		}
 		$q->execute($img);
 
 		#Nowy ID
-		$nid = $id ? $id : $db->lastInsertId();
+		if(!$id) $id = $db->lastInsertId();
 
 		#OK?
-		if($e->apply())
-		{
-			$content->info( $lang['saved'], array(
-				'?co=edit&amp;act=img' => $lang['add3'],
-				'?co=edit&amp;act=3'   => $lang['imgs'],
-				'?co=img&amp;id='.$nid => $lang['seeit']));
-			unset($e,$img);
-			return;
-		}
+		$e->apply();
+		$content->info( $lang['saved'], array(
+			'?co=edit&amp;act=img' => $lang['add3'],
+			'?co=list&amp;act=3'   => $lang['imgs'],
+			'?co=img&amp;id='.$id  => $img['name']));
+		unset($e,$img);
+		return 1;
 	}
-	#B³±d?
-	$e->showError();
+	catch(Exception $e)
+	{
+		$content->info($e->getMessage());
+	}
 }
 
 #Odczyt
@@ -60,14 +60,14 @@ else
 	{
 		$img=$db->query('SELECT * FROM '.PRE.'imgs WHERE ID='.$id)->fetch(2);
 
-		if(!$img || !Admit('I') || !Admit($img['cat'],'CAT',$img['author']))
+		if(!$img || !Admit($img['cat'],'CAT',$img['author']))
 		{
 			return;
 		}
 	}
 	else
 	{
-		$img=array('cat'=>$lastCat,'name'=>'','dsc'=>'','priority'=>2,'file'=>'img/',
+		$img = array('cat'=>$lastCat,'name'=>'','dsc'=>'','priority'=>2,'file'=>'img/',
 			'filem'=>'img/','size'=>'','author'=>UID,'access'=>1,'type'=>1);
 	}
 }
@@ -85,5 +85,6 @@ $content->data = array(
 	'img'  => &$img,
 	'url'  => 'index.php?co=edit&amp;act=img&amp;id='.$id,
 	'cats' => Slaves(3,$img['cat'],'I'),
-	'size' => $img['size'] ? explode('|',$img['size']) : array('','')
+	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
+	'fileman' => Admit('FM') ? true : false
 );

@@ -27,13 +27,14 @@ function UpdateCatPath($cat)
 	file_put_contents('./cache/cat'.$cat[0].'.php', $out, 2);
 
 	#Popraw strukturê tak¿e podkategoriom
+	/*
 	$res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE lft>'.$cat[3].' AND rgt<'.$cat[4]);
 	$res ->setFetchMode(3);
 
 	foreach($res as $c)
 	{
 		$out.= ' &raquo; <a href="'.((MOD_REWRITE) ? '/cat/'.$c[0] : '?co=cats&amp;id='.$c[0]).'">'.$c[1].'</a>';
-	}
+	}*/
 }
 
 #Zmieñ iloœæ pozycji
@@ -169,7 +170,7 @@ function RTR($parent,$left)
 function RebuildTree()
 {
 	$left=1;
-	foreach($GLOBALS['db']->query('SELECT ID FROM '.PRE.'cats WHERE sc=0 ORDER BY name') as $x)
+	foreach($GLOBALS['db']->query('SELECT ID FROM '.PRE.'cats WHERE sc=0 ORDER BY type,name') as $x)
 	{
 		$left=RTR($x['ID'],$left);
 	}

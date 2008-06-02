@@ -1,5 +1,5 @@
 <?php
-$time1=microtime();
+$time1=microtime(1);
 
 #J±dro
 require('kernel.php');
@@ -53,21 +53,21 @@ if(LOGD!==1 || defined('MOD'))
 #Modu³
 if(isset($_GET['a']))
 {
-	$a = str_replace('/', '', $_GET['a']);
-	$a = str_replace('.', '', $a);
-	if(file_exists('./admin/'.$a.'.php'))
+	$A = str_replace('/', '', $_GET['a']);
+	$A = str_replace('.', '', $A);
+	if(file_exists('./admin/'.$A.'.php'))
 	{
-		include './admin/'.$a.'.php';
+		include './admin/'.$A.'.php';
 	}
-	elseif(file_exists('./plugins/'.$a.'/admin.php'))
+	elseif(file_exists('./plugins/'.$A.'/admin.php'))
 	{
-		include './plugins/'.$a.'/admin.php';
+		include './plugins/'.$A.'/admin.php';
 	}
 	else include './admin/summary.php';
 }
 else
 {
-	$a = 'summary';
+	$A = 'summary';
 	include './admin/summary.php';
 }
 
@@ -131,11 +131,12 @@ else
 }
 
 #Szablon i tytu³
-if(!$content->file) $content->file = 'admin/'.$a;
-if(!$content->title && isset($lang[$a])) $content->title = $lang[$a];
+if(!$content->file) $content->file = 'admin/'.$A;
+if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
 #Skórka - admin
 require VIEW_DIR.'admin.html';
 
 //DO USUNIÊCIAAAAAAAAAAAAA!!!!!!!
-echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',microtime()-$time1.' s, do³±czonych plików: '.count(get_included_files());?>
+$time2=microtime(1);
+echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());?>

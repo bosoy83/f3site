@@ -4,26 +4,25 @@ Header('Cache-Control: public');
 Header('Content-type: text/html; charset=iso-8859-2');
 
 #Jêzyk
-$nlang='en';
-foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $l)
+$nlang = 'en';
+foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 {
-	if($l)
+	if(isset($x[3]))
 	{
-		$l=str_replace( array('\'','"','/'), '', $l);
-		if(strpos($l,';')) $l=substr($l,0,strpos($l,';'));
-		if(file_exists('./'.$l.'.php'))
-		{
-			$nlang=$l;
-		}
+		$x = $x[1].$x[2];
+	}
+	if(ctype_alnum($x) && file_exists('./'.$x.'.php'))
+	{
+		$nlang = $x; break;
 	}
 }
-unset($l);
-$lang=file('./'.$nlang.'.php');
+unset($x);
+$lang = file('./'.$nlang.'.php');
 
 #Sterowniki PDO
-$dr=PDO::getAvailableDrivers();
-$my=in_array('mysql',$dr);
-$li=in_array('sqlite',$dr);
+$dr = PDO::getAvailableDrivers();
+$my = in_array('mysql', $dr);
+$li = in_array('sqlite',$dr);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -40,54 +39,54 @@ $li=in_array('sqlite',$dr);
 if(!$_POST && !$_GET)
 {
 	#B³êdy
-	$not=0;
-	$error=array();
+	$not = 0;
+	$error = array();
 
 	#Wersja PHP
 	if(version_compare('5.2',PHP_VERSION,'<='))
-		$php='<span>'.PHP_VERSION.'</span>';
+		$php = '<span>'.PHP_VERSION.'</span>';
 	else {
-		$php='<del>'.PHP_VERSION.'</del>';
-		$not=1;
+		$php = '<del>'.PHP_VERSION.'</del>';
+		$not = 1;
 	}
 
 	#PDO
 	if(extension_loaded('pdo'))
 	{
 		if($li && $my)
-			$pdo='<span>OK</span>';
+			$pdo = '<span>OK</span>';
 		elseif($my)
-			$pdo='<span>MySQL</span>';
+			$pdo = '<span>MySQL</span>';
 		elseif($li)
-			$pdo='<span>SQLite</span>';
+			$pdo = '<span>SQLite</span>';
 		else {
-			$pdo='<del>'.$lang[10].'</del>';
-			$not=1;
+			$pdo = '<del>'.$lang[10].'</del>';
+			$not = 1;
 		}
 	}
-	else { $pdo='<del>'.$lang[5].'</del>'; $not=1; }
+	else { $pdo = '<del>'.$lang[5].'</del>'; $not = 1; }
 
 	#RegGl.
 	if(ini_get('register_globals'))
 	{
-		$rg='<del>On</del>'; $error[]=$lang[8];
+		$rg = '<del>On</del>'; $error[] = $lang[8];
 	}
-	else $rg='<span>OK</span>';
+	else $rg = '<span>OK</span>';
 
 	#MagicQuotes
 	if(get_magic_quotes_gpc())
 	{
-		$mq='<del>On</del>'; $error[]=$lang[9];
+		$mq = '<del>On</del>'; $error[] = $lang[9];
 	}
-	else $mq='<span>OK</span>';
+	else $mq = '<span>OK</span>';
 
 	#CHMOD
 	if(is_writable('./../cache') && is_writable('./../cfg') && is_writable('./../cfg/db.php'))
-		$ch='<span>cfg + cache</span>';
+		$ch = '<span>cfg + cache</span>';
 	else {
-		$ch='<del>cfg + cache</span>';
-		$error[]=$lang[12];
-		$not=1;
+		$ch = '<del>cfg + cache</span>';
+		$error[] = $lang[12];
+		$not = 1;
 	}
 	?>
 	<table cellspacing="1"><tbody>
@@ -104,7 +103,7 @@ if(!$_POST && !$_GET)
 		<tr><td colspan="2" align="left">
 	<?php
 	#B³êdy?
-	if($not===1) $error[]=$lang[13];
+	if($not === 1) $error[] = $lang[13];
 	if($error)
 	{
 		echo '<ul><li>'.join('</li><li>',$error).'</li></ul>';
@@ -118,7 +117,7 @@ if(!$_POST && !$_GET)
 #FORM
 elseif(isset($_GET['next']))
 {
-	require('./form.php');
+	require './form.php';
 }
 
 #INSTALUJ
@@ -133,7 +132,7 @@ if($_POST)
 
 	#Rozpakuj POST i do³±cz klasê zapisu do .php
 	extract($_POST);
-	require('./../lib/config.php');
+	require './../lib/config.php';
 
 	#Has³o admina
 	if($u_pass!=$u_pass2) exit($lang[49]);
@@ -144,11 +143,11 @@ if($_POST)
 	{
 		if($db_db=='sqlite')
 		{
-			$db=new PDO('sqlite:../'.$db_d);
+			$db = new PDO('sqlite:../'.$db_d);
 		}
 		else
 		{
-			$db=new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
+			$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
 			$db->exec('SET CHARACTER SET "latin2"');
 		}
 		$db->setAttribute(3,2); #ERRMODE: Exceptions
@@ -191,17 +190,17 @@ if($_POST)
 
 	$db->exec($i.'menu VALUES (1,1,"Menu",1,1,3,0,"")');
 	$db->exec($i.'menu VALUES (2,2,"'.$lang[39].'",1,2,2,0,"mod/panels/user.php")');
-	$db->exec($i.'menu VALUES (3,3,"'.$lang[40].'",1,2,1,0,"Coming soon...")');
+	$db->exec($i.'menu VALUES (3,3,"'.$lang[40].'",1,2,2,0,"mod/panels/poll.php")');
 	$db->exec($i.'menu VALUES (4,4,"'.$lang[41].'",1,1,2,0,"mod/panels/msets.php")');
 	$db->exec($i.'menu VALUES (5,5,"'.$lang[42].'",1,2,2,0,"mod/panels/online.php")');
 	$db->exec($i.'menu VALUES (6,6,"'.$lang[54].'",1,2,1,0,"Coming soon...")');
 
-	$db->exec($i.'mitems VALUES (1,1,"'.$lang[36].'","index.php",0)');
-	$db->exec($i.'mitems VALUES (2,1,"'.$lang[43].'","?co=arch",0)');
-	$db->exec($i.'mitems VALUES (3,1,"'.$lang[44].'","?co=cats&amp;id=4",0)');
-	$db->exec($i.'mitems VALUES (4,1,"'.$lang[45].'","?co=cats&amp;id=3",0)');
-	$db->exec($i.'mitems VALUES (6,1,"'.$lang[37].'","?co=users",0)');
-	$db->exec($i.'mitems VALUES (7,1,"'.$lang[46].'","?co=groups",0)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[36].'","index.php",0,1)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[43].'","?co=arch",0,2)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[44].'","?co=cats&amp;id=4",0,3)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[45].'","?co=cats&amp;id=3",0,4)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[37].'","?co=users",0,5)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[46].'","?co=groups",0,6)');
 
 	$newpass=md5($u_pass);
 	$db->exec($i.'users VALUES (1,'.$db->quote(trim(htmlspecialchars($u_login))).',"'.$newpass.'","",2,2,4,"","'.strftime('%Y-%m-%d').'","",0,"",1,"","","","","",null)');

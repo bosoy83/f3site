@@ -13,7 +13,7 @@ function Del(id)
 -->
 </script>
 
-<form method="post" action="?a=nav">
+<form method="post" action="?a=menu">
 <h2>{lang.navs}</h2>
 
 <table cellspacing="1" class="tb">
@@ -30,18 +30,18 @@ function Del(id)
 <tr>
 	<td id="i{id}">{title}</td>
 	<td align="center">
-		<input name="m_s[{id}]" onblur="if(value=='') value=0" size="1" value="{seq}" />
+		<input name="seq[{id}]" onblur="if(value=='') value=0" size="1" value="{seq}" />
 	</td>
 	<td align="center">
-		<select name="m_vis[{id}]">
+		<select name="vis[{id}]" f3:var="i1.disp">
 			<option value="1">{lang.on2}</option>
 			{langs}
 			<option value="2">{lang.off2}</option>
 		</select>
 	</td>
 	<td align="center">
-		&larr;<input type="radio" value="1" name="m_page[{id}]" f3:var="i1.page" />
-		&nbsp;<input type="radio" value="2" name="m_page[{id}]" f3:var="i1.page" /> &rarr;
+		&larr;<input type="radio" value="1" name="page[{id}]" f3:var="i1.page" />
+		&nbsp;<input type="radio" value="2" name="page[{id}]" f3:var="i1.page" /> &rarr;
 	</td>
 	<td align="center">
 		<a href="adm.php?a=editMenu&amp;id={id}">{lang.edit}</a> &middot;

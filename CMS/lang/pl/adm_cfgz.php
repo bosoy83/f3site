@@ -9,6 +9,8 @@ $lang+=Array(
 'catStr'=>'Wy¶wietlaæ strukturê kategorii',
 'grate'=>'Ocenianie przez niezalogowanych',
 'grate2'=>'Je¶li opcja jest w³±czona, niezalogowani u¿ytkownicy bêd± mogli oceniaæ zawarto¶æ.',
+'goCat'=>'Przekieruj do kategorii',
+'goCat2'=>'Gdy jest dostêpna tylko 1 g³ówna kategoria.',
 
 'ratesOn'=>'Ocenianie w³±czone',
 'artDisp'=>'Zliczaæ ilo¶æ wy¶wietleñ',

@@ -1,6 +1,6 @@
 <?php /* Pobierz plik, przejdü do adresu... - ze zliczaniem */
-require('./kernel.php');
-require('./cfg/content.php');
+require './kernel.php';
+require './cfg/content.php';
 
 $mod = key($_GET);
 $id  = (int)$_GET[$mod];
@@ -8,15 +8,29 @@ $id  = (int)$_GET[$mod];
 #LINK
 if($mod === 'link')
 {
-	$link = $db->query('SELECT l.cat,l.adr FROM '.PRE.'links l LEFT JOIN '.PRE.'cats c ON l.cat=c.ID WHERE l.access=1 AND c.access!=3 AND l.ID='.$id) -> fetch(3); //NUM
+	$url = $db->query('SELECT l.adr FROM '.PRE.'links l LEFT JOIN '.PRE.'cats c ON l.cat=c.ID WHERE l.access=1 AND c.access!=3 AND l.ID='.$id) -> fetchColumn();
 
-	if(!$link) $content->message($lang['noex']);
+	if(!$url) $content->message($lang['noex']);
 
 	#Zlicz wejúcie
 	if(isset($cfg['lcnt'])) $db->exec('UPDATE '.PRE.'links SET count=count+1 WHERE ID='.$id);
 
 	#Przejdü do URL
-	header('Location: '.str_replace('&amp;','&',$link[1]));
-	echo '<script type="text/javascript">location="'.$link[1].'"</script>';
+	header('Location: '.str_replace('&amp;','&',$url));
+	echo '<script type="text/javascript">location="'.$url.'"</script>';
 }
-exit;
+
+#PLIK
+elseif($mod === 'file')
+{
+	$file = $db->query('SELECT f.file FROM '.PRE.'files f LEFT JOIN '.PRE.'cats c ON f.cat=c.ID WHERE f.access=1 AND c.access!=3 AND f.ID='.$id) -> fetchColumn();
+
+	if(!$file) $content->message($lang['noex']);
+
+	#Zlicz pobranie
+	if(isset($cfg['fgets'])) $db->exec('UPDATE '.PRE.'files SET dls=dls+1 WHERE ID='.$id);
+
+	#Pobierz plik
+	$file = str_replace('&amp;', '&', $file);
+  header('Location: '.((strpos($file, ':')) ? $file : URL.$file));
+}

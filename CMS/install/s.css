@@ -7,4 +7,4 @@ tbody {background-color: #EDF0F1}
 th {background-color: #DDE9DC; text-align: center}
 small {font-size: 11px}
 input[disabled] {background-color: #e5e5e5}
-pre {overflow: scroll; color: red}
+pre {overflow: auto; width: 480px; color: red}

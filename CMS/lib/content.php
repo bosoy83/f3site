@@ -15,16 +15,6 @@ class Content
 		# Udostêpnij jêzyk
 		$lang = &$GLOBALS['lang'];
 
-		/* -- Na razie w³±czamy -- */
-		# Czy istnieje nowsza wersja ¼ród³a?
-		if(filemtime('./view/'.$this->file.'.html') > filemtime(VIEW_DIR.$this->file.'.html'))
-		{
-			include('./lib/compiler.php');
-			$tc = new Compiler;
-			$tc -> compile($this->file.'.html');
-		}
-		
-
 		# Informacja?
 		if($this->info)
 		{
@@ -36,6 +26,14 @@ class Content
 		# Szablon modu³u?
 		if($this->data || !$this->info)
 		{
+			# Czy istnieje nowsza wersja ¼ród³a?
+			if(filemtime('./view/'.$this->file.'.html') > filemtime(VIEW_DIR.$this->file.'.html'))
+			{
+				include('./lib/compiler.php');
+				$tc = new Compiler;
+				$tc -> compile($this->file.'.html');
+			}
+
 			# Utwórz referencje, aby omin±æ $this w szablonach
 			foreach(array_keys($this->data) as $key)
 			{

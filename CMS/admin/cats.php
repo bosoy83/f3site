@@ -13,9 +13,6 @@ if(isset($_GET['act']))
 	}
 }
 
-#Mo¿e usuwaæ?
-$del = Admit('DEL') ? 1 : 0;
-
 #Informacja
 $content->info($lang['dinfo'], array(
 	'adm.php?a=editCat'  => $lang['addcat'],
@@ -53,20 +50,20 @@ foreach($res as $cat)
 	#Typ
 	switch($cat['access'])
 	{
-		case 1: $type = $lang['on2']; break;
-		case 2: $type = $lang['hidden2']; break;
-		case 3: $type = $lang['off2']; break;
-		default: $type = $cat['access'];
+		case 1: $a = $lang['on2']; break;
+		case 2: $a = $lang['hidden2']; break;
+		case 3: $a = $lang['off2']; break;
+		default: $a = $cat['access'];
 	}
 
 	$cats[] = array(
 		'id'   => $cat['ID'],
 		'name' => $cat['name'],
-		'type' => $type,
+		'type' => $types[$cat['type']],
 		'url'  => 'index.php?co=edit&amp;act='.$cat['type'].'&amp;id='.$cat['ID'],
 		'num'  => $cat['num'],
 		'depth'=> $depth,
-		'del'  => $del
+		'disp' => $a,
 	);
 }
 

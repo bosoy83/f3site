@@ -10,7 +10,7 @@ else:
 endif;
 
 #G³osowa³ na...
-$voted=isset($_COOKIE[PRE.'voted'])?unserialize($_COOKIE[PRE.'voted']):array();
+$voted = isset($_COOKIE[PRE.'voted'])?unserialize($_COOKIE[PRE.'voted']) : array();
 
 #Wyniki
 if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && LOGD!=1))
@@ -19,31 +19,35 @@ if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && LOGD
 	if($poll['num']==0) { echo '<center>'.$lang['novotes'].'</center>'; return; }
 
 	#Procenty
-	for($i=0;$i<$ile;++$i)
+	$item = array();
+	foreach($option as &$o)
 	{
-		$pollproc[$i]=round($option[$i][2] / $poll['num'] * 100 ,$cfg['pollRound']);
+		$item[] = array(
+			'num'  => $o[2],
+			'label' => $o[1],
+			'percent' => round($o[2] / $poll['num'] * 100 ,$cfg['pollRound'])
+		);
 	}
 
 	#Styl
-	include './mod/polls/'.$cfg['pollr2'].'.php';
+	include './mod/polls/little.php'; //Na razie domyœlny styl
 	return;
 }
 
 #Formularz do g³osowania
-echo '<form action="vote.php" name="sendvote" method="post">
-<center>'.$poll['q'].'</center><div style="margin: 5px 0px">';
+echo '<form action="vote.php" name="poll" method="post">
+<div style="text-align: center">'.$poll['q'].'</div><div style="margin: 5px 0px">';
 
 $i=0;
 foreach($option as $o)
 {
-	echo '<input id="o_'.++$i.'" name="vote'.(($poll['type']==2)?'['.$o[0].']" type="checkbox" ':'" value="'.$o[0].'" type="radio"').' /> <label for="o_'.$i.'">'.$o[1].'</label><br />';
+	echo '<label><input id="o_'.++$i.'" name="vote'.(($poll['type']==2)?'['.$o[0].']" type="checkbox" ':'" value="'.$o[0].'" type="radio"').' /> '.$o[1].'</label><br />';
 }
 
-echo '</div><center>
+echo '</div><div style="text-align: center">
 	<input type="submit" value="OK" name="poll" />
 	<input type="button" value="'.$lang['results'].'" onclick="location=\'?co=poll&amp;id='.$poll['ID'].'\'" />
-</center>
+</div>
 </form>';
 
 unset($poll,$option,$voted,$pollproc);
-?>

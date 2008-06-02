@@ -57,6 +57,5 @@ $content->addScript('lib/editor.js');
 $content->title = $id ? $lang['editbn'] : $lang['addbn'];
 $content->data = array(
 	'ad'  => &$ad,
-	'url' => '?a=editad'.($id ? '&amp;id='.$id : ''),
-	'title'
+	'url' => '?a=editAd'.($id ? '&amp;id='.$id : '')
 );

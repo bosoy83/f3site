@@ -1,11 +1,10 @@
 <?php
 if(!$_POST) exit;
-require('./kernel.php');
-require('./lib/info.php');
+require './kernel.php';
 
 #Adres IP
-$ip=$db->quote($_SERVER['REMOTE_ADDR'].' '.
-	((isset($_SERVER['HTTP_X_FORWARDED_FOR']))?$_SERVER['HTTP_X_FORWARDED_FOR']:''));
+$ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
+	((isset($_SERVER['HTTP_X_FORWARDED_FOR'])) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
 
 #Oceny
 /* Na razie wy³¹czone
@@ -34,7 +33,7 @@ if(is_numeric($_GET['t']))
 	#Ocenia³?
 	if(strpos($c,'x'.$_GET['t'].':'.$id.'x')!==false)
 	{
-	Notify(6);
+	$content->message(6);
 	}
 	else
 	{
@@ -81,14 +80,14 @@ if(is_numeric($_GET['t']))
 if(isset($_POST['poll']))
 {
 	#Dane
-	$poll=$db->query('SELECT ID,ison,type FROM '.PRE.'polls WHERE access="'
-		.$nlang.'" ORDER BY ID DESC LIMIT 1')->fetch(2);
+	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE access="'
+		.$nlang.'" ORDER BY ID DESC LIMIT 1') -> fetch(2);
 
 	#Istnieje? + ID
-	if($poll) { $id=$poll['ID']; } else { Notify(22); exit; }
+	if($poll) { $id = $poll['ID']; } else { $content->message(22); exit; }
 
 	#G³osowa³ na...
-	$voted=isset($_COOKIE[PRE.'voted'])?unserialize($_COOKIE[PRE.'voted']):array();
+	$voted = isset($_COOKIE[PRE.'voted']) ? unserialize($_COOKIE[PRE.'voted']) : array();
 
 	#ID u¿ytkownika lub adres IP
 	$u = ($poll['ison']==3 && LOGD==1) ? UID : $ip;
@@ -101,35 +100,50 @@ if(isset($_POST['poll']))
 		{
 			if($poll['type']==1)
 			{
-				$q=(int)$_POST['vote']; //1 odp.
+				$q = (int)$_POST['vote']; //1 odp.
 			}
 			else
 			{
-				$correct=array();
+				$correct = array();
 				foreach(array_keys($_POST['vote']) as $key)
 				{
-					if(is_numeric($key)) $correct[]=(int)$key; //Wiele odp.
+					if(is_numeric($key)) $correct[] = (int)$key; //Wiele odp.
 				}
-				$q=$correct?implode(',',$correct):0;
+				$q = $correct ? implode(',',$correct) : 0;
 			}
 			#Aktualizuj
-			$db->beginTransaction();
-			$db->exec('UPDATE '.PRE.'polls SET num=num+1 WHERE ID='.$id);
-			$db->exec('UPDATE '.PRE.'answers SET num=num+1 WHERE IDP='.$id.' AND ID IN ('.$q.')');
-			$db->exec('INSERT INTO '.PRE.'pollvotes (user,ID,date) VALUES ('.$u.','.$id.','.NOW.')');
-			$db->commit();
+			try
+			{
+				$db->beginTransaction();
+				$db->exec('UPDATE '.PRE.'polls SET num=num+1 WHERE ID='.$id);
+				$db->exec('UPDATE '.PRE.'answers SET num=num+1 WHERE IDP='.$id.' AND ID IN ('.$q.')');
+				$db->exec('INSERT INTO '.PRE.'pollvotes (user,ID,date) VALUES ('.$u.','.$id.','.NOW.')');
+				$db->commit();
+
+				#Pobierz odpowiedzi
+				$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id)->fetchAll(3);
+
+				#Zapisz nowe dane do pliku
+				require('./lib/config.php');
+				$file = new Config('./cache/poll_'.$nlang.'.php');
+				$file->add('poll',$poll);
+				$file->add('option',$o);
+				$file->save();
+			}
+			catch(Exception $e)
+			{
+				$content->message(22); exit;
+			}
 		}
 	}
 	#Cookie
-	$voted[]=$id;
-	setcookie(PRE.'voted',serialize($voted),time()+7776000);
+	$voted[] = $id;
+	setcookie(PRE.'voted', serialize($voted), time()+7776000);
 	
 	#JS?
-	if(REQUEST==1)
+	if(isset($content->ajax)==1)
 	{
-		$_GET['id']=$id; include('./mod/poll.php'); //Wyœwietl du¿e wyniki
+		$_GET['id'] = $id; include('./mod/poll.php'); //Wyœwietl du¿e wyniki
 	}
-	else { Notify(5,'index.php?co=poll&amp;id='.$id); } //Info
+	else { $content->message(5,'index.php?co=poll&amp;id='.$id); } //Info
 }
-exit;
-?>

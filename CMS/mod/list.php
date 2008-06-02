@@ -1,12 +1,10 @@
 <?php /* Lista pozycji */
-if(EC!=1) exit;
+if(iCMS!=1 OR LEVEL<2) return;
 require LANG_DIR.'content.php';
+require './lib/categories.php';
 
 #Akcja
 $act=(int)$_GET['act'];
-
-#Mo¿e usuwaæ i edytowaæ?
-$del=Admit('DEL')?1:0;
 
 #Typ
 switch($act)

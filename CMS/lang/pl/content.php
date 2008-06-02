@@ -11,9 +11,9 @@ $lang+=Array(
 'saved'=>'Zapisano pozycjê.',
 'choose'=>'- - - wybierz z listy - - -',
 
-'e_emo'=>'Emotikony',
-'e_br'=>'ENTER = nowa linia',
-'e_col'=>'Koloruj kod',
+'emo'=>'Emotikony',
+'br'=>'ENTER = nowa linia',
+'hl'=>'Koloruj kod',
 
 'viewarts'=>'Poka¿ artyku³y',
 'i1'=>'Kliknij nazwê artyku³u, aby go wy¶wietliæ.',

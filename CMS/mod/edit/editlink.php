@@ -1,48 +1,54 @@
 <?php
 if(EC!=1) exit;
 
-# Zapisz
+#Zapisz
 if($_POST)
 {
-	# Dane
+	#Dane
 	$link = array(
-	'cat' => (int)$_POST['x_c'],
-	'dsc' => Clean($_POST['x_d']),
-	'adr' => Clean( str_replace(array('javascript:','vbscript:'),'',$_POST['x_adr']) ),
-	'name'=> Clean($_POST['x_n']),
-	'nw'  => (isset($_POST['x_nw']) ? 1 : 0),
-	'access'=> (isset($_POST['x_a']) ? 1 : 2),
-	'priority'=> (int)$_POST['x_p'] );
+	'cat' => (int)$_POST['cat'],
+	'dsc' => Clean($_POST['dsc']),
+	'adr' => Clean( str_replace(array('javascript:','vbscript:'),'',$_POST['adr']) ),
+	'name'=> Clean($_POST['name']),
+	'nw'  => (isset($_POST['nw']) ? 1 : 0),
+	'access'=> (isset($_POST['access']) ? 1 : 2),
+	'priority'=> (int)$_POST['priority'] );
 
-	# Start
-	$e = new Saver($link, $id, 'links', 'cat,access');
-
-	# Ma prawa?
-	if($e -> hasRight('L'))
+	#Start
+	try
 	{
-		# Zapytanie
-		$db
-			-> prepare('REPLACE INTO '.PRE.'links (ID,cat,name,dsc,access,adr,priority,nw)
-				VALUES ('.(($id)?$id:'null').',:cat,:name,:dsc,:access,:adr,:priority,:nw)')
-			-> execute($link);
+		$e = new Saver($link, $id, 'links', 'cat,access');
 
-		# OK?
-		if($e -> apply())
+		#Zapytanie
+		if($id)
 		{
-			$content->info( $lang['saved'], array(
-				'?co=edit&amp;act=link'	=> $lang['add4'],
-				'?co=edit&amp;act=4'		=> $lang['links'],
-				$link['adr'] => $lang['seeit']));
-			unset($e,$link);
-			return;
+			$q = $db->prepare('UPDATE '.PRE.'links SET cat=:cat, name=:name, dsc=:dsc,
+				access=:access, adr=:adr, priority=:priority, nw=:nw WHERE ID='.$id);
 		}
-	}
+		else
+		{
+			$q = $db->prepare('INSERT INTO '.PRE.'links (cat,name,dsc,access,adr,priority,nw)
+				VALUES (:cat,:name,:dsc,:access,:adr,:priority,:nw)');
+		}
+		$q->execute($link);
 
-	# B³¹d
-	$e->showError();
+		#ZatwierdŸ
+		$e->apply();
+		$content->info( $lang['saved'], array(
+			'?co=edit&amp;act=link'	=> $lang['add4'],
+			'?co=list&amp;act=4'		=> $lang['links'],
+			$link['adr'] => $link['name'])
+		);
+		unset($e,$link);
+		return 1;
+	}
+	catch(Exception $e)
+	{
+		$content->info($e->getMessage());
+	}
 }
 
-# Odczyt
+#Odczyt
 else
 {
 	if($id)
@@ -50,7 +56,7 @@ else
 		$link = $db->query('SELECT * FROM '.PRE.'links WHERE ID='.$id) -> fetch(2); //ASSOC
 
 		#Prawa
-		if(!$link || (!Admit('L') && !Admit($link['cat'],'CAT')))
+		if(!$link || !Admit($link['cat'],'CAT'))
 		{
 			return;
 		}
