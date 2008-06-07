@@ -1,0 +1,42 @@
+<!-- IF comment -->
+
+<h2>{lang.comms}</h2>
+<table cellspacing="1" class="tb" id="comments">
+<colgroup>
+	<col style="width: 110px" />
+	<col />
+</colgroup>
+<tbody>
+
+<!-- START comment -->
+
+<tr>
+	<td>
+	<!-- IF user_url -->
+		<a href="{user_url}">{user}</a>
+	<!-- ELSE -->
+		{user}
+	<!-- END -->
+		<br /><small>{date}</small>
+	</td>
+	<td>
+		<b>{title}</b><br />{text}
+	</td>
+</tr>
+
+<!-- STOP -->
+
+</tbody>
+</table>
+
+<!-- END -->
+
+<!-- IF url -->
+<div class="box" style="width: 150px; margin: auto; text-align: center">
+	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}">{lang.addComm}</a>
+</div>
+
+<!-- ELSE -->
+<div class="box" style="text-align: center">{lang.loginComm}</div>
+
+<!-- END -->

@@ -11,6 +11,9 @@ require('./kernel.php');
 #£aduj modu³ - gdy nie istnieje lub u¿yto return, wy¶wietl stronê 404
 if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][30]))
 {
+	#Szablon
+	$content->file = array($_GET['co']);
+
 	if(file_exists('./mod/'.$_GET['co'].'.php'))
 	{
 		if(!include './mod/'.$_GET['co'].'.php') $content->set404(); #Modu³?
@@ -34,9 +37,6 @@ else
 
 #Kod HEAD
 if($cfg['head']) $content->head .= $cfg['head'];
-
-#Szablon
-if(!$content->file && isset($_GET['co'])) $content->file = $_GET['co'];
 
 #Menu
 require './cache/menu'.$nlang.'.php';

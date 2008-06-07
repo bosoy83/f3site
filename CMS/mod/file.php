@@ -30,13 +30,6 @@ $file['rate']=''; //POTEM!!!!!
 $file['date'] = genDate($file['date']);
 $file['author'] = Autor($file['author']);
 
-#Komentarze
-if($cfg['fcomm']==1 && $file['opt']&2)
-{
-	define('CT','2');
-	//require('./lib/comm.php');
-}
-
 #Do szablonu
 $content->data = array(
 	'file' => &$file,
@@ -44,3 +37,10 @@ $content->data = array(
 	'path' => CatPath($file['cat']),
 	'cats_url' => MOD_REWRITE ? '/cats/2' : '?co=cats&amp;id=2'
 );
+
+#Komentarze
+if($cfg['fcomm']==1 && $file['opt']&2)
+{
+	define('CT','2');
+	require './lib/comm.php';
+}

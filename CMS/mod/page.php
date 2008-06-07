@@ -28,12 +28,16 @@ if($page['opt']&16)
 	$page['text'] = ob_get_clean();
 }
 
-#Komentarze
-//if($page['opt']&8) { define('CT','59'); require('./lib/comm.php'); }
-
 #Szablon
 $content->title = $page['name'];
 $content->data = array(
 	'page' => &$page,
 	'box'  => $page['opt'] & 4,
 );
+
+#Komentarze
+if($page['opt']&8)
+{
+	define('CT','59');
+	require './lib/comm.php';
+}

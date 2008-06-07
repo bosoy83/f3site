@@ -196,7 +196,7 @@ if($_POST)
 	$db->exec($i.'menu VALUES (6,6,"'.$lang[54].'",1,2,1,0,"Coming soon...")');
 
 	$db->exec($i.'mitems VALUES (1,"'.$lang[36].'","index.php",0,1)');
-	$db->exec($i.'mitems VALUES (1,"'.$lang[43].'","?co=arch",0,2)');
+	$db->exec($i.'mitems VALUES (1,"'.$lang[43].'","?co=archive",0,2)');
 	$db->exec($i.'mitems VALUES (1,"'.$lang[44].'","?co=cats&amp;id=4",0,3)');
 	$db->exec($i.'mitems VALUES (1,"'.$lang[45].'","?co=cats&amp;id=3",0,4)');
 	$db->exec($i.'mitems VALUES (1,"'.$lang[37].'","?co=users",0,5)');

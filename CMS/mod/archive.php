@@ -17,13 +17,16 @@ if($id)
 
 	$res->setFetchMode(3);
 	$news = array();
+	$num  = 0;
 
 	#Przygotuj dane
 	foreach($res as $n)
 	{
 		$news[] = array(
-			'date' => genDate($n[1]),
-			'url'  => '?co=news&amp;id='.$n[0]
+			'num'  => ++$num,
+			'date' => genDate($n[2]),
+			'title'=> $n[1],
+			'url'  => MOD_REWRITE ? '/news/'.$n[0] : '?co=news&amp;id='.$n[0]
 		);
 	}
 	$res=null;
@@ -85,4 +88,3 @@ unset($y,$m,$date);
 #Do szablonu
 $content->data['dates'] =& $dates;
 $content->data['newslist'] = false;
-?>

@@ -45,16 +45,15 @@ foreach($option as &$o)
 	);
 }
 
-#Komentarze
-if($cfg['pollComm']==1)
-{
-	define('CT','15');
-	//include './lib/comm.php';
-}
-
 #Szablon
 $content->data = array(
 	'poll' => &$poll,
 	'item' => &$item,
 );
-?>
+
+#Komentarze
+if($cfg['pollComm']==1)
+{
+	define('CT','15');
+	include './lib/comm.php';
+}

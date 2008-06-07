@@ -34,13 +34,6 @@ $img['author'] = Autor($img['author']);
 #Mo¿e edytowaæ?
 $img['edit'] = Admit($img['cat'],'CAT') ? '?co=edit&amp;act=img&amp;id='.$id : false;
 
-#Komentarze
-if($cfg['icomm']==1 && $img['catOpt']&2)
-{
-	define('CT','3');
-	//require('lib/comm.php');
-}
-
 #Do szablonu
 $content->data = array(
 	'img'  => &$img,
@@ -48,3 +41,10 @@ $content->data = array(
 	'movie'=> $img['type'] === 1 ? true : false,
 	'path' => CatPath($img['cat']),
 );
+
+#Komentarze
+if($cfg['icomm']==1 && $img['catOpt']&2)
+{
+	define('CT','3');
+	require 'lib/comm.php';
+}

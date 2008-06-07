@@ -44,4 +44,9 @@ $content->data  = array(
 	'join_date' => genDate($u['regt']), //Data rejestracji
 	'last_visit'=> ($u['lvis']) ? NA : genDate($u['lvis'])
 );
-?>
+
+if(isset($cfg['userComm']))
+{
+	define('CT','10');
+	include './lib/comm.php';
+}

@@ -66,25 +66,29 @@ else
 define('SKIN_DIR', './style/'.$nstyl.'/');
 define('VIEW_DIR', './cache/view/');
 
-#Jêzyk
-$nlang = $cfg['lang'];
+#Sesja
+session_name(PRE);
+session_start();
 
-#Zmiana jêzyka
+#Jêzyk: zmiana
 if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
 {
 	$nlang = $_GET['setlang'];
 	setcookie(PRE.'tlang', $nlang, time()+12960000); //Ustaw na 5 mies.
 }
-
-#Jêzyk w cookies?
+#Jêzyk: sesja
+elseif(isset($_SESSION['lang']))
+{
+	$nlang = $_SESSION['lang'];
+}
+#Jêzyk: cookies
 elseif(isset($_COOKIE[PRE.'tlang']))
 {
 	if(ctype_alnum($_COOKIE[PRE.'tlang']) && is_dir('./lang/'.$_COOKIE[PRE.'tlang']))
 	{
-		$nlang = $_COOKIE[PRE.'tlang'];
+		$nlang = $_SESSION['lang'] = $_COOKIE[PRE.'tlang'];
 	}
 }
-
 #Autowykrywanie jêzyka
 elseif($cfg['detectLang']===1)
 {
@@ -96,11 +100,12 @@ elseif($cfg['detectLang']===1)
 		}
 		if(ctype_alnum($x) && is_dir('./lang/'.$x))
 		{
-			$nlang = $x; break;
+			$nlang = $_SESSION['lang'] = $x; break;
 		}
 	}
 	unset($x);
 }
+if(!isset($nlang)) $nlang = 'en';
 
 #Katalog z plikami jêzykowymi
 define('LANG_DIR', './lang/'.$nlang.'/');
@@ -136,26 +141,10 @@ catch(PDOException $e)
 	$content->message(23);
 }
 
-#Sesja
-session_name(PRE);
-session_start();
-
 $xuid=false;
 
-#U¿ytkownik - pamiêtanie
-if(isset($_COOKIE[PRE.'login']))
-{
-	$usrc = $_COOKIE[PRE.'login'];
-	if($pos = strpos($usrc,':'))
-	{
-		$xuid = substr($usrc,0,$pos);
-		$xpass = substr($usrc,++$pos);
-	}
-	unset($usrc,$pos);
-}
-
 #U¿ytkownik - sesja
-elseif(isset($_SESSION['uid']))
+if(isset($_SESSION['uid']))
 {
 	if($_SERVER['REMOTE_ADDR']===$_SESSION['IP'])
 	{
@@ -168,21 +157,29 @@ elseif(isset($_SESSION['uid']))
 	}
 }
 
+#U¿ytkownik - pamiêtanie
+elseif(isset($_COOKIE[PRE.'login']))
+{
+	$usrc = $_COOKIE[PRE.'login'];
+	if($pos = strpos($usrc,':'))
+	{
+		$xuid = substr($usrc,0,$pos);
+		$xpass = substr($usrc,++$pos);
+	}
+	unset($usrc,$pos);
+}
+
 #Dane poprawne?
 if(is_numeric($xuid))
 {
 	if(isset($_SESSION['userdata']))
 	{
-		$user[$xuid] = $_SESSION['userdata'];
+		$user[$xuid] =& $_SESSION['userdata'];
 	}
 	else
 	{
-		$res = $db->query('SELECT login,pass,gid,lv,adm,lvis,pms
-		FROM '.PRE.'users WHERE lv!=0 AND ID='.$xuid);
-
-		$user[$xuid] = $res->fetch(2);
-		$res = null;
-		$_SESSION['userdata'] = $user[$xuid];
+		$user[$xuid] = $_SESSION['userdata'] = $db->query('SELECT login,pass,gid,lv,adm,lvis,pms
+		FROM '.PRE.'users WHERE lv!=0 AND ID='.$xuid) -> fetch(2); //ASSOC
 	}
 
 	#Test
@@ -410,4 +407,3 @@ function db_get($co,$table,$o='')
 {
 	return $GLOBALS['db']->query('SELECT '.$co.' FROM '.PRE.$table.$o)->fetchColumn();
 }
-?>

@@ -1,0 +1,49 @@
+<form action="{url}" name="comm" method="post">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+
+<!-- IF code -->
+<tr>
+	<td><b>{lang.code}:</b><br /><small>{lang.imgcode}.</small></td>
+	<td>
+		<img src="code.php" alt="CODE" style="margin-bottom: 5px; border: 1px solid gray" />
+		<br /><input name="code" />
+	</td>
+</tr>
+<!-- END -->
+
+<!-- IF author -->
+<tr>
+	<td><b>{lang.author}:</b></td>
+	<td><input name="author" maxlength="20" value="{comment.author}" /></td>
+</tr>
+<!-- END -->
+
+<tr>
+	<td style="width: 110px"><b>{lang.title}:</b></td>
+	<td><input name="name" value="{comment.name}" size="30" maxlength="40" /></td>
+</tr>
+<tr>
+  <td colspan="2" align="center">
+		<textarea name="text" id="text" rows="7" cols="60">{comment.text}</textarea>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" class="eth">
+		<input type="submit" value="{lang.preview}" name="prev" />
+		<input type="submit" value="{lang.save}" name="save" />
+	</td>
+</tr>
+</tbody></table>
+</form>
+
+<script type="text/javascript">
+<!--
+var ed=new Editor('text')
+ed.bbcode=1
+ed.Emots()
+ed.Rows(12)
+-->
+</script>

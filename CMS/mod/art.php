@@ -44,16 +44,16 @@ $pages = $art['pages']>1 ? Pages($art['page'],$art['pages'],1,'?co=art&amp;id='.
 #EditURL
 $art['edit'] = Admit($art['cat'],'CAT') ? '?co=edit&amp;act=art&amp;id='.$id : false;
 
-#Komentarze
-if(isset($cfg['acomm']) && $art['cat_opt']&2)
-{
-	define('CT','1');
-	//require('./lib/comm.php');
-}
-
 #Do szablonu
 $content->data = array(
 	'art'  => &$art,
 	'pages'=> &$pages,
 	'path' => CatPath($art['cat'])
 );
+
+#Komentarze
+if(isset($cfg['acomm']) && $art['cat_opt']&2)
+{
+	define('CT','1');
+	require './lib/comm.php';
+}

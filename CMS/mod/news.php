@@ -50,5 +50,5 @@ $content->data = array(
 if(isset($cfg['ncomm']) && $news['catOpt']&2)
 {
 	define('CT','5');
-	//require('lib/comm.php');
+	require './lib/comm.php';
 }

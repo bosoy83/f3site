@@ -26,22 +26,28 @@ class Content
 		# Szablon modu³u?
 		if($this->data || !$this->info)
 		{
-			# Czy istnieje nowsza wersja ¼ród³a?
-			if(filemtime('./view/'.$this->file.'.html') > filemtime(VIEW_DIR.$this->file.'.html'))
-			{
-				include('./lib/compiler.php');
-				$tc = new Compiler;
-				$tc -> compile($this->file.'.html');
-			}
-
 			# Utwórz referencje, aby omin±æ $this w szablonach
 			foreach(array_keys($this->data) as $key)
 			{
 				$$key = &$this->data[$key];
 			}
+			if(!is_array($this->file)) $this->file = array($this->file);
 
-			# Do³±cz plik
-			include VIEW_DIR.$this->file.'.html';
+			foreach($this->file as $_)
+			{
+				# Czy istnieje nowsza wersja ¼ród³a?
+				if(filemtime('./view/'.$_.'.html') > filemtime(VIEW_DIR.$_.'.html'))
+				{
+					if(!isset($tc))
+					{
+						include './lib/compiler.php';
+						$tc = new Compiler;
+					}
+					$tc -> compile($_.'.html');
+				}
+				# Do³±cz plik
+				include VIEW_DIR.$_.'.html';
+			}
 		}
 	}
 
@@ -95,4 +101,3 @@ class Content
 		exit;
 	}
 }
-?>
