@@ -91,10 +91,10 @@ else
 
 #Szukaj
 $find = isset($_GET['find']) ? Clean($_GET['find'],30) : '';
-if($find) $param.=' && name LIKE '.$db->quote($find.'%');
+if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 
 #Parametry -> string
-$param = $join . ($param ? ' WHERE '.join(' && ',$param) : '');
+$param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
 #Iloœæ wszystkich
 $total = db_count('ID',$name.'s'.$param);
@@ -102,12 +102,12 @@ $total = db_count('ID',$name.'s'.$param);
 #Brak?
 if($total == 0)
 {
-	$content->info($lang['noc'], array('?co=edit&amp;act='.$name => $lang['add'.$act]));
+	$content->info($lang['noc'], array('?co=edit&amp;act='.$act => $lang['add'.$act]));
 	return;
 }
 
 #Czêœæ URL
-$url='?co=edit&amp;act='.$name.'&amp;id='.$id;
+$url='?co=list&amp;act='.$act.'&amp;id='.$id;
 
 #Pobierz pozycje
 $res = $db->query('SELECT ID,name,access FROM '.PRE.$name.'s'.$param.
@@ -132,7 +132,7 @@ foreach($res as $i)
 		'ID'   => $i[0],
 		'on'   => $a,
 		'url'  => '?co='.$name.'&amp;id='.$i[0],
-		'edit_url' => '?co=edit&amp;act='.$name.'&amp;id='.$i[0],
+		'edit_url' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0],
 		'del_url'  => 'javascript:Del('.$i[0].')'
 	);
 }
@@ -146,10 +146,6 @@ $content->data = array(
 	'type'  => $type,
 	'cats'  => Slaves($act),
 	'pages' => Pages($page,$total,25,$url.'&amp;find='.$find,1),
-	'add_url' => '?co=edit&amp;act='.$name,
+	'add_url' => '?co=edit&amp;act='.$act,
 	'cats_url'=> Admit('C') ? 'adm.php?a=cats&amp;co='.$act : '',
 );
-
-#Szablon
-$content->file = 'edit_list';
-?>

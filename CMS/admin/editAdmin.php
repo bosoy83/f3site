@@ -50,6 +50,7 @@ if($_POST)
 	try
 	{
 		$db->beginTransaction();
+		if($checked)
 		$db->exec('DELETE FROM '.PRE.'acl WHERE UID='.$id.' AND type="CAT" AND CatID NOT IN('.$checked.')');
 
 		#Zapytanie - ACL
@@ -94,7 +95,7 @@ foreach($set as $x)
 $plugins = '';
 foreach($plug1 as &$x)
 {
-	$plugins .= '<label><input type="checkbox" name="'.$x[0].'"'.((in_array($x[2],$prv)) ?
+	$plugins .= '<label><input type="checkbox" name="'.$x[0].'"'.((in_array($x[0],$prv)) ?
 		' checked="checked"' : '').' /> '.$x[1].'</label><br />';
 }
 
@@ -115,7 +116,7 @@ foreach($cats1 as &$x)
 if($cats!='') $cats.='</fieldset>';
 
 $content->data = array(
-	'owner' => LEVEL===4 ? true : false,
+	'owner' => LEVEL==4 ? true : false,
 	'url'   => '?a=editAdmin&amp;id='.$id,
 	'lv'    => $lv,
 	'cats'  => &$cats,

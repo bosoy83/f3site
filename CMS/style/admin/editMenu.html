@@ -1,0 +1,97 @@
+<form action="{url}" method="post" f3:array="menu">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<td width="38%"><b>1. {lang.navbtit}</b></td>
+	<td><input name="text" maxlength="50" value="{menu.text}" /></td>
+</tr>
+<tr>
+	<td><b>2. {lang.acc}:</b></td>
+	<td>
+		<select name="disp">
+			<option value="1">{lang.on}</option>
+			{langlist}
+			<option value="2">{lang.hidden}</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><b>3. {lang.page}:</b></td>
+	<td>
+		<label><input type="radio" name="menu" value="1" /> {lang.leftp}</label> &nbsp;
+		<label><input type="radio" name="menu" value="2" /> {lang.rightp}</label>
+	</td>
+</tr>
+<tr>
+	<td><b>4. {lang.mtype}:</b></td>
+	<td>
+		<label><input type="radio" value="1" name="type" /> {lang.txt}</label> &nbsp;
+		<label><input type="radio" value="2" name="type" /> {lang.file}</label> &nbsp;
+		<label><input type="radio" value="3" name="type" /> {lang.urls}</label>
+	</td>
+</tr>
+<tr>
+	<td><b>5. {lang.bgimg}:</b><br /><small>{lang.0off}</small></td>
+	<td>
+		<input id="m_img" name="img" maxlength="200" value="{menu.img}" />
+		<!-- IF fileman -->
+		<input type="button" value="{lang.files} &raquo;" onclick="Okno('?x=fm&amp;ff=m_img',580,400,150,150)" />
+		<!-- END -->
+	</td>
+</tr>
+<tr>
+	<td><b>6. {lang.txtfile}</b><br /><small>{lang.nmlink}</small></td>
+	<td>
+		<textarea rows="4" name="value" cols="45">{Clean: menu.value}</textarea>
+	</td>
+</tr>
+<tr>
+	<th colspan="2"><b>{lang.navbody}</b></td>
+</tr>
+<tr>
+	<td colspan="2" align="center" id="items">
+	<!-- START item -->
+		<div id="i1">
+		{lang.title}: <input name="txt[]" value="{0}" />
+		{lang.adr}: <input name="adr[]" value="{1}" />
+		<!-- IF 2 -->
+		<input type="checkbox" name="nw[]" checked="checked" />
+		<!-- ELSE -->
+		<input type="checkbox" name="nw[]" />
+		<!-- END -->
+		<input type="image" src="img/icon/add.png" alt="+" />
+		<input type="image" src="img/icon/del.png" alt="-" />
+		<input type="image" src="img/icon/up.png" alt="UP" />
+		<input type="image" src="img/icon/down.png" alt="DOWN" />
+	</div><!-- STOP --></td>
+</tr>
+<tr>
+	<td colspan="2" class="eth">
+		<input type="button" value="{lang.navadd}" onclick="f.addItem()" style="width: 99px" />
+		<input type="submit" value="{lang.save}" />
+		<input type="submit" value="{lang.savenew}" name="savenew" style="width: 142px" />
+	</td>
+</tr>
+</tbody>
+</table>
+</form>
+
+<div id="tpl" style="display: none">
+	{lang.title}: <input name="txt[]" />
+	{lang.adr}: <input name="adr[]" />
+	<input type="checkbox" name="nw[]" />
+	<input type="image" src="img/icon/add.png" alt="+" />
+	<input type="image" src="img/icon/del.png" alt="-" />
+	<input type="image" src="img/icon/up.png" alt="UP" />
+	<input type="image" src="img/icon/down.png" alt="DOWN" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var f = new Request()
+f.addForm(0)
+f.watch('items',{depth:1,html:d('tpl')})
+//]]>
+</script>

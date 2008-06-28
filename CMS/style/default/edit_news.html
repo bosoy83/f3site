@@ -1,0 +1,77 @@
+<form action="{url}" name="art" method="post" f3:array="news">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<td style="width: 31%"><b>1. {lang.cat}:</b></td>
+	<td><select name="cat">
+		<option value="0">{lang.choose}</option>{cats}
+	</select></td>
+</tr>
+<tr>
+	<td><b>2. {lang.title}:</b></td>
+	<td><input maxlength="50" name="name" value="{news.name}" /></td>
+</tr>
+<tr>
+	<td><b>3. {lang.published}?</b></td>
+	<td><input type="checkbox" name="access" /></td>
+</tr>
+<tr>
+	<td><b>4. {lang.img}:</b></td>
+	<td>
+		<input name="img" id="img" value="{news.img}" />
+		<!-- IF fileman -->
+		<input type="button" value="{lang.images} &raquo;" onclick="Okno('fileman.php?ff=img',580,400,150,150)" />
+		<!-- END -->
+	</td>
+</tr>
+<tr>
+	<td><b>5. {lang.opt}:</b></td>
+	<td>
+		<label><input type="checkbox" name="br" /> {lang.br}</label><br />
+		<label><input type="checkbox" name="emo" /> {lang.emoon}</label><br />
+		<label><input type="checkbox" name="fn" id="fn" onclick="FN()" /> {lang.ftxt}</label>
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!-- TRE¦Æ -->
+<h2>{lang.text}</h2>
+<div class="box" style="text-align: center">
+	<textarea name="txt" rows="10" id="txt" style="width: 100%">{Clean: news.txt}</textarea>
+	<div style="margin-top: 7px">
+		<input type="button" value="{lang.preview}" onclick="Prev()" />
+		<input type="submit" name="sav" value="{lang.save}" />
+	</div>
+</div>
+
+<!-- Pe³na tre¶æ -->
+<div id="full" style="display: none; text-align: center">
+<h2>{lang.ftxt}</h2>
+<div class="box">
+	<textarea name="text" id="text" rows="13" style="width: 100%">{Clean: full}</textarea>
+</div>
+</div>
+</form>
+
+<script type="text/javascript">
+<!--
+var ed=new Editor('txt');
+ed.Emots();
+var done=(d('fn').checked)?1:0;
+
+function FN(x)
+{
+	Show('full');
+	if(done!=1 || x==1)
+	{
+		var ed2=new Editor('text');
+		ed2.Emots(emots);
+		done=1;
+	}
+}
+if(done==1) FN(1);
+-->
+</script>

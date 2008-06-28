@@ -31,7 +31,7 @@ $bbc[3] = array(
 function BBCode($x, $exc=false)
 {
 	global $lang,$bbc,$cfg;
-	if(!isset($cfg['bbcode'])) return $t;
+	if(!isset($cfg['bbcode'])) return $x;
 
 	#Proste znaczniki
 	$t = str_replace($bbc[0], $bbc[2], $x, $c1);

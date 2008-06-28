@@ -157,7 +157,7 @@ if($_POST)
 
 			$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,mvis,gid,lv,
 			regt,about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,
-			:mail,:mvis,1,:lv,'.NOW.',:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
+			:mail,:mvis,1,:lv,'.$_SERVER['REQUEST_TIME'].',:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
 		}
 
 		#Edycja

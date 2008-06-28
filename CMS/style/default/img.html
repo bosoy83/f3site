@@ -1,0 +1,37 @@
+<div class="cs">
+
+	<!-- IF img.edit -->
+	<div style="float: right">
+		<img src="img/icon/edit.png" alt="&rarr;" /> <a href="{img.edit}">{lang.edit}</a>
+	</div>
+	<!-- END -->
+
+	<a href="?co=cats&amp;id=3">{lang.imgs}</a> &raquo; {path}
+</div>
+
+<h2>{img.name}</h2>
+<div class="box">
+	<div style="margin: 3px; text-align: center">
+
+	<!-- IF movie -->
+	{movie}
+
+	<!-- ELSE -->
+
+		<!-- IF size -->
+		<a href="{img.file}">
+			<img src="{img.file}" alt="[IMAGE]" style="width: {size.0}px; height: {size.1}px" />
+		</a>
+		<!-- ELSE -->
+		<img src="{img.file}" alt="[IMAGE]" style="overflow: hidden" />
+		<!-- END -->
+
+	<!-- END -->
+	</div>
+	<div style="line-height: 20px">
+		<div style="float: left; width: 50%"><b>{lang.added}:</b> {img.date}</div>
+		<div style="float: right; width: 50%"><b>{lang.author}:</b> {img.author}</div>
+		<b>{lang.rate}:</b> {img.rate}
+  </div>
+  {img.dsc}
+</div>

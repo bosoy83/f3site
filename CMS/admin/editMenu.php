@@ -74,7 +74,7 @@ if($_POST)
 		#Lista
 		unset($q,$id);
 		$_POST = array();
-		$content->file = 'admin/menu';
+		$content->file = 'menu';
 		include './admin/menu.php';
 		return 1;
 	}

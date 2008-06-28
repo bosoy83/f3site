@@ -30,10 +30,14 @@ if($news['opt']&2)
 }
 
 #Linie
-if($news['opt']&1) $news['txt'] = nl2br($news['txt']);
+if($news['opt']&1)
+{
+	$news['txt'] = nl2br($news['txt']);
+	if($full) $full = nl2br($full);
+}
 
 #Data, autor
-$news['date']  = genDate($news['date']);
+$news['date']  = genDate($news['date'], true);
 $news['wrote'] = Autor($news['author']);
 
 #EditURL

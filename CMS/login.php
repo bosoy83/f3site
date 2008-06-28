@@ -1,4 +1,5 @@
 <?php
+define('iCMS',1);
 require 'kernel.php';
 
 #Wyloguj?

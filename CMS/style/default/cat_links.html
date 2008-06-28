@@ -1,0 +1,22 @@
+<!-- INCLUDE cat -->
+
+<h2>{lang.links}</h2>
+<table cellspacing="1" class="tb">
+<tbody>
+
+<!-- START links -->
+<tr>
+	<td class="link">
+		{num}. <a href="{url}">{title}</a>
+		<!-- IF views --> ({lang.disps}: {views})<!-- END --><br />
+		<small>{desc}</small>
+	</td>
+</tr>
+<!-- STOP -->
+
+<!-- IF pages -->
+<tr><td class="pages">{pages}</td></tr>
+<!-- END -->
+
+</tbody>
+</table>

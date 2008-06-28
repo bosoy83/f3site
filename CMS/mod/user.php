@@ -41,8 +41,9 @@ $content->title = $u['login'];
 $content->data  = array(
 	'u' => &$u,
 	'pm_url' => $pm_url,
+	'users'  => MOD_REWRITE ? '/users' : '?co=users',
 	'join_date' => genDate($u['regt']), //Data rejestracji
-	'last_visit'=> ($u['lvis']) ? NA : genDate($u['lvis'])
+	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],true) : NA
 );
 
 if(isset($cfg['userComm']))

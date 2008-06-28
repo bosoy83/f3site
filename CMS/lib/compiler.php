@@ -7,7 +7,7 @@ class Compiler
 		$replace2;
 	public
 		$removePHP = false, //Zmieñ na FALSE, je¶li chcesz u¿ywaæ kodu PHP w szablonach
-		$src = './view/',
+		$src = SKIN_DIR,
 		$cache = VIEW_DIR,
 		$debug = false,
 		$byteCode = false;
@@ -25,29 +25,33 @@ class Compiler
 			{
 				if(filemtime($this->src.$x) > @filemtime($this->cache.$x))
 				{
-					$this->compile($x); //Kompiluj
+					$this->compile($this->src.$x); //Kompiluj
 				}
 			}
 		}
 	}
 
 	#F: Kompiluj
-	function compile($file)
+	function compile($file, $src, $cache)
 	{
+		#Katalog ¼ród³owy i cache
+		if(!isset($src)) $src = $this->src;
+		if(!isset($cache)) $cache = $this->cache;
+
 		#Debug
-		if($this->debug) { echo 'Compiling file: '.$file.'... '; }
+		if($this->debug) echo 'Compiling file: '.$file.'... ';
 
 		#Istnieje?
-		if(file_exists($this->src.$file))
+		if(file_exists($src.$file))
 		{
-			$this->data = file_get_contents($this->src.$file);
+			$this->data = file_get_contents($src.$file);
 		}
 		else
 		{
 			throw new Exception('Template does not exist.');
 		}
 
-		#Wyrzuæ PHP, je¶li w³±czono (code taken from PhpBB 3 - GPL v2 forum)
+		#Wyrzuæ PHP (code stolen from PhpBB 3 - GPL v2 forum)
 		if($this->removePHP)
 		{
 			$this->data = preg_replace( array(
@@ -93,7 +97,7 @@ class Compiler
 			'/<!-- INCLUDE ([A-Za-z0-9_.]*) -->/');
 
 		$out = array(
-			'<?=Banners(\\1);?>',
+			'<?=Banner(\\1);?>',
 			'<?=$\\1[\'\\2\'];?>',
 			'<?=\\1($\\2[\'\\3\']);?>',
 			'<?=$\\1->\\2;?>',
@@ -126,14 +130,14 @@ class Compiler
 		if($this->byteCode && extension_loaded('bcompiler'))
 		{
 			$tmp = tmpfile();
-			if(file_put_contents($this->cache.'.temp.php', $this->data))
+			if(file_put_contents($cache.'.temp.php', $this->data))
 			{
-				$f = fopen($this->cache.$file, 'w');
+				$f = fopen($cache.$file, 'w');
 				bcompiler_write_header($f);
-				bcompiler_write_file($f, $this->cache.'.temp.php');
+				bcompiler_write_file($f, $cache.'.temp.php');
 				bcompiler_write_footer($f);
 				fclose($f);
-				unlink($this->cache.'.temp.php');
+				unlink($cache.'.temp.php');
 
 				if($this->debug) echo 'Done.<br />';
 				return true;
@@ -141,7 +145,7 @@ class Compiler
 		}
 		else
 		{
-			if(file_put_contents($this->cache.$file, $this->data))
+			if(file_put_contents($cache.$file, $this->data))
 			{
 				if($this->debug) echo 'Done.<br />';
 				return true;

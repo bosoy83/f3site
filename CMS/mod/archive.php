@@ -1,6 +1,6 @@
 <?php /* Archiwum wszystkich nowo¶ci */
 if(iCMS!=1) exit;
-include('./cfg/content.php');
+include './cfg/content.php';
 
 #Tytu³
 $content->title = $lang['archive'];
@@ -8,12 +8,23 @@ $content->title = $lang['archive'];
 #Lista nowo¶ci
 if($id)
 {
-	$date = explode('.',$_GET['id']);
-
-	#Pobierz - trzeba przepisaæ zapytanie dla SQLite
-	$res = $db->query('SELECT ID,name,date FROM '.PRE.'news WHERE YEAR(date)='.
-		$date[0] . ((!empty($date[1]) && !isset($cfg['archYear'])) ? ' AND MONTH(date)='.
-		$date[1] : '') . ' AND access=1 ORDER BY ID DESC');
+	#Ca³y rok / 1 miesi±c
+	if(isset($cfg['archYear']) && $id == (int)$id)
+	{
+		//date BETWEEN '.gmmktime(0,0,0,1,1,$id).' AND '.gmmktime(0,0,0,1,1,$id+1)-1
+		$q = 'date BETWEEN \''.$id.'-01-01\' AND \''.$id.'-12-31\'';
+	}
+	elseif($id == (float)$id)
+	{
+		$date = explode('.',$id);
+		if(!isset($date[1][1])) $date[1] = '0'.$date[1][0];
+		//gmmktime(0,0,0,$date[1],1,$date[0]) gmmktime(0,0,0,$date[1]+1,1,$date[0])-1;
+		$q = 'date BETWEEN \''.$date[0].'-'.$date[1].'-01\' AND \''.$date[0].'-'.$date[1].'-31\'';
+	}
+	else return;
+	
+	#Pobierz newsy
+	$res = $db->query('SELECT ID,name,date FROM '.PRE.'news WHERE '.$q.' AND access=1 ORDER BY ID DESC');
 
 	$res->setFetchMode(3);
 	$news = array();
@@ -37,22 +48,20 @@ if($id)
 	return 1;
 }
 
-
 #Lista lat i miesiêcy
 $date = $db->query('SELECT date FROM '.PRE.'news LIMIT 1') -> fetchColumn();
-$date = explode('-',$date);
 
 #Brak nowo¶ci?
 if(!$date[0]) return;
 
-#Usuñ 0
-if($date[1] < 10) $date[1] = str_replace('0','',$date[1]);
+#Data 1. newsa
+$year = (int)$date[0].$date[1].$date[2].$date[3];
+$mon  = (int)$date[5].$date[6];
 
-#Miesi±c i rok
+#Bie¿±cy miesi±c i rok
 $m = date('n');
 $y = date('Y');
 
-#Zapisz do:
 $dates = array();
 
 #Lata
@@ -64,11 +73,11 @@ if(isset($cfg['archYear']))
 			'title' => $y--
 		);
 	}
-	while( $y>$date[0] && $y>1981 );
+	while( $y>$year && $y>1981 );
 }
 
 #Miesi±ce
-elseif($date[1])
+elseif($mon)
 {
 	do {
 		$dates[] = array(
@@ -81,7 +90,7 @@ elseif($date[1])
 		}
 		else --$m;
 	}
-	while( $y!=$date[0] || $m!=$date[1] );
+	while( $y>$year || $m>=$mon );
 }
 unset($y,$m,$date);
 

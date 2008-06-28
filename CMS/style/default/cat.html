@@ -1,0 +1,38 @@
+<!-- IF path -->
+<div class="cs">
+
+	<!-- IF options -->
+	<div style="float: right">
+
+		<a href="javascript:Hint('catmenu',0,0,1)">{lang.opt}<img src="img/icon/d.png" alt="v" /></a>
+
+		<ul class="hint" style="left: inherit; top: inherit" id="catmenu">
+			<li onclick="location='{add_url}'">{lang.addItem}</li>
+			<li onclick="location='{list_url}'">{lang.itemList}</li>
+		</ul>
+
+	</div>
+	<!-- END -->
+
+	<a href="{cats_url}">{cat_type}</a> &raquo; {path}
+
+</div>
+<!-- END -->
+
+<!-- IF cat.text OR subcats -->
+<h2>{cat.name}</h2>
+<div class="box">
+
+<!-- IF cat.text -->
+	{nl2br: cat.text}
+<!-- END -->
+
+	<!-- IF subcats -->
+	<ul class="cats">
+		<!-- START subcats -->
+		<li><a href="{url}">{name}</a> ({num})</li>
+		<!-- STOP -->
+	</ul>
+	<!-- END -->
+</div>
+<!-- END -->

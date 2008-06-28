@@ -1,0 +1,94 @@
+<!-- IF start -->
+<form action="?a=mailing" method="POST">
+<h2>{lang.m1}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody class="bg">
+<tr>
+	<th>{lang.range}</th>
+	<th>{lang.groups}</th>
+</tr>
+<tr>
+	<td align="center">
+		<select name="m_lv[]" multiple="multiple">{levels}</select>
+	</td>
+	<td align="center">
+		<select name="m_gr[]" multiple="multiple">{groups}</select>
+	</td>
+</tr>
+<tr>
+	<td class="eth" colspan="2" align="center">
+		<input type="submit" value="OK &raquo;" name="next" />
+	</td>
+</tr>
+</tbody>
+</table>
+</form>
+
+<!-- ELSE -->
+
+<script type="text/javascript">
+<!--
+var mm=new Request('request.php?co=text','box');
+mm.method='POST';
+
+function Prev(step,o)
+{
+	d('box').style.display='block'
+	location.href='#aprev'
+	mm.reset()
+	mm.add('text',d('m_txt').value)
+	mm.add('table',1)
+	mm.add('o', ((d('m_html').checked)?'':'H') + ((d('m_emot').checked)?'E':'')+'L')
+	mm.run()
+}
+-->
+</script>
+
+<a id="aprev"></a><div id="box" style="display: none"></div>
+<form action="?a=mailing" method="post">
+<h2>{title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody class="bg">
+<tr>
+	<td style="width: 25%"><b>1. {lang.sender}:</b></td>
+	<td><input name="m_from" maxlength="50" size="30" value="{cfg.title}" /></td>
+</tr>
+<tr>
+	<td><b>2. {lang.rcpt}:</b></td>
+	<td><input name="m_rcpt" maxlength="50" size="30" value="{lang.rcpt2} {cfg.title}" /></td>
+</tr>
+<tr>
+	<td><b>3. {lang.topic}:</b></td>
+	<td><input name="m_topic" maxlength="50" size="30" /></td>
+</tr>
+<tr>
+	<td><b>4. {lang.opt}:</b></td>
+	<td>
+		<label><input type="checkbox" name="m_html" id="m_html" checked="checked" /> HTML</label><br />
+		<label><input type="checkbox" name="m_emot" id="m_emot" /> {lang.emot}</label><br />
+		<label><input type="checkbox" name="m_hard" onclick="if(this.checked) if(!confirm('{lang.hard2}')) checked=0" /> {lang.hardmode}</label>
+	</td>
+</tr>
+<tr>
+	<th colspan="2">{lang.text}</th>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+		<textarea name="m_txt" id="m_txt" style="width: 95%" rows="9" cols="30"></textarea>
+		<script type="text/javascript">var ed=new Editor("m_txt"); ed.Emots()</script>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" class="eth">
+		<input type="hidden" name="m_lv" value="{level}" />
+		<input type="hidden" name="m_gr" value="{group}" />
+		<input type="button" value="{lang.preview}" onclick="Prev()" />
+		<input type="submit" value="OK" />
+	</td>
+</tr>
+</tbody>
+</table>
+</form>
+<!-- END -->

@@ -2,15 +2,26 @@
 $time1=microtime(1);
 
 #J±dro
-require('kernel.php');
+define('iCMS',1);
 define('iCMSa',1);
+require 'kernel.php';
 
-#Admin?
-if(LOGD==1)
+#Niezalogowany?
+if(LOGD != 1)
 {
-	if($user[UID]['lv']<3) exit('Brak praw dostêpu!');
+	$content->file = 'login';
+	exit;
+}
+elseif(LEVEL < 3)
+{
+	Header(URL.'index.php'); //Przekieruj na stronê g³ówn±
+	exit;
 }
 require LANG_DIR.'adm.php';
+
+#Katalog szablonów
+$content->dir = './style/admin/';
+$content->cacheDir = './cache/admin/';
 
 #Zazn. ID
 function GetIDs($v)
@@ -19,7 +30,7 @@ function GetIDs($v)
 	$ile=count($v);
 	for($i=0;$i<$ile;$i++)
 	{
-		if(is_numeric(key($v))) array_push($x,key($v)); next($v);
+		if(is_numeric(key($v))) $x[] = key($v); next($v);
 	}
 	return $x;
 }
@@ -27,27 +38,20 @@ function GetIDs($v)
 #Typ
 function typeOf($co)
 {
- switch($co)
- {
-  case 2: return 'files'; break;
-  case 3: return 'imgs'; break;
-  case 4: return 'links'; break;
-  case 5: return 'news'; break;
-  default: return 'arts';
- }
+	switch($co)
+	{
+		case 2: return 'files'; break;
+		case 3: return 'imgs'; break;
+		case 4: return 'links'; break;
+		case 5: return 'news'; break;
+		default: return 'arts';
+	}
 }
 
 #Menu boczne
 function MI($title,$url,$r,$c='plug')
 {
 	if(Admit($r)) return '<li class="a_'.$c.'"><a href="?a='.$url.'">'.$title.'</a></li>';
-}
-
-#Niezalogowany - logowanie
-if(LOGD!==1 || defined('MOD'))
-{
-	require './admin/inc/login.php';
-	return 1;
 }
 
 #Modu³
@@ -71,24 +75,7 @@ else
 	include './admin/summary.php';
 }
 
-#Menu boczne (tytu³,plik,upr,klasa)
-/*$menu = array(
-	'cats'  => Admit('C'),
-	'polls' => Admit('f3s'),
-	'pages' => Admit('IP'),
-	'rss'   => Admit('RSS'),
-	'users' => Admit('U'),
-	'admins'=> Admit('AD'),
-	'groups'=> Admit('UG'),
-	'log'   => Admit('LOG'),
-	'mail'  => Admit('MM'),
-	'config'=> Admit('CFG'),
-	'db'    => Admit('CDB'),
-	'nav'   => Admit('NM'),
-	'ads'   => Admit('B'),
-	'plugin'=> Admit('PI')
-);*/
-
+#Menu
 if(isset($_SESSION['admmenu']))
 {
 	$menu = file_get_contents('./cache/adm'.UID.'.php');
@@ -131,7 +118,7 @@ else
 }
 
 #Szablon i tytu³
-if(!$content->file) $content->file = 'admin/'.$A;
+if(!$content->file) $content->file = $A;
 if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
 #Skórka - admin
@@ -139,4 +126,4 @@ require VIEW_DIR.'admin.html';
 
 //DO USUNIÊCIAAAAAAAAAAAAA!!!!!!!
 $time2=microtime(1);
-echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());?>
+echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());

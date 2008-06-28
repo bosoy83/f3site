@@ -1,0 +1,55 @@
+<form action="{url}" method="post" f3:array="rights" f3:mode="isset">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr valign="top">
+	<td style="padding: 4px" style="overflow: scroll; width: 50%; max-height: 600px">
+		<div style="overflow-y: auto; max-height: 500px">
+		<fieldset>
+		<legend>{lang.range}</legend>
+		<select name="lv" f3:var="lv">
+			<option value="0">{lang.locked}</option>
+			<option value="1">{lang.user}</option>
+			<option value="2">{lang.editor}</option>
+			<option value="3">{lang.admin}</option>
+			<!-- IF owner --><option value="4">{lang.owner}</option><!-- END -->
+		</select>
+		<br />{lang.range2}
+		</fieldset>
+		<fieldset>
+		<legend>{lang.global}</legend>
+			<label><input type="checkbox" name="CM" /> {lang.manComm}</label><br />
+			<label><input type="checkbox" name="FM" /> {lang.fileMan}</label><br />
+			<label><input type="checkbox" name="FM2" /> {lang.fileMan2}</label><br /><br />
+			<label><input type="checkbox" name="C" /> {lang.cats}</label><br />
+			<label><input type="checkbox" name="Q" /> {lang.polls}</label><br />
+			<label><input type="checkbox" name="IP" /> {lang.ipages}</label><br />
+			<label><input type="checkbox" name="RSS" /> RSS</label><br /><br />
+			<label><input type="checkbox" name="U" /> {lang.users}, {lang.admins}...</label><br />
+			<label><input type="checkbox" name="LOG" /> {lang.log}</label><br />
+			<label><input type="checkbox" name="MM" /> {lang.mailing}</label><br /><br />
+			<label><input type="checkbox" name="CFG" /> {lang.config}</label><br />
+			<label><input type="checkbox" name="DB" /> {lang.dbcopy}</label><br />
+			<label><input type="checkbox" name="NM" /> {lang.nav}</label><br />
+			<label><input type="checkbox" name="B" /> {lang.ads}</label><br />
+			<label><input type="checkbox" name="PI" /> {lang.plugs}</label>
+		</fieldset>
+
+		<!-- IF plugins -->
+		<fieldset>
+		<legend>{lang.plugs}</legend>
+		{plugins}
+		</fieldset>
+		<!-- END --></div>
+	</td>
+	<td style="overflow: auto; max-height: 700px; width: 50%">
+		{cats}
+	</td>
+</tr>
+<tr>
+	<td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+</tr>
+</tbody>
+</table>
+</form>

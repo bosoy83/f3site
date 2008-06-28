@@ -1,5 +1,6 @@
 <?php
 if(!$_POST) exit;
+define('iCMS',1);
 require './kernel.php';
 
 #Adres IP
@@ -7,7 +8,7 @@ $ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
 	((isset($_SERVER['HTTP_X_FORWARDED_FOR'])) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
 
 #Oceny
-/* Na razie wy³¹czone
+/* Na razie wy³±czone
 if(is_numeric($_GET['t']))
 {
 	#Opcje
@@ -25,7 +26,7 @@ if(is_numeric($_GET['t']))
 		case 3: if($cfg['irate']==1) { $table='img'; } break;
 	}
 
-	#B³¹d?
+	#B³±d?
 	if($table=='')
 	{
 	exit('Error: rating disabled.');
@@ -117,7 +118,7 @@ if(isset($_POST['poll']))
 				$db->beginTransaction();
 				$db->exec('UPDATE '.PRE.'polls SET num=num+1 WHERE ID='.$id);
 				$db->exec('UPDATE '.PRE.'answers SET num=num+1 WHERE IDP='.$id.' AND ID IN ('.$q.')');
-				$db->exec('INSERT INTO '.PRE.'pollvotes (user,ID,date) VALUES ('.$u.','.$id.','.NOW.')');
+				$db->exec('INSERT INTO '.PRE.'pollvotes (user,ID,date) VALUES ('.$u.','.$id.','.$_SERVER['REQUEST_TIME'].')');
 				$db->commit();
 
 				#Pobierz odpowiedzi
@@ -143,7 +144,7 @@ if(isset($_POST['poll']))
 	#JS?
 	if(isset($content->ajax)==1)
 	{
-		$_GET['id'] = $id; include('./mod/poll.php'); //Wyœwietl du¿e wyniki
+		$_GET['id'] = $id; include('./mod/poll.php'); //Wy¶wietl du¿e wyniki
 	}
 	else { $content->message(5,'index.php?co=poll&amp;id='.$id); } //Info
 }

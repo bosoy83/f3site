@@ -46,32 +46,38 @@ if($total < 1)
 }
 
 #Pobierz
-$res = $db->query('SELECT p.ID,p.topic,p.usr,p.owner,'.(($id==4)?'p.st,':'')
-	.'u.ID as uid, u.login FROM '.PRE.'pms p LEFT JOIN '.PRE.'users u ON p.'
-	.(($id==2)?'owner':'usr').'=u.ID'.$q.' ORDER BY p.ID DESC LIMIT '.$st.',20');
+$res = $db->query('SELECT p.ID, p.topic, p.usr, p.owner, u.ID as uid, u.login'.
+	(($id==4)?', p.st':'').' FROM '.PRE.'pms p LEFT JOIN '.PRE.'users u ON p.'.
+	(($id==2)?'owner':'usr').'=u.ID'.$q.' ORDER BY p.ID DESC LIMIT '.$st.',20');
 
-#Do szablonu
-$content->data['who'] = ($id==4 || $id==3) ? $lang['pm_12'] : $lang['pm_13'];
-$content->data['url'] = '?co=pms&amp;act=m&amp;id='.$id;
-$content->data['file'] = 'pms_list.html';
-$content->data['total'] = $total;
-$content->data['pages'] = Pages($page, $total, 20, '?co=pms&amp;act=l&amp;id='.$id, 1);
-
-#Numer PM
-$num = 0;
+#Liczba PM
+$num = $st;
+$pms = array();
+$res->setFetchMode(3);
 
 #Lista
 foreach($res as $pm)
 {
-	$content->data['pms'][] = array(
-		'ID'     => $pm['ID'],
-		'topic'  => $pm['topic'],
-		'num'    => ++$num + $st,
-		'new'    => $id==4 && $pm['st']==1,
-		'url'    => '?co=pms&amp;act=v&amp;id='.$pm['ID'],
-		'login'  => $pm['login'],
-		'user_url' => '?co=user&amp;act='.$pm['uid']
+	$pms[] = array(
+		'id'     => $pm[0],
+		'topic'  => $pm[1],
+		'num'    => ++$num,
+		'new'    => $id==4 && $pm[6]==1,
+		'url'    => '?co=pms&amp;act=v&amp;id='.$pm[4],
+		'login'  => $pm[5],
+		'user_url' => MOD_REWRITE ? '/user/'.$pm[4] : '?co=user&amp;id='.$pm[4]
 	);
 }
 $res=null;
-?>
+
+#Szablon
+$content->file[] = 'pms_list';
+
+#Do szablonu
+$content->data += array(
+	'pm'  => $pms,
+	'who' => ($id==4 || $id==3) ? $lang['pm_12'] : $lang['pm_13'],
+	'url' => '?co=pms&amp;act=m&amp;id='.$id,
+	'total' => $total,
+	'pages' => Pages($page, $total, 20, '?co=pms&amp;act=l&amp;id='.$id, 1)
+);

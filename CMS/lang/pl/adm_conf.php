@@ -11,4 +11,3 @@ $lang+=Array(
 'emots'=>'Emotikony',
 'ua'=>'Konta<br />u¿ytkowników',
 );
-?>

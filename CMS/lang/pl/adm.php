@@ -62,6 +62,5 @@ $lang+=Array(
 'sortn'=>'wg nazwy',
 'spchr'=>'Znaki specjalne',
 't255'=>'Do 255 znaków.',
-'warninst'=>'<b>Katalog INSTALL nadal znajduje siê na serwerze. Usuñ go jak najszybciej!</b>',
+'warninst'=>'<b>Katalog INSTALL nadal znajduje siê na serwerze. Usuñ go teraz!</b>',
 );
-?>

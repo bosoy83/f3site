@@ -1,0 +1,97 @@
+<script type="text/javascript">
+//<![CDATA[
+function Del(id)
+{
+	if(confirm("{lang.delc}"))
+	{
+		del=new Request("adm.php?x=del&id="+id,'i'+id);
+		del.method='POST';
+		del.add('co','{type}')
+		del.run()
+	}
+}
+function Se()
+{
+	if(a=prompt("{lang.searp}")) location="?co=list&act={act}&find="+a;
+}
+//]]>
+</script>
+
+<h2>{lang.info}</h2>
+<div class="box" style="text-align: center">
+	{intro}<br /><br />
+	<a href="javascript:Se()">{lang.search}</a> |
+	<a href="{add_url}">{lang.addItem}</a> |
+	<!-- IF cats_url --><a href="{cats_url}">{lang.cats}: {type}</a><!-- END -->
+</div>
+
+<!-- LISTA -->
+<form action="{url}" method="post">
+<h2>{type}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<th>{lang.name}</th>
+	<th style="width: 50px">{lang.on}</th>
+	<th>{lang.opt}</th>
+	<th style="width: 25px">&nbsp;</th>
+</tr>
+
+<!-- START item -->
+
+<tr>
+	<td id="i{ID}">{num}. <a href="{url}">{title}</a></td>
+	<td align="center">{on}</td>
+	<td align="center" nowrap="nowrap">
+		<a href="{edit_url}">{lang.edit}</a> &middot; <a href="{del_url}">{lang.del}</a>
+	</td>
+	<td><input type="checkbox" name="chk[{ID}]" /></td>
+</tr>
+
+<!-- STOP -->
+
+<tr>
+	<td class="eth">
+		<a href="javascript:Show('mo')">{lang.chopt} &raquo;</a>
+	</td>
+	<td class="eth" colspan="3">
+		<b>{lang.page}:</b> {pages}
+	</td>
+</tr>
+</tbody>
+</table>
+
+<!--Masowe zmiany-->
+<table cellspacing="1" class="tb" id="mo" style="display: none">
+<caption>test</caption>
+<tbody>
+<tr>
+	<td style="width: 35%"><b>1. {lang.cat}:</b></td>
+	<td><select name="cat">
+		<option value="N">{lang.nochg}</option>
+		{cats}
+		<option value="0">{lang.lack}</option>
+	</select></td>
+</tr>
+<tr>
+	<td><b>2. {lang.published}?</b></td>
+	<td><select name="access">
+		<option value="N">{lang.nochg}</option>
+		<option value="1">{lang.yes}</option>
+		<option value="2">{lang.no}</option>
+	</select></td>
+</tr>
+<tr>
+	<td><b>3. {lang.opt}:</b></td>
+	<td><input type="checkbox" name="del" id="del" /> {lang.chdel}</td>
+</tr>
+<tr>
+	<td class="eth" colspan="2"><input type="submit" value="OK" /></td>
+</tr>
+</tbody>
+</table>
+</form>
+<script type="text/javascript">
+d('del').checked=0
+</script>

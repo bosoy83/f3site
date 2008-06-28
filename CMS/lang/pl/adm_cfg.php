@@ -8,9 +8,6 @@ $lang+=Array(
 'footer'=>'Stopka',
 'metad'=>'Opis serwisu',
 'ind'=>'Indeksowane przez wyszukiwarki.',
-'metak'=>'S³owa kluczowe',
-'gmenu'=>'Górne menu',
-'gmenusz'=>'U¿ywaj znacznika HTML &lt;a&gt;<br /><br />&amp;nbsp; - twarda spacja<br />&amp;middot; - kropka<br />&amp;amp; - znak &amp; (zgodnie z xHTML)',
 'dkh'=>'Dodatkowy kod w sekcji',
 'dkhd'=>'Nieobowi±zkowe.<br />Np. inne znaczniki &lt;meta&gt;, &lt;link&gt;...',
 'robots'=>'Zezwolenia indeksowania',
@@ -18,18 +15,18 @@ $lang+=Array(
 'iindex'=>'tylko g³ówn±',
 'inone'=>'zabroñ ca³kowicie',
 'iflw'=>'tylko odsy³acze',
-'ncoo'=>'Nazwa cookie',
 'styl'=>'Domy¶lny styl (skórka)',
 
 'date'=>'Ustawienia daty',
-'dateaf'=>'Format aktualnej daty',
-'datefd'=>'Patrz: <a href="http://php.net/pl/manual/function.strftime" target="_blank">strftime()</a> w podrêczniku PHP.',
-'date1f'=>'Format daty',
-'date1d'=>'%d - dzieñ &nbsp;&nbsp;%m - mies. &nbsp;&nbsp;%y - rok',
-'date2f'=>'Format godziny',
-'date2d'=>'%h - godzina &nbsp;&nbsp;%i - minuta &nbsp;&nbsp;%s - sekunda',
+'now1'=>'Format aktualnej daty',
+'now2'=>'Patrz: <a href="http://php.net/pl/manual/function.strftime" target="_blank">strftime()</a> w podrêczniku PHP.',
+'date1'=>'Format daty',
+'date2'=>'%d - dzieñ &nbsp;&nbsp;%m - mies. &nbsp;&nbsp;%Y - rok',
+'time1'=>'Format godziny',
+'time2'=>'%H - godzina &nbsp;&nbsp;%M - minuta &nbsp;&nbsp;%S - sekunda',
 'lastv'=>'Zapisywaæ datê ost. wizyty',
 
+'uComm2'=>'Pozwala komentowaæ u¿ytkowników. UWAGA! Komentowana osoba mo¿e usuwaæ komentarze.',
 'pmOn'=>'W³±czyæ prywatne wiadomo¶ci',
 'pml'=>'Limit prywatnych wiadomo¶ci',
 'userFind'=>'Szukanie u¿ytkowników',
@@ -55,9 +52,6 @@ $lang+=Array(
 'commSort2'=>'Od najstarszego',
 
 'common'=>'W³±czyæ komentarze',
-'pcount'=>'Zaokr. % do liczb po przecinku',
-'pcountd'=>'Dotyczy wyników. 0 = bez liczb po przecinku.',
-'pspdr'=>'Sposób wy¶wietlania wyników',
-'inblock'=>'Wy¶wietlany w bloku menu (po zag³osowaniu).',
+'pcount'=>'Zaokr. % do cyfr po przecinku',
+'pcountd'=>'Dotyczy wyników. 0 = bez cyfr po przecinku.'
 );
-?>

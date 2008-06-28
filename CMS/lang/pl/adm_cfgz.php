@@ -22,8 +22,6 @@ $lang+=Array(
 'ay'=>'Grupowaæ wg roku w archiwum',
 'ay2'=>'Je¶li rzadko redagujesz nowo¶ci, zaznacz tê opcjê, aby zamiast miesiêcy wy¶wietlaæ lata.',
 
-'hmir'=>'Obrazków w 1 wierszu',
-
 'min'=>'Ilo¶æ miniatur na 1 stronie',
 
 'se'=>'Wyszukiwanie',
@@ -34,4 +32,4 @@ $lang+=Array(
 
 'defCat'=>'Strona startowa',
 'forLang'=>'Dla jêzyka ',
-); ?>
+);

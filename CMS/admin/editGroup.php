@@ -63,7 +63,7 @@ $content->addScript('lib/editor.js');
 
 #Dane
 $content->data = array(
-	'url'   => '?a=editgroup'.(($id)?'&amp;id='.$id:''),
+	'url'   => '?a=editGroup'.(($id)?'&amp;id='.$id:''),
 	'group' => &$group,
 	'langs' => ListBox('lang', 1, ($id ? $group['access'] : null))
 );

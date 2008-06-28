@@ -1,13 +1,21 @@
 /*G³ówne*/
-body {font: 13px Verdana,Helvetica,Arial,Times; background-color: #9CBCC0}
-form {margin: 0}
-a {text-decoration: none; color: #000097}
-a:hover {text-decoration: underline; color: #0C5BB4}
-img {vertical-align: middle; border: 0}
-optgroup {font-style: normal}
-textarea {font: 13px Verdana,Helvetica}
-label {cursor: pointer}
-h2 {
+body {
+	font: 13px Verdana,Helvetica,Arial,Times;
+	background-color: #9CBCC0
+}
+a {
+	text-decoration: none;
+	color: #000097
+}
+a:hover {
+	text-decoration: underline;
+	color: #0C5BB4
+}
+img {
+	vertical-align: middle;
+	border: 0
+}
+h2, .tb caption {
 	margin: 0;
 	font: bold 13px Verdana;
 	border: 1px solid #C6CDC2; border-bottom: 0;
@@ -16,13 +24,14 @@ h2 {
 	color: #396F79;
 	padding: 1px;
 }
-.all {width: 880px; background-color: #ACACA4}
+form {margin: 0}
+optgroup {font-style: normal}
+textarea {font: 13px Verdana,Helvetica}
+label {cursor: pointer}
 
-ul {margin: 9px; padding-left: 25px}
-/*ul.go {list-style: none; background: url(../../img/icon/go.png) repeat-y 0 0}*/
+/* Listy */
+ul,ol {margin: 9px; padding-left: 25px}
 ul.go {list-style-image: url(../../img/icon/go.png)}
-ul.list {list-style: none; background: url(../../)}
-
 ul.gallery {list-style: none; padding: 0; margin: 0}
 ul.gallery li {
 	display: inline-block;
@@ -30,9 +39,31 @@ ul.gallery li {
 	padding: 5px;
 	text-align: center;
 }
+ul.cats {
+	list-style-image: url(../../img/icon/folder.png);
+	overflow: hidden
+}
+ul.cats li {
+	width: 50%;
+	float: left
+}
+.files div {
+	background: url(../../img/icon/file.png) no-repeat 5px 4px;
+	padding: 3px 0 5px 30px;
+	min-height: 32px;
+}
+.art,.link {
+	height: 40px;
+	padding-left: 37px !important;
+}
+.art  { background: url(../../img/icon/art.png) no-repeat 4px 50% }
+.link { background: url(../../img/icon/link.png) no-repeat 3px 50% }
+.art a, .files a, .link a {font-weight: bold}
 
-ul.cats {list-style-image: url(../../img/icon/folder.png); overflow: hidden}
-ul.cats li {width: 50%; float: left}
+/* Szablon */
+.all {width: 880px; background-color: #ACACA4}
+td.nav {width: 175px; padding: 9px}
+td#main {background-color: #EDEDEB; padding: 9px}
 
 /*Nag³ówek i stopka*/
 #header {background-color: #E4E4E4}
@@ -45,10 +76,14 @@ ul.cats li {width: 50%; float: left}
 	border: 1px solid #ACACA4;
 	border-top: 0
 }
-#gm {background-color: #F0F0EE; padding: 3px 8px 3px 8px}
-#gm a {color: #2872AE; font-weight: bold}
-td.nav {width: 175px; padding: 9px}
-td#main {background-color: #EDEDEB; padding: 9px}
+#gm {
+	background-color: #F0F0EE;
+	padding: 3px 8px 3px 8px
+}
+#gm a {
+	color: #2872AE;
+	font-weight: bold
+}
 
 /*Menu*/
 .menu {
@@ -71,28 +106,69 @@ td#main {background-color: #EDEDEB; padding: 9px}
 #online {text-align: center; line-height: 22px}
 
 /*Bloki*/
-th {background-color: #E9EFEC; font-weight: normal}
-.tb {background-color: #C6CDC2; width: 100%; margin-bottom: 8px}
-.eth {font-weight: bold; color: #236978; background: #F1F3F2 url(eth.png); text-align: center}
-.box,.tb tbody {background-color: #F7F7F7}
-.box {border: 1px solid #C6CDC2; padding: 3px; margin-bottom: 8px}
-.tb td {padding: 3px}
-.cs {border: 1px solid #C6CDC2; padding: 5px 3px 5px 28px; margin-bottom: 8px; background: url(../../img/icon/cs.png) 3px 3px no-repeat #F7F7F7}
-
+th {
+	background-color: #E9EFEC;
+	font-weight: normal
+}
+.tb {
+	background-color: #C6CDC2;
+	width: 100%;
+	margin-bottom: 8px
+}
+.eth, .end {
+	color: #236978;
+	background: #F1F3F2 url(eth.png);
+	text-align: center;
+	padding: 1px;
+}
+.end {
+	border: 1px solid #C6CDC2;
+	border-top: 0;
+	margin: -8px 0 8px 0;
+}
+.box {
+	overflow: hidden;
+	border: 1px solid #C6CDC2;
+	padding: 3px;
+	margin-bottom: 8px
+}
 .eth td,th,.code,.quote {padding: 2px}
+.box,.tb tbody {background-color: #F7F7F7}
+.tb td {padding: 3px}
+
+/* Struktura kategorii */
+.cs {
+	border: 1px solid #C6CDC2;
+	padding: 5px 3px 5px 28px;
+	margin-bottom: 8px;
+	background: url(../../img/icon/cs.png) 3px 3px no-repeat #F7F7F7
+}
 
 /*Tekst i inne*/
-.newsimg {padding: 3px; padding-right: 5px; float: left}
-.txt,.post1 {padding: 3px}
+.newsimg {
+	padding: 3px;
+	padding-right: 5px;
+	float: left
+}
+.code {
+	background-color: #EFEFE7;
+	border: 1px solid #DBDBCA
+}
+.quote {
+	background-color: #E7EFEF;
+	border: 1px solid #ACC8C8
+}
+.pollstrip {
+	background-color: #73bcdf;
+	border: 1px outset #4f99c6
+}
+.post1 {padding: 3px}
 .post2 {padding: 3px; background-color: #F1F5F5}
-big,.big {font-size: 15px}
 .nag {background-color: #D9E6DB}
-.txtm,small {font-size: 11px}
-.code {background-color: #EFEFE7; border: 1px solid #DBDBCA}
-.quote {background-color: #E7EFEF; border: 1px solid #ACC8C8}
-.listlink {font-weight: bold}
-.pollstrip {background-color: #73bcdf; border: 1px outset #4f99c6}
+big {font-size: 15px}
+small {font-size: 11px}
 
+/* Strony */
 .pages .pageAct {
 	background-color: #D1E9DA;
 	border: 1px solid #C6D7D9;
@@ -101,6 +177,7 @@ big,.big {font-size: 15px}
 .pages a {
 	background-color: #DAE8E9;
 	border: 1px solid #C2D2D3;
+	font-weight: normal;
 	padding: 2px 4px;
 	margin: 3px
 }
@@ -114,7 +191,11 @@ big,.big {font-size: 15px}
 	display: none;
 	margin: 0
 }
-ul.hint {margin: 0; padding: 0; list-style-type: none}
+ul.hint {
+	margin: 0;
+	padding: 0;
+	list-style-type: none
+}
 .hint li,.tab {padding: 2px; cursor: pointer}
 .hint li:hover {background-color: #fbf9db}
 /*
@@ -126,5 +207,12 @@ ul.hint {margin: 0; padding: 0; list-style-type: none}
 */
 /*Edytor*/
 .editor {margin: 2px}
-.editor img, .editor span {cursor: pointer; border: 1px solid #F7F7F7; padding: 3px}
-.editor img:hover, .editor span:hover {background-color: #fffdd9; border-color: #dedbc0}
+.editor img, .editor span {
+	cursor: pointer;
+	border: 1px solid #F7F7F7;
+	padding: 3px
+}
+.editor img:hover, .editor span:hover {
+	background-color: #fffdd9;
+	border-color: #dedbc0
+}

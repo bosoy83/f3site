@@ -6,7 +6,8 @@ Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
 $time1=microtime(1);
 
 #J±dro
-require('./kernel.php');
+define('iCMS',1);
+require './kernel.php';
 
 #£aduj modu³ - gdy nie istnieje lub u¿yto return, wy¶wietl stronê 404
 if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][30]))

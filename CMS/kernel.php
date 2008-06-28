@@ -1,9 +1,6 @@
 <?php /* J±dro systemu */
-define('iCMS',1);
-define('VER',3);
+if(iCMS!=1) exit;
 define('URL','http://'.$_SERVER['HTTP_HOST'].str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
-//set_magic_quotes_runtime(0);
-//date_default_timezone_set('Europe/Paris');
 
 #Register globals: usuñ zmienne
 if(ini_get('register_globals'))
@@ -42,11 +39,6 @@ if(!empty($cfg['ban']))
 
 #Przepisywanie linków
 define('MOD_REWRITE', 0); //It's disabled now
-
-#Data
-define('TODAY', strftime($cfg['date']));
-define('NOW', $_SERVER['REQUEST_TIME']);
-define('DATETIME', '\''.strftime('%Y-%m-%d %H:%M:%S').'\'');
 
 #Skóra
 if(isset($_COOKIE[PRE.'tstyle']))
@@ -113,6 +105,9 @@ define('LANG_DIR', './lang/'.$nlang.'/');
 #Do³±cz g³ówny plik jêzyka
 require LANG_DIR.'main.php';
 
+#Dzisiaj
+define('TODAY', strftime($cfg['now']));
+
 #Do³±cz klasê skórek i utwórz obiekt
 require './lib/content.php';
 $content = new Content;
@@ -124,14 +119,12 @@ try
 	if($db_db=='sqlite')
 	{
 		$db = new PDO('sqlite:'.$db_d);
-		define('DB_RAND', 'RANDOM()');
 	}
 	#MySQL
 	else
 	{
 		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p); //Potem: $cfg['sqlpc']
-		$db-> exec('SET CHARACTER SET "latin2"'); //!!!!!!!!!!!!
-		define('DB_RAND', 'RAND()');
+		$db ->exec('SET CHARACTER SET "latin2"'); //!!!!!!!!!!!!
 	}
 	$db->setAttribute(3,2); #ERRMODE: Exceptions
 	$db->setAttribute(19,2); #DefaultFetchMode: ASSOC
@@ -205,7 +198,7 @@ if(defined('LOGD'))
 {
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
 	{
-		$db->exec('UPDATE '.PRE.'users SET lvis='.NOW.' WHERE ID='.UID);
+		$db->exec('UPDATE '.PRE.'users SET lvis='.$_SERVER['REQUEST_TIME'].' WHERE ID='.UID);
 		$_SESSION['recent'] = $user[UID]['lvis'];
 	}
 }
@@ -312,14 +305,11 @@ function Pages($page,$ile,$max,$url,$type=2)
 }
 
 #Banner
-function Banners($gid)
+function Banner($gid)
 {
-	if(is_numeric($gid))
-	{
-		$res=$GLOBALS['db']->query('SELECT code FROM '.PRE.'banners
-			WHERE gen='.$gid.' AND ison=1 ORDER BY '.DB_RAND.' LIMIT 1');
-		return $res->FetchColumn();
-	}
+	return $GLOBALS['db']->query('SELECT code FROM '.PRE.'banners WHERE gen='.(int)$gid.
+		' AND ison=1 ORDER BY RAND'.(($GLOBALS['db_db']=='sqlite') ? 'OM' : '').'() LIMIT 1')
+		-> fetchColumn();
 }
 
 #Emoty
@@ -336,34 +326,44 @@ function Emots($txt=null)
 }
 
 #Data
-function genDate($x, $hour=true)
+function genDate($x, $time=false)
 {
-	static $time;
-	if(!isset($time)) $time=getdate();
+	static $cur;
+	global $cfg,$lang;
 
-	$f=explode(' ',$x);
-	$e=explode('-',$f[0]);
+	if(!$x) return $x;
+	if($x[4] === '-') $x = strtotime($x); //Zamieñ DATETIME na znacznik czasu
 
-	if(empty($f[1])) return $x;
+	#Ró¿nica czasu
+	$diff = $_SERVER['REQUEST_TIME'] - $x;
 
-	if($e[2]==$time['mday'] && $e[1]==$time['mon'] && $e[0]==$time['year'])
+	#X minut temu
+	if($diff < 3601 && $diff > 0)
 	{
-		$d=$GLOBALS['lang']['today'];
+		return ceil($diff/60).$lang['ago'];
+	}
+	#Za X minut
+	elseif($diff > -3601 && $diff < 0)
+	{
+		return str_replace('%', ceil(-$diff/60), $lang['in']);
+	}
+
+	#Formatuj datê
+	if(!$cur) $cur = strftime($cfg['date'], $_SERVER['REQUEST_TIME']);
+	$date = strftime($cfg['date'], $x);
+
+	if($cur === $date)
+	{
+		$date = $lang['today'];
+	}
+	if($time)
+	{
+		return $date.strftime($cfg['time'], $x);
 	}
 	else
 	{
-		$d=str_replace('%d',$e[2],$GLOBALS['cfg']['dateFormat']);
-		$d=str_replace('%m',$e[1],$d);
-		$d=str_replace('%y',$e[0],$d);
+		return $date;
 	}
-	if($hour && !empty($f[1]) && $f[1]!='00:00:00')
-	{
-		$g=explode(':',$f[1]);
-		$d.=str_replace('%h',$g[0],$GLOBALS['cfg']['timeFormat']);
-		$d=str_replace('%i',$g[1],$d);
-		$d=str_replace('%s',$g[2],$d);
-	}
-	return $d;
 }
 
 #Autorzy
@@ -394,6 +394,12 @@ function Clean($val,$max=0,$wr=0)
 		$val=str_replace($words1,$words2,$val); //Zamiana s³ów
 	}
 	return trim(htmlspecialchars($val));
+}
+
+#Zapisz zdarzenie
+function log_event($msg, $type)
+{
+	$GLOBALS['db']->query('INSERT INTO '.PRE.'log (name,)');
 }
 
 #Licz w bazie

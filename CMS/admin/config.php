@@ -12,6 +12,5 @@ $res = $db->query('SELECT ID,name,img FROM '.PRE.'confmenu WHERE lang=1 OR lang=
 $items = $res->fetchAll(2); //NUM
 
 #Do szablonu
-$content->file = 'admin/config';
+$content->file = 'config';
 $content->data['plugins'] =& $items;
-?>

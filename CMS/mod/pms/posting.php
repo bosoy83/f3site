@@ -72,7 +72,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'pms (topic,usr,owner,st,date,bbc,txt)
-				VALUES (:topic,:usr,:owner,:status,'.NOW.',:bbc,:txt)');
+				VALUES (:topic,:usr,:owner,:status,'.$_SERVER['REQUEST_TIME'].',:bbc,:txt)');
 			$db->exec('UPDATE '.PRE.'users SET pms=pms+1 WHERE ID='.$to_id);
 
 			#Dane

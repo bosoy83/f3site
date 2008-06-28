@@ -78,6 +78,6 @@ require './lib/user.php';
 #Do szablonu
 $content->data = array(
 	'u' => &$u,
-	'url' => 'adm.php?a=edituser&amp;id='.$id,
+	'url' => 'adm.php?a=editUser&amp;id='.$id,
 	'groups' => GroupList($u['gid'])
 );

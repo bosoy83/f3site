@@ -1,0 +1,81 @@
+<form action="{url}" name="art" method="post" f3:array="img">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+  <td style="width: 30%"><b>1. {lang.cat}:</b></td>
+  <td><select name="cat"><option value="0">{lang.choose}</option>{cats}</select></td>
+</tr>
+<tr>
+  <td><b>2. {lang.title}:</b></td>
+  <td><input maxlength="50" size="30" name="name" value="{img.name}" /></td>
+</tr>
+<tr>
+  <td><b>3. {lang.published}:</b></td>
+  <td><input type="checkbox" name="access" /></td>
+</tr>
+<tr>
+  <td><b>4. {lang.priot}:</b></td>
+  <td><select name="priority">
+		<option value="1">{lang.high}</option>
+		<option value="2">{lang.normal}</option>
+		<option value="3">{lang.low}</option>
+	</select></td>
+</tr>
+<tr>
+  <td><b>5. {lang.img}:</b></td>
+  <td>
+		<input name="file" id="file" maxlength="200" value="{img.file}" />
+		<input type="button" value="{lang.preview}" onclick="Okno(file.value,500,400,100,100)" />
+		<!-- IF fileman -->
+		<input type="button" value="{lang.images} &raquo;" onclick="Okno('fileman.php?ff=file',580,400,150,150)" />
+		<!-- END -->
+	</td>
+</tr>
+<tr>
+  <td><b>6. {lang.minimg}:</b><br /><small>{lang.minimgd}</small></td>
+  <td>
+		<input name="fm" maxlength="50" value="{img.filem}" />
+		<input type="button" value="{lang.preview}" onclick="Okno(fm.value,500,400,100,100)" />
+		<!-- IF fileman -->
+		<input type="button" value="{lang.images} &raquo;" onclick="Okno('fileman.php?ff=fm',580,400,150,150)" />
+		<!-- END -->
+	</td>
+</tr>
+<tr>
+  <td><b>7. {lang.author}:</b><br /><small>{lang.nameid}</small></td>
+  <td><input name="author" maxlength="30" value="{img.author}" /></td>
+</tr>
+<tr>
+  <td><b>8. {lang.type}:</b></td>
+  <td>
+		<label><input type="radio" name="type" value="1" /> {lang.img}</label>&nbsp;
+		<label><input type="radio" name="type" value="2" /> Flash</label>&nbsp;
+		<label><input type="radio" name="type" value="3" /> QuickTime</label>
+	</td>
+</tr>
+<tr>
+  <td><b>9. {lang.isize}:</b><br /><small>{lang.isized}</small></td>
+  <td>
+		<input name="s1" value="{size.0}" size="2" maxlength="4" /> x
+		<input name="s2" value="{size.1}" size="2" maxlength="4" /> (px)
+	</td>
+</tr>
+<tr>
+	<th colspan="2">{lang.desc}</th>
+</tr>
+<tr>
+  <td colspan="2" align="center">
+		<textarea name="dsc" id="dsc" rows="12" style="width: 100%">{Clean: img.dsc}</textarea>
+	</td>
+</tr>
+<tr>
+  <td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+</tr>
+</tbody>
+</table>
+</form>
+<script type="text/javascript">
+var ed=new Editor('dsc');
+</script>

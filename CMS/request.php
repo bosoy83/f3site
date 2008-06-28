@@ -1,6 +1,7 @@
 <?php /* Plik dla ¿±dañ JavaScript - XMLHTTPRequest */
 define('REQUEST',1);
-require('kernel.php');
+define('iCMS',1);
+require 'kernel.php';
 
 //Modu³
 switch($_GET['co'])
@@ -15,4 +16,3 @@ switch($_GET['co'])
 		if(file_exists('./plugins/'.$co.'/http.php'))
 			include('./plugins/'.$co.'/http.php');
 }
-?>

@@ -4,10 +4,11 @@ class Content
 	public
 		$file,
 		$title,
-		$head=null,
-		$data=array();
-	protected
-		$info=null;
+		$head,
+		$data = array(),
+		$check = true,
+		$cacheDir = VIEW_DIR,
+		$dir = SKIN_DIR;
 
 	# Wy¶wietl g³ówny szablon
 	function display()
@@ -16,7 +17,7 @@ class Content
 		$lang = &$GLOBALS['lang'];
 
 		# Informacja?
-		if($this->info)
+		if(isset($this->info))
 		{
 			$info  = &$this->info;
 			$links = &$this->links;
@@ -24,7 +25,7 @@ class Content
 		}
 
 		# Szablon modu³u?
-		if($this->data || !$this->info)
+		if($this->data || !isset($this->info))
 		{
 			# Utwórz referencje, aby omin±æ $this w szablonach
 			foreach(array_keys($this->data) as $key)
@@ -33,20 +34,20 @@ class Content
 			}
 			if(!is_array($this->file)) $this->file = array($this->file);
 
-			foreach($this->file as $_)
+			foreach($this->file as $T)
 			{
 				# Czy istnieje nowsza wersja ¼ród³a?
-				if(filemtime('./view/'.$_.'.html') > filemtime(VIEW_DIR.$_.'.html'))
+				if($this->check && filemtime($this->dir.$T.'.html') > @filemtime($this->cacheDir.$T.'.html'))
 				{
 					if(!isset($tc))
 					{
 						include './lib/compiler.php';
 						$tc = new Compiler;
 					}
-					$tc -> compile($_.'.html');
+					$tc -> compile($T.'.html', $this->dir, $this->cacheDir);
 				}
 				# Do³±cz plik
-				include VIEW_DIR.$_.'.html';
+				include $this->cacheDir.$T.'.html';
 			}
 		}
 	}

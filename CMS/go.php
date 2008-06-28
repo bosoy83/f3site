@@ -1,4 +1,5 @@
-<?php /* Pobierz plik, przejdü do adresu... - ze zliczaniem */
+<?php /* Pobierz plik, przejdº do adresu... - ze zliczaniem */
+define('iCMS',1);
 require './kernel.php';
 require './cfg/content.php';
 
@@ -12,10 +13,10 @@ if($mod === 'link')
 
 	if(!$url) $content->message($lang['noex']);
 
-	#Zlicz wejúcie
+	#Zlicz wej∂cie
 	if(isset($cfg['lcnt'])) $db->exec('UPDATE '.PRE.'links SET count=count+1 WHERE ID='.$id);
 
-	#Przejdü do URL
+	#Przejdº do URL
 	header('Location: '.str_replace('&amp;','&',$url));
 	echo '<script type="text/javascript">location="'.$url.'"</script>';
 }

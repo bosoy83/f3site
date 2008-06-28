@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Jêzyk
-require(LANG_DIR.'pms.php');
+require LANG_DIR.'pms.php';
 
 #Tytu³ strony
 $content->title = $lang['pm_3'];
@@ -32,12 +32,12 @@ if($cfg['pmOn']==1 && LOGD==1)
 	if(isset($_GET['act']))
 	{
 		switch($_GET['act']) {
-			case 'v': require('./mod/pms/message.php'); break;
-			case 'e': require('./mod/pms/posting.php'); break;
-			case 'm': require('./mod/pms/action.php'); break;
+			case 'v': require './mod/pms/message.php'; break;
+			case 'e': require './mod/pms/posting.php'; break;
+			case 'm': require './mod/pms/action.php'; break;
 		}
 	}
-	else require('./mod/pms/list.php');
+	else require './mod/pms/list.php';
 }
 elseif(LOGD==2)
 {
@@ -47,4 +47,3 @@ else
 {
 	$content->info($lang['pm_1']);
 }
-?>

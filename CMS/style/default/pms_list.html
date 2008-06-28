@@ -1,0 +1,48 @@
+<form action="{url}" method="post">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<colgroup>
+	<col />
+	<col align="right" />
+	<col style="text-align: center; width: 7%" />
+</colgroup>
+
+<tbody>
+<tr>
+	<th>{lang.topic}</th>
+	<th>{who}</th>
+	<th><input type="checkbox" onclick="sAll(this)" /></th>
+</tr>
+
+<!-- START pm -->
+
+<tr>
+	<td>{num}. <a href="{url}">{topic}</a></td>
+	<td><a href="{user_url}">{login}</a></td>
+	<td><input type="checkbox" name="pmdel[{id}]" /></td>
+</tr>
+
+<!-- STOP -->
+
+<tr>
+	<td class="eth">
+		<input type="button" onclick="javascript:if(confirm('{lang.pm_26}')) this.form.submit()" value="{lang.delch}" />
+	</td>
+	<td colspan="2" class="eth">
+		{lang.page}: {pages}
+	</td>
+</tr>
+</tbody>
+</table>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+function sAll(s)
+{
+	var x=document.getElementsByTagName('input');
+	for(var i=0;i<x.length;i++) { if(x[i].name.indexOf('pmdel')==0) x[i].checked=s.checked }
+}
+//]]>
+</script>

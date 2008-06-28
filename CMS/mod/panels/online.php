@@ -26,16 +26,16 @@ if(strstr($_SERVER['HTTP_USER_AGENT'],'Googlebot'))
 }
 else
 {
-	$r=$db->quote($_SERVER['REMOTE_ADDR']. ((isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+	$r = $db->quote($_SERVER['REMOTE_ADDR']. ((isset($_SERVER['HTTP_X_FORWARDED_FOR']))
 		?' '.$_SERVER['HTTP_X_FORWARDED_FOR']:'') );
 }
 
 #Online (10 minut)
-if($online < (NOW-600))
+if($online < ($_SERVER['REQUEST_TIME']-600))
 {
-	$db->exec('DELETE FROM '.PRE.'online WHERE time<('.NOW.'-600) OR IP="'.$r.'"');
-	$db->exec('INSERT INTO '.PRE.'online VALUES ("'.$r.'",'.UID.','.NOW.',"")');
-	$_SESSION['online']=NOW;
+	$db->exec('DELETE FROM '.PRE.'online WHERE time<('.$_SERVER['REQUEST_TIME'].'-600) OR IP="'.$r.'"');
+	$db->exec('INSERT INTO '.PRE.'online VALUES ("'.$r.'",'.UID.','.$_SERVER['REQUEST_TIME'].',"")');
+	$_SESSION['online'] = $_SERVER['REQUEST_TIME'];
 }
 
 #Wyœwietl dane

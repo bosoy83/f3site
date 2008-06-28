@@ -1,0 +1,33 @@
+<form action="{url}" method="post" f3:array="ad">
+<h2>{this->title}</h2>
+
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<td><b>1. {lang.name}:</b></td>
+	<td><input name="name" value="{ad.name}" size="30" maxlength="50" /></td>
+</tr>
+<tr>
+	<td><b>2. {lang.acc}:</b></td>
+	<td>
+		<input type="radio" name="ison" value="1" id="i1" /> <label for="i1">{lang.on}</label> &nbsp;
+		<input type="radio" name="ison" value="2" id="i2" /> <label for="i2">{lang.off}</label>
+	</td>
+</tr>
+<tr>
+	<td><b>3. {lang.genid}:</b></td>
+	<td><input name="gen" value="{ad.gen}" style="width: 50px" /></td>
+</tr>
+<tr>
+	<td><b>4. {lang.htmlc}:</b></td>
+	<td>
+		<textarea name="code" id="code" style="width: 90%" rows="8">{Clean: ad.code}</textarea>
+		<script type="text/javascript">var ed=new Editor('code')</script>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+</tr>
+</tbody>
+</table>
+</form>

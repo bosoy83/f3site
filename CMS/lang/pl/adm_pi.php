@@ -10,4 +10,3 @@ $lang+=Array(
 'api_7'=>'Wtyczka zosta³a odinstalowana.',
 'api_8'=>'Wersja',
 );
-?>

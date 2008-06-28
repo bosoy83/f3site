@@ -62,7 +62,7 @@ $content->addScript('lib/editor.js');
 $content->addScript('cache/emots.js');
 $content->title = $id ? $lang['editp'] : $lang['addp'];
 $content->data = array(
-	'url'  => '?a=editpage'.(($id) ? '&amp;id='.$id : ''),
+	'url'  => '?a=editPage'.(($id) ? '&amp;id='.$id : ''),
 	'page' => &$page,
 	'o1'   => $page['opt']&1,
 	'o2'   => $page['opt']&2,

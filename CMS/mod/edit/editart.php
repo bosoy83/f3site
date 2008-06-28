@@ -41,7 +41,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'arts (cat,name,dsc,date,author,access,priority,pages)
-			VALUES (:cat,:name,:dsc,'.NOW.',:author,:access,:priority,:pages)');
+			VALUES (:cat,:name,:dsc,'.$_SERVER['REQUEST_TIME'].',:author,:access,:priority,:pages)');
 		}
 		$q->execute($art);
 
@@ -78,9 +78,9 @@ else
 {
 	if($id)
 	{
-		$res=$db->query('SELECT * FROM '.PRE.'arts WHERE ID='.$id);
-		$art=$res->fetch(2); //ASSOC
-		$res=null;
+		$res = $db->query('SELECT * FROM '.PRE.'arts WHERE ID='.$id);
+		$art = $res->fetch(2); //ASSOC
+		$res = null;
 
 		#Prawa
 		if(!$art || !Admit($art['cat'],'CAT',$art['author'])) return;
@@ -89,6 +89,7 @@ else
 		$res = $db->query('SELECT page,text,opt FROM '.PRE.'artstxt WHERE ID='.$id.' ORDER BY page');
 		$full = $res->fetchAll(3); //NUM
 		$res = null;
+		if(!$full) $full = array(array(1,'',1));
 	}
 	else
 	{

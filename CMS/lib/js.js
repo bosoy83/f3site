@@ -44,7 +44,7 @@ function Show(c,h)
 {
 	with(d(c).style)
 	{
-		if(display=='none') display='block'; else if(h==undefined) display='none'
+		if(display=='none') display=''; else if(h==undefined) display='none'
 	}
 }
 

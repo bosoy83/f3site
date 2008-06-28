@@ -1,0 +1,46 @@
+<form action="?a=db" method="post">
+<h2>{lang.dbTitle}</h2>
+
+<div class="box">
+
+	<fieldset style="float: right; height: 200px; width: 40%; text-align: center">
+		<legend>{lang.dbSelect}</legend>
+		<select name="tab[]" multiple="multiple" style="width: 80%; height: 150px">
+			{tables}
+		</select>
+		<br />
+		<br />
+		<a href="javascript:sAll()">{lang.all}</a>
+	</fieldset>
+
+	<fieldset style="height: 200px; width: 50%">
+		<legend>{lang.opt}</legend>
+		<label><input name="create" type="checkbox" checked="checked"> {lang.dbCreate}</label>
+		<br />
+		<label><input name="del" type="checkbox" style="margin: 7px 0 7px 20px"> {lang.dbDelete}</label>
+		<br />
+		<!-- IF gz -->
+		<label><input name="gz" type="checkbox" /> {lang.gz}</label>
+		<br />
+		<!-- END -->
+		<br />{lang.fileName}:
+		<br />
+		<input name="name" value="{name}" style="width: 205px" maxlength="30" />
+	</fieldset>
+
+	<div style="text-align: center; margin: 5px"><input type="submit" value="OK" /></div>
+
+</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+function sAll()
+{
+	var z=document.forms[0].elements['tab[]']
+	var l=z.length
+	for(i=0;i<l;++i) z.options[i].selected=true;
+	void(0)
+}
+//]]>
+</script>
