@@ -2,12 +2,6 @@
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
-<colgroup>
-	<col />
-	<col align="right" />
-	<col style="text-align: center; width: 7%" />
-</colgroup>
-
 <tbody>
 <tr>
 	<th>{lang.topic}</th>
@@ -19,8 +13,8 @@
 
 <tr>
 	<td>{num}. <a href="{url}">{topic}</a></td>
-	<td><a href="{user_url}">{login}</a></td>
-	<td><input type="checkbox" name="pmdel[{id}]" /></td>
+	<td align="center"><a href="{user_url}">{login}</a></td>
+	<td style="width: 7px"><input type="checkbox" name="pmdel[{id}]" /></td>
 </tr>
 
 <!-- STOP -->

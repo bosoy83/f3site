@@ -34,6 +34,7 @@ else { $s=''; }
 
 #Wszystkich
 $total = db_count('ID', 'users'.$w);
+$users = array();
 
 #Pobierz
 $res = $db->query('SELECT ID,login,lv FROM '.PRE.'users'.$w.' ORDER BY lv DESC, ID DESC LIMIT '.$st.',30');

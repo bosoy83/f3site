@@ -27,7 +27,7 @@ $file['edit'] = Admit($file['cat'],'CAT') ? '?co=edit&amp;act=file&amp;id='.$id 
 $file['rate']=''; //POTEM!!!!!
 
 #Data, autor
-$file['date'] = genDate($file['date']);
+$file['date'] = genDate($file['date'], true);
 $file['author'] = Autor($file['author']);
 
 #Do szablonu

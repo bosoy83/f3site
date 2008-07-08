@@ -32,9 +32,22 @@
 <!-- END -->
 
 <!-- IF url -->
+<div id="com">
 <div class="box" style="width: 150px; margin: auto; text-align: center">
-	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}">{lang.addComm}</a>
+	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}" onclick="c(); return false">{lang.addComm}</a>
 </div>
+</div>
+
+<script type="text/javascript">
+function c()
+{
+	include('lib/forms.js');
+	include('lib/editor.js');
+	include('{LANG_DIR}edit.js');
+	include('cache/emots.js');
+	Request.get('{js_url}', 'com', 1);
+}
+</script>
 
 <!-- ELSE -->
 <div class="box" style="text-align: center">{lang.loginComm}</div>

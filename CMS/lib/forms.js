@@ -1,20 +1,8 @@
-/* Rozszerzenie klasy Request() */
+/* Rozszerzenie klasy Request */
 
-//Przejmij w³adzê nad onSubmit()
-Request.prototype.setForm=function(name,rules)
+function SendForm(form, rules)
 {
-	var self=this;	
-	document.forms[name].onsubmit=function()
-	{
-		if(self.sendForm(name,rules)) return true; else return false;
-	};
-}
-
-//Wy¶lij formularz
-Request.prototype.sendForm=function(name,rules)
-{
-	var form=document.forms[name];
-	var elem=form.elements;
+	var elem = form.elements;
 
 	//Warunki
 	if(typeof rules!='undefined')
@@ -72,6 +60,19 @@ Request.prototype.sendForm=function(name,rules)
 	//Wy¶lij
 	this.run(1);
 }
+
+//Przejmij w³adzê nad onSubmit()
+Request.prototype.setForm=function(name,rules)
+{
+	var self=this;	
+	document.forms[name].onsubmit=function()
+	{
+		if(self.sendForm(name,rules)) return true; else return false;
+	};
+}
+
+//Wy¶lij formularz
+
 
 Request.prototype.addForm = function(id)
 {

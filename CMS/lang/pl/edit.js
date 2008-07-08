@@ -9,7 +9,6 @@ var eLang=new Array(
 'Wy¶rodkuj',
 'Wyrównaj do prawej',
 'Kolor tekstu',
-0,
 'Wstaw symbol',
 'Wstaw obraz',
 'Wstaw link do strony WWW',

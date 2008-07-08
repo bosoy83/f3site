@@ -56,7 +56,7 @@ else
 
 #Katalog skórki
 define('SKIN_DIR', './style/'.$nstyl.'/');
-define('VIEW_DIR', './cache/view/');
+define('VIEW_DIR', './cache/'.$nstyl.'/');
 
 #Sesja
 session_name(PRE);
@@ -219,7 +219,7 @@ Header('Content-type: text/html; charset=iso-8859-2');
 function Admit($id,$type=null,$a=null)
 {
 	if(LOGD!=1) return false; //Go¶æ?
-	global $user;
+	global $user, $db;
 	static $global;
 
 	#W³a¶ciciel?
@@ -234,8 +234,8 @@ function Admit($id,$type=null,$a=null)
 		}
 		else
 		{
-			return db_get('`all`','acl',' WHERE CatID='.(int)$id.' && UID='.UID.
-			' && type="'.$type.'"'.(($a==null || $a==UID)?'':' && `all`=1')); //1 = wszystkie
+			return $db->query('`all`','acl',' WHERE CatID='.(int)$id.' && UID='.UID.
+			' && type="'.$type.'"'.(($a==null || $a==UID)?'':' && `all`=1')) -> fetchColumn(); //1 = wszystkie
 		}
 	}
 	else
@@ -337,13 +337,13 @@ function genDate($x, $time=false)
 	#Ró¿nica czasu
 	$diff = $_SERVER['REQUEST_TIME'] - $x;
 
-	#X minut temu
-	if($diff < 3601 && $diff > 0)
+	#X minut temu (do 99)
+	if($diff < 5941 && $diff > 0)
 	{
 		return ceil($diff/60).$lang['ago'];
 	}
 	#Za X minut
-	elseif($diff > -3601 && $diff < 0)
+	elseif($diff > -5941 && $diff < 0)
 	{
 		return str_replace('%', ceil(-$diff/60), $lang['in']);
 	}
@@ -390,8 +390,8 @@ function Clean($val,$max=0,$wr=0)
 	if($wr && $GLOBALS['cfg']['censor']==1)
 	{
 		static $words1,$words2;
-		include_once('./cfg/words.php');
-		$val=str_replace($words1,$words2,$val); //Zamiana s³ów
+		include_once './cfg/words.php';
+		$val = str_replace($words1,$words2,$val); //Zamiana s³ów
 	}
 	return trim(htmlspecialchars($val));
 }
@@ -406,10 +406,4 @@ function log_event($msg, $type)
 function db_count($co,$table)
 {
 	return (int)$GLOBALS['db']->query('SELECT COUNT('.$co.') FROM '.PRE.$table)->fetchColumn();
-}
-
-#Pobierz warto¶æ z bazy
-function db_get($co,$table,$o='')
-{
-	return $GLOBALS['db']->query('SELECT '.$co.' FROM '.PRE.$table.$o)->fetchColumn();
 }

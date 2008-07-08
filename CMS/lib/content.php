@@ -39,12 +39,7 @@ class Content
 				# Czy istnieje nowsza wersja ¼ród³a?
 				if($this->check && filemtime($this->dir.$T.'.html') > @filemtime($this->cacheDir.$T.'.html'))
 				{
-					if(!isset($tc))
-					{
-						include './lib/compiler.php';
-						$tc = new Compiler;
-					}
-					$tc -> compile($T.'.html', $this->dir, $this->cacheDir);
+					$this->compile($T.'.html');
 				}
 				# Do³±cz plik
 				include $this->cacheDir.$T.'.html';
@@ -100,5 +95,18 @@ class Content
 		$lang =& $GLOBALS['lang'];
 		require VIEW_DIR.'message.html';
 		exit;
+	}
+
+	#Kompiluj szablon
+	function compile($x)
+	{
+		static $compiler;
+
+		if(!isset($compiler))
+		{
+			include './lib/compiler.php';
+			$compiler = new Compiler;
+		}
+		$compiler -> compile($x, $this->dir, $this->cacheDir);
 	}
 }

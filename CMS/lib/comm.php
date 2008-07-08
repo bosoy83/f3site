@@ -67,6 +67,7 @@ $content->data['comment'] = $comm;
 if(LOGD==1 || $cfg['commGuest']==1)
 {
 	$content->data['url'] = '?co=comment&amp;id='.$id.'&amp;type='.CT;
+	$content->data['js_url'] = 'request.php?co=comment&id='.$id.'&type='.CT;
 }
 else
 {

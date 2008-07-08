@@ -51,7 +51,7 @@ foreach($res as $n)
 #Do szablonu
 if($num > 0)
 {
-	$content->file = 'cat_news';
+	$content->file[] = 'cat_news';
 	$content->data += array(
 		'news' => &$news,
 		'add_url' => $rights ? '?co=edit&amp;act=news' : null,

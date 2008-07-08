@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `author` varchar(50) NOT NULL,
 `guest` tinyint(1) NOT NULL DEFAULT 1,
 `ip` varchar(20) NOT NULL,
-`date` datetime,
+`date` int(11),
 `text` text);
 
 CREATE INDEX th ON {pre}comms (TYPE,CID);
@@ -242,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `gid` int(11) NOT NULL DEFAULT 1,
 `lv` tinyint(1) NOT NULL DEFAULT 1,
 `adm` text,
-`regt` datetime,
+`regt` int(11),
 `lvis` int(11),
 `pms` tinyint(4) NOT NULL DEFAULT 0,
 `about` text,

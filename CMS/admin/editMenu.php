@@ -68,7 +68,7 @@ if($_POST)
 		$db->commit();
 
 		#Generuj menu
-		include './admin/inc/mcache.php';
+		include './lib/mcache.php';
 		RenderMenu();
 
 		#Lista

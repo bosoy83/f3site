@@ -1,11 +1,21 @@
-<?php /*Wysy³anie PW - modu³ do przebudowania*/
+<?php /* Wysy³anie PW */
 if(iCMS!=1) exit;
-
+$content->info('Modu³ w przebudowie.'); return 1;
 #Tablica b³êdów
 $error = array();
 
 #Kopia?
 $pm_copy = isset($_POST['pm_s']) || (!$_POST && isset($_COOKIE[PRE.'pm_s'])) ? 1 : 0;
+
+#Pobierz wiadomo¶æ - nale¿y do u¿ytkownika?
+if($id)
+{
+	$pm = $db -> query('SELECT p.*,u.login FROM '.PRE.'pms p LEFT JOIN '.PRE.'users u
+		ON p.usr=u.ID WHERE p.ID='.$id.' AND p.owner='.UID) -> fetch(2); //ASSOC
+
+	#Nie istnieje?
+	if(!$pm) return;
+}
 
 #Nowa lub odpowied¼
 if(!$id || $pm['st']==2)
@@ -23,41 +33,69 @@ else
 #Wys³ane dane
 if($_POST)
 {
-	#Do, Temat, BBCode
-	$pm_to  = Clean($_POST['pm_to']);
-	$pm_th  = empty($_POST['pm_th']) ? $lang['notopic'] : Clean($_POST['pm_th'],50,1);
-	$pm_bbc = isset($cfg['bbcode']) && isset($_POST['pm_bbc']) ? 1 : 0;
+	#Dane
+	$new = array(
+		'to'  => $id && $pm['st']==1 ? null : Clean($_POST['to']),
+		'txt' => Clean($_POST['txt']),
+		'bbc' => isset($cfg['bbcode']) && isset($_POST['pm_bbc']) ? 1 : 0,
+		'topic' => empty($_POST['pm_th']) ? $lang['notopic'] : Clean($_POST['pm_th'],50,1)
+	);
 
-	#Tre¶æ
-	if(isset($_POST['pm_txt'][20001]))
+	#Wy¶lij?
+	if(isset($_POST['send']) OR isset($_POST['save']))
 	{
-		$error[] = $lang['pm_18'];
-	}
-	$pm_txt = Clean($_POST['pm_txt'],0,1);
+		#Nowy obiekt API
+		include './mod/pms/api.php';
+		$o = new PM;
+		$o -> to = $new['to'];
+		$o -> text = $new['txt'];
+		$o -> topic = $new['topic'];
+		$o -> bbcode = $new['bbc'];
 
-	#ID odbiorcy $to_id
-	$to_id = (int)db_get('ID','users WHERE login='.$db->quote($pm_to));
-	if(!$to_id)
-	{
-		$error[] = $lang['pm_20'];
-	}
-	else
-	{
-		#Limit
-		if(db_count('ID','pms WHERE owner='.$to_id) >= $cfg['pmLimit'])
+		#Start transakcji
+		$db -> beginTransaction();
+		try
 		{
-			$error[] = $lang['pm_21'];
+			#Zapisz
+			if(isset($_POST['save']) && !$id OR $pm['st']==3)
+			{
+				if($id) $o -> save(); else $o -> send();
+			}
+			#Nowa wiadomo¶æ
+			if(!$id OR $pm['st']==3)
+			{
+				$o -> send();
+				if($pm['st'] == 3)
+				{
+					$o -> delete($db->lastInsertId()); //Usuñ z kopii roboczych
+				}
+				if($pm_copy)
+				{
+					$o -> save('sent'); //Zapisz do wys³anych
+				}
+			}
+			#Edytuj
+			elseif($pm['st']==5)
+			{
+				
+			}
+		}
+		catch(Exception $e)
+		{
+			$content->info($e);
 		}
 	}
 
+	
+
 	#Limit (zapis kopii)
-	if(isset($_POST['pm_s']) && !$id)
+	if(isset($_POST['copy']) && !$id)
 	{
-		if($pm_ile >= $cfg['pmLimit']) $error[]=$lang['pm_22'];
+		if($pm_ile >= $cfg['pmLimit']) $error[] = $lang['pm_22'];
 	}
 
 	#ZAPISZ
-	if(isset($_POST['save']) && !$error)
+	if(!$error && (isset($_POST['save']) OR isset($_POST['send'])))
 	{
 		#Start
 		$db->beginTransaction();
@@ -75,9 +113,30 @@ if($_POST)
 				VALUES (:topic,:usr,:owner,:status,'.$_SERVER['REQUEST_TIME'].',:bbc,:txt)');
 			$db->exec('UPDATE '.PRE.'users SET pms=pms+1 WHERE ID='.$to_id);
 
-			#Dane
-			$q->bindValue(':owner',$to_id,1); //1 = INT
-			$q->bindValue(':status',1,1);
+			$pm['owner'] = $to_id; //W³a¶ciciel - odbiorca
+			$pm['status'] = 1; //Status - nowy
+		}
+	}
+	if(isset($_POST['send']) && !$error)
+	{
+		#Start
+		$db->beginTransaction();
+
+		#Edytuj
+		if($id)
+		{
+			$q = $db->prepare('UPDATE '.PRE.'pms SET topic=:topic, usr=:usr, bbc=:bbc, txt=:txt WHERE ID='.$id);
+			$content->info($lang['pm_24']);
+		}
+		#Nowa
+		else
+		{
+			$q = $db->prepare('INSERT INTO '.PRE.'pms (topic,usr,owner,st,date,bbc,txt)
+				VALUES (:topic,:usr,:owner,:status,'.$_SERVER['REQUEST_TIME'].',:bbc,:txt)');
+			$db->exec('UPDATE '.PRE.'users SET pms=pms+1 WHERE ID='.$to_id);
+
+			$pm['owner'] = $to_id; //W³a¶ciciel - odbiorca
+			$pm['status'] = 1; //Status - nowy
 		}
 		#Dane
 		$q->bindValue(':topic',$pm_th);
@@ -177,5 +236,4 @@ if($cfg['bbcode']==1)
 }
 
 #Formularz
-$content->data['file'] = 'pms_posting.html';
-?>
+$content->file[] = 'pms_posting';

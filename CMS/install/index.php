@@ -236,7 +236,7 @@ if($_POST)
 	#Menu cache
 	chdir('./../');
 	define('PRE',$db_pre);
-	include('./admin/inc/mcache.php');
+	include('./lib/mcache.php');
 	RenderMenu();
 
 	echo $lang[50]

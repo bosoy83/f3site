@@ -1,4 +1,4 @@
-<form action="{url}" name="art" method="post" f3:array="file">
+<form action="{url}" id="file" method="post" f3:array="file">
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -49,7 +49,7 @@
 </tr>
 <tr>
 	<td colspan="2" align="center">
-		<textarea name="full" id="fd" rows="12" style="width: 100%">{Clean: file.fulld}</textarea>
+		<textarea name="full" rows="12" style="width: 100%">{Clean: file.fulld}</textarea>
 	</td>
 </tr>
 <tr class="eth">
@@ -59,5 +59,5 @@
 </table>
 </form>
 <script type="text/javascript">
-var ed=new Editor("fd")
+new Editor(document.forms['file'].full)
 </script>

@@ -1,4 +1,4 @@
-<form action="{url}" name="art" method="post" f3:array="img">
+<form action="{url}" id="img" method="post" f3:array="img">
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -67,7 +67,7 @@
 </tr>
 <tr>
   <td colspan="2" align="center">
-		<textarea name="dsc" id="dsc" rows="12" style="width: 100%">{Clean: img.dsc}</textarea>
+		<textarea name="dsc" rows="12" style="width: 100%">{Clean: img.dsc}</textarea>
 	</td>
 </tr>
 <tr>
@@ -77,5 +77,5 @@
 </table>
 </form>
 <script type="text/javascript">
-var ed=new Editor('dsc');
+new Editor(document.forms['img'].dsc);
 </script>

@@ -28,7 +28,7 @@ if($img['type'] !== 1)
 
 #Opis, data, autor
 $img['dsc'] = nl2br($img['dsc']);
-$img['date'] = genDate($img['date']);
+$img['date'] = genDate($img['date'], true);
 $img['author'] = Autor($img['author']);
 
 #Mo¿e edytowaæ?

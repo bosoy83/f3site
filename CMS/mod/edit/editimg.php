@@ -29,9 +29,9 @@ if($_POST)
 		}
 		else
 		{
-			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat,name,dsc,type,date,priority,
-				access,author,file,filem,size) VALUES (:cat,:name,:dsc,:type,'.DATETIME.',
-				:priority,:access,:author,:file,:filem,:size)');
+			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat, name, dsc, type, date,
+				priority, access, author, file, filem, size) VALUES (:cat,:name,:dsc,:type, "'.
+				gmdate('Y-m-d').'", :priority, :access, :author, :file, :filem, :size)');
 		}
 		$q->execute($img);
 

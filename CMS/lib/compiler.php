@@ -6,11 +6,11 @@ class Compiler
 		$replace1,
 		$replace2;
 	public
-		$removePHP = false, //Zmieñ na FALSE, je¶li chcesz u¿ywaæ kodu PHP w szablonach
+		$removePHP, //Ustaw na TRUE, aby usuwaæ kod PHP z szablonów
 		$src = SKIN_DIR,
 		$cache = VIEW_DIR,
-		$debug = false,
-		$byteCode = false;
+		$debug,
+		$byteCode;
 
 	#F: Zbadaj pliki skórki i skompiluj zmodyfikowane
 	function examine()
@@ -25,14 +25,14 @@ class Compiler
 			{
 				if(filemtime($this->src.$x) > @filemtime($this->cache.$x))
 				{
-					$this->compile($this->src.$x); //Kompiluj
+					$this->compile($x); //Kompiluj
 				}
 			}
 		}
 	}
 
 	#F: Kompiluj
-	function compile($file, $src, $cache)
+	function compile($file, $src=null, $cache=null)
 	{
 		#Katalog ¼ród³owy i cache
 		if(!isset($src)) $src = $this->src;
@@ -48,7 +48,7 @@ class Compiler
 		}
 		else
 		{
-			throw new Exception('Template does not exist.');
+			throw new Exception('Template '.$file.' does not exist.');
 		}
 
 		#Wyrzuæ PHP (code stolen from PhpBB 3 - GPL v2 forum)
@@ -77,13 +77,13 @@ class Compiler
 			'<?= $menu ?>',
 			'<?= $cfg[\'title\']; ?>',
 			'<?= $content->title; ?>',
-			'<?= $cfg[\'dkh\'].$content->head; ?>',
+			'<?= $cfg[\'head\'].$content->head; ?>',
 			'', ''
 		);
 		$this->data = str_replace($in, $out, $this->data);
 
 		#Pêtle
-		if($pos = stripos($this->data,'<!-- START')) $this->checkLoop($pos);
+		if(($pos = stripos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
 
 		#Do zamiany
 		$in = array(
@@ -162,7 +162,7 @@ class Compiler
 		static $lv = 0;  ++$lv;
 
 		#Dalsze pêtle?
-		if($pos2 = strpos($this->data,'<!-- START',$pos+1)) $this->checkLoop($pos2);
+		if(($pos2 = strpos($this->data,'<!-- START',$pos+1)) !== false) $this->checkLoop($pos2);
 
 		#Aktualna pozycja
 		$pos = strpos($this->data, '<!-- START');

@@ -18,7 +18,7 @@ if($_POST)
 		unset($q,$m,$_POST);
 
 		#Odbuduj menu
-		require './admin/inc/mcache.php';
+		require './lib/mcache.php';
 		RenderMenu();
 	}
 	catch(PDOExtension $e)

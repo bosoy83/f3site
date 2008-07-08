@@ -89,7 +89,7 @@ if($_POST)
 				if($type)
 				{
 					$q = $db->prepare('INSERT INTO '.PRE.'comms (TYPE,CID,name,access,author,guest,ip,date,text)
-						VALUES ('.$type.','.$id.',:name,:access,:author,:guest,:ip,'.DATETIME.',:text)');
+						VALUES ('.$type.','.$id.',:name,:access,:author,:guest,:ip,'.$_SERVER['REQUEST_TIME'].',:text)');
 
 					#News?
 					if($type==5) $db->exec('UPDATE '.PRE.'news SET comm=comm+1 WHERE ID='.$id);

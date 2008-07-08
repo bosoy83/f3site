@@ -26,7 +26,7 @@ switch($id)
 		$content->info($lang['pm_3i']);
 		break;
 	case 3:
-		$q = ' WHERE p.st=3 AND p.owner='.UID; #Zapisane
+		$q = ' WHERE p.st=3 AND p.owner='.UID; #Kopie robocze
 		$content->title = $lang['pm_7'];
 		break;
 	default:

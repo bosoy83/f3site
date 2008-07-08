@@ -21,11 +21,11 @@ if(isset($_GET['keyid']))
 		}
 		else
 		{
-			$content->info($lang['badkey']);
+			$content->info($lang['badKey']);
 		}
 		unset($id,$res);
 	}
-	else $content->info($lang['badkey']);
+	else $content->info($lang['badKey']);
 	return;
 }
 
@@ -48,13 +48,14 @@ if($_POST)
 	$u = array(
 	'gg'  => is_numeric($_POST['gg']) ? (int)$_POST['gg'] : null,
 	'icq' => is_numeric($_POST['icq']) ? (int)$_POST['icq'] : null,
-	'tlen'=> Clean($_POST['tlen'],30),
-	'www' => $www,
+	'tlen' => Clean($_POST['tlen'],30),
+	'www'  => $www,
+	'mail' => $_POST['mail'],
 	'mvis'  => isset($_POST['mvis']) ? true : false,
 	'mails' => isset($_POST['mails']) ? true : false,
 	'city'  => Clean($_POST['city'],30),
 	'skype' => Clean($_POST['skype'],30),
-	'about' => Clean($_POST['about'],999)
+	'about' => Clean($_POST['about'],999,true)
 	);
 
 	#O sobie - za d³ugi?
@@ -81,11 +82,11 @@ if($_POST)
 		#Zabronione loginy
 		if($cfg['nickban'])
 		{
-			foreach($cfg['nickban'] as $n)
+			foreach($cfg['nickban'] as $x)
 			{
-				if(strpos($u['login'],$n)!==false) $error[] = $lang['login_ex'];
+				if(strpos($u['login'],$x)!==false) $error[] = $lang['login_ex'];
 			}
-			unset($n,$nicks);
+			unset($x,$nicks);
 		}
 		
 		#Kod
@@ -107,20 +108,19 @@ if($_POST)
 	else
 	{
 		$u['pass'] = $_POST['pass'];
-		if(!ereg('^[a-zA-Z0-9_-]{5,20}$', $u['pass']))
+		if(!preg_match('/^[a-zA-Z0-9_-]{5,20}$/', $u['pass']))
 		{
 			$error[] = $lang['pass_err'];
 		}
 		#Has³a równe?
-		if($u['pass']!=$_POST['pass2'])
+		elseif($u['pass']!=$_POST['pass2'])
 		{
 			$error[] = $lang['pass2'];
 		}
 		$u['pass'] = md5($u['pass']);
 	}
 
-	#E-mail	
-	$u['mail'] = $_POST['mail'];
+	#E-mail
 	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
 		#E-mail istnieje w bazie?
@@ -137,7 +137,10 @@ if($_POST)
 	#Zabrioniony e-mail?
 	if($cfg['mailban'])
 	{
-		if(in_array(substr(strstr($u['mail'],'@'),1),$cfg['mailban'])) $error[]=$lang['mail_ex'];
+		foreach($cfg['mailban'] as $x)
+		{
+			if(strpos($u['mail'],$x)!==false) $error[]=$lang['mail_ex'];
+		}
 	}
 
 	#B³êdy?
@@ -149,63 +152,72 @@ if($_POST)
 	#Zapis
 	else
 	{
-		#Nowy
-		if(LOGD!=1)
+		try
 		{
-			#Konto aktywne?
-			$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
-
-			$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,mvis,gid,lv,
-			regt,about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,
-			:mail,:mvis,1,:lv,'.$_SERVER['REQUEST_TIME'].',:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
-		}
-
-		#Edycja
-		else
-		{
-			$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, mvis=:mvis,
-			about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
-			tlen=:tlen, gg=:gg WHERE ID='.UID);
-		}
-
-		#Aktywacja e-mail
-		if(LOGD==2 && $cfg['actmeth']==2)
-		{
-			#Klucz
-			$key = uniqid(mt_rand(100,999),1);
-
-			#Przygotuj e-mail
-			include('./lib/mail.php');
-			$m = new Mailer();
-			$m ->topic = $lang['u topic'].$u['login'];
-			$m ->text = file_get_contents(LANG_DIR.'mail_account.php');
-			$m ->text = str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
-
-			#Wyœlij i zapisz u¿ytkownika
-			if(SendTo($u['login'],$u['mail']))
+			#Nowy
+			if(LOGD!=1)
 			{
-				if($q->execute($u))
+				#Konto aktywne?
+				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
+
+				$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,mvis,lv,regt,
+				about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,:mail,:mvis,:lv,'.
+				$_SERVER['REQUEST_TIME'].',:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
+			}
+			#Edycja
+			else
+			{
+				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, mvis=:mvis,
+				about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
+				tlen=:tlen, gg=:gg WHERE ID='.UID);
+			}
+
+			#Aktywacja e-mail
+			if(LOGD==2 && $cfg['actmeth']==2)
+			{
+				#Klucz
+				$key = uniqid(mt_rand(100,999),1);
+
+				#Przygotuj e-mail
+				include './lib/mail.php';
+				$m = new Mailer();
+				$m ->topic = $lang['u topic'].$u['login'];
+				$m ->text = file_get_contents(LANG_DIR.'mail_account.php');
+				$m ->text = str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
+
+				#Wyœlij i zapisz u¿ytkownika
+				if($m->sendTo($u['login'],$u['mail']))
 				{
+					$q->execute($u);
 					$content->info($lang['u bymail'].$u['login'].'<br /><br />'.$lang['u nomail']);
 					$db->exec('INSERT INTO '.PRE.'tmp VALUES ("'.$key.'",'.$db->lastInsertId().',"REG")');
 					return 1;
 				}
+				else
+				{
+					$content->info($lang['u nook']);
+				}
+				unset($m,$key);
+			}
+			#Inne
+			elseif(LOGD==1)
+			{
+				$q->execute($u); $content->info($lang['u upd']);
+			}
+			elseif($cfg['actmeth']!=1)
+			{
+				$q->execute($u); $content->info($lang['u noauto'].$u['login']);
 			}
 			else
 			{
-				$content->info($lang['u nook']);
+				$q->execute($u); $content->info($lang['u auto'].$u['login']);
 			}
-			unset($m,$key);
-		}
-		#Inne
-		elseif($q->execute($u))
-		{
-			if(LOGD==1) $content->info($lang['u upd']);
-			elseif($cfg['actmeth']!=1) $content->info($lang['u noauto'].$u['login']);
-			else $content->info($lang['u auto'].$u['login']);
 			return 1;
 		}
-		else { $content->info($lang['u error']); }
+		catch(Exception $e)
+		{
+			$content->info($lang['u error'].$e);
+		}
 	}
 }
 
@@ -228,4 +240,3 @@ $content->data = array(
 	'u'    => &$u,
 	'code' => $cfg['captcha']==1 && LOGD==2,
 );
-?>

@@ -42,7 +42,7 @@ $content->data  = array(
 	'u' => &$u,
 	'pm_url' => $pm_url,
 	'users'  => MOD_REWRITE ? '/users' : '?co=users',
-	'join_date' => genDate($u['regt']), //Data rejestracji
+	'join_date' => genDate($u['regt'], true), //Data rejestracji
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],true) : NA
 );
 

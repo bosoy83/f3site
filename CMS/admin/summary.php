@@ -12,15 +12,13 @@ if(isset($_GET['compile']))
 	try
 	{
 		$comp = new Compiler;
-		$comp -> debug = false; //Zmieñ na True, aby widzieæ komunikaty
-		$comp -> examine();
-		$comp -> src .= 'admin/'; //Teraz w katalogu ADMIN
-		$comp -> cache .= 'admin/';
-		$comp -> examine();
+		$comp->examine();
+		$comp->src = SKIN_DIR;
+		$comp->cache = VIEW_DIR;
+		$comp->examine();
 	}
 	catch(Exception $e)
 	{
 		$content->message($e->getMessage());
 	}
 }
-?>

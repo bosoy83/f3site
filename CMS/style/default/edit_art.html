@@ -6,7 +6,7 @@
 
 <!--FORM-->
 <h2>{this->title}</h2>
-<form action="{url}" name="art" method="post" f3:array="art">
+<form action="{url}" id="art" method="post" f3:array="art">
 
 <table cellspacing="1" class="tb">
 <tbody>
@@ -67,13 +67,14 @@
 <tr>
 	<td class="eth" colspan="2">
 		<input type="submit" value="{lang.save}" />
-		<input type="button" value="{lang.preview}" onclick="Prev()" /></td>
+		<input type="button" value="{lang.preview}" onclick="Prev()" />
+	</td>
 </tr>
 </tbody>
 </table>
 </form>
 
 <script type="text/javascript">
-var ed=new Editor('txt');
+var ed = new Editor(id('txt'));
 function Em(x) { if(x.checked) ed.Emots(); else ed.Emots(0) }
 </script>

@@ -28,8 +28,9 @@ if($_POST)
 		}
 		else
 		{
-			$q = $db->prepare('INSERT INTO '.PRE.'files (cat,name,author,date,dsc,file,access,size,
-				priority,fulld) VALUES (:cat,:name,:author,'.DATETIME.',:dsc,:file,:access,:size,:priority,:fulld)');
+			$q = $db->prepare('INSERT INTO '.PRE.'files (cat, name, author, date, dsc,
+				file, access, size, priority, fulld) VALUES (:cat, :name, :author, "'.
+				date('Y-m-d').'", :dsc, :file, :access, :size, :priority, :fulld)');
 		}
 		$q->execute($file);
 		if(!$id) $id = $db->lastInsertId();

@@ -125,7 +125,7 @@ if(isset($_POST['poll']))
 				$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id)->fetchAll(3);
 
 				#Zapisz nowe dane do pliku
-				require('./lib/config.php');
+				require './lib/config.php';
 				$file = new Config('./cache/poll_'.$nlang.'.php');
 				$file->add('poll',$poll);
 				$file->add('option',$o);
@@ -142,9 +142,12 @@ if(isset($_POST['poll']))
 	setcookie(PRE.'voted', serialize($voted), time()+7776000);
 	
 	#JS?
-	if(isset($content->ajax)==1)
+	if(isset($_GET['js']))
 	{
-		$_GET['id'] = $id; include('./mod/poll.php'); //Wy¶wietl du¿e wyniki
+		$_GET['id'] = $id; include 'mod/panels/poll.php'; //Wy¶wietl ma³e wyniki
 	}
-	else { $content->message(5,'index.php?co=poll&amp;id='.$id); } //Info
+	else
+	{
+		$content->message(5, MOD_REWRITE ? '/poll/'.$id : 'index.php?co=poll&amp;id='.$id);
+	}
 }

@@ -3,7 +3,7 @@
 Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
 
 #TYLKO W WERSJI ROBOCZEJ
-$time1=microtime(1);
+#$time1=microtime(1);
 
 #J±dro
 define('iCMS',1);
@@ -42,10 +42,15 @@ if($cfg['head']) $content->head .= $cfg['head'];
 #Menu
 require './cache/menu'.$nlang.'.php';
 
+#Kompiluj skórkê, gdy potrzeba...
+if($content->check && filemtime(SKIN_DIR.'body.html') > @filemtime(VIEW_DIR.'body.html'))
+{
+	$content->compile('body.html');
+}
+
 #Skórka
 include VIEW_DIR.'body.html';
 
-//DO USUNIÊCIAAAAAAAAAAAAA!!!!!!!
-$time2=microtime(1);
+/*$time2=microtime(1);
 echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());
-//var_dump(get_included_files());
+#var_dump(get_included_files());*/

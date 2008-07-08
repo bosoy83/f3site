@@ -4,82 +4,99 @@
 //Otwórz okno na œrodku ekranu
 function Okno(url,w,h)
 {
-	window.open(url,'','toolbar=yes,scrollbars=yes,personalbar=no,directories=no,width='+w+',height='+h+',top='+(screen.height-h)/2+',left='+(screen.width-w)/2)
+	window.open(url, '', 'toolbar=yes,scrollbars=yes,personalbar=no,directories=no,width='+w+',height='+h+',top='+(screen.height-h)/2+',left='+(screen.width-w)/2)
+}
+
+//Do³¹cz plik JS
+function include(file, callback)
+{
+	var head = document.getElementsByTagName('head')[0];
+	var js = document.createElement('script');
+	js.setAttribute('type', 'text/javascript');
+	js.setAttribute('src', file);
+	head.appendChild(js);
+
+	//Gotowy do u¿ycia?
+	if(callback == undefined) return true;
+	js.onreadystatechange = js.onload = function()
+	{
+		if(js.readyState == 'complete') callback();
+	}
+	return false;
 }
 
 //Szybki dostêp do elementów po ID
-function d(id) { return document.getElementById(id) }
+function id(x) { return document.getElementById(x) }
 
 //Wstaw kod
-function BBC(t,x,y,a2)
+function BBC(o, left, right, inside)
 {
-	var f=d(t);
-	if(a2==undefined) var a2='';
-	if((typeof f.selectionStart)!='undefined') {
-		var s=f.selectionStart;
-		var k=f.selectionEnd;
-		var ost=f.scrollTop;
-		var a1=(f.value).substring(0,s);
-		if(a2=='') var a2=(f.value).substring(s,k);
-		var a3=(f.value).substring(k,f.textLength);
-		f.value=a1+x+a2+y+a3;
-		f.selectionEnd=(a1+x+a2).length;
-		f.scrollTop=ost;
-		f.focus();
+	if(typeof o.selectionStart === 'number')
+	{
+		var start  = o.selectionStart;
+		var end    = o.selectionEnd;
+		var scroll = o.scrollTop;
+		var before = o.value.substring(0, start);
+		var after  = o.value.substring(end, o.textLength);
+		var inside = (inside) ? inside : o.value.substring(start, end);
+
+		o.value = before + left + inside + right + after;
+		o.selectionEnd = before.length + left.length + inside.length;
+		o.scrollTop = scroll;
+		o.focus();
 	}
-	else { f.value+=x+a2+y; }
+	else { o.value += left + (inside||'') + right; }
 }
 
 //Ustaw cookie
-function setCookie(n,txt,c)
+function setCookie(name, txt, expires)
 {
-	var t=new Date();
-	t.setTime(cz=(c*60*60*1000)+t.getTime());
-	var cz=(t.toGMTString());
-	document.cookie=n+'='+escape(txt)+'; expires='+cz;
+	var date = new Date();
+	date.setTime(time = (expires*3600000) + date.getTime()); //c = iloœæ godzin
+	var time = date.toGMTString();
+	document.cookie = name + '=' + escape(txt) + '; expires=' + time;
 }
 
 //Poka¿ lub ukryj
-function Show(c,h)
+function Show(o, once)
 {
-	with(d(c).style)
-	{
-		if(display=='none') display=''; else if(h==undefined) display='none'
-	}
+	if(typeof o == 'string') o = id(o);
+	var x = o.style;
+	if(x.display=='none') x.display='block'; else if(once==undefined) x.display='none'
 }
 
 //Kursor
 var cx,cy;
-var toHide=new Array();
-var IE=(document.all)?1:0;
+var toHide = new Array();
+var IE = document.all ? 1 : 0;
 
 //Mysz
 function XY(e)
 {
 	if(IE)
 	{
-		cx=event.clientX + document.body.scrollLeft;
-		cy=event.clientY + document.body.scrollTop
+		cx = event.clientX + document.body.scrollLeft;
+		cy = event.clientY + document.body.scrollTop
 	}
 	else
 	{
-		cx=e.pageX;
-		cy=e.pageY
+		cx = e.pageX;
+		cy = e.pageY
 	}
 	if(cx<0) cx=0;
 	if(cy<0) cy=0
 }
-document.onmousedown=XY;
-document.onclick=function()
+document.onmousedown = XY;
+document.onclick = function()
 {
 	for(var i in toHide) { Hint(toHide[i],0,0,1) }
 }
 
-//Utwórz menu lub panel
-function Panel(id,t,txt)
+//Utwórz menu lub warstwê
+function createBox(o, title, txt)
 {
 	//Istnieje?
-	if(d(id)!=null) return id;
+	if(id(o)!=null) return id(o);
 
 	//Utwórz
 	var x=document.createElement('div');
@@ -88,7 +105,7 @@ function Panel(id,t,txt)
 	x.style.padding='8px';
 	
 	//Tytu³
-	if(t) x.innerHTML='<div class="title">'+this.title+'</div>';
+	if(title) x.innerHTML='<div class="title">'+title+'</div>';
 
 	//Menu
 	if(typeof txt=='array')
@@ -110,80 +127,105 @@ function Panel(id,t,txt)
 }
 
 //Hint
-function Hint(id,l,t,u)
+function Hint(o, l, t, autoHide)
 {
-	with(d(id).style)
+	if(typeof o == 'string')
 	{
-		if(display!='block')
+		o = id(o);
+	}
+	with(o.style)
+	{
+		if(display != 'block')
 		{
 			//Na œrodku?
-			if(l==undefined)
+			if(l == undefined)
 			{
-				var l=(document.documentElement.clientWidth+document.documentElement.scrollLeft-width)/2;
-				var t=(document.documentElement.clientHeight+document.documentElement.scrollTop-height)/2;
+				l = (document.documentElement.clientWidth + document.documentElement.scrollLeft - width)/2;
+				t = (document.documentElement.clientHeight + document.documentElement.scrollTop - height)/2;
 			}
-			if(t!=0) { left=l+'px'; top=t+'px' }
-			display='block';
-			if(u==1) setTimeout('toHide.push("'+id+'")',10);
+			if(t!=0)
+			{
+				left = l + 'px';
+				top  = t + 'px'
+			}
+			display = 'block';
+			if(autoHide == 1) setTimeout(function() { toHide.push(o) }, 10);
 		}
-		else
+		else if(autoHide == 1)
 		{
-			if(u==1) toHide.pop(id);
-			display='none';
+			toHide.pop(o);
+			display = 'none';
 		}
 	}
 }
 
 //HTTP
-function Request(u,id,a)
+function Request(url, o)
 {
-	this.url=u;
-	this.method='GET';
-	//this.timeout=50000;
+	this.url = url;
+	this.method = 'GET';
+	this.eval = false;
+	this.timeout = 50000;
 	this.reset();
-	if(id!=undefined) this.setID(id,a);
-}
 
-//Auto
-Request.prototype.setID=function(id,a)
-{
-	//Tryb cichy
-	if(a==undefined)
+	//Obiekt = ID?
+	if(typeof o === 'string') o = id(o);
+
+	//Domyœlnie wyœwietlaj warstwê z obrazkiem podczas ³adowania
+	var box = createBox('rq', '', '<img src="img/icon/clock.png" alt="" />');
+
+	//Status, zdarzenia: powodzenie, ³adowanie, pora¿ka
+	this.st = 0;
+	this.done = function(x)
 	{
-		this.Done=function(x) { d(id).innerHTML=x; document.body.style.cursor='' };
-		this.Loading=function() { document.body.style.cursor='wait' };
-		this.Failed=function() { window.status='Error...' };
-	}
-	//Hint
-	else
+		o.innerHTML = x;
+		Show(box);
+
+		//Wykonaj znaczniki <script>
+		if(this.eval)
+		{
+			var scripts = o.getElementsByTagName('script');
+			for(var i=0; i<scripts.length; ++i)
+			{
+				eval(scripts[i].innerHTML);
+			}		 
+		}
+	};
+	this.loading = function()
 	{
-		var h='h'+id;
-		this.st=0;
-		Panel(h,'','<img src="img/icon/clock.png" alt="" /> '+a);
-		this.Done=function(x) { d(id).innerHTML=x; Show(h) };
-		this.Loading=function() { if(this.st==0) { Hint(h); this.st=1 } };
-		this.Failed=function(){ Show(h); alert('Error...') };
-	}
+		if(this.st==0) { Hint(box); this.st=1 }
+	};
+	this.failed = function()
+	{
+		Show(box); alert('Error...')
+	};
 };
 
-//Parametr
-Request.prototype.add=function(a,b)
+//Autostart
+Request.get = function(url, o, eval)
 {
-	this.p1.push(encodeURIComponent(a)+'='+encodeURIComponent(b)); this.method='POST';
+	var obj = new Request(url, o);  if(eval != undefined) obj.eval = true;
+	obj.run();
+}
+
+//Dodaj parametr POST
+Request.prototype.add = function(key, val)
+{
+	this.p1.push(encodeURIComponent(key)+'='+encodeURIComponent(val)); this.method='POST';
 };
 
 //Reset
-Request.prototype.reset=function() { this.p1=new Array() };
+Request.prototype.reset = function() { this.p1 = new Array() };
 
 //Start
-Request.prototype.run=function(x)
+Request.prototype.run = function(x)
 {
 	this.http=false;
 	
 	//XMLHttpRequest
 	if(window.XMLHttpRequest)
 	{
-		this.http=new XMLHttpRequest();
+		this.http = new XMLHttpRequest();
 		if(this.http.overrideMimeType) this.http.overrideMimeType('text/xml');
 	}
 	//IE
@@ -191,13 +233,13 @@ Request.prototype.run=function(x)
 	{
 		try
 		{
-			this.http=new ActiveXObject("Msxml2.XMLHTTP")
+			this.http = new ActiveXObject("Msxml2.XMLHTTP")
 		}
 		catch(e)
 		{
 			try
 			{
-				this.http=new ActiveXObject("Microsoft.XMLHTTP")
+				this.http = new ActiveXObject("Microsoft.XMLHTTP")
 			}
 			catch(e)
 			{
@@ -205,17 +247,17 @@ Request.prototype.run=function(x)
 			}
 		}
 	}
-	if(!this.http) { this.Failed(); return false }
+	if(!this.http) { this.failed(); return false }
 
 	//Odnoœnik do THIS
-	var self=this;
+	var self = this;
 	
 	//Gdy zmienia siê status ¿¹dania...
-	this.http.onreadystatechange=function()
+	this.http.onreadystatechange = function()
 	{
 		switch(self.http.readyState) {
-			case 4: self.Done(self.http.responseText); break;
-			default: self.Loading();
+			case 4: self.done(self.http.responseText); break;
+			default: self.loading();
 		}
 	};
 	if(this.url!='')
@@ -223,11 +265,11 @@ Request.prototype.run=function(x)
 		//Parametry
 		if(this.method!='POST')
 		{
-			this.p=null
+			this.p = null
 		}
 		else
 		{
-			this.p=this.p1.join('&')
+			this.p = this.p1.join('&')
 		}
 		
 		//Otwórz po³¹czenie

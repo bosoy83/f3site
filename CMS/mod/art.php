@@ -25,7 +25,7 @@ if($art['opt']&1)
 }
 
 #Data,autor
-$art['date'] = genDate($art['date']);
+$art['date'] = genDate($art['date'], true);
 $art['author'] = Autor($art['author']);
 
 #Ocena

@@ -4,30 +4,30 @@ require LANG_DIR.'content.php';
 require './lib/categories.php';
 
 #Akcja
-$act=(int)$_GET['act'];
+$act = (int)$_GET['act'];
 
 #Typ
 switch($act)
 {
 	case 5:
-		$type=$lang['news'];
-		$name='new';
+		$type = $lang['news'];
+		$name = 'new';
 		break;
 	case 4:
-		$type=$lang['links'];
-		$name='link';
+		$type = $lang['links'];
+		$name = 'link';
 		break;
 	case 3:
-		$type=$lang['images'];
-		$name='img';
+		$type = $lang['images'];
+		$name = 'img';
 		break;
 	case 2:
-		$type=$lang['files'];
-		$name='file';
+		$type = $lang['files'];
+		$name = 'file';
 		break;
 	case 1:
-		$type=$lang['arts'];
-		$name='art';
+		$type = $lang['arts'];
+		$name = 'art';
 		break;
 	default: echo 'Undefined type of items!'; return;
 }
@@ -53,30 +53,6 @@ else
 	$param[] = 'a.UID='.UID;
 }
 
-#Masowe zmiany?
-/* DO NOT WORK YET
-if($_POST && count($_POST['chk'])>0)
-{
-	$ids=GetIDs($_POST['chk']);
-	if(isset($_POST['xu_d']))
-	{
-		if(Admit('DEL'))
-		{
-			$db->exec('DELETE FROM '.PRE.$xco.'s'.$join.' WHERE ID IN ('.join(',',$ids).') '.$param);
-			$db->exec('DELETE FROM '.PRE.'comms WHERE type='.$co.' AND CID IN ('.join(',',$ids).')');
-			if($co==1||$co==5) db_q('DELETE FROM '.PRE.''.(($co==1)?'artstxt':'fnews').' WHERE ID='.join(' || ID=',$ids));
-		}
-	}
-	else
-	{
-		$_q=Array();
-		if($_POST['xu_c']!='N') $_q[]='cat='.(int)$_POST['xu_c'];
-		if($_POST['xu_a']!='N') $_q[]='access='.(int)$_POST['xu_a'];
-		if(count($_q)>0) db_q('UPDATE '.PRE.$xco.'s SET '.join(', ',$_q).' WHERE ID IN ('.join(',',$ids).')');
-	}
-	unset($ids,$_q);
-} */
-
 #Strona
 if(isset($_GET['page']) && $_GET['page']!=1)
 {
@@ -87,6 +63,12 @@ else
 {
 	$page = 1;
 	$st = 0;
+}
+
+#Masowe zmiany?
+if($_POST && count($_POST['check'])>0)
+{
+
 }
 
 #Szukaj
@@ -107,7 +89,7 @@ if($total == 0)
 }
 
 #Czêœæ URL
-$url='?co=list&amp;act='.$act.'&amp;id='.$id;
+$url = '?co=list&amp;act='.$act.'&amp;id='.$id;
 
 #Pobierz pozycje
 $res = $db->query('SELECT ID,name,access FROM '.PRE.$name.'s'.$param.

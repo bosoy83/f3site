@@ -12,16 +12,17 @@ function Del(id)
 }
 function Se()
 {
-	if(a=prompt("{lang.searp}")) location="?co=list&act={act}&find="+a;
+	var a; if(a=prompt("{lang.searp}")) location="?co=list&act={act}&find="+a;
 }
 //]]>
 </script>
 
 <h2>{lang.info}</h2>
-<div class="box" style="text-align: center">
-	{intro}<br /><br />
-	<a href="javascript:Se()">{lang.search}</a> |
-	<a href="{add_url}">{lang.addItem}</a> |
+<div class="box" style="text-align: center; line-height: 25px">
+	{intro}
+	<br />
+	<a href="javascript:Se()">{lang.search}</a> -
+	<a href="{add_url}">{lang.addItem}</a> -
 	<!-- IF cats_url --><a href="{cats_url}">{lang.cats}: {type}</a><!-- END -->
 </div>
 
@@ -46,7 +47,7 @@ function Se()
 	<td align="center" nowrap="nowrap">
 		<a href="{edit_url}">{lang.edit}</a> &middot; <a href="{del_url}">{lang.del}</a>
 	</td>
-	<td><input type="checkbox" name="chk[{ID}]" /></td>
+	<td><input type="checkbox" name="check[{ID}]" /></td>
 </tr>
 
 <!-- STOP -->
@@ -62,8 +63,9 @@ function Se()
 </tbody>
 </table>
 
-<!--Masowe zmiany-->
-<table cellspacing="1" class="tb" id="mo" style="display: none">
+<!-- Masowe zmiany -->
+<div id="mo" style="display: none">
+<table cellspacing="1" class="tb">
 <caption>test</caption>
 <tbody>
 <tr>
@@ -87,11 +89,12 @@ function Se()
 	<td><input type="checkbox" name="del" id="del" /> {lang.chdel}</td>
 </tr>
 <tr>
-	<td class="eth" colspan="2"><input type="submit" value="OK" /></td>
+	<td class="eth" colspan="2"><input type="submit" value="Not implemented yet" disabled="disabled" /></td>
 </tr>
 </tbody>
 </table>
+</div>
 </form>
 <script type="text/javascript">
-d('del').checked=0
+id('del').checked=0
 </script>

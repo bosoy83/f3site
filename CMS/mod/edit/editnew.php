@@ -30,7 +30,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'news (cat,name,txt,date,author,img,access,opt)
-				VALUES (:cat,:name,:txt,'.DATETIME.','.UID.',:img,:access,:opt)');
+				VALUES (:cat,:name,:txt,"'.date('Y-m-d').'",'.UID.',:img,:access,:opt)');
 		}
 		$q->execute($news);
 

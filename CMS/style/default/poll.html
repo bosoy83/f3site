@@ -1,16 +1,16 @@
 <h2>{poll.name}</h2>
 <div class="box" style="text-align: center">{poll.q}
 
-<table cellpadding="4" style="width: 300px; margin: 9px auto; text-align: left">
+<table cellpadding="3" style="width: 300px; margin: 9px auto; text-align: left">
 <tbody>
 
 <!-- START item -->
 <tr>
-	<td>{label} &nbsp;</td><td><b>{num}</b></td>
-	<td><div style="height: 10px; width: {percent}%" class="pollstrip"></div></td><td>{percent}%</td>
+	<td>{label}<div style="width: {percent}%" class="pollstrip"></div></td>
+	<td><b>{num}</b><br />{percent}%</td>
 </tr>
 <!-- STOP -->
 
 </tbody></table>
-{lang.votes}: <b>{poll.num}</b> | Start: <b>{genDate: poll.date}</b> | <a href="?co=polls">{lang.archive}</a>
+{lang.votes}: <b>{poll.num}</b> | Start: <b>{poll.date}</b> | <a href="?co=polls">{lang.archive}</a>
 </div>

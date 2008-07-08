@@ -28,11 +28,8 @@ if($id) $option=$db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id)
 #Ile?
 $num = count($option);
 
-/*$max = $option[0][2];
-for($i=1;$i<$ile;++$i)
-{
-	if($option[$i][2]>$max) $max=$option[$i][2];
-}*/
+#Data utworzenia sondy
+$poll['date'] = genDate($poll['date'], true);
 
 #Procenty
 $item = array();
@@ -48,7 +45,7 @@ foreach($option as &$o)
 #Szablon
 $content->data = array(
 	'poll' => &$poll,
-	'item' => &$item,
+	'item' => &$item
 );
 
 #Komentarze

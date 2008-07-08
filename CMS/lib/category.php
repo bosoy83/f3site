@@ -80,15 +80,30 @@ if($cat['opt'])
 }
 
 #Do szablonu
+$content->file = array('cat');
 $content->data = array(
 	'cat'  => &$cat,
-	'path' => $cat['opt'] & 1 ? file_get_contents('./cache/cat'.$d.'.php') : null,
 	'subcats' => isset($sc) ? $sc : null,
 	'options' => Admit($d,'CAT'),
 	'cats_url'=> '?co=cats&id='.$cat['type'],
 	'add_url' => '?co=edit&act='.$cat['type'].'&catid='.$d,
 	'list_url'=> '?co=list&act='.$cat['type'].'&id='.$d
 );
+
+#Struktura kategorii
+if($cat['opt'] & 1)
+{
+	if(file_exists('./cache/cat'.$d.'.php'))
+	{
+		$content->data['path'] = file_get_contents('./cache/cat'.$d.'.php');
+	}
+	else
+	{
+		include './lib/categories.php';
+		$content->data['path'] = UpdateCatPath($cat);
+	}
+}
+else $content->data['path'] = null;
 
 #Do³±cz generator listy pozycji
 if($cat['num'])
@@ -97,7 +112,5 @@ if($cat['num'])
 }
 else
 {
-	//$content->info($lang['noc']);
 	$content->data['cat_type'] = $lang['cats'];
-	$content->file = 'cat';
 }

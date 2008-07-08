@@ -1,33 +1,31 @@
-<?php
-#Send E-mails only when really needed!
+<?php #Send E-mails only when really needed!
 if(iCMS!=1) exit;
-if(!isset($cfg['mailon'])) require('./cfg/mail.php');
+if(!isset($cfg['mailh'])) require './cfg/mail.php';
 
-function mail_rep($v)
+function sanitize($v)
 {
-	$v=str_replace("\n",'',$v);
-	$v=str_replace("\r",'',$v);
-	return str_replace(array('<','>',';',','),'',$v);
+	return str_replace(array("\n","\r",'<','>',';',','), '', $v);
 }
 
 class Mailer
 {
 	public
 		$from,
-		$from_adr,
-		$topic='[no topic]',
+		$mailFrom,
+		$topic = '[no topic]',
 		$text,
 		$url,
-		$HTML=1;
+		$HTML = 1,
+		$exceptions;
 	private
-		$bcc=array(),
-		$header=array(),
-		$method=0,
-		$debug=0,
-		$o=null; //Aby wy¶wietlaæ komendy, ustaw $debug wy¿ej na 1
+		$bcc = array(),
+		$header = array(),
+		$method = 0,
+		$debug = 0, #Aby wy¶wietlaæ komendy, ustaw $debug wy¿ej na 1
+		$o;
 
 	#Komenda
-	private function Cmd($c)
+	private function cmd($c)
 	{
 		if(!$this->o) return 0;
 
@@ -35,79 +33,78 @@ class Mailer
 		$reply = fread($this->o, 199);
 
 		if($this->debug)
-			echo '&rarr; '.nl2br(htmlspecialchars($c)).
-			'<br />&larr; '.nl2br(htmlspecialchars($reply)).'<br />';
+			echo '&rarr; '.nl2br(htmlspecialchars($c)."\n&larr; ".htmlspecialchars($reply)).'<br />';
 
 		return $reply;
 	}
 
 	#Nadawca
-	function SetSender($name,$mail=false)
+	function setSender($name,$mail=false)
 	{
-		$this->from = mail_rep($name);
-		if($mail) $this->from_adr = mail_rep($mail);
+		$this->from = sanitize($name);
+		if($mail) $this->mailFrom = sanitize($mail);
 	}
 
 	#Dodaj nag³ówek
-	function AddHeader($h)
+	function addHeader($h)
 	{
 		$this->header[] = $h."\r\n";
 	}
 
 	#Dodaj BCC
-	function AddBlindCopy($adr)
+	function addBlindCopy($adr)
 	{
-		$this->bcc[] = mail_rep($adr);
+		$this->bcc[] = sanitize($adr);
 	}
 
 	#Wy¶lij
-	function SendTo($name,$adr)
+	function sendTo($name,$adr)
 	{
-		//Z³±cz nag³ówki
-		$h = (($this->header)?join("\r\n", $this->header)."\r\n":'')
-			.'From: '.$this->from . '<'.$this->from_adr.">\r\n";
+		#Z³±cz nag³ówki
+		$h = $this->header ? join("\r\n", $this->header) . "\r\n" : '';
+		$h.= 'From: ' . $this->from . '<'.$this->mailFrom . ">\r\n";
 
-		//HTML?
+		#HTML
 		if($this->HTML) $h.='Content-type: text/html; charset=iso-8859-2'."\r\n";
 
-		//BCC
+		#BBC
 		if(count($this->bcc)>0) $h.='Bcc: '.join(',', $this->bcc)."\r\n";
 
-		//Odbiorca
-		$adr=mail_rep($adr);
-		$name=mail_rep($name);
+		#Odbiorca
+		$adr  = sanitize($adr);
+		$name = sanitize($name);
 
-		//Dla SMTP
-		if($this->method=='SMTP')
+		#Dla SMTP
+		if($this->method == 'SMTP')
 		{
-			//Od
-			$this->Cmd('MAIL FROM:<'.$this->from_adr.'>');
+			#Od
+			$this->cmd('MAIL FROM:<'.$this->mailFrom.'>');
 
-			//Do
-			$this->Cmd('RCPT TO:<'.$adr.'>');
-			foreach($this->bcc as $m) $this->Cmd('RCPT TO:<'.$m.'>');
+			#Do
+			$this->cmd('RCPT TO:<'.$adr.'>');
+			foreach($this->bcc as $m) $this->cmd('RCPT TO:<'.$m.'>');
 
-			//Dane
-			$this->Cmd('DATA');
+			#Dane
+			$this->cmd('DATA');
 
-			//Nag³ówki i tekst
-			$this->Cmd(
-			'Subject: '.mail_rep($this->topic)."\r\n".
-			'To: '.$name."\r\n"
-			.$h."\r\n"
-			.str_replace( array('%to%','%to.email%','%siteurl%','%from%'), array($name, $adr, '<a href="'.$this->url.'">'.$this->url.'</a>', $this->from), $this->text ));
+			#Nag³ówki i tekst
+			$this->cmd('Subject: '.sanitize($this->topic)."\r\n" . 'To: '.$name."\r\n" . $h."\r\n" . str_replace(
+				array('%to%', '%to.email%', '%siteurl%', '%from%'),
+				array($name, $adr, '<a href="'.$this->url.'">'.$this->url.'</a>', $this->from),
+				$this->text
+			));
 
-			//Wy¶lij (250 = powodzenie)
-			$ok = strpos( $this->Cmd('.'), '250' ) !== false ? 1 : 0;
+			#Wy¶lij (250 = powodzenie)
+			$ok = strpos( $this->cmd('.'), '250' ) !== false ? true : false;
 
-			//Reset
-			$this->Cmd('RSET'); return (($ok)?true:false);
+			#Reset
+			$this->cmd('RSET'); return $ok;
 		}
 
-		//Mail()
+		#Mail()
 		elseif($this->method=='MAIL')
 		{
-			//Wy¶lij
+			#Wy¶lij
 			return mail($name.' <'.$adr.'>', $this->topic, $this->text, $h);
 		}
 	}
@@ -115,51 +112,50 @@ class Mailer
 	#Reset BCC i nag³.
 	function Reset()
 	{
-		$this->bcc=array();
-		$this->header=array();
+		$this->bcc = array();
+		$this->header = array();
 	}
 
 	#Start
 	function __construct()
 	{
 		global $cfg;
-		$this->url=$cfg['adr'];
+		$this->url = $cfg['adr'];
 
-		//Po³±czenie SMTP
+		#Po³±czenie SMTP
 		if($cfg['mailh']==2 && $cfg['mailon']==1)
 		{
 			$this->method='SMTP';
 			$i=0;
 
-			//Po³±cz (próbuj 3 razy)
+			#Po³±cz (próbuj 3 razy)
 			while($i<3 && !$this->o)
 			{
 				$this->o = fsockopen($cfg['smtp'],$cfg['mailport'],$no,$str,20);
 				++$i;
+				usleep(500000); #Odczekaj pó³ sekundy
 			}
-			if(!$this->o) echo 'ERROR: Cannot send e-mail :: '.$str.' ('.$no.')';
+			if(!$this->o) throw new Exception('Cannot send e-mail. Response: '.$str.' ('.$no.')');
 
-			//Hello
-			$this->Cmd('EHLO '.$cfg['smtp']);
+			#Hello
+			$this->cmd('EHLO '.$cfg['smtp']);
 
-			//Has³o?
-			$this->Cmd('AUTH LOGIN');
-			$this->Cmd(base64_encode($cfg['smtpl']));
-			$this->Cmd(base64_encode($cfg['smtph']));
+			#Has³o?
+			$this->cmd('AUTH LOGIN');
+			$this->cmd(base64_encode($cfg['smtpl']));
+			$this->cmd(base64_encode($cfg['smtph']));
 		}
 
-		//Mail()
-		elseif($cfg['mailon']==1) { $this->method='MAIL'; }
+		#Mail()
+		elseif($cfg['mailon']==1) $this->method='MAIL';
 
-		//Domy¶lny nadawca
+		#Domy¶lny nadawca
 		$this->setSender($cfg['title'], $cfg['mail']);
 	}
 
 	#Roz³±cz
 	function __destruct()
 	{
-		$this->Cmd('QUIT');
-		if($this->o) fclose($this->o);
+		if($this->o) { $this->cmd('QUIT'); fclose($this->o); }
 	}
 }
-?>

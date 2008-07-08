@@ -7,7 +7,7 @@ $lang+=Array(
 'pm_4'=>'Foldery',
 'pm_5'=>'Odebrane',
 'pm_6'=>'Wys³ane',
-'pm_7'=>'Archiwum',
+'pm_7'=>'Kopie robocze',
 'pm_8'=>'Do wys³ania',
 'pm_9'=>'Wiadomo¶æ o podanym ID nie istnieje lub jest niedostêpna.',
 'pm_10'=>'Odpowiedz',
@@ -37,4 +37,3 @@ $lang+=Array(
 'pm_26'=>'Czy na pewno chcesz usun±æ te wiadomo¶ci?',
 'pm_3i'=>'Poni¿sze wiadomo¶ci nie zosta³y jeszcze przeczytane przez adresatów. Mo¿esz je zedytowaæ lub usun±æ.',
 );
-?>

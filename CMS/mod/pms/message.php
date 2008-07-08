@@ -16,8 +16,8 @@ if(!$pm)
 #BBCode
 if($pm['bbc']==1 && $cfg['bbcode']==1)
 {
-	require('./lib/bbcode.php');
-	$pm['txt'] = ParseBBC($pm['txt']);
+	require './lib/bbcode.php';
+	$pm['txt'] = BBCode($pm['txt']);
 }
 
 #Treœæ - emoty
@@ -29,7 +29,6 @@ if($pm['st']==1 && $pm['owner']==UID)
 	$db -> exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$pm['ID']);
 	$db -> exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
 	-- $user[UID]['pms'];
-	-- $_SESSION['userdata']['pms'];
 	$pm['st'] = 2;
 }
 
@@ -37,14 +36,13 @@ if($pm['st']==1 && $pm['owner']==UID)
 $pm['date'] = genDate($pm['date']);
 $pm['usr'] = Autor($pm['usr']);
 
-#Tytu³ strony
+#Tytu³ strony i plik
 $content->title = $pm['topic'];
+$content->file[] = 'pms_view';
 
 #Do szablonu
 $content->data += array(
 	'pm'   => &$pm,
-	'file' => 'pms_view.html',
 	'id'   => $id,
 	'edit' => ($pm['st']==2) ? $lang['pm_10'] : $lang['edit']
 );
-?>

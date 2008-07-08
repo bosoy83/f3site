@@ -1,18 +1,26 @@
 <?php /* Plik dla ¿±dañ JavaScript - XMLHTTPRequest */
-define('REQUEST',1);
+define('JS',1);
 define('iCMS',1);
 require 'kernel.php';
 
-//Modu³
+#Brak modu³u / zawiera uko¶nik / za d³ugi?
+if(!isset($_GET['co']) OR strpos($_GET['co'], '/') !== false OR isset($_GET['co'][30])) exit;
+
+#Szablon
+$content->file = array($_GET['co']);
+
+#Modu³ lub wtyczka
 switch($_GET['co'])
 {
-	case 'preview': include('./lib/preview.php'); break; //Podgl±d
-	case 'comm': include('./mod/comm.php'); break; //Dodaj komentarz
-
-	//Wtyczka
+	case 'preview': (include './lib/preview.php') or $content->set404(); break; //Podgl±d
+	case 'comment': (include './mod/comment.php') or $content->set404(); break; //Dodaj komentarz
+	case 'css': break;
 	default:
-		$co=Clean(str_replace('/','',$_GET['co']),20);
-
-		if(file_exists('./plugins/'.$co.'/http.php'))
-			include('./plugins/'.$co.'/http.php');
+		if(file_exists('./plugins/'.$co.'/js.php'))
+			(include './plugins/'.$co.'/js.php') or $content->set404();
+		else
+			exit;
 }
+
+#Wy¶wietl szablon
+$content->display();

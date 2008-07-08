@@ -8,26 +8,29 @@ function UpdateCatPath($cat)
 	#Pobierz kategoriê?
 	if(is_numeric($cat))
 	{
-		$cat = $db->query('SELECT ID,name,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$cat)->fetch(3);
+		$cat = $db->query('SELECT ID,name,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$cat)->fetch(2);
 	}
 	$out = '';
 
 	#Nadkategorie
-	if($cat[2] != 0)
+	if($cat['sc'] != 0)
 	{
-		$res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE lft<'.$cat[3].
-		' AND rgt>'.$cat[4].' AND (access!=2 OR access!=3) ORDER BY lft DESC');
+		$res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE lft<'.$cat['lft'].
+		' AND rgt>'.$cat['rgt'].' AND (access!=2 OR access!=3) ORDER BY lft DESC');
 
 		$res -> setFetchMode(3);
-		foreach($res as $c)  $out.= '<a href="?d='.$c[0].'">'.$c[1].'</a> &raquo; ';
+		foreach($res as $c)
+		{
+			$out.= '<a href="'.((MOD_REWRITE) ? '/'.$c[0] : '?d='.$c[0]).'">'.$c[1].'</a> &raquo; ';
+		}
 	}
-	$out.= '<a href="?d='.$cat[0].'">'.$cat[1].'</a>';
+	$out.= '<a href="'.((MOD_REWRITE) ? '/'.$cat['ID'] : '?d='.$cat['ID']).'">'.$cat['name'].'</a>';
 
 	#Zapisz
-	file_put_contents('./cache/cat'.$cat[0].'.php', $out, 2);
+	file_put_contents('./cache/cat'.$cat['ID'].'.php', $out, 2);
 
-	#Popraw strukturê tak¿e podkategoriom
-	/*
+	return $out;
+	/*Popraw strukturê tak¿e podkategoriom
 	$res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE lft>'.$cat[3].' AND rgt<'.$cat[4]);
 	$res ->setFetchMode(3);
 
@@ -175,4 +178,3 @@ function RebuildTree()
 		$left=RTR($x['ID'],$left);
 	}
 }
-?>
