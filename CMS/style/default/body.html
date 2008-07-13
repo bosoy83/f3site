@@ -3,15 +3,14 @@
 <head>
 	<meta name="description" content="{cfg.metaDesc}" />
 	<meta name="robots" content="{cfg.robots}" />
-	<link type="text/css" rel="stylesheet" href="style/default/s.css" />
 	{HEAD TAGS}
-	<title><?= $content->title.' :: '.$cfg['title'] ?></title>
+	<title><?= $content->title.' - '.$cfg['title'] ?></title>
 	<script type="text/javascript" src="lib/js.js"></script>
 </head>
 <body>
 
 <table class="all" cellspacing="1" align="center">
-<tbody style="background-color: #E8E8E6">
+<tbody>
 <tr>
 	<td colspan="3" id="header">
 		{BANNER 1}
@@ -35,10 +34,8 @@
 </tr>
 </tbody>
 </table>
-<center>
-	<div id="footer">{cfg.footer}</div>
-	<div style="font-size: 10px">Powered by <a href="http://compmaster.prv.pl">F3Site</a>.</div>
-</center>
+
+<div id="footer">{cfg.footer}</div>
 
 </body>
 </html>

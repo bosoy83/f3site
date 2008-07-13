@@ -1,78 +1,56 @@
 /* Rozszerzenie klasy Request */
 
-function SendForm(form, rules)
+function sendForm(form, o)
 {
 	var elem = form.elements;
 
-	//Warunki
-	if(typeof rules!='undefined')
-	{
-		for(var i in rules)
-		{
-			if(this.r[i]=='NUM')
-			{
-				if(typeof this.e[this.r.name]!='number')
-				{
-					if(this.rt[i]!='') alert(this.rt[i]); //Alert
-					this.e[this.r.name].focus();
-					return false;
-				}
-			}
-			/* INNE? */
-		}
-		return true;
-	}
+	//Obiekt Request
+	if(o == undefined) var o = new Request();
 
-	//Zapytanie HTTP
-	this.request.method=this.f.method;
+	//Zdarzenia
+	o.failed = function() { lock(form, true) };
+	o.loading = function() { lock(form) };
+	o.done = function(x) { id('main').innerHTML = x; location='#main' };
+}
+
+Request.prototype.sendForm = function(form)
+{
+	//POST / GET
+	o.method = form.method;
 
 	//Dodaj
-	for(var i in elem)
+	var num = elem.length;
+	for(var i=0, i<num; ++i)
 	{
-		if(elem.type)
+		if(elem.type == 'undefined') continue;
+		switch(elem.type)
 		{
-			switch(elem.type)
-			{
-				case 'radio':
-					if(elem.checked) this.add(elem.name,elem.value); //Radio
-					break;
-				case 'checkbox':
-					if(elem.checked) this.add(elem.name,elem.value||1); //Checkbox
-					break;
-				case 'text':
-				case 'textarea':
-				case 'hidden':
-				case 'password':
-					this.add(elem.name,elem.value); //Pola tekstowe
-					break;
-				case 'select':
-				case 'select-one':
-				case 'select-multiple':
-					for(var i in elem.options)
-					{
-						if(elem.options[i].selected) this.add(elem.name,elem.options[i].value) //Pole wyboru
-					}
-					break;
-			}
+			case 'radio':
+				if(elem.checked) this.add(elem.name, elem.value); //Radio
+				break;
+			case 'checkbox':
+				if(elem.checked) this.add(elem.name, elem.value||1); //Checkbox
+				break;
+			case 'text':
+			case 'textarea':
+			case 'hidden':
+			case 'password':
+				this.add(elem.name, elem.value); //Pola tekstowe
+				break;
+			case 'select':
+			case 'select-one':
+			case 'select-multiple':
+				for(var i in elem.options)
+				{
+					if(elem.options[i].selected) this.add(elem.name, elem.options[i].value) //Pole wyboru
+				}
+				break;
 		}
 	}
 
 	//Wy¶lij
 	this.run(1);
 }
-
-//Przejmij w³adzê nad onSubmit()
-Request.prototype.setForm=function(name,rules)
-{
-	var self=this;	
-	document.forms[name].onsubmit=function()
-	{
-		if(self.sendForm(name,rules)) return true; else return false;
-	};
-}
-
-//Wy¶lij formularz
-
 
 Request.prototype.addForm = function(id)
 {

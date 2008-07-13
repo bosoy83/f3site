@@ -1,5 +1,5 @@
 <?php
-setlocale(5,'pl_PL','polish_pol'); //CZAS
+date_default_timezone_set('Europe/Warsaw'); //CZAS
 $mlang=Array('','Styczeñ','Luty','Marzec','Kwiecieñ','Maj','Czerwiec','Lipiec','Sierpieñ','Wrzesieñ','Pa¼dziernik','Listopad','Grudzieñ');
 $lang=Array(
 'add'=>'Dodaj',
@@ -11,7 +11,6 @@ $lang=Array(
 'archive'=>'Archiwum',
 'arts'=>'Artyku³y',
 'author'=>'Autor',
-'beFirst'=>'Mo¿esz pierwszy wys³aæ komentarz.',
 'cat'=>'Kategoria',
 'cats'=>'Kategorie',
 'code'=>'Kod',
@@ -89,4 +88,4 @@ $lang=Array(
 'votes'=>'G³osów',
 'wrote'=>'Napisa³',
 'yes'=>'Tak',
-); ?>
+);

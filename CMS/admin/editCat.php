@@ -37,9 +37,11 @@ if($_POST)
 		$q = $db->prepare('INSERT INTO '.PRE.'cats (name,dsc,access,type,sc,sort,text,opt,lft,rgt)
 			VALUES (:name,:dsc,:access,:type,:sc,:sort,:text,:opt,:lft,:rgt)');
 
-		#LFT i RGT
-		$cat['lft'] = (int) $db->query('rgt','cats', (($up) ? ' WHERE ID='.$up :
-			' ORDER BY lft DESC LIMIT 1') ) -> fetchColumn();
+		#Pobierz prawy indeks ostatniej kategorii
+		$cat['lft'] = (int) $db->query('SELECT rgt FROM '.PRE.'cats'. (($up) ?
+			' WHERE ID='.$up : ' ORDER BY lft DESC LIMIT 1') ) -> fetchColumn();
+
+		#Przesuñ kategorie
 		if($up)
 		{
 			$db->exec('UPDATE '.PRE.'cats SET lft=lft+2 WHERE lft>='.$cat['lft']);
@@ -51,7 +53,6 @@ if($_POST)
 		}
 		$cat['rgt'] = $cat['lft']+1;
 	}
-	#SKOMPLIKOWANE ALGORYTMY INNYM RAZEM!!!!!!???? NA RAZIE PE£NA PRZEBUDOWA DRZEWA
 
 	#ZatwierdŸ
 	$q->execute($cat);

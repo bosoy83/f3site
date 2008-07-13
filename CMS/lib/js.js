@@ -2,9 +2,27 @@
 //Po zakoñczeniu zmian skompresuj go: http://dean.edwards.name/packer
 
 //Otwórz okno na œrodku ekranu
-function Okno(url,w,h)
+function okno(url,w,h)
 {
 	window.open(url, '', 'toolbar=yes,scrollbars=yes,personalbar=no,directories=no,width='+w+',height='+h+',top='+(screen.height-h)/2+',left='+(screen.width-w)/2)
+}
+
+//Zmieñ CSS
+function CSS(x)
+{
+	switch(typeof x)
+	{
+		case 'undefined':
+			var r = new Request('request.php?co=css');
+			r.done = function(x) { var box = createBox('', x); hint(box) };
+			r.run();
+			break;
+		case 'number':
+			var link = document.getElementsByTagName('link')[0];
+			link.href = link.href.slice(0,-5) + x + '.css';
+			break;
+		default: alert('def');
+	}
 }
 
 //Do³¹cz plik JS
@@ -52,13 +70,13 @@ function BBC(o, left, right, inside)
 function setCookie(name, txt, expires)
 {
 	var date = new Date();
-	date.setTime(time = (expires*3600000) + date.getTime()); //c = iloœæ godzin
+	date.setTime(time = (expires*3600000) + date.getTime()); //expires = iloœæ godzin
 	var time = date.toGMTString();
 	document.cookie = name + '=' + escape(txt) + '; expires=' + time;
 }
 
 //Poka¿ lub ukryj
-function Show(o, once)
+function show(o, once)
 {
 	if(typeof o == 'string') o = id(o);
 	var x = o.style;
@@ -71,7 +89,7 @@ var toHide = new Array();
 var IE = document.all ? 1 : 0;
 
 //Mysz
-function XY(e)
+document.onmousedown = function(e)
 {
 	if(IE)
 	{
@@ -85,22 +103,17 @@ function XY(e)
 	}
 	if(cx<0) cx=0;
 	if(cy<0) cy=0
-}
-document.onmousedown = XY;
+};
 document.onclick = function()
 {
-	for(var i in toHide) { Hint(toHide[i],0,0,1) }
+	for(var i in toHide) { hint(toHide[i],0,0,1) }
 }
 
 //Utwórz menu lub warstwê
-function createBox(o, title, txt)
+function createBox(title, txt)
 {
-	//Istnieje?
-	if(id(o)!=null) return id(o);
-
 	//Utwórz
 	var x=document.createElement('div');
-	x.id=id;
 	x.className='hint';
 	x.style.padding='8px';
 	
@@ -127,82 +140,80 @@ function createBox(o, title, txt)
 }
 
 //Hint
-function Hint(o, l, t, autoHide)
+function hint(o, l, t, autoHide)
 {
 	if(typeof o == 'string')
 	{
 		o = id(o);
 	}
-	with(o.style)
+	var style = o.style;
+	if(style.visibility != 'visible')
 	{
-		if(display != 'block')
+		//Na œrodku?
+		if(l == undefined)
 		{
-			//Na œrodku?
-			if(l == undefined)
-			{
-				l = (document.documentElement.clientWidth + document.documentElement.scrollLeft - width)/2;
-				t = (document.documentElement.clientHeight + document.documentElement.scrollTop - height)/2;
-			}
-			if(t!=0)
-			{
-				left = l + 'px';
-				top  = t + 'px'
-			}
-			display = 'block';
-			if(autoHide == 1) setTimeout(function() { toHide.push(o) }, 10);
+			l = (document.documentElement.clientWidth - o.clientWidth) / 2;
+			t = (document.documentElement.clientHeight - o.clientHeight) / 2;
 		}
-		else if(autoHide == 1)
+		if(t!=0)
 		{
-			toHide.pop(o);
-			display = 'none';
+			style.left = l + 'px';
+			style.top  = t + 'px'
 		}
+		style.visibility = 'visible';
+		if(autoHide == 1) setTimeout(function() { toHide.push(o) }, 10);
+	}
+	else if(autoHide == 1)
+	{
+		toHide.pop(o);
+		style.visibility = 'hidden';
 	}
 }
 
 //HTTP
-function Request(url, o)
+function Request(url, o, showBox)
 {
+	//Obiekt = ID?
+	if(typeof o === 'string') o = id(o);
+
+	//Domyœlne zmienne
+	this.o = o;
 	this.url = url;
 	this.method = 'GET';
 	this.eval = false;
 	this.timeout = 50000;
 	this.reset();
 
-	//Obiekt = ID?
-	if(typeof o === 'string') o = id(o);
+	//Tryb cichy
+	if(showBox == undefined)
+	{
+		this.done = function(x) { o.innerHTML = x };
+		this.loading = function() {};
+		return;
+	}
 
 	//Domyœlnie wyœwietlaj warstwê z obrazkiem podczas ³adowania
-	var box = createBox('rq', '', '<img src="img/icon/clock.png" alt="" />');
+	var box = createBox('', '<img src="img/icon/clock.png" alt="" />');
 
 	//Status, zdarzenia: powodzenie, ³adowanie, pora¿ka
 	this.st = 0;
 	this.done = function(x)
 	{
 		o.innerHTML = x;
-		Show(box);
-
-		//Wykonaj znaczniki <script>
-		if(this.eval)
-		{
-			var scripts = o.getElementsByTagName('script');
-			for(var i=0; i<scripts.length; ++i)
-			{
-				eval(scripts[i].innerHTML);
-			}		 
-		}
+		box.style.visibility = 'hidden';
 	};
 	this.loading = function()
 	{
-		if(this.st==0) { Hint(box); this.st=1 }
+		if(this.st==0) { hint(box); this.st=1 }
 	};
 	this.failed = function()
 	{
-		Show(box); alert('Error...')
+		box.style.visibility = 'hidden'; alert('Error...')
 	};
 };
 
 //Autostart
-Request.get = function(url, o, eval)
+function get(url, o, eval)
 {
 	var obj = new Request(url, o);  if(eval != undefined) obj.eval = true;
 	obj.run();
@@ -251,12 +262,26 @@ Request.prototype.run = function(x)
 
 	//Odnoœnik do THIS
 	var self = this;
-	
+
 	//Gdy zmienia siê status ¿¹dania...
 	this.http.onreadystatechange = function()
 	{
-		switch(self.http.readyState) {
-			case 4: self.done(self.http.responseText); break;
+		switch(self.http.readyState)
+		{
+			case 4:
+				self.done(self.http.responseText);
+
+				//Wykonaj znaczniki <script>
+				if(self.eval)
+				{
+					var scripts = self.o.getElementsByTagName('script');
+					for(var i=0; i<scripts.length; ++i)
+					{
+						eval(scripts[i].innerHTML);
+					}		 
+				}
+				break;
+
 			default: self.loading();
 		}
 	};

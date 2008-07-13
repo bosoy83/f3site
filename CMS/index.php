@@ -17,11 +17,11 @@ if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][3
 
 	if(file_exists('./mod/'.$_GET['co'].'.php'))
 	{
-		if(!include './mod/'.$_GET['co'].'.php') $content->set404(); #Modu³?
+		(include './mod/'.$_GET['co'].'.php') OR $content->set404(); #Modu³?
 	}
 	elseif(file_exists('./plugins/'.$_GET['co'].'/default.php'))
 	{
-		if(!include './plugins/'.$_GET['co'].'/default.php') $content->set404(); #Wtyczka?
+		(include './plugins/'.$_GET['co'].'/default.php') OR $content->set404(); #Wtyczka?
 	}
 	else
 	{
@@ -32,8 +32,8 @@ if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][3
 #Kategoria
 else
 {
-	include('./cfg/content.php');
-	if(!include('./lib/category.php')) $content->set404();
+	include './cfg/content.php';
+	(include './lib/category.php') OR $content->set404();
 }
 
 #Kod HEAD

@@ -6,15 +6,15 @@ $online = isset($_SESSION['online']) ? $_SESSION['online'] : 0;
 #Licznik
 if(file_exists('./cfg/visits.txt'))
 {
-	$licznik=file_get_contents('./cfg/visits.txt');
+	$licznik = file_get_contents('./cfg/visits.txt');
 }
 else
 {
-	$licznik=0;
+	$licznik = 0;
 }
 if(!$online)
 {
-	file_put_contents(++$licznik,2); //LOCK_EX
+	file_put_contents('./cfg/visits.txt', ++$licznik, 2); //LOCK_EX
 }
 
 #Google?

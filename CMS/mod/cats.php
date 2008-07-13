@@ -1,6 +1,9 @@
 <?php /* Lista kategorii */
 if(iCMS!=1) exit;
 
+#Tytu³ strony
+$content->title = $lang['cats'];
+
 #Typ kategorii - domyœlnie: news
 if(!$id) $id = 5;
 

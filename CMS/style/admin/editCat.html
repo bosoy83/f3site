@@ -38,9 +38,9 @@
 		<small>{lang.wtxtd}</small>
 	</td>
 	<td>
-		<span onclick="Show('box'); var ed=new Editor('txt'); this.style.display='none'" style="cursor: crosshair; color: brown">&raquo; {lang.clickedit} &laquo;</span>
+		<span onclick="exp(this)" style="cursor: crosshair; color: brown">&raquo; {lang.clickedit} &laquo;</span>
 		<div id="box" style="display: none">
-			<textarea name="txt" id="txt" style="width: 95%" cols="30" rows="9">{Clean: cat.text}</textarea>
+			<textarea name="txt" style="width: 95%" cols="30" rows="12">{Clean: cat.text}</textarea>
 		</div>
 	</td>
 </tr>
@@ -72,7 +72,7 @@
 		<input type="checkbox" name="o4" id="o4" f3:var="o4" /> <label for="o4">{lang.dis4}</label><br />
 		<input type="checkbox" name="o1" id="o1" f3:var="o1" /> <label for="o1">{lang.dis1}</label><br />
 		<input type="checkbox" name="o2" id="o2" f3:var="o2" /> <label for="o2">{lang.dis2}</label><br />
-		<input type="checkbox" name="o3" id="o3" f3:var="o4" /> <label for="o3">{lang.dis3}</label></td>
+		<input type="checkbox" name="o3" id="o3" f3:var="o3" /> <label for="o3">{lang.dis3}</label></td>
 </tr>
 <tr class="eth">
 	<td colspan="2">
@@ -83,3 +83,12 @@
 </tbody>
 </table>
 </form>
+
+<script type="text/javascript">
+function exp(o)
+{
+	show('box');
+	new Editor(document.forms[0].elements['txt']);
+	o.style.display='none'
+}
+</script>

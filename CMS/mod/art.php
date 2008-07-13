@@ -1,5 +1,6 @@
 <?php /* Wy¶wietlanie artyku³u */
 if(iCMS!=1) exit;
+include './cfg/content.php';
 
 #Pobierz dane
 $res = $db->query('SELECT t.*,f.text,f.page,f.opt,c.opt as cat_opt FROM '.PRE.'arts t
@@ -29,7 +30,15 @@ $art['date'] = genDate($art['date'], true);
 $art['author'] = Autor($art['author']);
 
 #Ocena
-$art['rate_url'] = '';
+if(isset($cfg['arate']) AND $art['cat_opt'] & 4)
+{
+	$art['rate'] = $art['rate'] ? $art['rate'] : $lang['lack'];
+	$art['rate_url'] = '';
+}
+else
+{
+	$art['rate'] = false;
+}
 
 #Zwiêksz ilo¶æ wy¶wietleñ
 if(isset($cfg['adisp']))

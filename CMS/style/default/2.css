@@ -1,0 +1,219 @@
+/*G³ówne*/
+body {
+	font: 13px Verdana,Helvetica,Arial,Times;
+	background-color: #C7C5B8;
+}
+a {
+	text-decoration: none;
+	color: #000097
+}
+a:hover {
+	text-decoration: underline;
+	color: #0C5BB4
+}
+img {
+	vertical-align: middle;
+	border: 0
+}
+h2, .tb caption {
+	margin: 0;
+	font: bold 13px Verdana;
+	border: 1px solid #9EAA97; border-bottom: 0;
+	background: #CBD5BF url(2/th.png) repeat-x;
+	text-align: center;
+	color: #396F79;
+	padding: 1px;
+}
+form {margin: 0}
+optgroup {font-style: normal}
+textarea {font: 13px Verdana,Helvetica}
+label {cursor: pointer}
+
+/* Listy */
+ul,ol {margin: 9px; padding-left: 25px}
+ul.go {list-style-image: url(../../img/icon/go.png)}
+ul.gallery {list-style: none; padding: 0; margin: 0}
+ul.gallery li {
+	display: inline-block;
+	width: 141px;
+	padding: 5px;
+	text-align: center;
+}
+ul.cats {
+	list-style-image: url(../../img/icon/folder.png);
+	overflow: hidden
+}
+ul.cats li {
+	width: 50%;
+	float: left
+}
+.files div {
+	background: url(../../img/icon/file.png) no-repeat 5px 4px;
+	padding: 3px 0 5px 30px;
+	min-height: 32px;
+}
+.art,.link {
+	height: 40px;
+	padding-left: 37px !important;
+}
+.art  { background: url(../../img/icon/art.png) no-repeat 4px 50% }
+.link { background: url(../../img/icon/link.png) no-repeat 3px 50% }
+.art a, .files a, .link a {font-weight: bold}
+
+/* Szablon */
+.all {width: 880px; background-color: #728FA7}
+.all>tbody {background-color: #B3C4D7}
+td.nav {width: 175px; padding: 9px}
+td#main {background-color: #C4D0DF; padding: 9px}
+
+/*Nag³ówek i stopka*/
+#header {
+	background-color: #E4E4E4;
+	height: 60px;
+	padding-left: 220px;
+	text-align: center;
+	background: url(2/logo.png) no-repeat
+}
+#footer {
+	background-color: #AABCCA;
+	padding: 2px;
+	width: 874px;
+	margin: 0 auto 5px auto;
+	text-align: center;
+	border: 1px #728FA7 solid;
+	border-top: 0
+}
+#gm {
+	background-color: #EFEEE6;
+	padding: 3px 8px 3px 8px
+}
+#gm a {
+	color: #2872AE;
+	font-weight: bold
+}
+
+/*Menu*/
+.menu {
+	background-color: #EFEEE6;
+	padding: 2px 3px;
+	margin-bottom: 7px;
+	border: 1px solid #416298
+}
+.mh {
+	padding: 1px;
+	color: white;
+	font-weight: bold;
+	background: #456CC9 url(2/m.png);
+	text-align: center;
+	border: 1px solid #416298;
+	border-bottom: 0;
+}
+.menu ul {margin: 0; padding-left: 14px}
+.menu ul a {display: block}
+#online {text-align: center; line-height: 22px}
+
+/*Bloki*/
+th {
+	background-color: #E4E4D6;
+	font-weight: normal
+}
+.tb {
+	background-color: #9EAA97;
+	width: 100%;
+	margin-bottom: 8px
+}
+.eth, .end {
+	color: #236978;
+	background-color: #DCE0CD;
+	text-align: center;
+	padding: 1px;
+}
+.end {
+	border: 1px solid #9EAA97;
+	border-top: 0;
+	margin: -8px 0 8px 0;
+}
+.box {
+	overflow: hidden;
+	background-color: #F5F5F5;
+	border: 1px solid #9EAA97;
+	padding: 3px;
+	margin-bottom: 8px
+}
+.eth td,th,.code,.quote {padding: 2px}
+.tb tbody {background-color: #EFEEE6}
+.tb td {padding: 3px}
+
+/* Struktura kategorii */
+.cs {
+	border: 1px solid #A9B4AA;
+	padding: 5px 3px 5px 28px;
+	margin-bottom: 8px;
+	background: url(../../img/icon/cs.png) 3px 3px no-repeat #F5F5F5
+}
+
+/*Tekst i inne*/
+.newsimg {
+	padding: 3px;
+	padding-right: 5px;
+	float: left
+}
+.code {
+	background-color: #EFEFE7;
+	border: 1px solid #DBDBCA
+}
+.quote {
+	background-color: #E7EFEF;
+	border: 1px solid #ACC8C8
+}
+.pollstrip {
+	background-color: #ebcb9c;
+	border: 1px outset #d2b473;
+	height: 10px;
+}
+.post1 {padding: 3px}
+.post2 {padding: 3px; background-color: #EEEEEE}
+.nag {background-color: #D9E6DB}
+big {font-size: 15px}
+small {font-size: 11px}
+
+/* Strony */
+.pages .pageAct {
+	background-color: #D1E9DA;
+	border: 1px solid #C6D7D9;
+	font-weight: bold
+}
+.pages a {
+	background-color: #DAE8E9;
+	border: 1px solid #C2D2D3;
+	font-weight: normal;
+	padding: 2px 4px;
+	margin: 3px
+}
+.pages {padding: 8px !important; text-align: center}
+
+/*DHTML*/
+.hint {
+	border: 1px solid #89a5a9;
+	background-color: white;
+	position: absolute;
+	visibility: hidden;
+	margin: 0
+}
+ul.hint {
+	margin: 0;
+	padding: 0;
+	list-style-type: none
+}
+.hint li,.tab {padding: 2px; cursor: pointer}
+.hint li:hover {background-color: #f0f0f0; color: blue}
+
+/*Edytor*/
+.editor {margin: 2px}
+.editor img, .editor span {
+	cursor: pointer;
+	padding: 4px
+}
+.editor img:hover, .editor span:hover {
+	background-color: #fffdd9;
+}

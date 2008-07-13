@@ -69,21 +69,21 @@ Editor.prototype.format = function(i)
 		switch(i)
 		{
 			case 10:
-				if(eCharList==0) this.Make('chars');
+				if(eCharList==0) this.make('chars');
 				eO = this.o;
 				Hint(eCharList, cx-10, cy, 1);
 				break;
 			case 9:
-				if(eColors==0) this.Make('colors');
+				if(eColors==0) this.make('colors');
 				eO = this.o;
 				eCurBBC = this.bbcode;
 				Hint(eColors, cx-10, cy, 1);
 				break;
 			case 12:
-				this.Ins('link');
+				this.ins('link');
 				break;
 			case 13:
-				this.Ins('mail');
+				this.ins('mail');
 				break;
 			case 11:
 				if(this.bbcode==1) {
@@ -126,15 +126,15 @@ Editor.prototype.create = function(hidden)
 }
 
 //Emoty
-Editor.prototype.Emots = function(x)
+Editor.prototype.emots = function(x)
 {
 	//Wykryj
-	var exist = this.emots ? 1 : 0;
+	var exist = this.emo ? 1 : 0;
 
 	//Usuñ?
 	if(x==0)
 	{
-		if(exist) this.o.parentNode.removeChild(this.emots);
+		if(exist) this.o.parentNode.removeChild(this.emo);
 		return;
 	}
 
@@ -155,11 +155,11 @@ Editor.prototype.Emots = function(x)
 		img.onclick = function() { BBC(that,'','',this.alt); }
 		out.appendChild(img);
 	}
-	this.emots = this.o.parentNode.insertBefore(out, this.o.nextSibling)
+	this.emo = this.o.parentNode.insertBefore(out, this.o.nextSibling)
 }
 
 //Zbuduj tabelê symboli
-Editor.prototype.Make = function(co)
+Editor.prototype.make = function(co)
 {
 	var out = document.createElement('div');
 	out.className = 'hint';
@@ -212,7 +212,7 @@ Editor.prototype.Make = function(co)
 
 			var td = document.createElement('td');
 			td.style.backgroundColor = eColor[i];
-			td.style.padding = '12px'; //innerHTML='&nbsp;&nbsp;&nbsp;';
+			td.style.padding = '12px';
 			td.item = eColor[i];
 			td.onclick = function()
 			{
@@ -237,23 +237,23 @@ Editor.prototype.Make = function(co)
 	document.body.appendChild(out);
 };
 
-Editor.prototype.Ins = function(co)
+Editor.prototype.ins = function(co)
 {
 	if(co=='link')
 	{
-		var a = prompt(eLang2.adr,'http://');
+		var a = prompt(eLang2.adr, 'http://');
 		if(a && a!='http://')
 		{
 			var b = prompt(eLang2.adr2);
 			if(b)
 			{
-				if(this.bbcode==1) BBC(this.id,'[url='+a+']'+b,'[/url]');
-				else BBC(this.id,'<a href="'+a+'">'+b,'</a>')
+				if(this.bbcode==1) BBC(this.o, '[url='+a+']'+b, '[/url]');
+				else BBC(this.o, '<a href="'+a+'">'+b, '</a>')
 			}
 			else
 			{
-				if(this.bbcode==1) BBC(this.id,'[url]'+a,'[/url]');
-				else BBC(this.id,'<a href="'+a+'">'+a,'</a>')
+				if(this.bbcode==1) BBC(this.o, '[url]'+a, '[/url]');
+				else BBC(this.o, '<a href="'+a+'">'+a, '</a>')
 			}
 		}
 	}
@@ -263,13 +263,13 @@ Editor.prototype.Ins = function(co)
 		if(a)
 		{
 			a.replace('@','&#64;');
-			if(this.bbcode==1) BBC(this.id,'[mail]'+a,'[/mail]');
-			else BBC(this.id,'<a href="m&#97;ilto:'+a+'">'+a,'</a>')
+			if(this.bbcode==1) BBC(this.o, '[mail]'+a, '[/mail]');
+			else BBC(this.o, '<a href="m&#97;ilto:'+a+'">'+a, '</a>')
 		}
 	}
 };
 
-Editor.prototype.Rows = function(h)
+Editor.prototype.rows = function(h)
 {
 	this.o.rows = h;
 }

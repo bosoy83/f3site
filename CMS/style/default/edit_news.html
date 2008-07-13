@@ -51,26 +51,26 @@
 <div id="full" style="display: none; text-align: center">
 <h2>{lang.ftxt}</h2>
 <div class="box">
-	<textarea name="text" id="text" rows="13" style="width: 100%">{Clean: full}</textarea>
+	<textarea name="text" rows="13" style="width: 100%">{Clean: full}</textarea>
 </div>
 </div>
 </form>
 
 <script type="text/javascript">
 <!--
-var el=document.forms['news'].elements;
-var ed=new Editor(el.txt);
-ed.Emots();
-var done=el.fn.checked?1:0;
+var el = document.forms['news'].elements;
+var ed = new Editor(el.txt);
+ed.emots();
+var done = el.fn.checked?1:0;
 
 function FN(x)
 {
-	Show(id('full'));
+	show('full');
 	if(done!=1 || x==1)
 	{
-		var ed2=new Editor(el.text);
-		ed2.Emots();
-		done=1;
+		var ed2 = new Editor(el.text);
+		ed2.emots();
+		done = 1;
 	}
 }
 if(done==1) FN(1);

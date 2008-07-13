@@ -8,13 +8,13 @@ if(ini_get('register_globals'))
 	foreach(array_keys($_REQUEST) as $x) unset($$x);
 }
 
-#ID do zmienej ($id zawsze istnieje)
+#ID do zmienej: $id zawsze istnieje
 $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : 0;
 
 #Nr strony
 if(isset($_GET['page']) && !is_numeric($_GET['page']))
 {
-	$_GET['page'] = 1; //Nr strony
+	$_GET['page'] = 1;
 }
 
 #Utwórz krytyczne tablice
@@ -40,23 +40,9 @@ if(!empty($cfg['ban']))
 #Przepisywanie linków
 define('MOD_REWRITE', 0); //It's disabled now
 
-#Skóra
-if(isset($_COOKIE[PRE.'tstyle']))
-{
-	$nstyl = str_replace('/', '', $_COOKIE[PRE.'tstyle']);
-	if(!is_dir('./style/'.$nstyl))
-	{
-		$nstyl = $cfg['skin'];
-	}
-}
-else
-{
-	$nstyl = $cfg['skin'];
-}
-
 #Katalog skórki
-define('SKIN_DIR', './style/'.$nstyl.'/');
-define('VIEW_DIR', './cache/'.$nstyl.'/');
+define('SKIN_DIR', './style/'.$cfg['skin'].'/');
+define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 
 #Sesja
 session_name(PRE);
@@ -111,6 +97,16 @@ define('TODAY', strftime($cfg['now']));
 #Do³±cz klasê skórek i utwórz obiekt
 require './lib/content.php';
 $content = new Content;
+
+#Arkusz CSS
+if(isset($_COOKIE['CSS']) && is_numeric($_COOKIE['CSS']))
+{
+	$content->addCSS(SKIN_DIR . $_COOKIE['CSS'] . '.css');
+}
+else
+{
+	$content->addCSS(SKIN_DIR . '1.css');
+}
 
 #Po³±cz z baz± danych
 try
@@ -394,12 +390,6 @@ function Clean($val,$max=0,$wr=0)
 		$val = str_replace($words1,$words2,$val); //Zamiana s³ów
 	}
 	return trim(htmlspecialchars($val));
-}
-
-#Zapisz zdarzenie
-function log_event($msg, $type)
-{
-	$GLOBALS['db']->query('INSERT INTO '.PRE.'log (name,)');
 }
 
 #Licz w bazie
