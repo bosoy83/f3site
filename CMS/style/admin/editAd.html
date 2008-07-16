@@ -1,4 +1,4 @@
-<form action="{url}" method="post" f3:array="ad">
+<form action="{url}" method="POST" f3:array="ad">
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -21,8 +21,8 @@
 <tr>
 	<td><b>4. {lang.htmlc}:</b></td>
 	<td>
-		<textarea name="code" id="code" style="width: 90%" rows="8">{Clean: ad.code}</textarea>
-		<script type="text/javascript">var ed=new Editor('code')</script>
+		<textarea name="code" style="width: 90%" rows="12">{Clean: ad.code}</textarea>
+		<script type="text/javascript">new Editor(document.forms[0].code)</script>
 	</td>
 </tr>
 <tr>

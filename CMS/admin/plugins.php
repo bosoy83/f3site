@@ -6,7 +6,8 @@ require LANG_DIR.'adm_pi.php';
 $setup = array();
 include './cfg/plug.php';
 
-#INFO
+#Tytu³ / INFO
+$content->title = $lang['plugs'];
 $content->info($lang['api_5'].'<p>Ability to installing and configuring plugins will be added soon.</p>');
 
 #Utwórz zmienne

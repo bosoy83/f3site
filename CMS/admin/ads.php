@@ -2,6 +2,12 @@
 if(iCMSa!=1 || !Admit('B')) exit;
 require LANG_DIR.'adm_o.php';
 
+#Usuñ
+if($_POST && $x = GetID(true))
+{
+	if(isset($_POST['del'])) $db->exec('DELETE FROM '.PRE.'banners WHERE ID IN ('.$x.')');
+}
+
 #Info
 $content->info($lang['bnrinfo'], array('?a=editad' => $lang['addbn']));
 

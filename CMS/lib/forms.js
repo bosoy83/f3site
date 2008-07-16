@@ -1,26 +1,41 @@
 /* Rozszerzenie klasy Request */
 
-function sendForm(form, o)
+HTMLFormElement.prototype.send = function(box, o)
 {
-	var elem = form.elements;
+	//ID
+	if(box == undefined) box = id('main');
 
-	//Obiekt Request
-	if(o == undefined) var o = new Request();
-
-	//Zdarzenia
+	//Obiekt Request i zdarzenia
+	var o = new Request(form.action, box);
 	o.failed = function() { lock(form, true) };
 	o.loading = function() { lock(form) };
-	o.done = function(x) { id('main').innerHTML = x; location='#main' };
+	o.done = function(x) { box.innerHTML = x; box.scrollIntoView() };
+	o.sendForm(form);
+}
+
+function lock(form, restore)
+{
+	var submits = form.elements('input');
+	for(var i=0; i<submits.length; ++i)
+	{
+		if(submits[i].type == 'submit')
+		{
+			submits[i].disabled = (restore === undefined)
+		}
+	}
 }
 
 Request.prototype.sendForm = function(form)
 {
 	//POST / GET
-	o.method = form.method;
+	this.method = form.method;
+
+	//Elementy
+	var elem = form.elements;
+	var num = elem.length;
 
 	//Dodaj
-	var num = elem.length;
-	for(var i=0, i<num; ++i)
+	for(var i=0; i<num; ++i)
 	{
 		if(elem.type == 'undefined') continue;
 		switch(elem.type)
@@ -52,13 +67,10 @@ Request.prototype.sendForm = function(form)
 	this.run(1);
 }
 
-Request.prototype.addForm = function(id)
+//Fragment formularza do powielania
+function Fragment(box,opt)
 {
-	this.form = document.forms[id];
-};
-Request.prototype.watch = function(box,opt)
-{
-	var box  = d(box);
+	var box  = id(box);
 	var self = this;
 	this.box = box;
 	this.num = box.getElementsByTagName(opt.tag).length;
@@ -137,7 +149,7 @@ Request.prototype.watch = function(box,opt)
 };
 
 //Nowy element
-Request.prototype.addItem = function()
+Fragment.prototype.addItem = function()
 {
 	if(this.num > this.limit || this.html == undefined) return false;
 	with(this.box.appendChild(this.html.cloneNode(true)))

@@ -2,6 +2,9 @@
 if(iCMSa!=1 || !Admit('NM')) exit;
 require LANG_DIR.'adm_o.php';
 
+#Tytu³ strony
+$content->title = $lang['nav'];
+
 #Zapis bloków
 if($_POST)
 {
@@ -46,4 +49,4 @@ foreach($res as $m)
 }
 
 #Do szablonu
-$content->data['blocks'] =& $blocks;
+$content->data['blocks'] = $blocks;

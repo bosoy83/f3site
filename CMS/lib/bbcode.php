@@ -9,7 +9,7 @@ $bbc[1] = array(
 	'[/b]','[/i]','[/u]','[/g]','[/d]',
 	'[/code]','[/quote]',
 	'[/big]','[/small]',
-	'[/center]','[right]'
+	'[/center]','[/right]'
 );
 $bbc[2] = array(
 	'<b>', '<i>', '<u>', '<sup>', '<sub>',
@@ -54,8 +54,8 @@ function BBCode($x, $exc=false)
 			'#\[email\]([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)?[\w]+)\[/email\]#i',
 		), array(
 			'<span style="color:\\2">\\3</span>',
-			'<a href="\\1\\2" target="_blank">\\1\\2</a>',
-			'<a href="\\2" target="_blank">\\3</a>',
+			'<a href="\\1\\2">\\1\\2</a>',
+			'<a href="\\2">\\3</a>',
 			'<a href="http://www.\\2.\\3\\4" target="_blank">www.\\2.\\3\\4</a>',
 			'\\1<a href="mailto:\\2&#64;\\3">\\2&#64;\\3</a>',
 			'<a href="mailto:\\1&#64;\\2">\\1&#64;\\2</a>'

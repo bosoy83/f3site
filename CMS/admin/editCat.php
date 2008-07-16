@@ -9,67 +9,68 @@ if($_POST)
 	#Wy¿sza kat.
 	$up = (int)$_POST['sc'];
 
-	$db->beginTransaction(); //START
-
+	#Dane - 1: struktura kategorii 2: komentarze 3: oceny 4: zawartoœæ z podkat.
 	$cat = array(
-		'sc' => $up,
-		'dsc' => Clean($_POST['dsc']),
-		'name' => Clean($_POST['name']),
-		'text' => &$_POST['txt'],
-		'type' => (int)$_POST['type'],
-		'sort' => (int)$_POST['sort'],
-		'opt'  => ((isset($_POST['o1']))?1:0) + ((isset($_POST['o2']))?2:0) +
-			((isset($_POST['o3']))?4:0) + ((isset($_POST['o4']))?8:0),
-		'access' => Clean($_POST['vis'])
+		'sc'  => $up,
+		'text'  => $_POST['txt'],
+		'dsc'   => Clean($_POST['dsc']),
+		'name'  => Clean($_POST['name']),
+		'access'=> Clean($_POST['vis']),
+		'type'  => (int)$_POST['type'],
+		'sort'  => (int)$_POST['sort'],
+		'opt'   => (isset($_POST['o1']) ? 1 : 0) + (isset($_POST['o2']) ? 2 : 0) +
+			(isset($_POST['o3']) ? 4 : 0) + (isset($_POST['o4']) ? 8 : 0)
 	);
 
-	#Edytuj
-	if($id)
-	{
-		$q = $db->prepare('UPDATE '.PRE.'cats SET name=:name,dsc=:dsc,access=:access,
-			type=:type,sc=:sc,sort=:sort,text=:text,opt=:opt WHERE ID='.$id);
-		$old = $db->query('SELECT ID,access,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id)->fetch(3); //NUM
-	}
-	#Nowa
-	else
-	{
-		#Zapis
-		$q = $db->prepare('INSERT INTO '.PRE.'cats (name,dsc,access,type,sc,sort,text,opt,lft,rgt)
-			VALUES (:name,:dsc,:access,:type,:sc,:sort,:text,:opt,:lft,:rgt)');
+	#START
+	try {
+		$db->beginTransaction();
 
-		#Pobierz prawy indeks ostatniej kategorii
-		$cat['lft'] = (int) $db->query('SELECT rgt FROM '.PRE.'cats'. (($up) ?
-			' WHERE ID='.$up : ' ORDER BY lft DESC LIMIT 1') ) -> fetchColumn();
-
-		#Przesuñ kategorie
-		if($up)
+		#Edytuj
+		if($id)
 		{
-			$db->exec('UPDATE '.PRE.'cats SET lft=lft+2 WHERE lft>='.$cat['lft']);
-			$db->exec('UPDATE '.PRE.'cats SET rgt=rgt+2 WHERE rgt>='.$cat['lft']);
+			$q = $db->prepare('UPDATE '.PRE.'cats SET name=:name,dsc=:dsc,access=:access,
+				type=:type,sc=:sc,sort=:sort,text=:text,opt=:opt WHERE ID='.$id);
+			$old = $db->query('SELECT ID,access,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id)->fetch(3); //NUM
 		}
+		#Nowa
 		else
 		{
-			++$cat['lft'];
+			#Zapis
+			$q = $db->prepare('INSERT INTO '.PRE.'cats (name,dsc,access,type,sc,sort,text,opt,lft,rgt)
+				VALUES (:name,:dsc,:access,:type,:sc,:sort,:text,:opt,:lft,:rgt)');
+
+			#Pobierz prawy indeks ostatniej kategorii
+			$cat['lft'] = (int) $db->query('SELECT rgt FROM '.PRE.'cats'. (($up) ?
+				' WHERE ID='.$up : ' ORDER BY lft DESC LIMIT 1') ) -> fetchColumn();
+
+			#Przesuñ kategorie
+			if($up)
+			{
+				$db->exec('UPDATE '.PRE.'cats SET lft=lft+2 WHERE lft>='.$cat['lft']);
+				$db->exec('UPDATE '.PRE.'cats SET rgt=rgt+2 WHERE rgt>='.$cat['lft']);
+			}
+			else
+			{
+				++$cat['lft'];
+			}
+			$cat['rgt'] = $cat['lft']+1;
 		}
-		$cat['rgt'] = $cat['lft']+1;
-	}
 
-	#ZatwierdŸ
-	$q->execute($cat);
+		#ZatwierdŸ
+		$q->execute($cat);
 
-	#Pobierz ID lub dokonaj zmian LFT i RGT
-	if(!$id)
-	{
-		$id = $db->lastInsertId();
-	}
-	elseif($up!=$old[2])
-	{
-		RebuildTree();
-	}
+		#Pobierz ID lub dokonaj zmian LFT i RGT
+		if(!$id)
+		{
+			$id = $db->lastInsertId();
+		}
+		elseif($up!=$old[2])
+		{
+			RebuildTree();
+		}
 
-	#OK
-	try
-	{
+		#ZatwierdŸ i przebuduj strukturê kategorii
 		$db->commit();
 		UpdateCatPath($id);
 		$content->info($lang['saved'].' ID: '.$id, array(
@@ -80,17 +81,15 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e->getMessage());
+		$content->info($e->getMessage()); //B³¹d?
 	}
 }
 
 #FORMULARZ: Odczyt
 elseif($id)
 {
-	$res = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$id);
-	$cat = $res->fetch(2);
-	$res = null;
-	if(empty($cat['ID'])) { $content->info($lang['noex']); return; }
+	$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$id) -> fetch(2); //ASSOC
+	if(!$cat) { $content->info($lang['noex']); return; }
 }
 #Domyœlne dane
 else

@@ -2,6 +2,9 @@
 if(iCMSa!=1 || !Admit('CDB')) exit;
 require LANG_DIR.'adm_db.php';
 
+#Tytu³ strony
+$content->title = $lang['dbcopy'];
+
 #Funkcje
 switch($db_db)
 {

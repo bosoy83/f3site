@@ -1,4 +1,6 @@
+<form action="" method="POST">
 <h2>{lang.groups}</h2>
+
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
@@ -6,20 +8,23 @@
 	<th>ID</th>
 	<th>{lang.opened}?</th>
 	<th>{lang.opt}</th>
+	<th style="width: 20px"></th>
 </tr>
 
 <!-- START group -->
 <tr>
-	<td id="i{id}">{num}. <a href="?a=users&amp;gid={id}">{title}</a></td>
+	<td>{num}. <a href="?a=users&amp;gid={id}">{title}</a></td>
 	<td align="center">{id}</td>
 	<td align="center">{opened}</td>
-	<td align="center">
-		<a href="?a=editgroup&amp;id={id}">{lang.edit}</a>
-		&middot; <a href="javascript:Del({id})">{lang.edit}</a>
-	</td>
+	<td align="center"><a href="?a=editGroup&amp;id={id}">{lang.edit}</a></td>
+	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->
 
 </tbody>
 </table>
+
+<div class="end">
+	<input type="submit" name="del" value="{lang.del}" />
+</div>
 </form>

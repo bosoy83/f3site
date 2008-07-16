@@ -24,15 +24,20 @@ $content->dir = './style/admin/';
 $content->cacheDir = './cache/admin/';
 
 #Zazn. ID
-function GetIDs($v)
+function GetID($toStr=false, $array=null)
 {
-	$x=Array();
-	$ile=count($v);
-	for($i=0;$i<$ile;$i++)
+	$x = array();
+	if(!$array && isset($_POST['x'])) $array = $_POST['x']; //Domy¶lny klucz: x
+	if(!$array) return false;
+
+	foreach($array as $key=>$val)
 	{
-		if(is_numeric(key($v))) $x[] = key($v); next($v);
+		if(is_numeric($key)) $x[] = $key;
 	}
-	return $x;
+	if(!$x) return false;
+
+	#Zwróæ tablicê / string
+	return $toStr ? join(',', $x) : $x;
 }
 
 #Typ

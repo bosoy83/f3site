@@ -30,7 +30,7 @@ $lang+=Array(
 'admintro'=>'Witaj w panelu administracyjnym %name. Aby kontynuowaæ, wybierz odpowiedni modu³ z menu nawigacyjnego lub skorzystaj z poni¿szych skrótów:',
 'skincomp'=>'Zatwierd¼ zmiany w bie¿±cej skórce',
 'html_boo'=>'Kurs HTML, xHTML, CSS...',
-'official'=>'Oficjalna strona systemu F3Site',
+'official'=>'Oficjalna strona systemu F3Site 2008',
 
 'acc'=>'Dostêpno¶æ',
 'adr'=>'Adres',

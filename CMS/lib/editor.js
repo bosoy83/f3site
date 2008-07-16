@@ -71,13 +71,13 @@ Editor.prototype.format = function(i)
 			case 10:
 				if(eCharList==0) this.make('chars');
 				eO = this.o;
-				Hint(eCharList, cx-10, cy, 1);
+				hint(eCharList, cx-10, cy, 1);
 				break;
 			case 9:
 				if(eColors==0) this.make('colors');
 				eO = this.o;
 				eCurBBC = this.bbcode;
-				Hint(eColors, cx-10, cy, 1);
+				hint(eColors, cx-10, cy, 1);
 				break;
 			case 12:
 				this.ins('link');

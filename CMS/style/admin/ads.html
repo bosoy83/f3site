@@ -1,4 +1,6 @@
+<form action="" method="POST">
 <h2>{lang.banners}</h2>
+
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
@@ -6,19 +8,27 @@
 	<th style="width: 80px">{lang.disp}</th>
 	<th style="width: 50px">GID</th>
 	<th>{lang.opt}</th>
+	<th style="width: 20px"></th>
 </tr>
 
 <!-- START ad -->
 <tr>
-	<td id="i{id}">{num}. {title}</td>
+	<td>{num}. {title}</td>
 	<td align="center">{on}</td>
 	<td align="center">{gen}</td>
 	<td align="center">
 		<a href="?a=editAd&amp;id={id}">{lang.edit}</a>
-		&middot; <a href="javascript:Del({id})">{lang.del}</a>
+	</td>
+	<td>
+		<input type="checkbox" name="x[{id}]" />
 	</td>
 </tr>
 <!-- STOP -->
 
 </tbody>
 </table>
+
+<div class="end">
+	<input type="submit" name="del" value="{lang.del}" />
+</div>
+</form>

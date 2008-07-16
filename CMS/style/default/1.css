@@ -196,6 +196,7 @@ small {font-size: 11px}
 	border: 1px solid #7dbfd2;
 	background-color: #ebfbfe;
 	position: absolute;
+	overflow: auto;
 	visibility: hidden;
 	margin: 0
 }

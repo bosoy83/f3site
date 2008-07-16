@@ -21,7 +21,7 @@ else
 $url = '';
 $param = Array();
 
-if($cfg['userFind']==1)
+if(isset($cfg['userFind']))
 {
 	if(!empty($_GET['sl']))
 	{

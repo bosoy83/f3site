@@ -24,6 +24,7 @@ $content->title = $type ? $lang['addComm'] : $lang['c1'];
 
 #B³êdy
 $error = array();
+$preview = null;
 
 #Dane POST
 if($_POST)
@@ -47,9 +48,12 @@ if($_POST)
 	#Podgl±d
 	if(isset($_POST['prev']) && !$error)
 	{
-		/*OpenBox($lang['preview'],1);
-		echo '<tr><td class="txt">'.nl2br(Emots($c_text2)).'</td></tr>';
-		CloseBox();*/
+		$preview = nl2br(Emots($c['text']));
+		if(isset($cfg['bbcode']))
+		{
+			include './lib/bbcode.php';
+			$preview = BBCode($preview);
+		}
 	} 
 
 	#Zapis
@@ -137,6 +141,7 @@ $content->data = array(
 	'comment' => $c,
 	'code'    => $type && LOGD!=1 && $cfg['captcha']==1 ? true : false,
 	'author'  => $type && LOGD!=1 ? true : false,
+	'preview' => $preview,
 	'url'     => '?co=comment&amp;id='.$id.(($type)?'&amp;type='.$type:'')
 );
 

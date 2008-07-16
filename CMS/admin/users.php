@@ -3,6 +3,22 @@ if(iCMSa!=1 || !Admit('U')) exit;
 require LANG_DIR.'adm_o.php';
 require LANG_DIR.'profile.php';
 
+#Usuñ
+if($_POST && !isset($_POST['x'][1]) && $x = GetID(true))
+{
+	$content->info('Deleting users will be added soon.');
+	/* 
+	if(isset($_POST['del']))
+	{
+		$db->exec('DELETE FROM '.PRE.'users WHERE ID IN ('.$x.')');
+		$db->exec('DELETE FROM '.PRE.'comments WHERE TYPE=10 AND CID IN ('.$x.')');
+	}
+	if(isset($_POST['comm']))
+	{
+		$db->exec('DELETE FROM '.PRE.'comments WHERE guest!=1 AND author IN ('.$x.')');
+	}*/
+}
+
 #Strona
 if(isset($_GET['page']) && $_GET['page']!=1)
 {

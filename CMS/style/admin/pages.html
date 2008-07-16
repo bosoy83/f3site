@@ -1,19 +1,23 @@
 <script type="text/javascript">
 //<![CDATA[
-function Del(id)
+function Del(c)
 {
- if(confirm("{lang.delc}"))
- {
-	del=new Request("adm.php?x=del&id="+id,'i'+id);
-	del.method='POST';
-	del.add('co','page')
-	del.run()
- }
+	var o = c.parentNode.parentNode; //TR
+	if(confirm('{lang.delc}\n' + o.cells[0].innerHTML))
+	{
+		del = new Request('request.php?co=del&id='+id, 'i'+id);
+		del.method='POST';
+		del.add('type','page')
+		del.done = function(x) { if(x == 'OK') o.parentNode.deleteRow(o.rowIndex); }
+		del.run()
+	}
 }
 //]]>
 </script>
 
+<form action="" method="POST">
 <h2>{lang.ipages}</h2>
+
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
@@ -21,19 +25,23 @@ function Del(id)
 	<th style="width: 50px">ID</th>
 	<th style="width: 70px">{lang.disp}</th>
 	<th>{lang.opt}</th>
+	<th style="width: 20px"></th>
 </tr>
 
 <!-- START pages -->
 <tr>
-  <td id="i{id}">{num}. <a href="index.php?co=page&amp;id={id}">{title}</a></td>
+  <td>{num}. <a href="{url}">{title}</a></td>
   <td align="center">{id}</td>
   <td align="center">{access}</td>
-  <td align="center">
-		<a href="adm.php?a=editPage&amp;id={id}">{lang.edit}</a>
-		&middot; <a href="javascript:Del({id})">{lang.del}</a>
-	</td>
+  <td align="center"><a href="?a=editPage&amp;id={id}">{lang.edit}</a></td>
+	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->
 
 </tbody>
 </table>
+
+<div class="end">
+	<input type="submit" name="del" value="{lang.del}" />
+</div>
+</form>

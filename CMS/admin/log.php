@@ -2,10 +2,9 @@
 if(iCMSa!=1 || !Admit('LOG')) exit;
 
 #Usuñ?
-if($_POST)
+if($_POST && $x = GetID(true))
 {
-	$x = GetIDs($_POST['item']);
-	if($x) $db->exec('DELETE FROM '.PRE.'log WHERE ID IN ('.join(',',$x).')');
+	$db->exec('DELETE FROM '.PRE.'log WHERE ID IN ('.$x.')');
 }
 
 #Strona
