@@ -7,9 +7,9 @@ Header('Content-type: text/html; charset=iso-8859-2');
 $nlang = 'en';
 foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 {
-	if(isset($x[3]))
+	if(isset($x[2]))
 	{
-		$x = $x[1].$x[2];
+		$x = $x[0].$x[1];
 	}
 	if(ctype_alnum($x) && file_exists('./'.$x.'.php'))
 	{
@@ -43,7 +43,7 @@ if(!$_POST && !$_GET)
 	$error = array();
 
 	#Wersja PHP
-	if(version_compare('5.2',PHP_VERSION,'<='))
+	if(PHP_VERSION >= 5.2)
 		$php = '<span>'.PHP_VERSION.'</span>';
 	else {
 		$php = '<del>'.PHP_VERSION.'</del>';
@@ -176,7 +176,7 @@ if($_POST)
 				$db->exec($q);
 			}
 			catch(PDOException $e) {
-				echo '<pre>'.nl2br($e).htmlspecialchars($q).'</pre>'; exit; }
+				echo '<pre>'.nl2br($e->getMessage()).htmlspecialchars($q).'</pre>'; exit; }
 		}
 	}
 	echo '<span>OK</span><br /><br />'.$lang[53];
@@ -191,8 +191,7 @@ if($_POST)
 	$db->exec($i.'menu VALUES (1,1,"Menu",1,1,3,0,"")');
 	$db->exec($i.'menu VALUES (2,2,"'.$lang[39].'",1,2,2,0,"mod/panels/user.php")');
 	$db->exec($i.'menu VALUES (3,3,"'.$lang[40].'",1,2,2,0,"mod/panels/poll.php")');
-	$db->exec($i.'menu VALUES (4,4,"'.$lang[41].'",1,1,2,0,"mod/panels/msets.php")');
-	$db->exec($i.'menu VALUES (5,5,"'.$lang[42].'",1,2,2,0,"mod/panels/online.php")');
+	$db->exec($i.'menu VALUES (5,5,"'.$lang[42].'",1,1,2,0,"mod/panels/online.php")');
 	$db->exec($i.'menu VALUES (6,6,"'.$lang[54].'",1,2,1,0,"Coming soon...")');
 
 	$db->exec($i.'mitems VALUES (1,"'.$lang[36].'","index.php",0,1)');

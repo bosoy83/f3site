@@ -30,22 +30,16 @@ $last = 1;
 
 foreach($res as $cat)
 {
-	#Je¿eli drzewo kategorii ¼le wy¶wietla siê, usuñ # z nastêpnej linii:
-	#echo '$last = '.$last.', $depth = '.$depth.', $cat[lft] = '.$cat['lft'].', $cat[rgt] = '.$cat['rgt'];
-
 	#Poziom
-	if($last>$cat['rgt'])
+	if($last > $cat['rgt'])
 	{
 		++$depth;
 	}
-	elseif($depth>0 && $last+2!=$cat['rgt'] && $last+1!=$cat['lft'])
+	elseif($depth > 0 && $last+2 != $cat['rgt'] && $last+1 != $cat['lft'])
 	{
-		$depth-=floor(($cat['rgt']-$last)/2);
+		$depth -= floor(($cat['rgt']-$last)/2);
 	}
-	$last=$cat['rgt'];
-
-	#Je¿eli drzewo kategorii ¼le wy¶wietla siê, usuñ # z nastêpnej linii:
-	#echo '&nbsp;&nbsp; Potem: $depth = '.$depth.'<br />';
+	$last = $cat['rgt'];
 
 	#Typ
 	switch($cat['access'])
@@ -60,11 +54,11 @@ foreach($res as $cat)
 		'id'   => $cat['ID'],
 		'name' => $cat['name'],
 		'type' => $types[$cat['type']],
-		'url'  => 'index.php?co=edit&amp;act='.$cat['type'].'&amp;id='.$cat['ID'],
+		'url'  => 'index.php?co=list&amp;act='.$cat['type'].'&amp;id='.$cat['ID'],
 		'num'  => $cat['num'],
 		'depth'=> $depth,
 		'disp' => $a,
 	);
 }
 
-$content->data['cat'] =& $cats;
+$content->data['cat'] = $cats;

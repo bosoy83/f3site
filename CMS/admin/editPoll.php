@@ -8,9 +8,6 @@ $content->title = $id ? $lang['editPoll'] : $lang['addPoll'];
 #Zapis
 if($_POST)
 {
-	#Klasa zapisu zmiennych do pliku PHP
-	require './lib/config.php';
-
 	#Dane
 	$poll = array(
 		'name' => Clean($_POST['name']),
@@ -69,21 +66,9 @@ if($_POST)
 			$q->execute($an[$i]);
 		}
 
-		#Utwórz cache najnowszej sondy
-		if(db_count('ID','polls WHERE ID='.$id.' AND access="'.$poll['access'].'" ORDER BY ID DESC LIMIT 1')===1)
-		{
-			#Pobierz odpowiedzi
-			$p = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$id)->fetch(2); //ASSOC
-			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id)->fetchAll(3);
-			$poll['ID'] = $id;
-
-			#Zapisz do pliku
-			$file = new Config('./cache/poll_'.$nlang.'.php');
-			$file->add('poll',$p);
-			$file->add('option',$o);
-			$file->save();
-			unset($p,$o);
-		}
+		#Aktualizuj cache najnowszych sond
+		include './mod/polls/poll.php';
+		RebuildPoll();
 
 		#ZatwierdŸ
 		$db->commit();

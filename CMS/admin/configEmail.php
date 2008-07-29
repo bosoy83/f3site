@@ -27,6 +27,5 @@ include LANG_DIR.'adm_cfgm.php';
 include './cfg/mail.php';
 
 #Do szablonu
-$content->data = array(
-	'cfg' => &$opt
-);
+$content->title = 'E-mail';
+$content->data['cfg'] =& $opt;

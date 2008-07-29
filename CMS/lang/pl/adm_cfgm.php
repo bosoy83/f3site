@@ -9,7 +9,6 @@ $lang+=Array(
 'mvwd'=>'Wy¶wietlany w tre¶ci jako odno¶nik.',
 'mmet'=>'Wysy³aj przy pomocy',
 'rsmtp'=>'zdalnego serwera SMTP',
-'mmetd'=>'',
 
 'rsvr'=>'Ustawienia zdalnego serwera',
 'smtp'=>'Serwer SMTP',
@@ -18,10 +17,17 @@ $lang+=Array(
 'reg_on'=>'Rejestracja w³±czona',
 'nickban'=>'Zabronione loginy',
 'nickex'=>'Wpisz loginy lub ich czê¶ci bez znaku gwiazdki * w osobnych liniach.',
-'domainban'=>'Zablokowane domeny e-mail',
-'domainex'=>'Np. example.com (bez znaku ma³py). Umie¶æ ka¿d± z nich w osobnej linii.',
+'domainban'=>'Zablokowane adresy e-mail',
+'domainex'=>'Pe³ne adresy lub ich czê¶ci / domeny. Umie¶æ je w osobnych liniach.',
 'u_meth'=>'Sposób aktywacji kont',
 'auto'=>'Automatyczna',
 'bymail'=>'E-mail - link aktywacyjny',
 'byadmin'=>'Przez uprawnionych administratorów',
+
+'photo'=>'Zdjêcie',
+'photos'=>'Pozwól dodawaæ zdjêcie',
+'maxDim'=>'Maksymalne wymiary',
+'maxSize'=>'Maksymalny rozmiar',
+'width'=>'Szer.',
+'height'=>'Wys.'
 );

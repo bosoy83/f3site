@@ -1,5 +1,5 @@
 <form action="?a=configUsers" method="post" f3:array="cfg" f3:mode="isset">
-<h2>{lang.opt} :: {lang.regme}</h2>
+<h2>{lang.opt} :: {lang.users}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody class="bg">
@@ -40,6 +40,34 @@
 		<label for="a2">{lang.bymail}</label><br />
 		<input type="radio" name="actmeth" value="3" id="a3" />
 		<label for="a3">{lang.byadmin}</label>
+	</td>
+</tr>
+<tr>
+	<th colspan="2">{lang.photo}</th>
+</tr>
+<tr>
+	<td>
+		<b>{lang.photos}:</b>
+	</td>
+	<td>
+		<input type="checkbox" name="photo" />
+	</td>
+</tr>
+<tr>
+	<td>
+		<b>{lang.maxSize}:</b>
+	</td>
+	<td>
+		<input name="maxSize" value="{cfg.maxSize}" size="5" maxlength="5" /> KB
+	</td>
+</tr>
+<tr>
+	<td>
+		<b>{lang.maxDim}:</b>
+	</td>
+	<td>
+		{lang.width} <input name="maxDim1" value="{cfg.maxDim1}" size="5" maxlength="5" />
+		{lang.height} <input name="maxDim2" value="{cfg.maxDim2}" size="5" maxlength="5" /> px
 	</td>
 </tr>
 <tr>

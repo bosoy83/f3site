@@ -1,7 +1,4 @@
 <?php
-//time1=microtime(1);
-
-#J±dro
 define('iCMS',1);
 define('iCMSa',1);
 require 'kernel.php';
@@ -134,6 +131,3 @@ if($content->check && filemtime('./style/admin/admin.html') > @filemtime('./cach
 
 #Skórka - admin
 require './cache/admin/admin.html';
-
-/*$time2=microtime(1);
-echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());*/

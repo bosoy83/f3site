@@ -29,6 +29,7 @@ if($_POST)
 
 include LANG_DIR.'adm_cfg.php';
 
+$content->title = $lang['mainopt'];
 $content->data = array(
 	'cfg' => &$opt,
 	'langlist' => ListBox('lang', 1, $opt['lang']),

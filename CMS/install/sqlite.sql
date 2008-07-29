@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `ID` int(11) NOT NULL,
 `page` tinyint(4) NOT NULL,
 `cat` int(11) NOT NULL,
-`text` text,
+`text` mediumtext,
 `opt` tinyint(2) NOT NULL,
 PRIMARY KEY (ID,page));
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 `type` tinyint(1) NOT NULL DEFAULT 5,
 `sc` int(11) NOT NULL,
 `sort` tinyint(1) NOT NULL,
-`text` mediumtext,
+`text` text,
 `num` int(10) NOT NULL DEFAULT 0,
 `nums` int(10) NOT NULL DEFAULT 0,
 `opt` tinyint(2) NOT NULL,
@@ -98,19 +98,19 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `name` varchar(50),
 `author` varchar(100),
 `date` date,
-`dsc` mediumtext,
+`dsc` text,
 `file` varchar(200),
 `dls` int(11) NOT NULL DEFAULT 0,
 `access` tinyint(1) NOT NULL,
 `size` varchar(50),
 `priority` tinyint(1) NOT NULL,
 `rate` varchar(4),
-`fulld` text);
+`fulld` mediumtext);
 
 CREATE TABLE IF NOT EXISTS `{pre}fnews` (
 `ID` int(11) NOT NULL,
 `cat` int(11) NOT NULL,
-`text` text,
+`text` mediumtext,
 PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS `{pre}groups` (
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `{pre}pms` (
 `usr` int(11) NOT NULL,
 `owner` int(11) NOT NULL,
 `st` tinyint(1) NOT NULL,
-`date` datetime,
+`date` int(11) NOT NULL,
 `bbc` tinyint(1) NOT NULL,
 `txt` text);
 

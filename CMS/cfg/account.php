@@ -1,1 +1,1 @@
-<?php $cfg+=array('reg_on'=>1,'mailban'=>array(),'nickban'=>array(),'actmeth'=>1,); ?>
+<?php $cfg+=array('reg_on'=>1,'mailban'=>array(),'nickban'=>array(),'actmeth'=>1,'photo'=>1,'maxSize'=>50,'maxDim1'=>80,'maxDim2'=>60,); ?>

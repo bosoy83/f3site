@@ -11,7 +11,7 @@ $lang+=Array(
 'callq'=>'Czy na pewno chcesz zadzwoniæ do u¿ytkownika ',
 'sendPM'=>'Wy¶lij prywatn± wiadomo¶æ',
 'abouty'=>'O sobie',
-
+'avatar'=>'Awatar lub zdjêcie',
 
 'account'=>'Konto u¿ytkownika',
 'editup'=>'Dane podstawowe (obowi±zkowe)',

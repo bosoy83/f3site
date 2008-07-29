@@ -10,24 +10,24 @@ class Content
 		$cacheDir = VIEW_DIR,
 		$dir = SKIN_DIR;
 
-	# Wy¶wietl g³ówny szablon
+	#Wy¶wietl g³ówny szablon
 	function display()
 	{
-		# Udostêpnij jêzyk
+		#Udostêpnij jêzyk
 		$lang = &$GLOBALS['lang'];
 
-		# Informacja?
+		#Informacja?
 		if(isset($this->info))
 		{
-			$info  = &$this->info;
-			$links = &$this->links;
+			$info  = $this->info;
+			$links = $this->links;
 			include VIEW_DIR.'info.html';
 		}
 
-		# Szablon modu³u?
+		#Szablon modu³u?
 		if($this->data || !isset($this->info))
 		{
-			# Utwórz referencje, aby omin±æ $this w szablonach
+			#Utwórz referencje, aby omin±æ $this w szablonach
 			foreach(array_keys($this->data) as $key)
 			{
 				$$key = &$this->data[$key];
@@ -36,18 +36,18 @@ class Content
 
 			foreach($this->file as $T)
 			{
-				# Czy istnieje nowsza wersja ¼ród³a?
+				#Czy istnieje nowsza wersja ¼ród³a?
 				if($this->check && filemtime($this->dir.$T.'.html') > @filemtime($this->cacheDir.$T.'.html'))
 				{
 					$this->compile($T.'.html');
 				}
-				# Do³±cz plik
+				#Do³±cz plik
 				include $this->cacheDir.$T.'.html';
 			}
 		}
 	}
 
-	# Ustaw dane
+	#Ustaw dane
 	function set($key, &$array=null)
 	{
 		if($array !== null)
@@ -60,37 +60,37 @@ class Content
 		}
 	}
 
-	# Informacja
+	#Informacja
 	function info($text, $links=null)
 	{
 		$this->info = $text;
 		$this->links = $links;
 	}
 
-	# Dodaj plik CSS
+	#Dodaj plik CSS
 	function addCSS($file)
 	{
 		$this->head .= '<link rel="stylesheet" type="text/css" href="'.$file.'" />';
 	}
 
-	# Dodaj skrypt
+	#Dodaj skrypt
 	function addScript($file, $type='text/javascript')
 	{
 		$this->head .= '<script type="'.$type.'" src="'.$file.'"></script>';
 	}
 
-	# 404
+	#404
 	function set404()
 	{
 		$this->file = '404';
 	}
 
-	# Komunikat lub b³±d (gdy $notify = 1, powiadom admina)
+	#Komunikat lub b³±d (gdy $notify = 1, powiadom admina)
 	function message($info, $link=null, $notify=null)
 	{
 		if($info === (int)$info)
 		{
-			require LANG_DIR.'special.php';  $info =& $lang['s'.$info];
+			require LANG_DIR.'special.php';  $info = $lang['s'.$info];
 		}
 		$lang =& $GLOBALS['lang'];
 		require VIEW_DIR.'message.html';

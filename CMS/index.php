@@ -2,9 +2,6 @@
 /* F3Site 3.0: copyright (C) 2007 COMPMaster
 Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
 
-#TYLKO W WERSJI ROBOCZEJ
-#$time1=microtime(1);
-
 #J±dro
 define('iCMS',1);
 require './kernel.php';
@@ -50,7 +47,4 @@ if($content->check && filemtime(SKIN_DIR.'body.html') > @filemtime(VIEW_DIR.'bod
 
 #Skórka
 include VIEW_DIR.'body.html';
-
-/*$time2=microtime(1);
-echo '<br />TYLKO W WERSJI ROBOCZEJ:<br />Zu¿ycie pamiêci: '.xdebug_memory_usage()/1024 .' KB, Max: '.xdebug_peak_memory_usage()/1024 ,' KB, Czas sk³adania: ',$time2-$time1.' s, do³±czonych plików: '.count(get_included_files());
-#var_dump(get_included_files());*/
+#echo 'U¿ycie pamiêci: '.(xdebug_memory_usage()/1024).' KB, Max: '.(xdebug_peak_memory_usage()/1024),' KB';

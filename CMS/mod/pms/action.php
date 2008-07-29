@@ -1,65 +1,52 @@
-<?php
-/*Usuwanie i archiwizacja PM*/
+<?php /* Operacje na PW */
 if(iCMS!=1) exit;
-$q='';
 
 #Usuñ 1
-if($id)
+if(isset($_POST['del']) && !is_array($_POST['del']))
 {
-	$q='ID='.$id;
+	$q = 'ID='.(int)$_POST['del'];
 }
 
 #Z listy
-elseif(is_array($_POST['pmdel']))
+elseif(isset($_POST['x']) && count($_POST['x'])>0)
 {
-	if(count($_POST['pmdel'])>0)
+	$list = array();
+	foreach($_POST['x'] as $key=>$val)
 	{
-		$pms=array();
-		foreach($_POST['pmdel'] as $key=>$val)
-		{
-			if(is_numeric($key)) $pms[]='ID='.$key;
-		}
-		$q='('.join(' OR ',$pms).')';
-		unset($pms,$key,$val);
+		if(is_numeric($key)) $list[] = $key;
 	}
+	$q = 'ID IN ('.join(',', $list).')';
+	unset($list,$key,$val);
 }
+
+else return;
 
 #START
-if($q) $db->beginTransaction();
+$db->beginTransaction();
 
-#Do archiwum
-if($q && $_GET['act2']=='arch')
-{
-	$db->exec('UPDATE '.PRE.'pms SET st=3 WHERE st=2 AND owner='.UID.' AND '.$q);
-	$id=3;
-}
 #Usuñ
-elseif($q)
+if(isset($q))
 {
 	#Pobierz w³a¶cicieli
-	$res=$db->query('SELECT owner FROM '.PRE.'pms WHERE st=1 && (usr='.UID.' OR owner='.UID.') && '.$q);
+	$res = $db->query('SELECT owner FROM '.PRE.'pms WHERE st=1 AND (usr='.UID.' OR owner='.UID.') AND '.$q);
 	$res->setFetchMode(7); //Column
-	$pms=array();
+	$users = array();
 
-	foreach($res as $u)
+	foreach($res as $x)
 	{
-		if(!isset($pms[$u])) $pms[$u]=1; else ++$pms[$u];
+		if(isset($users[$x])) ++$users[$x]; else $users[$x] = 1;
   }
-	$res=null;
+	$res = null;
 
 	#Zmniejsz ilo¶æ PM
-  foreach($pms as $key=>$val)
+  foreach($users as $u=>$x)
   {
-		db_q('UPDATE '.PRE.'users SET pms=pms-'.$val.' WHERE ID='.$key);
+		$db->exec('UPDATE '.PRE.'users SET pms=pms-'.$x.' WHERE ID='.$u);
   }
-  unset($key,$val,$pms,$u);
+  unset($u,$x,$users);
 	$db->exec('DELETE FROM '.PRE.'pms WHERE (owner='.UID.' OR (usr='.UID.' AND st=1)) AND '.$q);
 }
+$db->commit();
 
-if($q)
-{
-	$db->commit();
-	unset($q);
-	require('./mod/pms/list.php');
-}
-?>
+unset($q);
+require './mod/pms/list.php';

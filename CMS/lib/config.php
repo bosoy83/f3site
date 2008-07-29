@@ -1,17 +1,19 @@
 <?php
 function cfg_escape($x)
 {
-	$x=str_replace('\'','\\\'',$x);
-	return str_replace('\\','\\\\',$x);
+	return str_replace( array('\\','\''), array('\\\\','\\\''), $x);
 }
 
 class Config
 {
-	public $var='cfg+', $in='', $file;
+	public
+		$var = 'cfg+',
+		$in  = '',
+		$file;
 
 	function __construct($file)
 	{
-		$this->file=(strpos($file,'/'))?$file:'./cfg/'.$file.'.php';
+		$this->file = (strpos($file,'/')) ? $file : './cfg/'.$file.'.php';
 	}
 
 	#Dodaj dane z tablic
@@ -21,13 +23,13 @@ class Config
 		{
 			if(is_array($val))
 			{
-				$this->in.='\''.$key.'\'=>array(';
+				$this->in .= '\''.$key.'\'=>array(';
 				$this->loop($val);
-				$this->in.='),';
+				$this->in .= '),';
 			}
 			else
 			{
-				if($val==='on') $val=1;
+				if($val==='on') $val = 1;
 				$this->in.='\''.$key.'\'=>'.((is_numeric($val))?$val:'\''.cfg_escape($val).'\'').',';
 			}
 		}
@@ -38,9 +40,9 @@ class Config
 	{
 		if(is_array($val))
 		{
-			$this->in.='$'.$var.'=array(';
+			$this->in .= '$'.$var.'=array(';
 			$this->loop($val);
-			$this->in.=');';
+			$this->in .= ');';
 		}
 		else
 		{
@@ -57,16 +59,16 @@ class Config
 	#Dodaj wiele warto¶ci
 	function set(&$list)
 	{
-		$this->in.='$'.$this->var.'=array(';
+		$this->in .= '$'.$this->var.'=array(';
 		$this->loop($list);
-		$this->in.=');';
+		$this->in .= ');';
 	}
 
 	#Zapisz
 	function save(&$data=null)
 	{
 		if($data) $this->set($data);
-		if(file_put_contents($this->file,'<?php '.$this->in.' ?>',2))
+		if(file_put_contents($this->file, '<?php '.$this->in.' ?>', 2))
 		{
 			return true;
 		}
@@ -77,4 +79,3 @@ class Config
 		}
 	}
 }
-?>

@@ -9,7 +9,7 @@ if($_POST)
 	#Wy¿sza kat.
 	$up = (int)$_POST['sc'];
 
-	#Dane - 1: struktura kategorii 2: komentarze 3: oceny 4: zawartoœæ z podkat.
+	#Dane - 1: struktura kategorii 2: komentarze 3: oceny 5: lista kat, 5: zawartoœæ z podkat.
 	$cat = array(
 		'sc'  => $up,
 		'text'  => $_POST['txt'],
@@ -19,7 +19,7 @@ if($_POST)
 		'type'  => (int)$_POST['type'],
 		'sort'  => (int)$_POST['sort'],
 		'opt'   => (isset($_POST['o1']) ? 1 : 0) + (isset($_POST['o2']) ? 2 : 0) +
-			(isset($_POST['o3']) ? 4 : 0) + (isset($_POST['o4']) ? 8 : 0)
+			(isset($_POST['o3']) ? 4 : 0) + (isset($_POST['o4']) ? 8 : 0) + (isset($_POST['o5']) ? 16 : 0)
 	);
 
 	#START
@@ -94,7 +94,7 @@ elseif($id)
 #Domyœlne dane
 else
 {
-	$cat = array('name'=>'','dsc'=>'','access'=>1,'type'=>5,'sc'=>0,'text'=>'','sort'=>2,'opt'=>'');
+	$cat = array('name'=>'','dsc'=>'','access'=>1,'type'=>5,'sc'=>0,'text'=>'','sort'=>2,'opt'=>15);
 }
 #Edytor JS, tytu³, dane
 $content->addScript(LANG_DIR.'edit.js');
@@ -106,6 +106,7 @@ $content->data = array(
 	'o2'   => $cat['opt'] & 2,
 	'o3'   => $cat['opt'] & 4,
 	'o4'   => $cat['opt'] & 8,
+	'o5'   => $cat['opt'] & 16,
 	'cats' => Slaves(0,$cat['sc'],$id),
 	'langs'=> ListBox('lang',1,$cat['access']),
 	'url'  => 'adm.php?a=editCat'.(($id) ? '&amp;id='.$id : '')

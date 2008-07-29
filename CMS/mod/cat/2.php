@@ -29,7 +29,7 @@ foreach($res as $file)
 $pages = $cat['num']>$total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
 
 #Do szablonu
-$content->file = 'cat_files';
+$content->file[] = 'cat_files';
 $content->data += array(
 	'files' => &$files,
 	'pages' => &$pages,
@@ -38,4 +38,3 @@ $content->data += array(
 );
 
 unset($res,$total,$file);
-?>

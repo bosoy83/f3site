@@ -8,6 +8,14 @@ $page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id.
 #Nie istnieje?
 if(!$page) return;
 
+#PHP - nale¿y wykonaæ go najpierw
+if($page['opt']&16)
+{
+	ob_start();
+	eval('?>'.$page['text'].'<?');
+	$page['text'] = ob_get_clean();
+}
+
 #Emotikony
 if($page['opt']&2)
 {
@@ -18,14 +26,6 @@ if($page['opt']&2)
 if($page['opt']&1)
 {
 	$page['text'] = nl2br($page['text']);
-}
-
-#PHP?
-if($page['opt']&16)
-{
-	ob_start();
-	eval('?>'.$page['text'].'<?');
-	$page['text'] = ob_get_clean();
 }
 
 #Szablon

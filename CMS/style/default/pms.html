@@ -1,25 +1,25 @@
-<h2>{lang.pm_3}</h2>
+<h2>{lang.pm3}</h2>
 <table cellspacing="1" class="tb">
 <tbody class="bg">
 <tr>
 	<td>
 		<div style="float: right; text-align: center; width: 50%">
 			{new}<br /><br />
-			{lang.pm_15} {size} / {limit}<br /><br />
-			<input type="button" value="{lang.write}" onclick="location='?co=pms&amp;act=e'" />
+			{lang.pm15} {size} / {limit}<br /><br />
+			<a href="?co=pms&amp;act=e">
+				<button onclick="location=this.parentNode.href; return false;">{lang.write}</button>
+			</a>
 		</div>
 		<div>
-			<b>{lang.pm_4}:</b>
+			<b>{lang.fold}:</b>
 			<ul style="list-style-image: url(img/icon/folder.png); margin: 3px">
-				<li><a href="?co=pms">{lang.pm_5}</a></li>
-				<li><a href="?co=pms&amp;id=1">{lang.pm_6}</a></li>
-				<li><a href="?co=pms&amp;id=2">{lang.pm_8}</a></li>
-				<li><a href="?co=pms&amp;id=3">{lang.pm_7}</a></li>
+				<li><a href="?co=pms">{lang.inbox}</a></li>
+				<li><a href="?co=pms&amp;id=4">{lang.sent}</a></li>
+				<li><a href="?co=pms&amp;id=1">{lang.await}</a></li>
+				<li><a href="?co=pms&amp;id=3">{lang.drafts}</a></li>
 			</ul>
 		</div>
 	</td>
 </tr>
 </tbody>
 </table>
-
-<?php if(isset($file)) include(VIEW_DIR.$file) ?>

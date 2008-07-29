@@ -11,9 +11,9 @@ if($_POST)
 	$opt['nickban'] = empty($opt['nickban']) ? array() : explode("\n",$opt['nickban']);
 
 	require './lib/config.php';
-	$f = new Config('account');
 	try
 	{
+		$f = new Config('account');
 		$f->save($opt);
 		$content->info($lang['saved']);
 		include './admin/config.php';
@@ -24,7 +24,6 @@ if($_POST)
 		$content->info($lang['error'].$e);
 	}
 	$f = null;
-
 }
 
 #Opcje
@@ -34,9 +33,12 @@ include './cfg/mail.php';
 #Jêzyk
 require LANG_DIR.'adm_cfgm.php';
 
+#Tytu³ strony
+$content->title = $lang['config'];
+
 #Do szablonu
 $content->data = array(
 	'cfg' => &$cfg,
-	'mailBan' => join("\n",$cfg['mailban']),
-	'nickBan' => join("\n",$cfg['nickban'])
+	'mailBan' => join("\n", $cfg['mailban']),
+	'nickBan' => join("\n", $cfg['nickban'])
 );

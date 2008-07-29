@@ -32,7 +32,7 @@ if($total === 0): $content->info($lang['noc']); return 1; endif;
 $pages = $cat['num'] > $total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
 
 #Do szablonu
-$content->file = 'cat_links';
+$content->file[] = 'cat_links';
 $content->data += array(
 	'pages' => &$pages,
 	'links' => &$links,
@@ -42,4 +42,3 @@ $content->data += array(
 );
 
 unset($res,$link,$total);
-?>

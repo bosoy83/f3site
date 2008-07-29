@@ -59,7 +59,6 @@ elseif(LOGD==2 && $_POST)
 	else
 	{
 		sleep(3);
-		require LANG_DIR.'special.php';
-		$content->message($lang['s2'].(($cfg['newPass']==1)?'<br /><br /><a href="index.php?co=psw">'.$lang['newPass'].'</a>':''));
+		$content->message(2);
 	}
 }

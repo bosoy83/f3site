@@ -1,21 +1,26 @@
+<!-- IF preview -->
+<h2>{lang.preview}</h2>
+<div class="box">{nl2br: preview}</div>
+<!-- END -->
+
 <form action="{url}" method="post" id="pm">
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
-	<td style="width: 25%"><b>1. {lang.pm_13}:</b></td>
-	<td><input name="pm_to" value="{pm_to}" maxlength="30" /></td>
+	<td style="width: 25%"><b>1. {lang.pm13}:</b></td>
+	<td><input name="to" value="{pm.to}" maxlength="30" /></td>
 </tr>
 <tr>
 	<td><b>2. {lang.topic}:</b></td>
-	<td><input name="pm_th" value="{pm_th}" size="20" maxlength="40" /></td>
+	<td><input name="topic" value="{pm.topic}" size="20" maxlength="40" /></td>
 </tr>
 <tr>
 	<td><b>3. {lang.opt}:</b></td>
 	<td>
-		<input type="checkbox" name="pm_s" onclick="setCookie('{PRE}pm_s',1,(this.checked)?3000:-3000)" f3:var="pm_copy" /> {lang.pm_17}<br />
-		<input type="checkbox" name="pm_bbc" f3:var="pm_bbc" /> {lang.pm_19}
+		<label><input type="checkbox" name="sent" f3:var="sent" /> {lang.pm17}</label><br />
+		<label><input type="checkbox" name="bbc" f3:var="pm.bbc" /> {lang.pm19}</label>
 	</td>
 </tr>
 <tr>
@@ -23,13 +28,14 @@
 </tr>
 <tr>
 	<td colspan="2" align="center">
-		<textarea rows="15" name="txt" style="width: 95%" cols="50">{pm_txt}</textarea>
+		<textarea name="txt" rows="15" cols="50" style="width: 95%">{pm.txt}</textarea>
 	</td>
 </tr>
 <tr>
 	<td colspan="2" class="eth">
 		<input type="submit" value="{lang.preview}" />
-		<input type="submit" value="OK" name="save" />
+		<input type="submit" value="OK" name="send" />
+		<input type="submit" value="{lang.later}" name="save" />
 	</td>
 </tr>
 </tbody>
@@ -39,15 +45,15 @@
 <!-- IF bbcode -->
 
 <script type="text/javascript">
-var pme=new Editor(document.forms['pm'].txt);
-pme.bbcode=1;
-pme.Emots()
+var ed = new Editor(document.forms['pm'].txt);
+ed.bbcode = 1;
+ed.emots()
 </script>
 
 <!-- ELSE -->
 
 <script type="text/javascript">
-var x=document.forms['pm'].elements['pm_bbc']; x.disabled=true; x.checked=false
+var x = document.forms['pm'].bbc; x.disabled=true; x.checked=false
 </script>
 
 <!-- END -->

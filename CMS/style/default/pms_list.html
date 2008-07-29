@@ -12,16 +12,16 @@
 <!-- START pm -->
 
 <tr>
-	<td>{num}. <a href="{url}">{topic}</a></td>
+	<td>{num}. <a href="{url}"><!-- IF new --><b>{topic}</b><!-- ELSE -->{topic}<!-- END --></a></td>
 	<td align="center"><a href="{user_url}">{login}</a></td>
-	<td style="width: 7px"><input type="checkbox" name="pmdel[{id}]" /></td>
+	<td style="width: 7px"><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 
 <!-- STOP -->
 
 <tr>
 	<td class="eth">
-		<input type="button" onclick="javascript:if(confirm('{lang.pm_26}')) this.form.submit()" value="{lang.delch}" />
+		<input type="submit" value="{lang.delch}" onclick="return confirm('{lang.pm26}')" />
 	</td>
 	<td colspan="2" class="eth">
 		{lang.page}: {pages}
@@ -36,7 +36,7 @@
 function sAll(s)
 {
 	var x=document.getElementsByTagName('input');
-	for(var i=0;i<x.length;i++) { if(x[i].name.indexOf('pmdel')==0) x[i].checked=s.checked }
+	for(var i=0;i<x.length;i++) { if(x[i].name.indexOf('x')==0) x[i].checked=s.checked }
 }
 //]]>
 </script>

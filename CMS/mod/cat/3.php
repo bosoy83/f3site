@@ -19,14 +19,6 @@ foreach($res as $x)
 		'url'   => MOD_REWRITE ? 'img/'.$x[0] : '?co=img&amp;id='.$x[0],
 		'date'  => genDate($x[2], false)
 	);
-
-	/*</tr>
-  if($if==$cfg['imgsRow'] || $if==$cfg['inp'])
-  {
-		echo '</tr>';
-		$if=1;
-  }
-	else { ++$if; }*/
 }
 
 #Brak?
@@ -40,7 +32,7 @@ if($cat['num'] > $total)
 else $pages = null;
 
 #Do szablonu
-$content->file = 'cat_images';
+$content->file[] = 'cat_images';
 $content->data += array(
 	'pages' => &$pages,
 	'img'   => &$img,

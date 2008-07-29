@@ -9,7 +9,7 @@ if($_POST)
 {
 	require './lib/config.php';
 	$f = new Config('content');
-try
+	try
 	{
 		$f->save($opt);
 		$content->info($lang['saved']);
@@ -52,6 +52,9 @@ foreach(scandir('./lang') as $dir)
 		$cats[strtoupper($dir)] = '<select name="start['.$dir.']" id="df'.$i.'">'.$out.'</select>';
 	}
 }
+
+#Tytu³
+$content->title = $lang['cfgcont'];
 
 #Do szablonu
 $content->data = array(

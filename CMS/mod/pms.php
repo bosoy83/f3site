@@ -5,7 +5,7 @@ if(iCMS!=1) exit;
 require LANG_DIR.'pms.php';
 
 #Tytu³ strony
-$content->title = $lang['pm_3'];
+$content->title = $lang['pm3'];
 
 #Jest dostêp?
 if($cfg['pmOn']==1 && LOGD==1)
@@ -13,12 +13,12 @@ if($cfg['pmOn']==1 && LOGD==1)
 	#Nowe PM
 	if($user[UID]['pms']==0)
 	{
-		$pm_new = $lang['pm_nm0'];
+		$pm_new = $lang['zero'];
 	}
 	else
 	{
 		$pm_new = str_replace('%', '<b>'.$user[UID]['pms'].'</b>',
-			(($user[UID]['pms']==1) ? $lang['pm_nm1'] : $lang['pm_nm']) );
+			(($user[UID]['pms']==1) ? $lang['new1'] : $lang['new2']) );
 	}
 
 	#Dane do szablonu
@@ -41,9 +41,9 @@ if($cfg['pmOn']==1 && LOGD==1)
 }
 elseif(LOGD==2)
 {
-	$content->info($lang['pm_2']);
+	$content->info($lang['pm2']);
 }
 else
 {
-	$content->info($lang['pm_1']);
+	$content->info($lang['pm1']);
 }

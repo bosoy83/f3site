@@ -9,7 +9,7 @@ $res = null;
 #Brak?
 if(!$pm)
 {
-	$content->info($lang['pms_9']);
+	$content->info($lang['noex']);
 	return 1;
 }
 
@@ -26,14 +26,14 @@ $pm['txt'] = nl2br(Emots($pm['txt']));
 #Przeczytana?
 if($pm['st']==1 && $pm['owner']==UID)
 {
-	$db -> exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$pm['ID']);
+	$db -> exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$id);
 	$db -> exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
 	-- $user[UID]['pms'];
 	$pm['st'] = 2;
 }
 
 #Data, autor
-$pm['date'] = genDate($pm['date']);
+$pm['date'] = genDate($pm['date'], true);
 $pm['usr'] = Autor($pm['usr']);
 
 #Tytu³ strony i plik
@@ -44,5 +44,6 @@ $content->file[] = 'pms_view';
 $content->data += array(
 	'pm'   => &$pm,
 	'id'   => $id,
-	'edit' => ($pm['st']==2) ? $lang['pm_10'] : $lang['edit']
+	'edit' => $pm['st'] == 3,
+	'reply'=> $pm['st'] > 1
 );

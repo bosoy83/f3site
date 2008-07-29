@@ -2,6 +2,10 @@
 if(!$_POST) exit;
 define('iCMS',1);
 require './kernel.php';
+echo 'Polls will be fixed and enhanced in next revision...';
+include './mod/polls/poll.php';
+RebuildPoll();
+exit;
 
 #Adres IP
 $ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.

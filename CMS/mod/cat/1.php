@@ -30,7 +30,7 @@ if($total===0) { $content->info($lang['noc']); return 1; }
 $pages = $cat['num'] > $total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
 
 #Do szablonu
-$content->file = 'cat_arts';
+$content->file[] = 'cat_arts';
 $content->data += array(
 	'pages' => &$pages,
 	'arts'  => &$arts,
@@ -39,4 +39,3 @@ $content->data += array(
 );
 
 unset($res,$total,$art);
-?>

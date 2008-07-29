@@ -51,7 +51,7 @@ else
 
 #Opcja: lista pozycji z wszystkich podkategorii
 #TODO: SELECT * FROM items JOIN cats ON items.cat_id = cats.id
-if($cat['opt'] & 4)
+if($cat['opt'] & 16)
 {
 	$cats = 'cat IN (SELECT ID FROM '.PRE.'cats WHERE lft BETWEEN '.$cat['lft'].' AND '.$cat['rgt'].')';
 	$cat['num'] = $cat['nums'];
@@ -62,12 +62,12 @@ else
 }
 
 #Podkategorie
-if($cat['opt'])
+if($cat['opt'] & 8)
 {
 	$res = $db->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
 		' AND (access=1 OR access="'.$nlang.'") ORDER BY name');
 
-	$res ->setFetchMode(3); //NUM
+	$res->setFetchMode(3); //NUM
 	
 	foreach($res as $c)
 	{

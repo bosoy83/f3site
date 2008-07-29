@@ -3,22 +3,11 @@ if(iCMSa!=1 || !Admit('Q')) exit;
 require LANG_DIR.'poll.php';
 
 #Operacje
-if($_POST && $x = GetID(true))
+if($_POST)
 {
-	if(isset($_POST['del']))
-	{
-		$db->exec('DELETE FROM '.PRE.'polls WHERE ID IN ('.$x.')');
-		$db->exec('DELETE FROM '.PRE.'answers WHERE IDP IN ('.$x.')');
-		$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE=15 AND CID IN ('.$x.')');
-		$db->exec('DELETE FROM '.PRE.'pollvotes WHERE ID IN ('.$x.')');
-	}
-	elseif($_POST['reset'])
-	{
-		$db->exec('UPDATE '.PRE.'answers SET num=0 WHERE IDP IN ('.$x.')');
-		$db->exec('UPDATE '.PRE.'polls SET num=0 WHERE ID IN ('.$x.')');
-		$db->exec('DELETE FROM '.PRE.'pollvotes WHERE ID IN ('.$x.')');
-	}
-	unset($x);
+	include './mod/polls/poll.php';
+	isset($_POST['del']) AND DeletePoll();
+	isset($_POST['reset']) AND ResetPoll();
 }
 
 #Info

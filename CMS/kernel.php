@@ -72,9 +72,9 @@ elseif($cfg['detectLang']===1)
 {
 	foreach(explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 	{
-		if(isset($x[3]))
+		if(isset($x[2]))
 		{
-			$x = $x[1].$x[2];
+			$x = $x[0].$x[1];
 		}
 		if(ctype_alnum($x) && is_dir('./lang/'.$x))
 		{

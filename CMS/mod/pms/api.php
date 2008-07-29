@@ -1,14 +1,14 @@
 <?php /* API prywatnych wiadomo¶ci - pamiêtaj o objêciu operacji transakcj± bazy danych */
 class PM
 {
-	public
+	public //Version 1
 		$to,
-		$topic,
 		$text,
-		$sender = UID,
+		$topic,
 		$bbcode = 0,
-		$copy,
-		$errorMode;
+		$sender = UID, //Tylko ID
+		$status = 1,
+		$exceptions;
 
 	#Sprawd¼ poprawno¶æ danych - u¿yj $errRef, je¶li ju¿ zdefiniowa³e¶ tablicê b³êdów
 	function errors(&$errRef = null)
@@ -26,17 +26,17 @@ class PM
 		}
 
 		#Tre¶æ za d³uga?
-		if(isset($this->txt[20001])) $error[] = $lang['pm_18'];
+		if(isset($this->text[20001])) $error[] = $lang['pm18'];
 
 		#Skrzynka pe³na?
-		if(inboxFull($uid)) $error[] = $lang['pm_21'];
+		if($this->inboxFull($this->to)) $error[] = $lang['pm21'];
 
 		#Wyrzuæ b³±d
 		if($error)
 		{
-			if($this->errorMode === 'EXCEPTION')
+			if($this->exceptions)
 			{
-				throw new Exception($e);
+				throw new Exception($error);
 			}
 			elseif($errRef)
 			{
@@ -49,44 +49,57 @@ class PM
 		}
 		return false; //FALSE gdy brak b³êdów
 	}
-	
+
 	#Wy¶lij wiadomo¶æ
 	function send($force = false)
 	{
 		global $db;
 
 		#Odbiorca
-		$uid = is_numeric($this->to) ? $this->to : userID($this->to);
+		if(!is_numeric($this->to)) $this->to = userID($this->to);
 
 		#Gdy s± b³êdy...
-		if(!$force && $this->errors) return false;
+		if(!$force && $this->errors()) return false;
 
 		#Zapytanie
 		$q = $db->prepare('INSERT INTO '.PRE.'pms (topic,usr,owner,st,date,bbc,txt)
-			VALUES (:topic,:usr,:owner,1,'.$_SERVER['REQUEST_TIME'].',:bbc,:txt)');
+			VALUES (:topic,:usr,:owner,:st,:date,:bbc,:txt)');
 
 		$q->execute( array(
-			'owner'  => $uid,
-			'usr'    => (int)$this->sender,
-			'topic'  => $this->topic,
-			'txt'    => $this->text,
-			'bbc'    => $this->bbc,
+			'owner' => $this->status > 2 ? UID : $this->to,
+			'usr'   => $this->status < 3 ? UID : $this->sender,
+			'topic' => $this->topic,
+			'txt'   => $this->text,
+			'bbc'   => $this->bbcode,
+			'st'    => $this->status,
+			'date'  => $_SERVER['REQUEST_TIME']
 		));
 
 		#Zwiêksz liczbê nieodebranych wiadomo¶ci
-		$db->exec('UPDATE '.PRE.'users SET pms=pms+1 WHERE ID='.$to_id);
+		if($this->status === 1) $db->exec('UPDATE '.PRE.'users SET pms=pms+1 WHERE ID='.$this->to);
 	}
 
 	#Zapisz wiadomo¶æ (domy¶lnie - kopia robocza)
-	function save($id = 0, $type = null)
+	function update($id, $force=false)
 	{
 		global $db;
 
-		if($id)
-		{
-			$q = $db->prepare('UPDATE '.PRE.'pms SET topic=:topic, usr=:usr, owner=:owner,
-				st=:st, st=:st, date=:date, bbc=:bbc, WHERE ');
-		}
+		$q = $db->prepare('UPDATE '.PRE.'pms SET topic=:topic, usr=:usr, owner=:owner,
+			st=:st, date=:date, bbc=:bbc, WHERE owner=:owner AND st=4 AND ID=:id');
+
+		$q->execute( array(
+			'id'    => $id,
+			'owner' => $this->status > 2 ? UID : $this->to,
+			'usr'   => $this->status < 3 ? UID : $this->sender,
+			'topic' => $this->topic,
+			'txt'   => $this->text,
+			'bbc'   => $this->bbcode,
+			'st'    => $this->status,
+			'date'  => $_SERVER['REQUEST_TIME']
+		));
+
+		#Zwiêksz liczbê nieodebranych wiadomo¶ci
+		if($this->status === 1) $db->exec('UPDATE '.PRE.'users SET pms=pms+1 WHERE ID='.$this->to);
 	}
 
 	#Czy skrzynka jest pe³na?
@@ -113,20 +126,20 @@ class PM
 		$GLOBALS['db']->exec('DELETE FROM '.PRE.'pms WHERE ID IN ('.join(',', $in).')');
 		return $GLOBALS['db']->rowCount(); //Zwróæ ilo¶æ usuniêtych wiadomo¶ci
 	}
+}
 
-	#Pobierz ID u¿ytkownika
-	function userID($login)
+#Pobierz ID u¿ytkownika
+function userID($login)
+{
+	global $db;
+
+	if($id = (int)$db->query('SELECT ID FROM '.PRE.'users WHERE login='.$db->quote($login))->fetchColumn())
 	{
-		if($id = (int)$db->query('ID','users WHERE login='.$db->quote($pm['to']))->fetchColumn())
-		{
-			return $id;
-		}
-		else
-		{
-			throw new Exception($GLOBALS['lang']['pm_20']);
-		}
-	} // Use "search" function in your editor if you wish you found a function. :)
-}	  // Or use kED if you would like to know this function finishes here - it's free!
-
-#Plik jêzyka
-if(!isset($lang['re'])) include LANG_DIR.'pms.php';
+		return $id;
+	}
+	else
+	{
+		throw new Exception($GLOBALS['lang']['pm20']);
+	}
+} // Use "search" function in your editor if you wish you found a function. :)
+ // Or use kED if you would like to know this function finishes here - it's free!
