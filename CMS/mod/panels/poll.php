@@ -10,7 +10,7 @@ else:
 endif;
 
 #G³osowa³ na...
-$voted = isset($_COOKIE[PRE.'voted'])?unserialize($_COOKIE[PRE.'voted']) : array();
+$voted = isset($_COOKIE['voted']) ? explode(';',$_COOKIE['voted']) : array();
 
 #Wyniki
 if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && LOGD!=1))
@@ -31,11 +31,12 @@ if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && LOGD
 
 	#Styl
 	include './mod/polls/little.php'; //Na razie domyœlny styl
+	unset($poll,$item);
 	return;
 }
 
 #Formularz do g³osowania
-echo '<form action="vote.php" name="poll" method="post">
+echo '<form action="vote.php" id="poll" method="post">
 <div style="text-align: center">'.$poll['q'].'</div><div style="margin: 5px 0px">';
 
 $i=0;

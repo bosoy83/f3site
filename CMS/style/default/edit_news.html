@@ -22,7 +22,7 @@
 	<td>
 		<input name="img" id="img" value="{news.img}" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="Okno('fileman.php?ff=img',580,400,150,150)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="okno('fileman.php?ff=img',580,400,150,150)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -61,7 +61,9 @@
 var el = document.forms['news'].elements;
 var ed = new Editor(el.txt);
 ed.emots();
-var done = el.fn.checked?1:0;
+var done = el.fn.checked;
+
+if(el[0].value == 0) el[0].focus(); else el[1].focus();
 
 function FN(x)
 {

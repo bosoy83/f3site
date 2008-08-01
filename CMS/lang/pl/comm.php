@@ -11,4 +11,4 @@ $lang+=Array(
 'c9'=>'Go¶æ',
 'c10'=>'Nie uda³o siê zapisaæ komentarza. Spróbuj ponownie za chwilê. Je¶li problem powtórzy siê, zg³o¶ go administratorom. Kod b³êdu: ',
 'c11'=>'Musisz zalogowaæ siê.'
-); ?>
+);

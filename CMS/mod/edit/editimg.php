@@ -31,7 +31,7 @@ if($_POST)
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat, name, dsc, type, date,
 				priority, access, author, file, filem, size) VALUES (:cat,:name,:dsc,:type, "'.
-				gmdate('Y-m-d').'", :priority, :access, :author, :file, :filem, :size)');
+				gmdate('Y-m-d H:i:s').'", :priority, :access, :author, :file, :filem, :size)');
 		}
 		$q->execute($img);
 

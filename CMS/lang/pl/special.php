@@ -29,4 +29,3 @@ $lang=Array(
 's22'=>'B³±d podczas operacji w bazie danych.<br />Wci¶nij F5, aby spróbowaæ ponownie.',
 's23'=>'Nie mo¿na po³±czyæ siê z baz± danych. Spróbuj wej¶æ ponownie za chwilê.<br /><br />Byæ mo¿e trwaj± prace administracyjne.',
 );
-?>

@@ -10,4 +10,4 @@
 'profile'=>'profil',
 'manComm'=>'Usuwanie i edycja komentarzy',
 'range2'=>'Nieaktywny - deaktywuje konto<br />Administrator - dostêp do administracji<br />Redaktor - mo¿e edytowaæ tre¶æ<br />W³a¶ciciel - wszystkie prawa',
-); ?>
+);

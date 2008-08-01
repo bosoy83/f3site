@@ -11,14 +11,12 @@ if($id)
 	#Ca³y rok / 1 miesi±c
 	if(isset($cfg['archYear']) && $id == (int)$id)
 	{
-		//date BETWEEN '.gmmktime(0,0,0,1,1,$id).' AND '.gmmktime(0,0,0,1,1,$id+1)-1
 		$q = 'date BETWEEN \''.$id.'-01-01\' AND \''.$id.'-12-31\'';
 	}
 	elseif($id == (float)$id)
 	{
 		$date = explode('.',$id);
 		if(!isset($date[1][1])) $date[1] = '0'.$date[1][0];
-		//gmmktime(0,0,0,$date[1],1,$date[0]) gmmktime(0,0,0,$date[1]+1,1,$date[0])-1;
 		$q = 'date BETWEEN \''.$date[0].'-'.$date[1].'-01\' AND \''.$date[0].'-'.$date[1].'-31\'';
 	}
 	else return;
@@ -79,10 +77,11 @@ if(isset($cfg['archYear']))
 #Miesi±ce
 elseif($mon)
 {
+	include LANG_DIR.'date.php';
 	do {
 		$dates[] = array(
 			'url'   => '?co=archive&amp;id='.$y.'.'.$m,
-			'title' => $mlang[$m].' '.$y
+			'title' => $months[$m].' '.$y
 		);
 		if($m==1)
 		{

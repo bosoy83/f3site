@@ -27,9 +27,9 @@
   <td><b>5. {lang.img}:</b></td>
   <td>
 		<input name="file" id="file" maxlength="200" value="{img.file}" />
-		<input type="button" value="{lang.preview}" onclick="Okno(file.value,500,400,100,100)" />
+		<input type="button" value="{lang.preview}" onclick="okno(file.value,500,400,100,100)" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="Okno('fileman.php?ff=file',580,400,150,150)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="okno('fileman.php?ff=file',580,400,150,150)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -37,9 +37,9 @@
   <td><b>6. {lang.minimg}:</b><br /><small>{lang.minimgd}</small></td>
   <td>
 		<input name="fm" maxlength="50" value="{img.filem}" />
-		<input type="button" value="{lang.preview}" onclick="Okno(fm.value,500,400,100,100)" />
+		<input type="button" value="{lang.preview}" onclick="okno(fm.value,500,400,100,100)" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="Okno('fileman.php?ff=fm',580,400,150,150)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="okno('fileman.php?ff=fm',580,400,150,150)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -77,5 +77,7 @@
 </table>
 </form>
 <script type="text/javascript">
-new Editor(document.forms['img'].dsc);
+var f = document.forms['img'];
+if(f[0].value == 0) f[0].focus(); else f[1].focus();
+new Editor(f.dsc);
 </script>

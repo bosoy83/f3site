@@ -6,12 +6,12 @@ require 'kernel.php';
 #Niezalogowany?
 if(LOGD != 1)
 {
-	$content->file = 'login';
+	Header('Location: '.URL.'login.php?admin');
 	exit;
 }
 elseif(LEVEL < 3)
 {
-	Header(URL.'index.php'); //Przekieruj na stronê g³ówn±
+	Header('Location: '.URL.'index.php'); //Przekieruj na stronê g³ówn±
 	exit;
 }
 require LANG_DIR.'adm.php';

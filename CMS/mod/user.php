@@ -20,14 +20,14 @@ $u['about'] = nl2br(Emots($u['about']));
 $u['www'] = ($u['www'] && $u['www']!='http://') ? $u['www'] : null;
 
 #E-mail
-if($u['mvis']==1)
+if($u['opt'] & 1)
 {
-	$u['mail']=str_replace('@','&#64;',$u['mail']);
-	$u['mail']=str_replace('.','&#46;',$u['mail']);
+	$u['mail'] = str_replace('@', '&#64;', $u['mail']);
+	$u['mail'] = str_replace('.', '&#46;', $u['mail']);
 }
 else
 {
-	$u['mail']=null;
+	$u['mail'] = null;
 }
 
 #Sk±d?
@@ -46,7 +46,7 @@ $content->data  = array(
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],true) : NA
 );
 
-if(isset($cfg['userComm']))
+if(isset($cfg['userComm']) && $u['opt']==1)
 {
 	define('CT','10');
 	include './lib/comm.php';

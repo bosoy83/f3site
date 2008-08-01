@@ -1,10 +1,10 @@
 <?php
 if(EC!=1) exit;
 
-//Funkcja zapisu
+#Funkcja zapisu
 if($_POST)
 {
-	//Nowe dane
+	#Nowe dane
 	$news = array(
 	'opt'  => (isset($_POST['br']) ? 1:0) + (isset($_POST['emo']) ? 2:0) + (isset($_POST['fn']) ? 4:0),
 	'name' => Clean($_POST['name']),
@@ -13,15 +13,15 @@ if($_POST)
 	'cat'	 => (int)$_POST['cat'],
 	'access' => isset($_POST['access']) ? 1 : 2);
 
-	//Pe³na treœæ
+	#Pe³na treœæ
 	$full = &$_POST['text'];
 
-	//Start
+	#Start
 	try
 	{
 		$e = new Saver($news,$id,'news');
 
-		//Query
+		#Query
 		if($id)
 		{
 			$q = $db->prepare('UPDATE '.PRE.'news SET cat=:cat, name=:name, txt=:txt,
@@ -34,7 +34,7 @@ if($_POST)
 		}
 		$q->execute($news);
 
-		//Nowe ID
+		#Nowe ID
 		$nid = $id ? $id : $db->lastInsertId();
 
 		$q = $db->prepare('REPLACE INTO '.PRE.'fnews (id,cat,text) VALUES ('.$nid.',?,?)');
@@ -42,7 +42,7 @@ if($_POST)
 		$q->bindParam(2,$full);
 		$q->execute();
 
-		//OK?
+		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
 			'?co=edit&amp;act=news'=> $lang['add5'],
@@ -57,17 +57,17 @@ if($_POST)
 	}
 }
 
-//Formularz
+#Formularz
 else
 {
-	//Odczyt
+	#Odczyt
 	if($id)
 	{
 		$news = $db->query('SELECT n.*,f.text FROM '.PRE.'news n LEFT JOIN '.
 			PRE.'fnews f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2); //ASSOC
 		$full = &$news['text'];
 
-		//Prawa
+		#Prawa
 		if(!$news || !Admit($news['cat'],'CAT',$news['author'])) return;
 	}
 	else
@@ -77,21 +77,21 @@ else
 	}
 }
 
-//Pola checkbox
+#Pola checkbox
 $news['br']  = $news['opt'] & 1;
 $news['emo'] = $news['opt'] & 2;
 $news['fn']  = $news['opt'] & 4;
 
-//Edytor JS
+#Edytor JS
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('cache/emots.js');
 $content->addScript('lib/editor.js');
 
-//Szablon i tytu³
+#Szablon i tytu³
 $content->title = $id ? $lang['edit5'] : $lang['add5'];
 $content->file  = 'edit_news';
 
-//Dane
+#Dane
 $content->data = array(
 	'news' => &$news,
 	'full' => &$full,

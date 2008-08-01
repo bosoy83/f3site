@@ -62,4 +62,3 @@ $lang+=Array(
 'isize'=>'Wymiary',
 'isized'=>'Wymagane dla Flash i QuickTime.',
 );
-?>

@@ -70,4 +70,3 @@ $lang+=Array(
 'ugr'=>'Grupy u¿ytkowników',
 'ugrw'=>'Ka¿dy u¿ytkownik nale¿y do jednej z poni¿szych grup. Nowi u¿ytkownicy automatycznie przystêpuj± do domy¶lnej (o ID równym 1). Je¶li grupa jest otwarta, zarejestrowani mog± samodzielnie do³±czyæ do niej. Kliknij na nazwê grupy, aby wy¶wietliæ jej cz³onków.',
 );
-?>

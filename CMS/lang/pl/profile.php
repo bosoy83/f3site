@@ -23,6 +23,7 @@ $lang+=Array(
 'tlenwot'=>'Tylko login (bez @tlen.pl)',
 'vismail'=>'Wy¶wietl adres e-mail w profilu',
 'getmails'=>'Dostarczaj listy od administratora',
+'allowComm'=>'W³±cz komentarze w moim profilu',
 
 'regoff'=>'Rejestracja nowych u¿ytkowników zosta³a wy³±czona.',
 'nousers'=>'Brak u¿ytkowników',

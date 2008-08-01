@@ -1,31 +1,19 @@
 <h2>{lang.config}</h2>
-<table cellspacing="1" class="tb">
-<tbody>
-<tr>
-	<td><a href="?a=configMain"><img src="img/admin/c1.png" alt="" /> {lang.conf1}</a></td>
-	<td><a href="?a=configContent"><img src="img/admin/c2.png" alt="" /> {lang.content}</a></td>
-</tr>
-<tr>
-	<td><a href="?a=configEmail"><img src="img/admin/c3.png" alt="" /> E-mail</a></td>
-	<td><a href="?a=censor"><img src="img/admin/c5.png" alt="" /> {lang.conf5}</a></td>
-</tr>
-<tr>
-	<td><a href="?a=emots"><img src="img/admin/c6.png" alt="" /> {lang.emots}</a></td>
-	<td><a href="?a=configUsers"><img src="" alt="" /> {lang.ua}</a></td>
-</tr>
+<div class="box">
 
-<!-- IF plugins -->
-<tr>
-	<th colspan="2">{lang.plugs}</td>
-</tr>
-<tr>
+<ul class="cats" style="list-style: none; margin: 0; padding: 0">
+	<li><a href="?a=configMain"><img src="img/admin/c1.png" alt="" /> {lang.conf1}</a></li>
+	<li><a href="?a=configContent"><img src="img/admin/c2.png" alt="" /> {lang.content}</a></li>
+	<li><a href="?a=configEmail"><img src="img/admin/c3.png" alt="" /> E-mail</a></li>
+	<li><a href="?a=configUsers"><img src="img/admin/c4.png" alt="" /> {lang.ua}</a></li>
+	<li><a href="?a=emots"><img src="img/admin/c6.png" alt="" /> {lang.emots}</a></li>
+	<li><a href="?a=censor"><img src="img/admin/c5.png" alt="" /> {lang.conf5}</a></li>
+
+	<!-- IF plugins -->
 	<!-- START plugins -->
-	<td>
-		<a href="?a={ID}"><img src="{img}" alt="ENTER" /> {name}</a>
-	</td>
+	<li><a href="?a={ID}"><img src="{img}" alt="ENTER" /> {name}</a></li>
 	<!-- STOP -->
-</tr>
-<!-- END -->
+	<!-- END -->
 
-</tbody>
-</table>
+</ul>
+</div>

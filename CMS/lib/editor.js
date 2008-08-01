@@ -27,8 +27,8 @@ var eTags = [
 	['center','center','center'],
 	['right','div align="right"','div'],
 	0, 0, 0, 0, 0,
-	['quote','div class="quote"','div'],
-	['code','div class="code"><code>','code></div']
+	['quote','blockquote','blockquote'],
+	['code','pre','pre']
 ];
 
 var eChar = ['amp','reg','copy','trade','sect','deg','middot','bull','lt','gt','raquo'];
@@ -119,6 +119,7 @@ Editor.prototype.create = function(hidden)
 		}
 		b.item  = parseInt(i);
 		b.title = eLang[i];
+		b.width = 16;
 		b.onclick = function() { that.format(this.item); }
 		out.appendChild(b);
 	}
@@ -151,6 +152,7 @@ Editor.prototype.emots = function(x)
 		var img = document.createElement('img');
 		img.src = './img/emo/'+emots[i][1];
 		img.alt = emots[i][2];
+		img.width = 16;
 		img.title = emots[i][0];
 		img.onclick = function() { BBC(that,'','',this.alt); }
 		out.appendChild(img);

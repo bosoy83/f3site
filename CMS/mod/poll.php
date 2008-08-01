@@ -38,7 +38,7 @@ foreach($option as &$o)
 	$item[] = array(
 		'num'  => $o[2],
 		'label' => $o[1],
-		'percent' => round($o[2] / $poll['ID'] * 100 ,$cfg['pollRound'])
+		'percent' => round($o[2] / $poll['num'] * 100 ,$cfg['pollRound'])
 	);
 }
 

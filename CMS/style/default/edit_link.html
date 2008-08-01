@@ -1,4 +1,4 @@
-<form action="{url}" name="art" method="post" f3:array="link">
+<form action="{url}" id="link" method="post" f3:array="link">
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -41,3 +41,10 @@
 </tbody>
 </table>
 </form>
+
+<script type="text/javascript">
+//<![CDATA[
+var f = document.forms['link'];
+if(f[0].value == 0) f[0].focus(); else f[1].focus();
+//]]>
+</script>

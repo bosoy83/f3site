@@ -2,10 +2,6 @@
 if(!$_POST) exit;
 define('iCMS',1);
 require './kernel.php';
-echo 'Polls will be fixed and enhanced in next revision...';
-include './mod/polls/poll.php';
-RebuildPoll();
-exit;
 
 #Adres IP
 $ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
@@ -92,7 +88,7 @@ if(isset($_POST['poll']))
 	if($poll) { $id = $poll['ID']; } else { $content->message(22); exit; }
 
 	#G³osowa³ na...
-	$voted = isset($_COOKIE[PRE.'voted']) ? unserialize($_COOKIE[PRE.'voted']) : array();
+	$voted = isset($_COOKIE['voted']) ? explode(';', $_COOKIE['voted']) : array();
 
 	#ID u¿ytkownika lub adres IP
 	$u = ($poll['ison']==3 && LOGD==1) ? UID : $ip;
@@ -127,6 +123,7 @@ if(isset($_POST['poll']))
 
 				#Pobierz odpowiedzi
 				$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id)->fetchAll(3);
+				++$poll['num'];
 
 				#Zapisz nowe dane do pliku
 				require './lib/config.php';
@@ -143,7 +140,7 @@ if(isset($_POST['poll']))
 	}
 	#Cookie
 	$voted[] = $id;
-	setcookie(PRE.'voted', serialize($voted), time()+7776000);
+	setcookie('voted', join(';',$voted), time()+7776000);
 	
 	#JS?
 	if(isset($_GET['js']))

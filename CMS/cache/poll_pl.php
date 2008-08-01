@@ -1,1 +1,1 @@
-<?php $poll=array('ID'=>8,'name'=>'PL','q'=>'PL','ison'=>3,'type'=>1,'num'=>0,'access'=>'pl','date'=>'2008-07-18',);$option=array('0'=>array('0'=>21,'1'=>'POLSKI','2'=>0,),); ?>
+<?php $poll=array('ID'=>1,'name'=>'Aktualizacja sondy','q'=>'TEST TEST TEST','ison'=>1,'type'=>2,'num'=>2,'access'=>'pl','date'=>'2008-08-01',);$option=array('0'=>array('0'=>1,'1'=>'no','2'=>0,),'1'=>array('0'=>2,'1'=>'yes','2'=>0,),'2'=>array('0'=>3,'1'=>'abc','2'=>0,),); ?>

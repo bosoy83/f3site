@@ -203,6 +203,7 @@ else
 	#Nie usuwaj!
 	define('LOGD',2);
 	define('UID',0);
+	define('LEVEL',0);
 }
 
 #Typ,kodowanie
@@ -328,7 +329,7 @@ function genDate($x, $time=false)
 	global $cfg,$lang;
 
 	if(!$x) return $x;
-	if($x[4] === '-') $x = strtotime($x); //Zamieñ DATETIME na znacznik czasu
+	if($x[4] === '-') $x = strtotime($x.' GMT'); //Zamieñ DATETIME na znacznik czasu
 
 	#Ró¿nica czasu
 	$diff = $_SERVER['REQUEST_TIME'] - $x;

@@ -88,6 +88,7 @@ class Compiler
 		#Do zamiany
 		$in = array(
 			'/\{BANNER ([0-9]+)\}/',
+			'/\{this\.([A-Za-z0-9:_ ]*)\}/', //Obiekt $this
 			'/\{([A-Za-z0-9_]*)\.([A-Za-z0-9:_ ]*)\}/', //Tablice
 			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]*)\.([A-Za-z0-9:_ ]*)\}/',
 			'/\{([A-Za-z0-9_]*)\-\>([A-Za-z0-9_]*)\}/', //Obiekty
@@ -98,6 +99,7 @@ class Compiler
 
 		$out = array(
 			'<?=Banner(\\1);?>',
+			'<?=$this->\\1;?>',
 			'<?=$\\1[\'\\2\'];?>',
 			'<?=\\1($\\2[\'\\3\']);?>',
 			'<?=$\\1->\\2;?>',

@@ -9,5 +9,5 @@ $lang+=Array(
 'conf5'=>'Zamiana s³ów',
 'content'=>'Zawarto¶æ',
 'emots'=>'Emotikony',
-'ua'=>'Konta<br />u¿ytkowników',
+'ua'=>'Konta u¿ytkowników',
 );

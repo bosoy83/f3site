@@ -12,49 +12,42 @@ if(isset($_GET['logout']) && LOGD==1)
 }
 
 #Loguj?
-elseif(LOGD==2 && $_POST)
+elseif(LOGD==2 && !empty($_POST['u']) && !empty($_POST['p']))
 {
 	#Wpisane dane
-	$snduser = Clean($_POST['snduser'],30);
-	$sndpass = Clean($_POST['sndpass'],30);
-	$passMD5 = md5($sndpass);
-
-	#Puste?
-	if(empty($snduser) || empty($sndpass))
-	{
-		Header('Location: '.URL.((isset($_POST['fromadm']))?'adm.php':'index.php'));
-		exit;
-	}
+	$login = Clean($_POST['u'],30);
+	$pass  = Clean($_POST['p'],30);
+	$md5   = md5($pass);
 
 	#Pobierz dane
-	$res = $db->query('SELECT ID,login,pass,lv FROM '.PRE.'users WHERE login='.$db->quote($snduser));
+	$res = $db->query('SELECT ID,login,pass,lv FROM '.PRE.'users WHERE login='.$db->quote($login));
 	$u = $res->fetch(2); //ASSOC
 	$res = null;
 
-	#Ban?
+	#Nieaktywny?
 	if($u['lv']===0)
 	{
 		$content->message(16);
 	}
 
 	#Poprawne?
-	elseif(strtolower($u['login'])===strtolower($snduser) && $u['pass']===$passMD5)
+	elseif(strtolower($u['login'])===strtolower($login) && $u['pass']===$md5)
 	{
 		#Nowe ID sesji dla bezpieczeñstwa
 		session_regenerate_id(1);
 
 		#Pamiêtanie
-		if(isset($_POST['sndr']))
+		if(isset($_POST['auto']))
 		{
-			setcookie(PRE.'login',$u['ID'].':'.$passMD5,time()+25920000) or exit('Cookies problem!');
+			setcookie(PRE.'login',$u['ID'].':'.$md5,time()+25920000) or exit('Cookies problem!');
 		}
 		else
 		{
 			$_SESSION['uid'] = $u['ID'];
-			$_SESSION['uidp'] = $passMD5;
+			$_SESSION['uidp'] = $md5;
 			$_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
 		}
-		$content->message(1,((isset($_POST['fromadm']))?'adm.php':'index.php'));
+		$content->message(1, (isset($_GET['admin']) ? 'adm.php' : 'index.php'));
 	}
 	else
 	{
@@ -62,3 +55,8 @@ elseif(LOGD==2 && $_POST)
 		$content->message(2);
 	}
 }
+
+#Formularz logowania
+$content->file = 'login';
+$content->data['url'] = 'login.php' . (isset($_GET['admin']) ? '?admin' : '');
+$content->display();

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{lang.login}</title>
+  <meta name="robots" content="no-index" />
+  {this.head}
+</head>
+<body onload="document.forms[0].u.focus()">
+
+<form action="{url}" method="POST">
+<table cellspacing="1" class="tb" style="width: 320px; margin: auto">
+<caption>{lang.login}</caption>
+<tbody>
+	<tr>
+		<th scope="row">{lang.login}</th>
+		<td><input name="u" /></td>
+	</tr>
+	<tr>
+		<th scope="row">{lang.pass}</th>
+		<td><input name="p" /></td>
+	</tr>
+	<tr>
+		<th scope="row">{lang.opt}</th>
+		<td><label><input type="checkbox" name="auto" /> {lang.remlog}</label></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="eth"><input type="submit" value="OK" /></td>
+	</tr>
+</tbody>
+</table>
+</form>
+
+</body>
+</html>

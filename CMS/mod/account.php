@@ -44,15 +44,15 @@ if($_POST)
 	$www = str_replace('vbscript:','vb_script',$www);
 	if($www==='http://') $www='';
 
-	#Dane
+	#Dane + opcje - 1: pokazuj mail, 2: pozwól komentowaæ
 	$u = array(
 	'gg'  => is_numeric($_POST['gg']) ? (int)$_POST['gg'] : null,
 	'icq' => is_numeric($_POST['icq']) ? (int)$_POST['icq'] : null,
 	'tlen' => Clean($_POST['tlen'],30),
 	'www'  => $www,
 	'mail' => $_POST['mail'],
-	'mvis'  => isset($_POST['mvis']) ? true : false,
-	'mails' => isset($_POST['mails']) ? true : false,
+	'opt'  => isset($_POST['mvis']) | (isset($_POST['comm']) ? 2 : 0),
+	'mails' => isset($_POST['mails']),
 	'city'  => Clean($_POST['city'],30),
 	'skype' => Clean($_POST['skype'],30),
 	'about' => Clean($_POST['about'],999,true)
@@ -160,14 +160,14 @@ if($_POST)
 				#Konto aktywne?
 				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
 
-				$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,mvis,lv,regt,
-				about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,:mail,:mvis,:lv,'.
+				$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,opt,lv,regt,
+				about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,:mail,:opt,:lv,'.
 				$_SERVER['REQUEST_TIME'].',:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
 			}
 			#Edycja
 			else
 			{
-				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, mvis=:mvis,
+				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, opt=:opt,
 				about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
 				tlen=:tlen, gg=:gg WHERE ID='.UID);
 			}
@@ -231,9 +231,13 @@ else
 	}
 	else
 	{
-		$u = array('login'=>'','mail'=>'','city'=>'','mvis'=>1,'mails'=>1,'gg'=>null,'icq'=>null,'tlen'=>'','www'=>'http://','about'=>'','skype'=>'');
+		$u = array('login'=>'','mail'=>'','city'=>'','opt'=>3,'mails'=>1,'gg'=>null,'icq'=>null,'tlen'=>'','www'=>'http://','about'=>'','skype'=>'');
 	}
 }
+
+#Opcje
+$u['mvis'] = $u['opt'] & 1;
+$u['comm'] = $u['opt'] & 2;
 
 #Dane
 $content->data = array(

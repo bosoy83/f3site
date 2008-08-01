@@ -10,4 +10,3 @@ $lang+=Array(
 'psw_8'=>'Nowe has³o zosta³o wys³ane.',
 'psw_9'=>'Wys³anie wiadomo¶ci e-mail z has³em nie powiod³o siê. Spróbuj ponownie za chwilê. Je¶li problem bêdzie siê powtarza³, zg³o¶ go administratorowi.'
 );
-?>

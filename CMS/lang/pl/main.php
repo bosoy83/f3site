@@ -1,7 +1,6 @@
 <?php
 date_default_timezone_set('Europe/Warsaw'); //CZAS
-$mlang=Array('','Styczeñ','Luty','Marzec','Kwiecieñ','Maj','Czerwiec','Lipiec','Sierpieñ','Wrzesieñ','Pa¼dziernik','Listopad','Grudzieñ');
-$lang=Array(
+$lang = Array(
 'add'=>'Dodaj',
 'addComm'=>'Dodaj komentarz',
 'added'=>'Dodano',

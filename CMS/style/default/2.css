@@ -140,7 +140,7 @@ th {
 	padding: 3px;
 	margin-bottom: 8px
 }
-.eth td,th,.code,.quote {padding: 2px}
+.eth td,th,pre,blockquote {padding: 2px}
 .tb tbody {background-color: #EFEEE6}
 .tb td {padding: 3px}
 
@@ -158,13 +158,16 @@ th {
 	padding-right: 5px;
 	float: left
 }
-.code {
+pre {
 	background-color: #EFEFE7;
-	border: 1px solid #DBDBCA
+	border: 1px solid #DBDBCA;
+	overflow: auto;
+	margin: 0;
 }
-.quote {
+blockquote {
 	background-color: #E7EFEF;
-	border: 1px solid #ACC8C8
+	border: 1px solid #ACC8C8;
+	margin: 0
 }
 .pollstrip {
 	background-color: #ebcb9c;

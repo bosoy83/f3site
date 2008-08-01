@@ -23,6 +23,7 @@ adr2:'Wpisz tekst widoczny jako link do strony:',
 mail:'E-mail',
 img:'Wpisz lub skopiuj adres obrazka:'};
 
-var fLang={
+var lang={
 saving:'Trwa wysy³anie danych...',
-leave:'Dane nie zosta³y jeszcze wys³ane.'}
+leave:'Dane nie zosta³y jeszcze wys³ane.',
+sure:'Na pewno chcesz wykonaæ tê akcjê?'}

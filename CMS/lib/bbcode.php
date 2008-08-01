@@ -13,8 +13,8 @@ $bbc[1] = array(
 );
 $bbc[2] = array(
 	'<b>', '<i>', '<u>', '<sup>', '<sub>',
-	'<div style="padding: 5px"><b>'.$lang['code'].':</b><div class="code"><code>',
-	'<div style="padding: 5px"><b>'.$lang['quote'].':</b><div class="quote">',
+	'<pre>',
+	'<blockquote>',
 	'<big>',
 	'<small>',
 	'<center>',
@@ -22,7 +22,7 @@ $bbc[2] = array(
 );
 $bbc[3] = array(
 	'</b>', '</i>', '</u>', '</sup>', '</sub>',
-	'</code></div></div>', '</div></div>',
+	'</pre>', '</blockquote>',
 	'</big>', '</small>',
 	'</center>', '</div>'
 );
