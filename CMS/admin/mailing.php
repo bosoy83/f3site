@@ -6,7 +6,7 @@ require LANG_DIR.'adm_ml.php';
 #Grupa i poziom
 function Prepare($x)
 {
-	if(empty($_POST['m_lv']))
+	if(empty($_POST['lv']))
 	{
 		return '';
 	}
@@ -34,35 +34,35 @@ if(!isset($cfg['mailon']))
 }
 
 #Wyœlij
-elseif(isset($_POST['m_txt']))
+elseif(isset($_POST['txt']))
 {
 	#Biblioteka
 	require './lib/mail.php';
 	$mail = new Mailer();
-	$mail->setSender($_POST['m_from'],$cfg['mail']);
-	$mail->topic = Clean($_POST['m_topic']);
-	$mail->text  = nl2br($_POST['m_txt'])."\r\n\r\n-----\r\n".$lang['candis'];
+	$mail->setSender($_POST['from'],$cfg['mail']);
+	$mail->topic = Clean($_POST['topic']);
+	$mail->text  = nl2br($_POST['txt'])."\r\n\r\n-----\r\n".$lang['candis'];
 
 	#Emoty
-	if(isset($_POST['m_emot'])) $mail->text = RemoteEmots($mail->text);
+	if(isset($_POST['emot'])) $mail->text = RemoteEmots($mail->text);
 
 	#HTML
-	if(!isset($_POST['m_html'])) $mail->html = 0;
+	if(!isset($_POST['html'])) $mail->html = 0;
 
 	#Lista u¿ytkowników
-	$lv = Prepare(explode(',', $_POST['m_lv']));
-	$gr = Prepare(explode(',', $_POST['m_gr']));
+	$lv = Prepare(explode(',', $_POST['lv']));
+	$gr = Prepare(explode(',', $_POST['gr']));
 
 	$res = $db->query('SELECT login,mail FROM '.PRE.'users WHERE mails=1');
 	$res ->setFetchMode(3); //NUM
 	$log = array();
 
 	#Osobne
-	if(isset($_POST['m_hard']))
+	if(isset($_POST['hard']))
 	{
 		foreach($res as $u)
 		{
-			if($mail->sendTo($_POST['m_rcpt'],$u[1])) $log[] = $lang['msent'].$u[0];
+			if($mail->sendTo($_POST['rcpt'],$u[1])) $log[] = $lang['msent'].$u[0];
 			else $log[] = $lang['msent'];
 		}
 	}
@@ -71,9 +71,9 @@ elseif(isset($_POST['m_txt']))
 	{
 		foreach($res as $u)
 		{
-			$mail->AddBlindCopy($u[0],$u[1]);
+			$mail->addBlindCopy($u[0],$u[1]);
 		}
-		if($mail->SendTo($_POST['m_rcpt'],$cfg['mail'])) $log[] = $lang['msent'];
+		if($mail->sendTo($_POST['rcpt'],$cfg['mail'])) $log[] = $lang['msent'];
 		else $log[] = $lang['mnsent'];
 	}
 	$content->info('<ul><li>'.join('</li><li>',$log).'</li></ul>');
@@ -83,8 +83,8 @@ elseif(isset($_POST['m_txt']))
 elseif(isset($_POST['next']))
 {
 	$ile = 0;
-	$lv = Prepare($_POST['m_lv']);
-	$gr = Prepare($_POST['m_gr']);
+	$lv = Prepare($_POST['lv']);
+	$gr = Prepare($_POST['gr']);
 	if($lv && $gr)
 	{
 		$ile = db_count('ID','users WHERE mails=1 AND lv IN('.$lv.') AND gid IN('.$gr.')');

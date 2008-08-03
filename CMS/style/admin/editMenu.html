@@ -90,8 +90,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var f = new Request()
-f.addForm(0)
-f.watch('items',{depth:1,html:d('tpl')})
+document.forms[0].elements[0].focus()
+var f = new Fragment('items',{depth:1,html:id('tpl')})
 //]]>
 </script>

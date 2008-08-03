@@ -110,7 +110,7 @@ class Mailer
 	}
 
 	#Reset BCC i nag³.
-	function Reset()
+	function reset()
 	{
 		$this->bcc = array();
 		$this->header = array();

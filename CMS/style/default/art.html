@@ -9,25 +9,23 @@
 	<a href="?co=cats&amp;id=1">{lang.arts}</a> &raquo; {path}
 </div>
 
-<h2>{art.date} - {art.name}</h2>
+<h2>{art.name}</h2>
 <div class="box">
 
 	{art.text}
 
 	<!-- IF pages --><div class="pages" style="margin-top: 12px">{pages}</div><!-- END -->
 
-	<div style="margin-top: 12px">
+</div>
+<div class="end">
 
 	<!-- IF art.rate -->
-		<span style="float: right; width: 150px">{lang.rate}: {art.rate}</span>
+	<span style="float: right; width: 150px">{lang.rate}: {art.rate}</span>
 	<!-- END -->
 
 	<!-- IF art.ent -->
-		<span style="float: left; width: 150px">{lang.disps}: {art.ent}</span>
+	<span style="float: left; width: 150px">{lang.disps}: {art.ent}</span>
 	<!-- END -->
 
-		<span style="width: 150px">{lang.wrote}: {art.author}</span>
-
-	</div>
-
+	<span style="width: 150px">{lang.wrote}: {art.author} - {art.date}</span>
 </div>

@@ -56,14 +56,18 @@ if($_POST)
 		$q->execute($poll);
 
 		#Nowy ID
-		if(!$id) $id  = $db->lastInsertId();
+		if(!$id)
+		{
+			$id = $db->lastInsertId();
+		}
 
 		#Odpowiedzi
-		$q = $db->prepare('REPLACE INTO '.PRE.'answers (ID,IDP,a) VALUES (?,'.$id.',?)');
+		$q1 = $db->prepare('UPDATE '.PRE.'answers SET a=? WHERE ID=? AND IDP='.$id);
+		$q2 = $db->prepare('INSERT INTO '.PRE.'answers (ID,IDP,a) VALUES (?,'.$id.',?)');
 
 		for($i=0; $i<$num; $i++)
 		{
-			$q->execute($an[$i]);
+			if($an[$i][0]) $q1->execute($an[$i]); else $q2->execute(array($an[$i][1],$an[$i][1]));
 		}
 
 		#Aktualizuj cache najnowszych sond
@@ -72,13 +76,15 @@ if($_POST)
 
 		#ZatwierdŸ
 		$db->commit();
-		$content->info($lang['saved'], array('?a=editPoll' => $lang['addPoll'],
+		$content->info($lang['saved'], array(
+			'?a=editPoll' => $lang['addPoll'],
+			'?a=editPoll&amp;id='.$id => $poll['name'].' - '.$lang['edit'],
 			MOD_REWRITE ? '/poll/'.$id : 'index.php?co=poll&amp;id='.$id => $poll['name']));
 		return 1;
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->errorInfo[2]);
+		$content->info($lang['error'].$e);
 	}
 }
 

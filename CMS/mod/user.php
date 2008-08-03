@@ -46,7 +46,7 @@ $content->data  = array(
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],true) : NA
 );
 
-if(isset($cfg['userComm']) && $u['opt']==1)
+if(isset($cfg['userComm']) && $u['opt'] & 2)
 {
 	define('CT','10');
 	include './lib/comm.php';

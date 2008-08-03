@@ -44,6 +44,7 @@ $content->file[] = 'pms_view';
 $content->data += array(
 	'pm'   => &$pm,
 	'id'   => $id,
-	'edit' => $pm['st'] == 3,
-	'reply'=> $pm['st'] > 1
+	'edit' => $pm['st'] == 3 ? '?co=pms&amp;act=e&amp;id='.$id : null,
+	'reply'=> $pm['st'] == 2 ? '?co=pms&amp;act=e&amp;id='.$id : null,
+	'fwd'  => '?co=pms&amp;act=e&amp;fwd&amp;id='.$id
 );

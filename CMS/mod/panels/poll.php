@@ -10,7 +10,7 @@ else:
 endif;
 
 #G³osowa³ na...
-$voted = isset($_COOKIE['voted']) ? explode(';',$_COOKIE['voted']) : array();
+$voted = isset($_COOKIE['voted']) ? explode('o',$_COOKIE['voted']) : array();
 
 #Wyniki
 if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && LOGD!=1))

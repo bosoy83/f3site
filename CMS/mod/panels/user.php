@@ -15,7 +15,7 @@ if(LOGD==1)
 	'<li><a href="?co=pms"'.(($user[UID]['pms']==0)?'>'.$lang['pms']
 	:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a></li>':'').
 
-	'<li><a href="?co=account">'.$lang['upanel'].'</a></li><li><a href="login.php?logout=1">'.$lang['logout'].'</a></li></ul>';
+	'<li><a href="?co=account">'.$lang['upanel'].'</a></li><li><a href="login.php?logout">'.$lang['logout'].'</a></li></ul>';
 }
 
 #Form

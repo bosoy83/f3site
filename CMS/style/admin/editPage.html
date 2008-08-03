@@ -1,5 +1,5 @@
 <form action="{url}" method="post" f3:array="page">
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody>
@@ -38,7 +38,7 @@
 </tr>
 <tr>
 	<td colspan="2" class="eth">
-		<input type="submit" name="preview" value="{lang.preview}" />
+		<input type="submit" name="preview" onclick="return false" value="{lang.preview}" />
 		<input type="submit" value="{lang.save}" name="sav" />
 	</td>
 </tr>
@@ -47,6 +47,8 @@
 </form>
 
 <script type="text/javascript">
-var ed = new Editor(document.forms[0].elements['txt']);
-ed.emots();
+var f = document.forms[0]
+var e = new Editor(f.txt)
+e.emots()
+f.elements[0].focus()
 </script>

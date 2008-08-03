@@ -48,7 +48,10 @@ foreach(scandir('./lang') as $dir)
 {
 	if(strpos($dir,'.')===false && is_dir('./lang/'.$dir))
 	{
-		$js .= 'id("df'.++$i.'").value="'.(float)$cfg['start'][$dir].'";';
+		if(isset($cfg['start'][$dir]))
+		{
+			$js .= 'id("df'.++$i.'").value="'.(float)$cfg['start'][$dir].'";';
+		}
 		$cats[strtoupper($dir)] = '<select name="start['.$dir.']" id="df'.$i.'">'.$out.'</select>';
 	}
 }

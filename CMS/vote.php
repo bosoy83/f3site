@@ -88,7 +88,7 @@ if(isset($_POST['poll']))
 	if($poll) { $id = $poll['ID']; } else { $content->message(22); exit; }
 
 	#G³osowa³ na...
-	$voted = isset($_COOKIE['voted']) ? explode(';', $_COOKIE['voted']) : array();
+	$voted = isset($_COOKIE['voted']) ? explode('o', $_COOKIE['voted']) : array();
 
 	#ID u¿ytkownika lub adres IP
 	$u = ($poll['ison']==3 && LOGD==1) ? UID : $ip;
@@ -140,7 +140,7 @@ if(isset($_POST['poll']))
 	}
 	#Cookie
 	$voted[] = $id;
-	setcookie('voted', join(';',$voted), time()+7776000);
+	setcookie('voted', join('o',$voted), time()+7776000);
 	
 	#JS?
 	if(isset($_GET['js']))

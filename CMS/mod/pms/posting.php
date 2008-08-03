@@ -102,13 +102,17 @@ elseif($id)
 	if(!$pm OR !is_numeric($pm['usr'])) return;
 
 	#Dodaj Re: lub Fwd: do tytu³u
-	if($pm['st'] == 2)
+	if(isset($_GET['fwd']))
 	{
-		if(isset($_POST['fwd']) && strpos($pm['topic'], 'Fwd:') === false)
+		if(strpos($pm['topic'], 'Fwd:') === false)
 		{
 			$pm['topic'] = 'Fwd: '.$pm['topic'];
 		}
-		elseif(strpos($pm['topic'], $lang['re']) === false)
+		$url = '?co=pms&amp;act=e';
+	}
+	elseif($pm['st'] == 2)
+	{
+		if(strpos($pm['topic'], $lang['re']) === false)
 		{
 			$pm['topic'] = $lang['re'].$pm['topic'];
 		}

@@ -15,23 +15,13 @@
 <tr>
 	<td class="eth" colspan="2" id="pm_foot">
 		<!-- IF edit -->
-		<input type="button" value="{lang.edit}" onclick="PM_Edit()" />
+		<a href="{edit}" style="margin: 8px">{lang.edit}</a> 
 		<!-- END -->
 		<!-- IF reply -->
-		<input type="button" value="{lang.reply}" onclick="PM_Edit()" />
-		<input type="button" value="{lang.fwd}" onclick="PM_Edit()" />
+		<a href="{reply}" style="margin: 8px">{lang.reply}</a>
 		<!-- END -->
-		<input type="button" value="{lang.del}" onclick="PM_Del()" />
+		<a href="{fwd}" style="margin: 8px">{lang.fwd}</a>
 	</td>
 </tr>
 </tbody>
 </table>
-
-<script type="text/javascript">
-//<![CDATA[
-var pm = new Request('request.php?co=pms&act=1&id={id}','main','');
-function PM_Edit() { location='?co=pms&act=e&id={id}'; }
-function PM_Del() { pm.add('act2','del'); pm.run(1); }
-function PM_Arch() { pm.add('act2','arch'); pm.run(1); }
-//]]>
-</script>

@@ -22,7 +22,9 @@
 	<td><b>4. {lang.htmlc}:</b></td>
 	<td>
 		<textarea name="code" style="width: 90%" rows="12">{Clean: ad.code}</textarea>
-		<script type="text/javascript">new Editor(document.forms[0].code)</script>
+		<script type="text/javascript">
+		var f = document.forms[0]; new Editor(f.code); f.elements[0].focus()
+		</script>
 	</td>
 </tr>
 <tr>

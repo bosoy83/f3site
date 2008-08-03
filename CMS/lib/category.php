@@ -91,7 +91,7 @@ $content->data = array(
 );
 
 #Struktura kategorii
-if($cat['opt'] & 1)
+if($cat['opt'] & 1 && isset($cfg['catStr']))
 {
 	if(file_exists('./cache/cat'.$d.'.php'))
 	{

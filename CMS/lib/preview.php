@@ -1,42 +1,29 @@
 <?php /* Podgl±d tekstów */
-if(REQUEST!=1) exit;
-
-#Tabela
-if(isset($_POST['table']))
-{
-	OpenBox($lang['preview']);
-	echo '<tr><td class="txt">';
-}
+if(JS!=1) exit;
 
 #Limit
-$l=isset($_POST['limit'])?(int)$_POST['limit']:0;
+$l = isset($_POST['limit']) ? (int)$_POST['limit'] : 0;
 
 #HTML
 if(isset($_POST['HTML']))
 {
-	$text=$_POST['text'];
+	$text = $_POST['text'];
 }
 else
 {
-	$text=Clean($_POST['text'],$l);
+	$text = Clean($_POST['text'], $l);
 }
 
 #BBCode
-if(isset($_POST['BBCODE']))
+if(isset($_POST['BBCODE']) && $cfg['bbcode']==1)
 {
-	if($cfg['bbcode']==1) { include('./lib/bbcode.php'); $text=ParseBBC($text); }
+	include './lib/bbcode.php';
+	$text = BBCode($text);
 }
 
 #Emoty
-if(isset($_POST['EMOTS'])) $text=Emots($text);
+if(isset($_POST['EMOTS'])) $text = Emots($text);
 
 #Nowa linia i wy¶wietl
-echo ((isset($_POST['NL']))?nl2br($text):$text);
-
-#Tabela
-if(isset($_POST['table']))
-{
-	echo '</td></tr>';
-	CloseBox();
-}
-?>
+echo isset($_POST['NL']) ? nl2br($text) : $text;
+exit;
