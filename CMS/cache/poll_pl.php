@@ -1,1 +1,0 @@
-<?php $poll=array('ID'=>3,'name'=>'Testowa sonda','q'=>'Odpowiedz na pytanie','ison'=>1,'type'=>1,'num'=>0,'access'=>'pl','date'=>'2008-08-02',);$option=array('0'=>array('0'=>11,'1'=>'Tak','2'=>0,),'1'=>array('0'=>12,'1'=>'Nie','2'=>0,),); ?>

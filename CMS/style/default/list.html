@@ -1,15 +1,5 @@
 <script type="text/javascript">
 //<![CDATA[
-function Del(id)
-{
-	if(confirm("{lang.delc}"))
-	{
-		del=new Request("adm.php?x=del&id="+id,'i'+id);
-		del.method='POST';
-		del.add('co','{type}')
-		del.run()
-	}
-}
 function Se()
 {
 	var a; if(a=prompt("{lang.searp}")) location="?co=list&act={act}&find="+a;
@@ -36,7 +26,7 @@ function Se()
 	<th>{lang.name}</th>
 	<th style="width: 50px">{lang.on}</th>
 	<th>{lang.opt}</th>
-	<th style="width: 25px">&nbsp;</th>
+	<th style="width: 18px">&nbsp;</th>
 </tr>
 
 <!-- START item -->
@@ -47,7 +37,7 @@ function Se()
 	<td align="center" nowrap="nowrap">
 		<a href="{edit_url}">{lang.edit}</a> &middot; <a href="{del_url}">{lang.del}</a>
 	</td>
-	<td><input type="checkbox" name="check[{ID}]" /></td>
+	<td><input type="checkbox" name="x[{ID}]" /></td>
 </tr>
 
 <!-- STOP -->
@@ -66,7 +56,7 @@ function Se()
 <!-- Masowe zmiany -->
 <div id="mo" style="display: none">
 <table cellspacing="1" class="tb">
-<caption>test</caption>
+<caption>{lang.chopt}</caption>
 <tbody>
 <tr>
 	<td style="width: 35%"><b>1. {lang.cat}:</b></td>
@@ -86,15 +76,12 @@ function Se()
 </tr>
 <tr>
 	<td><b>3. {lang.opt}:</b></td>
-	<td><input type="checkbox" name="del" id="del" /> {lang.chdel}</td>
+	<td><input type="checkbox" name="del" /> {lang.chdel}</td>
 </tr>
 <tr>
-	<td class="eth" colspan="2"><input type="submit" value="Not implemented yet" disabled="disabled" /></td>
+	<td class="eth" colspan="2"><input type="submit" disabled="disabled" value="Niedostêpny" /></td>
 </tr>
 </tbody>
 </table>
 </div>
 </form>
-<script type="text/javascript">
-id('del').checked=0
-</script>

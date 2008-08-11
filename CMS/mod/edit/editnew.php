@@ -1,6 +1,10 @@
 <?php
 if(EC!=1) exit;
 
+#Szablon i tytu³
+$content->title = $id ? $lang['edit5'] : $lang['add5'];
+$content->file  = 'edit_news';
+
 #Funkcja zapisu
 if($_POST)
 {
@@ -38,16 +42,16 @@ if($_POST)
 		$nid = $id ? $id : $db->lastInsertId();
 
 		$q = $db->prepare('REPLACE INTO '.PRE.'fnews (id,cat,text) VALUES ('.$nid.',?,?)');
-		$q->bindValue(1,$news['cat'],1); //INT
-		$q->bindParam(2,$full);
+		$q->bindValue(1, $news['cat'], 1); //INT
+		$q->bindParam(2, $full);
 		$q->execute();
 
 		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=news'=> $lang['add5'],
-			'?co=list&amp;act=5'	 => $lang['news'],
-			'?co=news&amp;id='.$nid=> $lang['seeit']));
+			'?co=edit&amp;act=news' => $lang['add5'],
+			'?co=list&amp;act=5'	  => $lang['news'],
+			'?co=news&amp;id='.$nid => $lang['seeit']));
 		unset($e,$news);
 		return;
 	}
@@ -87,15 +91,11 @@ $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('cache/emots.js');
 $content->addScript('lib/editor.js');
 
-#Szablon i tytu³
-$content->title = $id ? $lang['edit5'] : $lang['add5'];
-$content->file  = 'edit_news';
-
 #Dane
 $content->data = array(
 	'news' => &$news,
 	'full' => &$full,
 	'url'  => '?co=edit&amp;act=new&amp;id='.$id,
-	'cats' => Slaves(5,$news['cat'],'N'),
+	'cats' => Slaves(5,$news['cat']),
 	'fileman' => Admit('FM')
 );

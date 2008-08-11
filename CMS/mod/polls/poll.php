@@ -31,7 +31,7 @@ function ResetPoll($x = null)
 function RebuildPoll($only = null)
 {
 	global $db;
-	require './lib/config.php';
+	require_once './lib/config.php';
 	$lang = array();
 
 	if(!$only)

@@ -1,6 +1,10 @@
 <?php
 if(EC!=1) exit;
 
+#Szablon i tytu³
+$content->file = 'edit_img';
+$content->title = $id ? $lang['edit3'] : $lang['add3'];
+
 #Zapis?
 if($_POST)
 {
@@ -76,15 +80,11 @@ else
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('lib/editor.js');
 
-#Szablon i tytu³
-$content->file = 'edit_img';
-$content->title = $id ? $lang['edit3'] : $lang['add3'];
-
 #Dane + rozmiar
 $content->data = array(
 	'img'  => &$img,
 	'url'  => 'index.php?co=edit&amp;act=img&amp;id='.$id,
-	'cats' => Slaves(3,$img['cat'],'I'),
+	'cats' => Slaves(3,$img['cat']),
 	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
 	'fileman' => Admit('FM') ? true : false
 );

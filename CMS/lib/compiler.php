@@ -38,6 +38,12 @@ class Compiler
 		if(!isset($src)) $src = $this->src;
 		if(!isset($cache)) $cache = $this->cache;
 
+		#Katalog cache nie istnieje?
+		if(!file_exists($cache) && !@mkdir($cache))
+		{
+			throw new Exception('Cannot create cache directory!');
+		}
+
 		#Debug
 		if($this->debug) echo 'Compiling file: '.$file.'... ';
 
@@ -89,6 +95,7 @@ class Compiler
 		$in = array(
 			'/\{BANNER ([0-9]+)\}/',
 			'/\{this\.([A-Za-z0-9:_ ]*)\}/', //Obiekt $this
+			'/\{([A-Za-z0-9_]*)\.([0-9]*)\}/', //Tablice numeryczne
 			'/\{([A-Za-z0-9_]*)\.([A-Za-z0-9:_ ]*)\}/', //Tablice
 			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]*)\.([A-Za-z0-9:_ ]*)\}/',
 			'/\{([A-Za-z0-9_]*)\-\>([A-Za-z0-9_]*)\}/', //Obiekty
@@ -100,6 +107,7 @@ class Compiler
 		$out = array(
 			'<?=Banner(\\1);?>',
 			'<?=$this->\\1;?>',
+			'<?=$\\1[\\2];?>',
 			'<?=$\\1[\'\\2\'];?>',
 			'<?=\\1($\\2[\'\\3\']);?>',
 			'<?=$\\1->\\2;?>',
@@ -153,7 +161,7 @@ class Compiler
 				return true;
 			}
 		}
-		
+
 		throw new Exception('Cannot save template: '.$file);
 	}
 

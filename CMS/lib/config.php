@@ -36,7 +36,7 @@ class Config
 	}
 	
 	#Dodaj zmienn±
-	function add($var,&$val)
+	function add($var,$val)
 	{
 		if(is_array($val))
 		{

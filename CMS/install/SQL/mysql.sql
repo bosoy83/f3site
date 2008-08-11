@@ -1,13 +1,9 @@
---SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
---SET AUTOCOMMIT=0;
-
-BEGIN TRANSACTION;
-
 CREATE TABLE IF NOT EXISTS `{pre}acl` (
-`UID` KEY int(11) NOT NULL,
-`CatID` KEY int(11) NOT NULL,
+`UID` int(11) NOT NULL,
+`CatID`int(11) NOT NULL,
 `all` tinyint(2) NOT NULL,
-`type` varchar(9) NOT NULL);
+`type` varchar(9) NOT NULL,
+PRIMARY KEY(UID,CatID));
 
 CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
 `ID` varchar(9) PRIMARY KEY NOT NULL,
@@ -17,16 +13,14 @@ CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
 `rights` tinyint(1) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}answers` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `IDP` int(10) NOT NULL,
 `seq` int(11),
 `a` varchar(200),
 `num` int(11) NOT NULL DEFAULT 0);
 
--- CREATE TABLE IF NOT EXISTS `{pre}artrates` (`user` varchar(100) NOT NULL,`ID` int(11) NOT NULL,`rate` varchar(100) NOT NULL default '');
-
 CREATE TABLE IF NOT EXISTS `{pre}arts` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
 `dsc` text NOT NULL,
@@ -46,21 +40,26 @@ CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `opt` tinyint(2) NOT NULL,
 PRIMARY KEY (ID,page));
 
+CREATE TRIGGER `{pre}artsd` AFTER DELETE ON `{pre}arts` FOR EACH ROW
+BEGIN
+	DELETE FROM `{pre}artstxt` WHERE ID = old.ID;
+END;
+
 CREATE TABLE IF NOT EXISTS `{pre}banners` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `gen` tinyint(2) NOT NULL,
 `name` varchar(50),
 `ison` tinyint(1),
 `code` text);
 
 CREATE TABLE IF NOT EXISTS `{pre}cats` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `dsc` varchar(255),
 `access` varchar(9) NOT NULL,
 `type` tinyint(1) NOT NULL DEFAULT 5,
-`sc` int(11) NOT NULL,
-`sort` tinyint(1) NOT NULL,
+`sc` int(11) NOT NULL DEFAULT 0,
+`sort` tinyint(1) NOT NULL DEFAULT 0,
 `text` text,
 `num` int(10) NOT NULL DEFAULT 0,
 `nums` int(10) NOT NULL DEFAULT 0,
@@ -69,10 +68,11 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 `rgt` tinyint(4) NOT NULL);
 
 CREATE INDEX sc ON {pre}cats (sc);
+
 CREATE INDEX pos ON {pre}cats (lft,rgt);
 
 CREATE TABLE IF NOT EXISTS `{pre}comms` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `TYPE` tinyint(1) NOT NULL,
 `CID` int(11) NOT NULL,
 `access` tinyint(1) NOT NULL,
@@ -93,11 +93,11 @@ CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
 PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS `{pre}files` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50),
 `author` varchar(100),
-`date` date,
+`date` datetime,
 `dsc` text,
 `file` varchar(200),
 `dls` int(11) NOT NULL DEFAULT 0,
@@ -114,15 +114,14 @@ CREATE TABLE IF NOT EXISTS `{pre}fnews` (
 PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS `{pre}groups` (
-`ID` INTEGER NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `dsc` text,
 `access` varchar(3) NOT NULL,
-`opened` tinyint(1) NOT NULL,
-PRIMARY KEY (ID));
+`opened` tinyint(1) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}imgs` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
 `dsc` text,
@@ -137,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `size` varchar(9) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}links` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
 `dsc` text,
@@ -148,14 +147,14 @@ CREATE TABLE IF NOT EXISTS `{pre}links` (
 `nw` tinyint(1) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}log` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `date` datetime,
 `ip` varchar(40) NOT NULL,
 `user` int(11) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}menu` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `seq` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
 `disp` varchar(3) NOT NULL,
@@ -172,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `{pre}mitems` (
 `seq` tinyint(2) NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `{pre}news` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
 `txt` text,
@@ -181,18 +180,23 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `img` varchar(255) NOT NULL,
 `comm` int(11) NOT NULL DEFAULT 0,
 `access` tinyint(1) NOT NULL,
-`opt` tinyint(2) NOT NULL);
+`opt` tinyint(2) NOT NULL DEFAULT 3);
+
+CREATE TRIGGER `{pre}menud` AFTER DELETE ON `{pre}menu` FOR EACH ROW
+BEGIN
+	DELETE FROM `{pre}mitems` WHERE menu = old.ID;
+END;
 
 CREATE INDEX cat ON {pre}news (cat);
 
 CREATE TABLE IF NOT EXISTS `{pre}online` (
-`IP` varchar(40) PRIMARY KEY NOT NULL,
+`IP` varchar(40) NOT NULL PRIMARY KEY,
 `user` int(11) NOT NULL,
 `time` timestamp NOT NULL default CURRENT_TIMESTAMP,
 `site` varchar(50));
 
 CREATE TABLE IF NOT EXISTS `{pre}pages` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `access` varchar(3) NOT NULL,
 `opt` tinyint(2) NOT NULL,
@@ -203,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `{pre}plugins` (
 `name` varchar(50) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}pms` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `topic` varchar(50) NOT NULL,
 `usr` int(11) NOT NULL,
 `owner` int(11) NOT NULL,
@@ -213,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `{pre}pms` (
 `txt` text);
 
 CREATE TABLE IF NOT EXISTS `{pre}polls` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `q` varchar(80) NOT NULL,
 `ison` tinyint(1) NOT NULL,
@@ -225,9 +229,7 @@ CREATE TABLE IF NOT EXISTS `{pre}polls` (
 CREATE TABLE IF NOT EXISTS `{pre}pollvotes` (
 `user` varchar(40) NOT NULL,
 `ID` int(11) NOT NULL,
-`date` date);
-
-CREATE INDEX ID ON {pre}news (ID);
+`date` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS `{pre}tmp` (
 `KEYID` varchar(50) NOT NULL,
@@ -236,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `{pre}tmp` (
 );
 
 CREATE TABLE IF NOT EXISTS `{pre}users` (
-`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
 `login` varchar(50) UNIQUE NOT NULL,
 `pass` char(32) NOT NULL,
 `mail` varchar(80) NOT NULL,
@@ -256,5 +258,7 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `tlen` varchar(50) NOT NULL,
 `gg` int(11));
 
-COMMIT TRANSACTION;
---SET AUTOCOMMIT=1;
+CREATE TRIGGER `{pre}userd` AFTER DELETE ON `{pre}users` FOR EACH ROW
+BEGIN
+	DELETE FROM `{pre}pollvotes` WHERE user = old.ID;
+END;

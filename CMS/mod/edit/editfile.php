@@ -1,6 +1,10 @@
 <?php
 if(EC!=1) exit;
 
+#Szablon i tytu³
+$content->file  = 'edit_file';
+$content->title = $id ? $lang['edit2'] : $lang['add2'];
+
 #Zapis?
 if($_POST)
 {
@@ -30,7 +34,7 @@ if($_POST)
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'files (cat, name, author, date, dsc,
 				file, access, size, priority, fulld) VALUES (:cat, :name, :author, "'.
-				date('Y-m-d').'", :dsc, :file, :access, :size, :priority, :fulld)');
+				gmdate('Y-m-d H:i:s').'", :dsc, :file, :access, :size, :priority, :fulld)');
 		}
 		$q->execute($file);
 		if(!$id) $id = $db->lastInsertId();
@@ -74,14 +78,10 @@ else
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('lib/editor.js');
 
-#Szablon i tytu³
-$content->file  = 'edit_file';
-$content->title = $id ? $lang['edit2'] : $lang['add2'];
-
 #Dane
 $content->data = array(
 	'file' => &$file,
 	'url'  => '?co=edit&amp;act=file&amp;id='.$id,
-	'cats' => Slaves(2,$file['cat'],'F'),
+	'cats' => Slaves(2,$file['cat']),
 	'fileman' => Admit('FM') ? true : false
 );

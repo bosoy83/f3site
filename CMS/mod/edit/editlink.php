@@ -1,6 +1,10 @@
 <?php
 if(EC!=1) exit;
 
+#Tytu³ i szablon
+$content->title = $id ? $lang['edit4'] : $lang['add4'];
+$content->file  = 'edit_link';
+
 #Zapisz
 if($_POST)
 {
@@ -32,7 +36,7 @@ if($_POST)
 		}
 		$q->execute($link);
 
-		#ZatwierdŸ
+		#Zatwierd¼
 		$e->apply();
 		$content->info( $lang['saved'], array(
 			'?co=edit&amp;act=link'	=> $lang['add4'],
@@ -67,13 +71,9 @@ else
 	}
 }
 
-#Tytu³ i szablon
-$content->title = $id ? $lang['edit4'] : $lang['add4'];
-$content->file  = 'edit_link';
-
 #Dane
 $content->data = array(
 	'link' => &$link,
-	'cats' => Slaves(4,$link['cat'],'L'),
+	'cats' => Slaves(4,$link['cat']),
 	'url'  => '?co=edit&amp;act=link&amp;id='.$id
 );

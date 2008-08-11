@@ -9,7 +9,7 @@ if($_POST)
 	#Wy¿sza kat.
 	$up = (int)$_POST['sc'];
 
-	#Dane - 1: struktura kategorii 2: komentarze 3: oceny 5: lista kat, 5: zawartoœæ z podkat.
+	#Dane - 1: struktura kategorii 2: komentarze 3: oceny 4: lista kat, 5: zawartoœæ z podkat.
 	$cat = array(
 		'sc'  => $up,
 		'text'  => $_POST['txt'],

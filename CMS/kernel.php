@@ -168,7 +168,7 @@ if(is_numeric($xuid))
 	else
 	{
 		$user[$xuid] = $_SESSION['userdata'] = $db->query('SELECT login,pass,gid,lv,adm,lvis,pms
-		FROM '.PRE.'users WHERE lv!=0 AND ID='.$xuid) -> fetch(2); //ASSOC
+		FROM '.PRE.'users WHERE lv>0 AND ID='.$xuid) -> fetch(2); //ASSOC
 	}
 
 	#Test
@@ -195,7 +195,7 @@ if(defined('LOGD'))
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
 	{
 		$db->exec('UPDATE '.PRE.'users SET lvis='.$_SERVER['REQUEST_TIME'].' WHERE ID='.UID);
-		$_SESSION['recent'] = $user[UID]['lvis'];
+		$_SESSION['recent'] = (int) $user[UID]['lvis'];
 	}
 }
 else
@@ -231,7 +231,7 @@ function Admit($id,$type=null,$a=null)
 		}
 		else
 		{
-			return $db->query('`all`','acl',' WHERE CatID='.(int)$id.' && UID='.UID.
+			return $db->query('SELECT `all` FROM '.PRE.'acl',' WHERE CatID='.(int)$id.' && UID='.UID.
 			' && type="'.$type.'"'.(($a==null || $a==UID)?'':' && `all`=1')) -> fetchColumn(); //1 = wszystkie
 		}
 	}

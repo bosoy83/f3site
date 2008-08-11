@@ -5,7 +5,7 @@ require LANG_DIR.'adm_o.php';
 #Tytu³ strony
 $content->title = $lang['nav'];
 
-#Zapis bloków
+#Zapis i usuwanie bloków
 if($_POST)
 {
 	try
@@ -13,18 +13,23 @@ if($_POST)
 		$db->beginTransaction();
 		$q = $db->prepare('UPDATE '.PRE.'menu SET seq=?, disp=?, menu=? WHERE ID=?');
 
-		foreach($_POST['seq'] as $id => &$m)
+		foreach($_POST['seq'] as $id => $seq)
 		{
-			$q->execute(array( (int)$m, Clean($_POST['vis'][$id]), (int)$_POST['page'][$id], $id));
+			if(isset($_POST['x'][$id]))
+			{
+				$db->query('DELETE FROM '.PRE.'menu WHERE ID='.$id);
+				continue;
+			}
+			$q->execute(array( (int)$seq, Clean($_POST['vis'][$id]), (int)$_POST['page'][$id], $id));
 		}
 		$db->commit();
-		unset($q,$m,$_POST);
+		unset($q,$seq,$_POST);
 
 		#Odbuduj menu
 		require './lib/mcache.php';
 		RenderMenu();
 	}
-	catch(PDOExtension $e)
+	catch(PDOException $e)
 	{
 		$content->info($lang['error'].$e->errorInfo[2]); return 1;
 	}

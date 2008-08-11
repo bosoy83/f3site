@@ -1,0 +1,87 @@
+<form action="index.php" method="post" f3:array="data">
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<th colspan="2">{lang.dba}</th>
+</tr>
+<tr>
+	<td colspan="2">{lang.sure} {_SERVER.HTTP_HOST}</td>
+</tr>
+<tr>
+	<td style="width: 50%">1. {lang.type}</td>
+	<td>
+		<input type="radio" value="mysql" name="type" onclick="Change()" id="m" />
+			<label for="m">MySQL 5+</label><br />
+		<input type="radio" value="sqlite" name="type" onclick="Change()" id="s" />
+			<label for="s">SQLite 3+</label>
+	</td>
+</tr>
+<tr>
+	<td>2. {lang.host}</td>
+	<td><input name="host" value="{data.host}" /></td>
+</tr>
+<tr>
+	<td>3. {lang.user}</td>
+	<td><input name="user" value="{data.user}" /></td>
+</tr>
+<tr>
+	<td>4. {lang.pass}</td>
+	<td><input type="password" name="pass" value="{data.pass}" /></td>
+</tr>
+<tr>
+	<td>5. {lang.name}<br /><small>{lang.allowed} <b>A-Z, a-z, 1-9, _, -</b>.</small></td>
+	<td><input name="db" value="{data.db}" /></td>
+</tr>
+<tr>
+	<td>6. {lang.file}</td>
+	<td><input name="file" value="{data.file}" /></td>
+</tr>
+<tr>
+	<td>7. {lang.pre}<br /><small>{lang.pre2}</small></td>
+	<td><input name="pre" value="{data.pre}" /></td>
+</tr>
+<tr>
+	<th colspan="2">{lang.data}</th>
+</tr>
+<tr>
+	<td>8. {lang.login}</td>
+	<td><input name="login" value="{data.login}" /></td>
+</tr>
+<tr>
+ <td>9. {lang.pass2}<br /><small>{lang.allowed} <b>A-Z, a-z, 1-9, _, -</b>.</small></td>
+ <td><input type="password" name="uPass" /></td>
+</tr>
+<tr>
+	<td>10. {lang.retype}</td>
+	<td><input type="password" name="uPass2" /></td>
+</tr>
+<tr>
+	<td colspan="2">{lang.after}</td>
+</tr>
+<tr>
+	<th colspan="2" align="center"><input type="submit" value="OK" /></th>
+</tr>
+</tbody>
+</table>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+var f = document.forms[0].elements
+var def = f[6].value
+f[0].focus()
+
+function Change()
+{
+	var v = f[0].checked ? '' : 'disabled';
+	f[2].disabled = v;
+	f[3].disabled = v;
+	f[4].disabled = v;
+	f[5].disabled = v;
+	f[6].disabled = !v;
+	if(f[6].value == '' && v) f[6].value = def;
+	if(f[6].value == def && !v) f[6].value = '';
+}
+Change();
+//]]>
+</script>

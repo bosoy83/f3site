@@ -25,12 +25,12 @@ else
  <form action="login.php" method="post">
  <div align="center">
  Login:<br />
- <input name="snduser" style="height: 15px; width: 93%" /><br />
+ <input name="u" style="height: 15px; width: 93%" /><br />
  <?= $lang['pass'] ?>:<br />
- <input name="sndpass" type="password" style="height: 15px; width: 93%" /><br />
+ <input name="p" type="password" style="height: 15px; width: 93%" /><br />
 
  <div style="margin: 3px 0px">
- <input type="checkbox" name="sndr" style="margin: 3px 0px" /> <?= $lang['remlog'] ?>
+ <input type="checkbox" name="auto" style="margin: 3px 0px" /> <?= $lang['remlog'] ?>
  </div>
 
  <input type="submit" value="<?= $lang['logme'] ?>" />

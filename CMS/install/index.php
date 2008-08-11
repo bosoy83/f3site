@@ -3,251 +3,234 @@ define('INSTALL',1);
 Header('Cache-Control: public');
 Header('Content-type: text/html; charset=iso-8859-2');
 
+#Zmieñ katalog roboczy i ustaw katalogi szablonów
+chdir('../');
+define('VIEW_DIR', './cache/default/');
+define('SKIN_DIR', './style/default/');
+require './lib/content.php';
+
+#Obiekty: szablony + setup
+$content = new Content;
+$content -> dir = './install/HTML/';
+$content -> cacheDir = './cache/install/';
+
 #Jêzyk
 $nlang = 'en';
+$error = array();
+
 foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 {
 	if(isset($x[2]))
 	{
 		$x = $x[0].$x[1];
 	}
-	if(ctype_alnum($x) && file_exists('./'.$x.'.php'))
+	if(ctype_alnum($x) && file_exists('./install/lang/'.$x.'.php'))
 	{
 		$nlang = $x; break;
 	}
 }
 unset($x);
-$lang = file('./'.$nlang.'.php');
+require './install/lang/'.$nlang.'.php';
+
+#Gdy db.php istnieje
+if(file_exists('./cfg/db.php')) $content->message($lang['XX']);
 
 #Sterowniki PDO
 $dr = PDO::getAvailableDrivers();
 $my = in_array('mysql', $dr);
 $li = in_array('sqlite',$dr);
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-type" content="text/html; charset=iso-8859-2" />
-	<meta http-equiv="Robots" content="no-index" />
-	<title>F3Site Installer</title>
-	<link type="text/css" href="s.css" rel="stylesheet" />
-</head>
-<body>
 
-<?php
-#START
-if(!$_POST && !$_GET)
+#FORM + INSTALUJ
+if($_POST OR isset($_GET['next']))
 {
-	#B³êdy
-	$not = 0;
-	$error = array();
+	if($_POST)
+	{
+		#Do³±cz klasê zapisu do .php
+		require './lib/config.php';
+		require './install/install.php';
 
-	#Wersja PHP
-	if(PHP_VERSION >= 5.2)
-		$php = '<span>'.PHP_VERSION.'</span>';
-	else {
-		$php = '<del>'.PHP_VERSION.'</del>';
-		$not = 1;
+		#TYP
+		$type = ($_POST['type']=='sqlite' OR $_POST['type']=='mysql') ? $_POST['type'] : null;
+
+		#Dane dostêpowe
+		$data = array(
+			'type' => $type,
+			'host' => $type=='mysql' ? htmlspecialchars($_POST['host']) : '',
+			'db'   => $type=='mysql' ? htmlspecialchars($_POST['db']) : '',
+			'user' => $type=='mysql' ? htmlspecialchars($_POST['user']) : '',
+			'pass' => $type=='mysql' ? htmlspecialchars($_POST['pass']) : '',
+			'file' => $type=='sqlite' ? htmlspecialchars($_POST['file']) : '',
+			'pre'  => htmlspecialchars($_POST['pre']),
+			'login'=> htmlspecialchars($_POST['login'])
+		);
+
+		#Prefix
+		if(!preg_match('/^[a-zA-Z0-9_-]{0,9}$/', $data['pre']))
+		{
+			$error[] = $lang['e1'];
+		}
+
+		#Has³o admina
+		if(!preg_match('/^[a-zA-Z0-9_-]{5,20}$/', $_POST['uPass']))
+		{
+			$error[] = $lang['e2'];
+		}
+
+		#Has³o admina
+		if($_POST['uPass'] != $_POST['uPass2'])
+		{
+			$error[] = $lang['e3'];
+		}
+
+		#Prefix do sta³ej
+		define('PRE', $data['pre']);
+		try
+		{
+			#Gdy s± b³êdy
+			if($error) throw new Exception('<ul><li>'.join('</li><li>',$error).'</li></ul>');
+
+			#API instalatora - przeka¿ domy¶lny jêzyk i dane
+			$setup = new Installer($nlang, $data);
+
+			#Za³aduj plik SQL
+			$setup -> loadSQL('./install/SQL/'.$type.'.sql');
+
+			#Instaluj zawarto¶æ dla ka¿dego jêzyka
+			foreach(scandir('./lang') as $dir)
+			{
+				if($dir[0]!='.' && file_exists('./install/lang/'.$dir.'.php')) $setup -> setupLang($dir);
+			}
+
+			#Dodaj admina
+			$setup -> admin($data['login'], $_POST['uPass']);
+
+			#Konfiguracja
+			$f = new Config('./cfg/db.php');
+			$f -> add('db_db', $type);
+			$f -> add('db_d', $data['file'] ? $data['file'] : $data['db']);
+			$f -> addConst('PRE', PRE);
+
+			#Tylko dla MySQL
+			if($type == 'mysql')
+			{
+				$f -> add('db_h', $data['host']);
+				$f -> add('db_u', $data['user']);
+				$f -> add('db_p', $data['pass']);
+			}
+			$f -> save();
+
+			#Menu cache
+			$db = $setup->db;
+			include './lib/mcache.php';
+			RenderMenu();
+
+			#Aktualne Sondy
+			if(file_exists('./mod/polls'))
+			{
+				include './mod/polls/poll.php';
+				RebuildPoll();
+			}
+
+			#Zakoñcz instalacjê
+			$setup -> commit();
+			$content -> data = null;
+			$content -> info($lang['OK'], array('../index.php' => $lang[0]));
+			include './cache/install/body.html';
+			exit;
+		}
+		catch(Exception $e)
+		{
+			$content->info(nl2br($e->getMessage()));
+		}
 	}
+	else
+	{
+		$data = array(
+			'type' => 'mysql',
+			'host' => 'localhost',
+			'user' => 'root',
+			'pass' => '',
+			'db'   => '',
+			'file' => (file_exists('../htdocs/../') && is_writable('../')) ? '../db.db' : './cfg/db.db',
+			'pre'  => 'f3_',
+			'login'=> 'Admin',
+		);
+	}
+
+	#Szablon
+	$content->file = 'form';
+	$content->data = array('data' => $data);
+}
+
+#START
+else
+{
+	#Wersja PHP
+	$php = (PHP_VERSION >= 5.2) ? PHP_VERSION : '<span>'.PHP_VERSION.'</span>';
 
 	#PDO
 	if(extension_loaded('pdo'))
 	{
 		if($li && $my)
-			$pdo = '<span>OK</span>';
+			$pdo = 'MySQL + SQLite';
 		elseif($my)
-			$pdo = '<span>MySQL</span>';
+			$pdo = 'MySQL';
 		elseif($li)
-			$pdo = '<span>SQLite</span>';
-		else {
-			$pdo = '<del>'.$lang[10].'</del>';
-			$not = 1;
-		}
-	}
-	else { $pdo = '<del>'.$lang[5].'</del>'; $not = 1; }
-
-	#RegGl.
-	if(ini_get('register_globals'))
-	{
-		$rg = '<del>On</del>'; $error[] = $lang[8];
-	}
-	else $rg = '<span>OK</span>';
-
-	#MagicQuotes
-	if(get_magic_quotes_gpc())
-	{
-		$mq = '<del>On</del>'; $error[] = $lang[9];
-	}
-	else $mq = '<span>OK</span>';
-
-	#CHMOD
-	if(is_writable('./../cache') && is_writable('./../cfg') && is_writable('./../cfg/db.php'))
-		$ch = '<span>cfg + cache</span>';
-	else {
-		$ch = '<del>cfg + cache</span>';
-		$error[] = $lang[12];
-		$not = 1;
-	}
-	?>
-	<table cellspacing="1"><tbody>
-		<tr><th><?= $lang[1] ?></th></tr>
-		<tr><td><?= $lang[2] ?></td></tr>
-	</tbody></table>
-	<table><tbody align="center">
-		<tr><th><?= $lang[3] ?></th><th><?= $lang[4] ?></th></tr>
-		<tr><td><?= $lang[6] ?></td><td><?= $php ?></td></tr>
-		<tr><td>PDO (MySQL &or; SQLite)</td><td><?= $pdo ?></td></tr>
-		<tr><td>register_globals = Off<td><?= $rg ?></td></tr>
-		<tr><td>magic_quotes_gpc = Off<td><?= $mq ?></td></tr>
-		<tr><td><?= $lang[11] ?> (CHMOD)<td><?= $ch ?></td></tr>
-		<tr><td colspan="2" align="left">
-	<?php
-	#B³êdy?
-	if($not === 1) $error[] = $lang[13];
-	if($error)
-	{
-		echo '<ul><li>'.join('</li><li>',$error).'</li></ul>';
-	}
-	if(!$not)
-	{
-		echo '<div style="text-align: center"><input type="button" value="'.$lang[14].'" onclick="location=\'?next=1\'"></div>';
-	}
-}
-
-#FORM
-elseif(isset($_GET['next']))
-{
-	require './form.php';
-}
-
-#INSTALUJ
-if($_POST)
-{
-	?>
-	<table align="center">
-	<tbody>
-	<tr><th><b><?= $lang[32] ?></b></th></tr>
-	<tr><td>
-	<?php
-
-	#Rozpakuj POST i do³±cz klasê zapisu do .php
-	extract($_POST);
-	require './../lib/config.php';
-
-	#Has³o admina
-	if($u_pass!=$u_pass2) exit($lang[49]);
-
-	#Po³±cz
-	echo $lang[35];
-	try
-	{
-		if($db_db=='sqlite')
-		{
-			$db = new PDO('sqlite:../'.$db_d);
-		}
+			$pdo = 'SQLite';
 		else
 		{
-			$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
-			$db->exec('SET CHARACTER SET "latin2"');
+			$pdo = '<span>- - -</span>';
+			$error[] = $lang['e4'];
 		}
-		$db->setAttribute(3,2); #ERRMODE: Exceptions
-	}
-	catch(PDOException $e)
-	{
-		exit($lang[33].$e->getMessage());
-	}
-	echo '<span>OK</span><br /><br />'.$lang[34];
-
-	#Wczytaj plik definicji
-	$def=explode(';',str_replace('{pre}',$db_pre,file_get_contents('./'.str_replace('/','',$db_db).'.sql')));
-
-	#Usuñ tabele
-	if(isset($_POST['db_del']))
-	{
-		// NOT COMPLETED !!!!!!!!
-	}
-
-	#Zapytania
-	foreach($def as $q)
-	{
-		if(substr($q,0,2)!='--')
-		{
-			try {
-				$db->exec($q);
-			}
-			catch(PDOException $e) {
-				echo '<pre>'.nl2br($e->getMessage()).htmlspecialchars($q).'</pre>'; exit; }
-		}
-	}
-	echo '<span>OK</span><br /><br />'.$lang[53];
-
-	#Dodawanie zawarto¶ci
-	$i='REPLACE INTO '.$db_pre;
-	$db->exec($i.'cats VALUES (1,"'.$lang[36].'","",1,5,0,2,"",0,0,2,1,2)');
-
-	$db->exec($i.'groups VALUES (1,"'.$lang[37].'","",1,1)');
-	$db->exec($i.'groups VALUES (2,"'.$lang[38].'","",1,2)');
-
-	$db->exec($i.'menu VALUES (1,1,"Menu",1,1,3,0,"")');
-	$db->exec($i.'menu VALUES (2,2,"'.$lang[39].'",1,2,2,0,"mod/panels/user.php")');
-	$db->exec($i.'menu VALUES (3,3,"'.$lang[40].'",1,2,2,0,"mod/panels/poll.php")');
-	$db->exec($i.'menu VALUES (5,5,"'.$lang[42].'",1,1,2,0,"mod/panels/online.php")');
-	$db->exec($i.'menu VALUES (6,6,"'.$lang[54].'",1,2,1,0,"Coming soon...")');
-
-	$db->exec($i.'mitems VALUES (1,"'.$lang[36].'","index.php",0,1)');
-	$db->exec($i.'mitems VALUES (1,"'.$lang[43].'","?co=archive",0,2)');
-	$db->exec($i.'mitems VALUES (1,"'.$lang[44].'","?co=cats&amp;id=4",0,3)');
-	$db->exec($i.'mitems VALUES (1,"'.$lang[45].'","?co=cats&amp;id=3",0,4)');
-	$db->exec($i.'mitems VALUES (1,"'.$lang[37].'","?co=users",0,5)');
-	$db->exec($i.'mitems VALUES (1,"'.$lang[46].'","?co=groups",0,6)');
-
-	$newpass=md5($u_pass);
-	$db->exec($i.'users VALUES (1,'.$db->quote(trim(htmlspecialchars($u_login))).',"'.$newpass.'","",2,2,4,"","'.strftime('%Y-%m-%d').'","",0,"",1,"","","","","",null)');
-
-	#Konfiguracja
-	echo '<span>OK</span><br /><br />'.$lang[47];
-	$f=new Config('./../cfg/db.php');
-
-	#Wszystkie
-	$f->add('db_d',$db_d);
-	$f->add('db_db',$db_db);
-	$f->addConst('PRE',$db_pre);
-
-	#Dla MySQL
-	if($db_db=='mysql')
-	{
-		$f->add('db_h',$db_h);
-		$f->add('db_u',$db_u);
-		$f->add('db_p',$db_p);
-	}
-
-	#Zapisz
-	if($f->save())
-	{
-		echo '<span>OK</span><br /><br />';
 	}
 	else
 	{
-		echo '<br /><br />'.$lang[48].'<br /><textarea cols="50" rows="9" style="width: 100%">'.
-		htmlspecialchars($f->in).'</textarea><br /><br />';
+		$pdo = '<span>- - - -</span>';
+		$error[] = $lang['e5'];
 	}
 
-	#Menu cache
-	chdir('./../');
-	define('PRE',$db_pre);
-	include('./lib/mcache.php');
-	RenderMenu();
+	#RegisterGlobals
+	$rg = ini_get('register_globals') ? '<span>ON</span>' : 'OFF';
 
-	echo $lang[50]
-	?>
-	<br /><br />
-	<div style="text-align: center">
-		<input type="button" value="OK &raquo;" onclick="location='../index.php'" />
-	</div>
-	</td></tr>
-	</tbody></table>
-	<?php
+	#MagicQuotes
+	$mq = ini_get('magic_quotes_gpc') ? '<span>ON</span>' : 'OFF';
+
+	#CHMOD
+	if(is_writable('./cache') && is_writable('./cfg') && is_writable('./cache/default'))
+	{
+		$ch = 'OK';
 	}
-?>
-</body>
-</html>
+	else
+	{
+		$ch = '<span>cfg + cache</span>';
+		$error[] = $lang['e6'];
+	}
+
+	#B³êdy
+	if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
+
+	#Do szablonu
+	$content->file = 'start';
+	$content->data = array(
+		'php' => $php,
+		'pdo' => $pdo,
+		'rg'  => $rg,
+		'mq'  => $mq,
+		'next' => empty($error),
+		'chmod' => $ch,
+	);
+}
+
+#¯±danie JS czy prze³adowanie strony?
+if(isset($_GET['js']))
+{
+	$content->display();
+}
+else
+{
+	if(filemtime('./install/HTML/body.html') > @filemtime('./cache/install/body.html'))
+	{
+		$content->compile('body.html'); //Kompiluj, gdy trzeba
+	}
+	include './cache/install/body.html';
+}

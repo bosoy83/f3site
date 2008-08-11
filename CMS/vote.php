@@ -118,7 +118,7 @@ if(isset($_POST['poll']))
 				$db->beginTransaction();
 				$db->exec('UPDATE '.PRE.'polls SET num=num+1 WHERE ID='.$id);
 				$db->exec('UPDATE '.PRE.'answers SET num=num+1 WHERE IDP='.$id.' AND ID IN ('.$q.')');
-				$db->exec('INSERT INTO '.PRE.'pollvotes (user,ID,date) VALUES ('.$u.','.$id.','.$_SERVER['REQUEST_TIME'].')');
+				$db->exec('INSERT INTO '.PRE.'pollvotes (user,ID) VALUES ('.$u.','.$id.')');
 				$db->commit();
 
 				#Pobierz odpowiedzi

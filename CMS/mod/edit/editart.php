@@ -1,8 +1,9 @@
 <?php
 if(EC!=1) exit;
 
-#Tytu³
+#Tytu³ i szablon
 $content->title = $id ? $lang['edit1'] : $lang['add1'];
+$content->file = 'edit_art';
 
 if($_POST)
 {
@@ -41,7 +42,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'arts (cat,name,dsc,date,author,access,priority,pages)
-			VALUES (:cat,:name,:dsc,'.$_SERVER['REQUEST_TIME'].',:author,:access,:priority,:pages)');
+			VALUES (:cat,:name,:dsc,'.gmdate('Y-m-d H:i:s').',:author,:access,:priority,:pages)');
 		}
 		$q->execute($art);
 
@@ -104,9 +105,6 @@ foreach($full as $key=>&$val)
 	$full[$key] += array('br' => $val[2]&1, 'emo' => $val[2]&2, 'code' => $val[2]&4);
 }
 
-#Szablon
-$content->file = 'edit_art';
-
 #Skrypty JS
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('cache/emots.js');
@@ -117,5 +115,5 @@ $content->data = array(
 	'art' => &$art,
 	'url' => '?co=edit&amp;act=art&amp;id='.$id,
 	'full' => &$full,
-	'cats' => Slaves(1,$art['cat'],'A')
+	'cats' => Slaves(1,$art['cat'])
 );

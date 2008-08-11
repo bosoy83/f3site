@@ -16,9 +16,9 @@
 	<fieldset style="height: 200px; width: 50%">
 		<legend>{lang.opt}</legend>
 		<label><input name="create" type="checkbox" checked="checked"> {lang.dbCreate}</label>
-		<br />
-		<label><input name="del" type="checkbox" style="margin: 7px 0 7px 20px"> {lang.dbDelete}</label>
-		<br />
+		<div style="margin: 7px 20px">
+			<label><input name="del" type="checkbox"> {lang.dbDelete}</label>
+		</div>
 		<!-- IF gz -->
 		<label><input name="gz" type="checkbox" /> {lang.gz}</label>
 		<br />

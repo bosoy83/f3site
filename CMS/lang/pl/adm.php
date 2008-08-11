@@ -24,13 +24,14 @@ $lang+=Array(
 
 'deldone'=>'-- usuniêto --',
 'error'=>'B³±d podczas wykonywania operacji: ',
-
 '0off'=>'Wpisz 0, by wy³±czyæ.',
+
 'summary'=>'Podsumowanie',
+'mainPage'=>'Strona g³ówna',
 'admintro'=>'Witaj w panelu administracyjnym %name. Aby kontynuowaæ, wybierz odpowiedni modu³ z menu nawigacyjnego lub skorzystaj z poni¿szych skrótów:',
 'skincomp'=>'Zatwierd¼ zmiany w bie¿±cej skórce',
 'html_boo'=>'Kurs HTML, xHTML, CSS...',
-'official'=>'Oficjalna strona systemu F3Site 2008',
+'official'=>'Pomoc i wsparcie systemu F3Site 2008',
 
 'acc'=>'Dostêpno¶æ',
 'adr'=>'Adres',
@@ -53,7 +54,6 @@ $lang+=Array(
 'type'=>'Typ',
 'bgimg'=>'Obraz t³a',
 'br'=>'£amanie linii',
-'escadm'=>'Strona g³ówna',
 'forregt'=>'Dla zarejestrowanych',
 'help'=>'Pomoc',
 'nochg'=>'Bez zmian',

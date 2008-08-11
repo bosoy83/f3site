@@ -1,18 +1,3 @@
-<script type="text/javascript">
-<!--
-function Del(id)
-{
- if(confirm("{lang.delc}"))
- {
-	del=new Request("adm.php?x=del&id="+id,'i'+id);
-	del.method='POST';
-	del.add('co','nav')
-	del.run()
- }
-}
--->
-</script>
-
 <form method="post" action="?a=menu">
 <h2>{lang.navs}</h2>
 
@@ -24,34 +9,37 @@ function Del(id)
 	<th style="width: 100px">{lang.mvis}</th>
 	<th style="width: 100px">{lang.page}</th>
 	<th>{lang.opt}</th>
+	<th style="text-transform: uppercase; width: 40px">{lang.del}</th>
 </tr>
 
 <!-- START blocks -->
-<tr>
-	<td id="i{id}">{title}</td>
-	<td align="center">
+<tr align="center">
+	<td align="left">{title}</td>
+	<td>
 		<input name="seq[{id}]" onblur="if(value=='') value=0" size="1" value="{seq}" />
 	</td>
-	<td align="center">
+	<td>
 		<select name="vis[{id}]" f3:var="i1.disp">
 			<option value="1">{lang.on2}</option>
 			{langs}
 			<option value="2">{lang.off2}</option>
 		</select>
 	</td>
-	<td align="center">
-		&larr;<input type="radio" value="1" name="page[{id}]" f3:var="i1.page" />
-		&nbsp;<input type="radio" value="2" name="page[{id}]" f3:var="i1.page" /> &rarr;
+	<td>
+		<input type="radio" name="page[{id}]" value="1" f3:var="i1.page" /> &nbsp;
+		<input type="radio" name="page[{id}]" value="2" f3:var="i1.page" />
 	</td>
-	<td align="center">
-		<a href="adm.php?a=editMenu&amp;id={id}">{lang.edit}</a> &middot;
-		<a href="javascript:Del({id})">{lang.del}</a>
+	<td>
+		<a href="?a=editMenu&amp;id={id}">{lang.edit}</a>
+	</td>
+	<td>
+		<input type="checkbox" name="x[{id}]" />
 	</td>
 </tr>
 <!-- STOP -->
 
 <tr>
-	<td colspan="5" class="eth">
+	<td colspan="6" class="eth">
 		<input type="submit" value="{lang.save}" />
 		<input type="button" value="{lang.navnewm}" onclick="location='adm.php?a=editMenu'" />
 	</td>

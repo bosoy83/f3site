@@ -32,6 +32,8 @@ switch($act)
 	default: echo 'Undefined type of items!'; return;
 }
 
+
+
 #Parametry - ID kategorii lub typ
 if($id)
 {
@@ -66,9 +68,12 @@ else
 }
 
 #Masowe zmiany?
-if($_POST && count($_POST['check'])>0)
+if($_POST && count($_POST['x'])>0)
 {
-
+	if(isset($_POST['del']))
+	{
+		$db->exec('DELETE FROM '.PRE.'comm WHERE ID=6');
+	}
 }
 
 #Szukaj
@@ -78,7 +83,7 @@ if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 #Parametry -> string
 $param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
-#Iloœæ wszystkich
+#Ilo¶æ wszystkich
 $total = db_count('ID',$name.'s'.$param);
 
 #Brak?
@@ -88,7 +93,7 @@ if($total == 0)
 	return;
 }
 
-#Czêœæ URL
+#Czê¶æ URL
 $url = '?co=list&amp;act='.$act.'&amp;id='.$id;
 
 #Pobierz pozycje
@@ -120,6 +125,7 @@ foreach($res as $i)
 }
 
 #Do szablonu
+$content->title = $type;
 $content->data = array(
 	'item'  => $items,
 	'act'   => $act,
