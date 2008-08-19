@@ -213,11 +213,11 @@ Header('Content-type: text/html; charset=iso-8859-2');
 #FUNKCJE
 
 #Prawa ($a - autor)
-function Admit($id,$type=null,$a=null)
+function Admit($id,$type=null)
 {
 	if(LOGD!=1) return false; //Go¶æ?
 	global $user, $db;
-	static $global;
+	static $global, $all;
 
 	#W³a¶ciciel?
 	if($user[UID]['lv']==4) return true;
@@ -231,8 +231,11 @@ function Admit($id,$type=null,$a=null)
 		}
 		else
 		{
-			return $db->query('SELECT `all` FROM '.PRE.'acl',' WHERE CatID='.(int)$id.' && UID='.UID.
-			' && type="'.$type.'"'.(($a==null || $a==UID)?'':' && `all`=1')) -> fetchColumn(); //1 = wszystkie
+			if(!isset($all[$type]))
+			{
+				$all[$type] = $db->query('SELECT CatID FROM '.PRE.'acl WHERE type="'.$type.'" AND UID='.UID) -> fetchAll(7);
+			}
+			return isset($all[$type][$id]);
 		}
 	}
 	else
@@ -367,17 +370,19 @@ function genDate($x, $time=false)
 function Autor($v)
 {
 	global $user,$db;
-	if(is_numeric($v)) {
-		if(!isset($user[$v])) {
-			$res=$db->query('SELECT login FROM '.PRE.'users WHERE ID='.$v);
-			$user[$v]=$res->fetch(2);
+	if(is_numeric($v))
+	{
+		if(!isset($user[$v]))
+		{
+			$user[$v] = $db->query('SELECT login FROM '.PRE.'users WHERE ID='.$v) -> fetch(2);
 		}
-		if($user[$v]['login']) {
+		if($user[$v]['login'])
+		{
 			return '<a href="index.php?co=user&amp;id='.$v.'">'.$user[$v]['login'].'</a>';
 		}
-		else { return $v; }
+		else return $v;
 	}
-	else { return $v; }
+	else return $v;
 }
 
 #Encje + trim()

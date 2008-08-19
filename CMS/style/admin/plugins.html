@@ -1,3 +1,34 @@
+<!-- IF setup -->
+
+<form action="" method="POST">
+<h2>{name}</h2>
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<th style="width: 99px">{lang.author}:</th>
+	<td><!-- IF www --><a href="{www}">{credits}</a><!-- ELSE -->{credits}<!-- END --></td>
+</tr>
+<tr>
+	<th>{lang.ver}:</th>
+	<td>{ver}</td>
+</tr>
+<tr>
+	<th>{lang.opt}:</th>
+	<td>
+		<!-- START options -->
+		<label><input type="checkbox" name="{KEY}" /> {ITEM}</label><br />
+		<!-- STOP -->
+	</td>
+</tr>
+<tr>
+	<td class="eth" colspan="2"><input type="submit" name="setup" value="OK" /></td>
+</tr>
+</tbody>
+</table>
+</form>
+
+<!-- ELSE -->
+
 <h2>{lang.plugs}</h2>
 <table cellspacing="1" class="tb">
 <tbody>
@@ -8,12 +39,22 @@
 </tr>
 
 <!-- START plugin -->
+<!-- IF ready -->
 <tr>
-	<td style="color: {color}">{name}</td>
+	<td style="color: green">{name}</td>
 	<td align="center">{id}</td>
-	<td align="center"><a href="">{lang.opt}</a> &middot; <a href="{del}">{lang.uninst}</a></td>
+	<td align="center"><a href="?a={id}">{lang.opt}</a> &middot; <a href="{del}">{lang.uninst}</a></td>
 </tr>
+<!-- ELSE -->
+<tr>
+	<td>{name}</td>
+	<td align="center">{id}</td>
+	<td align="center"><a href="?a=plugins&amp;setup={id}">{lang.inst}</a></td>
+</tr>
+<!-- END -->
 <!-- STOP -->
 
 </tbody>
 </table>
+
+<!-- END -->

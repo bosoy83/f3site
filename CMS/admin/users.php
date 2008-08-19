@@ -4,19 +4,9 @@ require LANG_DIR.'adm_o.php';
 require LANG_DIR.'profile.php';
 
 #Usuñ
-if($_POST && !isset($_POST['x'][1]) && $x = GetID(true))
+if(isset($_POST['del']) && !isset($_POST['x'][1]) && $x = GetID(true))
 {
-	$content->info('Deleting users will be added soon.');
-	/* 
-	if(isset($_POST['del']))
-	{
-		$db->exec('DELETE FROM '.PRE.'users WHERE ID IN ('.$x.')');
-		$db->exec('DELETE FROM '.PRE.'comments WHERE TYPE=10 AND CID IN ('.$x.')');
-	}
-	if(isset($_POST['comm']))
-	{
-		$db->exec('DELETE FROM '.PRE.'comments WHERE guest!=1 AND author IN ('.$x.')');
-	}*/
+	$db->exec('DELETE FROM '.PRE.'users WHERE ID IN ('.$x.')'.(UID!=1 ? ' AND lv<'.LEVEL : ''));
 }
 
 #Strona
@@ -41,10 +31,10 @@ if(isset($_GET['gid']))
 else { $gid=null; }
 
 #Szukaj
-if(isset($_GET['s']))
+if(isset($_REQUEST['s']))
 {
-	$s = str_replace(array('"','\'','%'),'',Clean($_GET['s'],30));
-	$w.= (($w=='')?' WHERE ':' AND ').'login LIKE "%'.$s.'%"';
+	$s = str_replace(array('"','\'','%'), '', Clean($_REQUEST['s'],30));
+	$w.= (($w=='')?' WHERE ':' AND ').'login LIKE "'.str_replace('*', '%', $s).'"';
 }
 else { $s=''; }
 

@@ -1,12 +1,5 @@
 <?php
 if(iCMS!=1) exit;
-if(REQUEST!=1)
-{
- if(ADVJS=='ADVJS')
- {
-	echo '<script type="text/javascript" src="lib/adv.js"></script>';
-	define('ADVJS',1); 
- }
 ?>
 <script type="text/javascript">
 <!--
@@ -24,7 +17,6 @@ function GetNew(x)
 </script>
 
 <?php
-}
 require_once('cfg/content.php');
 
 $c=array();
@@ -32,35 +24,24 @@ $c2='';
 $c1='';
 $get='ID';
 
-//Modu³
-switch($_GET['co'])
-{
- case 'art': $type=1; break;
- case 'file': $type=2; break;
- case 'img': $type=3; break;
- case 'link': $type=4; break;
- case 'news': $type=5; break;
- default: $type=($_GET['id'])?$_GET['id']:mt_rand(1,5);
-}
-
 //Typ
-switch($type)
+switch(mt_rand(1,5))
 {
  case 2:
 	$name='files';
-	if($cfg['file_nw']==1) { $c1='javascript:nw(\'art\','; $c2=')'; } else { $c1='?co=file&amp;id='; }
+	$c1='?co=file&amp;id=';
 	break;
  case 3:
 	$name='imgs';
-	if($cfg['img_nw']==1) { $c1='javascript:nw(\'img\','; $c2=')'; } else { $c1='?co=img&amp;id='; }
+	$c1='?co=img&amp;id=';
 	break;
  case 4:
 	$name='links';
-	if($cfg['lcnt']==1) { $c1='link.php?id='; } else { $get='adr'; }
+	$get='adr';
 	break;
  case 5:
 	$name='news';
-	if($cfg['news_nw']==1) { $c1='javascript:nw(\'art\','; $c2=')'; } else { $c1='?co=file&amp;id='; }
+	$c1='?co=file&amp;id=';
 	break;
  default:
 	$name='arts';
@@ -78,7 +59,7 @@ echo '<div id="selnew" class="menulist hint" style="width: 165px">
 </ul>
 </div>
 <div id="newmenu">
-<div class="tab" onclick="Hint(\'selnew\',0,0,1)"><b>'.$lang[$name].'</b></div>';
+<div class="tab" onclick="hint(\'selnew\',0,0,1)"><b>'.$lang[$name].'</b></div>';
 
 $res=$db->query('SELECT z.'.$get.',z.name FROM '.PRE.$name.' z
 	INNER JOIN '.PRE.'cats c ON z.cat=c.ID WHERE z.access!=2 AND c.access!=3

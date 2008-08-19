@@ -4,35 +4,69 @@ require LANG_DIR.'content.php';
 require './lib/categories.php';
 
 #Akcja
-$act = (int)$_GET['act'];
+$act = isset($_GET['act']) ? (int)$_GET['act'] : 5;
 
 #Typ
 switch($act)
 {
 	case 5:
 		$type = $lang['news'];
-		$name = 'new';
+		$table = 'news';
+		$name = 'news';
 		break;
 	case 4:
 		$type = $lang['links'];
 		$name = 'link';
+		$table = 'arts';
 		break;
 	case 3:
 		$type = $lang['images'];
 		$name = 'img';
+		$table = 'imgs';
 		break;
 	case 2:
 		$type = $lang['files'];
 		$name = 'file';
+		$table = 'files';
 		break;
 	case 1:
 		$type = $lang['arts'];
 		$name = 'art';
+		$table = 'arts';
 		break;
-	default: echo 'Undefined type of items!'; return;
+	default:
+		if(!$data = parse_ini_file('./cfg/types.ini',1) OR !isset($data[$act])) return;
+		$type = $data[$act][$nlang];
+		$name = $data[$act]['name'];
+		$table = $data[$act]['table'];
+		unset($data);
 }
 
+#Masowe zmiany
+if(isset($_POST['x']) && count($_POST['x'])>0)
+{
+	$q = Admit('GLOBAL') ? '' : ' AND cat IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID;
+	$ids = array();
 
+	foreach($_POST['x'] as $x=>$n) $ids[] = (int)$x;
+	$ids = join(',', $ids);
+
+	if(isset($_POST['del']))
+	{
+		$db->exec('DELETE FROM '.PRE.$table.' WHERE ID IN ('.$ids.')'.$q);
+	}
+	else
+	{
+		$ch = array();
+		if($_POST['cat'] != 'N') $ch[] = 'cat='.(int)$_POST['cat'];
+		if($_POST['pub'] != 'N') $ch[] = 'access='.(int)$_POST['pub'];
+
+		if($ch = join(',', $ch))
+		$db->exec('UPDATE '.PRE.$table.' SET '.$ch.' WHERE ID IN ('.$ids.')'.$q);
+	}
+	CountItems();
+	unset($q,$ids,$ch,$x);
+}
 
 #Parametry - ID kategorii lub typ
 if($id)
@@ -67,15 +101,6 @@ else
 	$st = 0;
 }
 
-#Masowe zmiany?
-if($_POST && count($_POST['x'])>0)
-{
-	if(isset($_POST['del']))
-	{
-		$db->exec('DELETE FROM '.PRE.'comm WHERE ID=6');
-	}
-}
-
 #Szukaj
 $find = isset($_GET['find']) ? Clean($_GET['find'],30) : '';
 if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
@@ -84,7 +109,7 @@ if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 $param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
 #Ilo¶æ wszystkich
-$total = db_count('ID',$name.'s'.$param);
+$total = db_count('ID',$table.$param);
 
 #Brak?
 if($total == 0)
@@ -97,7 +122,7 @@ if($total == 0)
 $url = '?co=list&amp;act='.$act.'&amp;id='.$id;
 
 #Pobierz pozycje
-$res = $db->query('SELECT ID,name,access FROM '.PRE.$name.'s'.$param.
+$res = $db->query('SELECT ID,name,access FROM '.PRE.$table.$param.
 	' ORDER BY ID DESC LIMIT '.$st.',25');
 
 $res -> setFetchMode(3);
@@ -116,11 +141,10 @@ foreach($res as $i)
 	$items[] = array(
 		'num'  => ++$st,
 		'title'=> $i[1],
-		'ID'   => $i[0],
+		'id'   => $i[0],
 		'on'   => $a,
 		'url'  => '?co='.$name.'&amp;id='.$i[0],
-		'edit_url' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0],
-		'del_url'  => 'javascript:Del('.$i[0].')'
+		'edit_url' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0]
 	);
 }
 

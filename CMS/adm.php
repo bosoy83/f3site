@@ -37,19 +37,6 @@ function GetID($toStr=false, $array=null)
 	return $toStr ? join(',', $x) : $x;
 }
 
-#Typ
-function typeOf($co)
-{
-	switch($co)
-	{
-		case 2: return 'files'; break;
-		case 3: return 'imgs'; break;
-		case 4: return 'links'; break;
-		case 5: return 'news'; break;
-		default: return 'arts';
-	}
-}
-
 #Menu boczne
 function MI($title,$url,$r,$c='plug')
 {

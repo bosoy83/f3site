@@ -1,20 +1,3 @@
-<script type="text/javascript">
-<!--
-function Del(id)
-{
-	if(confirm("{lang.delc}"))
-	{
-		if(confirm("{lang.userdel2}\n"+'i'+id.innerHTML)) c=1; else c=2;
-		del=new Request("adm.php?x=del&id="+id+"&all="+c,'i'+id,'test');
-		del.loadText='abc';
-		del.method='POST'
-		del.add('co','user')
-		del.run();
-	}
-}
--->
-</script>
-
 <form action="" method="POST">
 <h2>{lang.users}</h2>
 

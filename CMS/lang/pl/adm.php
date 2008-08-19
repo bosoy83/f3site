@@ -12,7 +12,7 @@ $lang+=Array(
 'dbcopy'=>'Kopia bazy danych',
 'nav'=>'Bloki menu',
 'ads'=>'Losowe reklamy',
-'plugs'=>'Wtyczki',
+'plugs'=>'Rozszerzenia',
 
 'goto'=>'Zobacz tre¶æ',
 'ed2'=>'Edytuj ponownie',

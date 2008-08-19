@@ -6,11 +6,11 @@ HTMLFormElement.prototype.send = function(box, o)
 	if(box == undefined) box = id('main');
 
 	//Obiekt Request i zdarzenia
-	var o = new Request(form.action, box);
-	o.failed = function() { lock(form, true) };
-	o.loading = function() { lock(form) };
+	var o = new Request(this.action, box);
+	o.failed = function() { lock(this, true) };
+	o.loading = function() { lock(this) };
 	o.done = function(x) { box.innerHTML = x; box.scrollIntoView() };
-	o.sendForm(form);
+	return o.sendForm(this);
 }
 
 function lock(form, restore)
@@ -62,7 +62,7 @@ Request.prototype.sendForm = function(form)
 				break;
 		}
 	}
-
+	alert('tak!'); return false;
 	//Wy¶lij
 	this.run(1);
 }

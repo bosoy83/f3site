@@ -32,12 +32,12 @@ function Se()
 <!-- START item -->
 
 <tr>
-	<td id="i{ID}">{num}. <a href="{url}">{title}</a></td>
+	<td id="i{id}">{num}. <a href="{url}">{title}</a></td>
 	<td align="center">{on}</td>
 	<td align="center" nowrap="nowrap">
-		<a href="{edit_url}">{lang.edit}</a> &middot; <a href="{del_url}">{lang.del}</a>
+		<a href="{edit_url}">{lang.edit}</a>
 	</td>
-	<td><input type="checkbox" name="x[{ID}]" /></td>
+	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 
 <!-- STOP -->
@@ -68,18 +68,18 @@ function Se()
 </tr>
 <tr>
 	<td><b>2. {lang.published}?</b></td>
-	<td><select name="access">
-		<option value="N">{lang.nochg}</option>
-		<option value="1">{lang.yes}</option>
-		<option value="2">{lang.no}</option>
-	</select></td>
+	<td>
+		<label><input type="radio" name="pub" value="N" checked="checked" /> {lang.nochg}</label>
+		<label><input type="radio" name="pub" value="1" /> {lang.yes}</label>
+		<label><input type="radio" name="pub" value="0" /> {lang.no}</label>
+	</td>
 </tr>
 <tr>
 	<td><b>3. {lang.opt}:</b></td>
 	<td><input type="checkbox" name="del" /> {lang.chdel}</td>
 </tr>
 <tr>
-	<td class="eth" colspan="2"><input type="submit" disabled="disabled" value="Niedostêpny" /></td>
+	<td class="eth" colspan="2"><input type="submit" value="OK" /></td>
 </tr>
 </tbody>
 </table>

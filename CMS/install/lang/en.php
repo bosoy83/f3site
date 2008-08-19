@@ -23,7 +23,7 @@ We wish you pleasant work with this vortal system :)',
 'chmod' => 'File permissions',
 'title' => 'F3Site 2008 installer - select action',
 'new' => 'New installation',
-'intro' => 'Welcome to Polish vortal system F3Site 2008 installation wizard. Before you start, read the license and leaflet - READ EN.txt.',
+'intro' => 'Welcome to Polish vortal system F3Site 2008 installation wizard. Before you start, read the license and leaflet - README EN.txt.',
 
 'e1' => 'Prefix contains wrong characters.',
 'e2' => 'Password of your profile contains wrong characters or is too short.',

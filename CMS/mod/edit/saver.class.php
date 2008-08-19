@@ -2,9 +2,9 @@
 class Saver
 {
 	public
-		$id=0,
-		$data=array(),
-		$old=array(),
+		$id = 0,
+		$data = array(),
+		$old = array(),
 		$old_cat;
 
 	function __construct(&$data, $id, $table, $cols='cat,author,access')

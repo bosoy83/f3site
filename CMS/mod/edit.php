@@ -24,11 +24,11 @@ if(isset($_GET['act']))
 {
 	switch($_GET['act'])
 	{
-		case 'new';  case '5': require('./mod/edit/editnew.php'); break;
-		case 'art';  case '1': require('./mod/edit/editart.php'); break;
-		case 'file'; case '2': require('./mod/edit/editfile.php'); break;
-		case 'img';  case '3': require('./mod/edit/editimg.php'); break;
-		case 'link'; case '4': require('./mod/edit/editlink.php'); break;
+		case 'new';  case '5': require('./mod/edit/new.php'); break;
+		case 'art';  case '1': require('./mod/edit/art.php'); break;
+		case 'file'; case '2': require('./mod/edit/file.php'); break;
+		case 'img';  case '3': require('./mod/edit/img.php'); break;
+		case 'link'; case '4': require('./mod/edit/link.php'); break;
 		default: 
 			if(ctype_alnum($_GET['act']) && file_exists('./mod/edit/edit'.$_GET['act'].'.php'))
 			{

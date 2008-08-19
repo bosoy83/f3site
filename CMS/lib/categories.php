@@ -1,5 +1,20 @@
 <?php /* Funkcje kategorii */
 
+#Nazwa tabeli
+function typeOf($co)
+{
+	static $data;
+	switch($co)
+	{
+		case 1: return 'arts'; break;
+		case 2: return 'files'; break;
+		case 3: return 'imgs'; break;
+		case 4: return 'links'; break;
+		case 5: return 'news'; break;
+		default: if(!$data) $data = parse_ini_file('./cfg/types.ini',1); return $data[$co]['table'];
+	}
+}
+
 #Struktura kategorii
 function UpdateCatPath($cat)
 {
@@ -28,49 +43,23 @@ function UpdateCatPath($cat)
 
 	#Zapisz
 	file_put_contents('./cache/cat'.$cat['ID'].'.php', $out, 2);
-
 	return $out;
-	/*Popraw strukturê tak¿e podkategoriom
-	$res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE lft>'.$cat[3].' AND rgt<'.$cat[4]);
-	$res ->setFetchMode(3);
-
-	foreach($res as $c)
-	{
-		$out.= ' &raquo; <a href="'.((MOD_REWRITE) ? '/cat/'.$c[0] : '?co=cats&amp;id='.$c[0]).'">'.$c[1].'</a>';
-	}*/
 }
 
 #Zmieñ iloœæ pozycji
 function SetItems($id,$ile)
 {
 	global $db;
-	$id=(int)$id;
-	$ile=(int)$ile;
-	$ile=($ile>0) ? '+'.$ile : '-'.$ile;
+	$id  = (int)$id;
+	$ile = (int)$ile;
+	$ile = ($ile>0) ? '+'.$ile : '-'.$ile;
 
-	#Zmieñ iloœæ w docelowej kategorii
-	$db->exec('UPDATE '.PRE.'cats SET num=num'.$ile.' WHERE ID='.$id);
-
-	#Pobierz LFT i RGT
-	$res=$db->query('SELECT sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id);
-	$cat=$res->fetch(3); //NUM
-	$res->closeCursor();
-	$IDs=array($id);
-
-	#Z³ó¿ dane
-	if($cat[0])
+	#Pobierz LFT i RGT i zmieñ iloœæ ca³kowit¹ w aktualnym katalogu i wy¿szych
+	if($cat = $db->query('SELECT sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id) -> fetch(3))
 	{
-		$res=$db->query('SELECT sc FROM '.PRE.'cats WHERE lft<='.$cat[1].
-			' AND rgt>='.$cat[0].' AND access!=2 AND access!=3');
-
-		foreach($res as $cat) { if($cat['sc']) $IDs[]=$cat['sc']; }
+		$db->exec('UPDATE '.PRE.'cats SET nums=nums'.$ile.' WHERE access!=2
+		AND access!=3 AND lft<='.$cat[1].' AND rgt>='.$cat[2]);
 	}
-
-	#Zmieñ iloœæ ca³kowit¹ w wy¿szych
-	if($IDs)
-	{
-		$db->exec('UPDATE '.PRE.'cats SET nums=nums'.$ile.' WHERE ID IN('.join(',',$IDs).')');
-	}	
 }
 
 #Lista podkategorii
@@ -119,18 +108,16 @@ function CountItems()
 {
 	#Odczyt
 	global $db;
-	$res=$db->query('SELECT ID,type,access,sc FROM '.PRE.'cats');
-	$cat=$res->fetchAll(3); //NUM
-	unset($res);
+	$cat = $db->query('SELECT ID,type,access,sc FROM '.PRE.'cats') -> fetchAll(3); //NUM
 
-	$ile=count($cat);
-	if($ile>0)
+	$ile = count($cat);
+	if($ile > 0)
 	{
-		for($i=0;$i<$ile;$i++)
+		for($i=0; $i<$ile; ++$i)
 		{
-			$id=$cat[$i][0];
-			$num[$id]=db_count('ID',typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access!=2');
-			$sub[$id]=$cat[$i][3];
+			$id = $cat[$i][0];
+			$num[$id] = db_count('ID',typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access!=2');
+			$sub[$id] = $cat[$i][3];
 			$total[$id]=$num[$id];
 		}
 		for($i=0;$i<$ile;$i++)

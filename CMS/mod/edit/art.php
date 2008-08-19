@@ -42,7 +42,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'arts (cat,name,dsc,date,author,access,priority,pages)
-			VALUES (:cat,:name,:dsc,'.gmdate('Y-m-d H:i:s').',:author,:access,:priority,:pages)');
+			VALUES (:cat,:name,:dsc,"'.gmdate('Y-m-d H:i:s').'",:author,:access,:priority,:pages)');
 		}
 		$q->execute($art);
 
