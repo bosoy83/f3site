@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `opt` tinyint(2) NOT NULL,
 PRIMARY KEY (ID,page));
 
-CREATE TRIGGER IF NOT EXISTS `{pre}arts1` AFTER DELETE ON `{pre}arts`
+CREATE TRIGGER IF NOT EXISTS `{pre}artsd` AFTER DELETE ON `{pre}arts`
 BEGIN
 	DELETE FROM `{pre}artstxt` WHERE ID = old.ID;
 	DELETE FROM `{pre}comms` WHERE TYPE = 1 AND CID = old.ID;
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `file` varchar(255) NOT NULL,
 `size` varchar(9) NOT NULL);
 
-CREATE TRIGGER IF NOT EXISTS `{pre}imgs1` AFTER DELETE ON `{pre}imgs`
+CREATE TRIGGER IF NOT EXISTS `{pre}imgsd` AFTER DELETE ON `{pre}imgs`
 BEGIN
 	DELETE FROM `{pre}comms` WHERE TYPE = 3 AND CID = old.ID;
 END;
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `{pre}mitems` (
 `nw` tinyint(1) NOT NULL DEFAULT 0,
 `seq` tinyint(2) NOT NULL DEFAULT 0);
 
-CREATE TRIGGER IF NOT EXISTS `{pre}menu1` AFTER DELETE ON `{pre}menu`
+CREATE TRIGGER IF NOT EXISTS `{pre}menud` AFTER DELETE ON `{pre}menu`
 BEGIN
 	DELETE FROM `{pre}mitems` WHERE menu = old.ID;
 END;
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `access` tinyint(1) NOT NULL,
 `opt` tinyint(2) NOT NULL DEFAULT 3);
 
-CREATE TRIGGER IF NOT EXISTS `{pre}news1` AFTER DELETE ON `{pre}news`
+CREATE TRIGGER IF NOT EXISTS `{pre}newsd` AFTER DELETE ON `{pre}news`
 BEGIN
 	DELETE FROM `{pre}fnews` WHERE ID = old.ID;
 	DELETE FROM `{pre}comms` WHERE TYPE = 5 AND CID = old.ID;
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `{pre}pages` (
 `opt` tinyint(2) NOT NULL,
 `text` mediumtext);
 
-CREATE TRIGGER IF NOT EXISTS `{pre}pages1` AFTER DELETE ON `{pre}pages`
+CREATE TRIGGER IF NOT EXISTS `{pre}pagesd` AFTER DELETE ON `{pre}pages`
 BEGIN
 	DELETE FROM `{pre}comms` WHERE TYPE = 59 AND CID = old.ID;
 END;
@@ -280,5 +280,5 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 CREATE TRIGGER IF NOT EXISTS `{pre}userd` AFTER DELETE ON `{pre}users`
 BEGIN
 	DELETE FROM `{pre}pollvotes` WHERE user = old.ID;
-	DELETE FROM `{pre}comms` (WHERE guest != 1 AND author = old.ID) OR (type = 10 AND CID = old.ID);
+	DELETE FROM `{pre}comms` WHERE (guest != 1 AND author = old.ID) OR (type = 10 AND CID = old.ID);
 END;

@@ -33,6 +33,7 @@ function RebuildPoll($only = null)
 	global $db;
 	require_once './lib/config.php';
 	$lang = array();
+	$used = array();
 
 	if(!$only)
 	{
@@ -49,11 +50,15 @@ function RebuildPoll($only = null)
 	{
 		return false;
 	}
-	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE access IN (\''.join('\',\'', $lang).'\') ORDER BY access') -> fetchAll(2); //ASSOC
+	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE access IN (\''.join('\',\'', $lang).'\') ORDER BY access, ID DESC') -> fetchAll(2); //ASSOC
 
 	$i = 0;
 	foreach($lang as $x)
 	{
+		if(isset($used[$x]))
+		{
+			++$i; continue;
+		}
 		if(isset($poll[$i]) && $x == $poll[$i]['access'])
 		{
 			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$poll[$i]['ID']) -> fetchAll(3); //NUM
@@ -61,6 +66,7 @@ function RebuildPoll($only = null)
 			$file->add('poll', $poll[$i++]);
 			$file->add('option', $o);
 			$file->save();
+			$used[$x] = 1;
 		}
 		elseif(file_exists('./cache/poll_'.$x.'.php'))
 		{

@@ -65,7 +65,7 @@ if($_POST OR isset($_GET['next']))
 		);
 
 		#Prefix
-		if(!preg_match('/^[a-zA-Z0-9_-]{0,9}$/', $data['pre']))
+		if(!preg_match('/^[a-zA-Z0-9_]{0,9}$/', $data['pre']))
 		{
 			$error[] = $lang['e1'];
 		}

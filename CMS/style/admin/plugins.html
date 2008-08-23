@@ -43,7 +43,10 @@
 <tr>
 	<td style="color: green">{name}</td>
 	<td align="center">{id}</td>
-	<td align="center"><a href="?a={id}">{lang.opt}</a> &middot; <a href="{del}">{lang.uninst}</a></td>
+	<td align="center">
+		<a href="?a={id}">{lang.opt}</a>
+		<!-- IF del -->&middot; <a href="{del}">{lang.uninst}</a><!-- END -->
+	</td>
 </tr>
 <!-- ELSE -->
 <tr>
