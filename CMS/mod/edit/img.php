@@ -14,7 +14,7 @@ if($_POST)
 	'author'=> Clean($_POST['author']),
 	'file'	=> Clean($_POST['file']),
 	'filem' => Clean($_POST['fm']),
-	'access'=> isset($_POST['access']) ? 1 : 0,
+	'access'=> isset($_POST['access']),
 	'priority'=> (int)$_POST['priority'],
 	'type'	=> (int)$_POST['type'],
 	'dsc' 	=> &$_POST['dsc'],

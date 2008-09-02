@@ -29,7 +29,7 @@
 		<input name="file" id="file" maxlength="200" value="{img.file}" />
 		<input type="button" value="{lang.preview}" onclick="okno(file.value,500,400,100,100)" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="okno('fileman.php?ff=file',580,400,150,150)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.file)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -39,7 +39,7 @@
 		<input name="fm" maxlength="50" value="{img.filem}" />
 		<input type="button" value="{lang.preview}" onclick="okno(fm.value,500,400,100,100)" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="okno('fileman.php?ff=fm',580,400,150,150)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.fm)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -80,4 +80,5 @@
 var f = document.forms['img'];
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 new Editor(f.dsc);
+include('lib/forms.js')
 </script>

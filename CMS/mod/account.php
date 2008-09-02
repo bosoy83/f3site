@@ -124,7 +124,7 @@ if($_POST)
 	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
 		#E-mail istnieje w bazie?
-		if(db_count('*','users WHERE mail="'.$u['mail'].'"'.((LOGD==1)?' AND ID!='.UID:''))!=0)
+		if(db_count('users WHERE mail="'.$u['mail'].'"'.((LOGD==1)?' AND ID!='.UID:'')) != 0)
 		{
 			$error[] = $lang['mail_ex'];
 		}

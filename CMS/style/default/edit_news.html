@@ -22,7 +22,7 @@
 	<td>
 		<input name="img" id="img" value="{news.img}" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="okno('fileman.php?ff=img',580,400,150,150)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.img)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -76,5 +76,6 @@ function FN(x)
 	}
 }
 if(done==1) FN(1);
+include('lib/forms.js')
 -->
 </script>

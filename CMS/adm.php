@@ -6,7 +6,7 @@ require 'kernel.php';
 #Niezalogowany?
 if(LOGD != 1)
 {
-	Header('Location: '.URL.'login.php?admin');
+	Header('Location: '.URL.'login.php?from=adm');
 	exit;
 }
 elseif(LEVEL < 3)
@@ -111,10 +111,7 @@ if(!$content->file) $content->file = $A;
 if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
 #Kompiluj szablon, gdy potrzeba...
-if($content->check && filemtime('./style/admin/admin.html') > @filemtime('./cache/admin/admin.html'))
-{
-	$content->compile('admin.html');
-}
+$content->check && $content->compile('admin.html');
 
 #Skórka - admin
 require './cache/admin/admin.html';

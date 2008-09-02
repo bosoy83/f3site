@@ -16,34 +16,29 @@ class Content
 		#Udostêpnij jêzyk
 		$lang = &$GLOBALS['lang'];
 
-		#Informacja?
+		#Informacja
 		if(isset($this->info))
 		{
 			$info  = $this->info;
 			$links = $this->links;
 			include VIEW_DIR.'info.html';
+			if(!$this->data) return;
 		}
 
-		#Szablon modu³u?
-		if($this->data || !isset($this->info))
+		#Utwórz referencje, aby omin±æ $this w szablonach
+		foreach(array_keys($this->data) as $key)
 		{
-			#Utwórz referencje, aby omin±æ $this w szablonach
-			foreach(array_keys($this->data) as $key)
-			{
-				$$key = &$this->data[$key];
-			}
-			if(!is_array($this->file)) $this->file = array($this->file);
+			$$key = &$this->data[$key];
+		}
+		if(!is_array($this->file)) $this->file = array($this->file);
 
-			foreach($this->file as $T)
-			{
-				#Czy istnieje nowsza wersja ¼ród³a?
-				if($this->check && filemtime($this->dir.$T.'.html') > @filemtime($this->cacheDir.$T.'.html'))
-				{
-					$this->compile($T.'.html');
-				}
-				#Do³±cz plik
-				include $this->cacheDir.$T.'.html';
-			}
+		foreach($this->file as $F)
+		{
+			#Czy istnieje nowsza wersja ¼ród³a?
+			$this->check && $this->compile($F.'.html');
+
+			#Do³±cz plik
+			include $this->cacheDir.$F.'.html';
 		}
 	}
 
@@ -107,6 +102,9 @@ class Content
 			include './lib/compiler.php';
 			$compiler = new Compiler;
 		}
-		$compiler -> compile($x, $this->dir, $this->cacheDir);
+		if(filemtime($this->dir.$x) > @filemtime($this->cacheDir.$x))
+		{
+			$compiler -> compile($x, $this->dir, $this->cacheDir);
+		}
 	}
 }

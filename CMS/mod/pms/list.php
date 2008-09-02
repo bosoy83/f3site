@@ -36,7 +36,7 @@ switch($id)
 }
 
 #Licz
-$total = db_count('p.ID', 'pms p'.$q);
+$total = db_count('pms p'.$q);
 
 #Brak?
 if($total < 1)

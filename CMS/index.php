@@ -40,10 +40,7 @@ if($cfg['head']) $content->head .= $cfg['head'];
 require './cache/menu'.$nlang.'.php';
 
 #Kompiluj skórkê, gdy potrzeba...
-if($content->check && filemtime(SKIN_DIR.'body.html') > @filemtime(VIEW_DIR.'body.html'))
-{
-	$content->compile('body.html');
-}
+$content->check && $content->compile('body.html');
 
 #Skórka
 include VIEW_DIR.'body.html';

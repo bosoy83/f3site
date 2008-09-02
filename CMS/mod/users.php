@@ -46,7 +46,7 @@ if(isset($_GET['id']))
 }
 
 #Licz
-$total = db_count('ID','users'.(($url=='')?'':' WHERE '.join(' AND ',$param)));
+$total = db_count('users'.(($url=='')?'':' WHERE '.join(' AND ',$param)));
 
 #Brak?
 if($total < 1)

@@ -15,7 +15,7 @@ if($cfg['commNum']!=0)
 		$PAGE = 1;
 		$ST = 0;
 	}
-	$TOTAL = db_count('ID','comms WHERE TYPE='.CT.' AND CID='.$id);
+	$TOTAL = db_count('comms WHERE TYPE='.CT.' AND CID='.$id);
 }
 else
 {

@@ -15,7 +15,7 @@ if($_POST)
 	'img'  => Clean($_POST['img']),
 	'txt'  => &$_POST['txt'],
 	'cat'	 => (int)$_POST['cat'],
-	'access' => isset($_POST['access']) ? 1 : 2);
+	'access' => isset($_POST['access']));
 
 	#Pe³na treœæ
 	$full = &$_POST['text'];

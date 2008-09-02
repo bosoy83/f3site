@@ -48,7 +48,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,img,value)
-				VALUES ('.(db_count('ID','menu')+1).',:text,:disp,:menu,:type,:img,:value)');
+				VALUES ('.(db_count('menu')+1).',:text,:disp,:menu,:type,:img,:value)');
 		}
 		$q->execute($m);
 

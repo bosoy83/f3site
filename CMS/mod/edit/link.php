@@ -14,8 +14,8 @@ if($_POST)
 	'dsc' => Clean($_POST['dsc']),
 	'adr' => Clean( str_replace(array('javascript:','vbscript:'),'',$_POST['adr']) ),
 	'name'=> Clean($_POST['name']),
-	'nw'  => (isset($_POST['nw']) ? 1 : 0),
-	'access'=> (isset($_POST['access']) ? 1 : 2),
+	'nw'  => isset($_POST['nw']),
+	'access'=> isset($_POST['access']),
 	'priority'=> (int)$_POST['priority'] );
 
 	#Start

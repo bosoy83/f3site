@@ -4,7 +4,7 @@
 //Otwórz okno na œrodku ekranu
 function okno(url,w,h)
 {
-	window.open(url, '', 'toolbar=yes,scrollbars=yes,personalbar=no,directories=no,width='+w+',height='+h+',top='+(screen.height-h)/2+',left='+(screen.width-w)/2)
+	return open(url, '', 'scrollbars=yes,width='+w+',height='+h+',top='+(screen.height-h)/2+',left='+(screen.width-w)/2)
 }
 
 //Zmieñ CSS
@@ -86,20 +86,19 @@ function show(o, once)
 //Kursor
 var cx,cy;
 var toHide = new Array();
-var IE = document.all ? 1 : 0;
 
 //Mysz
 document.onmousedown = function(e)
 {
-	if(IE)
-	{
-		cx = event.clientX + document.body.scrollLeft;
-		cy = event.clientY + document.body.scrollTop
-	}
-	else
+	if(e)
 	{
 		cx = e.pageX;
 		cy = e.pageY
+	}
+	else
+	{
+		cx = event.clientX + document.body.scrollLeft;
+		cy = event.clientY + document.body.scrollTop
 	}
 	if(cx<0) cx=0;
 	if(cy<0) cy=0

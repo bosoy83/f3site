@@ -18,7 +18,7 @@ if($_POST)
 	'dsc'   => Clean($_POST['dsc']),
 	'name'  => Clean($_POST['name']),
 	'author' => Clean($_POST['author']),
-	'access'  => isset($_POST['access']) ? 1 : 0,
+	'access'  => isset($_POST['access']),
 	'priority'=> (int)$_POST['priority']);
 
 	#Strony

@@ -87,7 +87,7 @@ elseif(isset($_POST['next']))
 	$gr = Prepare($_POST['gr']);
 	if($lv && $gr)
 	{
-		$ile = db_count('ID','users WHERE mails=1 AND lv IN('.$lv.') AND gid IN('.$gr.')');
+		$ile = db_count('users WHERE mails=1 AND lv IN('.$lv.') AND gid IN('.$gr.')');
 	}
 	if($ile==0) $content->info($lang['nousnd']);
 }

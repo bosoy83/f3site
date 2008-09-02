@@ -25,7 +25,7 @@ if($cfg['pmOn']==1 && LOGD==1)
 	$content->data = array(
 		'new'   => $pm_new,
 		'limit' => (int)$cfg['pmLimit'],
-		'size'  => db_count('ID','pms WHERE owner='.UID)
+		'size'  => (int)$db->query('SELECT COUNT(*) FROM '.PRE.'pms WHERE owner='.UID)->fetch(7)
 	);
 
 	#Akcja

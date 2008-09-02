@@ -25,7 +25,7 @@ if($_POST)
 	{
 		$error[] = $lang['eplerr'];
 	}
-	if(db_count('ID','users WHERE login="'.$u['login'].'" AND ID!='.$id)!==0)
+	if(db_count('users WHERE login="'.$u['login'].'" AND ID!='.$id)!==0)
 	{
 		$error[] = $lang['eploginex'];
 	}

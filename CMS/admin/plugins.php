@@ -78,7 +78,14 @@ foreach(scandir('./plugins') as $plug)
 	if($plug[0] == '.' OR !is_dir('./plugins/'.$plug)) continue;
 
 	#Dane z pliku INI
-	$data = parse_ini_file('./plugins/'.$plug.'/plugin.ini');
+	if(file_exists('./plugins/'.$plug.'/plugin.ini'))
+	{
+		$data = parse_ini_file('./plugins/'.$plug.'/plugin.ini');
+	}
+	else
+	{
+		$data = array();
+	}
 
 	#Do tablicy
 	$plugs[] = array(

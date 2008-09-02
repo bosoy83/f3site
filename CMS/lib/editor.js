@@ -270,8 +270,3 @@ Editor.prototype.ins = function(co)
 		}
 	}
 };
-
-Editor.prototype.rows = function(h)
-{
-	this.o.rows = h;
-}

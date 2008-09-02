@@ -49,7 +49,7 @@ if(is_numeric($_GET['t']))
 	}
 
 	#Jest blokada?
-	if(db_count('ID',$table.'rates WHERE ID='.$id.' AND user='.$usr)==0)
+	if(db_count($table.'rates WHERE ID='.$id.' AND user='.$usr)==0)
 	{
 	 $new=1;
 	}
@@ -97,7 +97,7 @@ if(isset($_POST['poll']))
 	if(!in_array($poll['ID'],$voted) && $poll['ison']!=2 && (LOGD==1 || $poll['ison']==1))
 	{
 		#Je¿eli brak wpisu w bazie, ¿e g³osowa³...
-		if(db_count('ID','pollvotes WHERE ID='.$id.' AND user='.$u)==0)
+		if(db_count('pollvotes WHERE ID='.$id.' AND user='.$u)==0)
 		{
 			if($poll['type']==1)
 			{

@@ -41,7 +41,7 @@ if($online < ($_SERVER['REQUEST_TIME']-600))
 #Wyœwietl dane
 echo
 	$lang['visits'].'<br /><b>'.$licznik.'</b><br />'.
-	$lang['online'].'<br /><b>'.db_count('IP','online').'</b>';
+	$lang['online'].'<br /><b>'.db_count('online').'</b>';
 unset($online);
 ?>
 </div>

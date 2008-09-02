@@ -106,7 +106,7 @@ class PM
 	function inboxFull($user=null)
 	{
 		if(!$user) $user = $this->to;
-		return db_count('ID','pms WHERE owner='.(int)$user) >= $GLOBALS['cfg']['pmLimit'];
+		return db_count('pms WHERE owner='.(int)$user) >= $GLOBALS['cfg']['pmLimit'];
 	}
 
 	#Usuñ wiadomo¶ci

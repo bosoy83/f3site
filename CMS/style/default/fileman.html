@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>File Manager</title>
+	<meta name="Robots" content="no-index" />
+	<script type="text/javascript" src="lib/fileman.js"></script>
+	{HEAD TAGS}
+	<style type="text/css">
+	td a {margin-left: 25px}
+	tr {background: url(img/icon/file.png) no-repeat 6px center}
+	.f {background: url(img/icon/folder.png) no-repeat 6px center}
+	</style>
+</head>
+<body>
+
+<!--
+<h2>{lang.load}</h2>
+<form action="?dir={dir}" method="POST" enctype="multipart/form-data">
+<div class="box" style="text-align: center">
+	{lang.file}: <input name="file" type="file" />
+	<input type="submit" value="OK" /> &nbsp;
+	<input type="button" value="{lang.newDir}" onclick="fm_nd('nd',0)" />
+</div>
+</form>
+-->
+
+<h2>{lang.dir}: <tt>{dir}</tt></h2>
+<table cellspacing="1" class="tb">
+<tbody>
+<tr>
+	<th style="width: 340px">{lang.name}</th>
+	<th>{lang.opt}</th>
+</tr>
+
+<!-- IF parent -->
+<tr class="f"><td><a href="{parent}">{lang.parent}</a></td><td></td></tr>
+<!-- END -->
+
+<!-- START folder -->
+<tr class="f">
+	<td><a href="{url}">{name}</a></td>
+	<td>
+		<!-- IF opt -->
+		<a href="javascript:fm(this)">MENU &dArr;</a>
+		<!-- END -->
+		<a href="#" onclick="return put(this)">{lang.put} &rArr;</a>
+	</td>
+</tr>
+<!-- STOP -->
+
+<!-- START file -->
+<tr>
+	<td><a href="{url}">{name}</a></td>
+	<td>
+		<!-- IF opt -->
+		<a href="javascript:fm(this)">MENU &dArr;</a>
+		<!-- END -->
+		<a href="#" onclick="return put(this)">{lang.put} &rArr;</a>
+	</td>
+</tr>
+<!-- STOP -->
+
+</tbody>
+</table>
+
+</body>
+</html>

@@ -8,7 +8,7 @@ $content->title = $lang['groups'];
 /* Niepiezpieczne, kiedy akcjê wywo³ujemy zmienn± z GET
 if(isset($_GET['join_now']) && $_GET['id'])
 {
-	if(LOGD==1 && db_count('ID','groups WHERE opened=1 && access!=3 && ID='.$_GET['id'])==1)
+	if(LOGD==1 && db_count('groups WHERE opened=1 && access!=3 && ID='.$_GET['id'])==1)
 	{
 		$db->exec('UPDATE '.PRE.'users SET gid='.$_GET['id'].' WHERE ID='.UID);
 	}

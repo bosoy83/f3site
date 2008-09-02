@@ -2,6 +2,9 @@
 define('iCMS',1);
 require 'kernel.php';
 
+#Gdzie przekierowaæ?
+$from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : 'index';
+
 #Wyloguj?
 if(isset($_GET['logout']) && LOGD==1)
 {
@@ -47,7 +50,7 @@ elseif(LOGD==2 && !empty($_POST['u']) && !empty($_POST['p']))
 			$_SESSION['uidp'] = $md5;
 			$_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
 		}
-		$content->message(1, (isset($_GET['admin']) ? 'adm.php' : 'index.php'));
+		$content->message(1, $from.'.php');
 	}
 	else
 	{
@@ -58,5 +61,5 @@ elseif(LOGD==2 && !empty($_POST['u']) && !empty($_POST['p']))
 
 #Formularz logowania
 $content->file = 'login';
-$content->data['url'] = 'login.php' . (isset($_GET['admin']) ? '?admin' : '');
+$content->data['url'] = 'login.php?from='.$from;
 $content->display();

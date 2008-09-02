@@ -13,18 +13,6 @@ HTMLFormElement.prototype.send = function(box, o)
 	return o.sendForm(this);
 }
 
-function lock(form, restore)
-{
-	var submits = form.elements('input');
-	for(var i=0; i<submits.length; ++i)
-	{
-		if(submits[i].type == 'submit')
-		{
-			submits[i].disabled = (restore === undefined)
-		}
-	}
-}
-
 Request.prototype.sendForm = function(form)
 {
 	//POST / GET
@@ -65,6 +53,36 @@ Request.prototype.sendForm = function(form)
 	alert('tak!'); return false;
 	//Wy¶lij
 	this.run(1);
+}
+
+function lock(form, restore)
+{
+	var submits = form.elements('input');
+	for(var i=0; i<submits.length; ++i)
+	{
+		if(submits[i].type == 'submit')
+		{
+			submits[i].disabled = (restore === undefined)
+		}
+	}
+}
+
+var FM = null;
+var FMWin = null;
+
+//Otwórz mened¿er plików
+function fileman(folder, input)
+{
+	if(FMWin)
+
+		FMWin.referToTop();
+
+	else if(input)
+	{
+		FM = input;
+		FMWin = okno('fileman.php?dir='+folder, 580, 400, 150, 150);
+		window.onunload = function() { FMWin.close() }
+	}
 }
 
 //Fragment formularza do powielania

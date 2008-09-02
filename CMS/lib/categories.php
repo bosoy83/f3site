@@ -55,11 +55,15 @@ function SetItems($id,$ile)
 	$ile = ($ile>0) ? '+'.$ile : '-'.$ile;
 
 	#Pobierz LFT i RGT i zmieñ iloœæ ca³kowit¹ w aktualnym katalogu i wy¿szych
-	if($cat = $db->query('SELECT sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id) -> fetch(3))
-	{
-		$db->exec('UPDATE '.PRE.'cats SET nums=nums'.$ile.' WHERE access!=2
-		AND access!=3 AND lft<='.$cat[1].' AND rgt>='.$cat[2]);
-	}
+	$res = $db->query('SELECT sc,lft,rgt FROM '.PRE.'cats WHERE access!=2 AND access!=3 AND ID='.$id);
+	if(!$cat = $res->fetch(3)) return;
+
+	#Kategoria pozycji
+	$db->exec('UPDATE '.PRE.'cats SET num=num'.$ile.', nums=nums'.$ile.' WHERE ID='.$id);
+
+	#Nadkategorie
+	if($cat[0]) $db->exec('UPDATE '.PRE.'cats SET nums=nums'.$ile.
+		' WHERE access!=2 AND access!=3 AND lft<'.$cat[1].' AND rgt>'.$cat[2]);
 }
 
 #Lista podkategorii
@@ -116,7 +120,7 @@ function CountItems()
 		for($i=0; $i<$ile; ++$i)
 		{
 			$id = $cat[$i][0];
-			$num[$id] = db_count('ID',typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access!=2');
+			$num[$id] = db_count(typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access=1');
 			$sub[$id] = $cat[$i][3];
 			$total[$id]=$num[$id];
 		}

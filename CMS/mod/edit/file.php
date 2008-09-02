@@ -17,7 +17,7 @@ if($_POST)
 	'size' => Clean($_POST['size']),
 	'fulld' => &$_POST['full'],
 	'author' => Clean($_POST['author']),
-	'access' => isset($_POST['access']) ? 1 : 2,
+	'access' => isset($_POST['access']),
 	'priority' => (int)$_POST['priority']);
 
 	try

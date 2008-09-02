@@ -109,7 +109,7 @@ if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 $param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
 #Ilo¶æ wszystkich
-$total = db_count('ID',$table.$param);
+$total = db_count($table.$param);
 
 #Brak?
 if($total == 0)

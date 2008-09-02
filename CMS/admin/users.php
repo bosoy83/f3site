@@ -39,7 +39,7 @@ if(isset($_REQUEST['s']))
 else { $s=''; }
 
 #Wszystkich
-$total = db_count('ID', 'users'.$w);
+$total = db_count('users'.$w);
 $users = array();
 
 #Pobierz

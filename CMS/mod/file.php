@@ -12,12 +12,12 @@ if(!$file = $res->fetch(2)) return;
 #Rozmiar i URL
 if(file_exists('./'.$file['file']))
 {
-	$url = $cfg['fgets']==1 ? 'go.php?file='.$id : $file['file'];
+	$file['url'] = $cfg['fgets']==1 ? 'go.php?file='.$id : $file['file'];
 }
 else
 {
 	$file['size'] = $lang['nof'];
-	$url = '#';
+	$file['url'] = '#';
 }
 
 #EditURL
@@ -25,6 +25,7 @@ $file['edit'] = Admit($file['cat'],'CAT') ? '?co=edit&amp;act=file&amp;id='.$id 
 
 #Ocena
 $file['rate']=''; //POTEM!!!!!
+$content->addCSS(SKIN_DIR.'rate.css');
 
 #Data, autor
 $file['date'] = genDate($file['date'], true);
@@ -33,7 +34,6 @@ $file['author'] = Autor($file['author']);
 #Do szablonu
 $content->data = array(
 	'file' => &$file,
-	'url'  => $url,
 	'path' => CatPath($file['cat']),
 	'cats_url' => MOD_REWRITE ? '/cats/2' : '?co=cats&amp;id=2'
 );

@@ -20,7 +20,7 @@ else
 }
 
 #Suma
-$total = db_count('ID','log');
+$total = db_count('log');
 $event = array();
 
 #Pobierz

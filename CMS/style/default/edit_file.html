@@ -32,7 +32,7 @@
 	<td>
 		<input name="file" maxlength="230" value="{file.file}" size="30" />
 		<!-- IF fileman -->
-		<input type="button" value="{lang.files} &raquo;" onclick="okno('?x=fm&amp;ff=file&amp;dir=./files/',580,400,150,150)" />
+		<input type="button" value="{lang.files} &raquo;" onclick="fileman('files',this.form.file)" />
 		<!-- END -->
 	</td>
 </tr>
@@ -62,4 +62,5 @@
 var f = document.forms['file'];
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 new Editor(f.full);
+include('lib/forms.js');
 </script>

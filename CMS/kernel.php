@@ -399,7 +399,7 @@ function Clean($val,$max=0,$wr=0)
 }
 
 #Licz w bazie
-function db_count($co,$table)
+function db_count($table)
 {
-	return (int)$GLOBALS['db']->query('SELECT COUNT('.$co.') FROM '.PRE.$table)->fetchColumn();
+	return (int)$GLOBALS['db']->query('SELECT COUNT(*) FROM '.PRE.$table)->fetchColumn();
 }
