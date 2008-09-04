@@ -17,8 +17,8 @@ if($cfg['pmOn']==1 && LOGD==1)
 	}
 	else
 	{
-		$pm_new = str_replace('%', '<b>'.$user[UID]['pms'].'</b>',
-			(($user[UID]['pms']==1) ? $lang['new1'] : $lang['new2']) );
+		$pm_new = $user[UID]['pms']==1 ? $lang['new1'] :
+			str_replace('%', '<b>'.$user[UID]['pms'].'</b>', $lang['new2']);
 	}
 
 	#Dane do szablonu

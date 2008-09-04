@@ -36,7 +36,6 @@ $lang+=Array(
 'moder'=>'Moderator',
 'owner'=>'W³a¶ciciel',
 
-
 'act_ok'=>'Rejestracja zosta³a potwierdzona. Mo¿esz zalogowaæ siê.',
 'badKey'=>'Klucz aktywuj±cy konto jest niepoprawny. Sprawd¼, czy odno¶nik do tej strony podany w wiadomo¶ci e-mail nie zosta³ uciêty.',
 

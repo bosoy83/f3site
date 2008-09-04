@@ -2,9 +2,6 @@
 if(iCMSa!=1 || !Admit('CFG')) exit;
 require LANG_DIR.'adm_conf.php';
 
-#Tytu³ strony
-$content->title = $lang['aw_t'];
-
 #Zapis
 if($_POST)
 {
@@ -19,7 +16,7 @@ if($_POST)
 	}
 
 	#Klasa zapisu do pliku PHP
-	require('./lib/config.php');
+	require './lib/config.php';
 	try
 	{
 		$f = new Config('words');
@@ -50,5 +47,5 @@ for($i=0; $i<$num; ++$i)
 
 #Do szablonu
 $content->addScript('lib/forms.js');
-$content->info($lang['aw_i'].(($cfg['censor']==1)?'':'<br />'.$lang['aw_f']));
+$content->info( isset($cfg['censor']) ? $lang['aw_i'] : $lang['aw_f'] );
 $content->data['word'] =& $word;

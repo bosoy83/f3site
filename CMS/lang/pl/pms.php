@@ -1,7 +1,6 @@
 <?php
 $lang += Array(
 're'=>'Odp: ',
-'set'=>'Wys³ano',
 'topic'=>'Temat',
 'write'=>'Napisz wiadomo¶æ',
 'delch'=>'usuñ zaznaczone',
@@ -17,8 +16,8 @@ $lang += Array(
 'await'=>'Oczekuj±ce',
 'drafts'=>'Kopie robocze',
 
-'new1'=>'Masz % nowych wiadomo¶ci.',
-'new2'=>'Masz % now± wiadomo¶æ.',
+'new1'=>'Masz 1 now± wiadomo¶æ.',
+'new2'=>'Masz % nowych wiadomo¶ci.',
 'zero'=>'Brak nowych wiadomo¶ci.',
 
 'pm1'=>'Prywatne wiadomo¶ci s± wy³±czone.',

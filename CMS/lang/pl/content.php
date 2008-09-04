@@ -51,8 +51,8 @@ $lang+=Array(
 'i5'=>'Nowo¶ci mog± byæ komentowane. Kliknij tytu³, aby go wy¶wietliæ.',
 'ftxt'=>'Pe³na tre¶æ',
 'nvtit'=>'Zarz±dzanie nowo¶ciami',
-'img'=>'Obraz',
 
+'img'=>'Obraz',
 'add3'=>'Dodaj obraz',
 'edit3'=>'Edytuj obraz',
 'i3'=>'Kliknij tytu³ obrazu, aby go wy¶wietliæ.',

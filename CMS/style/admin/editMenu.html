@@ -1,10 +1,10 @@
 <form action="{url}" method="post" f3:array="menu">
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
-	<td width="38%"><b>1. {lang.navbtit}</b></td>
+	<td width="38%"><b>1. {lang.title}:</b></td>
 	<td><input name="text" maxlength="50" value="{menu.text}" /></td>
 </tr>
 <tr>
@@ -20,12 +20,12 @@
 <tr>
 	<td><b>3. {lang.page}:</b></td>
 	<td>
-		<label><input type="radio" name="menu" value="1" /> {lang.leftp}</label> &nbsp;
-		<label><input type="radio" name="menu" value="2" /> {lang.rightp}</label>
+		<label><input type="radio" name="menu" value="1" /> {lang.left}</label> &nbsp;
+		<label><input type="radio" name="menu" value="2" /> {lang.right}</label>
 	</td>
 </tr>
 <tr>
-	<td><b>4. {lang.mtype}:</b></td>
+	<td><b>4. {lang.type}:</b></td>
 	<td>
 		<label><input type="radio" value="1" name="type" /> {lang.txt}</label> &nbsp;
 		<label><input type="radio" value="2" name="type" /> {lang.file}</label> &nbsp;

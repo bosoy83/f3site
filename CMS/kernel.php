@@ -51,8 +51,8 @@ session_start();
 #Jêzyk: zmiana
 if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
 {
-	$nlang = $_GET['setlang'];
-	setcookie(PRE.'tlang', $nlang, time()+12960000); //Ustaw na 5 mies.
+	$nlang = $_SESSION['lang'] = $_GET['setlang'];
+	setcookie(PRE.'lang', $nlang, time()+12960000); //Ustaw na 5 mies.
 }
 #Jêzyk: sesja
 elseif(isset($_SESSION['lang']))
@@ -60,11 +60,11 @@ elseif(isset($_SESSION['lang']))
 	$nlang = $_SESSION['lang'];
 }
 #Jêzyk: cookies
-elseif(isset($_COOKIE[PRE.'tlang']))
+elseif(isset($_COOKIE[PRE.'lang']))
 {
-	if(ctype_alnum($_COOKIE[PRE.'tlang']) && is_dir('./lang/'.$_COOKIE[PRE.'tlang']))
+	if(ctype_alnum($_COOKIE[PRE.'lang']) && is_dir('./lang/'.$_COOKIE[PRE.'lang']))
 	{
-		$nlang = $_SESSION['lang'] = $_COOKIE[PRE.'tlang'];
+		$nlang = $_SESSION['lang'] = $_COOKIE[PRE.'lang'];
 	}
 }
 #Autowykrywanie jêzyka

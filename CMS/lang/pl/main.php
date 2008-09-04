@@ -47,7 +47,6 @@ $lang = Array(
 'noc'=>'Brak zawarto¶ci w tej kategorii.',
 'nocats'=>'Brak zdefinowanych kategorii.',
 'noex'=>'B³±d podczas odczytu danych. Prawdopodobnie link nie jest ju¿ aktualny.',
-'nof'=>'Brak pliku na serwerze.',
 'nonews'=>'Aktualnie brak nowo¶ci.',
 'loginComm'=>'Zaloguj siê, aby móc wys³aæ komentarz.',
 'novotes'=>'Brak g³osów.',

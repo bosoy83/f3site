@@ -23,3 +23,5 @@
 .a_cfg,.a_db {background: url(../../img/icon/cog.png)}
 .a_plug {background: url(../../img/icon/plugin.png)}
 .a_menu {background: url(../../img/icon/edit.png)}
+
+td>small {display: block}
