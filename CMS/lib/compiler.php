@@ -84,7 +84,7 @@ class Compiler
 			'<?= $cfg[\'title\']; ?>',
 			'<?= $content->title; ?>',
 			'<?= $cfg[\'head\'].$content->head; ?>',
-			'', '\n'
+			'', "\n"
 		);
 		$this->data = str_replace($in, $out, $this->data);
 

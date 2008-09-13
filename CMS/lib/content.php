@@ -99,7 +99,7 @@ class Content
 
 		if(!isset($compiler))
 		{
-			include './lib/compiler.php';
+			include_once './lib/compiler.php';
 			$compiler = new Compiler;
 		}
 		if(filemtime($this->dir.$x) > @filemtime($this->cacheDir.$x))

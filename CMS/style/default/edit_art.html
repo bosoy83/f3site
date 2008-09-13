@@ -1,10 +1,10 @@
-<!--Podgl±d-->
+<!-- Preview -->
 <div id="dbox" style="display: none">
 <h2>{lang.preview}</h2>
 <div class="box" id="tbox"></div>
 </div>
 
-<!--FORM-->
+<!-- Form -->
 <h2>{this->title}</h2>
 <form action="{url}" id="art" method="post" f3:array="art">
 
@@ -55,7 +55,7 @@
 		<textarea name="txt[]" id="txt" style="width: 100%" rows="18">{Clean: 1}</textarea></label>
 		<fieldset>
 		<legend>{lang.opt}</legend>
-		<label><input type="checkbox" name="emo[]" onclick="Em(this)" f3:var="i1.emo" /> {lang.emo}</label>
+		<label><input type="checkbox" name="emo[]" onclick="e.emots(this.checked)" f3:var="i1.emo" /> {lang.emo}</label>
 		<label><input type="checkbox" name="br[]" f3:var="i1.br" /> {lang.br}</label>
 		<label><input type="checkbox" name="code[]" f3:var="i1.code" /> {lang.hl}</label>
 		</fieldset>
@@ -75,6 +75,5 @@
 </form>
 
 <script type="text/javascript">
-var ed = new Editor(id('txt'));
-function Em(x) { if(x.checked) ed.emots(); else ed.emots(0) }
+var e = new Editor(id('txt'));
 </script>

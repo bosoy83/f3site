@@ -124,6 +124,27 @@ Editor.prototype.create = function(hidden)
 		out.appendChild(b);
 	}
 	this.o.parentNode.insertBefore(out,this.o);
+
+	//Skróty klawiszowe
+	this.o.onkeypress = function(e)
+	{
+		if(e == undefined) e = event;
+		if(e.ctrlKey)
+		{
+			switch(e.charCode)
+			{
+				case 98: that.format(0); break; //B
+				case 105: that.format(1); break; //I
+				case 117: that.format(2); break; //U
+				case 113: that.format(14); break; //Q
+				case 119: that.format(12); break; //W
+				case 104: if(!that.bbcode) BBC(this,'<h3>','</h3>'); break; //H
+				case 112: if(!that.bbcode) BBC(this,'<p>','</p>'); break; //P
+				default: return true;
+			}
+			return false;
+		}
+	}
 }
 
 //Emoty
@@ -132,15 +153,20 @@ Editor.prototype.emots = function(x)
 	//Wykryj
 	var exist = this.emo ? 1 : 0;
 
-	//Usuñ?
-	if(x==0)
+	//Usuñ
+	if(this.emo)
 	{
-		if(exist) this.o.parentNode.removeChild(this.emo);
+		if(x == false)
+		{
+			this.emo.style.display = 'none'
+		}
+		else
+		{
+			this.emo.style.display = 'block'
+		}
 		return;
 	}
-
-	//Jeœli ju¿ istniej¹ - zakoñcz
-	if(exist) return;
+	else if(!x) return;
 
 	//Wstaw
 	var out = document.createElement('div');
