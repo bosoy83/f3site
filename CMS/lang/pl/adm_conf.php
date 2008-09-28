@@ -7,6 +7,7 @@ $lang+=Array(
 'main'=>'Opcje ogólne',
 'censor'=>'Zamiana s³ów',
 'content'=>'Zawarto¶æ',
+'latest'=>'Najnowsze pozycje',
 'emots'=>'Emotikony',
 'ua'=>'Konta u¿ytkowników',
 );

@@ -32,4 +32,11 @@ $lang+=Array(
 
 'defCat'=>'Strona startowa',
 'forLang'=>'Dla jêzyka ',
+
+'latest'=>'Lista najnowszych pozycji',
+'maxnum'=>'Ilo¶æ najnowszych pozycji',
+'auto'=>'Aktualizuj listê automatycznie',
+'each'=>'Dla ka¿dego typu elementów.',
+'auto2'=>'Tworzy listê automatycznie dla ka¿dego jêzyka po edycji dowolnej pozycji.',
+'types'=>'Typy elementów',
 );

@@ -95,7 +95,7 @@ $content->addScript('lib/editor.js');
 $content->data = array(
 	'news' => &$news,
 	'full' => &$full,
-	'url'  => '?co=edit&amp;act=new&amp;id='.$id,
+	'url'  => '?co=edit&amp;act=5&amp;id='.$id,
 	'cats' => Slaves(5,$news['cat']),
 	'fileman' => Admit('FM')
 );

@@ -32,12 +32,12 @@ $art['author'] = Autor($art['author']);
 #Ocena
 if(isset($cfg['arate']) AND $art['cat_opt'] & 4)
 {
-	$art['rate'] = $art['rate'] ? $art['rate'] : $lang['lack'];
-	$art['rate_url'] = '';
+	$content->addCSS(SKIN_DIR.'rate.css');
+	$rates = 'vote.php?type=1&amp;id='.$id;
 }
 else
 {
-	$art['rate'] = false;
+	$rates = 0;
 }
 
 #Zwiêksz ilo¶æ wy¶wietleñ
@@ -57,7 +57,8 @@ $art['edit'] = Admit($art['cat'],'CAT') ? '?co=edit&amp;act=art&amp;id='.$id : f
 $content->data = array(
 	'art'  => &$art,
 	'pages'=> &$pages,
-	'path' => CatPath($art['cat'])
+	'path' => CatPath($art['cat']),
+	'rates'=> $rates
 );
 
 #Komentarze

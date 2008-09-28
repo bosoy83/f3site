@@ -32,4 +32,11 @@ $lang+=Array(
 
 'defCat'=>'Start page',
 'forLang'=>'For language ',
+
+'latest'=>'List of the newest items',
+'maxnum'=>'Number of items',
+'auto'=>'Update the list automatically',
+'each'=>'For each type of item.',
+'auto2'=>'Rebuilds the list automatically for each language after change of any item.',
+'types'=>'Types of items',
 );

@@ -113,7 +113,7 @@ $content->addScript('lib/editor.js');
 #Dane + URL + kategorie
 $content->data = array(
 	'art' => &$art,
-	'url' => '?co=edit&amp;act=art&amp;id='.$id,
+	'url' => '?co=edit&amp;act=1&amp;id='.$id,
 	'full' => &$full,
 	'cats' => Slaves(1,$art['cat'])
 );

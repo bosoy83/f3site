@@ -31,7 +31,17 @@
 	<div style="line-height: 20px">
 		<div style="float: left; width: 50%"><b>{lang.added}:</b> {img.date}</div>
 		<div style="float: right; width: 50%"><b>{lang.author}:</b> {img.author}</div>
-		<b>{lang.rate}:</b> {img.rate}
+		
+		<!-- IF rates -->
+		<b>{lang.rate}:</b>
+		<form action="{rates}" method="post" class="rate avg{img.rate} by">
+		<input type="submit" name="v" value="1" class="r1" />
+		<input type="submit" name="v" value="2" class="r2" />
+		<input type="submit" name="v" value="3" class="r3" />
+		<input type="submit" name="v" value="4" class="r4" />
+		<input type="submit" name="v" value="5" class="r5" />
+		</form>
+		<!-- END -->
   </div>
   {img.dsc}
 </div>

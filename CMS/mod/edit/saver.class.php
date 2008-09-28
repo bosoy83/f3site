@@ -63,6 +63,9 @@ class Saver
 			if($this->data['access']==1) SetItems($this->data['cat'],1);
 		}
 
+		#Najnowsze
+		if(isset($_GET['act'])) Latest((int)$_GET['act']);
+
 		#OK
 		try
 		{

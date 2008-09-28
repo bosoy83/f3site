@@ -65,6 +65,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 		$db->exec('UPDATE '.PRE.$table.' SET '.$ch.' WHERE ID IN ('.$ids.')'.$q);
 	}
 	CountItems();
+	Latest($act);
 	unset($q,$ids,$ch,$x);
 }
 

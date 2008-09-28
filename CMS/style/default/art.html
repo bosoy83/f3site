@@ -19,8 +19,18 @@
 </div>
 <div class="end">
 
-	<!-- IF art.rate -->
-	<span style="float: right; width: 150px">{lang.rate}: {art.rate}</span>
+	<!-- IF rates -->
+	<span style="float: right; width: 150px">
+	{lang.rate}: 
+	<form action="{rates}" method="post" class="rate avg{art.rate} by">
+		<input type="submit" name="v" value="1" class="r1" />
+		<input type="submit" name="v" value="2" class="r2" />
+		<input type="submit" name="v" value="3" class="r3" />
+		<input type="submit" name="v" value="4" class="r4" />
+		<input type="submit" name="v" value="5" class="r5" />
+	</form>
+	
+	</span>
 	<!-- END -->
 
 	<!-- IF art.ent -->

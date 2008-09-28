@@ -24,8 +24,15 @@ else
 $file['edit'] = Admit($file['cat'],'CAT') ? '?co=edit&amp;act=file&amp;id='.$id : false;
 
 #Ocena
-$file['rate']=''; //POTEM!!!!!
-$content->addCSS(SKIN_DIR.'rate.css');
+if(isset($cfg['frate']) AND $file['opt'] & 4)
+{
+	$content->addCSS(SKIN_DIR.'rate.css');
+	$rate = 'vote.php?type=2&amp;id='.$id;
+}
+else
+{
+	$rate = 0;
+}
 
 #Data, autor
 $file['date'] = genDate($file['date'], true);
@@ -35,6 +42,7 @@ $file['author'] = Autor($file['author']);
 $content->data = array(
 	'file' => &$file,
 	'path' => CatPath($file['cat']),
+	'rates' => $rate,
 	'cats_url' => MOD_REWRITE ? '/cats/2' : '?co=cats&amp;id=2'
 );
 

@@ -6,6 +6,7 @@
 'main'=>'Main options',
 'censor'=>'Word censoring',
 'content'=>'Content',
+'latest'=>'Latest items',
 'emots'=>'Emotikony',
 'ua'=>'User accounts',
 );

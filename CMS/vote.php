@@ -1,5 +1,13 @@
 <?php
 if(!$_POST) exit;
+
+#Adres prowadz±cy
+$ref = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+
+#Ochrona przed CSRF
+if($ref && strpos($ref, $_SERVER['HTTP_HOST']) === false) exit;
+
+#J±dro
 define('iCMS',1);
 require './kernel.php';
 
@@ -8,74 +16,51 @@ $ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
 	((isset($_SERVER['HTTP_X_FORWARDED_FOR'])) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
 
 #Oceny
-/* Na razie wy³±czone
-if(is_numeric($_GET['t']))
+if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POST['v'] < 6)
 {
-	#Opcje
-	require_once('./cfg/content.php');
-	$c=$_COOKIE[PRE.'rates'];
+	/* Sprawdziæ, czy ocenianie w³±czone !!!!!!!!!! */
 
-	if(LOGD!=1 && $cfg['grate']!=1) exit('Error: access denied.');
+	#Typy kategorii i ocena
+	$data = parse_ini_file('cfg/types.ini', 1);
+	$v = (int)$_POST['v'];
+	$t = (int)$_GET['type'];
 
-	#Tabela (nie usuwaj!)
-	$table='';
-	switch($_GET['t'])
-	{
-		case 1: if($cfg['arate']==1) { $table='art'; } break;
-		case 2: if($cfg['frate']==1) { $table='file'; } break;
-		case 3: if($cfg['irate']==1) { $table='img'; } break;
-	}
+	#Zalogowany?
+	if(LOGD!=1 && !isset($cfg['grate'])) $content->message(9, $ref);
 
-	#B³±d?
-	if($table=='')
+	#Czy oceniany ID istnieje i jest w³±czony
+	if(!isset($data[$t]['rate']) OR !db_count($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))
 	{
-	exit('Error: rating disabled.');
-	}
-	#Ocenia³?
-	if(strpos($c,'x'.$_GET['t'].':'.$id.'x')!==false)
-	{
-	$content->message(6);
-	}
-	else
-	{
-	#ID/IP
-	if(LOGD==1)
-	{
-	 $usr=UID;
-	}
-	else
-	{
-	 $usr='"'.db_esc($_SERVER['REMOTE_ADDR'].' '.$_SERVER['HTTP_X_FORWARDED_FOR']).'"';
+		$content->message(7, $ref);
 	}
 
-	#Jest blokada?
-	if(db_count($table.'rates WHERE ID='.$id.' AND user='.$usr)==0)
-	{
-	 $new=1;
-	}
-	else { $new=0; }
+	#Co ocenia³?
+	$rated = isset($_COOKIE['rated']) ? explode('o',$_COOKIE['rated']) : array();
 
-	#Zapis
-	if($_POST['v'])
+	#Gdy ocenia³ - zakoñcz
+	if(in_array($t.'.'.$id, $rated)) $content->message(6, $ref);
+
+	#Je¿eli brak wpisu w bazie, ¿e ocenia³...
+	if(db_count('rates WHERE type='.$t.' AND ID='.$id.' AND IP='.$ip) === 0)
 	{
-	 //ISNUMERIC
-	 
+		$db->beginTransaction();
+		$db->exec('INSERT INTO '.PRE.'rates (type,ID,mark,IP) VALUES ('.$t.','.$id.','.$v.','.$ip.')');
+
+		#Aktualizuj ocenê
+		$num = $db->query('SELECT count(*),SUM(mark) FROM '.PRE.'rates WHERE type='.$t.' AND ID='.$id)->fetch(3);
+		$avg = $num[0] > 0 ? round($num[1] / $num[0]) : 0;
+
+		$db->exec('UPDATE '.PRE.$data[$t]['table'].' SET rate='.$avg.' WHERE ID='.$id);
+		$db->commit();
 	}
 
-	#Formularz
-	else
-	{
-	 echo '<form action="vote.php?id='.$id.'&amp;t='.$_GET['t'].'" method="post">
-	 <input type="radio" name="v" value="5" /> '.$lang['vgood'].'
-	 <input type="radio" name="v" value="4" /> '.$lang['good'].'
-	 <input type="radio" name="v" value="3" /> '.$lang['dstg'].'
-	 <input type="radio" name="v" value="2" /> '.$lang['weak'].'
-	 <input type="radio" name="v" value="1" /> '.$lang['fatal'].'
-	 </form>';
-	}
-	}
-	}
-*/
+	#Zapisz cookie
+	$rated[] = $t.'.'.$id;
+	setcookie('rated', join('o',$rated), time()+7776000, $_SERVER['PHP_SELF']);
+
+	#OK
+	$content->message(5, $ref);
+}
 
 #Ankieta
 if(isset($_POST['poll']))

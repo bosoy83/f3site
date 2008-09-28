@@ -75,5 +75,5 @@ else
 $content->data = array(
 	'link' => &$link,
 	'cats' => Slaves(4,$link['cat']),
-	'url'  => '?co=edit&amp;act=link&amp;id='.$id
+	'url'  => '?co=edit&amp;act=4&amp;id='.$id
 );

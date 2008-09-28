@@ -30,11 +30,11 @@ if(isset($_GET['act']))
 		case 'img';  case '3': require('./mod/edit/img.php'); break;
 		case 'link'; case '4': require('./mod/edit/link.php'); break;
 		default: 
-			if(ctype_alnum($_GET['act']) && file_exists('./mod/edit/edit'.$_GET['act'].'.php'))
+			if(ctype_alnum($_GET['act']) && file_exists('./mod/edit/'.$_GET['act'].'.php'))
 			{
-				require './mod/edit/edit'.$_GET['act'].'.php';
+				require './mod/edit/'.$_GET['act'].'.php';
 			}
-			else require './mod/edit/list.php';
+			else return;
 	}
 	unset($last_cat,$id,$_POST); return 1;
 }

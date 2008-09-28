@@ -15,6 +15,73 @@ function typeOf($co)
 	}
 }
 
+#Najnowsze pozycje
+function Latest($lang=null)
+{ return;
+	/*global $db,$cfg;
+	include './cfg/latest.php';
+	if(!isset($cfg['newOn'])) return;
+
+	#Jêzyki
+	if($lang)
+	{
+		$lang[0] = $lang;
+	}
+	else
+	{
+		foreach(scandir('./lang') as $x)
+		{
+			if($x[0] != '.' && is_dir($x[0])) $lang[] = $x;
+		}
+	}
+
+	#Typy kategorii
+	$data = parse_ini_file('./cfg/types.ini',1);
+
+	#Dla ka¿dego jêzyka
+	foreach($lang as $l)
+	{
+		$
+	}
+	
+	foreach($data as $x)
+	{
+		#Adres + pole
+		$url = isset($x['name']) ? '?co='.$x['name'].'&amp;id=' : '';
+		$get = isset($x['get']) ? $x['get'] : 'ID';
+		$all = '';
+
+		#Pobierz ostatnie pozycje
+		$res = $db->query('SELECT z.'.$get.',z.name,c.name,c.access FROM '.PRE.$x['table'].' z INNER JOIN '.
+		PRE.'cats c ON z.cat=c.ID WHERE z.access!=2 AND c.access!=3 ORDER BY z.ID DESC LIMIT 0,10');
+		$res -> setFetchMode(3); //INT
+
+		#Z³ó¿ listê
+		foreach($res as $item)
+		{
+			$all[$item[3]] .= '<li><a href="'.$url.$item[0].'" title="'.$item[2].'">'.
+			(isset($item[1][21]) ? substr($item[1],0,20).'...' : $item[1]).'</a></li>';
+		}
+	}
+
+	
+	
+	#Dla ka¿dego jêzyka
+	foreach(scandir('./lang') as $l)
+	{
+		if($l[0] == '.') continue;
+		$in = '<ul>';
+
+		foreach($all as $x)
+		{
+			if($x[2]==1 OR $x[2]==$l) $in .= '<li><a href="'.$url.$x[0].'">'.
+				((isset($x[19])) ? substr($x[1],0,18).'...' : $x[1]).'</a></li>';
+		}
+		$in .= '</ul>';
+		file_put_contents('./cache/new'.$type.$l.'.php', $in, 2);
+	}*/
+}
+
 #Struktura kategorii
 function UpdateCatPath($cat)
 {
@@ -50,6 +117,7 @@ function UpdateCatPath($cat)
 function SetItems($id,$ile)
 {
 	global $db;
+	static $new;
 	$id  = (int)$id;
 	$ile = (int)$ile;
 	$ile = ($ile>0) ? '+'.$ile : '-'.$ile;
@@ -69,35 +137,35 @@ function SetItems($id,$ile)
 #Lista podkategorii
 function Slaves($type=0,$id=0,$o=null)
 {
-	$where=array();
+	$where = array();
 	if(is_numeric($o)) $where[]='ID!='.$o;
 
 	#Prawa i typ
 	if(LEVEL!=4 && !$where && !Admit('GLOBAL'))
 	{
-		$where[]='ID IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID.')';
+		$where[] = 'ID IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID.')';
 	}
 	if($type!=0)
 	{
-		$where[]='type='.(int)$type;
+		$where[] = 'type='.(int)$type;
 	}
 
 	#Odczyt
-	$res=$GLOBALS['db']->query('SELECT ID,name,lft,rgt FROM '.PRE.'cats'.
+	$res = $GLOBALS['db']->query('SELECT ID,name,lft,rgt FROM '.PRE.'cats'.
 		(($where)?' WHERE '.join(' && ',$where):'').' ORDER BY lft');
-	$depth=0;
-	$last=1;
-	$o='';
+	$depth = 0;
+	$last = 1;
+	$o = '';
 
 	#Lista
 	foreach($res as $cat)
 	{
 		#Poziom
-		if($last>$cat['rgt'])
+		if($last > $cat['rgt'])
 			++$depth;
 
 		elseif($depth>0 && $last+2!=$cat['rgt'] && $last+1!=$cat['lft'])
-			$depth-=floor(($cat['rgt']-$last)/2);
+			$depth -= floor(($cat['rgt']-$last)/2);
 
 		$last=$cat['rgt'];
 

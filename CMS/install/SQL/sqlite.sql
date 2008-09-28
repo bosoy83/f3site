@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `dsc` text NOT NULL,
 `date` date,
 `author` varchar(50) NOT NULL,
-`rate` varchar(4),
+`rate` tinyint(1),
 `access` tinyint(4) NOT NULL,
 `priority` tinyint(1) NOT NULL,
 `pages` tinyint(2) NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `access` tinyint(1) NOT NULL,
 `size` varchar(50),
 `priority` tinyint(1) NOT NULL,
-`rate` varchar(4),
+`rate` tinyint(1),
 `fulld` mediumtext);
 
 CREATE TRIGGER IF NOT EXISTS `{pre}filesd` AFTER DELETE ON `{pre}files`
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `date` datetime,
 `priority` tinyint(1) NOT NULL,
 `access` tinyint(1) NOT NULL,
-`rate` varchar(4),
+`rate` tinyint(1),
 `author` varchar(50) NOT NULL,
 `filem` varchar(255) NOT NULL,
 `file` varchar(255) NOT NULL,
@@ -250,11 +250,16 @@ CREATE TABLE IF NOT EXISTS `{pre}pollvotes` (
 `ID` int(11) NOT NULL,
 `date` date NOT NULL DEFAULT CURRENT_DATE);
 
+CREATE TABLE IF NOT EXISTS `{pre}rates` (
+`type` tinyint(2) NOT NULL,
+`ID` int(11) NOT NULL,
+`mark` tinyint(1) NOT NULL DEFAULT 5,
+`IP` varchar(50) NOT NULL);
+
 CREATE TABLE IF NOT EXISTS `{pre}tmp` (
 `KEYID` varchar(50) NOT NULL,
 `UID` int(11) NOT NULL,
-`type` varchar(9) NOT NULL
-);
+`type` varchar(9) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `{pre}users` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

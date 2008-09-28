@@ -83,7 +83,7 @@ $content->addScript('lib/editor.js');
 #Dane + rozmiar
 $content->data = array(
 	'img'  => &$img,
-	'url'  => 'index.php?co=edit&amp;act=img&amp;id='.$id,
+	'url'  => 'index.php?co=edit&amp;act=3&amp;id='.$id,
 	'cats' => Slaves(3,$img['cat']),
 	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
 	'fileman' => Admit('FM') ? true : false

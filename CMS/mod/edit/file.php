@@ -81,7 +81,7 @@ $content->addScript('lib/editor.js');
 #Dane
 $content->data = array(
 	'file' => &$file,
-	'url'  => '?co=edit&amp;act=file&amp;id='.$id,
+	'url'  => '?co=edit&amp;act=2&amp;id='.$id,
 	'cats' => Slaves(2,$file['cat']),
 	'fileman' => Admit('FM') ? true : false
 );
