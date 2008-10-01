@@ -64,7 +64,7 @@ class Saver
 		}
 
 		#Najnowsze
-		if(isset($_GET['act'])) Latest((int)$_GET['act']);
+		Latest();
 
 		#OK
 		try

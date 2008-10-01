@@ -16,12 +16,10 @@
 
 	<!-- IF pages --><div class="pages" style="margin-top: 12px">{pages}</div><!-- END -->
 
-</div>
-<div class="end">
+	<div style="margin-top: 12px">
 
 	<!-- IF rates -->
-	<span style="float: right; width: 150px">
-	{lang.rate}: 
+	<div style="float: right">{lang.rate}: 
 	<form action="{rates}" method="post" class="rate avg{art.rate} by">
 		<input type="submit" name="v" value="1" class="r1" />
 		<input type="submit" name="v" value="2" class="r2" />
@@ -29,13 +27,14 @@
 		<input type="submit" name="v" value="4" class="r4" />
 		<input type="submit" name="v" value="5" class="r5" />
 	</form>
-	
-	</span>
+	</div>
 	<!-- END -->
+
+	{lang.wrote}: {art.author} - {art.date}
 
 	<!-- IF art.ent -->
-	<span style="float: left; width: 150px">{lang.disps}: {art.ent}</span>
+	<span style="float: left">{lang.disps}: {art.ent}</span>
 	<!-- END -->
-
-	<span style="width: 150px">{lang.wrote}: {art.author} - {art.date}</span>
+	
+	</div>
 </div>

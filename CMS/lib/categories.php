@@ -16,70 +16,58 @@ function typeOf($co)
 }
 
 #Najnowsze pozycje
-function Latest($lang=null)
-{ return;
-	/*global $db,$cfg;
+function Latest($lang=array())
+{
+	global $db,$cfg;
 	include './cfg/latest.php';
-	if(!isset($cfg['newOn'])) return;
+	if(!isset($cfg['newOn']) OR !isset($cfg['newTypes'])) return;
 
 	#Jêzyki
 	if($lang)
 	{
-		$lang[0] = $lang;
-	}
+		$lang = array($lang);
+	} 
 	else
 	{
 		foreach(scandir('./lang') as $x)
 		{
-			if($x[0] != '.' && is_dir($x[0])) $lang[] = $x;
+			if($x[0] != '.' && is_dir('./lang/'.$x)) $lang[] = $x;
 		}
 	}
 
 	#Typy kategorii
 	$data = parse_ini_file('./cfg/types.ini',1);
-
+	
 	#Dla ka¿dego jêzyka
 	foreach($lang as $l)
 	{
-		$
-	}
-	
-	foreach($data as $x)
-	{
-		#Adres + pole
-		$url = isset($x['name']) ? '?co='.$x['name'].'&amp;id=' : '';
-		$get = isset($x['get']) ? $x['get'] : 'ID';
-		$all = '';
-
-		#Pobierz ostatnie pozycje
-		$res = $db->query('SELECT z.'.$get.',z.name,c.name,c.access FROM '.PRE.$x['table'].' z INNER JOIN '.
-		PRE.'cats c ON z.cat=c.ID WHERE z.access!=2 AND c.access!=3 ORDER BY z.ID DESC LIMIT 0,10');
-		$res -> setFetchMode(3); //INT
-
-		#Z³ó¿ listê
-		foreach($res as $item)
+		$q = array();
+		$out = '';
+		foreach($cfg['newTypes'] as $t=>$x)
 		{
-			$all[$item[3]] .= '<li><a href="'.$url.$item[0].'" title="'.$item[2].'">'.
-			(isset($item[1][21]) ? substr($item[1],0,20).'...' : $item[1]).'</a></li>';
+			$q[] = 'SELECT i.'.(isset($data[$t]['get']) ? $data[$t]['get'] : 'ID').',
+				i.name, c.name as cat, c.type FROM '.PRE.$data[$t]['table'].' i
+				INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND
+				(c.access=1 OR c.access="'.$l.'")';
 		}
-	}
+		$res = $db->query(join(' UNION ', $q).' LIMIT '.(int)$cfg['newNum']);
+		$res -> setFetchMode(3);
+		$i = -1;
 
-	
-	
-	#Dla ka¿dego jêzyka
-	foreach(scandir('./lang') as $l)
-	{
-		if($l[0] == '.') continue;
-		$in = '<ul>';
-
-		foreach($all as $x)
+		foreach($res as $x)
 		{
-			if($x[2]==1 OR $x[2]==$l) $in .= '<li><a href="'.$url.$x[0].'">'.
-				((isset($x[19])) ? substr($x[1],0,18).'...' : $x[1]).'</a></li>';
+			if($x[3] != $i)
+			{
+				$cur = &$data[$x[3]];
+				$url = isset($cur['name']) ? (MOD_REWRITE ? '/'.$cur['name'].'/' : '?co='.$cur['name'].'&amp;id=') : '';
+				$out .= ($i===-1 ? '' : '</ul>').'<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul>';
+				$i = $x[3];
+			}
+			$out .= '<li><a href="'.$url.$x[0].'" title="'.$x[2].'">'.$x[1].'</a></li>';
 		}
-		$in .= '</ul>';
-		file_put_contents('./cache/new'.$type.$l.'.php', $in, 2);
-	}*/
+		$out .= '</ul>';
+		file_put_contents('./cache/new-'.$l.'.php', $out, 2);
+	}
 }
 
 #Struktura kategorii

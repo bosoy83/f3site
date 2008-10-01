@@ -1,3 +1,4 @@
+
 <?php /* Wy¶wietlanie artyku³u */
 if(iCMS!=1) exit;
 include './cfg/content.php';
@@ -45,6 +46,10 @@ if(isset($cfg['adisp']))
 {
 	register_shutdown_function(array($db,'exec'),'UPDATE '.PRE.'arts SET ent=ent+1 WHERE ID='.$id);
 	++$art['ent'];
+}
+else
+{
+	$art['ent'] = 0;
 }
 
 #Strony
