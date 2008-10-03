@@ -15,6 +15,10 @@ img {
 	vertical-align: middle;
 	border: 0
 }
+h3 {
+	font-size: 13px;
+	margin: 3px 0
+}
 h2, .tb caption {
 	margin: 0;
 	font: bold 13px Verdana;

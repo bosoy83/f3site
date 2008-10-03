@@ -4,6 +4,7 @@ var eLang=new Array(
 'Underline',
 'Big tekst',
 'Small tekst',
+'Heading',
 'Subscript',
 'Superscript',
 'Center',

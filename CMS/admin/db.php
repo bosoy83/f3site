@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('CDB')) exit;
+if(iCMSa!=1 || !Admit('DB')) exit;
 require LANG_DIR.'adm_db.php';
 
 #Tytu³ strony
@@ -21,7 +21,7 @@ switch($db_db)
 }
 
 #Tworzenie
-if($_POST)
+if(isset($_POST['tab']))
 {
 	$n="\n";
 	@set_time_limit(50);
@@ -59,7 +59,7 @@ if($_POST)
 		}
 		else
 		{
-			$db->exec('OPTIMIZE TABLE '.$tab);
+			$db->query('OPTIMIZE LOCAL TABLE '.$tab)->fetchAll(3);
 		}
 
 		#Tworzenie tabeli
@@ -77,8 +77,7 @@ if($_POST)
 			}
 			else
 			{
-				$create = $db->query('SHOW CREATE TABLE '.$tab) -> fetch(3);
-				echo $create[1].';'.$n.$n;
+				echo $db->query('SHOW CREATE TABLE '.$tab)->fetchColumn(1).';'.$n.$n;
 			}
 
 			#Wypu¶æ dane

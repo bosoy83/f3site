@@ -12,6 +12,7 @@ var eIMG = [
 	'<u style="margin: 0 3px">U</u>',
 	'BIG',
 	'<small>small</small>',
+	' H ',
 	'sub','sup','center','right','color',
 	'char','img','www','mail','quote','code'];
 
@@ -22,6 +23,7 @@ var eTags = [
 	['u','u','u'],
 	['big','big','big'],
 	['small','small','small'],
+	['h','h3','h3'],
 	['d','sub','sub'],
 	['g','sup','sup'],
 	['center','center','center'],
@@ -105,7 +107,7 @@ Editor.prototype.create = function(hidden)
 	for(var i in eIMG)
 	{
 		if(typeof hidden[eIMG[i]] == 'string') continue;
-		if(i > 4)
+		if(i > 5)
 		{
 			var b = document.createElement('img');
 			b.src = './img/editor/'+eIMG[i]+'.png';

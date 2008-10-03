@@ -4,6 +4,7 @@ var eLang=new Array(
 'Podkre¶lenie',
 'Powiêksz tekst',
 'Pomniejsz tekst',
+'Nag³ówek',
 'Indeks dolny',
 'Indeks górny',
 'Wy¶rodkuj',
