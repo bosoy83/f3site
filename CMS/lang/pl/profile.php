@@ -24,6 +24,9 @@ $lang+=Array(
 'vismail'=>'Wy¶wietl adres e-mail w profilu',
 'getmails'=>'Dostarczaj listy od administratora',
 'allowComm'=>'W³±cz komentarze w moim profilu',
+'photoURL'=>'Adres do zdjêcia',
+'sendPhoto'=>'Wy¶lij z komputera',
+'guideline'=>'Maksymalna szeroko¶æ to %d px, a wysoko¶æ %d px. Rozmiar nie mo¿e byæ wiêkszy ni¿ %d KB.',
 
 'regoff'=>'Rejestracja nowych u¿ytkowników zosta³a wy³±czona.',
 'nousers'=>'Brak u¿ytkowników',

@@ -12,12 +12,19 @@
 
 <tr>
 	<td>
-	<!-- IF user_url -->
+		<!-- IF user_url -->
 		<a href="{user_url}">{user}</a>
-	<!-- ELSE -->
+		<!-- ELSE -->
 		{user}
-	<!-- END -->
-		<br /><small>{date}</small>
+		<!-- END -->
+		<br /><small>{date}
+		<!-- IF rights -->
+		<br />
+		IP: {ip}
+		<br />
+		<a href="{edit_url}"><img src="img/icon/edit.png" alt="E" /></a>
+		<!-- END -->
+		</small>
 	</td>
 	<td>
 		<b>{title}</b><br />{text}

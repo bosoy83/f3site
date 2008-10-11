@@ -41,29 +41,25 @@ function Latest($lang=array())
 	#Dla ka¿dego jêzyka
 	foreach($lang as $l)
 	{
-		$q = array();
 		$out = '';
 		foreach($cfg['newTypes'] as $t=>$x)
 		{
-			$q[] = 'SELECT i.'.(isset($data[$t]['get']) ? $data[$t]['get'] : 'ID').',
+			$res = $db->query('SELECT i.'.(isset($data[$t]['get']) ? $data[$t]['get'] : 'ID').',
 				i.name, c.name as cat, c.type FROM '.PRE.$data[$t]['table'].' i
 				INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND
-				(c.access=1 OR c.access="'.$l.'")';
-		}
-		$res = $db->query(join(' UNION ', $q).' LIMIT '.(int)$cfg['newNum']);
-		$res -> setFetchMode(3);
-		$i = -1;
+				(c.access=1 OR c.access="'.$l.'") ORDER BY i.ID DESC LIMIT '.(int)$cfg['newNum']);
+			$res -> setFetchMode(3);
 
-		foreach($res as $x)
-		{
-			if($x[3] != $i)
+			$got = '';
+			$cur = &$data[$t];
+			$url = isset($cur['name']) ? (MOD_REWRITE ? '/'.$cur['name'].'/' : '?co='.$cur['name'].'&amp;id=') : '';
+
+			foreach($res as $x)
 			{
-				$cur = &$data[$x[3]];
-				$url = isset($cur['name']) ? (MOD_REWRITE ? '/'.$cur['name'].'/' : '?co='.$cur['name'].'&amp;id=') : '';
-				$out .= ($i===-1 ? '' : '</ul>').'<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul>';
-				$i = $x[3];
+				$got .= '<li><a href="'.$url.$x[0].'" title="'.$x[2].'">'.
+				(isset($x[1][18]) ? substr($x[1],0,16).'...' : $x[1]).'</a></li>';
 			}
-			$out .= '<li><a href="'.$url.$x[0].'" title="'.$x[2].'">'.$x[1].'</a></li>';
+			if($got) $out .= '<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul>'.$got.'</ul>';
 		}
 		$out .= '</ul>';
 		file_put_contents('./cache/new-'.$l.'.php', $out, 2);

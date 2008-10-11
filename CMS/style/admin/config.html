@@ -1,18 +1,18 @@
 <h2>{lang.config}</h2>
 <div class="box">
 
-<ul class="cats" style="list-style: none; margin: 0; padding: 0">
-	<li><a href="?a=configMain"><img src="img/admin/c1.png" alt="" /> {lang.main}</a></li>
-	<li><a href="?a=configContent"><img src="img/admin/c2.png" alt="" /> {lang.content}</a></li>
-	<li><a href="?a=configEmail"><img src="img/admin/c3.png" alt="" /> E-mail</a></li>
-	<li><a href="?a=configUsers"><img src="img/admin/c4.png" alt="" /> {lang.ua}</a></li>
-	<li><a href="?a=emots"><img src="img/admin/c6.png" alt="" /> {lang.emots}</a></li>
-	<li><a href="?a=censor"><img src="img/admin/c5.png" alt="" /> {lang.censor}</a></li>
-	<li><a href="?a=configNew"><img src="img/admin/c7.png" alt="" /> {lang.latest}</a></li>
+<ul class="config">
+	<li class="c1"><a href="?a=configMain">{lang.main}</a></li>
+	<li class="c2"><a href="?a=configContent">{lang.content}</a></li>
+	<li class="c3"><a href="?a=configEmail">E-mail</a></li>
+	<li class="c4"><a href="?a=configUsers">{lang.ua}</a></li>
+	<li class="c5"><a href="?a=emots">{lang.emots}</a></li>
+	<li class="c6"><a href="?a=censor">{lang.censor}</a></li>
+	<li class="c7"><a href="?a=configNew">{lang.latest}</a></li>
 
 	<!-- IF plugins -->
 	<!-- START plugins -->
-	<li><a href="?a={ID}"><img src="{img}" alt="ENTER" /> {name}</a></li>
+	<li style="background-image: url({img})"><a href="?a={ID}">{name}</a></li>
 	<!-- STOP -->
 	<!-- END -->
 

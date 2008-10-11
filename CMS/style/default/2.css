@@ -12,7 +12,7 @@ a:hover {
 	color: #0C5BB4
 }
 img {
-	vertical-align: middle;
+	vertical-align: text-bottom;
 	border: 0
 }
 h3 {
@@ -220,7 +220,8 @@ ul.hint {
 .editor {margin: 2px}
 .editor img, .editor span {
 	cursor: pointer;
-	padding: 4px
+	padding: 4px;
+	vertical-align: middle;
 }
 .editor img:hover, .editor span:hover {
 	background-color: #fffdd9;

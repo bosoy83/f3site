@@ -52,7 +52,7 @@ if($TOTAL !== 0)
 			'date' => genDate($x[4]),
 			'user' => $x[6] ? $x[6] : $x[2],
 			'rights' => $rights,
-			'edit_url' => '?co=comm&amp;id='.$x[0],
+			'edit_url' => '?co=comment&amp;id='.$x[0],
 			'user_url' => $x[6] ? ((MOD_REWRITE) ? '/user/'.$x[2] : '?co=user&amp;id='.$x[2]) : null
 		);
 	}

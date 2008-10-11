@@ -18,7 +18,7 @@ foreach($res as $adm)
 		'url'   => MOD_REWRITE ? '/user/'.$adm[0] : 'index.php?co=user&amp;id='.$adm[0],
 		'rights'=> str_replace('|',' ',$adm[3]),
 		'login' => $adm[1],
-		'allow' => $adm[2]==4 || $adm[0]==UID ? false : true,
+		'allow' => $adm[0] != UID && ($adm[0] == 1 OR $adm[2] < LEVEL) ? true : false,
 		'url1'  => '?a=editAdmin&amp;id='.$adm[0],
 		'url2'  => '?a=editUser&amp;id='.$adm[0],
 	);

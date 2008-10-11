@@ -1,0 +1,20 @@
+ul.config {
+	overflow: hidden;
+	list-style: none;
+	margin: 0;
+	padding: 0
+}
+ul.config li {
+	width: 250px;
+	height: 45px;
+	padding: 22px 0px 0 75px;
+	background-repeat: no-repeat;
+	float: left
+}
+li.c1 {background-image: url(../../img/admin/c1.png)}
+li.c2 {background-image: url(../../img/admin/c2.png)}
+li.c3 {background-image: url(../../img/admin/c3.png)}
+li.c4 {background-image: url(../../img/admin/c4.png)}
+li.c5 {background-image: url(../../img/admin/c6.png)}
+li.c6 {background-image: url(../../img/admin/c5.png)}
+li.c7 {background-image: url(../../img/admin/c7.png)}

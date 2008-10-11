@@ -10,7 +10,7 @@ $lang+=Array(
 'one'=>'only 1 answer',
 'much'=>'more answers',
 'addans'=>'Add answer',
-'allowv'=>'Who may vote',
+'whoMay'=>'Who may vote',
 'every'=>'Everyone',
 'none'=>'Nobody',
 );

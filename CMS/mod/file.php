@@ -10,13 +10,14 @@ $res = $db->query('SELECT f.*,c.opt FROM '.PRE.'files f INNER JOIN '.PRE.'cats c
 if(!$file = $res->fetch(2)) return;
 
 #Rozmiar i URL
-if(file_exists('./'.$file['file']))
+if(strpos($file['file'],':') OR file_exists('./'.$file['file']))
 {
 	$file['url'] = $cfg['fgets']==1 ? 'go.php?file='.$id : $file['file'];
+	if($file['size'] === 'AUTO') $file['size'] = filesize($file['file']);
 }
 else
 {
-	$file['size'] = $lang['nof'];
+	$file['size'] = 'File not found';
 	$file['url'] = '#';
 }
 

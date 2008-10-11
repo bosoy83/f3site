@@ -36,10 +36,11 @@ function include(file, callback)
 
 	//Gotowy do u¿ycia?
 	if(callback == undefined) return true;
-	js.onreadystatechange = js.onload = function()
+	js.onreadystatechange = function()
 	{
 		if(js.readyState == 'complete') callback();
 	}
+	js.onload = callback;
 	return false;
 }
 

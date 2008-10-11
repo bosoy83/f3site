@@ -26,6 +26,7 @@ $lang+=Array(
 
 'photo'=>'Zdjêcie',
 'photos'=>'Pozwól dodawaæ zdjêcie',
+'upload'=>'Wysy³anie zdjêæ na serwer',
 'maxDim'=>'Maksymalne wymiary',
 'maxSize'=>'Maksymalny rozmiar',
 'width'=>'Szer.',

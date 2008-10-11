@@ -10,7 +10,11 @@ $set = array('C','IP','Q','RSS','U','LOG','MM','CFG','DB','NM','B','PI','CM','FM
 $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
 	((LEVEL!=4)?' && lv!=4':'')) -> fetch(3); //FETCH_NUM
 
-if(!$adm) { $content->info($lang['noex']); return; }
+#Brak uprawnieñ?
+if(!$adm OR ($id != 1 && $adm[1] >= LEVEL))
+{
+	$content->info($lang['noex']); return;
+}
 
 #Pobierz wtyczki
 $plug1 = $db->query('SELECT ID,text FROM '.PRE.'admmenu WHERE rights=1') -> fetchAll(3); //NUM
@@ -29,9 +33,9 @@ if($_POST)
 	$lv = (int)$_POST['lv'];
 
 	#Mo¿e zmieniæ w³a¶ciciela?
-	if(LEVEL!=4)
+	if(LEVEL!=4 && ($lv>3 OR $lv<0))
 	{
-		if($lv>3 || $lv<0) exit('ERROR: Wrong level.');
+		$content->info($lang['noex']); return;
 	}
 
 	$glo = array(); //Globalne

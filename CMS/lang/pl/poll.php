@@ -11,6 +11,6 @@ $lang+=Array(
 'much'=>'wiele odpowiedzi',
 'addans'=>'Dodaj odpowied¼',
 'whoMay'=>'Kto mo¿e g³osowaæ',
-'every'=>'Everyone',
-'none'=>'Nobody',
+'every'=>'Wszyscy',
+'none'=>'Nikt',
 );

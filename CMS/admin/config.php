@@ -14,3 +14,4 @@ $items = $res->fetchAll(2); //NUM
 #Do szablonu
 $content->file = 'config';
 $content->data['plugins'] =& $items;
+$content->addCSS('style/admin/config.css');

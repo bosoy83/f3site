@@ -84,8 +84,11 @@ class PM
 	{
 		global $db;
 
+		#Odbiorca
+		if(!is_numeric($this->to)) $this->to = userID($this->to);
+
 		$q = $db->prepare('UPDATE '.PRE.'pms SET topic=:topic, usr=:usr, owner=:owner,
-			st=:st, date=:date, bbc=:bbc, WHERE owner=:owner AND st=4 AND ID=:id');
+			st=:st, date=:date, bbc=:bbc, txt=:txt WHERE owner=:owner AND st=4 AND ID=:id');
 
 		$q->execute( array(
 			'id'    => $id,
