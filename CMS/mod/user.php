@@ -34,13 +34,13 @@ else
 if(!$u['city']) $u['city'] = NA;
 
 #PM
-$pm_url = isset($cfg['pmsOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;a='.$u['login'] : '';
+$pm = isset($cfg['pmOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;a='.$u['login'] : '';
 
 #Do szablonu
 $content->title = $u['login'];
 $content->data  = array(
-	'u' => &$u,
-	'pm_url' => $pm_url,
+	'u'  => &$u,
+	'pm' => $pm,
 	'users'  => MOD_REWRITE ? '/users' : '?co=users',
 	'join_date' => genDate($u['regt'], true), //Data rejestracji
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],true) : NA

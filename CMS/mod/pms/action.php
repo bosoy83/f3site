@@ -29,7 +29,7 @@ if(isset($q))
 {
 	#Pobierz w³a¶cicieli
 	$res = $db->query('SELECT owner FROM '.PRE.'pms WHERE st=1 AND (usr='.UID.' OR owner='.UID.') AND '.$q);
-	$res->setFetchMode(7); //Column
+	$res->setFetchMode(7,0); //Column
 	$users = array();
 
 	foreach($res as $x)

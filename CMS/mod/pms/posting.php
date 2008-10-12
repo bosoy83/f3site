@@ -43,7 +43,7 @@ if($_POST)
 				{
 					$o -> send(); //Wy¶lij now± wiadomo¶æ
 				}
-				if(isset($_POST['sent']) && $pm_ile >= $cfg['pmLimit'])
+				if(isset($_POST['sent']) && $cfg['pmLimit'] > $content->data['size'])
 				{
 					$o -> status = 4;
 					$o -> send(1); //Zapisz do wys³anych
