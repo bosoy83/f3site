@@ -78,6 +78,9 @@ td#main {background-color: #EDEDEB; padding: 9px}
 	text-align: center;
 	background: url(logo.png) no-repeat
 }
+#flags {
+	text-align: center;
+}
 #footer {
 	background-color: #DCDCD6;
 	padding: 2px;

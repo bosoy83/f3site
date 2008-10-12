@@ -34,7 +34,7 @@ else
 if(!$u['city']) $u['city'] = NA;
 
 #PM
-$pm = isset($cfg['pmOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;a='.$u['login'] : '';
+$pm = isset($cfg['pmOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;to='.$id : '';
 
 #Do szablonu
 $content->title = $u['login'];

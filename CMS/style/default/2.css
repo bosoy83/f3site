@@ -65,18 +65,33 @@ ul.cats li {
 .art a, .files a, .link a {font-weight: bold}
 
 /* Szablon */
-.all {width: 880px; background-color: #728FA7}
-.all>tbody {background-color: #B3C4D7}
-td.nav {width: 175px; padding: 9px}
-td#main {background-color: #C4D0DF; padding: 9px}
+.all {
+	width: 880px;
+	background-color: #728FA7
+}
+.all>tbody {
+	background-color: #B3C4D7
+}
+td.nav {
+	width: 175px;
+	padding: 9px
+}
+td#main {
+	background-color: #C4D0DF;
+	padding: 9px
+}
 
 /*Nag³ówek i stopka*/
 #header {
-	background-color: #E4E4E4;
 	height: 60px;
 	padding-left: 220px;
 	text-align: center;
-	background: url(2/logo.png) no-repeat
+	background-image: url(2/logo.png);
+	background-repeat: no-repeat
+}
+#flags {
+	margin: -2px auto 0 auto;
+	text-align: center;
 }
 #footer {
 	background-color: #AABCCA;

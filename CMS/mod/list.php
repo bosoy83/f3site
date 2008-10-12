@@ -12,33 +12,33 @@ switch($act)
 	case 5:
 		$type = $lang['news'];
 		$table = 'news';
-		$name = 'news';
+		$href = MOD_REWRITE ? '/news/' : '?co=news&amp;id=';
 		break;
 	case 4:
 		$type = $lang['links'];
-		$name = 'link';
-		$table = 'arts';
+		$href = MOD_REWRITE ? '/go/' : 'go.php?link=';
+		$table = 'links';
 		break;
 	case 3:
 		$type = $lang['images'];
-		$name = 'img';
+		$href = MOD_REWRITE ? '/img/' : '?co=img&amp;id=';
 		$table = 'imgs';
 		break;
 	case 2:
 		$type = $lang['files'];
-		$name = 'file';
+		$href = MOD_REWRITE ? '/file/' : '?co=file&amp;id=';
 		$table = 'files';
 		break;
 	case 1:
 		$type = $lang['arts'];
-		$name = 'art';
+		$href = MOD_REWRITE ? '/art/' : '?co=art&amp;id=';
 		$table = 'arts';
 		break;
 	default:
 		if(!$data = parse_ini_file('./cfg/types.ini',1) OR !isset($data[$act])) return;
 		$type = $data[$act][$nlang];
-		$name = $data[$act]['name'];
 		$table = $data[$act]['table'];
+		$href = isset($data[$act]['name']) ? '?co='.$data[$act]['name'] : '';
 		unset($data);
 }
 
@@ -144,7 +144,7 @@ foreach($res as $i)
 		'title'=> $i[1],
 		'id'   => $i[0],
 		'on'   => $a,
-		'url'  => '?co='.$name.'&amp;id='.$i[0],
+		'url'  => $href.$i[0],
 		'edit_url' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0]
 	);
 }

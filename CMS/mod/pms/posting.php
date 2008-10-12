@@ -128,8 +128,16 @@ elseif($id)
 }
 else
 {
+	if(isset($_GET['to']) && is_numeric($_GET['to']))
+	{
+		$to = $db->query('SELECT login FROM '.PRE.'users WHERE ID='.$_GET['to']) -> fetchColumn();
+	}
+	else
+	{
+		$to = '';
+	}
 	$pm = array(
-		'to'  => isset($_GET['to']) ? Clean($_GET['a'],50) : '',
+		'to'  => $to,
 		'bbc' => isset($cfg['bbcode']),
 		'txt' => '',
 		'topic' => '',
