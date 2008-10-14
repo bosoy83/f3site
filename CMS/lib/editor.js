@@ -70,24 +70,24 @@ Editor.prototype.format = function(i)
 	{
 		switch(i)
 		{
-			case 10:
+			case 11:
 				if(eCharList==0) this.make('chars');
 				eO = this.o;
 				hint(eCharList, cx-10, cy, 1);
 				break;
-			case 9:
+			case 10:
 				if(eColors==0) this.make('colors');
 				eO = this.o;
 				eCurBBC = this.bbcode;
 				hint(eColors, cx-10, cy, 1);
 				break;
-			case 12:
+			case 13:
 				this.ins('link');
 				break;
-			case 13:
+			case 14:
 				this.ins('mail');
 				break;
-			case 11:
+			case 12:
 				if(this.bbcode==1) {
 					var a = prompt(eLang2.img); if(a) BBC(this.o, '[img]', '[/img]', a) }
 				else
@@ -168,7 +168,7 @@ Editor.prototype.emots = function(x)
 		}
 		return;
 	}
-	else if(!x) return;
+	else if(x && x==0) return;
 
 	//Wstaw
 	var out = document.createElement('div');
@@ -297,4 +297,53 @@ Editor.prototype.ins = function(co)
 			else BBC(this.o, '<a href="m&#97;ilto:'+a+'">'+a, '</a>')
 		}
 	}
+};
+
+//Podgl¹d
+Editor.prototype.preview = function(opt,where,text)
+{
+	//Tekst
+	if(text == undefined) text = this.o.value;
+
+	//DIV
+	if(this.box == undefined)
+	{
+		if(where)
+		{
+			this.box = where.getElementsByTagName('div')[0];
+		}
+		else
+		{
+			this.box = document.createElement('div');
+			this.box.className = 'box';
+			this.o.form.parentNode.insertBefore(this.box,this.o.form);
+		}
+	}
+
+	//Brak opcji?
+	if(opt == undefined) opt = {NL:1};
+
+	//Nowe linie
+	this.box.style.whiteSpace = (opt.NL != undefined && opt.NL == false) ? '' : 'pre';
+
+	//HTML
+	if(this.bbcode)
+	{
+		text = text.replace(/&/g, '&amp;;');
+		text = text.replace(/</g, '&lt;');
+		text = text.replace(/>/g, '&gt;');
+	}
+
+	//Emotikony
+	if(opt.EMOTS)
+	{
+		for(var i in emots)
+		{
+			text = text.replace(emots[i][0],'<img src="img/emo/'+emots[i][1]+'" title="'+emots[i][2]+'" />');
+		}
+	}
+
+	//Wyœwietl
+	this.box.innerHTML = text;
+	this.box.scrollIntoView()
 };

@@ -9,7 +9,7 @@ if($_POST && $x = GetID(true))
 }
 
 #Info
-$content->info($lang['bnrinfo'], array('?a=editad' => $lang['addbn']));
+$content->info($lang['bnrinfo'], array('?a=editAd' => $lang['addbn']));
 
 #Odczyt
 $res = $db->query('SELECT ID,gen,name,ison FROM '.PRE.'banners ORDER BY gen,name');

@@ -96,14 +96,13 @@ class Content
 	function compile($x)
 	{
 		static $compiler;
-
-		if(!isset($compiler))
-		{
-			include_once './lib/compiler.php';
-			$compiler = new Compiler;
-		}
 		if(filemtime($this->dir.$x) > @filemtime($this->cacheDir.$x))
 		{
+			if(!isset($compiler))
+			{
+				include_once './lib/compiler.php';
+				$compiler = new Compiler;
+			}
 			$compiler -> compile($x, $this->dir, $this->cacheDir);
 		}
 	}

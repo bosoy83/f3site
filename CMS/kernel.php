@@ -246,9 +246,17 @@ function Admit($id,$type=null)
 }
 
 #Struktura kategorii
-function CatPath($id)
+function CatPath($id, &$cat=null)
 {
-	return file_get_contents('./cache/cat'.$id.'.php');
+	if(file_exists('./cache/cat'.$id.'.php'))
+	{
+		return file_get_contents('./cache/cat'.$id.'.php');
+	}
+	else
+	{
+		include_once './lib/categories.php';
+		return UpdateCatPath($cat ? $cat : $id);
+	}
 }
 
 #Skanowanie katalogu

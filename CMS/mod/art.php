@@ -1,10 +1,9 @@
-
 <?php /* Wy¶wietlanie artyku³u */
 if(iCMS!=1) exit;
 include './cfg/content.php';
 
 #Pobierz dane
-$res = $db->query('SELECT t.*,f.text,f.page,f.opt,c.opt as cat_opt FROM '.PRE.'arts t
+$res = $db->query('SELECT t.*,f.text,f.page,f.opt,c.opt as catOpt FROM '.PRE.'arts t
 	INNER JOIN '.PRE.'artstxt f ON t.ID=f.ID INNER JOIN '.PRE.'cats c ON t.cat=c.ID
 	WHERE t.ID='.$id.' AND t.access=1 AND c.access!=3 AND f.page='.
 	((isset($_GET['page'])) ? (int)$_GET['page'] : 1));
@@ -31,7 +30,7 @@ $art['date'] = genDate($art['date'], true);
 $art['author'] = Autor($art['author']);
 
 #Ocena
-if(isset($cfg['arate']) AND $art['cat_opt'] & 4)
+if(isset($cfg['arate']) AND $art['catOpt'] & 4)
 {
 	$content->addCSS(SKIN_DIR.'rate.css');
 	$rates = 'vote.php?type=1&amp;id='.$id;
@@ -67,7 +66,7 @@ $content->data = array(
 );
 
 #Komentarze
-if(isset($cfg['acomm']) && $art['cat_opt']&2)
+if(isset($cfg['acomm']) && $art['catOpt']&2)
 {
 	define('CT','1');
 	require './lib/comm.php';

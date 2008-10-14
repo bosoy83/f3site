@@ -91,7 +91,7 @@ class Installer
 		$m->execute(array(2, $lang[3], $x, 2, 2, './mod/panels/user.php'));
 		$m->execute(array(3, $lang[4], $x, 2, 2, './mod/panels/poll.php'));
 		$m->execute(array(4, $lang[5], $x, 1, 2, './mod/panels/online.php'));
-		$m->execute(array(5, $lang[6], $x, 2, 1, 'Coming soon...'));
+		$m->execute(array(5, $lang[6], $x, 2, 2, './mod/panels/new.php'));
 
 		//Pierwszy NEWS
 		$n->execute(array($catID, $lang[11], $lang[12], gmdate('Y-m-d H:i:s'), 1, 1));

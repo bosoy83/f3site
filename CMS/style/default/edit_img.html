@@ -71,14 +71,17 @@
 	</td>
 </tr>
 <tr>
-  <td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+  <td colspan="2" class="eth">
+		<input type="button" value="{lang.descPreview}" onclick="e.preview()" />
+		<input type="submit" value="{lang.save}" />
+	</td>
 </tr>
 </tbody>
 </table>
 </form>
 <script type="text/javascript">
 var f = document.forms['img'];
+var e = new Editor(f.dsc);
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
-new Editor(f.dsc);
 include('lib/forms.js')
 </script>

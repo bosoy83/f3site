@@ -18,6 +18,7 @@ foreach($res as $art)
 		'desc'  => $art[2],
 		'num'   => ++$st,
 		'url'   => '?co=art&amp;id='.$art[0],
+		'new'   => isset($_SESSION['recent']) && $art[3] > $_SESSION['recent'],
 		'date'  => $art[3]
 	);
 	++$total;
@@ -30,7 +31,7 @@ if($total===0) { $content->info($lang['noc']); return 1; }
 $pages = $cat['num'] > $total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
 
 #Do szablonu
-$content->file[] = 'cat_arts';
+$content->file = array('cat_arts');
 $content->data += array(
 	'pages' => &$pages,
 	'arts'  => &$arts,

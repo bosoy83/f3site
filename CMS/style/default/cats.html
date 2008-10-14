@@ -5,10 +5,14 @@
 <!-- START cat -->
 <tr>
 	<td style="width: 15px">
-		<img src="img/icon/folder.gif" alt="CAT" />
+		<!-- IF new -->
+		<img src="img/icon/folder.gif" alt="NEW" />
+		<!-- ELSE -->
+		<img src="img/icon/folder.gif" alt="OLD" />
+		<!-- END -->
 	</td>
 	<td>
-		<a class="listlink" href="{url}">{title}</a> ({num})
+		<a href="{url}">{title}</a> ({num})
 		<br />
 		<small>{desc}</small>
 	</td>

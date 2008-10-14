@@ -52,8 +52,11 @@
 		<textarea name="full" rows="12" style="width: 100%">{Clean: file.fulld}</textarea>
 	</td>
 </tr>
-<tr class="eth">
-	<td colspan="2"><input type="submit" value="{lang.save}" /></td>
+<tr>
+	<td class="eth" colspan="2">
+		<input type="button" value="{lang.descPreview}" onclick="e.preview()" />
+		<input type="submit" value="{lang.save}" />
+	</td>
 </tr>
 </tbody>
 </table>
@@ -61,6 +64,6 @@
 <script type="text/javascript">
 var f = document.forms['file'];
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
-new Editor(f.full);
+var e = new Editor(f.full);
 include('lib/forms.js');
 </script>

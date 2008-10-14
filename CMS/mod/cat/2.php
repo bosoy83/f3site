@@ -18,6 +18,7 @@ foreach($res as $file)
 		'desc'  => $file[3],
 		'size'  => $file[5],
 		'num'   => ++$st,
+		'new'   => isset($_SESSION['recent']) && $file[2] > $_SESSION['recent'],
 		'date'  => genDate($file[2]),
 		'url'   => '?co=file&amp;id='.$file[0],
 		'file_url' => isset($cfg['fcdl']) ? 'go.php?file='.$file[0] : $file[4]

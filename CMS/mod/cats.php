@@ -8,7 +8,7 @@ $content->title = $lang['cats'];
 if(!$id) $id = 5;
 
 #Odczyt
-$res = $db->query('SELECT ID,name,dsc,nums FROM '.PRE.'cats WHERE sc=0
+$res = $db->query('SELECT ID,name,dsc,last,nums FROM '.PRE.'cats WHERE sc=0
 	AND type='.$id.' AND (access=1 OR access="'.$nlang.'") ORDER BY lft');
 
 $res->setFetchMode(3);
@@ -22,7 +22,8 @@ foreach($res as $x)
 		'title'=> $x[1],
 		'url'  => MOD_REWRITE ? '/'.$x[0] : '?d='.$x[0],
 		'desc' => $x[2],
-		'num'  => $x[3]
+		'num'  => $x[4],
+		'new'  => isset($_SESSION['recent']) && $x[3] > $_SESSION['recent']
 	);
 	++$total;
 }

@@ -28,7 +28,7 @@ $lang+=Array(
 
 'file'=>'plik',
 'left'=>'lewa',
-'right'=>'right',
+'right'=>'prawa',
 'navadd'=>'Dodaj element',
 'navbe'=>'Edycja bloku',
 'navbn'=>'Dodawanie nowego bloku',

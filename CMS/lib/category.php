@@ -93,17 +93,12 @@ $content->data = array(
 #Struktura kategorii
 if($cat['opt'] & 1 && isset($cfg['catStr']))
 {
-	if(file_exists('./cache/cat'.$d.'.php'))
-	{
-		$content->data['path'] = file_get_contents('./cache/cat'.$d.'.php');
-	}
-	else
-	{
-		include './lib/categories.php';
-		$content->data['path'] = UpdateCatPath($cat);
-	}
+	$content->data['path'] = CatPath($d,$cat);
 }
-else $content->data['path'] = null;
+else
+{
+	$content->data['path'] = null;
+}
 
 #Do³±cz generator listy pozycji
 if($cat['num'])

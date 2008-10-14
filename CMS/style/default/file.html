@@ -17,10 +17,6 @@
 	<td>{file.date}</td>
 </tr>
 <tr>
-	<td style="width: 150px"><b>{lang.desc}</b></td>
-	<td>{file.dsc}</td>
-</tr>
-<tr>
 	<td><b>{lang.size}:</b></td>
 	<td>{file.size}</td>
 </tr>
@@ -51,7 +47,8 @@
 		<a href="{file.url}" style="display: block; margin: 5px; text-align: center">
 			<button onclick="location=this.parentNode.href; return false">{lang.dl}</button>
 		</a>
-		{nl2br: file.fulld}
+		<p>{nl2br: file.dsc}</p>
+		<p>{nl2br: file.fulld}</p>
 	</td>
 </tr>
 </tbody></table>

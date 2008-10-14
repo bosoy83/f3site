@@ -16,7 +16,7 @@ if($_POST)
 }
 
 #Info
-$content->info($lang['ugrw'], array('?a=editgroup'=>$lang['gradd']));
+$content->info($lang['ugrw'], array('?a=editGroup'=>$lang['gradd']));
 
 #Odczyt
 $res = $db->query('SELECT ID,name,opened FROM '.PRE.'groups');

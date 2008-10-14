@@ -1,4 +1,4 @@
-<form action="{url}" method="POST" f3:array="ad">
+<form action="{url}" method="post" f3:array="ad">
 <h2>{this->title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -23,12 +23,15 @@
 	<td>
 		<textarea name="code" style="width: 90%" rows="12">{Clean: ad.code}</textarea>
 		<script type="text/javascript">
-		var f = document.forms[0]; new Editor(f.code); f.elements[0].focus()
+		var f = document.forms[0]; var e = new Editor(f.code); f.elements[0].focus()
 		</script>
 	</td>
 </tr>
 <tr>
-	<td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+	<td colspan="2" class="eth">
+		<input type="button" value="{lang.preview}" onclick="e.preview({NL:0})" />
+		<input type="submit" value="{lang.save}" />
+	</td>
 </tr>
 </tbody>
 </table>

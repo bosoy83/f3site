@@ -58,7 +58,7 @@ if($_POST)
 		$db->exec('DELETE FROM '.PRE.'acl WHERE UID='.$id.' AND type="CAT" AND CatID NOT IN('.$checked.')');
 
 		#Zapytanie - ACL
-		$q = $db->prepare('REPLACE INTO '.PRE.'acl VALUES (?,?,1,"CAT")');
+		$q = $db->prepare('REPLACE INTO '.PRE.'acl (UID,CatID,type) VALUES (?,?,"CAT")');
 		foreach($cats1 as $x)
 		{
 			if(isset($_POST['c'][$x[0]])) $q->execute(array($id, $x[0]));

@@ -74,7 +74,7 @@ if($_POST)
 		$db->commit();
 		UpdateCatPath($id);
 		$content->info($lang['saved'].' ID: '.$id, array(
-			'?a=editcat' => $lang['addcat'],
+			'?a=editCat' => $lang['addcat'],
 			(MOD_REWRITE ? '/'.$id : 'index.php?d='.$id) => $lang['gocat']
 		));
 		return 1;

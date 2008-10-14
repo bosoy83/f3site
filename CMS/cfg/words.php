@@ -1,1 +1,1 @@
-<?php $words1=array('0'=>'styli','1'=>'dup',);$words2=array('0'=>'stylów','1'=>'***',); ?>
+<?php $words1=array('0'=>'styli','1'=>'dup','2'=>'kurw','3'=>'pierd','4'=>'pizd','5'=>'chuj',);$words2=array('0'=>'stylów','1'=>'***','2'=>'****','3'=>'*****','4'=>'****','5'=>'****',); ?>

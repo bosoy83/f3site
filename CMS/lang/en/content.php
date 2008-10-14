@@ -14,6 +14,7 @@ $lang+=Array(
 'emo'=>'Emoticons',
 'br'=>'ENTER = line break',
 'hl'=>'Highlight code',
+'descPreview' => 'Description preview',
 
 'viewarts'=>'Show articles',
 'i1'=>'Click article\'s name to show it.',

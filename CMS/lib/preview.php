@@ -15,7 +15,7 @@ else
 }
 
 #BBCode
-if(isset($_POST['BBCODE']) && $cfg['bbcode']==1)
+if(isset($_POST['BBCODE']) && isset($cfg['bbcode']))
 {
 	include './lib/bbcode.php';
 	$text = BBCode($text);

@@ -1,13 +1,15 @@
 <h2>{lang.links}</h2>
-<table cellspacing="1" class="tb">
+<table cellspacing="1" class="tb items link">
 <tbody>
 
 <!-- START links -->
 <tr>
-	<td class="link">
-		{num}. <a href="{url}">{title}</a>
-		<!-- IF views --> ({lang.disps}: {views})<!-- END --><br />
-		<small>{desc}</small>
+	<td>
+		<h3>{num}. <a href="{url}">{title}</a></h3>
+		<small>
+		{desc}
+		<!-- IF views --><div>{lang.disps}: {views}</div><!-- END -->
+		</small>
 	</td>
 </tr>
 <!-- STOP -->

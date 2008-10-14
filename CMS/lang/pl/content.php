@@ -14,6 +14,7 @@ $lang+=Array(
 'emo'=>'Emotikony',
 'br'=>'ENTER = nowa linia',
 'hl'=>'Koloruj kod',
+'descPreview' => 'Podgl±d opisu',
 
 'viewarts'=>'Poka¿ artyku³y',
 'i1'=>'Kliknij nazwê artyku³u, aby go wy¶wietliæ.',

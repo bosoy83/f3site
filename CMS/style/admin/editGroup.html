@@ -25,11 +25,14 @@
 	<td><b>4. {lang.desc}:</b></td>
 	<td>
 		<textarea name="dsc" rows="6" style="width: 95%">{Clean: group.dsc}</textarea>
-		<script type="text/javascript">new Editor(document.forms[0].dsc)</script>
+		<script type="text/javascript">var e = new Editor(document.forms[0].dsc)</script>
 	</td>
 </tr>
 <tr>
-	<td class="eth" colspan="2"><input type="submit" value="{lang.save}" /></td>
+	<td class="eth" colspan="2">
+		<input type="button" value="{lang.preview}" onclick="e.preview()" />
+		<input type="submit" value="{lang.save}" />
+	</td>
 </tr>
 </tbody>
 </table>

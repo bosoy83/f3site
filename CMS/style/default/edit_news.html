@@ -42,7 +42,7 @@
 <div class="box" style="text-align: center">
 	<textarea name="txt" rows="10" style="width: 100%">{Clean: news.txt}</textarea>
 	<div style="margin-top: 7px">
-		<input type="button" value="{lang.preview}" onclick="Prev()" />
+		<input type="button" value="{lang.preview}" onclick="P()" />
 		<input type="submit" name="sav" value="{lang.save}" />
 	</div>
 </div>
@@ -58,22 +58,27 @@
 
 <script type="text/javascript">
 <!--
-var el = document.forms['news'].elements;
-var ed = new Editor(el.txt);
-ed.emots();
-var done = el.fn.checked;
+var f = document.forms['news'];
+var l = f.elements;
+var e = new Editor(l.txt);
+e.emots();
+var done = l.fn.checked;
 
-if(el[0].value == 0) el[0].focus(); else el[1].focus();
+if(l[0].value == 0) l[0].focus(); else l[1].focus();
 
 function FN(x)
 {
 	show('full');
 	if(done!=1 || x==1)
 	{
-		var ed2 = new Editor(el.text);
-		ed2.emots();
+		var e2 = new Editor(l.text);
+		e2.emots();
 		done = 1;
 	}
+}
+function P()
+{
+	e.preview({NL: l.br.checked, EMOTS: l.emo.checked}, null, l.txt.value+'<br /><br />'+l.text.value);
 }
 if(done==1) FN(1);
 include('lib/forms.js')

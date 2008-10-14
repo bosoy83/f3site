@@ -44,4 +44,3 @@ $content->check && $content->compile('body.html');
 
 #Skórka
 include VIEW_DIR.'body.html';
-#echo 'U¿ycie pamiêci: '.(xdebug_memory_usage()/1024).' KB, Max: '.(xdebug_peak_memory_usage()/1024),' KB';
