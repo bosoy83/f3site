@@ -32,6 +32,24 @@ foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 unset($x);
 require './install/lang/'.$nlang.'.php';
 
+#Skompiluj najwa¿niejsze pliki szablonu
+if(!file_exists('./cache/default/info.php'))
+{
+	include_once './lib/compiler.php';
+	try
+	{
+		$c = new Compiler();
+		$c -> compile('info.html');
+		$c -> compile('message.html');
+		$c -> compile('body.html');
+	}
+	catch(Exception $e)
+	{
+		echo $lang['TP'];
+	}
+	unset($c);
+}
+
 #Gdy db.php istnieje
 if(file_exists('./cfg/db.php')) $content->message($lang['XX']);
 
@@ -146,20 +164,20 @@ if($_POST OR isset($_GET['next']))
 	else
 	{
 		$data = array(
-			'type' => 'mysql',
+			'type' => $my ? 'mysql' : 'sqlite',
 			'host' => 'localhost',
 			'user' => 'root',
 			'pass' => '',
 			'db'   => '',
 			'file' => (file_exists('../htdocs/../') && is_writable('../')) ? '../db.db' : './cfg/db.db',
 			'pre'  => 'f3_',
-			'login'=> 'Admin',
+			'login'=> 'Admin'
 		);
 	}
 
 	#Szablon
 	$content->file = 'form';
-	$content->data = array('data' => $data);
+	$content->data = array('data' => $data, 'MySQL' => $my, 'SQLite'=> $li);
 }
 
 #START

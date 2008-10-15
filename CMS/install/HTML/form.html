@@ -69,7 +69,6 @@
 //<![CDATA[
 var f = document.forms[0].elements
 var def = f[6].value
-f[0].focus()
 
 function Change()
 {
@@ -83,5 +82,6 @@ function Change()
 	if(f[6].value == def && !v) f[6].value = '';
 }
 Change();
+if(f[0].checked) f[2].focus(); else f[6].focus()
 //]]>
 </script>

@@ -31,6 +31,7 @@ $lang = array(
 'e4' => 'Serwer nie obs³uguje baz danych MySQL ani SQLite.',
 'e5' => 'Rozszerzenie PDO do obs³ugi baz danych zosta³o wy³±czone na serwerze.',
 'e6' => 'B³êdne uprawnienia plików. Przeczytaj ponownie ulotkê.',
+'TP' => 'Nie mo¿na skompilowaæ stylu. Sprawd¼, czy katalog CACHE oraz jego zawarto¶æ ma uprawnienia zapisu (CHMOD 777).',
 'XX' => 'System zosta³ ju¿ zainstalowany.',
 'NO' => 'Nie mo¿na kontynuowaæ instalacji',
 'OK' => 'Instalacja zakoñczona. Usuñ teraz katalogi INSTALL oraz CACHE/INSTALL w celu bezpieczeñstwa. ¯yczymy przyjemnej pracy z systemem!',

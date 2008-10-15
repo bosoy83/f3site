@@ -11,6 +11,7 @@ class Installer
 	{
 		if($data['type'] == 'sqlite')
 		{
+			@touch($data['file']);
 			$this->db = new PDO('sqlite:'.$data['file']);
 		}
 		else
