@@ -177,7 +177,7 @@ if($_POST OR isset($_GET['next']))
 
 	#Szablon
 	$content->file = 'form';
-	$content->data = array('data' => $data, 'MySQL' => $my, 'SQLite'=> $li);
+	$content->data = array('data' => $data, 'host' => $_SERVER['HTTP_HOST']);
 }
 
 #START

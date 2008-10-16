@@ -61,7 +61,6 @@ ul.cats li {
 	padding-left: 40px !important;
 }
 .art td { background: url(../../img/icon/art.png) no-repeat 5px 50% }
-.art td.new { background: url(../../img/icon/hart.png) no-repeat 5px 50% }
 .link td { background: url(../../img/icon/link.png) no-repeat 3px 50% }
 .items a {font-weight: bold}
 .items h3 {margin: 0}

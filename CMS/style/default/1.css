@@ -56,13 +56,14 @@ ul.cats li {
 	padding: 3px 0 5px 30px;
 	min-height: 32px;
 }
-.art,.link {
+.items td {
 	height: 40px;
-	padding-left: 37px !important;
+	padding-left: 40px !important;
 }
-.art  { background: url(../../img/icon/art.png) no-repeat 4px 50% }
-.link { background: url(../../img/icon/link.png) no-repeat 3px 50% }
-.art a, .files a, .link a {font-weight: bold}
+.art td { background: url(../../img/icon/art.png) no-repeat 5px 50% }
+.link td { background: url(../../img/icon/link.png) no-repeat 3px 50% }
+.items a {font-weight: bold}
+.items h3 {margin: 0}
 
 /* Szablon */
 .all {width: 880px; background-color: #ACACA4}

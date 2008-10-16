@@ -95,7 +95,7 @@ Editor.prototype.format = function(i)
 				break;
 		}
 	}
-}
+};
 
 //Utwórz edytor
 Editor.prototype.create = function(hidden)
@@ -122,7 +122,7 @@ Editor.prototype.create = function(hidden)
 		b.item  = parseInt(i);
 		b.title = eLang[i];
 		b.width = 16;
-		b.onclick = function() { that.format(this.item); }
+		b.onclick = function() { that.format(this.item); };
 		out.appendChild(b);
 	}
 	this.o.parentNode.insertBefore(out,this.o);
@@ -146,8 +146,8 @@ Editor.prototype.create = function(hidden)
 			}
 			return false;
 		}
-	}
-}
+	};
+};
 
 //Emoty
 Editor.prototype.emots = function(x)
@@ -182,11 +182,11 @@ Editor.prototype.emots = function(x)
 		img.alt = emots[i][2];
 		img.width = 16;
 		img.title = emots[i][0];
-		img.onclick = function() { BBC(that,'','',this.alt); }
+		img.onclick = function() { BBC(that,'','',this.alt); };
 		out.appendChild(img);
 	}
 	this.emo = this.o.parentNode.insertBefore(out, this.o.nextSibling)
-}
+};
 
 //Zbuduj tabelê symboli
 Editor.prototype.make = function(co)
@@ -214,7 +214,7 @@ Editor.prototype.make = function(co)
 			var td = document.createElement('td');
 			td.item = eChar[i];
 			td.style.padding = '5px';
-			td.onclick = function() { BBC(eO,'&'+this.item+';','') }
+			td.onclick = function() { BBC(eO,'&'+this.item+';','') };
 			td.innerHTML = '&'+eChar[i]+';';
 
 			tr.appendChild(td);
@@ -224,7 +224,7 @@ Editor.prototype.make = function(co)
 
 		//Cudzys³owy
 		var td = document.createElement('td');
-		td.onclick = function() { BBC(eO,'&ldquo;','&rdquo;') }
+		td.onclick = function() { BBC(eO,'&ldquo;','&rdquo;') };
 		td.innerHTML = '&bdquo; &rdquo;';
 		tr.appendChild(td);
 		tb.appendChild(tr);
@@ -254,7 +254,7 @@ Editor.prototype.make = function(co)
 				{
 					BBC(eO,'<span style="color: '+this.item+'">','</span>');
 				}
-			}
+			};
 			tr.appendChild(td);
 
 			if(y==8 || i2==ile) { tb.appendChild(tr); y=1 } else { ++y; } ++i2
@@ -324,7 +324,7 @@ Editor.prototype.preview = function(opt,where,text)
 	if(opt == undefined) opt = {NL:1};
 
 	//Nowe linie
-	this.box.style.whiteSpace = (opt.NL != undefined && opt.NL == false) ? '' : 'pre';
+	this.box.style.whiteSpace = (opt.NL != undefined && opt.NL == false) ? '' : 'pre-wrap';
 
 	//HTML
 	if(this.bbcode)

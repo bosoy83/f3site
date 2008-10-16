@@ -5,7 +5,7 @@
 	<th colspan="2">{lang.dba}</th>
 </tr>
 <tr>
-	<td colspan="2">{lang.sure} {_SERVER.HTTP_HOST}</td>
+	<td colspan="2">{lang.sure} <a href="http://{host}">{host}</a></td>
 </tr>
 <tr>
 	<td style="width: 50%">1. {lang.type}</td>
@@ -80,8 +80,8 @@ function Change()
 	f[6].disabled = !v;
 	if(f[6].value == '' && v) f[6].value = def;
 	if(f[6].value == def && !v) f[6].value = '';
+	if(v) f[6].focus(); else f[2].focus()
 }
 Change();
-if(f[0].checked) f[2].focus(); else f[6].focus()
 //]]>
 </script>

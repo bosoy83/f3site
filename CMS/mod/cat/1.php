@@ -18,7 +18,6 @@ foreach($res as $art)
 		'desc'  => $art[2],
 		'num'   => ++$st,
 		'url'   => '?co=art&amp;id='.$art[0],
-		'new'   => isset($_SESSION['recent']) && $art[3] > $_SESSION['recent'],
 		'date'  => $art[3]
 	);
 	++$total;

@@ -11,7 +11,7 @@ HTMLFormElement.prototype.send = function(box, o)
 	o.loading = function() { lock(this) };
 	o.done = function(x) { box.innerHTML = x; box.scrollIntoView() };
 	return o.sendForm(this);
-}
+};
 
 Request.prototype.sendForm = function(form)
 {
@@ -53,7 +53,7 @@ Request.prototype.sendForm = function(form)
 	alert('tak!'); return false;
 	//Wy¶lij
 	this.run(1);
-}
+};
 
 function lock(form, restore)
 {

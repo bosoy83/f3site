@@ -39,7 +39,7 @@ function include(file, callback)
 	js.onreadystatechange = function()
 	{
 		if(js.readyState == 'complete') callback();
-	}
+	};
 	js.onload = callback;
 	return false;
 }
@@ -107,7 +107,7 @@ document.onmousedown = function(e)
 document.onclick = function()
 {
 	for(var i in toHide) { hint(toHide[i],0,0,1) }
-}
+};
 
 //Utwórz menu lub warstwê
 function createBox(title, txt)
