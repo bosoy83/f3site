@@ -24,7 +24,7 @@ $lang+=Array(
 
 'chopt'=>'Opcje zaznaczonych pozycji',
 'chdel'=>'Usuñ zaznaczone pozycje',
-'searp'=>'Wpisz tytu³ lub jego czê¶æ:',
+'searp'=>'Wpisz tytu³ lub jego pocz±tek:',
 'priot'=>'Priotytet',
 'high'=>'Wysoki',
 'normal'=>'Normalny',

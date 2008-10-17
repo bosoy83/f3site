@@ -11,5 +11,3 @@ Dyskusje o nowo¶ciach i zmianach w F3Site 3.0:
 http://dhost.info/compmaster/punbb/viewtopic.php?id=257
 
 Niektóre modu³y z poprzedniej wersji systemu nie zosta³y jeszcze zaktualizowane i usprawnione. Z biegiem czasu bêd± pojawiaæ siê w repozytorium SVN.
-
-UWAGA! Niektóre pliki mog± ulec ca³kowitej zmianie (i na 90% tak siê stanie). Dotyczy to równie¿ uk³adu katalogów.

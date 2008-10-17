@@ -65,7 +65,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 		$db->exec('UPDATE '.PRE.$table.' SET '.$ch.' WHERE ID IN ('.$ids.')'.$q);
 	}
 	CountItems();
-	Latest($act);
+	Latest();
 	unset($q,$ids,$ch,$x);
 }
 
@@ -135,8 +135,7 @@ foreach($res as $i)
 	switch($i[2])
 	{
 		case 1: $a = $lang['yes']; break;
-		case 2: $a = $lang['no']; break;
-		default: $a = $i[2];
+		default: $a = $lang['no'];
 	}
 
 	$items[] = array(

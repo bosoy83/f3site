@@ -77,6 +77,7 @@ class Content
 	#404
 	function set404()
 	{
+		$this->title = $GLOBALS['lang']['404'];
 		$this->file = '404';
 	}
 

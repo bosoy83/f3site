@@ -339,7 +339,8 @@ Editor.prototype.preview = function(opt,where,text)
 	{
 		for(var i in emots)
 		{
-			text = text.replace(emots[i][0],'<img src="img/emo/'+emots[i][1]+'" title="'+emots[i][2]+'" />');
+			while(text.indexOf(emots[i][2]) !== -1 && emots[i][2] != '')
+			text = text.replace(emots[i][2],'<img src="img/emo/'+emots[i][1]+'" title="'+emots[i][0]+'" />');
 		}
 	}
 

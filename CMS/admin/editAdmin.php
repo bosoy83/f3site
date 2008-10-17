@@ -11,7 +11,7 @@ $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
 	((LEVEL!=4)?' && lv!=4':'')) -> fetch(3); //FETCH_NUM
 
 #Brak uprawnieñ?
-if(!$adm OR ($id != 1 && $adm[1] >= LEVEL))
+if(!$adm OR (UID != 1 && $adm[1] >= LEVEL))
 {
 	$content->info($lang['noex']); return;
 }
