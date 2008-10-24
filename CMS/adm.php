@@ -18,7 +18,7 @@ require LANG_DIR.'adm.php';
 
 #Katalog szablonów
 $content->dir = './style/admin/';
-$content->cacheDir = './cache/admin/';
+$content->cache = './cache/admin/';
 
 #Zazn. ID
 function GetID($toStr=false, $array=null)
@@ -56,7 +56,11 @@ if(isset($_GET['a']))
 	{
 		include './plugins/'.$A.'/admin.php';
 	}
-	else include './admin/summary.php';
+	else
+	{
+		$A = 'summary';
+		include './admin/summary.php';
+	}
 }
 else
 {
@@ -110,8 +114,5 @@ else
 if(!$content->file) $content->file = $A;
 if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
-#Kompiluj szablon, gdy potrzeba...
-$content->check && $content->compile('admin.html');
-
 #Skórka - admin
-require './cache/admin/admin.html';
+require $content->path('admin');

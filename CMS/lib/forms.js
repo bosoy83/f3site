@@ -73,7 +73,7 @@ var FMWin = null;
 //Otwórz mened¿er plików
 function fileman(folder, input)
 {
-	if(FMWin)
+	if(FMWin && !FMWin.closed)
 
 		FMWin.referToTop();
 

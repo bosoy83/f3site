@@ -38,10 +38,14 @@ class Compiler
 		if(!isset($src)) $src = $this->src;
 		if(!isset($cache)) $cache = $this->cache;
 
+		#Rozszerzenie
+		if(!strpos($file, '.html')) $file .= '.html';
+
 		#Katalog cache nie istnieje?
-		if(!file_exists($cache) && !@mkdir($cache))
+		if(!file_exists($cache))
 		{
-			throw new Exception('Cannot create cache directory!');
+			if(!@mkdir($cache)) throw new Exception('Cannot create cache directory!');
+			$this->examine();
 		}
 
 		#Debug
@@ -51,6 +55,10 @@ class Compiler
 		if(file_exists($src.$file))
 		{
 			$this->data = file_get_contents($src.$file);
+		}
+		elseif(file_exists(SKIN_DIR.$file))
+		{
+			$this->data = file_get_contents(SKIN_DIR.$file);
 		}
 		else
 		{
@@ -140,7 +148,7 @@ class Compiler
 		if($this->byteCode && extension_loaded('bcompiler'))
 		{
 			$tmp = tmpfile();
-			if(file_put_contents($cache.'.temp.php', $this->data))
+			if(file_put_contents($cache.'.temp.php', $this->data) !== false)
 			{
 				$f = fopen($cache.$file, 'w');
 				bcompiler_write_header($f);
@@ -155,7 +163,7 @@ class Compiler
 		}
 		else
 		{
-			if(file_put_contents($cache.$file, $this->data))
+			if(file_put_contents($cache.$file, $this->data) !== false)
 			{
 				if($this->debug) echo 'Done.<br />';
 				return true;

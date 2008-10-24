@@ -12,7 +12,7 @@ require './lib/content.php';
 #Obiekty: szablony + setup
 $content = new Content;
 $content -> dir = './install/HTML/';
-$content -> cacheDir = './cache/install/';
+$content -> cache = './cache/install/';
 
 #Jêzyk
 $nlang = 'en';
@@ -50,8 +50,8 @@ if(!file_exists('./cache/default/info.php'))
 	unset($c);
 }
 
-#Gdy db.php istnieje
-if(file_exists('./cfg/db.php')) $content->message($lang['XX']);
+#System zainstalowany
+if(file_exists('./cfg/db.php') && filesize('./cfg/db.php')>43) $content->message($lang['XX']);
 
 #Sterowniki PDO
 $dr = PDO::getAvailableDrivers();
@@ -239,16 +239,5 @@ else
 	);
 }
 
-#¯±danie JS czy prze³adowanie strony?
-if(isset($_GET['js']))
-{
-	$content->display();
-}
-else
-{
-	if(filemtime('./install/HTML/body.html') > @filemtime('./cache/install/body.html'))
-	{
-		$content->compile('body.html'); //Kompiluj, gdy trzeba
-	}
-	include './cache/install/body.html';
-}
+#Szablon g³ówny
+include $content->path('body');

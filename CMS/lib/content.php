@@ -7,21 +7,21 @@ class Content
 		$head,
 		$data = array(),
 		$check = true,
-		$cacheDir = VIEW_DIR,
+		$cache = VIEW_DIR,
 		$dir = SKIN_DIR;
 
-	#Wy¶wietl g³ówny szablon
+	#Wy¶wietl szablony
 	function display()
 	{
 		#Udostêpnij jêzyk
-		$lang = &$GLOBALS['lang'];
+		global $lang;
 
 		#Informacja
 		if(isset($this->info))
 		{
 			$info  = $this->info;
 			$links = $this->links;
-			include VIEW_DIR.'info.html';
+			include $this->path('info', 1);
 			if(!$this->data) return;
 		}
 
@@ -30,28 +30,18 @@ class Content
 		{
 			$$key = &$this->data[$key];
 		}
-		if(!is_array($this->file)) $this->file = array($this->file);
 
-		foreach($this->file as $F)
+		#Kompiluj i wy¶wietl
+		if(is_array($this->file))
 		{
-			#Czy istnieje nowsza wersja ¼ród³a?
-			$this->check && $this->compile($F.'.html');
-
-			#Do³±cz plik
-			include $this->cacheDir.$F.'.html';
+			foreach($this->file as $f)
+			{
+				include $this->path($f);
+			}
 		}
-	}
-
-	#Ustaw dane
-	function set($key, &$array=null)
-	{
-		if($array !== null)
+		else
 		{
-			$this->data[$key] =& $array;
-		}
-		elseif(is_array($key))
-		{
-			$this->data += $key;
+			include $this->path($this->file);
 		}
 	}
 
@@ -81,30 +71,49 @@ class Content
 		$this->file = '404';
 	}
 
-	#Komunikat lub b³±d (gdy $notify = 1, powiadom admina)
-	function message($info, $link=null, $notify=null)
+	#Komunikat lub b³±d
+	function message($info, $link=null)
 	{
 		if($info === (int)$info)
 		{
-			require LANG_DIR.'special.php';  $info = $lang['s'.$info];
+			require LANG_DIR.'special.php';
+			$info = $lang[$info];
 		}
-		$lang =& $GLOBALS['lang'];
-		require VIEW_DIR.'message.html';
+		global $lang;
+		require $this->path('message', 1);
 		exit;
 	}
 
 	#Kompiluj szablon
-	function compile($x)
+	function path($file, $sys=null)
 	{
-		static $compiler;
-		if(filemtime($this->dir.$x) > @filemtime($this->cacheDir.$x))
+		if(!$sys && file_exists($this->dir . $file . '.html'))
 		{
+			$path  = $this->dir;
+			$cache = $this->cache;
+		}
+		elseif(file_exists(SKIN_DIR . $file . '.html'))
+		{
+			$path = SKIN_DIR;
+			$cache = VIEW_DIR;
+		}
+		else
+		{
+			exit('Cannot find template: '.$file.'.html');
+		}
+
+		#Sprawd¼ datê modyfikacji
+		if($this->check && filemtime($path . $file . '.html') > @filemtime($cache. $file . '.html'))
+		{
+			static $compiler;
 			if(!isset($compiler))
 			{
 				include_once './lib/compiler.php';
 				$compiler = new Compiler;
 			}
-			$compiler -> compile($x, $this->dir, $this->cacheDir);
+			$compiler -> compile($file, $path, $cache);
 		}
+
+		return $cache . $file . '.html';
 	}
 }

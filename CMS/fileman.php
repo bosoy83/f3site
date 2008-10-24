@@ -21,6 +21,9 @@ if($_FILES)
 	
 }*/
 
+#Rozszerzenia, ktorych nie mo¿na wyœwietliæ
+$banEx = array('.php'=>1, '.db'=>1, '.ini'=>1);
+
 #Uprawnienia
 Admit('FM') or exit;
 $admin = Admit('FM2');
@@ -29,13 +32,13 @@ $admin = Admit('FM2');
 if(isset($_GET['dir']) && strpos($_GET['dir'],'.')===false)
 {
 	$dir = $_GET['dir'];
-	if(substr($dir,-1) != '/') $dir.='/';
+	if(substr($dir,-1) != '/' && $dir != '') $dir.='/';
 }
 else $dir='img/';
 
 #Lista plików
 $file = $folder = array();
-$parent = ($dir=='/') ? false : '?dir='.join('/',explode('/',$dir,-2));
+$parent = $dir ? '?dir='.join('/',explode('/',$dir,-2)) : false;
 
 foreach(scandir('./'.$dir) as $x)
 {
@@ -49,7 +52,8 @@ foreach(scandir('./'.$dir) as $x)
 	}
 	else
 	{
-		$file[] = array('name' => $x, 'opt' => $admin, 'url' => $dir.$x);
+		$e = strrchr($x, '.');
+		$file[] = array('name' => $x, 'opt' => $admin, 'url' => isset($banEx[$e]) ? '#' : $dir.$x);
 	}
 }
 $_SESSION['FM'] = 1;
@@ -57,8 +61,5 @@ $_SESSION['FM'] = 1;
 #Skróæ œcie¿kê do katalogu
 if(isset($dir[50])) $dir = substr($dir, -40);
 
-#Kompiluj szablon, gdy trzeba
-$content->check && $content->compile('fileman.html');
-
 #Szablon
-include VIEW_DIR.'fileman.html';
+include $content->path('fileman');

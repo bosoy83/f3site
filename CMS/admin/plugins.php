@@ -21,7 +21,9 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 	}
 	elseif($_POST)
 	{
-		include './lib/config.php';
+		define('DB_TYPE', $db_db);
+		require './lib/config.php';
+		require './lib/api.php';
 		require './plugins/'.$name.'/setup.php';
 		try
 		{

@@ -1,7 +1,7 @@
 <?php
 /* F3Site 3.0: copyright (C) 2007 COMPMaster
 Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
-
+$t=microtime(1);
 #J±dro
 define('iCMS',1);
 require './kernel.php';
@@ -14,11 +14,11 @@ if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][3
 
 	if(file_exists('./mod/'.$_GET['co'].'.php'))
 	{
-		(include './mod/'.$_GET['co'].'.php') OR $content->set404(); #Modu³?
+		(include './mod/'.$_GET['co'].'.php') OR $content->set404();
 	}
 	elseif(file_exists('./plugins/'.$_GET['co'].'/default.php'))
 	{
-		(include './plugins/'.$_GET['co'].'/default.php') OR $content->set404(); #Wtyczka?
+		(include './plugins/'.$_GET['co'].'/default.php') OR $content->set404();
 	}
 	else
 	{
@@ -39,8 +39,6 @@ if($cfg['head']) $content->head .= $cfg['head'];
 #Menu
 require './cache/menu'.$nlang.'.php';
 
-#Kompiluj skórkê, gdy potrzeba...
-$content->check && $content->compile('body.html');
-
 #Skórka
-include VIEW_DIR.'body.html';
+include $content->path('body');$v=microtime(1);
+echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) '.($v-$t)*1000;
