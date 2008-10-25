@@ -101,7 +101,7 @@ if($_POST)
 				else
 				{
 					#Zapytanie
-					$q = $db->prepare('UPDATE '.PRE.'comms SET name=:n, text=:txt WHERE ID='.$id);
+					$q = $db->prepare('UPDATE '.PRE.'comms SET name=:name, text=:text WHERE ID='.$id);
 				}
 				$q->execute($c);
 				$db->commit();
@@ -110,7 +110,7 @@ if($_POST)
 				$_SESSION['post'] = time() + $cfg['antyFlood'];
 
 				#Info
-				$content->info( (($c['access']==1) ? $lang['c7'] : $lang['c6']) ); return 1;
+				$content->info( (($type && $c['access']!=1) ? $lang['c6'] : $lang['c7']) ); return 1;
 			}
 			catch(PDOException $e)
 			{

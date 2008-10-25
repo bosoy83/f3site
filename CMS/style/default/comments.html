@@ -9,28 +9,38 @@
 <tbody>
 
 <!-- START comment -->
-
 <tr>
 	<td>
-		<!-- IF user_url -->
-		<a href="{user_url}">{user}</a>
+
+		<!-- IF profile -->
+		<b><a href="{profile}">{user}</a></b>
 		<!-- ELSE -->
-		{user}
+		<b>{user}</b>
 		<!-- END -->
-		<br /><small>{date}
-		<!-- IF rights -->
-		<br />
-		IP: {ip}
-		<br />
-		<a href="{edit_url}"><img src="img/icon/edit.png" alt="E" /></a>
+
+		<div>{date}</div>
+
+		<!-- IF ip -->
+		<div>{ip}</div>
 		<!-- END -->
-		</small>
+
+		<!-- IF edit -->
+		<a href="{edit}"><img src="img/icon/edit.png" alt="E" /></a>
+		<!-- END -->
+
+		<!-- IF del -->
+		<a href=""><img src="img/icon/del.png" alt="-" /></a>
+		<!-- END -->
+
+		<!-- IF accept -->
+		<a href=""><img src="img/icon/accept.png" alt="+" /></a>
+		<!-- END -->
+
 	</td>
 	<td>
-		<b>{title}</b><br />{text}
+		<h3>{title}</h3>{text}
 	</td>
 </tr>
-
 <!-- STOP -->
 
 </tbody>
@@ -41,7 +51,7 @@
 <!-- IF url -->
 <div id="com">
 <div class="box" style="width: 150px; margin: auto; text-align: center">
-	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}" onclick="c(); return false">{lang.addComm}</a>
+	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}" onclick="return c()">{lang.addComm}</a>
 </div>
 </div>
 
@@ -52,10 +62,11 @@ function c()
 	include('{LANG_DIR}edit.js');
 	include('cache/emots.js');
 	get('{js_url}', 'com', 1);
+	return false
 }
 </script>
+<!-- END -->
 
-<!-- ELSE -->
+<!-- IF mustLogin -->
 <div class="box" style="text-align: center">{lang.loginComm}</div>
-
 <!-- END -->

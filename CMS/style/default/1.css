@@ -52,8 +52,8 @@ ul.cats li {
 	float: left
 }
 .files div {
-	background: url(../../img/icon/file.png) no-repeat 5px 4px;
-	padding: 3px 0 5px 30px;
+	background: url(../../img/icon/file.png) no-repeat 6px 6px;
+	padding: 3px 0 5px 32px;
 	min-height: 32px;
 }
 .items td {
