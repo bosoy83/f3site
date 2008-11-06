@@ -27,4 +27,5 @@ img:'Type or copy URL address of the image:'};
 var lang={
 saving:'Sending data...',
 leave:'Data has not been sent yet.',
-sure:'Are you sure to commit this action?'}
+sure:'Are you sure to commit this action?',
+del:'Are you sure to delete it?'}

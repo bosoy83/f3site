@@ -1,6 +1,4 @@
-<?php
-//Funkcje u¿ytkowników
-if(iCMSa!=1) exit;
+<?php //Funkcje u¿ytkowników
 
 #Lista poziomów
 function LevelList($sel=null,$owner=0,$locked=0)
@@ -17,13 +15,12 @@ function LevelList($sel=null,$owner=0,$locked=0)
 #Grupy
 function GroupList($sel=null)
 {
-	$res=$GLOBALS['db']->query('SELECT ID,name FROM '.PRE.'groups');
+	$res = $GLOBALS['db']->query('SELECT ID,name FROM '.PRE.'groups');
 	$res->setFetchMode(3); //NUM
-	$out='';
+	$out = '';
 	foreach($res as $g)
 	{
 		$out.='<option value="'.$g[0].'"'.(($g[0]==$sel || $sel=='all')?' selected="selected"':'').'>'.$g[1].'</option>';
 	}
 	return $out;
 }
-?>

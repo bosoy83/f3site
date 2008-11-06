@@ -14,7 +14,7 @@ $lang+=Array(
 'smtp'=>'SMTP server',
 'mailn'=>'If the server don\'t require authorization, keep this field empty.',
 
-'reg_on'=>'Enable registration',
+'reg'=>'Enable registration',
 'nickban'=>'Banned logins',
 'nickex'=>'Type logins or their parts (without *) in seperate lines.',
 'domainban'=>'Banned e-mail domains',
@@ -24,11 +24,10 @@ $lang+=Array(
 'bymail'=>'E-mail - activation link',
 'byadmin'=>'By privileged admins',
 
-'photo'=>'Photo',
-'photos'=>'Users can add photos',
-'maxDim'=>'Maximum dimensions',
+'photo'=>'Photos and avatars',
 'upload'=>'Uploading photos on server',
-'maxSize'=>'Maximum size',
-'width'=>'Width',
-'height'=>'Height'
+'maxDim'=>'Max. dimensions',
+'maxSize'=>'Max. size',
+'width'=>'Width:',
+'height'=>'Height:'
 );

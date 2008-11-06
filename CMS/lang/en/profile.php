@@ -11,7 +11,6 @@ $lang+=Array(
 'callq'=>'Do you want to call ',
 'sendPM'=>'Send a private message',
 'abouty'=>'About user',
-'avatar'=>'Avatar or photo',
 
 'account'=>'User\'s account',
 'editup'=>'Basic informations (required)',
@@ -24,6 +23,14 @@ $lang+=Array(
 'vismail'=>'Display your e-mail in profile',
 'getmails'=>'Receive e-mails from administrator',
 'allowComm'=>'Enable comments in my profile',
+
+'avatar'=>'Change your avatar or photo',
+'curPhoto'=>'Current photo',
+'delPhoto'=>'Delete your photo',
+'sendPhoto'=>'Send a new photo',
+'maxWidth'=>'Max. width',
+'maxHeight'=>'Max. height',
+'maxSize'=>'Max. size',
 
 'regoff'=>'Registration of new users has been disabled.',
 'nousers'=>'No users',
@@ -48,6 +55,10 @@ $lang+=Array(
 'u bymail'=>'E-mail with activation link has been sent. Your login: ',
 'u nomail'=>'<b>P:</b> Haven\'t you received the message within 10 minutes?<br /><b>O:</b> Check if the message isn\'t in SPAM folder.',
 'u upd'=>'Account settings has been saved.',
+
+'photoEx' => 'You can only upload photos in formats: PNG, JPG, GIF, BMP.',
+'photoBig'=> 'The photo is too big. Scale it down using a graphic program.',
+'photoErr'=> 'Cannot upload new photo.',
 
 'mail_ex'=>'This e-mail address is already used.',
 'mail_err'=>'E-mail address is incorrect.',

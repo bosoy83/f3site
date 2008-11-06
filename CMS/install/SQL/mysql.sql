@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
 `dsc` text NOT NULL,
-`date` date,
+`date` datetime,
 `author` varchar(50) NOT NULL,
 `rate` tinyint(1),
 `access` tinyint(4) NOT NULL,
@@ -283,7 +283,8 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `icq` varchar(15),
 `skype` varchar(50) NOT NULL,
 `tlen` varchar(50) NOT NULL,
-`gg` int(11));
+`gg` int(11),
+`photo` varchar(150) NOT NULL);
 
 CREATE TRIGGER `{pre}userd` AFTER DELETE ON `{pre}users` FOR EACH ROW
 BEGIN

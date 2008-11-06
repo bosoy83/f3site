@@ -11,7 +11,6 @@ $lang+=Array(
 'callq'=>'Czy na pewno chcesz zadzwoniæ do u¿ytkownika ',
 'sendPM'=>'Wy¶lij prywatn± wiadomo¶æ',
 'abouty'=>'O sobie',
-'avatar'=>'Awatar lub zdjêcie',
 
 'account'=>'Konto u¿ytkownika',
 'editup'=>'Dane podstawowe (obowi±zkowe)',
@@ -24,9 +23,14 @@ $lang+=Array(
 'vismail'=>'Wy¶wietl adres e-mail w profilu',
 'getmails'=>'Dostarczaj listy od administratora',
 'allowComm'=>'W³±cz komentarze w moim profilu',
-'photoURL'=>'Adres do zdjêcia',
-'sendPhoto'=>'Wy¶lij z komputera',
-'guideline'=>'Maksymalna szeroko¶æ to %d px, a wysoko¶æ %d px. Rozmiar nie mo¿e byæ wiêkszy ni¿ %d KB.',
+
+'avatar'=>'Zmieñ awatar lub zdjêcie',
+'curPhoto'=>'Aktualne zdjêcie',
+'delPhoto'=>'Usuñ zdjêcie',
+'sendPhoto'=>'Wy¶lij nowe zdjêcie',
+'maxWidth'=>'Maks. szeroko¶æ',
+'maxHeight'=>'Maks. wysoko¶æ',
+'maxSize'=>'Maks. rozmiar',
 
 'regoff'=>'Rejestracja nowych u¿ytkowników zosta³a wy³±czona.',
 'nousers'=>'Brak u¿ytkowników',
@@ -51,6 +55,10 @@ $lang+=Array(
 'u bymail'=>'Na adres e-mail podany przy rejestracji wys³ano wiadomo¶æ z linkiem aktywuj±cym. Twój login to: ',
 'u nomail'=>'<b>P:</b> Brak wiadomo¶ci w ci±gu kilku minut?<br /><b>O:</b> Sprawd¼, czy nie znajduje siê w folderze SPAM.',
 'u upd'=>'Zaktualizowano ustawienia konta.',
+
+'photoEx' => 'Dozwolone s± tylko zdjêcia w formatach: PNG, JPG, GIF, BMP.',
+'photoBig'=> 'Wymiary zdjêcia s± za du¿e. Zmniejsz je w programie graficznym.',
+'photoErr'=> 'Nie uda³o siê za³adowaæ zdjêcia.',
 
 'mail_ex'=>'Podany adres e-mail jest ju¿ u¿ywany.',
 'mail_err'=>'Adres e-mail jest nieprawid³owy.',

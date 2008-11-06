@@ -1,13 +1,16 @@
 <?php /* Wyœwietl komentarze */
 if(iCMS!=1 OR CT=='CT') return;
 
+#Akcje POST - dodaj, akceptuj komentarz
+if($_POST) include './mod/comment.php';
+
 #Podzia³ na strony?
 if($cfg['commNum']!=0)
 {
 	#Strona
-	if(isset($_GET['pc']) && $_GET['pc']>1)
+	if(isset($_GET['page']) && $_GET['page']>1)
 	{
-		$PAGE = $_GET['pc'];
+		$PAGE = $_GET['page'];
 		$ST = ($PAGE-1)*$cfg['commNum'];
 	}
 	else
@@ -16,14 +19,15 @@ if($cfg['commNum']!=0)
 		$ST = 0;
 	}
 	$TOTAL = db_count('comms WHERE TYPE='.CT.' AND CID='.$id);
+	$pages = ($TOTAL > $cfg['commNum']) ? Pages($PAGE,$TOTAL,$cfg['commNum'],'?co='.$_GET['co'].'&amp;id='.$id) : null;
 }
 else
 {
 	$TOTAL = null;
+	$pages = null;
 }
 
 $comm = array();
-$form = array();
 
 #Prawa do edycji i usuwania
 $mayEdit = Admit('CM');
@@ -49,7 +53,7 @@ if($TOTAL !== 0)
 	{
 		$comm[] = array(
 			'text' => nl2br(Emots( isset($cfg['bbcode']) ? BBCode($x[6]) : $x[6] )),
-			'date' => genDate($x[5]),
+			'date' => genDate($x[5],1),
 			'title'=> $x[2],
 			'user' => $x[7] ? $x[7] : $x[7],
 			'ip'   => $mayEdit ? $x[4] : null,
@@ -64,17 +68,23 @@ if($TOTAL !== 0)
 
 #Szablon
 $content->file[] = 'comments';
-$content->data['comment'] = $comm;
+$content->data['comment'] =& $comm;
+$content->data['pages'] =& $pages;
 
 #Mo¿e komentowaæ?
-if(LOGD==1 || $cfg['commGuest']==1)
+if(LOGD==1 || isset($cfg['commGuest']))
 {
-	$content->data['url'] = '?co=comment&amp;id='.$id.'&amp;type='.CT;
-	$content->data['js_url'] = 'request.php?co=comment&id='.$id.'&type='.CT;
+	if(!isset($_SESSION['post']) OR $_SESSION['post'] < $_SERVER['REQUEST_TIME'])
+	{
+		$content->data['url'] = '?co=comment&amp;type='.CT.'&amp;id='.$id.'&amp;mod='.$_GET['co'];
+	}
+	else
+	{
+		$content->data['url'] = null;
+	}
 	$content->data['mustLogin'] = false;
 }
 else
 {
-	$content->data['url'] = false;
 	$content->data['mustLogin'] = true;
 }

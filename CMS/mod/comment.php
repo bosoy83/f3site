@@ -1,30 +1,39 @@
 <?php
-if(iCMS!=1 || !$id) return;
+if(iCMS!=1) return;
 require LANG_DIR.'comm.php';
 
-#Je¶li istnieje TYP pozycji w GET - nowy komentarz, inaczej - edycja
-if(isset($_GET['type']))
-{
-	$type = (int)$_GET['type'];
-
-	#Go¶æ nie mo¿e pisaæ?
-	if(LOGD!=1 && $cfg['commGuest']!=1) $error[] = $lang['c11'];
-}
-elseif(Admit('CM'))
-{
-	$type = null;
-}
-else
-{
-	$content->info($lang['noex']); return; //B³êdny typ
-}
-
-#Tytu³ strony
-$content->title = $type ? $lang['addComm'] : $lang['c1'];
+#JS
+$js = defined('JS');
 
 #B³êdy
 $error = array();
 $preview = null;
+
+#Je¶li istnieje zmienna $type, dodaj nowy komentarz
+if(isset($_GET['type']))
+{
+	#Go¶æ nie mo¿e pisaæ?
+	if(LOGD!=1 && $cfg['commGuest']!=1) $error[] = $lang['c11'];
+
+	#TYP JEST LICZB¡
+	$type = (int)$_GET['type'];
+
+	#Sprawd¼, czy pozycja jest w³±czona
+	switch($type)
+	{
+		case 1:
+		case 2:
+		case 3:
+	}
+}
+else
+{
+	#Tytu³ strony
+	$content->title = $type ? $lang['addComm'] : $lang['c1'];
+
+	#Brak praw?
+	if(!Admit('CM')) $error[] = $lang['c11'];
+}
 
 #Dane POST
 if($_POST)

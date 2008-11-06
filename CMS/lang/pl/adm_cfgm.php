@@ -14,7 +14,7 @@ $lang+=Array(
 'smtp'=>'Serwer SMTP',
 'mailn'=>'Wymagane, aby nawi±zaæ po³±czenie.',
 
-'reg_on'=>'Rejestracja w³±czona',
+'reg'=>'Rejestracja w³±czona',
 'nickban'=>'Zabronione loginy',
 'nickex'=>'Wpisz loginy lub ich czê¶ci bez znaku gwiazdki * w osobnych liniach.',
 'domainban'=>'Zablokowane adresy e-mail',
@@ -24,8 +24,7 @@ $lang+=Array(
 'bymail'=>'E-mail - link aktywacyjny',
 'byadmin'=>'Przez uprawnionych administratorów',
 
-'photo'=>'Zdjêcie',
-'photos'=>'Pozwól dodawaæ zdjêcie',
+'photo'=>'Zdjêcia i awatary',
 'upload'=>'Wysy³anie zdjêæ na serwer',
 'maxDim'=>'Maksymalne wymiary',
 'maxSize'=>'Maksymalny rozmiar',

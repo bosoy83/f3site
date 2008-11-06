@@ -24,12 +24,12 @@
 		<div>{ip}</div>
 		<!-- END -->
 
-		<!-- IF edit -->
-		<a href="{edit}"><img src="img/icon/edit.png" alt="E" /></a>
+		<!-- IF del -->
+		<a href="{del}" onclick="return confirm(window.lang.del)"><img src="img/icon/del.png" alt="-" /></a>
 		<!-- END -->
 
-		<!-- IF del -->
-		<a href=""><img src="img/icon/del.png" alt="-" /></a>
+		<!-- IF edit -->
+		<a href="{edit}"><img src="img/icon/edit.png" alt="E" /></a>
 		<!-- END -->
 
 		<!-- IF accept -->
@@ -43,6 +43,12 @@
 </tr>
 <!-- STOP -->
 
+<!-- IF pages -->
+<tr>
+	<td colspan="2" class="pages">{pages}</td>
+</tr>
+<!-- END -->
+
 </tbody>
 </table>
 
@@ -51,19 +57,19 @@
 <!-- IF url -->
 <div id="com">
 <div class="box" style="width: 150px; margin: auto; text-align: center">
-	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}" onclick="return c()">{lang.addComm}</a>
+	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}" onclick="return c(this)">{lang.addComm}</a>
 </div>
 </div>
 
 <script type="text/javascript">
-function c()
+function c(o)
 {
 	include('lib/editor.js');
-	include('{LANG_DIR}edit.js');
 	include('cache/emots.js');
-	get('{js_url}', 'com', 1);
+	get('request.php'+o.search, 'com', 1);
 	return false
 }
+include('{LANG_DIR}edit.js');
 </script>
 <!-- END -->
 

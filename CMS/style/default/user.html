@@ -82,5 +82,13 @@
 
 <!-- IF u.about -->
 <h2>{lang.abouty}</h2>
-<div class="box">{u.about}</div>
+<div class="box">
+
+	<!-- IF u.photo -->
+	<img src="{u.photo}" alt="AVATAR" style="float: right" />
+	<!-- END -->
+	
+	{u.about}
+
+</div>
 <!-- END -->

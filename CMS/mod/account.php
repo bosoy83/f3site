@@ -30,7 +30,7 @@ if(isset($_GET['keyid']))
 }
 
 #Rejestracja wy³¹czona?
-if($cfg['reg_on']!=1 && LOGD!=1)
+if(!isset($cfg['reg']) && LOGD!=1)
 {
 	$content->info($lang['regoff']); return;
 }
@@ -90,14 +90,26 @@ if($_POST)
 		}
 		
 		#Kod
-		if($cfg['captcha']==1)
+		if(isset($cfg['captcha']))
 		{
 			if($_POST['code']!=$_SESSION['code'] || empty($_SESSION['code']))
 			{
-				$error[]=$lang['ver_err'];
+				$error[] = $lang['ver_err'];
 			}
 			$_SESSION['code'] = false;
 		}
+	}
+
+	#Awatar
+	elseif($_FILES['photo']['name'] && isset($cfg['upload']))
+	{
+		require './lib/avatar.php';
+		Avatar($error);
+	}
+	elseif(isset($_POST['del']))
+	{
+		require './lib/avatar.php';
+		RemoveAvatar($error);
 	}
 
 	#Has³o
@@ -202,7 +214,8 @@ if($_POST)
 			#Inne
 			elseif(LOGD==1)
 			{
-				$q->execute($u); $content->info($lang['u upd']);
+				$q->execute($u); $_POST = null; include './mod/user.php';
+				$content->file = 'user';
 			}
 			elseif($cfg['actmeth']!=1)
 			{
@@ -241,6 +254,11 @@ $u['comm'] = $u['opt'] & 2;
 
 #Dane
 $content->data = array(
-	'u'    => &$u,
-	'code' => $cfg['captcha']==1 && LOGD==2,
+	'u'     => &$u,
+	'width' => $cfg['maxDim1'],
+	'height'=> $cfg['maxDim2'],
+	'size'  => $cfg['maxSize'],
+	'code'  => isset($cfg['captcha']) && LOGD==2,
+	'del'   => !empty($u['photo']),
+	'photo' => (LOGD==1 && isset($cfg['upload'])) ? (empty($u['photo']) ? 'img/user/0.jpg' : $u['photo']) : false
 );

@@ -27,4 +27,5 @@ img:'Wpisz lub skopiuj adres obrazka:'};
 var lang={
 saving:'Trwa wysy³anie danych...',
 leave:'Dane nie zosta³y jeszcze wys³ane.',
-sure:'Na pewno chcesz wykonaæ tê akcjê?'}
+sure:'Na pewno chcesz wykonaæ tê akcjê?',
+del:'Na pewno usun±æ?'}

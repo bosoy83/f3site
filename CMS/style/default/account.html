@@ -1,5 +1,5 @@
-<form action="index.php?co=account" method="post" f3:array="u">
-<h2>{this->title}</h2>
+<form action="index.php?co=account" method="post" enctype="multipart/form-data" f3:array="u">
+<h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody>
@@ -49,7 +49,7 @@
 	<td><input name="gg" maxlength="15" value="{u.gg}" /></td>
 </tr>
 <tr>
-	<td><b>Tlen.pl ID:</b><br /><small>{lang.tlenwot}</div></td>
+	<td><b>Tlen.pl ID:</b><br /><small>{lang.tlenwot}</small></td>
 	<td><input name="tlen" maxlength="50" value="{u.tlen}" /></td>
 </tr>
 <tr>
@@ -73,16 +73,34 @@
 		<label for="ms">{lang.getmails}</label><br />
 		<input id="cs" type="checkbox" name="comm" />
 		<label for="cs">{lang.allowComm}</label>
+		<!-- IF del -->
+		<input id="dp" type="checkbox" name="del" f3:var="0" />
+		<label for="dp">{lang.delPhoto}</label>
+		<!-- END -->
 	</td>
 </tr>
-<!--
+
+<!-- IF photo -->
 <tr>
 	<th colspan="2">{lang.avatar}</th>
-</tr><tr>
-	<td><b>{lang.sendPhoto}:</b></td>
-	<td><input type="file" name="photo" size="22" /></td>
 </tr>
--->
+<tr>
+	<td>
+		<b>{lang.curPhoto}:</b><br />
+		<small>{lang.maxWidth}: {width} PX<br />{lang.maxHeight}: {height} PX<br />{lang.maxSize}: {size} KB</small>
+	</td>
+	<td>
+		<img src="{photo}" alt="AVATAR" />
+	</td>
+</tr>
+<tr>
+	<td><b>{lang.sendPhoto}:</b></td>
+	<td>
+		<input type="file" name="photo" size="22" />
+	</td>
+</tr>
+<!-- END -->
+
 <tr>
 	<th colspan="2">{lang.abouty}</th>
 </tr>
