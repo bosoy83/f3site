@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `skype` varchar(50),
 `tlen` varchar(50),
 `gg` int(11),
-`photo` varchar(150) NOT NULL DEFAULT '');
+`photo` varchar(150));
 
 CREATE TRIGGER IF NOT EXISTS `{pre}userd` AFTER DELETE ON `{pre}users`
 BEGIN

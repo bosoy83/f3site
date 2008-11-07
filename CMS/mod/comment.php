@@ -18,22 +18,24 @@ if(isset($_GET['type']))
 	#TYP JEST LICZB¡
 	$type = (int)$_GET['type'];
 
-	#Sprawd¼, czy pozycja jest w³±czona
+	/*#Sprawd¼, czy pozycja jest w³±czona
 	switch($type)
 	{
-		case 1:
-		case 2:
-		case 3:
-	}
+		case 10: $if = 'users WHERE lv<0 AND ID='.$id; break;
+		case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
+		case 15: $if = 'polls WHERE access='.$nlang; break;
+		default: $data = parse_ini_file('./cfg/types.ini');
+			if
+	}*/
 }
 else
 {
-	#Tytu³ strony
-	$content->title = $type ? $lang['addComm'] : $lang['c1'];
-
 	#Brak praw?
 	if(!Admit('CM')) $error[] = $lang['c11'];
 }
+
+#Tytu³ strony
+$content->title = $type ? $lang['addComm'] : $lang['c1'];
 
 #Dane POST
 if($_POST)

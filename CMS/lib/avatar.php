@@ -17,13 +17,14 @@ function Avatar(&$error=array(), $id=UID)
 		$error[] = $lang['photoBig']; //Gdy rozmiar = 0, plik nie jest obrazem
 		$ok = 0;
 	}
-	if($ok && move_uploaded_file($file['tmp_name'], 'img/user/'.$id.$ext))
+	try
 	{
-		try
-		{
-			#Pobierz aktualny URL
-			$old = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.$id) -> fetchColumn();
+		#Pobierz aktualny URL
+		$old = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.$id) -> fetchColumn();
 
+		#Przenie¶ plik
+		if($ok && move_uploaded_file($file['tmp_name'], 'img/user/'.$id.$ext))
+		{
 			#Usuñ stary
 			if($old != 'img/user/'.$id.$ext && !strpos($old,':'))
 			{
@@ -32,17 +33,20 @@ function Avatar(&$error=array(), $id=UID)
 
 			#Aktualizuj w bazie
 			$db->exec('UPDATE '.PRE.'users SET photo="img/user/'.$id.$ext.'" WHERE ID='.$id);
+
+			#Zwróæ URL
+			return 'img/user/'.$id.$ext;
 		}
-		catch(PDOException $e)
+		else
 		{
-			$error[] = $e;
-			return false;
+			$error[] = $lang['photoErr'];
+			return $old;
 		}
 	}
-	else
+	catch(PDOException $e)
 	{
-		$error[] = $lang['photoErr'];
-		return false;
+		$error[] = $e;
+		return $old;
 	}
 }
 
@@ -60,7 +64,8 @@ function RemoveAvatar(&$error, $id=UID)
 	catch(PDOException $e)
 	{
 		$error[] = $e;
-		return false;
+		return $old;
 	}
 	if(strpos($old,':') === false) @unlink($old);
+	return '';
 }

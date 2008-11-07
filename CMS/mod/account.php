@@ -2,7 +2,9 @@
 if(iCMS!=1) exit;
 require LANG_DIR.'profile.php'; #Jêzyk
 require 'cfg/account.php'; #Opcje
+
 $error = array();
+$photo = '';
 
 #Tytu³ strony
 $content->title = $lang['account'];
@@ -101,15 +103,19 @@ if($_POST)
 	}
 
 	#Awatar
-	elseif($_FILES['photo']['name'] && isset($cfg['upload']))
+	elseif(isset($cfg['upload']) && $_FILES['photo']['name'])
 	{
 		require './lib/avatar.php';
-		Avatar($error);
+		$photo = Avatar($error);
 	}
 	elseif(isset($_POST['del']))
 	{
 		require './lib/avatar.php';
-		RemoveAvatar($error);
+		$photo = RemoveAvatar($error);
+	}
+	else
+	{
+		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID) -> fetchColumn();
 	}
 
 	#Has³o
@@ -241,6 +247,7 @@ else
 	if(LOGD==1)
 	{
 		$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.UID) -> fetch(2);
+		$photo = $u['photo'];
 	}
 	else
 	{
@@ -259,6 +266,6 @@ $content->data = array(
 	'height'=> $cfg['maxDim2'],
 	'size'  => $cfg['maxSize'],
 	'code'  => isset($cfg['captcha']) && LOGD==2,
-	'del'   => !empty($u['photo']),
-	'photo' => (LOGD==1 && isset($cfg['upload'])) ? (empty($u['photo']) ? 'img/user/0.jpg' : $u['photo']) : false
+	'del'   => $photo,
+	'photo' => (LOGD==1 && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
 );
