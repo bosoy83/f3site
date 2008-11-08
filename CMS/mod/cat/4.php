@@ -37,7 +37,7 @@ $content->data += array(
 	'pages' => &$pages,
 	'links' => &$links,
 	'count' => $count,
-	'add_url' => Admit('L') || Admit($d,'CAT') ? '?co=edit&amp;act=link' : null,
+	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=link' : null,
 	'cat_type'=> $lang['links']
 );
 

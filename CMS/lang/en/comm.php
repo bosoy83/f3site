@@ -10,5 +10,5 @@ $lang+=Array(
 'c8'=>'&laquo; Back',
 'c9'=>'Guest',
 'c10'=>'Cannot save your comment. Try again in a while. If this error occurs again, contact administrators. Error:',
-'c11'=>'You must login first.'
+'c11'=>'Commented item does not exist or is disabled.'
 );

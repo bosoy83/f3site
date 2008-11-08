@@ -77,6 +77,7 @@ if(LOGD==1 || isset($cfg['commGuest']))
 	if(!isset($_SESSION['post']) OR $_SESSION['post'] < $_SERVER['REQUEST_TIME'])
 	{
 		$content->data['url'] = '?co=comment&amp;type='.CT.'&amp;id='.$id.'&amp;mod='.$_GET['co'];
+		$_SESSION['CV'][CT][$id] = true;
 	}
 	else
 	{

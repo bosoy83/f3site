@@ -18,24 +18,34 @@ if(isset($_GET['type']))
 	#TYP JEST LICZB¡
 	$type = (int)$_GET['type'];
 
-	/*#Sprawd¼, czy pozycja jest w³±czona
-	switch($type)
+	#Sprawd¼, czy pozycja jest w³±czona
+	if(!isset($_SESSION['CV'][$type][$id]))
 	{
-		case 10: $if = 'users WHERE lv<0 AND ID='.$id; break;
-		case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
-		case 15: $if = 'polls WHERE access='.$nlang; break;
-		default: $data = parse_ini_file('./cfg/types.ini');
-			if
-	}*/
+		switch($type)
+		{
+			case 10: $if = 'users WHERE lv<0 AND ID='.$id; break;
+			case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
+			case 15: $if = 'polls WHERE access="'.$nlang.'"'; break;
+			default: $data = parse_ini_file('./cfg/types.ini',1);
+				$if = isset($data[$type]) ? $data[$type]['table'].' i INNER JOIN '.
+				PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$id : '';
+		}
+		if(!$if OR $db->query('SELECT COUNT(*) FROM '.PRE.$if)->fetchColumn() != 1)
+		{
+			$error[] = $lang['c11'];
+		}
+	}
 }
-else
+elseif(!Admit('CM'))
 {
-	#Brak praw?
-	if(!Admit('CM')) $error[] = $lang['c11'];
+	$error[] = $lang['c11']; #Edycja komentarza - brak praw
 }
 
 #Tytu³ strony
 $content->title = $type ? $lang['addComm'] : $lang['c1'];
+
+#Modu³
+$mod = (isset($_GET['mod']) && ctype_alnum($_GET['mod'])) ? $_GET['mod'] : '';
 
 #Dane POST
 if($_POST)
@@ -78,7 +88,7 @@ if($_POST)
 			}
 			else
 			{
-				$c['author'] = empty($_POST['author']) ? $lang['c9'] : Clean($_POST['author'],30);
+				$c['author'] = empty($_POST['author']) ? $lang['c9'] : Clean($_POST['author'],30,1);
 
 				#KOD
 				if($cfg['captcha']==1 && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
@@ -121,7 +131,8 @@ if($_POST)
 				$_SESSION['post'] = time() + $cfg['antyFlood'];
 
 				#Info
-				$content->info( (($type && $c['access']!=1) ? $lang['c6'] : $lang['c7']) ); return 1;
+				$url = $mod ? '?co='.$mod.'&amp;id='.$id : 'index.php';
+				$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7'], $url);
 			}
 			catch(PDOException $e)
 			{
@@ -153,7 +164,7 @@ $content->data = array(
 	'code'    => $type && LOGD!=1 && $cfg['captcha']==1 ? true : false,
 	'author'  => $type && LOGD!=1 ? true : false,
 	'preview' => $preview,
-	'url'     => '?co=comment&amp;id='.$id.(($type)?'&amp;type='.$type:'')
+	'url'     => '?co=comment&amp;id='.$id.(($type)?'&amp;type='.$type:'').(($mod)?'&amp;mod='.$mod:'')
 );
 
 #JS

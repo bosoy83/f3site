@@ -10,5 +10,5 @@ $lang+=Array(
 'c8'=>'&laquo; Powrót',
 'c9'=>'Go¶æ',
 'c10'=>'Nie uda³o siê zapisaæ komentarza. Spróbuj ponownie za chwilê. Je¶li problem powtórzy siê, zg³o¶ go administratorom. Kod b³êdu: ',
-'c11'=>'Musisz zalogowaæ siê.'
+'c11'=>'Komentowana pozycja nie istnieje lub jest niedostêpna.',
 );

@@ -159,9 +159,9 @@ CREATE TABLE IF NOT EXISTS `{pre}links` (
 CREATE TABLE IF NOT EXISTS `{pre}log` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
-`date` datetime,
+`date` timestamp NOT NULL default CURRENT_TIMESTAMP,
 `ip` varchar(40) NOT NULL,
-`user` int(11) NOT NULL);
+`user` int(11) NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `{pre}menu` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,

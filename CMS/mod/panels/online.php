@@ -22,7 +22,7 @@ if(strstr($_SERVER['HTTP_USER_AGENT'],'Googlebot'))
 {
 	$r='Googlebot';
 	#Zapisz do logu
-	if(!$online) $db->exec('INSERT INTO '.PRE.'log VALUES ("","Google Visit",NOW(),"-",0)');
+	if(!$online) $db->exec('INSERT INTO '.PRE.'log (name) VALUES ("Google Visit")');
 }
 else
 {
@@ -34,7 +34,7 @@ else
 if($online < ($_SERVER['REQUEST_TIME']-600))
 {
 	$db->exec('DELETE FROM '.PRE.'online WHERE time<('.$_SERVER['REQUEST_TIME'].'-600) OR IP="'.$r.'"');
-	$db->exec('INSERT INTO '.PRE.'online VALUES ("'.$r.'",'.UID.','.$_SERVER['REQUEST_TIME'].',"")');
+	$db->exec('INSERT INTO '.PRE.'online (IP,user) VALUES ("'.$r.'",'.UID.')');
 	$_SESSION['online'] = $_SERVER['REQUEST_TIME'];
 }
 

@@ -6,7 +6,7 @@ $res = $db->query('SELECT n.*,login FROM '.PRE.'news n LEFT JOIN '.PRE.'users u 
 	n.author=u.ID WHERE n.'.$cats.' AND n.access=1 ORDER BY n.ID DESC LIMIT '.$st.','.$cfg['newsNum']);
 
 #Prawa
-$rights = Admit('N') OR Admit($d,'CAT') ? true : false;
+$rights = Admit($d,'CAT') ? true : false;
 
 #Komentarze
 $comm = ($cat['opt']&2 && isset($cfg['ncomm'])) ? true : false;

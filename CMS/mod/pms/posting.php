@@ -10,7 +10,7 @@ if($_POST)
 	#Dane
 	$pm = array(
 		'to'  => Clean($_POST['to']),
-		'txt' => Clean($_POST['txt']),
+		'txt' => Clean($_POST['txt'],0,1),
 		'bbc' => isset($cfg['bbcode']) && isset($_POST['bbc']) ? 1 : 0,
 		'topic' => empty($_POST['topic']) ? $lang['notopic'] : Clean($_POST['topic'],50,1)
 	);

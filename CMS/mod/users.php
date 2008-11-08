@@ -38,9 +38,14 @@ if(isset($cfg['userFind']))
 		$www = Clean($_GET['www'],80);
 		$param[] = 'www LIKE "%'.$www.'%"';  $url.='&amp;www='.$www; //WWW
 	}
+	if(!empty($_GET['gg']))
+	{
+		$gg = (int)$_GET['gg'];
+		$param[] = 'gg='.$gg;  $url.='&amp;gg='.$gg; //GG
+	}
 }
 #ID Grupy
-if(isset($_GET['id']))
+if(isset($_GET['id']) && $_GET['id'])
 {
 	$id = $_GET['id'];  $param[] = 'gid='.$id;  $url.='&amp;id='.$id;
 }
@@ -55,8 +60,25 @@ if($total < 1)
 	return 1;
 }
 
+#Sortowanie
+if(isset($_GET['sort']) && ctype_alnum($_GET['sort']))
+{
+	$sortURL = '&amp;sort='.$_GET['sort'];
+	switch($_GET['sort'])
+	{
+		case 1: $sort = 'login'; break;
+		case 3: $sort = 'lvis DESC'; break;
+		default: $sort = 'ID DESC';
+	}
+}
+else
+{
+	$sortURL = '';
+	$sort = 'ID DESC';
+}
+
 #Odczyt
-$res = $db->query('SELECT ID,login,lv,regt FROM '.PRE.'users'.(($url)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.((isset($_GET['sort']))?'login':'ID DESC').' LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,lv,regt,lvis FROM '.PRE.'users'.(($url)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
 
 $res->setFetchMode(3);
 unset($param);
@@ -78,6 +100,7 @@ foreach($res as $u)
 	$users[] = array(
 		'login' => $u[1],
 		'date'  => genDate($u[3]),
+		'last'  => genDate($u[4]),
 		'level' => $lv,
 		'num'   => ++$st,
 		'url'   => '?co=user&amp;id='.$u[0]
@@ -86,22 +109,20 @@ foreach($res as $u)
 $res=null;
 
 #Dane do szablonu
-$content->data = array
-(
+$content->data = array(
 	'users' => &$users,
 	'total' => $total,
 	'id'    => $id,
 	'find'  => isset($cfg['userFind']),
 	'joined_url' => '?co=users'.$url,
 	'login_url'  => '?co=users&amp;sort=1'.$url,
+	'last_url'   => '?co=users&amp;sort=3'.$url,
 	'find_login' => !empty($sl) ? $sl : '',
 	'find_www'   => !empty($www) ? $www : '',
 	'find_place' => !empty($pl) ? $pl : '',
-	'pages'      => Pages($page,$total,30,'?co=users'.$url.((isset($_GET['sort']))?'&amp;sort=1':''),1)
+	'find_gg'    => !empty($gg) ? $gg : '',
+	'pages'      => Pages($page,$total,30,'?co=users'.$url.$sortURL,1)
 );
-
-#Do szablonu
-$content->data['users'] =& $users;
 
 #Usuñ zbêdne dane
 unset($u,$url,$total,$www,$pl,$sl);

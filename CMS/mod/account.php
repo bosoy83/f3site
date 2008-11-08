@@ -12,14 +12,15 @@ $content->title = $lang['account'];
 #Aktywacja
 if(isset($_GET['keyid']))
 {
-	if(strlen($_GET['keyid'])==26)
+	if(strlen($_GET['keyid'])==26 && ctype_alnum($_GET['keyid']))
 	{
-		$res = $db->query('SELECT UID FROM '.PRE.'tmp WHERE type="REG" && KEYID='.$db->quote($_GET['keyid']));
+		$res = $db->query('SELECT UID FROM '.PRE.'tmp WHERE type="ACT" AND KEYID="'.$_GET['keyid'].'"');
 		$id = $res->fetchColumn();
 		if(is_numeric($id))
 		{
 			$db->exec('UPDATE '.PRE.'users SET lv=1 WHERE ID='.$id);
-			$content->info($lang['act_ok']);
+			$db->exec('DELETE FROM '.PRE.'tmp WHERE type="ACT" AND UID='.$id);
+			$content->info($lang['act']);
 		}
 		else
 		{
@@ -57,11 +58,11 @@ if($_POST)
 	'mails' => isset($_POST['mails']),
 	'city'  => Clean($_POST['city'],30),
 	'skype' => Clean($_POST['skype'],30),
-	'about' => Clean($_POST['about'],999,true)
+	'about' => Clean($_POST['about'],9999,1)
 	);
 
 	#O sobie - za d³ugi?
-	if(isset($about[501])) $error[] = $lang['ab_err'];
+	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
 	#Niezalogowani
 	if(LOGD==2)
@@ -70,14 +71,14 @@ if($_POST)
 		$u['login'] = Clean($_POST['login'],30);
 		if(isset($u['login'][21]) || !isset($u['login'][2]))
 		{
-			$error[] = $lang['login_err'];
+			$error[] = $lang['badLogin'];
 		}
 
 		#Login istnieje w bazie?
 		$res = $db->query('SELECT COUNT(login) FROM '.PRE.'users WHERE login='.$db->quote($u['login']));
 		if($res->fetchColumn() > 0)
 		{
-			$error[] = $lang['login_ex'];
+			$error[] = $lang['loginEx'];
 		}
 		$res=null;
 
@@ -86,7 +87,7 @@ if($_POST)
 		{
 			foreach($cfg['nickban'] as $x)
 			{
-				if(strpos($u['login'],$x)!==false) $error[] = $lang['login_ex'];
+				if(strpos($u['login'],$x)!==false) $error[] = $lang['loginEx'];
 			}
 			unset($x,$nicks);
 		}
@@ -96,7 +97,7 @@ if($_POST)
 		{
 			if($_POST['code']!=$_SESSION['code'] || empty($_SESSION['code']))
 			{
-				$error[] = $lang['ver_err'];
+				$error[] = $lang['badCode'];
 			}
 			$_SESSION['code'] = false;
 		}
@@ -113,10 +114,6 @@ if($_POST)
 		require './lib/avatar.php';
 		$photo = RemoveAvatar($error);
 	}
-	else
-	{
-		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID) -> fetchColumn();
-	}
 
 	#Has³o
 	if(LOGD==1 && empty($_POST['pass']))
@@ -128,7 +125,7 @@ if($_POST)
 		$u['pass'] = $_POST['pass'];
 		if(!preg_match('/^[a-zA-Z0-9_-]{5,20}$/', $u['pass']))
 		{
-			$error[] = $lang['pass_err'];
+			$error[] = $lang['badPass'];
 		}
 		#Has³a równe?
 		elseif($u['pass']!=$_POST['pass2'])
@@ -144,12 +141,12 @@ if($_POST)
 		#E-mail istnieje w bazie?
 		if(db_count('users WHERE mail="'.$u['mail'].'"'.((LOGD==1)?' AND ID!='.UID:'')) != 0)
 		{
-			$error[] = $lang['mail_ex'];
+			$error[] = $lang['mailEx'];
 		}
 	}
 	else
 	{
-		$u['mail'] = Clean($u['mail']); $error[]=$lang['mail_err'];
+		$u['mail'] = Clean($u['mail']); $error[] = $lang['badMail'];
 	}
 
 	#Zabrioniony e-mail?
@@ -157,7 +154,7 @@ if($_POST)
 	{
 		foreach($cfg['mailban'] as $x)
 		{
-			if(strpos($u['mail'],$x)!==false) $error[]=$lang['mail_ex'];
+			if(strpos($u['mail'],$x)!==false) $error[] = $lang['mailEx'];
 		}
 	}
 
@@ -165,6 +162,8 @@ if($_POST)
 	if($error)
 	{
 		$content->info(join('<br /><br />',$error));
+		if(LOGD==1 && !$photo)
+		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID) -> fetchColumn();
 	}
 
 	#Zapis
@@ -198,22 +197,22 @@ if($_POST)
 
 				#Przygotuj e-mail
 				include './lib/mail.php';
-				$m = new Mailer();
-				$m ->topic = $lang['u topic'].$u['login'];
-				$m ->text = file_get_contents(LANG_DIR.'mail_account.php');
-				$m ->text = str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
+				$m = new Mailer;
+				$m->topic = $lang['mail1'].$u['login'];
+				$m->text = file_get_contents(LANG_DIR.'mail_account.php');
+				$m->text = str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
 
 				#Wyœlij i zapisz u¿ytkownika
 				if($m->sendTo($u['login'],$u['mail']))
 				{
 					$q->execute($u);
-					$content->info($lang['u bymail'].$u['login'].'<br /><br />'.$lang['u nomail']);
-					$db->exec('INSERT INTO '.PRE.'tmp VALUES ("'.$key.'",'.$db->lastInsertId().',"REG")');
+					$content->info($lang['byMail'].$u['login'].'<br /><br />'.$lang['noMail']);
+					$db->exec('INSERT INTO '.PRE.'tmp VALUES ("'.$key.'",'.$db->lastInsertId().',"ACT")');
 					return 1;
 				}
 				else
 				{
-					$content->info($lang['u nook']);
+					$content->info($lang['mailFail']);
 				}
 				unset($m,$key);
 			}
@@ -225,17 +224,17 @@ if($_POST)
 			}
 			elseif($cfg['actmeth']!=1)
 			{
-				$q->execute($u); $content->info($lang['u noauto'].$u['login']);
+				$q->execute($u); $content->info($lang['noAuto'].$u['login']);
 			}
 			else
 			{
-				$q->execute($u); $content->info($lang['u auto'].$u['login']);
+				$q->execute($u); $content->info($lang['auto'].$u['login']);
 			}
 			return 1;
 		}
 		catch(Exception $e)
 		{
-			$content->info($lang['u error'].$e);
+			$content->info($lang['error'].$e);
 		}
 	}
 }

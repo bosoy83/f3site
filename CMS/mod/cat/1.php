@@ -34,7 +34,7 @@ $content->file = array('cat_arts');
 $content->data += array(
 	'pages' => &$pages,
 	'arts'  => &$arts,
-	'add_url' => Admit('A') || Admit($d,'CAT') ? '?co=edit&amp;act=art' : null,
+	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=art' : null,
 	'cat_type'=> $lang['arts']
 );
 
