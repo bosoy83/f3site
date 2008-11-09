@@ -26,7 +26,7 @@ function Avatar(&$error=array(), $id=UID)
 		if($ok && move_uploaded_file($file['tmp_name'], 'img/user/'.$id.$ext))
 		{
 			#Usuñ stary
-			if($old != 'img/user/'.$id.$ext && !strpos($old,':'))
+			if($old != 'img/user/'.$id.$ext && strpos($old,'user/'.$id) && !strpos($old,':'))
 			{
 				@unlink($old);
 			}
@@ -66,6 +66,6 @@ function RemoveAvatar(&$error, $id=UID)
 		$error[] = $e;
 		return $old;
 	}
-	if(strpos($old,':') === false) @unlink($old);
+	if(strpos($old,'user/'.$id) && strpos($old,':') === false) @unlink($old);
 	return '';
 }

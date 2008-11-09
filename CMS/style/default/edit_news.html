@@ -1,13 +1,11 @@
 <form action="{url}" id="news" method="post" f3:array="news">
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
 	<td style="width: 31%"><b>1. {lang.cat}:</b></td>
-	<td><select name="cat">
-		<option value="0">{lang.choose}</option>{cats}
-	</select></td>
+	<td><select name="cat"><option value="0">{lang.choose}</option>{cats}</select></td>
 </tr>
 <tr>
 	<td><b>2. {lang.title}:</b></td>

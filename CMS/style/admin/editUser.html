@@ -20,7 +20,7 @@
 	<td><input name="tlen" maxlength="25" value="{u.tlen}" /></td>
 </tr>
 <tr>
-	<td><b>5. ICQ#:</b></td>
+	<td><b>5. ICQ:</b></td>
 	<td><input name="icq" maxlength="20" value="{u.icq}" /></td>
 </tr>
 <tr>
@@ -40,8 +40,17 @@
 	<td><select name="gid">{groups}</select></td>
 </tr>
 <tr>
-	<td><b>10. {lang.abouty}:</b></td>
-	<td><textarea name="about" cols="40" rows="6">{u.about}</textarea></td>
+	<td><b>10. {lang.curPhoto}:</b></td>
+	<td>
+		<input name="photo" maxlength="150" value="{u.photo}" />
+		<!-- IF fileman -->
+		<input type="button" value="{lang.files} &raquo;" onclick="fileman('img',this.form.photo)" />
+		<!-- END -->
+	</td>
+</tr>
+<tr>
+	<td><b>11. {lang.abouty}:</b></td>
+	<td><textarea name="about" cols="50" rows="6">{u.about}</textarea></td>
 </tr>
 <tr>
 	<td class="eth" colspan="2">

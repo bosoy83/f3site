@@ -1,15 +1,11 @@
-<!-- Form -->
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 <form action="{url}" id="art" method="post" f3:array="art">
 
-<table cellspacing="1" class="tb">
+<table cellspacing="1" class="tb" id="at">
 <tbody>
 <tr>
 	<td style="width: 30%"><b>1. {lang.cat}:</b></td>
-	<td><select name="cat">
-		<option value="1">{lang.choose}</option>
-		{cats}
-	</select></td>
+	<td><select name="cat"><option value="0">{lang.choose}</option>{cats}</select></td>
 </tr>
 <tr>
 	<td><b>2. {lang.name}:</b></td>
@@ -37,29 +33,27 @@
 	<td><b>6. {lang.author}:</b><br /><small>{lang.nameid}</small></td>
 	<td><input name="author" value="{art.author}" maxlength="30" /></td>
 </tr>
+
+<!-- START full -->
 <tr>
-	<th colspan="2">{lang.text}</th>
+	<th colspan="2">{lang.page} {0}</th>
 </tr>
 <tr>
 	<td align="center" colspan="2">
-		<noscripta id="pages">
-
-		<!-- START full -->
-		{0}.
-		<textarea name="txt[]" id="txt" style="width: 100%" rows="18">{Clean: 1}</textarea></label>
-		<fieldset>
+	<textarea name="txt[]" style="width: 100%" cols="50" rows="20">{Clean: 1}</textarea>
+	<fieldset>
 		<legend>{lang.opt}</legend>
-		<label><input type="checkbox" name="emo[]" onclick="e.emots(this.checked)" f3:var="i1.emo" /> {lang.emo}</label>
+		<label><input type="checkbox" name="emo[]" f3:var="i1.emo" /> {lang.emo}</label>
 		<label><input type="checkbox" name="br[]" f3:var="i1.br" /> {lang.br}</label>
 		<label><input type="checkbox" name="code[]" f3:var="i1.code" /> {lang.hl}</label>
-		</fieldset>
-		<!-- STOP -->
-
-		</noscript>
+	</fieldset>
 	</td>
 </tr>
+<!-- STOP -->
+
 <tr>
 	<td class="eth" colspan="2">
+		<input type="button" value="{lang.addPage}" onclick="a()" />
 		<input type="button" value="{lang.preview}" onclick="e.preview({EMOTS:elements['emo[]'].checked})" />
 		<input type="submit" value="{lang.save}" />
 	</td>
@@ -68,8 +62,31 @@
 </table>
 </form>
 
+<div id="fr" style="display: none">
+	<textarea name="txt[]" style="width: 100%" cols="50" rows="20"></textarea>
+	<fieldset>
+		<legend>{lang.opt}</legend>
+		<label><input type="checkbox" name="emo[]" /> {lang.emo}</label>
+		<label><input type="checkbox" name="br[]" checked="checked" /> {lang.br}</label>
+		<label><input type="checkbox" name="code[]" /> {lang.hl}</label>
+	</fieldset>
+</div>
+
 <script type="text/javascript">
-var f = document.forms['art'];
-var e = new Editor(f.txt);
+f = document.forms['art'];
+e = new Editor(f[6]);
+n = f.getElementsByTagName('textarea').length;
+e.emots()
+function a()
+{
+	id('at').insertRow(4+2*n).innerHTML = '<th colspan="2">'+n+'</th>';
+	var x = id('at').insertRow(5+2*n);
+	x.innerHTML = '<td colspan="2" align="center">'+id('fr').innerHTML+'</td>';
+	n++;
+	var t = x.getElementsByTagName('textarea')[0];
+	var e = new Editor(t);
+	e.emots();
+	t.focus()
+}
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 </script>

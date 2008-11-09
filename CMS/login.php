@@ -8,7 +8,7 @@ $from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : 'in
 #Wyloguj?
 if(isset($_GET['logout']) && LOGD==1)
 {
-	unset($_SESSION['uid'],$_SESSION['uidl'],$_SESSION['uidp']);
+	unset($_SESSION['uid'],$_SESSION['userdata'],$_SESSION['uidl'],$_SESSION['uidp']);
 	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-25920000);
 	$content->message(4,'index.php');
 	exit;

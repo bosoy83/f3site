@@ -4,6 +4,10 @@ if(iCMSa!=1 || !Admit('U') || !$id || ($id==1 && UID!=1)) exit;
 require LANG_DIR.'profile.php';
 $error = array(); //B³êdy
 
+#Tytu³ i JS
+$content->title = $lang['account'];
+$content->addScript('lib/forms.js');
+
 #Uaktualnienie
 if($_POST)
 {
@@ -12,13 +16,14 @@ if($_POST)
 		'login' => Clean($_POST['login']),
 		'about' => Clean($_POST['about']),
 		'skype' => Clean($_POST['skype'],40),
+		'photo' => Clean($_POST['photo']),
 		'mail'  => Clean($_POST['mail']),
 		'city' => Clean($_POST['city']),
 		'tlen' => Clean($_POST['tlen'],30),
 		'www'  => Clean($_POST['www']),
 		'gid' => (int)$_POST['gid'],
 		'icq' => (is_numeric($_POST['icq'])) ? $_POST['icq'] : null,
-		'gg'  => (is_numeric($_POST['gg'])) ? $_POST['gg'] : null );
+		'gg'  => (is_numeric($_POST['gg'])) ? $_POST['gg'] : null);
 
 	#Login
 	if(isset($u['login'][21]) || !isset($u['login'][2]))
@@ -51,25 +56,23 @@ if($_POST)
 		try
 		{
 			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail,
-			about=:about, www=:www, city=:city, icq=:icq, skype=:skype,
-			tlen=:tlen, gg=:gg, gid=:gid WHERE ID='.$id) -> execute($u); //WYKONAJ
+			about=:about, www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen,
+			gg=:gg, gid=:gid, photo=:photo WHERE ID='.$id) -> execute($u);
 
-			$content->info($lang['u upd'], array( (MOD_REWRITE ? '/user/'.$id :
+			$content->info($lang['upd'], array( (MOD_REWRITE ? '/user/'.$id :
 				'index.php?co=user&amp;id='.$id) => $lang['account'].' '.$u['login'])); return;
 		}
 		catch(PDOException $e)
 		{
-			$content->info($lang['error'].$e->errorInfo[2]);
+			$content->info($lang['error'].$e);
 		}
 	}
 }
 
 #Pobierz dane
-else
+elseif(!$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2))
 {
-	$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2);
-	#Brak?
-	if(!$u) { $content->info($lang['noex']); return; }
+	$content->info($lang['noex']); return;
 }
 
 #Funkcje
@@ -79,5 +82,6 @@ require './lib/user.php';
 $content->data = array(
 	'u' => &$u,
 	'url' => 'adm.php?a=editUser&amp;id='.$id,
-	'groups' => GroupList($u['gid'])
+	'groups' => GroupList($u['gid']),
+	'fileman'=> Admit('FM')
 );

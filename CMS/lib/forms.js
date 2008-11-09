@@ -93,6 +93,7 @@ function Fragment(box,opt)
 	this.box = box;
 	this.num = box.getElementsByTagName(opt.tag).length;
 	this.limit = opt.limit || 30;
+	this.focus = opt.focus || 'input';
 	this.mode = opt.mode || null;
 
 	//G³êboko¶æ przycisków wzglêdem powtarzanego elementu lub nazwa znacznika
@@ -144,7 +145,7 @@ function Fragment(box,opt)
 				self.num++;
 
 				//Aktywuj pierwsze pole INPUT
-				var list = newNode.getElementsByTagName('input');
+				var list = newNode.getElementsByTagName(this.focus);
 				if(list.length>0) list[0].focus();
 				
 			break;
@@ -173,7 +174,7 @@ Fragment.prototype.addItem = function()
 	with(this.box.appendChild(this.html.cloneNode(true)))
 	{
 		style.display = 'block';
-		var list = getElementsByTagName('input'); if(list.length>0) list[0].focus();
+		var list = getElementsByTagName(this.focus); if(list.length>0) list[0].focus();
 	}
 	this.num++;
 }

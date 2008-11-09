@@ -20,7 +20,7 @@ $lang+=Array(
 'i1'=>'Kliknij nazwê artyku³u, aby go wy¶wietliæ.',
 'edit1'=>'Edytuj artyku³',
 'add1'=>'Dodaj artyku³',
-'arttip'=>'Aby usun±æ stronê, pozostaw puste pole.',
+'addPage'=>'Dodaj stronê',
 
 'chopt'=>'Opcje zaznaczonych pozycji',
 'chdel'=>'Usuñ zaznaczone pozycje',

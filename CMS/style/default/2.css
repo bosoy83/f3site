@@ -232,7 +232,7 @@ ul.hint {
 	padding: 0;
 	list-style-type: none
 }
-.hint li,.tab {
+.hint li {
 	padding: 2px;
 	cursor: pointer
 }
