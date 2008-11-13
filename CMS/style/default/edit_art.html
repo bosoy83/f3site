@@ -34,12 +34,14 @@
 	<td><input name="author" value="{art.author}" maxlength="30" /></td>
 </tr>
 
-<!-- START full -->
 <tr>
-	<th colspan="2">{lang.page} {0}</th>
+	<th colspan="2">{lang.text}</th>
 </tr>
 <tr>
-	<td align="center" colspan="2">
+	<td align="center" colspan="2" id="they">
+
+	<!-- START full -->
+	<div id="p{0}">
 	<textarea name="txt[]" style="width: 100%" cols="50" rows="20">{Clean: 1}</textarea>
 	<fieldset>
 		<legend>{lang.opt}</legend>
@@ -47,10 +49,11 @@
 		<label><input type="checkbox" name="br[]" f3:var="i1.br" /> {lang.br}</label>
 		<label><input type="checkbox" name="code[]" f3:var="i1.code" /> {lang.hl}</label>
 	</fieldset>
+	</div>
+	<!-- STOP -->
+
 	</td>
 </tr>
-<!-- STOP -->
-
 <tr>
 	<td class="eth" colspan="2">
 		<input type="button" value="{lang.addPage}" onclick="a()" />
@@ -62,31 +65,51 @@
 </table>
 </form>
 
-<div id="fr" style="display: none">
-	<textarea name="txt[]" style="width: 100%" cols="50" rows="20"></textarea>
-	<fieldset>
-		<legend>{lang.opt}</legend>
-		<label><input type="checkbox" name="emo[]" /> {lang.emo}</label>
-		<label><input type="checkbox" name="br[]" checked="checked" /> {lang.br}</label>
-		<label><input type="checkbox" name="code[]" /> {lang.hl}</label>
-	</fieldset>
-</div>
-
 <script type="text/javascript">
 f = document.forms['art'];
-e = new Editor(f[6]);
-n = f.getElementsByTagName('textarea').length;
-e.emots()
-function a()
+they = id('they');
+area = they.getElementsByTagName('textarea');
+butt = '{lang.page}: <span id="b">';
+num = area.length;
+cur = 1;
+e = new Editor(they.firstChild);
+e.o = f[6];
+
+for(i=1;i<=area.length;++i)
 {
-	id('at').insertRow(4+2*n).innerHTML = '<th colspan="2">'+n+'</th>';
-	var x = id('at').insertRow(5+2*n);
-	x.innerHTML = '<td colspan="2" align="center">'+id('fr').innerHTML+'</td>';
-	n++;
-	var t = x.getElementsByTagName('textarea')[0];
-	var e = new Editor(t);
-	e.emots();
-	t.focus()
+	if(i!=area.length) show(area[i].parentNode)
+	butt += '<input type="button" value="'+i+'" onclick="CP(this)" />';
+}
+
+b = document.createElement('div');
+b.innerHTML = butt + '</span> <input type="button" value="{lang.add}" onclick="CP(0)" />';
+they.insertBefore(b,they.firstChild);
+
+function CP(o)
+{
+	var c = id('p'+cur);
+	if(o==0)
+	{
+		var x = c.cloneNode(1);
+		var n = x.getElementsByTagName('textarea')[0];
+		num++;
+		cur = num;
+		x.id = 'p'+num;
+		n.value = '';
+		n.focus();
+		show(c);
+		they.appendChild(x);
+		id('b').innerHTML += '<input type="button" value="'+cur+'" onclick="CP(this)" />';
+		e.o = n;
+	}
+	else if(o.value != cur)
+	{
+		show(c);
+		cur = o.value;
+		x = id('p'+cur);
+		show(x);
+		e.o = x.getElementsByTagName('textarea')[0];
+	}
 }
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 </script>
