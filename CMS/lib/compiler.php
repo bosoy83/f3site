@@ -287,9 +287,10 @@ class Compiler
 			}
 
 			#Select
-			preg_match_all('#<select name="([A-Za-z0-9].*?)"(.*?)>(.*?</option>)(.*?)</select>#si', $form, $inputs, 2);
+			preg_match_all('#<select name="([A-Za-z0-9].*?)"(.*?)>(.*?)</select>#si', $form, $inputs, 2);
 			foreach($inputs as &$tag)
 			{
+				if(strpos($tag[3], '<option') == false) continue;
 				if(strpos($tag[2], 'f3:var'))
 				{
 					$var = f3var(preg_replace('/f3:var="([A-Za-z0-9_.].*?)"/i', '\\1', $tag[2]));
@@ -301,7 +302,7 @@ class Compiler
 				else continue;
 
 				$in[]  = $tag[0];
-				$out[] = '<select name="'.$tag[1].'"'. $tag[2] .'>' .$tag[3]. preg_replace( array(
+				$out[] = '<select name="'.$tag[1].'"'. $tag[2] .'>' . preg_replace( array(
 					'#<option value="([0-9].*?)">(.*?)</option>#si',
 					'#<option value="(.*?)">(.*?)</option>#si',
 					'#<option>(.*?)</option>#si'
@@ -309,7 +310,7 @@ class Compiler
 					'<option value="\\1"<?php if('.$var.'==\\1) echo \' selected="selected"\'?>>\\2</option>',
 					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\2</option>',
 					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\1</option>'
-				), $tag[4]) . '</select>';
+				), $tag[3]) . '</select>';
 			}
 		}
 		$this->data = substr_replace($this->data, str_replace($in, $out, $form), $pos, $end);

@@ -29,9 +29,19 @@ if($_POST)
 
 include LANG_DIR.'adm_cfg.php';
 
+#Skórki
+$skin = '';
+foreach(scandir('style') as $x)
+{
+	if($x[0] != '.' && is_dir('style/'.$x) && file_exists('style/'.$x.'/1.css'))
+	{
+		$skin .= '<option'.($cfg['skin']==$x ? ' selected="selected"' : '').'>'.$x.'</option>';
+	}
+}
+
 $content->title = $lang['mainopt'];
 $content->data = array(
 	'cfg' => &$opt,
+	'skinlist' => &$skin,
 	'langlist' => ListBox('lang', 1, $opt['lang']),
-	'skinlist' => ListBox('style', 1, $opt['skin'])
 );

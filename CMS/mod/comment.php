@@ -91,11 +91,21 @@ if($_POST)
 				$c['author'] = empty($_POST['author']) ? $lang['c9'] : Clean($_POST['author'],30,1);
 
 				#KOD
-				if($cfg['captcha']==1 && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
+				if(isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
 				{
 					$error[] = $lang['c2'];
 				}
+
+				#Linki URL
+				if(!isset($cfg['URLs']))
+				{
+					if(strpos($c['author'],'://') OR strpos($c['text'],'://') OR strpos($c['name'],'://'))
+					{
+						$error[] = $lang['c12'];
+					}
+				}
 			}
+
 			#Anty-flood
 			if(isset($_SESSION['post']) && $_SESSION['post']>time()) $error[] = $lang['c3'];
 
