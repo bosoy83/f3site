@@ -208,8 +208,8 @@ END;
 CREATE TABLE IF NOT EXISTS `{pre}online` (
 `IP` varchar(40) NOT NULL PRIMARY KEY,
 `user` int(11) NOT NULL,
-`time` timestamp NOT NULL default CURRENT_TIMESTAMP,
-`site` varchar(50));
+`name` varchar(50),
+`time` timestamp NOT NULL default CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS `{pre}pages` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,

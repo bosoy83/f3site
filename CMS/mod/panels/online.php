@@ -17,31 +17,45 @@ if(!$online)
 	file_put_contents('./cfg/visits.txt', ++$licznik, 2); //LOCK_EX
 }
 
+#IP
+$ip = $_SERVER['REMOTE_ADDR'];
+
 #Google?
 if(strstr($_SERVER['HTTP_USER_AGENT'],'Googlebot'))
 {
-	$r='Googlebot';
-	#Zapisz do logu
-	if(!$online) $db->exec('INSERT INTO '.PRE.'log (name) VALUES ("Google Visit")');
+	$name = 'Google';
+}
+elseif(UID)
+{
+	$name = $user[UID]['login'];
 }
 else
 {
-	$r = $db->quote($_SERVER['REMOTE_ADDR']. ((isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-		?' '.$_SERVER['HTTP_X_FORWARDED_FOR']:'') );
+	$name = '';
 }
 
 #Online (10 minut)
 if($online < ($_SERVER['REQUEST_TIME']-600))
 {
-	$db->exec('DELETE FROM '.PRE.'online WHERE time<('.$_SERVER['REQUEST_TIME'].'-600) OR IP="'.$r.'"');
-	$db->exec('INSERT INTO '.PRE.'online (IP,user) VALUES ("'.$r.'",'.UID.')');
+	$db->exec('DELETE FROM '.PRE.'online WHERE time<('.$_SERVER['REQUEST_TIME'].'-600) OR IP="'.$ip.'"');
+	$db->prepare('INSERT INTO '.PRE.'online (IP,user,name) VALUES (?,?,?)')->execute(array($ip,UID,$name));
 	$_SESSION['online'] = $_SERVER['REQUEST_TIME'];
 }
 
-#Wyœwietl dane
+#Lista osób online
+$res = $db->query('SELECT user,name FROM '.PRE.'online WHERE user!=0');
+$res->setFetchMode(3);
+$list = '';
+$num = 0;
+
+foreach($res as $x)
+{
+	$list .= '<br /><a href="'.(MOD_REWRITE ? '/user/'.$x[0] : '?co=user&amp;id='.$x[0]).'">'.$x[1].'</a>';
+	++$num;
+}
 echo
 	$lang['visits'].'<br /><b>'.$licznik.'</b><br />'.
-	$lang['online'].'<br /><b>'.db_count('online').'</b>';
+	$lang['online'].'<br /><b>'.$num.'</b>'.$list;
 unset($online);
 ?>
 </div>

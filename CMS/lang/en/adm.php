@@ -28,10 +28,12 @@ $lang+=Array(
 
 'mainPage'=>'Main page',
 'summary'=>'Summary',
-'admintro'=>'Welcome to %name administration panel. Select a module from left menu or use the following actions:',
+'admintro'=>'Welcome to %name admin panel. Select a module from left menu.',
 'skincomp'=>'Apply changes in current skin',
-'html_boo'=>'Kurs HTML, xHTML, CSS...',
-'official'=>'Official F3Site 2008 website',
+'html_boo'=>'Course: HTML, xHTML, CSS',
+'official'=>'Get help and extensions for F3Site 2008',
+'what'=>'What do you want to do?',
+'svn'=>'Visit project home page at Google Code',
 
 'acc'=>'Accessibility',
 'adr'=>'Address',
@@ -57,5 +59,5 @@ $lang+=Array(
 'sortid'=>'By ID',
 'sortid2'=>'Conversely by ID',
 'sortn'=>'Alphabetizing',
-'warninst'=>'<b>INSTALL directory still exists on the server. Delete it now!</b>',
+'warninst'=>'INSTALL directory still exists on the server. Delete it now!',
 );

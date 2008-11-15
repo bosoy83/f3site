@@ -206,8 +206,8 @@ CREATE INDEX IF NOT EXISTS cat ON {pre}news (cat);
 CREATE TABLE IF NOT EXISTS `{pre}online` (
 `IP` varchar(40) PRIMARY KEY NOT NULL,
 `user` int(11) NOT NULL,
-`time` timestamp NOT NULL default CURRENT_TIMESTAMP,
-`site` varchar(50));
+`name` varchar(50),
+`time` timestamp NOT NULL default CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS `{pre}pages` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

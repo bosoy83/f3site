@@ -1,17 +1,20 @@
 <h2>{lang.admin}</h2>
 <div class="box">
-	<?= $intro ?><ul class="go">
+	<p style="margin-top: 0"><?= $intro ?></p>
+	<h3>{lang.what}</h3>
+	<ul class="go">
+		<li><a href="http://compmaster.prv.pl">{lang.official}</a></li>
+		<li><a href="http://f3site.googlecode.com">{lang.svn}</a></li>
 		<li><a href="?compile=1">{lang.skincomp}</a></li>
 		<li><a href="http://kurshtml.boo.pl">{lang.html_boo}</a></li>
 		<li><a href="http://www.famfamfam.com/lab/icons/silk">Silk Icons</a></li>
-		<li><a href="http://compmaster.prv.pl">{lang.official}</a></li>
 	</ul>
+	<h3>System</h3>
+	<p>
 	<?php
-	if($warning)
-	{
-		echo '<p style="color: red">'.$warning.'</p>';
-	}
-	echo $_SERVER['SERVER_SOFTWARE'].'<br />'.$_SERVER['SERVER_SIGNATURE'];
-	if(isset($_ENV['OS'])) echo '<p>System: '.$_ENV['OS'].'</p>';
+	echo (isset($_ENV['OS']) ? $_ENV['OS'].'<br />' : '').
+		$_SERVER['SERVER_SOFTWARE'].'<br />'.
+		$_SERVER['SERVER_SIGNATURE'];
 	?>
+	</p>
 </div>

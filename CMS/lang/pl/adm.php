@@ -28,10 +28,12 @@ $lang+=Array(
 
 'summary'=>'Podsumowanie',
 'mainPage'=>'Strona g³ówna',
-'admintro'=>'Witaj w panelu administracyjnym %name. Aby kontynuowaæ, wybierz odpowiedni modu³ z menu nawigacyjnego lub skorzystaj z poni¿szych skrótów:',
+'admintro'=>'Witaj w panelu administracyjnym %name. Wybierz odpowiedni modu³ z menu.',
 'skincomp'=>'Zatwierd¼ zmiany w bie¿±cej skórce',
 'html_boo'=>'Kurs HTML, xHTML, CSS...',
-'official'=>'Pomoc i wsparcie systemu F3Site 2008',
+'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2008',
+'what'=>'Co chcesz zrobiæ?',
+'svn'=>'Odwied¼ stronê projektu w Google Code',
 
 'acc'=>'Dostêpno¶æ',
 'adr'=>'Adres',
@@ -57,5 +59,5 @@ $lang+=Array(
 'sortid'=>'wg kolejno¶ci dodania',
 'sortid2'=>'odwrotnie wg kol. dodania',
 'sortn'=>'wg nazwy',
-'warninst'=>'<b>Katalog INSTALL nadal znajduje siê na serwerze. Usuñ go teraz!</b>',
+'warninst'=>'Katalog INSTALL nadal znajduje siê na serwerze. Usuñ go teraz!',
 );

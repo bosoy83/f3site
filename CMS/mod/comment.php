@@ -66,6 +66,26 @@ if($_POST)
 		$error[] = $lang['c4'];
   }
 
+	#Autor i linki w tre¶ci
+	if($type)
+	{
+		if(LOGD==1)
+		{
+			$c['author'] = UID;
+		}
+		else
+		{
+			$c['author'] = empty($_POST['author']) ? $lang['c9'] : Clean($_POST['author'],30,1);
+			if(!isset($cfg['URLs']))
+			{
+				if(strpos($c['author'],'://') OR strpos($c['text'],'://') OR strpos($c['name'],'://'))
+				{
+					$error[] = $lang['c12'];
+				}
+			}
+		}
+	}
+
 	#Podgl±d
 	if(isset($_POST['prev']) && !$error)
 	{
@@ -80,30 +100,11 @@ if($_POST)
 	#Zapis
 	elseif(isset($_POST['save']))
 	{
-		if($type) //NOWY KOM.
+		if($type)
 		{
-			if(LOGD==1)
+			if(isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
 			{
-				$c['author'] = UID; //Autor
-			}
-			else
-			{
-				$c['author'] = empty($_POST['author']) ? $lang['c9'] : Clean($_POST['author'],30,1);
-
-				#KOD
-				if(isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
-				{
-					$error[] = $lang['c2'];
-				}
-
-				#Linki URL
-				if(!isset($cfg['URLs']))
-				{
-					if(strpos($c['author'],'://') OR strpos($c['text'],'://') OR strpos($c['name'],'://'))
-					{
-						$error[] = $lang['c12'];
-					}
-				}
+				$error[] = $lang['c2'];
 			}
 
 			#Anty-flood
@@ -157,7 +158,7 @@ else
 {
 	if($type)
 	{
-		$c = array('name'=>'', 'author'=>UID, 'text'=>'', 'guest'=>(LOGD==1)?0:1);
+		$c = array('name'=>'', 'author'=>'', 'text'=>'', 'guest'=>(LOGD==1)?0:1);
 	}
 	else
 	{

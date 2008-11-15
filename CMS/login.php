@@ -14,6 +14,13 @@ if(isset($_GET['logout']) && LOGD==1)
 	exit;
 }
 
+#Rejestruj?
+elseif(isset($_POST['reg']))
+{
+	Header('Location:'.URL.'?co=account');
+	exit;
+}
+
 #Loguj?
 elseif(LOGD==2 && !empty($_POST['u']) && !empty($_POST['p']))
 {

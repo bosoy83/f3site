@@ -22,8 +22,7 @@ foreach($res as $x)
 		'title'=> $x[1],
 		'url'  => MOD_REWRITE ? '/'.$x[0] : '?d='.$x[0],
 		'desc' => $x[2],
-		'num'  => $x[3], //4
-		'new'  => null //isset($_SESSION['recent']) && $x[3] > $_SESSION['recent']
+		'num'  => $x[3],
 	);
 	++$total;
 }

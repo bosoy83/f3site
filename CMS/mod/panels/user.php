@@ -16,27 +16,21 @@ if(LOGD==1)
 	:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a></li>':'').
 
 	'<li><a href="?co=account">'.$lang['upanel'].'</a></li><li><a href="login.php?logout">'.$lang['logout'].'</a></li></ul>';
+
+	return;
 }
 
-#Form
-else
-{
- ?>
- <form action="login.php" method="post">
- <div align="center">
- Login:<br />
- <input name="u" style="height: 15px; width: 93%" /><br />
- <?= $lang['pass'] ?>:<br />
- <input name="p" type="password" style="height: 15px; width: 93%" /><br />
-
- <div style="margin: 3px 0px">
- <input type="checkbox" name="auto" style="margin: 3px 0px" /> <?= $lang['remlog'] ?>
- </div>
-
- <input type="submit" value="<?= $lang['logme'] ?>" />
- <input type="button" value="<?= $lang['regme'] ?>" onclick="location='?co=account'" />
- </div>
- </form>
- <?php
-}
 ?>
+<form action="login.php" method="post" style="text-align: center">
+	Login:
+	<input name="u" style="height: 15px; width: 93%" />
+	<?= $lang['pass'] ?>:
+	<input name="p" type="password" style="height: 15px; width: 93%" />
+
+	<div style="margin: 5px 0px">
+	<input type="checkbox" name="auto" /> <?= $lang['remlog'] ?>
+	</div>
+
+	<input type="submit" value="<?= $lang['logme'] ?>" />
+	<input type="submit" value="<?= $lang['regme'] ?>" name="reg" />
+</form>
