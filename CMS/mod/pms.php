@@ -39,7 +39,7 @@ if($cfg['pmOn']==1 && LOGD==1)
 	}
 	else require './mod/pms/list.php';
 }
-elseif(LOGD==2)
+elseif(LOGD!=1)
 {
 	$content->info($lang['pm2']);
 }

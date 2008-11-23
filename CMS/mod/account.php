@@ -65,7 +65,7 @@ if($_POST)
 	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
 	#Niezalogowani
-	if(LOGD==2)
+	if(LOGD!=1)
 	{
 		#Login
 		$u['login'] = Clean($_POST['login'],30);
@@ -190,7 +190,7 @@ if($_POST)
 			}
 
 			#Aktywacja e-mail
-			if(LOGD==2 && $cfg['actmeth']==2)
+			if(LOGD!=1 && $cfg['actmeth']==2)
 			{
 				#Klucz
 				$key = uniqid(mt_rand(100,999),1);
@@ -264,7 +264,7 @@ $content->data = array(
 	'width' => $cfg['maxDim1'],
 	'height'=> $cfg['maxDim2'],
 	'size'  => $cfg['maxSize'],
-	'code'  => isset($cfg['captcha']) && LOGD==2,
+	'code'  => isset($cfg['captcha']) && LOGD!=1,
 	'del'   => $photo,
 	'photo' => (LOGD==1 && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
 );

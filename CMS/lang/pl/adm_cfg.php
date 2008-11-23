@@ -26,7 +26,8 @@ $lang+=Array(
 
 'security'=>'Bezpieczeñstwo i funkcje',
 'censor'=>'W³±czyæ cenzurê s³ów',
-'bbcon'=>'W³±czyæ BBCode',
+'BBCode'=>'W³±czyæ obs³ugê jêzyka BBCode',
+'BBCode2'=>'Umo¿liwia u¿ytkownikom formatowanie tekstu.',
 'captcha'=>'Potwierdzanie kodu z obrazka',
 'regCom'=>'Dotyczy rejestracji i komentowania przez go¶ci.',
 'flood'=>'Pozwól wys³aæ kolejny komentarz po',
@@ -55,6 +56,6 @@ $lang+=Array(
 'spam'=>'Domy¶lnie go¶cie nie mog± publikowaæ adresów URL w celu ochrony przed spamem.',
 
 'common'=>'W³±czyæ komentarze',
-'pcount'=>'Zaokr±glij % do cyfr po przecinku',
-'pcountd'=>'Dotyczy wyników. 0 = bez cyfr po przecinku.'
+'round'=>'Zaokr±glij % do cyfr po przecinku',
+'round2'=>'Dotyczy wyników. 0 = bez cyfr po przecinku.'
 );

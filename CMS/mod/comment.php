@@ -9,6 +9,30 @@ $js = defined('JS');
 $error = array();
 $preview = null;
 
+#Akceptuj, usuñ
+if(isset($_POST['act']) && $id)
+{
+	switch($_POST['act'])
+	{
+		case 'ok':
+		if(Admit('CM')) $db->exec('UPDATE '.PRE.'comms SET access=1 WHERE ID='.$id);
+		break;
+		case 'del':
+		if($comm = $db->query('SELECT CID,TYPE FROM '.PRE.'comms WHERE ID='.$id)->fetch(3))
+		{
+			if(($comm[0] == UID && $comm[1] == '10') OR Admit('CM'))
+			{
+				if($db->exec('DELETE FROM '.PRE.'comms WHERE ID='.$id) && $comm[1] == '5')
+				{
+					$db->exec('UPDATE '.PRE.'news SET comm=comm-1 WHERE ID='.$comm[0]);
+				}
+			}
+		}
+	}
+	echo 'OK';
+	exit;
+}
+
 #Je¶li istnieje zmienna $type, dodaj nowy komentarz
 if(isset($_GET['type']))
 {
@@ -37,9 +61,10 @@ if(isset($_GET['type']))
 	}
 }
 elseif(!Admit('CM'))
-{
+
 	$error[] = $lang['c11']; #Edycja komentarza - brak praw
-}
+
+else $type = null;
 
 #Tytu³ strony
 $content->title = $type ? $lang['addComm'] : $lang['c1'];
@@ -102,7 +127,7 @@ if($_POST)
 	{
 		if($type)
 		{
-			if(isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
+			if(!LOGD && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
 			{
 				$error[] = $lang['c2'];
 			}
@@ -113,7 +138,7 @@ if($_POST)
 			#Moderowaæ? + IP
 			$c['access'] = !isset($cfg['moderate']) || LEVEL>1 || Admit('CM') ? 1 : 0;
 			$c['ip'] = $_SERVER['REMOTE_ADDR'];
-			$c['guest'] = LOGD==1 ? 0 : 1;
+			$c['guest'] = LOGD ? 0 : 1;
 		}
 
 		#START

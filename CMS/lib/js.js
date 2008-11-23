@@ -15,13 +15,12 @@ function CSS(x)
 		case 'undefined':
 			var r = new Request('request.php?co=css');
 			r.done = function(x) { var box = createBox('', x); hint(box) };
-			r.run();
+			r.send();
 			break;
 		case 'number':
 			var link = document.getElementsByTagName('link')[0];
 			link.href = link.href.slice(0,-5) + x + '.css';
 			break;
-		default: alert('def');
 	}
 }
 
@@ -130,13 +129,11 @@ function createBox(title, txt)
 		}
 		x.innerHTML+='<ul class="menulist">'+v+'</ul>';
 	}
-	//HTML lub tekst
 	else
 	{
-		x.innerHTML+=txt;
+		x.innerHTML+=txt; //HTML lub tekst
 	}
-	document.body.appendChild(x);
-	return x; //Zwróæ element
+	return document.body.appendChild(x); //Zwróæ element
 }
 
 //Hint
@@ -170,144 +167,135 @@ function hint(o, l, t, autoHide)
 	}
 }
 
-//HTTP
-function Request(url, o, showBox)
+//¯¹danie AJAX - domyœlne wartoœci opcji
+//alert(this instanceof arguments.callee ? 'object instance' : 'function call')
+function Request(url, box, opt)
 {
-	//Obiekt = ID?
-	if(typeof o === 'string') o = id(o);
-
-	//Domyœlne zmienne
-	this.o = o;
+	opt = opt || {};
+	this.o = box || id('main'); //Gdzie wstawiæ odpowiedŸ?
 	this.url = url;
-	this.method = 'GET';
-	this.eval = false;
-	this.timeout = 50000;
-	this.reset();
+	this.post = opt.post || false; //Typ POST - domyœlnie false (typ GET)
+	this.param = []; //Parametry POST
+	this.silent = opt.silent || true; //true = tryb cichy
+	this.scripts = opt.scripts || false; //true = wykonaj skrypty JS
+	this.timeout = opt.timeout || 50000; //Czas oczekiwania na odpowiedŸ
+	this.loading = opt.loading || null; //Gdy odpowiedŸ jest pobierana
+	this.fail = opt.fail || function(x) { alert(x) }; //Gdy ¿¹danie nie powiod³o siê
+	this.done = opt.done || function(x) { this.o.innerHTML = x } //Gdy ¿¹danie zakoñczone sukcesem
+}
 
-	//Tryb cichy
-	if(showBox == undefined)
-	{
-		this.done = function(x) { o.innerHTML = x };
-		this.loading = function() {};
-		return;
-	}
-
-	//Domyœlnie wyœwietlaj warstwê z obrazkiem podczas ³adowania
-	var box = createBox('', '<img src="img/icon/clock.png" alt="" />');
-
-	//Status, zdarzenia: powodzenie, ³adowanie, pora¿ka
-	this.st = 0;
-	this.done = function(x)
-	{
-		o.innerHTML = x;
-		box.style.visibility = 'hidden';
-	};
-	this.loading = function()
-	{
-		if(this.st==0) { hint(box); this.st=1 }
-	};
-	this.failed = function()
-	{
-		box.style.visibility = 'hidden'; alert('Error...')
-	};
-};
-
-//Autostart
-function get(url, o, eval)
+//Wyœlij ¿¹danie
+Request.prototype.send = function(list)
 {
-	var obj = new Request(url, o);  if(eval != undefined) obj.eval = true;
-	obj.run();
+	if(!this.http)
+	{
+		if(window.XMLHttpRequest) //XMLHttpRequest
+		{
+			this.http = new XMLHttpRequest();
+			if(this.http.overrideMimeType) this.http.overrideMimeType('text/xml');
+		}
+		else if(window.ActiveXObject) //IE
+		{
+			try
+			{
+				this.http = new ActiveXObject("Msxml2.XMLHTTP")
+			}
+			catch(e)
+			{
+				try
+				{
+					this.http = new ActiveXObject("Microsoft.XMLHTTP")
+				}
+				catch(e)
+				{
+					this.fail('AJAX is not supported!');
+					return false;
+				}
+			}
+		}
+		if(!this.http) { this.fail('Cannot create AJAX object!'); return false }
+		if(!this.silent)
+		{
+			//Domyœlnie wyœwietlaj warstwê z obrazkiem podczas ³adowania
+			var box = createBox('', '<img src="img/icon/clock.png" alt="" />');
+		}
+
+		//Odnoœnik do THIS
+		var self = this;
+
+		//Gdy odpowiedŸ jest pobierana
+		if(self.loading) self.loading();
+
+		//Kursor
+		document.body.style.cursor = 'progress';
+
+		//Gdy zmienia siê status ¿¹dania...
+		this.http.onreadystatechange = function()
+		{
+			if(self.http.readyState == 4)
+			{
+				try
+				{
+					if(self.http.status == 200)
+					{
+						//Wstaw odpowiedŸ
+						self.done(self.http.responseText);
+
+						//Wykonaj znaczniki <script>
+						if(self.scripts)
+						{
+							var script = self.o.getElementsByTagName('script');
+							for(var i=0; i<script.length; ++i)
+							{
+								eval(script[i].innerHTML);
+							}
+						}
+					}
+					else
+					{
+						self.fail('Server is busy.');
+					}
+				}
+				catch(e)
+				{
+					self.fail(e);
+				}
+				document.body.style.cursor = '';
+			}
+		};
+	}
+	//Gdy nie zdefiniowano URL
+	if(this.url == '') return;
+
+	//Otwórz po³¹czenie
+	this.http.open(this.post ? 'POST' : 'GET', this.url, true);
+
+	//Typ POST
+	if(this.post)
+	{
+		if(typeof list == 'object')
+		{
+			for(var name in list) this.add(name,list[name]); //Dodaj parametry
+		}
+		var p = this.param.join('&');
+		this.http.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	}
+	else
+	{
+		var p = null;
+	}
+	this.http.send(p);
+
+	//Usuñ zmienne POST
+	if(list) this.reset();
 }
 
 //Dodaj parametr POST
 Request.prototype.add = function(key, val)
 {
-	this.p1.push(encodeURIComponent(key)+'='+encodeURIComponent(val)); this.method='POST';
+	this.param.push(encodeURIComponent(key)+'='+encodeURIComponent(val));
+	this.post = true;
 };
 
 //Reset
-Request.prototype.reset = function() { this.p1 = new Array() };
-
-//Start
-Request.prototype.run = function(x)
-{
-	this.http=false;
-	
-	//XMLHttpRequest
-	if(window.XMLHttpRequest)
-	{
-		this.http = new XMLHttpRequest();
-		if(this.http.overrideMimeType) this.http.overrideMimeType('text/xml');
-	}
-	//IE
-	else if(window.ActiveXObject)
-	{
-		try
-		{
-			this.http = new ActiveXObject("Msxml2.XMLHTTP")
-		}
-		catch(e)
-		{
-			try
-			{
-				this.http = new ActiveXObject("Microsoft.XMLHTTP")
-			}
-			catch(e)
-			{
-				if(this.errmsg) alert(this.errmsg);
-			}
-		}
-	}
-	if(!this.http) { this.failed(); return false }
-
-	//Odnoœnik do THIS
-	var self = this;
-
-	//Gdy zmienia siê status ¿¹dania...
-	this.http.onreadystatechange = function()
-	{
-		switch(self.http.readyState)
-		{
-			case 4:
-				self.done(self.http.responseText);
-
-				//Wykonaj znaczniki <script>
-				if(self.eval)
-				{
-					var scripts = self.o.getElementsByTagName('script');
-					for(var i=0; i<scripts.length; ++i)
-					{
-						eval(scripts[i].innerHTML);
-					}		 
-				}
-				break;
-
-			default: self.loading();
-		}
-	};
-	if(this.url!='')
-	{
-		//Parametry
-		if(this.method!='POST')
-		{
-			this.p = null
-		}
-		else
-		{
-			this.p = this.p1.join('&')
-		}
-		
-		//Otwórz po³¹czenie
-		this.http.open(this.method,this.url,true);
-		
-		//POST?
-		if(this.method=='POST')
-			this.http.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-
-		//Wyœlij zapytanie
-		this.http.send(this.p);
-		
-		//Reset
-		if(x!=undefined) this.reset();
-	}
-};
+Request.prototype.reset = function() { this.param = [] };

@@ -8,12 +8,12 @@ $lang+=Array(
 'indexAll'=>'all pages',
 'indexHome'=>'home page only',
 'indexURL'=>'links only',
-'noIndex'=>'forbid everything',
+'noIndex'=>'nothing',
 'footer'=>'Footer',
 'siteDesc'=>'Site description',
 'indexed'=>'Indexed by search engines.',
 'head'=>'Additional code inside',
-'head2'=>'Not required.<br />E.g. other &lt;meta&gt; tags, &lt;link&gt;...',
+'head2'=>'Not required, e.g. &lt;meta&gt; or &lt;link&gt; tags.',
 
 'date'=>'Date and time settings',
 'now1'=>'Current date format',
@@ -26,7 +26,8 @@ $lang+=Array(
 
 'security'=>'Security and features',
 'censor'=>'Enable word censoring',
-'bbcon'=>'Enable BBCode',
+'BBCode'=>'Enable BBCode',
+'BBCode2'=>'Lets users format text in comments / messages.',
 'captcha'=>'Enable CAPTCHA',
 'regCom'=>'Concerns registering and commenting by guests.',
 'flood'=>'Allow to send new comment after',
@@ -57,6 +58,6 @@ $lang+=Array(
 'spam'=>'By default guests cannot post URLs. It can prevent your site against spam bots.',
 
 'common'=>'Enable comments',
-'pcount'=>'Round % to X digits after comma',
-'pcountd'=>'It concerns results. 0 = no digits after comma.'
+'round'=>'Round % to X digits after comma',
+'round2'=>'It concerns results. 0 = no digits after comma.'
 );

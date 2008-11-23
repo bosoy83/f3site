@@ -9,7 +9,7 @@ function Del(c)
 		del.method='POST';
 		del.add('type','page')
 		del.done = function(x) { if(x == 'OK') o.parentNode.deleteRow(o.rowIndex); }
-		del.run()
+		del.send()
 	}
 }
 //]]>

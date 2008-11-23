@@ -7,7 +7,7 @@ function Del(id)
 		del=new Request("adm.php?x=del&id="+id,'i'+id);
 		del.method='POST';
 		del.add('co','cat')
-		del.run()
+		del.send()
 	}
 }
 //]]>

@@ -55,11 +55,11 @@ if($TOTAL !== 0)
 			'text' => nl2br(Emots( isset($cfg['bbcode']) ? BBCode($x[6]) : $x[6] )),
 			'date' => genDate($x[5],1),
 			'title'=> $x[2],
-			'user' => $x[7] ? $x[7] : $x[7],
+			'user' => $x[7] ? $x[7] : $x[3],
 			'ip'   => $mayEdit ? $x[4] : null,
 			'edit' => $mayEdit ? '?co=comment&amp;id='.$x[0] : false,
-			'del'  => $mayDel ? ' ' : false,
-			'accept'  => ($mayEdit && $x[1]!=1) ? ' ' : null,
+			'del'  => $mayDel ? '?co=comment&amp;id='.$x[0] : false,
+			'accept'  => ($mayEdit && $x[1]!=1) ? '?co=comment&amp;id='.$x[0] : null,
 			'profile' => $x[7] ? ((MOD_REWRITE) ? '/user/'.$x[3] : '?co=user&amp;id='.$x[3]) : null
 		);
 	}

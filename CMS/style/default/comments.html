@@ -25,7 +25,7 @@
 		<!-- END -->
 
 		<!-- IF del -->
-		<a href="{del}" onclick="return confirm(window.lang.del)"><img src="img/icon/del.png" alt="-" /></a>
+		<img src="img/icon/del.png" alt="-" onclick="if(confirm(window.lang.del)) a('{del}','del',this)" />
 		<!-- END -->
 
 		<!-- IF edit -->
@@ -33,7 +33,7 @@
 		<!-- END -->
 
 		<!-- IF accept -->
-		<a href=""><img src="img/icon/accept.png" alt="+" /></a>
+		<img src="img/icon/accept.png" alt="+" onclick="a('{accept}','ok',this)" /></a>
 		<!-- END -->
 
 	</td>
@@ -66,10 +66,18 @@ function c(o)
 {
 	include('lib/editor.js');
 	include('cache/emots.js');
-	get('request.php'+o.search, 'com', 1);
+	new Request('request.php'+o.search, id('com'), {scripts:1}).send();
 	return false
 }
-include('{LANG_DIR}edit.js');
+function a(url,act,o)
+{
+	var x;
+	if(!x) x = new Request('request.php'+url, null, {post:1,done:function(x){alert(x)}});
+	x.url = url;
+	x.send({act:act});
+	o.parentNode.removeChild(o)
+}
+include('{LANG_DIR}edit.js')
 </script>
 <!-- END -->
 

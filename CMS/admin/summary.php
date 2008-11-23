@@ -1,9 +1,14 @@
 <?php
 #Do szablonu
 $content->data = array(
-	'intro'  => str_replace('%name', $cfg['title'], $lang['admintro']),
-	'warning'=> LEVEL==4 && is_dir('install') ? $lang['warninst'] : '',
+	'intro'  => str_replace('%name', $cfg['title'], $lang['admintro'])
 );
+
+#Katalog INSTALL
+if(LEVEL==4 && is_dir('install'))
+{
+	$content->info('<b style="color: red">'.$lang['warninst'].'</b>');
+}
 
 #Kompiluj szablony
 if(isset($_GET['compile']))

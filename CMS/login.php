@@ -22,7 +22,7 @@ elseif(isset($_POST['reg']))
 }
 
 #Loguj?
-elseif(LOGD==2 && !empty($_POST['u']) && !empty($_POST['p']))
+elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 {
 	#Wpisane dane
 	$login = Clean($_POST['u'],30);

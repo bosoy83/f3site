@@ -2,6 +2,12 @@
 if(iCMS!=1) exit;
 define('URL','http://'.$_SERVER['HTTP_HOST'].str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
 
+#Ochrona przed CSRF
+if($_POST)
+{
+	if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_HOST'])===false) exit;
+}
+
 #Register globals: usuñ zmienne
 if(ini_get('register_globals'))
 {
@@ -201,7 +207,7 @@ if(defined('LOGD'))
 else
 {
 	#Nie usuwaj!
-	define('LOGD',2);
+	define('LOGD',0);
 	define('UID',0);
 	define('LEVEL',0);
 }
