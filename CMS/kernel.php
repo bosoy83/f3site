@@ -3,9 +3,10 @@ if(iCMS!=1) exit;
 define('URL','http://'.$_SERVER['HTTP_HOST'].str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
 
 #Ochrona przed CSRF
-if($_POST)
+if($_POST && isset($_SERVER['HTTP_REFERER']))
 {
-	if(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_HOST'])===false) exit;
+	$pos = strpos($_SERVER['HTTP_REFERER'],$_SERVER['SERVER_NAME']);
+	if($pos < 3 OR $pos > 8) exit;
 }
 
 #Register globals: usuñ zmienne

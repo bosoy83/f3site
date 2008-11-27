@@ -207,26 +207,34 @@ small {font-size: 11px}
 	border: 1px solid #7dbfd2;
 	background-color: #ebfbfe;
 	position: absolute;
-	overflow: auto;
 	visibility: hidden;
-	margin: 0
+	margin: 0;
 }
-ul.hint {
+.hint .win {
+	padding: 8px;
+	overflow: auto;
+}
+.hint .title {
+	text-align: center;
+	background-color: #a8dff4;
+	padding: 2px
+}
+.hint .title span {
+	float: right;
+	cursor: pointer;
+	width: 16px
+}
+.menulist {
 	margin: 0;
 	padding: 0;
 	list-style-type: none
 }
-.hint li,.tab {
+.hint li {
 	padding: 2px;
 	cursor: pointer
 }
 .hint li:hover {
 	background-color: #fbf9db
-}
-/*.tab {border: 1px solid #c7c7ba; color: #438689; text-align: center; background: url(../../img/icon/d.gif) right no-repeat #F4F4F2; padding-right: 12px}*/
-.open {
-	background: #E9EFEC url(../../img/icon/d.gif) no-repeat right;
-	cursor: pointer
 }
 
 /*Edytor*/

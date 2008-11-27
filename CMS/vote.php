@@ -1,25 +1,17 @@
 <?php
 if(!$_POST) exit;
 
-#Adres prowadz±cy
-$ref = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
-
-#Ochrona przed CSRF
-if($ref && strpos($ref, $_SERVER['HTTP_HOST']) === false) exit;
-
 #J±dro
 define('iCMS',1);
 require './kernel.php';
 
 #Adres IP
 $ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
-	((isset($_SERVER['HTTP_X_FORWARDED_FOR'])) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
+	(isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
 
 #Oceny
 if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POST['v'] < 6)
 {
-	/* Sprawdziæ, czy ocenianie w³±czone !!!!!!!!!! */
-
 	#Typy kategorii i ocena
 	$data = parse_ini_file('cfg/types.ini', 1);
 	$v = (int)$_POST['v'];

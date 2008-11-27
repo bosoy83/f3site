@@ -13,9 +13,8 @@ function CSS(x)
 	switch(typeof x)
 	{
 		case 'undefined':
-			var r = new Request('request.php?co=css');
-			r.done = function(x) { var box = createBox('', x); hint(box) };
-			r.send();
+			var box = dialog('Skin', '', {style:'width:250px;height:150px'}); hint(box);
+			new Request('request.php?co=css', box.text).send();
 			break;
 		case 'number':
 			var link = document.getElementsByTagName('link')[0];
@@ -25,21 +24,13 @@ function CSS(x)
 }
 
 //Do³¹cz plik JS
-function include(file, callback)
+function include(file)
 {
 	var head = document.getElementsByTagName('head')[0];
 	var js = document.createElement('script');
-	js.setAttribute('type', 'text/javascript');
-	js.setAttribute('src', file);
+	js.type = 'text/javascript';
+	js.src = file;
 	head.appendChild(js);
-
-	//Gotowy do u¿ycia?
-	if(callback == undefined) return true;
-	js.onreadystatechange = function()
-	{
-		if(js.readyState == 'complete') callback();
-	};
-	js.onload = callback;
 	return false;
 }
 
@@ -85,7 +76,7 @@ function show(o, once)
 
 //Kursor
 var cx,cy;
-var toHide = new Array();
+var toHide = [];
 
 //Mysz
 document.onmousedown = function(e)
@@ -105,66 +96,72 @@ document.onmousedown = function(e)
 };
 document.onclick = function()
 {
-	for(var i in toHide) { hint(toHide[i],0,0,1) }
+	for(var i in toHide)
+	{
+		toHide[i].style.visibility = 'hidden';
+		toHide.pop(toHide[i]);
+	}
 };
 
 //Utwórz menu lub warstwê
-function createBox(title, txt)
+function dialog(title, txt, opt)
 {
 	//Utwórz
-	var x=document.createElement('div');
-	x.className='hint';
-	x.style.padding='8px';
-	
+	var x = document.createElement('div');
+	x.className = 'hint';
+
 	//Tytu³
-	if(title) x.innerHTML='<div class="title">'+title+'</div>';
+	x.innerHTML = '<div class="title"><span onclick="hint(parentNode.parentNode)">X</span>'+title+'</div>';
 
 	//Menu
-	if(typeof txt=='array')
+	if(typeof txt=='object')
 	{
-		var v;
-		for(var i in txt)
+		var v = '';
+		for(var i=0; i<txt.length; i++)
 		{
-			v+='<li onclick="'+txt[i][1]+'">'+txt[i][0]+'</li>';
+			v += '<li onclick="'+txt[i]+'">'+txt[++i]+'</li>';
 		}
-		x.innerHTML+='<ul class="menulist">'+v+'</ul>';
+		x.innerHTML += '<ul class="menulist">'+v+'</ul>';
 	}
+	//Zawartoœæ tekstowa
 	else
 	{
-		x.innerHTML+=txt; //HTML lub tekst
+		x.text = x.appendChild(document.createElement('div'));
+		x.text.className = 'win';
+		x.text.innerHTML = txt;
 	}
-	return document.body.appendChild(x); //Zwróæ element
+	
+	//Opcje
+	if(opt) for(var i in opt) x.text.setAttribute(i,opt[i]);
+
+	//Zwróæ element
+	return document.body.appendChild(x);
 }
 
 //Hint
-function hint(o, l, t, autoHide)
+function hint(o, left, top, autoHide)
 {
 	if(typeof o == 'string')
 	{
 		o = id(o);
 	}
-	var style = o.style;
-	if(style.visibility != 'visible')
+	if(o.style.visibility != 'visible')
 	{
 		//Na œrodku?
-		if(l == undefined)
+		if(left == undefined)
 		{
-			l = (document.documentElement.clientWidth - o.clientWidth) / 2;
-			t = (document.documentElement.clientHeight - o.clientHeight) / 2;
+			left = (document.documentElement.clientWidth - o.clientWidth) / 2;
+			top  = (document.documentElement.clientHeight - o.clientHeight) / 2;
 		}
-		if(t!=0)
+		if(top != 0)
 		{
-			style.left = l + 'px';
-			style.top  = t + 'px'
+			o.style.left = left + 'px';
+			o.style.top  = top  + 'px'
 		}
-		style.visibility = 'visible';
+		o.style.visibility = 'visible';
 		if(autoHide == 1) setTimeout(function() { toHide.push(o) }, 10);
 	}
-	else if(autoHide == 1)
-	{
-		toHide.pop(o);
-		style.visibility = 'hidden';
-	}
+	else o.style.visibility = 'hidden';
 }
 
 //¯¹danie AJAX - domyœlne wartoœci opcji
@@ -176,9 +173,9 @@ function Request(url, box, opt)
 	this.url = url;
 	this.post = opt.post || false; //Typ POST - domyœlnie false (typ GET)
 	this.param = []; //Parametry POST
-	this.silent = opt.silent || true; //true = tryb cichy
+	//this.silent = opt.silent || true; //true = tryb cichy
 	this.scripts = opt.scripts || false; //true = wykonaj skrypty JS
-	this.timeout = opt.timeout || 50000; //Czas oczekiwania na odpowiedŸ
+	//this.timeout = opt.timeout || 50000; //Czas oczekiwania na odpowiedŸ
 	this.loading = opt.loading || null; //Gdy odpowiedŸ jest pobierana
 	this.fail = opt.fail || function(x) { alert(x) }; //Gdy ¿¹danie nie powiod³o siê
 	this.done = opt.done || function(x) { this.o.innerHTML = x } //Gdy ¿¹danie zakoñczone sukcesem
@@ -214,11 +211,6 @@ Request.prototype.send = function(list)
 			}
 		}
 		if(!this.http) { this.fail('Cannot create AJAX object!'); return false }
-		if(!this.silent)
-		{
-			//Domyœlnie wyœwietlaj warstwê z obrazkiem podczas ³adowania
-			var box = createBox('', '<img src="img/icon/clock.png" alt="" />');
-		}
 
 		//Odnoœnik do THIS
 		var self = this;
@@ -288,7 +280,7 @@ Request.prototype.send = function(list)
 
 	//Usuñ zmienne POST
 	if(list) this.reset();
-}
+};
 
 //Dodaj parametr POST
 Request.prototype.add = function(key, val)

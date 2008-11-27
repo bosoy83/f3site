@@ -5,7 +5,7 @@ if(iCMS!=1 OR CT=='CT') return;
 if($_POST) include './mod/comment.php';
 
 #Podzia³ na strony?
-if($cfg['commNum']!=0)
+if($cfg['commNum'])
 {
 	#Strona
 	if(isset($_GET['page']) && $_GET['page']>1)
@@ -42,7 +42,7 @@ if($TOTAL !== 0)
 		WHERE c.TYPE='.CT.' AND c.CID='.$id.
 		(($mayEdit) ? '' : ' AND c.access=1').
 		(($cfg['commSort']==2) ? '' : ' ORDER BY c.ID DESC').
-		(($cfg['commNum']!=0) ? ' LIMIT '.$ST.','.$cfg['commNum'] : ''));
+		(($TOTAL) ? ' LIMIT '.$ST.','.$cfg['commNum'] : ''));
 
 	$res->setFetchMode(3);
 
