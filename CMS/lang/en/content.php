@@ -62,4 +62,8 @@ $lang+=Array(
 'minimgd'=>'Displayed on images list.',
 'isize'=>'Dimentions',
 'isized'=>'Required for Flash and QuickTime.',
+
+'lastComm'=>'Last comment',
+'moderate'=>'Moderate comments',
+'approve'=>'View unapproved',
 );

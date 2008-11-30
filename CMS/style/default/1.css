@@ -219,11 +219,6 @@ small {font-size: 11px}
 	background-color: #a8dff4;
 	padding: 2px
 }
-.hint .title span {
-	float: right;
-	cursor: pointer;
-	width: 16px
-}
 .menulist {
 	margin: 0;
 	padding: 0;

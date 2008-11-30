@@ -10,16 +10,15 @@ function okno(url,w,h)
 //Zmieñ CSS
 function CSS(x)
 {
-	switch(typeof x)
+	if(typeof x == 'number')
 	{
-		case 'undefined':
-			var box = dialog('Skin', '', {style:'width:250px;height:150px'}); hint(box);
-			new Request('request.php?co=css', box.text).send();
-			break;
-		case 'number':
-			var link = document.getElementsByTagName('link')[0];
-			link.href = link.href.slice(0,-5) + x + '.css';
-			break;
+		var link = document.getElementsByTagName('link')[0];
+		link.href = link.href.slice(0,-5) + x + '.css';
+	}
+	else
+	{
+		var box = dialog('Skin', ''); hint(box,cx,cy);
+		new Request('request.php?co=css', box.text).send();
 	}
 }
 
@@ -111,7 +110,7 @@ function dialog(title, txt, opt)
 	x.className = 'hint';
 
 	//Tytu³
-	x.innerHTML = '<div class="title"><span onclick="hint(parentNode.parentNode)">X</span>'+title+'</div>';
+	if(title) x.innerHTML = '<div class="title">'+title+'</div>';
 
 	//Menu
 	if(typeof txt=='object')
@@ -129,6 +128,10 @@ function dialog(title, txt, opt)
 		x.text = x.appendChild(document.createElement('div'));
 		x.text.className = 'win';
 		x.text.innerHTML = txt;
+
+		//Przycisk OK
+		x.appendChild(document.createElement('center')).
+		innerHTML = '<button onclick="hint(parentNode.parentNode)">OK</button>';
 	}
 	
 	//Opcje

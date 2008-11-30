@@ -12,4 +12,9 @@ $lang+=Array(
 'c10'=>'Nie uda³o siê zapisaæ komentarza. Spróbuj ponownie za chwilê. Je¶li problem powtórzy siê, zg³o¶ go administratorom. Kod b³êdu: ',
 'c11'=>'Komentowana pozycja nie istnieje lub jest niedostêpna.',
 'c12'=>'Nie mo¿esz zamieszczaæ odno¶ników do innych stron.',
+'hide'=>'ukryj',
+'accept'=>'zaakceptuj',
+'show'=>'Poka¿',
+'all'=>'wszystkie',
+'un'=>'oczekuj±ce na akceptacjê'
 );

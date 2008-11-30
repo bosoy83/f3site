@@ -39,6 +39,10 @@ if(isset($_GET['act']))
 	unset($last_cat,$id,$_POST); return 1;
 }
 
+#Ostatni komentarz
+$lc = $db->query('SELECT name,date FROM '.PRE.'comms ORDER BY ID DESC LIMIT 1')->fetch(3);
+
 #Tytu³
 $content->title = $lang['mantxt'];
 $content->file  = 'content';
+$content->data  = array('last'=>$lc[0], 'date'=>genDate($lc[1],1));

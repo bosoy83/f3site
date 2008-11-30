@@ -8,7 +8,7 @@ require './kernel.php';
 #Adres IP
 $ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
 	(isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
-
+	
 #Oceny
 if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POST['v'] < 6)
 {
@@ -16,6 +16,9 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	$data = parse_ini_file('cfg/types.ini', 1);
 	$v = (int)$_POST['v'];
 	$t = (int)$_GET['type'];
+
+	#Referer
+	$ref = isset($_SERVER['HTTP_REFERER']) ? Clean($_SERVER['HTTP_REFERER']) : '';
 
 	#Zalogowany?
 	if(LOGD!=1 && !isset($cfg['grate'])) $content->message(9, $ref);

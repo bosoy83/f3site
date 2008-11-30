@@ -230,11 +230,6 @@ small {font-size: 11px}
 	padding: 8px;
 	overflow: auto;
 }
-.hint .title span {
-	float: right;
-	cursor: pointer;
-	width: 16px
-}
 .menulist {
 	margin: 0;
 	padding: 0;

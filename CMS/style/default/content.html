@@ -1,4 +1,4 @@
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 <div class="box" style="overflow: hidden; line-height: 20px">
 	<fieldset style="float: left; width: 205px">
 		<legend>{lang.add}</legend>
@@ -19,5 +19,21 @@
 		<li><a href="?co=list&amp;act=4">{lang.links}</a></li>
 		<li><a href="?co=list&amp;act=5">{lang.news}</a></li>
 		</ul>
+	</fieldset>
+	<fieldset style="width: 205px; float: left">
+		<legend>{lang.comms}</legend>
+		<ul style="list-style-image: url(img/editor/quote.png)">
+		<li><a href="?co=moderate">{lang.moderate}</a></li>
+		<li><a href="?co=moderate&amp;no=1">{lang.approve}</a></li>
+		</ul>
+	</fieldset>
+	<fieldset style="width: 205px; float: right">
+		<legend>{lang.lastComm}</legend>
+		<!-- IF last -->
+		<ul style="list-style-image: url(img/editor/quote.png)">
+		<li>{last}</li>
+		<li>{date}</li>
+		</ul>
+		<!-- END -->
 	</fieldset>
 </div>

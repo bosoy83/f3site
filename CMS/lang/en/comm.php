@@ -12,4 +12,9 @@ $lang+=Array(
 'c10'=>'Cannot save your comment. Try again in a while. If this error occurs again, contact administrators. Error:',
 'c11'=>'Commented item does not exist or is disabled.',
 'c12'=>'You cannot publish URL links to another websites.',
+'hide'=>'hide',
+'accept'=>'accept',
+'show'=>'Display',
+'all'=>'all comments',
+'un'=>'waiting for approval'
 );

@@ -97,7 +97,7 @@ class Compiler
 		$this->data = str_replace($in, $out, $this->data);
 
 		#Pêtle
-		if(($pos = stripos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
+		if(($pos = strpos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
 
 		#Do zamiany
 		$in = array(
@@ -198,16 +198,16 @@ class Compiler
 		}
 
 		#Klucz?
-		if(stripos($frag, '{KEY}'))
+		if(strpos($frag, '{KEY}'))
 		{
-			$frag = str_ireplace('{KEY}', '<?=$key;?>', $frag);
+			$frag = str_replace('{KEY}', '<?=$key;?>', $frag);
 			$key  = '$key=>&$i';
 		}
 		else
 		{
 			$key = '&$i';
 		}
-		$frag = str_ireplace('{ITEM}', '<?=$i'.$lv.';?>', $frag);
+		$frag = str_replace('{ITEM}', '<?=$i'.$lv.';?>', $frag);
 
 		#Zamieñ definicjê pêtli
 		$frag = str_replace('<!-- START '.$var.' -->', '<?php foreach($'.$var.' as '.$key.$lv.'){?>', $frag);
@@ -246,7 +246,7 @@ class Compiler
 		preg_match('#f3:array="([A-Za-z0-9_].*?)"#i', $form, $array);
 
 		#Tryb isset dla checkbox
-		$isset = strpos($form, 'f3:mode="isset"') ? true : false;
+		$isset = stripos($form, 'f3:mode="isset"') ? true : false;
 
 		if($array OR strpos($form, 'f3:var'))
 		{
