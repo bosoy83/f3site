@@ -1,0 +1,61 @@
+<div class="cs">
+{lang.show}: <a href="?co=moderate">{lang.all}</a> - <a href="?co=moderate&amp;no=1">{lang.un}</a>
+</div>
+
+<form action="" method="post">
+<h2>{lang.comms}</h2>
+
+<table cellspacing="1" class="tb" id="comments">
+<colgroup>
+	<col />
+	<col style="width: 115px" />
+</colgroup>
+<tbody>
+
+<!-- START comment -->
+<tr>
+	<th colspan="2">
+
+		<!-- IF profile -->
+		<b><a href="{profile}">{user}</a></b>
+		<!-- ELSE -->
+		<b>{user}</b>
+		<!-- END -->
+
+		({ip}) ÿ {date} ÿ <a href="?co=comment&amp;id={id}">{lang.edit}</a>
+
+		<!-- IF item -->
+		ÿ <a href="{item}">&rArr;</a>
+		<!-- END -->
+
+	</th>
+</tr>
+<tr>
+	<td>
+		<h3>{title}</h3>
+		{text}
+	</td>
+	<td>
+		<label style="color: green">
+			<input type="radio" name="a[{id}]" value="1" f3:var="i1.access" /> {lang.accept}
+		</label><br />
+		<label style="color: blue">
+			<input type="radio" name="a[{id}]" value="0" f3:var="i1.access" /> {lang.hide}
+		</label><br />
+		<label style="color: red">
+			<input type="radio" name="a[{id}]" value="2" /> {lang.del}
+		</label>
+	</td>
+</tr>
+<!-- STOP -->
+
+<tr>
+	<td class="eth" colspan="2">
+		<div style="float: right">{lang.page}: {pages}</div>
+		<input type="submit" value="OK" />
+	</td>
+</tr>
+
+</tbody>
+</table>
+</form>
