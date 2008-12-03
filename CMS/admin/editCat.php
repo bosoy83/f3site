@@ -81,15 +81,17 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e->getMessage()); //B³¹d?
+		$content->info($e); //B³¹d
 	}
 }
 
 #FORMULARZ: Odczyt
 elseif($id)
 {
-	$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$id) -> fetch(2); //ASSOC
-	if(!$cat) { $content->info($lang['noex']); return; }
+	if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$id) -> fetch(2)) //ASSOC
+	{
+		$content->info($lang['noex']); return;
+	}
 }
 #Domyœlne dane
 else
@@ -109,5 +111,5 @@ $content->data = array(
 	'o5'   => $cat['opt'] & 16,
 	'cats' => Slaves(0,$cat['sc'],$id),
 	'langs'=> ListBox('lang',1,$cat['access']),
-	'url'  => 'adm.php?a=editCat'.(($id) ? '&amp;id='.$id : '')
+	'url'  => 'adm.php?a=editCat&amp;id='.$id
 );

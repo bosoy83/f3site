@@ -45,18 +45,15 @@ foreach($res as $n)
 	if($n['opt']&1)  $n['txt'] = nl2br($n['txt']);
 
 	#Przypisz treœæ
-	$news[$num]['text'] = $n['txt'];   ++$num;
+	$news[$num]['text'] = $n['txt'];  ++$num;
 }
 
 #Do szablonu
-if($num > 0)
-{
-	$content->file[] = 'cat_news';
-	$content->data += array(
-		'news' => &$news,
-		'add_url' => $rights ? '?co=edit&amp;act=news' : null,
-		'cat_type'=> $lang['news']
-	);
-}
-$res=null;
-unset($comm,$rights,$n);
+$content->file[] = 'cat_news';
+$content->data += array(
+	'news' => &$news,
+	'add_url' => $rights ? '?co=edit&amp;act=news' : null,
+	'cat_type'=> $lang['news']
+);
+
+unset($res,$comm,$rights,$n);

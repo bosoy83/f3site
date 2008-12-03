@@ -8,8 +8,7 @@ a {
 	color: #000097
 }
 a:hover {
-	text-decoration: underline;
-	color: #0C5BB4
+	color: red
 }
 img {
 	vertical-align: text-bottom;
@@ -22,7 +21,8 @@ h3 {
 h2, .tb caption {
 	margin: 0;
 	font: bold 13px Verdana;
-	border: 1px solid #9EAA97; border-bottom: 0;
+	border: 1px solid #9EAA97;
+	border-bottom: 0;
 	background: #CBD5BF url(2/th.png) repeat-x;
 	text-align: center;
 	color: #396F79;
@@ -70,7 +70,7 @@ ul.cats li {
 	width: 880px;
 	background-color: #728FA7
 }
-.all>tbody {
+.al2 {
 	background-color: #B3C4D7
 }
 td.nav {

@@ -136,7 +136,7 @@ function Slaves($type=0,$id=0,$o=null)
 
 	#Odczyt
 	$res = $GLOBALS['db']->query('SELECT ID,name,lft,rgt FROM '.PRE.'cats'.
-		(($where)?' WHERE '.join(' && ',$where):'').' ORDER BY lft');
+		(($where)?' WHERE '.join(' AND ',$where):'').' ORDER BY lft');
 	$depth = 0;
 	$last = 1;
 	$o = '';
@@ -149,12 +149,12 @@ function Slaves($type=0,$id=0,$o=null)
 			++$depth;
 
 		elseif($depth>0 && $last+2!=$cat['rgt'] && $last+1!=$cat['lft'])
-			$depth -= floor(($cat['rgt']-$last)/2);
+			$depth -= floor(($cat['lft']-$last)/2);
 
-		$last=$cat['rgt'];
+		$last = $cat['rgt'];
 
-		$o.='<option value="'.$cat['ID'].'" style="margin-left: '.$depth.'em"'
-		.(($id==$cat['ID'])? ' selected="selected"':'').'">'.$cat['name'].'</option>';
+		$o.='<option value="'.$cat['ID'].'"'.(($id==$cat['ID'])? ' selected="selected"':'').
+			'">'.str_repeat('&rarr; ',$depth).$cat['name'].'</option>';
 	}
 	return $o;
 }
@@ -204,8 +204,7 @@ function RTR($parent,$left)
 	global $db;
 	if($left)
 	$right = $left+1;
-	$result = $db->query('SELECT ID FROM '.PRE.'cats WHERE sc="'.$parent.'";');
-	$all=$result->fetchAll(3);
+	$all = $db->query('SELECT ID FROM '.PRE.'cats WHERE sc="'.$parent.'";')->fetchAll(3);
 	foreach($all as $row)
 	{
 		$right = RTR($row[0], $right);
@@ -218,6 +217,6 @@ function RebuildTree()
 	$left=1;
 	foreach($GLOBALS['db']->query('SELECT ID FROM '.PRE.'cats WHERE sc=0 ORDER BY type,name') as $x)
 	{
-		$left=RTR($x['ID'],$left);
+		$left = RTR($x['ID'],$left);
 	}
 }

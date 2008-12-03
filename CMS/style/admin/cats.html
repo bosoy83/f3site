@@ -1,21 +1,6 @@
-<script type="text/javascript">
-//<![CDATA[
-function Del(id)
-{
-	if(confirm("{lang.delcat}"))
-	{
-		del=new Request("adm.php?x=del&id="+id,'i'+id);
-		del.method='POST';
-		del.add('co','cat')
-		del.send()
-	}
-}
-//]]>
-</script>
-
 <h2>{lang.catman}</h2>
 <table cellspacing="1" class="tb">
-<tbody>
+<tbody align="center">
 <tr>
 	<th>{lang.name}</th>
 	<th style="width: 30px">ID</th>
@@ -25,15 +10,12 @@ function Del(id)
 </tr>
 
 <!-- START cat -->
-
 <tr>
-	<td id="i{id}"><?= str_repeat('&raquo; &nbsp;',$i1['depth']) ?>
-		<a href="{url}">{name}</a> ({num})
-	</td>
-	<td align="center">{id}</td>
-	<td align="center">{disp}</td>
-	<td align="center">{type}</td>
-	<td align="center">
+	<td align="left"><a href="{url}" style="margin-left: {depth}em">{name}</a> ({num})</td>
+	<td>{id}</td>
+	<td>{disp}</td>
+	<td>{type}</td>
+	<td>
 		<a href="adm.php?a=editCat&amp;id={id}">{lang.edit}</a>
 		&middot; <a href="javascript:Del({id})">{lang.del}</a>
 	</td>

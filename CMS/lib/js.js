@@ -18,7 +18,7 @@ function CSS(x)
 	else
 	{
 		var box = dialog('Skin', ''); hint(box,cx,cy);
-		new Request('request.php?co=css', box.text).send();
+		new Request('request.php?co=css', box.txt).send();
 	}
 }
 
@@ -125,9 +125,9 @@ function dialog(title, txt, opt)
 	//Zawartoœæ tekstowa
 	else
 	{
-		x.text = x.appendChild(document.createElement('div'));
-		x.text.className = 'win';
-		x.text.innerHTML = txt;
+		x.txt = x.appendChild(document.createElement('div'));
+		x.txt.className = 'win';
+		x.txt.innerHTML = txt;
 
 		//Przycisk OK
 		x.appendChild(document.createElement('center')).

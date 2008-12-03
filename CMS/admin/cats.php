@@ -23,7 +23,7 @@ $content->info($lang['dinfo'], array(
 $res = $db->query('SELECT ID,name,access,type,num,lft,rgt FROM '.PRE.'cats'
 	.((isset($_GET['co']))?' WHERE type='.(int)$_GET['co']:'').' ORDER BY lft');
 
-#Typy i kolory
+#Typy i struktura
 $types = Array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
 $depth = 0;
 $last = 1;
@@ -37,7 +37,7 @@ foreach($res as $cat)
 	}
 	elseif($depth > 0 && $last+2 != $cat['rgt'] && $last+1 != $cat['lft'])
 	{
-		$depth -= floor(($cat['rgt']-$last)/2);
+		$depth -= floor(($cat['lft']-$last)/2);
 	}
 	$last = $cat['rgt'];
 

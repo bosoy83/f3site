@@ -9,7 +9,7 @@ a {
 }
 a:hover {
 	text-decoration: underline;
-	color: #0C5BB4
+	color: #3a7ed1
 }
 img {
 	vertical-align: middle;
@@ -67,17 +67,17 @@ ul.cats li {
 
 /* Szablon */
 .all {width: 880px; background-color: #ACACA4}
-.all>tbody {background-color: #E8E8E6}
+.al2 {background-color: #E8E8E6}
 td.nav {width: 175px; padding: 9px}
 td#main {background-color: #EDEDEB; padding: 9px}
 
 /*Nag³ówek i stopka*/
 #header {
-	background-color: #E4E4E4;
 	height: 60px;
 	padding-left: 220px;
 	text-align: center;
-	background: url(logo.png) no-repeat
+	background-image: url(logo.png);
+	background-repeat: no-repeat
 }
 #flags {
 	text-align: center;

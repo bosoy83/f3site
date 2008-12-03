@@ -14,7 +14,7 @@ if(!$pm)
 }
 
 #BBCode
-if($pm['bbc']==1 && $cfg['bbcode']==1)
+if($pm['bbc']==1 && isset($cfg['bbcode']))
 {
 	require './lib/bbcode.php';
 	$pm['txt'] = BBCode($pm['txt']);
@@ -26,8 +26,8 @@ $pm['txt'] = nl2br(Emots($pm['txt']));
 #Przeczytana?
 if($pm['st']==1 && $pm['owner']==UID)
 {
-	$db -> exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$id);
-	$db -> exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
+	$db->exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$id);
+	$db->exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
 	-- $user[UID]['pms'];
 	$pm['st'] = 2;
 }
