@@ -2,7 +2,7 @@ Rozpowszechnianie i licencja
 ============================
 
 Copyright 2008 COMPMaster
-F3Site 2008 jest wolnym oprogramowaniem; mo¿esz go rozprowadzaæ dalej, modyfikowaæ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundacjê Wolnego Oprogramowania - wg 2. werjsi tej Licencji lub którejœ z póŸniejszych.
+F3Site 2008 jest wolnym oprogramowaniem. Mo¿esz go rozprowadzaæ dalej, modyfikowaæ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundacjê Wolnego Oprogramowania wg 2. wersji tej Licencji lub którejœ z póŸniejszych.
 
 Skrypt rozpowszechniany jest z nadziej¹, i¿ bêdzie on u¿yteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI,nawet domyœlnej gwarancji PRZYDATNOŒCI HANDLOWEJ albo PRZYDATNOŒCI DO OKREŒLONYCH ZASTOSOWAÑ. W celu uzyskania bli¿szych informacji - Powszechna Licencja Publiczna GNU.
 
@@ -38,16 +38,22 @@ Aby instalacja przebieg³a poprawnie, u¿ytkownik bazy danych musi mieæ do niej pe
 Aktualizacje i pomoc techniczna
 ===============================
 
-Oficjalna strona F3Site: compmaster.go.pl (wortal COMPMaster). Pomoc techniczn¹ dotycz¹c¹ skryptu mo¿esz uzyskaæ na forum. UWAGA! Strony niezgodne z prawem lub nieprzyzwoite (np. WAREZ, erotyka, sex) nie otrzymaj¹ wsparcia technicznego.
+Oficjalna strona F3Site: compmaster.go.pl (wortal COMPMaster). Pomoc dotycz¹c¹ skryptu mo¿esz uzyskaæ na forum. UWAGA! Strony niezgodne z prawem, nieprzyzwoite lub propaguj¹ce piractwo nie otrzymaj¹ wsparcia.
 
 Aktualna wersja rozwojowa F3Site z repozytorium SVN, systemem b³êdów oraz Wiki znajduje siê w serwisie Google Code: f3site.googlecode.com
+
+
+Rozszerzenia i skórki
+=====================
+
+Mo¿esz zwiêkszyæ mo¿liwoœci systemu za pomoc¹ rozszerzeñ. Przed instalacj¹ jakiegokolwiek dodatku upewnij siê, ¿e pochodzi z zaufanego Ÿród³a, gdy¿ mo¿e on uszkodziæ Twój wortal lub wykraœæ poufne dane!
 
 
 Uwagi
 =====
 
 1. Co pewien czas utwórz KOPIÊ BAZY DANYCH.
-2. Skórki s¹ kompilowane do kodu PHP do folderu CACHE. Stat¹d system je wczytuje.
-2. Aby zlikwidowaæ maskowanie adresu przez domenê, przekieruj j¹ do pliku domain.php.
+2. Skórki s¹ kompilowane do kodu PHP do folderu CACHE, sk¹d system je wczytuje.
+3. Aby zlikwidowaæ maskowanie adresu przez domenê, przekieruj j¹ do pliku domain.php.
 4. Aby zwiêkszyæ BEZPIECZEÑSTWO, po instalacji nadaj plikowi cfg/db.php prawa 444 (tylko odczyt).
 5. Do panelu administracyjnego mo¿esz dostaæ siê, wpisuj¹c rêcznie œcie¿kê do katalogu ADMIN. Aby zalogowaæ siê, gdy blok `Konto u¿ytkownika` jest ukryty, przejdŸ do pliku login.php.

@@ -1,6 +1,9 @@
 <?php
 if(iCMS!=1) exit;
 
+#Zacznij od...
+if($st != 0) $st = ($page-1) * $cfg['inp'];
+
 #Odczyt
 $res = $db->query('SELECT ID,name,date,filem FROM '.PRE.'imgs WHERE '.$cats.
 	' AND access=1 ORDER BY priority, '.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['inp']);

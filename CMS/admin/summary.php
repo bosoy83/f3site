@@ -1,7 +1,9 @@
 <?php
 #Do szablonu
 $content->data = array(
-	'intro'  => str_replace('%name', $cfg['title'], $lang['admintro'])
+	'intro'  => str_replace('%name', $cfg['title'], $lang['admintro']),
+	'system' => isset($_ENV['OS']) ? $_ENV['OS'] : 'N/A',
+	'server' => $_SERVER['SERVER_SOFTWARE']
 );
 
 #Katalog INSTALL

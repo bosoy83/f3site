@@ -28,8 +28,8 @@ else
 	$d = 1;
 }
 
-#Pobierz
-$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$d.' AND access!=3') -> fetch(2); //2 = ASSOC
+#Pobierz, 2 = ASSOC
+$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$d.' AND access!=3') -> fetch(2);
 
 #Brak?
 if(!$cat) return;
@@ -41,7 +41,7 @@ $content->title = $cat['name'];
 if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
-	$st = ($page-1) * (($cat['type']==3) ? $cfg['inp'] : $cfg['np']);
+	$st = ($page-1) * $cfg['np'];
 }
 else
 {
@@ -61,14 +61,13 @@ else
 	$cats = 'cat='.$d;
 }
 
-#Podkategorie
+#Podkategorie, 3 = NUM
 if($cat['opt'] & 8)
 {
 	$res = $db->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
 		' AND (access=1 OR access="'.$nlang.'") ORDER BY name');
+	$res->setFetchMode(3);
 
-	$res->setFetchMode(3); //NUM
-	
 	foreach($res as $c)
 	{
 		$sc[] = array(

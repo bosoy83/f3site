@@ -1,10 +1,3 @@
-/*Include CSS
-var objC=document.createElement('link');
-objC.setAttribute('href',eCSS);
-objC.setAttribute('type','text/css');
-objC.setAttribute('rel','stylesheet');
-document.getElementsByTagName('head')[0].appendChild(objC); */
-
 //Obrazki .png (pierwsze 5 - tekst, 0 = przerwa)
 var eIMG = [
 	'<b style="margin: 0 3px">B</b>',
@@ -19,13 +12,13 @@ var eIMG = [
 //Kod (BBCode, HTML, zamkn. HTML)
 var eTags = [
 	['b','b','b'],
-	['i','em','em'],
+	['i','i','i'],
 	['u','u','u'],
 	['big','big','big'],
 	['small','small','small'],
 	['h','h3','h3'],
-	['d','sub','sub'],
-	['g','sup','sup'],
+	['sub','sub','sub'],
+	['sup','sup','sup'],
 	['center','center','center'],
 	['right','div align="right"','div'],
 	0, 0, 0, 0, 0,
@@ -329,7 +322,7 @@ Editor.prototype.preview = function(opt,where,text)
 	//HTML
 	if(this.bbcode)
 	{
-		text = text.replace(/&/g, '&amp;;');
+		text = text.replace(/&/g, '&amp;');
 		text = text.replace(/</g, '&lt;');
 		text = text.replace(/>/g, '&gt;');
 	}
@@ -340,7 +333,9 @@ Editor.prototype.preview = function(opt,where,text)
 		for(var i in emots)
 		{
 			while(text.indexOf(emots[i][2]) !== -1 && emots[i][2] != '')
-			text = text.replace(emots[i][2],'<img src="img/emo/'+emots[i][1]+'" title="'+emots[i][0]+'" />');
+			{
+				text = text.replace(emots[i][2],'<img src="img/emo/'+emots[i][1]+'" />');
+			}
 		}
 	}
 

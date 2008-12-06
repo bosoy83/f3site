@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Odczyt
-$res=$db->query('SELECT ID,name,date,dsc,file,size FROM '.PRE.'files WHERE '.$cats.'
+$res = $db->query('SELECT ID,name,date,dsc,file,size FROM '.PRE.'files WHERE '.$cats.'
 	AND access=1 ORDER BY priority,'.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['np']);
 
 $res->setFetchMode(3);

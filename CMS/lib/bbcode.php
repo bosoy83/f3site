@@ -1,12 +1,12 @@
 <?php
 $bbc[0] = array(
-	'[b]','[i]','[u]','[g]','[d]',
+	'[b]','[i]','[u]','[sup]','[sub]',
 	'[code]','[quote]',
 	'[big]','[small]',
 	'[center]','[right]'
 );
 $bbc[1] = array(
-	'[/b]','[/i]','[/u]','[/g]','[/d]',
+	'[/b]','[/i]','[/u]','[/sup]','[/sub]',
 	'[/code]','[/quote]',
 	'[/big]','[/small]',
 	'[/center]','[/right]'

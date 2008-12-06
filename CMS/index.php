@@ -1,7 +1,7 @@
 <?php
 /* F3Site 3.0: copyright (C) 2007 COMPMaster
 Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
-$t=microtime(1);
+
 #J±dro
 define('iCMS',1);
 require './kernel.php';
@@ -40,5 +40,5 @@ if($cfg['head']) $content->head .= $cfg['head'];
 require './cache/menu'.$nlang.'.php';
 
 #Skórka
-include $content->path('body');$v=microtime(1);
-echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) '.($v-$t)*1000;
+include $content->path('body');
+//echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';

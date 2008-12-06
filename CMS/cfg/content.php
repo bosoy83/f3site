@@ -1,1 +1,1 @@
-<?php $cfg+=array('np'=>15,'catStr'=>1,'goCat'=>1,'arate'=>1,'acomm'=>1,'frate'=>1,'fgets'=>1,'fcomm'=>1,'newsNum'=>8,'ncomm'=>1,'icomm'=>1,'inp'=>15,'irate'=>1,'afind'=>30,'start'=>array('de'=>5,'en'=>1,'pl'=>2,),); ?>
+<?php $cfg+=array('np'=>15,'catStr'=>1,'goCat'=>1,'arate'=>1,'acomm'=>1,'frate'=>1,'fgets'=>1,'fcomm'=>1,'newsNum'=>8,'ncomm'=>1,'icomm'=>1,'inp'=>15,'irate'=>1,'afind'=>30,'start'=>array('de'=>6,'en'=>2,'pl'=>1,),); ?>

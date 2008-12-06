@@ -1,7 +1,7 @@
 <?php
 define('iCMS',1);
 require 'kernel.php';
-if($cfg['captcha']!=1) exit;
+if(!isset($cfg['captcha'])) exit;
 
 #Jako PNG
 header('Content-type: image/png');

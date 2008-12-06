@@ -299,11 +299,11 @@ function ListBox($dir,$co,$ch)
 }
 
 #Strony
-function Pages($page,$ile,$max,$url,$type=2)
+function Pages($page,$ile,$max,$url,$type=0)
 {
 	global $lang;
 	$stron = ceil($ile / $max);
-	$out = $type==1 ? '<select onchange="location=\''.$url.'&amp;page=\'+(this.selectedIndex+1)">':''.$lang['page'].': ';
+	$out = $type ? '<select onchange="location=\''.$url.'&amp;page=\'+(this.selectedIndex+1)">' : $lang['page'].': ';
 
 	for($i=1;$i<=$stron;++$i)
 	{

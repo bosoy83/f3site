@@ -1,5 +1,5 @@
 <?php
-if(iCMS!=1) exit; //Stos: cat='.$d.
+if(iCMS!=1) exit;
 
 #Odczyt
 $res = $db->query('SELECT ID,name,dsc,adr,count,nw FROM '.PRE.'links WHERE '.$cats.

@@ -43,6 +43,12 @@ Official F3Site website: compmaster.go.pl (vortal COMPMaster). You can get suppo
 Current development version of F3Site with SVN repository, issue system and Wiki you can find at Google Code service: f3site.googlecode.com
 
 
+Extensions & skins
+==================
+
+You can add new features with extensions. Before you install any add-on, make sure whether it comes from trusted source because it may damage your site or steal confidential data.
+
+
 Notices
 =======
 

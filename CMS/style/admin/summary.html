@@ -1,6 +1,6 @@
 <h2>{lang.admin}</h2>
 <div class="box">
-	<p style="margin-top: 0"><?= $intro ?></p>
+	<p style="margin-top: 0">{intro}</p>
 	<h3>{lang.what}</h3>
 	<ul class="go">
 		<li><a href="http://compmaster.prv.pl">{lang.official}</a></li>
@@ -10,11 +10,5 @@
 		<li><a href="http://www.famfamfam.com/lab/icons/silk">Silk Icons</a></li>
 	</ul>
 	<h3>System</h3>
-	<p>
-	<?php
-	echo (isset($_ENV['OS']) ? $_ENV['OS'].'<br />' : '').
-		$_SERVER['SERVER_SOFTWARE'].'<br />'.
-		$_SERVER['SERVER_SIGNATURE'];
-	?>
-	</p>
+	<p>{system}<br />{server}</p>
 </div>
