@@ -19,12 +19,12 @@ if($cfg['commNum'])
 		$ST = 0;
 	}
 	$TOTAL = db_count('comms WHERE TYPE='.CT.' AND CID='.$id);
-	$pages = ($TOTAL > $cfg['commNum']) ? Pages($PAGE,$TOTAL,$cfg['commNum'],'?co='.$_GET['co'].'&amp;id='.$id) : null;
+	$CP = ($TOTAL > $cfg['commNum']) ? Pages($PAGE,$TOTAL,$cfg['commNum'],'?co='.$_GET['co'].'&amp;id='.$id) : null;
 }
 else
 {
 	$TOTAL = null;
-	$pages = null;
+	$CP = null;
 }
 
 $comm = array();
@@ -69,7 +69,7 @@ if($TOTAL !== 0)
 #Szablon
 $content->file[] = 'comments';
 $content->data['comment'] =& $comm;
-$content->data['pages'] =& $pages;
+$content->data['parts'] =& $CP;
 
 #Mo¿e komentowaæ?
 if(LOGD==1 || isset($cfg['commGuest']))

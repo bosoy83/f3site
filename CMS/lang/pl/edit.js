@@ -1,4 +1,4 @@
-var eLang=new Array(
+var tips=[
 'Tekst pogrubiony',
 'Kursywa',
 'Podkre¶lenie',
@@ -9,23 +9,20 @@ var eLang=new Array(
 'Indeks górny',
 'Wy¶rodkuj',
 'Wyrównaj do prawej',
-'Kolor tekstu',
-'Wstaw symbol',
-'Wstaw obraz',
-'Wstaw link do strony WWW',
-'Wstaw klikalny adres E-mail',
 'Umie¶æ cytat',
 'Umie¶æ kod lub tekst o sta³ej szeroko¶ci znaków',
-'Umie¶æ kod PHP');
+'Kolor tekstu',
+'Wstaw symbol',
+'Wstaw link do strony WWW',
+'Wstaw klikalny adres E-mail',
+'Wstaw obraz'];
 
-var eLang2={
+var lang={
 adr:'Wpisz adres strony:',
 adr2:'Wpisz tekst widoczny jako link do strony:',
 mail:'E-mail',
-img:'Wpisz lub skopiuj adres obrazka:'};
-
-var lang={
+img:'Wpisz lub skopiuj adres obrazka:',
 saving:'Trwa wysy³anie danych...',
 leave:'Formularz nie zosta³ jeszcze wys³any.',
 sure:'Na pewno chcesz wykonaæ tê akcjê?',
-del:'Na pewno usun±æ?'}
+del:'Na pewno usun±æ?'};

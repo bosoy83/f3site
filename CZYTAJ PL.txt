@@ -26,6 +26,7 @@ Instalacja
 * wszystkie foldery w powy¿szych katalogach - 0777
 * wszystkie pliki w powy¿szych katalogach - 0766
 * katalogi: FILES, IMG - 0777 (nieobowi¹zkowo)
+* katalogi: IMG/USER - 0777 (wymagane, aby u¿ytkownicy mogli wgrywaæ zdjêcia)
 
 2. PrzejdŸ do katalogu INSTALL w przegl¹darce internetowej, wpisuj¹c: http://adres.strony.pl/install/
 Aby instalacja przebieg³a poprawnie, u¿ytkownik bazy danych musi mieæ do niej pe³ne prawa. 

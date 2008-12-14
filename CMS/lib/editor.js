@@ -1,119 +1,140 @@
-//Obrazki .png (pierwsze 5 - tekst, 0 = przerwa)
-var eIMG = [
+//Przyciski - pierwsze 6 s¹ tekstem, zaœ pozosta³e grafik¹ .png
+var button = [
 	'<b style="margin: 0 3px">B</b>',
-	'<em style="margin: 0 4px"><b>I</b></em>',
+	'<i style="margin: 0 4px">I</i>', //1
 	'<u style="margin: 0 3px">U</u>',
 	'BIG',
-	'<small>small</small>',
-	' H ',
-	'sub','sup','center','right','color',
-	'char','img','www','mail','quote','code'];
+	'<small>small</small>', //4
+  ' H ',
+  'sub',
+	'sup',
+	'center', //8
+	'right',
+	'quote',
+	'code',
+	'color', //12
+  'char',
+	'www',
+	'mail',
+	'img', //16
+],
 
-//Kod (BBCode, HTML, zamkn. HTML)
-var eTags = [
-	['b','b','b'],
-	['i','i','i'],
-	['u','u','u'],
-	['big','big','big'],
-	['small','small','small'],
-	['h','h3','h3'],
-	['sub','sub','sub'],
-	['sup','sup','sup'],
-	['center','center','center'],
-	['right','div align="right"','div'],
-	0, 0, 0, 0, 0,
-	['quote','blockquote','blockquote'],
-	['code','pre','pre']
-];
+//Podwójne tablice powoduj¹ niewielki spadek wydajnoœci w stosunku do pojedynczych,
+//ale ich przemierzanie w pêtli FOR jest znacznie szybsze od przemierzania obiektów {},
+//gdy¿ nie trzeba u¿ywaæ konstrukcji `var i in tags`
+//Podwójne tablice zosta³y u¿yte w celu ³atwiejszej edycji znaczników
 
-var eChar = ['amp','reg','copy','trade','sect','deg','middot','bull','lt','gt','raquo'];
+//Kolejnoœæ: BBCode, pocz¹tek HTML, koniec HTML
+tags = [
+	['b', '<b>', '</b>'],
+	['i', '<i>', '</i>'],
+	['u', '<u>', '</u>'],
+	['big', '<big>', '</big>'],
+	['small', '<small>', '</small>'], //4
+	['', '<h3>', '</h3>'],
+	['sub', '<sub>', '</sub>'],
+	['sup', '<sup>', '</sup>'],
+	['center', '<div style="text-align: center">', '</div>'], //8
+	['right', '<div style="text-align: right">', '</div>'],
+	['quote', '<blockquote>', '</blockquote>'],
+	['code', '<pre>', '</pre>'] //11
+],
 
-var eColor = ['white','#c9c9c9','yellow','orange','red','#9de9f9','#7eebaa','teal','black','gray','olive','gold','brown','blue','green','navy'];
+tagNum = 17, //Liczba wszystkich tagów - tak¿e spoza tablicy `tags`
+iso = 12, //Liczba znaków specjalnych w kodowaniu ISO - dozwolone w BBCode
 
-//Dla paneli (znaki + kolory) wystêpuj¹cych 1 raz
-//Nie zmieniaj wartoœci tych zmiennych
-var eO = '';
-var eCurBBC = 0;
-var eColors = 0;
-var eCharList = 0;
+//Symbole: BBCode, HTML, po œrodku / po lewej, po prawej
+symbol = [
+	'°', '§', '¤', '÷', '×', 'ß',
+	'Ä', 'Ö', 'Ü', 'ä', 'ö', 'ü',
+	'&reg;', '&copy;', '&trade;', '&bull;', '&lt;', '&gt;',
+	'&frac12;', '&raquo;', '&lArr;', '&rArr;', '&middot;'
+],
+
+//Kolory
+color = [
+	'white', '#c9c9c9', 'yellow', 'orange', 'red', '#9de9f9', '#7eebaa', 'teal',
+	'black', 'gray', 'olive', 'gold', 'brown', 'blue', 'green', 'navy'
+],
+
+//Dla paneli znaki + kolory wystêpuj¹cych 1 raz
+eO, eCurBBC, eColors, eChars;
 
 //Konstruktor
-function Editor(o, hiddenTags)
+function Editor(o, usebbcode)
 {
-	this.on = 1;
-	this.bbcode = 0;
 	this.o = o;
-	this.create( (hiddenTags==undefined) ? '' : hiddenTags );
+	this.bbcode = usebbcode;
+	this.create();
 }
 
+//Wstaw znacznik
 Editor.prototype.format = function(i)
 {
-	if(this.on!=1) return 0;
-
-	//Domyœlnie
-	if(eTags[i]!=0)
+	//Standardowe tagi
+	if(tags[i])
 	{
-		if(this.bbcode==1)
-			BBC(this.o, '['+eTags[i][0]+']', '[/'+eTags[i][0]+']');
+		if(this.bbcode)
+			BBC(this.o, '['+tags[i][0]+']', '[/'+tags[i][0]+']');
 		else
-			BBC(this.o, '<'+eTags[i][1]+'>', '</'+eTags[i][2]+'>')
+			BBC(this.o, tags[i][1], tags[i][2])
 	}
-	//Inne
+	//Nieopisane w tablicy `tags`
 	else
 	{
 		switch(i)
 		{
-			case 11:
-				if(eCharList==0) this.make('chars');
+			case 13:
+				if(!eChars) this.make('chars');
 				eO = this.o;
-				hint(eCharList, cx-10, cy, 1);
+				hint(eChars, cx-10, cy, 1);
 				break;
-			case 10:
-				if(eColors==0) this.make('colors');
+			case 12:
+				if(!eColors) this.make('colors');
 				eO = this.o;
 				eCurBBC = this.bbcode;
 				hint(eColors, cx-10, cy, 1);
 				break;
-			case 13:
+			case 14:
 				this.ins('link');
 				break;
-			case 14:
+			case 15:
 				this.ins('mail');
 				break;
-			case 12:
-				if(this.bbcode==1) {
-					var a = prompt(eLang2.img); if(a) BBC(this.o, '[img]', '[/img]', a) }
-				else
-					BBC(this.o,'<img src="','" />');
-				break;
+			case 16:
+				var a = prompt(lang.img);
+				if(a)
+					if(this.bbcode)
+						BBC(this.o, '[url]', '[/url]\n', a);
+					else
+						BBC(this.o,'<img src="','" />');
 		}
 	}
 };
 
 //Utwórz edytor
-Editor.prototype.create = function(hidden)
+Editor.prototype.create = function()
 {
-	var out = document.createElement('div');
+	var that = this,
+	out = document.createElement('div');
 	out.className = 'editor';
-	var that = this;
 
-	for(var i in eIMG)
+	for(var i=0; i<tagNum; i++)
 	{
-		if(typeof hidden[eIMG[i]] == 'string') continue;
+		if(this.bbcode && tags[i] && !tags[i][0]) continue;
 		if(i > 5)
 		{
 			var b = document.createElement('img');
-			b.src = './img/editor/'+eIMG[i]+'.png';
-			b.alt = eIMG[i];
+			b.src = 'img/editor/'+button[i]+'.png';
 		}
 		else
 		{
 			var b = document.createElement('span');
-			b.innerHTML = eIMG[i];
+			b.innerHTML = button[i];
 			b.style.verticalAlign = 'middle';
 		}
-		b.item  = parseInt(i);
-		b.title = eLang[i];
+		b.item = i;
+		b.title = tips[i];
 		b.width = 16;
 		b.onclick = function() { that.format(this.item); };
 		out.appendChild(b);
@@ -133,8 +154,8 @@ Editor.prototype.create = function(hidden)
 				case 117: that.format(2); break; //U
 				case 113: that.format(14); break; //Q
 				case 119: that.format(12); break; //W
-				case 104: if(!that.bbcode) BBC(this,'<h3>','</h3>'); break; //H
-				case 112: if(!that.bbcode) BBC(this,'<p>','</p>'); break; //P
+				case 104: if(!that.bbcode) BBC(this, '<h3>', '</h3>'); break; //H
+				case 112: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
 				default: return true;
 			}
 			return false;
@@ -164,18 +185,19 @@ Editor.prototype.emots = function(x)
 	else if(x && x==0) return;
 
 	//Wstaw
-	var out = document.createElement('div');
+	var that = this.o,
+	num = emots.length,
+	out = document.createElement('div');
 	out.className = 'editor emots';
-	var that = this.o;
 
-	for(var i in emots)
+	for(var i=0; i<num; ++i)
 	{
 		var img = document.createElement('img');
 		img.src = './img/emo/'+emots[i][1];
 		img.alt = emots[i][2];
 		img.width = 16;
 		img.title = emots[i][0];
-		img.onclick = function() { BBC(that,'','',this.alt); };
+		img.onclick = function() { BBC(that, '', '', this.alt); };
 		out.appendChild(img);
 	}
 	this.emo = this.o.parentNode.insertBefore(out, this.o.nextSibling)
@@ -192,65 +214,67 @@ Editor.prototype.make = function(co)
 	t.style.cursor = 'pointer';
 	t.cellspacing = 0;
 
-	var tb = document.createElement('tbody');
+	var y = 1,
+	tb = document.createElement('tbody');
 	tb.align = 'center';
 
-	var y = 1;
-	
 	//Kolory
 	if(co=='chars')
 	{
-		for(var i in eChar)
+		var num = (this.bbcode) ? iso : symbol.length;
+		for(var i=0; i<num; ++i)
 		{
 			if(y==1) var tr = document.createElement('tr');
 
 			var td = document.createElement('td');
-			td.item = eChar[i];
+			td.item = symbol[i];
 			td.style.padding = '5px';
-			td.onclick = function() { BBC(eO,'&'+this.item+';','') };
-			td.innerHTML = '&'+eChar[i]+';';
+			td.onclick = function() { BBC(eO, this.item, '') };
+			td.innerHTML = symbol[i];
 
 			tr.appendChild(td);
 
-			if(y==4) { tb.appendChild(tr); y=1 } else { ++y }
+			if(y==6) { tb.appendChild(tr); y=1 } else { ++y }
 		}
 
 		//Cudzys³owy
-		var td = document.createElement('td');
-		td.onclick = function() { BBC(eO,'&ldquo;','&rdquo;') };
-		td.innerHTML = '&bdquo; &rdquo;';
-		tr.appendChild(td);
-		tb.appendChild(tr);
-
-		eCharList = out;
+		if(!this.bbcode)
+		{
+			var td = document.createElement('td');
+			td.onclick = function() { BBC(eO, '<q>', '</q>') };
+			td.innerHTML = '&bdquo; &rdquo;';
+			tr.appendChild(td);
+			tb.appendChild(tr);
+		}
+		eChars = out;
 	}
 	else
 	{
-		var ile = eColor.length;
-		var i2 = 1;
+		var ile = color.length,
+		z = 1;
 
-		for(var i in eColor)
+		for(var i=0; i<ile; ++i)
 		{
 			if(y==1) var tr = document.createElement('tr');
 
 			var td = document.createElement('td');
-			td.style.backgroundColor = eColor[i];
+			td.style.backgroundColor = color[i];
 			td.style.padding = '12px';
-			td.item = eColor[i];
+			td.item = color[i];
 			td.onclick = function()
 			{
-				if(eCurBBC==1)
+				if(eCurBBC)
 				{
-					BBC(eO,'[color='+this.item+']','[/color]');
+					BBC(eO, '[color='+this.item+']', '[/color]');
 				}
 				else
 				{
-					BBC(eO,'<span style="color: '+this.item+'">','</span>');
+					BBC(eO, '<span style="color: '+this.item+'">', '</span>');
 				}
 			};
 			tr.appendChild(td);
 
-			if(y==8 || i2==ile) { tb.appendChild(tr); y=1 } else { ++y; } ++i2
+			if(y==8 || z==ile) { tb.appendChild(tr); y=1 } else { ++y; } ++z
 		}
 		eCurBBC = this.bbcode;
 		eColors = out;
@@ -262,32 +286,31 @@ Editor.prototype.make = function(co)
 
 Editor.prototype.ins = function(co)
 {
-	if(co=='link')
+	if(co == 'link')
 	{
-		var a = prompt(eLang2.adr, 'http://');
-		if(a && a!='http://')
+		var a = prompt(lang.adr, 'http://');
+		if(a && a != 'http://')
 		{
-			var b = prompt(eLang2.adr2);
+			var b = prompt(lang.adr2);
 			if(b)
 			{
-				if(this.bbcode==1) BBC(this.o, '[url='+a+']'+b, '[/url]');
+				if(this.bbcode) BBC(this.o, '[url='+a+']'+b, '[/url]');
 				else BBC(this.o, '<a href="'+a+'">'+b, '</a>')
 			}
 			else
 			{
-				if(this.bbcode==1) BBC(this.o, '[url]'+a, '[/url]');
+				if(this.bbcode) BBC(this.o, '[url]'+a, '[/url]');
 				else BBC(this.o, '<a href="'+a+'">'+a, '</a>')
 			}
 		}
 	}
 	else
 	{
-		var a = prompt(eLang2.mail);
+		var a = prompt(lang.mail);
 		if(a)
 		{
-			a.replace('@','&#64;');
-			if(this.bbcode==1) BBC(this.o, '[mail]'+a, '[/mail]');
-			else BBC(this.o, '<a href="m&#97;ilto:'+a+'">'+a, '</a>')
+			if(this.bbcode) BBC(this.o, '[mail]'+a, '[/mail]');
+			else BBC(this.o, '<a href="mailto:'+a+'">'+a, '</a>')
 		}
 	}
 };
@@ -309,7 +332,7 @@ Editor.prototype.preview = function(opt,where,text)
 		{
 			this.box = document.createElement('div');
 			this.box.className = 'box';
-			this.o.form.parentNode.insertBefore(this.box,this.o.form);
+			this.o.form.parentNode.insertBefore(this.box, this.o.form);
 		}
 	}
 

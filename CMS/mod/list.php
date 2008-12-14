@@ -157,7 +157,7 @@ $content->data = array(
 	'intro' => $lang['i'.$act],
 	'type'  => $type,
 	'cats'  => Slaves($act),
-	'pages' => Pages($page,$total,25,$url.'&amp;find='.$find,1),
+	'pages' => Pages($page,$total,30,$url.'&amp;find='.$find,1),
 	'add_url' => '?co=edit&amp;act='.$act,
 	'cats_url'=> Admit('C') ? 'adm.php?a=cats&amp;co='.$act : '',
 );

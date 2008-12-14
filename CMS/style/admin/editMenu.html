@@ -27,9 +27,10 @@
 <tr>
 	<td><b>4. {lang.type}:</b></td>
 	<td>
-		<label><input type="radio" value="1" name="type" /> {lang.txt}</label> &nbsp;
+		<label><input type="radio" value="1" name="type" /> {lang.cont}</label> &nbsp;
+		<label><input type="radio" value="3" name="type" /> {lang.urls}</label> &nbsp;
 		<label><input type="radio" value="2" name="type" /> {lang.file}</label> &nbsp;
-		<label><input type="radio" value="3" name="type" /> {lang.urls}</label>
+		<label><input type="radio" value="4" name="type" /> {lang.merged}</label>
 	</td>
 </tr>
 <tr>
@@ -91,6 +92,6 @@
 <script type="text/javascript">
 //<![CDATA[
 document.forms[0].elements[0].focus()
-var f = new Fragment('items',{depth:1,html:id('tpl')})
+f = new Fragment('items',{depth:1,html:id('tpl')})
 //]]>
 </script>

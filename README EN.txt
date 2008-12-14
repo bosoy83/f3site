@@ -26,6 +26,7 @@ Installation
 * all folders in above catalogs - 0777
 * all files in above directories - 0766
 * folders: FILES, IMG - 0777 (optional)
+* folders: IMG/USER - 0777 (required to let users upload photos)
 
 2. Go to INSTALL directory in your web browser - e.g. http://your.site.pl/install/
 To finish the installation, database user must have full privileges.

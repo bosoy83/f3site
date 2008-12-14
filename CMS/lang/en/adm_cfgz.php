@@ -18,7 +18,9 @@ $lang+=Array(
 
 'downloads'=>'Count file downloads',
 
-'recent'=>'Number of visible news',
+'recent'=>'Number of news per page',
+'divide'=>'Divide news into pages',
+'rest'=>'If disabled, rest are displayed in archive only.',
 'ay'=>'Group news by years in archive',
 'ay2'=>'If you post news ralely, set this option to display years instead of months.',
 

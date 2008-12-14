@@ -1,75 +1,63 @@
-<?php
-#Generator plików menu
+<?php #Generator plików menu
 function RenderMenu()
 {
 	global $db;
 	if(!is_writable('cache')) { echo 'CHMOD "CACHE" DIRECTORY TO 777!'; return false; }
 
-	#Odczyt
-	$res = $db->query('SELECT * FROM '.PRE.'menu WHERE disp!=2 ORDER BY seq');
-	$m = $res->fetchAll(2); //ASSOC
-	$res = null;
-	$ile = count($m);
+	#Odczyt bloków - ASSOC
+	$block = $db->query('SELECT * FROM '.PRE.'menu WHERE disp!=2 ORDER BY seq')->fetchAll(2);
+
+	#Odczyt linków menu - NUM
+	$items = $db->query('SELECT menu,text,url,nw FROM '.PRE.'mitems ORDER BY seq')->fetchAll(3);
 
 	#Zamieñ '
 	function Ap($x) { return str_replace(array('\'','\\'),array('\\\'','\\\\'),$x); }
 
-	#Sk³ad SQL
-	$list = array();
-	foreach($m as $x)
-	{
-		$list[] = (int) $x['ID'];
-	}
-
-	#Linki
-	$res=$db->query('SELECT menu,text,url,nw FROM '.PRE.'mitems WHERE menu IN('.join(',',$list).') ORDER BY seq');
-	$item = $res->fetchAll(3); //NUM
-	$ile2 = count($item);
-
 	#Jêzyki
 	foreach(scandir('./lang') as $dir)
 	{
-		if(is_dir('./lang/'.$dir) && $dir[0]!='.')
+		if($dir[0]=='.' || !is_dir('./lang/'.$dir)) continue;
+		$out = array('','','');
+
+		foreach($block as &$x)
 		{
-			$out = array(null,null,null);
-			foreach($m as &$x)
+			if($x['disp']!=1 && $x['disp']!=$dir) continue;
+
+			#Nowy blok
+			$page = $x['menu'];
+			$out[$page].= '<div class="mh"'.(($x['img'])?' style="background: url('.$x['img'].') no-repeat bottom right"':'').'>'.$x['text'].'</div><div class="menu">';
+
+			#Tekst, plik, linki
+			switch($x['type'])
 			{
-				if($x['disp']==1 || $x['disp']==$dir)
+				case 1: $out[$page] .= $x['value']; break;
+				case 2: $out[$page] .= '<?php include \''.Ap($x['value']).'\'?>'; break;
+				case 4: $got = file_get_contents($x['value']);
+					if(substr_count($got,'<?') > substr_count($got,'?>')) $got .= ' ?>';
+					$out[$page] .= $got;
+					break;
+				default: 
+
+				$links = '';
+				foreach($items as &$y)
 				{
-					#Nowy blok
-					$page = $x['menu'];
-					$out[$page].= '<div class="mh"'.(($x['img'])?' style="background: url('.$x['img'].') no-repeat bottom right"':'').'>'.$x['text'].'</div><div class="menu">';
-
-					#Tekst
-					if($x['type']==1) $out[$page].= $x['value'];
-
-					#Plik
-					elseif($x['type']==2) $out[$page].= '<?php include \''.Ap($x['value']).'\'?>';
-
-					#Linki
-					else {
-						$links = '';
-						foreach($item as &$y) {
-							if($y[0] == $x['ID'])
-							{
-								$links.= '<li><a href="'.$y[2].'"'.(($y[3]===1)?' target="_blank"':'').'>'.$y[1].'</a></li>';
-							}
-						}
-						if($links) $out[$page].= '<ul>'.$links.'</ul>';
+					if($y[0] == $x['ID'])
+					{
+						$links.= '<li><a href="'.Clean($y[2]).'"'.(($y[3])?' target="_blank"':'').'>'.$y[1].'</a></li>';
 					}
-					$out[$page].='</div>';
 				}
+				if($links) $out[$page].= '<ul>'.$links.'</ul>';
 			}
+			$out[$page].='</div>';
+		}
 
-			#Ca³oœæ
-			$out = '<?php function newnav($MenuID) { global $cfg,$lang,$db,$user; if($MenuID==1) {?>'.$out[1].'<?php } else {?>'.$out[2].'<?php } } ?>';
+		#Ca³oœæ
+		$out = '<?php function newnav($MID) { global $cfg,$lang,$db,$user; if($MID==1) {?>'.$out[1].'<?php } else {?>'.$out[2].'<?php } } ?>';
 
-			#Redukuj otwarcia PHP
-			$out = str_replace('?><?php', '', $out);
+		#Redukuj otwarcia PHP
+		$out = str_replace('?><?php', '', $out);
 
-			#Zapisz
-			file_put_contents('./cache/menu'.$dir.'.php', $out, 2); //2 = LOCK_EX
-    }
+		#Zapisz
+		file_put_contents('./cache/menu'.$dir.'.php', $out, 2); //2 = LOCK_EX
 	}
 }
-?>

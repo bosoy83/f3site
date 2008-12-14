@@ -18,7 +18,9 @@ $lang+=Array(
 
 'downloads'=>'Zliczaæ ilo¶æ pobrañ',
 
-'recent'=>'Liczba aktualnych nowo¶ci',
+'recent'=>'Ilo¶æ nowo¶ci na 1 stronie',
+'divide'=>'Dziel nowo¶ci na strony',
+'rest'=>'Gdy wy³±czone, pozosta³e s± tylko w archiwum.',
 'ay'=>'Grupowaæ wg roku w archiwum',
 'ay2'=>'Je¶li rzadko redagujesz nowo¶ci, zaznacz tê opcjê, aby zamiast miesiêcy wy¶wietlaæ lata.',
 

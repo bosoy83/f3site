@@ -4,7 +4,7 @@
 <!-- END -->
 
 <form action="{url}" method="post" id="pm">
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody>
@@ -45,9 +45,7 @@
 <!-- IF bbcode -->
 
 <script type="text/javascript">
-var ed = new Editor(document.forms['pm'].txt);
-ed.bbcode = 1;
-ed.emots()
+new Editor(document.forms['pm'].txt, 1).emots()
 </script>
 
 <!-- ELSE -->

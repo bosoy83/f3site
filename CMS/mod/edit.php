@@ -46,7 +46,7 @@ $content->file  = 'content';
 #Ostatni komentarz
 if(Admit('CM') && $c = $db->query('SELECT name,date FROM '.PRE.'comms ORDER BY ID DESC LIMIT 1')->fetch(3))
 {
-	$content->data = array('last'=>$c[0], 'date'=>genDate($c[1],1));
+	$content->data = array('title'=>$c[0], 'last'=>genDate($c[1],1));
 }
 else
 {

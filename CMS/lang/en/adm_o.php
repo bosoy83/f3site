@@ -28,6 +28,7 @@ $lang+=Array(
 
 'file'=>'file',
 'left'=>'left',
+'merged'=>'plik scalony',
 'right'=>'right',
 'navadd'=>'Add item',
 'navbe'=>'Edit block',
@@ -38,7 +39,8 @@ $lang+=Array(
 'navpage'=>'Free page ID',
 'nmlink'=>'Does not concern: links.<br />Files are stored in <q>mod/panels</q>.',
 'nwn'=>'otwórz w nowym oknie',
-'txt'=>'tekst',
+'cont'=>'text or code',
+'merged'=>'merged file',
 'txtfile'=>'Text or file:',
 'urls'=>'links',
 'savenew'=>'Save as new block',

@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Zacznij od...
-#if($st != 0) $st = ($page-1) * $cfg['newsNum'];
+if($st != 0) $st = ($page-1) * $cfg['newsNum'];
 
 #Odczyt
 $res = $db->query('SELECT n.*,login FROM '.PRE.'news n LEFT JOIN '.PRE.'users u ON
@@ -51,21 +51,21 @@ foreach($res as $n)
 	$news[$num]['text'] = $n['txt'];  ++$num;
 }
 
-/*Strony
-if($cfg['newsMax'] > $cfg['newsNum'] && $cat['num'] > $num)
+#Strony
+if(isset($cfg['newsPages']) && $cat['num'] > $num)
 {
-	$pages = Pages($page, min($cat['num'],$cfg['newsMax']), $cfg['newsNum'], '?d='.$d);
+	$pages = Pages($page, $cat['num'], $cfg['newsNum'], '?d='.$d);
 }
 else
 {
 	$pages = null;
-}*/
+}
 
 #Do szablonu
 $content->file[] = 'cat_news';
 $content->data += array(
 	'news' => &$news,
-	//'pages' => &$pages,
+	'pages' => &$pages,
 	'add_url' => $rights ? '?co=edit&amp;act=news' : null,
 	'cat_type'=> $lang['news']
 );
