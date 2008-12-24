@@ -31,7 +31,7 @@ if(isset($_GET['gid']))
 else { $gid=null; }
 
 #Szukaj
-if(isset($_REQUEST['s']))
+if(isset($_REQUEST['s']) && $_REQUEST['s'])
 {
 	$s = str_replace(array('"','\'','%'), '', Clean($_REQUEST['s'],30));
 	$w.= (($w=='')?' WHERE ':' AND ').'login LIKE "'.str_replace('*', '%', $s).'"';

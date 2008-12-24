@@ -12,6 +12,7 @@ if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][3
 	#Szablon
 	$content->file = array($_GET['co']);
 
+	#Kolejno¶æ: modu³ wbudowany, rozszerzenie, 404
 	if(file_exists('./mod/'.$_GET['co'].'.php'))
 	{
 		(include './mod/'.$_GET['co'].'.php') OR $content->set404();
@@ -22,7 +23,7 @@ if(isset($_GET['co']) && strpos($_GET['co'],'/')===false && !isset($_GET['co'][3
 	}
 	else
 	{
-		$content->set404(); #B³±d 404 - strona nie istnieje
+		$content->set404();
 	}
 }
 
@@ -41,4 +42,4 @@ require './cache/menu'.$nlang.'.php';
 
 #Skórka
 include $content->path('body');
-//echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';
+#echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';

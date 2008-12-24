@@ -20,7 +20,7 @@ $lang+=Array(
 'now2'=>'Look up in PHP manual:',
 'date1'=>'Date format',
 'date2'=>'%d - day &nbsp;&nbsp;%m - month &nbsp;&nbsp;%y - year',
-'time1'=>'Your format',
+'time1'=>'Date with time',
 'time2'=>'%h - hour &nbsp;&nbsp;%i - minute &nbsp;&nbsp;%s - second',
 'lastv'=>'Save date of user last visit',
 

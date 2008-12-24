@@ -75,7 +75,7 @@ elseif(isset($_COOKIE[PRE.'lang']))
 	}
 }
 #Autowykrywanie jêzyka
-elseif($cfg['detectLang']===1)
+elseif(isset($cfg['detectLang']))
 {
 	foreach(explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 	{
@@ -247,8 +247,8 @@ function Admit($id,$type=null)
 	}
 	else
 	{
-		if(!isset($global)) $global=explode('|',$user[UID]['adm']);
-		if(in_array($id,$global)) { return true; } else { return false; }
+		if(!isset($global)) $global = explode('|',$user[UID]['adm']);
+		return in_array($id,$global);
 	}
 }
 
@@ -302,21 +302,38 @@ function ListBox($dir,$co,$ch)
 function Pages($page,$ile,$max,$url,$type=0)
 {
 	global $lang;
-	$stron = ceil($ile / $max);
-	$out = $type ? '<select onchange="location=\''.$url.'&amp;page=\'+(this.selectedIndex+1)">' : $lang['page'].': ';
+	$all = ceil($ile / $max);
+	$out = '';
 
-	for($i=1;$i<=$stron;++$i)
+	#Select
+	if($type)
 	{
-		if($type==1)
+		$out = '<select onchange="location=\''.$url.'&amp;page=\'+(this.selectedIndex+1)">';
+		for($i=1; $i<=$all; ++$i)
 		{
-			$out.='<option class="pgs"'.(($page==$i)?' selected="selected"':'').'>'.$i.'</option>';
+			$out.='<option'.(($page==$i)?' selected="selected"':'').'>'.$i.'</option>';
 		}
-		else
+		return $out.'</select> '.$lang['of'].$all;
+	}
+	else
+	{ 
+		for($i=1; $i<=$all; ++$i)
 		{
+			if($all > 9 && $i > 1)
+			{
+				if($i+2 < $page)
+				{
+					$i = $page-2;
+				}
+				elseif($i-2 > $page)
+				{
+					$i = $all;
+				}
+			}
 			$out.='<a class="'.(($page==$i)?'pageAct':'').'" href="'.$url.'&amp;page='.$i.'">'.$i.'</a>';
 		}
+		return $out;
 	}
-	return $out.(($type==1)?'</select> '.$lang['of'].' '.$stron:'');
 }
 
 #Banner
@@ -331,11 +348,10 @@ function Banner($gid)
 function Emots($txt=null)
 {
 	static $emodata;
-	include_once('./cfg/emots.php');
-	$ile=count($emodata);
-	for($n=0;$n<$ile;$n++)
+	include_once './cfg/emots.php';
+	foreach($emodata as $x)
 	{
-		$txt=str_replace($emodata[$n][2],'<img src="img/emo/'.$emodata[$n][1].'" title="'.$emodata[$n][0].'" alt="'.$emodata[$n][2].'" />',$txt);
+		$txt = str_replace($x[2],'<img src="img/emo/'.$x[1].'" title="'.$x[0].'" alt="'.$x[2].'" />',$txt);
 	}
 	return $txt;
 }
@@ -373,7 +389,7 @@ function genDate($x, $time=false)
 	}
 	if($time)
 	{
-		return $date.strftime($cfg['time'], $x);
+		return strftime($cfg['time'], $x);
 	}
 	else
 	{
@@ -400,17 +416,17 @@ function Autor($v)
 	else return $v;
 }
 
-#Encje + trim()
+#Znaki specjalne, cenzura
 function Clean($val,$max=0,$wr=0)
 {
-	if($max) $val=substr($val,0,$max);
-	if($wr && $GLOBALS['cfg']['censor']==1)
+	if($max) $val = substr($val,0,$max);
+	if($wr && isset($GLOBALS['cfg']['censor']))
 	{
 		static $words1,$words2;
 		include_once './cfg/words.php';
 		$val = str_replace($words1,$words2,$val); //Zamiana s³ów
 	}
-	return trim(htmlspecialchars($val));
+	return trim(htmlspecialchars($val,0));
 }
 
 #Licz w bazie

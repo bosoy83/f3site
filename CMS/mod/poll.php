@@ -49,7 +49,7 @@ $content->data = array(
 );
 
 #Komentarze
-if($cfg['pollComm']==1)
+if(isset($cfg['pollComm']))
 {
 	define('CT','15');
 	include './lib/comm.php';

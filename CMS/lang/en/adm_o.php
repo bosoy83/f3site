@@ -8,7 +8,12 @@ $lang+=Array(
 
 'catman'=>'Manage categories',
 'addcat'=>'Add categories',
+'delCat'=>'Delete categories',
+'moveTo'=>'Move to',
+'content'=>'Where shall I move content',
+'subCats'=>'Where shall I move subcategories',
 'editcat'=>'Edit categories',
+'keep' => 'leave without category',
 'gocat'=>'Go to the category',
 'count'=>'Recount items in categories',
 'wtxt'=>'Welcome text',

@@ -115,7 +115,8 @@ $total = db_count($table.$param);
 #Brak?
 if($total == 0)
 {
-	$content->info($lang['noc'], array('?co=edit&amp;act='.$act => $lang['add'.$act]));
+	if($id) Header('Location: '.URL.'index.php?co=edit&act='.$act.'&catid='.$id);
+	$content->info($lang['noc']);
 	return;
 }
 

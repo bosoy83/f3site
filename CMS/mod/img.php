@@ -58,7 +58,7 @@ $content->data = array(
 );
 
 #Komentarze
-if($cfg['icomm']==1 && $img['opt']&2)
+if(isset($cfg['icomm']) && $img['opt']&2)
 {
 	define('CT','3');
 	require 'lib/comm.php';

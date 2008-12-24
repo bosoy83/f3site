@@ -123,7 +123,7 @@ class Mailer
 		$this->url = $cfg['adr'];
 
 		#Po³±czenie SMTP
-		if($cfg['mailh']==2 && $cfg['mailon']==1)
+		if($cfg['mailh']==2 && isset($cfg['mailon']))
 		{
 			$this->method='SMTP';
 			$i=0;
@@ -147,7 +147,7 @@ class Mailer
 		}
 
 		#Mail()
-		elseif($cfg['mailon']==1) $this->method='MAIL';
+		elseif(isset($cfg['mailon'])) $this->method='MAIL';
 
 		#Domy¶lny nadawca
 		$this->setSender($cfg['title'], $cfg['mail']);

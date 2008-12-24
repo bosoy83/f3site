@@ -5,13 +5,13 @@ if(iCMS!=1) exit;
 if(LOGD==1)
 {
 	echo
-	str_replace('%n','<a href="?co=user">'.$user[UID]['login'].'</a>',$lang['uwlogd']).'<ul>
+	sprintf($lang['uwlogd'],'<a href="?co=user">'.$user[UID]['login'].'</a>').'<ul>
 	<li><a href="?co=edit">'.$lang['mantxt'].'</a></li>'.
 
 	(($user[UID]['lv']>2)?
 	'<li><a href="adm.php">'.$lang['cpanel'].'</a></li>':'').
 
-	(($cfg['pmOn']==1)?
+	((isset($cfg['pmOn']))?
 	'<li><a href="?co=pms"'.(($user[UID]['pms']==0)?'>'.$lang['pms']
 	:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a></li>':'').
 

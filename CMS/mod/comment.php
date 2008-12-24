@@ -197,7 +197,7 @@ if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 #Szablon
 $content->data = array(
 	'comment' => $c,
-	'code'    => $type && LOGD!=1 && $cfg['captcha']==1 ? true : false,
+	'code'    => $type && LOGD!=1 && isset($cfg['captcha']) ? true : false,
 	'author'  => $type && LOGD!=1 ? true : false,
 	'preview' => $preview,
 	'url'     => '?co=comment&amp;id='.$id.(($type)?'&amp;type='.$type:'').(($mod)?'&amp;mod='.$mod:'')

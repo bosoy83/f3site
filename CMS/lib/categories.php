@@ -153,7 +153,7 @@ function Slaves($type=0,$id=0,$o=null)
 		$last = $cat['rgt'];
 
 		$o.='<option value="'.$cat['ID'].'"'.(($id==$cat['ID'])? ' selected="selected"':'').
-			'">'.str_repeat('&rarr; ',$depth).$cat['name'].'</option>';
+			'" style="padding-left: '.$depth.'em">'.$cat['name'].'</option>';
 	}
 	return $o;
 }
@@ -201,9 +201,8 @@ function CountItems()
 function RTR($parent,$left)
 {
 	global $db;
-	if($left)
 	$right = $left+1;
-	$all = $db->query('SELECT ID FROM '.PRE.'cats WHERE sc="'.$parent.'";')->fetchAll(3);
+	$all = $db->query('SELECT ID FROM '.PRE.'cats WHERE sc='.$parent)->fetchAll(3);
 	foreach($all as $row)
 	{
 		$right = RTR($row[0], $right);

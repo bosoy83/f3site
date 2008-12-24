@@ -43,7 +43,7 @@ function RenderMenu()
 				{
 					if($y[0] == $x['ID'])
 					{
-						$links.= '<li><a href="'.Clean($y[2]).'"'.(($y[3])?' target="_blank"':'').'>'.$y[1].'</a></li>';
+						$links.= '<li><a href="'.$y[2].'"'.(($y[3])?' target="_blank"':'').'>'.$y[1].'</a></li>';
 					}
 				}
 				if($links) $out[$page].= '<ul>'.$links.'</ul>';

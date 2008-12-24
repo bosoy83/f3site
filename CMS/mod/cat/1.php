@@ -17,7 +17,7 @@ foreach($res as $art)
 		'title' => $art[1],
 		'desc'  => $art[2],
 		'num'   => ++$st,
-		'url'   => '?co=art&amp;id='.$art[0],
+		'url'   => MOD_REWRITE ? '/art-'.$art[0] : '?co=art&amp;id='.$art[0],
 		'date'  => $art[3]
 	);
 	++$total;
@@ -30,7 +30,7 @@ if($total===0) { $content->info($lang['noc']); return 1; }
 $pages = $cat['num'] > $total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
 
 #Do szablonu
-$content->file = array('cat_arts');
+$content->file[] = 'cat_arts';
 $content->data += array(
 	'pages' => &$pages,
 	'arts'  => &$arts,

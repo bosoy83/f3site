@@ -147,7 +147,7 @@ else
 }
 
 #Edytor JS
-if($cfg['bbcode']==1)
+if(isset($cfg['bbcode']))
 {
 	$content->addScript(LANG_DIR.'edit.js');
 	$content->addScript('lib/editor.js');

@@ -8,7 +8,7 @@ require LANG_DIR.'pms.php';
 $content->title = $lang['pm3'];
 
 #Jest dostêp?
-if($cfg['pmOn']==1 && LOGD==1)
+if(isset($cfg['pmOn']) && LOGD==1)
 {
 	#Nowe PM
 	if($user[UID]['pms']==0)

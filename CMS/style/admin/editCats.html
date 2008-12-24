@@ -1,0 +1,29 @@
+<form action="" method="post">
+<h2>{lang.delCat}</h2>
+<table cellspacing="1" class="tb">
+
+<!-- START cat -->
+<tr>
+	<th colspan="2"><a href="index.php?d={id}">{title}</a></th>
+</tr>
+<tr>
+	<td><b>{lang.content}?</b></td>
+	<td><select name="items[{id}]">
+		<option value="0">{lang.keep}</option>
+		<option value="-1">{lang.del}</option>
+		<optgroup label="{lang.moveTo}:">{cats}</optgroup>
+	</select></td>
+</tr>
+<tr>
+	<td><b>{lang.subCats}?</b></td>
+	<td><select name="x[{id}]">
+		<option value="0">{lang.scno}</option>
+		<option value="-1">{lang.del}</option>
+		<optgroup label="{lang.moveTo}:">{cats}</optgroup>
+	</select></td>
+</tr>
+<!-- STOP -->
+
+</table>
+<div class="end"><input type="submit" name="del" value="OK" /></div>
+</form>

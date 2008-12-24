@@ -18,9 +18,9 @@ if(isset($_GET['d']))
 	$d = (int)$_GET['d'];
 }
 #Domy¶lna
-elseif($cfg['start'][$nlang])
+elseif(isset($cfg['start'][$nlang]))
 {
-	$d = (int)$cfg['start'][$nlang];
+	$d = $cfg['start'][$nlang];
 }
 #Brak
 else

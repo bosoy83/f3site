@@ -12,7 +12,7 @@ if(!$file = $res->fetch(2)) return;
 #Rozmiar i URL
 if(strpos($file['file'],':') OR file_exists('./'.$file['file']))
 {
-	$file['url'] = $cfg['fgets']==1 ? 'go.php?file='.$id : $file['file'];
+	$file['url'] = isset($cfg['fgets']) ? 'go.php?file='.$id : $file['file'];
 	if($file['size'] === 'AUTO') $file['size'] = filesize($file['file']);
 }
 else
@@ -48,7 +48,7 @@ $content->data = array(
 );
 
 #Komentarze
-if($cfg['fcomm']==1 && $file['opt']&2)
+if(isset($cfg['fcomm']) && $file['opt']&2)
 {
 	define('CT','2');
 	require './lib/comm.php';
