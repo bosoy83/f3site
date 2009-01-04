@@ -33,7 +33,7 @@ $content->file[] = 'cat_files';
 $content->data += array(
 	'files' => &$files,
 	'pages' => &$pages,
-	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=file' : null,
+	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=2' : null,
 	'cat_type'=> $lang['files']
 );
 

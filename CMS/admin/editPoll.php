@@ -79,7 +79,7 @@ if($_POST)
 		$content->info($lang['saved'], array(
 			'?a=editPoll' => $lang['addPoll'],
 			'?a=editPoll&amp;id='.$id => $poll['name'].' - '.$lang['edit'],
-			MOD_REWRITE ? '/poll/'.$id : 'index.php?co=poll&amp;id='.$id => $poll['name']));
+			'.?co=poll&amp;id='.$id => $poll['name']));
 		return 1;
 	}
 	catch(PDOException $e)

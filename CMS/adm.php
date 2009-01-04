@@ -11,7 +11,7 @@ if(LOGD != 1)
 }
 elseif(LEVEL < 3)
 {
-	Header('Location: '.URL.'index.php'); //Przekieruj na stronê g³ówn±
+	Header('Location: '.URL); //Przekieruj na stronê g³ówn±
 	exit;
 }
 require LANG_DIR.'adm.php';

@@ -29,7 +29,7 @@ if($_POST)
 	{
 		$q->execute($page);  if(!$id) $id = $db->lastInsertId();
 		$content->info($lang['saved'], array(
-			MOD_REWRITE ? '/page/'.$id : 'index.php?co=page&amp;id='.$id => $lang['goto'],
+			'.?co=page&amp;id='.$id => $lang['goto'],
 			'?a=editPage' => $lang['addp'] ));
 		return 1;
 	}
@@ -62,7 +62,6 @@ $content->addScript('lib/editor.js');
 $content->addScript('cache/emots.js');
 $content->title = $id ? $lang['editp'] : $lang['addp'];
 $content->data = array(
-	'url'  => '?a=editPage'.(($id) ? '&amp;id='.$id : ''),
 	'page' => &$page,
 	'o1'   => $page['opt']&1,
 	'o2'   => $page['opt']&2,

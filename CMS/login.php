@@ -3,14 +3,14 @@ define('iCMS',1);
 require 'kernel.php';
 
 #Gdzie przekierowaæ?
-$from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : 'index';
+$from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : '';
 
 #Wyloguj?
 if(isset($_GET['logout']) && LOGD==1)
 {
 	unset($_SESSION['uid'],$_SESSION['userdata'],$_SESSION['uidl'],$_SESSION['uidp']);
-	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-25920000);
-	$content->message(4,'index.php');
+	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-31104000);
+	$content->message(4, '.');
 	exit;
 }
 
@@ -49,7 +49,7 @@ elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 		#Pamiêtanie
 		if(isset($_POST['auto']))
 		{
-			setcookie(PRE.'login',$u['ID'].':'.$md5,time()+25920000) or exit('Cookies problem!');
+			setcookie(PRE.'login',$u['ID'].':'.$md5,time()+31104000) or exit('Cookies problem!');
 		}
 		else
 		{
@@ -57,7 +57,7 @@ elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 			$_SESSION['uidp'] = $md5;
 			$_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
 		}
-		$content->message(1, $from.'.php');
+		$content->message(1, $from ? $from.'.php' : '.');
 	}
 	else
 	{

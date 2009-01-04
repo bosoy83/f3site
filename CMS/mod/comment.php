@@ -167,7 +167,7 @@ if($_POST)
 				$_SESSION['post'] = time() + $cfg['antyFlood'];
 
 				#Info
-				$url = $mod ? '?co='.$mod.'&amp;id='.$id : 'index.php';
+				$url = $mod ? '?co='.$mod.'&amp;id='.$id : '.';
 				$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7'], $url);
 			}
 			catch(PDOException $e)

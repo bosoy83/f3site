@@ -54,7 +54,7 @@ foreach($res as $cat)
 		'id'   => $cat['ID'],
 		'name' => $cat['name'],
 		'type' => $types[$cat['type']],
-		'url'  => 'index.php?co=list&amp;act='.$cat['type'].'&amp;id='.$cat['ID'],
+		'url'  => '.?co=list&amp;act='.$cat['type'].'&amp;id='.$cat['ID'],
 		'num'  => $cat['num'],
 		'depth'=> $depth,
 		'disp' => $a,

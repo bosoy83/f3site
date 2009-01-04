@@ -62,9 +62,9 @@ if($_POST)
 		$e->apply();
 
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=art'=>$lang['add1'],
-			'?co=list&amp;act=1'	=>$lang['arts'],
-			'?co=art&amp;id='.$id =>$art['name']));
+			'?co=edit&amp;act=1' => $lang['add1'],
+			'?co=list&amp;act=1' => $lang['arts'],
+			'?co=art&amp;id='.$id  => $art['name']));
 		unset($e,$q,$art,$full);
 		return;
 	}
@@ -113,7 +113,6 @@ $content->addScript('lib/editor.js');
 #Dane + URL + kategorie
 $content->data = array(
 	'art' => &$art,
-	'url' => '?co=edit&amp;act=1&amp;id='.$id,
 	'full' => &$full,
 	'cats' => Slaves(1,$art['cat'])
 );

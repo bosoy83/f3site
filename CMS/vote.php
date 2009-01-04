@@ -129,6 +129,6 @@ if(isset($_POST['poll']))
 	}
 	else
 	{
-		$content->message(5, MOD_REWRITE ? '/poll/'.$id : 'index.php?co=poll&amp;id='.$id);
+		$content->message(5, '.?co=poll&amp;id='.$id);
 	}
 }

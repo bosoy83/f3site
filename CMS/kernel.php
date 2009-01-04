@@ -1,6 +1,7 @@
 <?php /* J±dro systemu */
 if(iCMS!=1) exit;
-define('URL','http://'.$_SERVER['HTTP_HOST'].str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
+define('PATH',str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
+define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
 
 #Ochrona przed CSRF
 if($_POST && isset($_SERVER['HTTP_REFERER']))
@@ -44,8 +45,8 @@ if(!empty($cfg['ban']))
 	}
 }
 
-#Przepisywanie linków
-define('MOD_REWRITE', 0); //It's disabled now
+#Przepisywanie linków - aktualnie nieobs³ugiwane
+define('NICE_URL', 0);
 
 #Katalog skórki
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
@@ -59,7 +60,7 @@ session_start();
 if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
 {
 	$nlang = $_SESSION['lang'] = $_GET['setlang'];
-	setcookie(PRE.'lang', $nlang, time()+12960000); //Ustaw na 5 mies.
+	setcookie(PRE.'lang', $nlang, time()+23328000); //9 miesiêcy
 }
 #Jêzyk: sesja
 elseif(isset($_SESSION['lang']))
@@ -219,10 +220,10 @@ Header('Content-type: text/html; charset=iso-8859-2');
 
 #FUNKCJE
 
-#Prawa ($a - autor)
+#Prawa - wpu¶ciæ u¿ytkownika?
 function Admit($id,$type=null)
 {
-	if(LOGD!=1) return false; //Go¶æ?
+	if(LOGD!=1) return false; //Go¶æ
 	global $user, $db;
 	static $global, $all;
 
@@ -305,10 +306,13 @@ function Pages($page,$ile,$max,$url,$type=0)
 	$all = ceil($ile / $max);
 	$out = '';
 
+	#URL
+	$url .= '&amp;page=';
+
 	#Select
 	if($type)
 	{
-		$out = '<select onchange="location=\''.$url.'&amp;page=\'+(this.selectedIndex+1)">';
+		$out = '<select onchange="location=\''.$url.'\'+(this.selectedIndex+1)">';
 		for($i=1; $i<=$all; ++$i)
 		{
 			$out.='<option'.(($page==$i)?' selected="selected"':'').'>'.$i.'</option>';
@@ -330,7 +334,7 @@ function Pages($page,$ile,$max,$url,$type=0)
 					$i = $all;
 				}
 			}
-			$out.='<a class="'.(($page==$i)?'pageAct':'').'" href="'.$url.'&amp;page='.$i.'">'.$i.'</a>';
+			$out.='<a class="'.(($page==$i)?'pageAct':'').'" href="'.$url.$i.'">'.$i.'</a>';
 		}
 		return $out;
 	}
@@ -345,7 +349,7 @@ function Banner($gid)
 }
 
 #Emoty
-function Emots($txt=null)
+function Emots($txt)
 {
 	static $emodata;
 	include_once './cfg/emots.php';
@@ -409,7 +413,7 @@ function Autor($v)
 		}
 		if($user[$v]['login'])
 		{
-			return '<a href="index.php?co=user&amp;id='.$v.'">'.$user[$v]['login'].'</a>';
+			return '<a href="?co=user&amp;id='.$v.'">'.$user[$v]['login'].'</a>';
 		}
 		else return $v;
 	}

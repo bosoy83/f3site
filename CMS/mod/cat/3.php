@@ -19,8 +19,8 @@ foreach($res as $x)
 		'num'   => ++$total,
 		'title' => $x[1],
 		'src'   => $x[3],
-		'url'   => MOD_REWRITE ? 'img/'.$x[0] : '?co=img&amp;id='.$x[0],
-		'date'  => genDate($x[2], false)
+		'url'   => '?co=img&amp;id='.$x[0],
+		'date'  => genDate($x[2])
 	);
 }
 
@@ -30,16 +30,19 @@ if($total === 0): $content->info($lang['noc']); return 1; endif;
 #Strony
 if($cat['num'] > $total)
 {
-	$pages = Pages($page,$cat['num'],$cfg['np'], MOD_REWRITE ? '/'.$d : '?d='.$d);
+	$pages = Pages($page,$cat['num'],$cfg['np'], '?d='.$d);
 }
-else $pages = null;
+else
+{
+	$pages = null;
+}
 
 #Do szablonu
 $content->file[] = 'cat_images';
 $content->data += array(
 	'pages' => &$pages,
 	'img'   => &$img,
-	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=link' : null,
+	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=4' : null,
 	'cat_type'=> $lang['imgs']
 );
 

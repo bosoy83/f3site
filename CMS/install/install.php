@@ -97,7 +97,7 @@ class Installer
 		//Pierwszy NEWS
 		$n->execute(array($catID, $lang[11], $lang[12], gmdate('Y-m-d H:i:s'), 1, 1));
 
-		$i->execute(array($menuID, $lang[0], 'index.php', 1));
+		$i->execute(array($menuID, $lang[0], '.', 1));
 		$i->execute(array($menuID, $lang[7], '?co=archive', 2));
 		$i->execute(array($menuID, $lang[8], '?co=cats&amp;id=4', 3));
 		$i->execute(array($menuID, $lang[9], '?co=cats&amp;id=3', 4));

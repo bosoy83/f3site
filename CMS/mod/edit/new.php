@@ -39,9 +39,9 @@ if($_POST)
 		$q->execute($news);
 
 		#Nowe ID
-		$nid = $id ? $id : $db->lastInsertId();
+		if(!$id) $id = $db->lastInsertId();
 
-		$q = $db->prepare('REPLACE INTO '.PRE.'fnews (id,cat,text) VALUES ('.$nid.',?,?)');
+		$q = $db->prepare('REPLACE INTO '.PRE.'fnews (id,cat,text) VALUES ('.$id.',?,?)');
 		$q->bindValue(1, $news['cat'], 1); //INT
 		$q->bindParam(2, $full);
 		$q->execute();
@@ -49,9 +49,9 @@ if($_POST)
 		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=news' => $lang['add5'],
-			'?co=list&amp;act=5'	  => $lang['news'],
-			'?co=news&amp;id='.$nid => $lang['seeit']));
+			'?co=edit&amp;act=5' => $lang['add5'],
+			'?co=list&amp;act=5' => $lang['news'],
+			'?co=news&amp;id='.$id => $lang['seeit']));
 		unset($e,$news);
 		return;
 	}
@@ -95,7 +95,6 @@ $content->addScript('lib/editor.js');
 $content->data = array(
 	'news' => &$news,
 	'full' => &$full,
-	'url'  => '?co=edit&amp;act=5&amp;id='.$id,
 	'cats' => Slaves(5,$news['cat']),
 	'fileman' => Admit('FM')
 );

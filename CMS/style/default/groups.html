@@ -1,17 +1,27 @@
-<h2>{this->title}</h2>
+<h2>{this.title}</h2>
 <table cellspacing="1" class="tb">
 <tbody>
 
 <!-- START groups -->
-
 <tr>
-	<td class="txt">
-		<b><a href="?co=users&id={ID}">{name}</a></b>
-		<br />{nl2br: dsc}
+	<td>
+		<h3><a href="{url}">{title}</a></h3>
+		<p>{desc}</p>
 	</td>
 </tr>
-
 <!-- STOP -->
 
 </tbody>
 </table>
+
+<!-- IF join -->
+<div class="box" style="text-align: right">
+<form action="" method="post">
+	<select name="join">
+		<!-- START join -->
+		<option value="{KEY}">{ITEM}</option>
+		<!-- STOP -->
+	</select>
+	<input type="submit" value="{lang.join}" />
+</form></div>
+<!-- END -->

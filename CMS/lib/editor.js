@@ -85,15 +85,15 @@ Editor.prototype.format = function(i)
 		switch(i)
 		{
 			case 13:
-				if(!eChars) this.make('chars');
+				if(!eChars) this.make(1);
 				eO = this.o;
-				hint(eChars, cx-10, cy, 1);
+				hint(eChars, cx-60, cy, 1);
 				break;
 			case 12:
-				if(!eColors) this.make('colors');
+				if(!eColors) this.make();
 				eO = this.o;
 				eCurBBC = this.bbcode;
-				hint(eColors, cx-10, cy, 1);
+				hint(eColors, cx-90, cy, 1);
 				break;
 			case 14:
 				this.ins('link');
@@ -142,20 +142,20 @@ Editor.prototype.create = function()
 	this.o.parentNode.insertBefore(out,this.o);
 
 	//Skróty klawiszowe
-	this.o.onkeypress = function(e)
+	this.o.onkeydown = function(e)
 	{
 		if(e == undefined) e = event;
 		if(e.ctrlKey)
 		{
-			switch(e.charCode)
+			switch(e.keyCode)
 			{
-				case 98: that.format(0); break; //B
-				case 105: that.format(1); break; //I
-				case 117: that.format(2); break; //U
-				case 113: that.format(14); break; //Q
-				case 119: that.format(12); break; //W
-				case 104: if(!that.bbcode) BBC(this, '<h3>', '</h3>'); break; //H
-				case 112: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
+				case 66: that.format(0); break; //B
+				case 73: that.format(1); break; //I
+				case 85: that.format(2); break; //U
+				case 81: that.format(10); break; //Q
+				case 87: that.format(14); break; //W
+				case 72: if(!that.bbcode) BBC(this, '<h3>', '</h3>'); break; //H
+				case 80: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
 				default: return true;
 			}
 			return false;
@@ -204,11 +204,10 @@ Editor.prototype.emots = function(x)
 };
 
 //Zbuduj tabelê symboli
-Editor.prototype.make = function(co)
+Editor.prototype.make = function(buildChars)
 {
 	var out = document.createElement('div');
 	out.className = 'hint';
-	out.id = co;
 
 	var t = document.createElement('table');
 	t.style.cursor = 'pointer';
@@ -219,7 +218,7 @@ Editor.prototype.make = function(co)
 	tb.align = 'center';
 
 	//Kolory
-	if(co=='chars')
+	if(buildChars)
 	{
 		var num = (this.bbcode) ? iso : symbol.length;
 		for(var i=0; i<num; ++i)
@@ -259,7 +258,7 @@ Editor.prototype.make = function(co)
 
 			var td = document.createElement('td');
 			td.style.backgroundColor = color[i];
-			td.style.padding = '12px';
+			td.width = td.height = 20;
 			td.item = color[i];
 			td.onclick = function()
 			{

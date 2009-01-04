@@ -52,10 +52,17 @@ else
 }
 
 #Strony
-$pages = $art['pages']>1 ? Pages($art['page'],$art['pages'],1,'?co=art&amp;id='.$id) : null;
+if($art['pages'] > 1)
+{
+	$pages = Pages($art['page'],$art['pages'],1,'?co=art&amp;id='.$id);
+}
+else
+{
+	$pages = false;
+}
 
 #EditURL
-$art['edit'] = Admit($art['cat'],'CAT') ? '?co=edit&amp;act=art&amp;id='.$id : false;
+$art['edit'] = Admit($art['cat'],'CAT') ? '?co=edit&amp;act=1&amp;id='.$id : false;
 
 #Do szablonu
 $content->data = array(

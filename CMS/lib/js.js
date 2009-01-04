@@ -10,7 +10,7 @@ function okno(url,w,h)
 //Zmieñ CSS
 function CSS(x)
 {
-	if(typeof x == 'number')
+	if(x)
 	{
 		var link = document.getElementsByTagName('link')[0];
 		link.href = link.href.slice(0,-5) + x + '.css';
@@ -25,12 +25,11 @@ function CSS(x)
 //Do³¹cz plik JS
 function include(file)
 {
-	var head = document.getElementsByTagName('head')[0];
 	var js = document.createElement('script');
 	js.type = 'text/javascript';
 	js.src = file;
-	head.appendChild(js);
-	return false;
+	document.getElementsByTagName('head')[0].appendChild(js);
+	return false
 }
 
 //Szybki dostêp do elementów po ID
@@ -39,7 +38,7 @@ function id(x) { return document.getElementById(x) }
 //Wstaw kod
 function BBC(o, left, right, inside)
 {
-	if(typeof o.selectionStart === 'number')
+	if(o.selectionStart != undefined)
 	{
 		var start  = o.selectionStart;
 		var end    = o.selectionEnd;
@@ -49,11 +48,17 @@ function BBC(o, left, right, inside)
 		var inside = (inside) ? inside : o.value.substring(start, end);
 
 		o.value = before + left + inside + right + after;
-		o.selectionEnd = before.length + left.length + inside.length;
+		o.selectionEnd = o.selectionStart = before.length + left.length + inside.length;
 		o.scrollTop = scroll;
 		o.focus();
 	}
-	else { o.value += left + (inside||'') + right; }
+	else if(document.selection)
+	{
+		o.focus();
+		var sel  = document.selection.createRange(),
+		inside   = (inside) ? inside : sel.text;
+		sel.text = left + inside + right;
+	}
 }
 
 //Ustaw cookie
@@ -74,8 +79,7 @@ function show(o, once)
 }
 
 //Kursor
-var cx,cy;
-var toHide = [];
+var cx,cy,toHide = [];
 
 //Mysz
 document.onmousedown = function(e)
@@ -87,8 +91,8 @@ document.onmousedown = function(e)
 	}
 	else
 	{
-		cx = event.clientX + document.body.scrollLeft;
-		cy = event.clientY + document.body.scrollTop
+		cx = event.clientX + document.documentElement.scrollLeft;
+		cy = event.clientY + document.documentElement.scrollTop
 	}
 	if(cx<0) cx=0;
 	if(cy<0) cy=0

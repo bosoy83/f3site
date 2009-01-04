@@ -26,7 +26,7 @@ foreach($res as $page)
 	$pages[] = array(
 		'id'  => $page[0],
 		'num' => ++$total,
-		'url' => MOD_REWRITE ? '/page/'.$page[0] : 'index.php?co=page&amp;id='.$page[0],
+		'url' => '.?co=page&amp;id='.$page[0],
 		'title' => $page[1],
 		'access'=> $page[2]!=2 ? $lang['on2'] : $lang['off2']
 	);

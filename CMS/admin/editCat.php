@@ -75,7 +75,7 @@ if($_POST)
 		UpdateCatPath($id);
 		$content->info($lang['saved'].' ID: '.$id, array(
 			'?a=editCat' => $lang['addcat'],
-			(MOD_REWRITE ? '/'.$id : 'index.php?d='.$id) => $lang['gocat']
+			'.?d='.$id => $lang['gocat']
 		));
 		return 1;
 	}
@@ -110,6 +110,5 @@ $content->data = array(
 	'o4'   => $cat['opt'] & 8,
 	'o5'   => $cat['opt'] & 16,
 	'cats' => Slaves(0,$cat['sc'],$id),
-	'langs'=> ListBox('lang',1,$cat['access']),
-	'url'  => 'adm.php?a=editCat&amp;id='.$id
+	'langs'=> ListBox('lang',1,$cat['access'])
 );

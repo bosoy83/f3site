@@ -25,7 +25,7 @@ foreach($res as $x)
 {
 	$polls[] = array(
 		'num'  => ++$total,
-		'url'  => MOD_REWRITE ? '/poll/'.$x[0] : 'index.php?co=poll&amp;id='.$x[0],
+		'url'  => '.?co=poll&amp;id='.$x[0],
 		'id'   => $x[0],
 		'title'  => $x[1],
 		'votes'  => $x[2],

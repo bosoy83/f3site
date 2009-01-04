@@ -5,39 +5,36 @@ if(iCMS!=1) exit;
 $content->title = $lang['groups'];
 
 #Do³±cz
-/* Niepiezpieczne, kiedy akcjê wywo³ujemy zmienn± z GET
-if(isset($_GET['join_now']) && $_GET['id'])
+if(isset($_POST['join']) && is_numeric($_POST['join']))
 {
-	if(LOGD==1 && db_count('groups WHERE opened=1 && access!=3 && ID='.$_GET['id'])==1)
+	if(LOGD && db_count('groups WHERE '.(LEVEL>3 ? '' : 'opened=1 AND ').'access!=2 AND ID='.$_POST['join']))
 	{
-		$db->exec('UPDATE '.PRE.'users SET gid='.$_GET['id'].' WHERE ID='.UID);
+		$db->exec('UPDATE '.PRE.'users SET gid='.$_POST['join'].' WHERE ID='.UID);
+		$user[UID]['gid'] = $_POST['join'];
 	}
-}*/
+}
 
 #Pobierz
 $res = $db->query('SELECT ID,name,dsc,opened FROM '.PRE.'groups WHERE access=1 OR access="'.$nlang.'"');
+$res -> setFetchMode(3);
+$gro = array();
+$may = array();
 
-#Do szablonu
-$content->data['groups'] = $res->fetchAll(2); //ASSOC
-
-/* Mo¿e niepotrzebne? W³a¶ciwie potrzebne tylko do nl2br (szablony ju¿ obs³uguj±) i URL
-$res -> setFetchMode(3); //NUM
-$groups = array();
-
-#Lista
-foreach($res as $g)
+foreach($res as $x)
 {
-	$groups[] = array(
-		'desc'  => nl2br($g[2]),
-		'url'   => '?co=users&amp;id='.$g[0],
-		'title' => $g[1],
-		'opened'=> $g[3]
+	$gro[] = array(
+		'title' => $x[1],
+		'desc'  => nl2br($x[2]),
+		'url'   => '?co=users&id='.$x[0]
 	);
+
+	#Je¶li mo¿e do³±czyæ
+	if($x[0] != $user[UID]['gid'] && ($x[3] OR LEVEL > 2)) $may[$x[0]] = $x[1];
 }
 
 #Do szablonu
-$content->data['groups'] =& $groups; //ASSOC
-*/
-
+$content->data = array(
+	'groups' => $gro, //ASSOC
+	'join'   => $may
+);
 $res=null;
-?>

@@ -35,7 +35,7 @@ if($id)
 			'num'  => ++$num,
 			'date' => genDate($n[2], true),
 			'title'=> $n[1],
-			'url'  => MOD_REWRITE ? '/news/'.$n[0] : '?co=news&amp;id='.$n[0]
+			'url'  => '?co=news&amp;id='.$n[0]
 		);
 	}
 	$res=null;

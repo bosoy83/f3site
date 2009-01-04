@@ -22,7 +22,7 @@ else
 }
 
 #EditURL
-$file['edit'] = Admit($file['cat'],'CAT') ? '?co=edit&amp;act=file&amp;id='.$id : false;
+$file['edit'] = Admit($file['cat'],'CAT') ? '?co=edit&amp;act=2&amp;id='.$id : false;
 
 #Ocena
 if(isset($cfg['frate']) AND $file['opt'] & 4)
@@ -44,7 +44,7 @@ $content->data = array(
 	'file' => &$file,
 	'path' => CatPath($file['cat']),
 	'rates' => $rate,
-	'cats_url' => MOD_REWRITE ? '/cats/2' : '?co=cats&amp;id=2'
+	'cats_url' => '?co=cats&amp;id=2'
 );
 
 #Komentarze

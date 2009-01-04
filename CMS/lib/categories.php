@@ -52,7 +52,7 @@ function Latest($lang=array())
 
 			$got = '';
 			$cur = &$data[$t];
-			$url = isset($cur['name']) ? (MOD_REWRITE ? '/'.$cur['name'].'/' : '?co='.$cur['name'].'&amp;id=') : '';
+			$url = isset($cur['name']) ? '?co='.$cur['name'].'&amp;id=' : '';
 
 			foreach($res as $x)
 			{
@@ -86,10 +86,10 @@ function UpdateCatPath($cat)
 		$res -> setFetchMode(3);
 		foreach($res as $c)
 		{
-			$out.= '<a href="'.((MOD_REWRITE) ? '/'.$c[0] : '?d='.$c[0]).'">'.$c[1].'</a> &raquo; ';
+			$out.= '<a href="?d='.$c[0].'">'.$c[1].'</a> &raquo; ';
 		}
 	}
-	$out.= '<a href="'.((MOD_REWRITE) ? '/'.$cat['ID'] : '?d='.$cat['ID']).'">'.$cat['name'].'</a>';
+	$out.= '<a href="?d='.$cat['ID'].'">'.$cat['name'].'</a>';
 
 	#Zapisz
 	file_put_contents('./cache/cat'.$cat['ID'].'.php', $out, 2);

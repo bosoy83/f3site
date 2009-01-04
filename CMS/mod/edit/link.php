@@ -39,8 +39,8 @@ if($_POST)
 		#Zatwierd¼
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=link'	=> $lang['add4'],
-			'?co=list&amp;act=4'		=> $lang['links'],
+			'?co=edit&amp;act=4' => $lang['add4'],
+			'?co=list&amp;act=4' => $lang['links'],
 			$link['adr'] => $link['name'])
 		);
 		unset($e,$link);
@@ -74,6 +74,5 @@ else
 #Dane
 $content->data = array(
 	'link' => &$link,
-	'cats' => Slaves(4,$link['cat']),
-	'url'  => '?co=edit&amp;act=4&amp;id='.$id
+	'cats' => Slaves(4,$link['cat'])
 );

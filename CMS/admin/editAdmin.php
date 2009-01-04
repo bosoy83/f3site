@@ -121,7 +121,6 @@ if($cats!='') $cats.='</fieldset>';
 
 $content->data = array(
 	'owner' => LEVEL==4 ? true : false,
-	'url'   => '?a=editAdmin&amp;id='.$id,
 	'lv'    => $lv,
 	'cats'  => &$cats,
 	'plugins' => &$plugins,

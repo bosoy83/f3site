@@ -106,7 +106,6 @@ $content->addScript('lib/forms.js');
 $content->data = array(
 	'menu' => &$m,
 	'item' => &$o,
-	'url'  => '?a=editMenu'.(($id) ? '&amp;id='.$id : ''),
 	'fileman'  => Admit('FM'),
 	'langlist' => ListBox('lang', 1, $m['disp'])
 );

@@ -60,7 +60,7 @@ if($TOTAL !== 0)
 			'edit' => $mayEdit ? '?co=comment&amp;id='.$x[0] : false,
 			'del'  => $mayDel ? '?co=comment&amp;id='.$x[0] : false,
 			'accept'  => ($mayEdit && $x[1]!=1) ? '?co=comment&amp;id='.$x[0] : null,
-			'profile' => $x[7] ? ((MOD_REWRITE) ? '/user/'.$x[3] : '?co=user&amp;id='.$x[3]) : null
+			'profile' => $x[7] ? '?co=user&amp;id='.$x[3] : null
 		);
 	}
 	$res = null;

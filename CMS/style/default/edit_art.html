@@ -1,5 +1,5 @@
 <h2>{this.title}</h2>
-<form action="{url}" id="art" method="post" f3:array="art">
+<form action="" id="art" method="post" f3:array="art">
 
 <table cellspacing="1" class="tb" id="at">
 <tbody>
@@ -57,7 +57,7 @@
 <tr>
 	<td class="eth" colspan="2">
 		<input type="button" value="{lang.addPage}" onclick="a()" />
-		<input type="button" value="{lang.preview}" onclick="e.preview({EMOTS:elements['emo[]'].checked})" />
+		<input type="button" value="{lang.preview}" onclick="P()" />
 		<input type="submit" value="{lang.save}" />
 	</td>
 </tr>
@@ -110,6 +110,10 @@ function CP(o)
 		show(x);
 		e.o = x.getElementsByTagName('textarea')[0];
 	}
+}
+function P()
+{
+	e.preview({EMOTS:f.elements['emo[]'].checked, NL:f.elements['br[]'].checked})
 }
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 </script>

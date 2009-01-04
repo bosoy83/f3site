@@ -15,7 +15,7 @@ foreach($res as $p)
 {
 	$poll[] = array(
 		'title' => $p[1],
-		'url'   => MOD_REWRITE ? '/poll/'.$p[0] : '?co=poll&amp;id='.$p[0],
+		'url'   => '?co=poll&amp;id='.$p[0],
 		'date'  => genDate($p[3]),
 		'votes' => $p[2],
 		'num'   => ++$lp

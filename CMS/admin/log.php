@@ -37,7 +37,7 @@ foreach($res as $i)
 		'date' => genDate($i[2]),
 		'login'=> $i[5],
 		'ip'   => $i[3],
-		'user' => $i[4] ? (MOD_REWRITE ? 'index.php/user/'.$i[4] : 'index.php?co=user&amp;id='.$i[4]) : false
+		'user' => $i[4] ? '.?co=user&amp;id='.$i[4] : false
 	);
 }
 $content->data = array(

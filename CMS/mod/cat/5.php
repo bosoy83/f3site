@@ -32,7 +32,7 @@ foreach($res as $n)
 		'full_url' => $n['opt']&4 ? '?co=news&amp;id='.$n['ID'] : false,
 
 		#Edytuj URL
-		'edit_url' => $rights ? '?co=edit&amp;act=new&amp;id='.$n['ID'] : false,
+		'edit_url' => $rights ? '?co=edit&amp;act=5&amp;id='.$n['ID'] : false,
 
 		#Komentarze URL
 		'comm_url' => $comm ? '?co=news&amp;id='.$n['ID'].'#comments' : false,
@@ -66,7 +66,7 @@ $content->file[] = 'cat_news';
 $content->data += array(
 	'news' => &$news,
 	'pages' => &$pages,
-	'add_url' => $rights ? '?co=edit&amp;act=news' : null,
+	'add_url' => $rights ? '?co=edit&amp;act=5' : null,
 	'cat_type'=> $lang['news']
 );
 

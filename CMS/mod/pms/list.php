@@ -65,7 +65,7 @@ foreach($res as $pm)
 		'new'    => $id==2 && $pm[6]==1,
 		'url'    => '?co=pms&amp;act=v&amp;id='.$pm[0],
 		'login'  => $pm[5],
-		'user_url' => MOD_REWRITE ? '/user/'.$pm[4] : '?co=user&amp;id='.$pm[4]
+		'user_url' => '?co=user&amp;id='.$pm[4]
 	);
 }
 $res=null;
@@ -79,5 +79,5 @@ $content->data += array(
 	'who' => ($id==4 || $id==3) ? $lang['pm12'] : $lang['pm13'],
 	'url' => '?co=pms&amp;act=m&amp;id='.$id,
 	'total' => $total,
-	'pages' => Pages($page, $total, 20, '?co=pms&amp;act=l&amp;id='.$id, 1)
+	'pages' => Pages($page, $total, 30, '?co=pms&amp;id='.$id, 1)
 );

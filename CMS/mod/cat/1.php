@@ -17,7 +17,7 @@ foreach($res as $art)
 		'title' => $art[1],
 		'desc'  => $art[2],
 		'num'   => ++$st,
-		'url'   => MOD_REWRITE ? '/art-'.$art[0] : '?co=art&amp;id='.$art[0],
+		'url'   => '?co=art&amp;id='.$art[0],
 		'date'  => $art[3]
 	);
 	++$total;
@@ -34,7 +34,7 @@ $content->file[] = 'cat_arts';
 $content->data += array(
 	'pages' => &$pages,
 	'arts'  => &$arts,
-	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=art' : null,
+	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=1' : null,
 	'cat_type'=> $lang['arts']
 );
 

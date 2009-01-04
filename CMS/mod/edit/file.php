@@ -42,8 +42,8 @@ if($_POST)
 		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=file'=> $lang['add2'],
-			'?co=list&amp;act=2'	 => $lang['files'],
+			'?co=edit&amp;act=2' => $lang['add2'],
+			'?co=list&amp;act=2' => $lang['files'],
 			'?co=file&amp;id='.$id => $file['name']));
 		unset($e,$file);
 		return;
@@ -81,7 +81,6 @@ $content->addScript('lib/editor.js');
 #Dane
 $content->data = array(
 	'file' => &$file,
-	'url'  => '?co=edit&amp;act=2&amp;id='.$id,
 	'cats' => Slaves(2,$file['cat']),
 	'fileman' => Admit('FM') ? true : false
 );

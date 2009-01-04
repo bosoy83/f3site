@@ -152,7 +152,7 @@ if($_POST OR isset($_GET['next']))
 			#Zakoñcz instalacjê
 			$setup -> commit();
 			$content -> data = null;
-			$content -> info($lang['OK'], array('../index.php' => $lang[0]));
+			$content -> info($lang['OK'], array('../.' => $lang[0]));
 			include './cache/install/body.html';
 			exit;
 		}

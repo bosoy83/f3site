@@ -63,7 +63,7 @@ foreach($res as $user)
 		'id'   => $user[0],
 		'login'=> $user[1],
 		'num'  => ++$st,
-		'url'  => MOD_REWRITE ? '/user/'.$user[0] : 'index.php?co=user&amp;id='.$user[0],
+		'url'  => '.?co=user&amp;id='.$user[0],
 		'level'=> $lv,
 		'options' => $user[2]==4 || $user[0]==UID ? false : true,
 	);

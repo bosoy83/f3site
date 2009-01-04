@@ -41,7 +41,7 @@ $news['date']  = genDate($news['date'], true);
 $news['wrote'] = Autor($news['author']);
 
 #EditURL
-$news['edit'] = Admit($news['cat'],'CAT') ? '?co=edit&amp;act=new&amp;id='.$id : false;
+$news['edit'] = Admit($news['cat'],'CAT') ? '?co=edit&amp;act=5&amp;id='.$id : false;
 
 #Do szablonu
 $content->data = array(

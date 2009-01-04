@@ -45,9 +45,9 @@ if($_POST)
 		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=img' => $lang['add3'],
-			'?co=list&amp;act=3'   => $lang['imgs'],
-			'?co=img&amp;id='.$id  => $img['name']));
+			'?co=edit&amp;act=3' => $lang['add3'],
+			'?co=list&amp;act=3' => $lang['imgs'],
+			'?co=img&amp;id='.$id => $img['name']));
 		unset($e,$img);
 		return 1;
 	}
@@ -83,7 +83,6 @@ $content->addScript('lib/editor.js');
 #Dane + rozmiar
 $content->data = array(
 	'img'  => &$img,
-	'url'  => 'index.php?co=edit&amp;act=3&amp;id='.$id,
 	'cats' => Slaves(3,$img['cat']),
 	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
 	'fileman' => Admit('FM') ? true : false

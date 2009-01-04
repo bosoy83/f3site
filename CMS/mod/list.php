@@ -12,33 +12,33 @@ switch($act)
 	case 5:
 		$type = $lang['news'];
 		$table = 'news';
-		$href = MOD_REWRITE ? '/news/' : '?co=news&amp;id=';
+		$href = '?co=news&amp;id=';
 		break;
 	case 4:
 		$type = $lang['links'];
-		$href = MOD_REWRITE ? '/go/' : 'go.php?link=';
+		$href = 'go.php?link=';
 		$table = 'links';
 		break;
 	case 3:
 		$type = $lang['images'];
-		$href = MOD_REWRITE ? '/img/' : '?co=img&amp;id=';
+		$href = '?co=img&amp;id=';
 		$table = 'imgs';
 		break;
 	case 2:
 		$type = $lang['files'];
-		$href = MOD_REWRITE ? '/file/' : '?co=file&amp;id=';
+		$href = '?co=file&amp;id=';
 		$table = 'files';
 		break;
 	case 1:
 		$type = $lang['arts'];
-		$href = MOD_REWRITE ? '/art/' : '?co=art&amp;id=';
+		$href = '?co=art&amp;id=';
 		$table = 'arts';
 		break;
 	default:
 		if(!$data = parse_ini_file('./cfg/types.ini',1) OR !isset($data[$act])) return;
 		$type = $data[$act][$nlang];
 		$table = $data[$act]['table'];
-		$href = isset($data[$act]['name']) ? '?co='.$data[$act]['name'] : '';
+		$href = isset($data[$act]['name']) ? '?co='.$data[$act]['name'].'&amp;id=' : '';
 		unset($data);
 }
 
@@ -115,7 +115,7 @@ $total = db_count($table.$param);
 #Brak?
 if($total == 0)
 {
-	if($id) Header('Location: '.URL.'index.php?co=edit&act='.$act.'&catid='.$id);
+	if($id) Header('Location: '.URL.'?co=edit&act='.$act.'&catid='.$id);
 	$content->info($lang['noc']);
 	return;
 }

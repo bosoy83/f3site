@@ -59,8 +59,8 @@ if($_POST)
 			about=:about, www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen,
 			gg=:gg, gid=:gid, photo=:photo WHERE ID='.$id) -> execute($u);
 
-			$content->info($lang['upd'], array( (MOD_REWRITE ? '/user/'.$id :
-				'index.php?co=user&amp;id='.$id) => $lang['account'].' '.$u['login'])); return;
+			$content->info($lang['upd'], array(
+				'.?co=user&amp;id='.$id => $lang['account'].' '.$u['login'])); return;
 		}
 		catch(PDOException $e)
 		{

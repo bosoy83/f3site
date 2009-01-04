@@ -52,7 +52,7 @@ foreach($res as $x)
 {
 	if($x[1])
 	{
-		$list .= '<br /><a href="'.(MOD_REWRITE ? '/user/'.$x[0] : '?co=user&amp;id='.$x[0]).'">'.$x[1].'</a>';
+		$list .= '<br /><a href="?co=user&amp;id='.$x[0].'">'.$x[1].'</a>';
 	}
 	++$num;
 }

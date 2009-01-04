@@ -20,7 +20,7 @@ foreach($res as $x)
 {
 	$cat[] = array(
 		'title'=> $x[1],
-		'url'  => MOD_REWRITE ? '/'.$x[0] : '?d='.$x[0],
+		'url'  => '?d='.$x[0],
 		'desc' => $x[2],
 		'num'  => $x[3],
 	);

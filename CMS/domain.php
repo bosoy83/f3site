@@ -1,13 +1,15 @@
 <html>
 <head>
-<meta name="generator" content="WebSite PRO 4.3" />
- <title>Redirecting...</title>
+	<title>Redirecting...</title>
 </head>
 <body>
+
 <script type="text/javascript">
-top.location="index.php";
+top.location=".";
 </script>
-Redirecting...<br /><br />
-<a href="index.php" target="_top">ENTER</a>
+
+<p>Redirecting...</p>
+<p><a href="." target="_top">ENTER</a></p>
+
 </body>
 </html>

@@ -13,7 +13,8 @@ if($_POST)
 		'name' => Clean($_POST['name']),
 		'dsc'  => $_POST['dsc'],
 		'access' => Clean($_POST['access']),
-		'opened' => isset($_POST['opened'])?1:0 );
+		'opened' => isset($_POST['opened'])
+	);
 
 	#Edycja
 	if($id)
@@ -34,7 +35,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->errorInfo[0]);
+		$content->info($lang['error'].$e);
 	}
 }
 
@@ -63,7 +64,6 @@ $content->addScript('lib/editor.js');
 
 #Dane
 $content->data = array(
-	'url'   => '?a=editGroup'.(($id)?'&amp;id='.$id:''),
 	'group' => &$group,
 	'langs' => ListBox('lang', 1, ($id ? $group['access'] : null))
 );

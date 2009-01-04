@@ -1,5 +1,5 @@
 <?php
-/* F3Site 3.0: copyright (C) 2007 COMPMaster
+/* F3Site 3.0: copyright (C) 2009 COMPMaster
 Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
 
 #J±dro
@@ -42,4 +42,4 @@ require './cache/menu'.$nlang.'.php';
 
 #Skórka
 include $content->path('body');
-#echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';
+echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';
