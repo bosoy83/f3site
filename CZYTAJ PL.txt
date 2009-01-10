@@ -1,8 +1,8 @@
 Rozpowszechnianie i licencja
 ============================
 
-Copyright 2008 COMPMaster
-F3Site 2008 jest wolnym oprogramowaniem. Mo¿esz go rozprowadzaæ dalej, modyfikowaæ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundacjê Wolnego Oprogramowania wg 2. wersji tej Licencji lub którejœ z póŸniejszych.
+Copyright 2009 COMPMaster
+F3Site 2009 jest wolnym oprogramowaniem. Mo¿esz go rozprowadzaæ dalej, modyfikowaæ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundacjê Wolnego Oprogramowania wg 2. wersji tej Licencji lub którejœ z póŸniejszych.
 
 Skrypt rozpowszechniany jest z nadziej¹, i¿ bêdzie on u¿yteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI,nawet domyœlnej gwarancji PRZYDATNOŒCI HANDLOWEJ albo PRZYDATNOŒCI DO OKREŒLONYCH ZASTOSOWAÑ. W celu uzyskania bli¿szych informacji - Powszechna Licencja Publiczna GNU.
 

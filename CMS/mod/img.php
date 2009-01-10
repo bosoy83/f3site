@@ -10,7 +10,7 @@ $res = $db->query('SELECT i.*,c.opt FROM '.PRE.'imgs i LEFT JOIN '.PRE.
 if(!$img = $res->fetch(2)) return;  $res = null;
 
 #Rozm.
-$size = strpos($img['size'], '||') ? explode('||', $img['size']) : null;
+$size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;
 
 #Animacja?
 if($img['type'] !== 1)
@@ -52,7 +52,7 @@ $content->title = $img['name'];
 $content->data = array(
 	'img'  => &$img,
 	'size' => &$size,
-	'movie'=> $img['type'] == 1 ? false : true,
+	'movie'=> $img['type'] != 1,
 	'path' => CatPath($img['cat']),
 	'rates'=> $rates
 );

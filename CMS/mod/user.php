@@ -30,11 +30,8 @@ else
 	$u['mail'] = null;
 }
 
-#Sk±d?
-if(!$u['city']) $u['city'] = NA;
-
 #PM
-$pm = isset($cfg['pmOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;to='.$id : '';
+$pm = isset($cfg['pmOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;to='.$id : false;
 
 #Do szablonu
 $content->title = $u['login'];
@@ -42,8 +39,8 @@ $content->data  = array(
 	'u'  => &$u,
 	'pm' => $pm,
 	'users'  => '?co=users',
-	'join_date' => genDate($u['regt'], true), //Data rejestracji
-	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],true) : NA
+	'join_date' => genDate($u['regt'],1), //Data rejestracji
+	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],1) : NA
 );
 
 if(isset($cfg['userComm']) && $u['opt'] & 2)

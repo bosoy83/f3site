@@ -31,7 +31,7 @@ $lang+=Array(
 'admintro'=>'Witaj w panelu administracyjnym %name. Wybierz odpowiedni modu³ z menu.',
 'skincomp'=>'Zatwierd¼ zmiany w bie¿±cej skórce',
 'html_boo'=>'Kurs HTML, xHTML, CSS...',
-'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2008',
+'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2009',
 'what'=>'Co chcesz zrobiæ?',
 'svn'=>'Odwied¼ stronê projektu w Google Code',
 

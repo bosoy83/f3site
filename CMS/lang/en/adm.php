@@ -31,7 +31,7 @@ $lang+=Array(
 'admintro'=>'Welcome to %name admin panel. Select a module from left menu.',
 'skincomp'=>'Apply changes in current skin',
 'html_boo'=>'Course: HTML, xHTML, CSS',
-'official'=>'Get help and extensions for F3Site 2008',
+'official'=>'Get help and extensions for F3Site 2009',
 'what'=>'What do you want to do?',
 'svn'=>'Visit project home page at Google Code',
 

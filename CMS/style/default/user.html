@@ -13,64 +13,70 @@
 	<td><b>{lang.lastv}:</b></td>
 	<td>{last_visit}</td>
 </tr>
+
+<!-- IF u.city -->
 <tr>
 	<td><b>{lang.ufrom}</b></td>
 	<td>{u.city}</td>
 </tr>
+<!-- END -->
+
+<!-- IF u.www -->
 <tr>
 	<td><b>{lang.wwwp}:</b></td>
-	<td><!-- IF u.www --><a href="{u.www}">{u.www}</a><!-- ELSE -->{NA}<!-- END --></td>
+	<td><a href="{u.www}">{u.www}</a></td>
 </tr>
+<!-- END -->
+
+<!-- IF u.mail -->
 <tr>
  <td><b>{lang.mail}:</b></td>
- <td><!-- IF u.mail --><a href="mailto:{u.mail}">{u.mail}</a><!-- ELSE -->{lang.private}<!-- END --></td>
+ <td><a href="mailto:{u.mail}">{u.mail}</a></td>
 </tr>
+<!-- END -->
+
+<!-- IF u.gg -->
 <tr>
 	<td><b>Gadu-Gadu:</b></td>
 	<td>
-		<!-- IF u.gg -->
 		<a href="gg:{u.gg}"><img src="http://status.gadu-gadu.pl/users/status.asp?id={u.gg}" alt="GG" /></a> {u.gg}
-		<!-- ELSE -->
-		{NA}
-		<!-- END -->
 	</td>
 </tr>
+<!-- END -->
+
+<!-- IF u.tlen -->
 <tr>
 	<td><b>Tlen.pl:</b></td>
 	<td>
-		<!-- IF u.tlen -->
-		<a href="http://ludzie.tlen.pl/{u.tlen}/" target="_blank">
+		<a href="http://ludzie.tlen.pl/{u.tlen}/">
 			<img src="http://status.tlen.pl/?u={u.tlen}&amp;t=1" alt="TLEN" />
 		</a>
-		<!-- ELSE -->
-		{NA}
-		<!-- END -->
 	</td>
 </tr>
+<!-- END -->
+
+<!-- IF u.icq -->
 <tr>
 	<td><b>ICQ:</b></td>
 	<td>
-		<!-- IF u.icq -->
 		<a href="http://www.icq.com/people/about_me.php?uin={u.icq}">
 			<img src="http://status.icq.com/online.gif?icq={u.icq}&amp;img=5" alt="ICQ" />
 		</a>
-		<!-- ELSE -->
-		{NA}
-		<!-- END -->
 	</td>
 </tr>
+<!-- END -->
+
+<!-- IF u.skype -->
 <tr>
 	<td><b>Skype:</b></td>
 	<td>
-		<!-- IF u.skype -->
 		<!-- Skype My status button http://www.skype.com/go/skypebuttons -->
 		<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
 		<img src="http://mystatus.skype.com/smallclassic/{u.skype}" style="cursor: pointer" onclick="if(confirm('{lang.callq}{u.skype}?')) location='skype:{u.skype}?call'" alt="My status" />
-		<!-- ELSE -->
-		{NA}
-		<!-- END -->
 	</td>
 </tr>
+<!-- END -->
+
 <tr>
 	<td><b>{lang.opt}:</b></td>
 	<td style="padding: 10px">

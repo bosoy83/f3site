@@ -21,9 +21,9 @@ $lang = array(
 'recomm' => 'Wymagania',
 'state' => 'Stan',
 'chmod' => 'Uprawnienia plików',
-'title' => 'Instalator F3Site 2008 - wybierz akcjê',
+'title' => 'Instalator F3Site 2009 - wybierz akcjê',
 'new' => 'Nowa instalacja',
-'intro' => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2008. Zanim bêdziesz kontynuowaæ, zapoznaj siê z do³±czon± ulotk± - CZYTAJ PL.txt.',
+'intro' => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2009. Zanim bêdziesz kontynuowaæ, zapoznaj siê z do³±czon± ulotk± - CZYTAJ PL.txt.',
 
 'e1' => 'Prefix zawiera niedozwolone znaki.',
 'e2' => 'Has³o do Twojego profilu zawiera niedozwolone znaki lub jest za krótkie.',

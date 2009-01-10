@@ -61,7 +61,7 @@ function Latest($lang=array())
 			}
 			if($got) $out .= '<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul>'.$got.'</ul>';
 		}
-		if($out) file_put_contents('./cache/new-'.$l.'.php', $out.'</ul>', 2);
+		if($out) file_put_contents('./cache/new-'.$l.'.php', $out, 2);
 	}
 }
 

@@ -1,8 +1,8 @@
 Distribution and license
 ========================
 
-Copyright 2008 COMPMaster
-F3Site 2008 is a free software. You can redistribute and modify it under the terms of GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+Copyright 2009 COMPMaster
+F3Site 2009 is a free software. You can redistribute and modify it under the terms of GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
