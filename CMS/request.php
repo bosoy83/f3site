@@ -1,5 +1,4 @@
 <?php /* Plik dla ¿±dañ JavaScript - XMLHTTPRequest */
-define('JS',1);
 define('iCMS',1);
 require 'kernel.php';
 

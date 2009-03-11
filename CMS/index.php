@@ -42,4 +42,4 @@ require './cache/menu'.$nlang.'.php';
 
 #Skórka
 include $content->path('body');
-echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';
+#echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';

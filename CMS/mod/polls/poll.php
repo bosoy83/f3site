@@ -61,7 +61,7 @@ function RebuildPoll($only = null)
 		}
 		if(isset($poll[$i]) && $x == $poll[$i]['access'])
 		{
-			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$poll[$i]['ID']) -> fetchAll(3); //NUM
+			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$poll[$i]['ID'].' ORDER BY seq') -> fetchAll(3); //NUM
 			$file = new Config('./cache/poll_'.$x.'.php');
 			$file->add('poll', $poll[$i++]);
 			$file->add('option', $o);

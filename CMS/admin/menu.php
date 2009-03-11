@@ -17,7 +17,7 @@ if($_POST)
 		{
 			if(isset($_POST['x'][$id]))
 			{
-				$db->query('DELETE FROM '.PRE.'menu WHERE ID='.$id);
+				$db->exec('DELETE FROM '.PRE.'menu WHERE ID='.$id);
 				continue;
 			}
 			$q->execute(array( (int)$seq, Clean($_POST['vis'][$id]), (int)$_POST['page'][$id], $id));

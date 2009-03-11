@@ -17,8 +17,15 @@ function CSS(x)
 	}
 	else
 	{
-		var box = dialog('Skin', ''); hint(box,cx,cy);
-		new Request('request.php?co=css', box.txt).send();
+		if(!this.d)
+		{
+			this.d = new Dialog('SKIN','',250,200);
+			this.d.load('request.php?co=css');
+		}
+		else
+		{
+			this.d.show();
+		}
 	}
 }
 
@@ -196,7 +203,7 @@ Request.prototype.send = function(list)
 		if(window.XMLHttpRequest) //XMLHttpRequest
 		{
 			this.http = new XMLHttpRequest();
-			if(this.http.overrideMimeType) this.http.overrideMimeType('text/xml');
+			if(this.http.overrideMimeType) this.http.overrideMimeType('text/html');
 		}
 		else if(window.ActiveXObject) //IE
 		{
@@ -267,7 +274,7 @@ Request.prototype.send = function(list)
 	if(this.url == '') return;
 
 	//Otwórz po³¹czenie
-	this.http.open(this.post ? 'POST' : 'GET', this.url, true);
+	this.http.open((this.post || this.list) ? 'POST' : 'GET', this.url, true);
 
 	//Typ POST
 	if(this.post)
@@ -283,6 +290,7 @@ Request.prototype.send = function(list)
 	{
 		var p = null;
 	}
+	this.http.setRequestHeader('X-Requested-With','XMLHttpRequest');
 	this.http.send(p);
 
 	//Usuñ zmienne POST
@@ -298,3 +306,49 @@ Request.prototype.add = function(key, val)
 
 //Reset
 Request.prototype.reset = function() { this.param = [] };
+
+//
+// *** DIALOG WINDOWS WITH AJAX SUPPORT ***
+//
+function Dialog(title, txt, width, height)
+{
+	this.o = document.createElement('div');
+	this.o.className = 'dialog';
+	this.bg = document.createElement('div'); //Overlay
+	this.bg.className = 'overlay';
+	this.title = this.o.appendChild(document.createElement('h3')); //Dialog's title
+	this.title.ref = this;
+	this.title.innerHTML = '<div class="exit" onclick="parentNode.ref.hide()">x</div>' + title;
+	this.body = this.o.appendChild(document.createElement('div')); //Dialog's body
+
+	//Width and height
+	if(width) this.o.style.width = width + 'px';
+	if(height) this.o.style.height = height + 'px';
+
+	//Content
+	if(txt) this.body.innerHTML = txt;
+}
+Dialog.prototype.show = function()
+{
+	if(!this.o.parentNode)
+	{
+		document.body.appendChild(this.bg);
+		document.body.appendChild(this.o);
+		this.o.style.left = (document.documentElement.clientWidth - this.o.clientWidth) / 2 + 'px';
+		this.o.style.top = (document.documentElement.clientHeight - this.o.clientHeight) / 2 + 'px';
+	}
+	curDialog = this;
+}
+Dialog.prototype.hide = function()
+{
+	if(this.o.parentNode)
+	{
+		document.body.removeChild(this.bg);
+		document.body.removeChild(this.o);
+	}
+}
+Dialog.prototype.load = function(url, post)
+{
+	new Request(url, this.body, {scripts:1}).send(post);
+	this.show();
+}

@@ -21,7 +21,7 @@ if(!$online)
 $ip = $_SERVER['REMOTE_ADDR'];
 
 #Google?
-if(strstr($_SERVER['HTTP_USER_AGENT'],'Googlebot'))
+if(strpos($_SERVER['HTTP_USER_AGENT'],'Googlebot')!==false)
 {
 	$name = 'Google';
 }
@@ -50,9 +50,13 @@ $num = 0;
 
 foreach($res as $x)
 {
-	if($x[1])
+	if($x[0])
 	{
 		$list .= '<br /><a href="?co=user&amp;id='.$x[0].'">'.$x[1].'</a>';
+	}
+	elseif($x[1])
+	{
+		$list .= '<br />'.$x[1];
 	}
 	++$num;
 }

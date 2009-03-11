@@ -48,6 +48,9 @@ if(!empty($cfg['ban']))
 #Przepisywanie linków - aktualnie nieobs³ugiwane
 define('NICE_URL', 0);
 
+#Czy to ¿±danie AJAX?
+define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
+
 #Katalog skórki
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');

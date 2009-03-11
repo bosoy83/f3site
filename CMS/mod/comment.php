@@ -47,24 +47,27 @@ if(isset($_GET['type']))
 	{
 		switch($type)
 		{
-			case 10: $if = 'users WHERE lv<0 AND ID='.$id; break;
+			case 10: $if = 'users WHERE lv>0 AND ID='.$id; break;
 			case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
 			case 15: $if = 'polls WHERE access="'.$nlang.'"'; break;
 			default: $data = parse_ini_file('./cfg/types.ini',1);
 				$if = isset($data[$type]) ? $data[$type]['table'].' i INNER JOIN '.
 				PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$id : '';
 		}
-		if(!$if OR $db->query('SELECT COUNT(*) FROM '.PRE.$if)->fetchColumn() != 1)
+		if(!$if OR !db_count($if))
 		{
 			$error[] = $lang['c11'];
 		}
 	}
 }
-elseif(!Admit('CM'))
-
-	$error[] = $lang['c11']; #Edycja komentarza - brak praw
-
-else $type = null;
+else
+{
+	if(!Admit('CM'))
+	{
+		$error[] = $lang['c11']; #Edycja komentarza - brak praw
+	}
+	$type = null;
+}
 
 #Tytu³ strony
 $content->title = $type ? $lang['addComm'] : $lang['c1'];
@@ -86,10 +89,10 @@ if($_POST)
 	{
 		$error[] = $lang['c5'];
 	}
-  if(empty($c['text']))
-  {
+	if(empty($c['text']))
+	{
 		$error[] = $lang['c4'];
-  }
+	}
 
 	#Autor i linki w tre¶ci
 	if($type)

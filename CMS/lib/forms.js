@@ -50,7 +50,7 @@ Request.prototype.sendForm = function(form)
 				break;
 		}
 	}
-	alert('tak!'); return false;
+
 	//Wy¶lij
 	this.run(1);
 };
@@ -75,14 +75,14 @@ function fileman(folder, input)
 {
 	if(FMWin && !FMWin.closed)
 
-		FMWin.referToTop();
+		FMWin.focus();
 
 	else if(input)
 	{
-		FM = input;
 		FMWin = okno('fileman.php?dir='+folder, 580, 400, 150, 150);
 		window.onunload = function() { FMWin.close() }
 	}
+	FM = input;
 }
 
 //Fragment formularza do powielania

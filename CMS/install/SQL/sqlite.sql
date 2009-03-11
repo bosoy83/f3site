@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
 CREATE TABLE IF NOT EXISTS `{pre}answers` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `IDP` int(10) NOT NULL,
-`seq` int(11),
+`seq` int(11) NOT NULL DEFAULT 0,
 `a` varchar(200),
 `num` int(11) NOT NULL DEFAULT 0);
 

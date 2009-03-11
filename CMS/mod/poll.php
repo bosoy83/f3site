@@ -23,7 +23,10 @@ if($poll['num'] == 0)
 }
 
 #Odpowiedzi
-if($id) $option=$db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id)->fetchAll(3);
+if($id)
+{
+	$option = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
+}
 
 #Ile?
 $num = count($option);
