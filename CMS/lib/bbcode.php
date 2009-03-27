@@ -1,37 +1,39 @@
-<?php
-$bbc[0] = array(
-	'[b]','[i]','[u]','[sup]','[sub]',
-	'[code]','[quote]',
-	'[big]','[small]',
-	'[center]','[right]'
-);
-$bbc[1] = array(
-	'[/b]','[/i]','[/u]','[/sup]','[/sub]',
-	'[/code]','[/quote]',
-	'[/big]','[/small]',
-	'[/center]','[/right]'
-);
-$bbc[2] = array(
-	'<b>', '<i>', '<u>', '<sup>', '<sub>',
-	'<pre>',
-	'<blockquote>',
-	'<big>',
-	'<small>',
-	'<center>',
-	'<div align="right">'
-);
-$bbc[3] = array(
-	'</b>', '</i>', '</u>', '</sup>', '</sub>',
-	'</pre>', '</blockquote>',
-	'</big>', '</small>',
-	'</center>', '</div>'
-);
-
-#Zamieñ BBCode na HTML
+<?php #Zamieñ BBCode na HTML
 function BBCode($x, $exc=false)
 {
-	global $lang,$bbc,$cfg;
+	global $lang,$cfg;
+	static $bbc;
 	if(!isset($cfg['bbcode'])) return $x;
+	if(!$bbc)
+	{
+		$bbc[0] = array(
+			'[b]','[i]','[u]','[sup]','[sub]',
+			'[code]','[quote]',
+			'[big]','[small]',
+			'[center]','[right]'
+		);
+		$bbc[1] = array(
+			'[/b]','[/i]','[/u]','[/sup]','[/sub]',
+			'[/code]','[/quote]',
+			'[/big]','[/small]',
+			'[/center]','[/right]'
+		);
+		$bbc[2] = array(
+			'<b>', '<i>', '<u>', '<sup>', '<sub>',
+			'<pre>',
+			'<blockquote>',
+			'<big>',
+			'<small>',
+			'<center>',
+			'<div align="right">'
+		);
+		$bbc[3] = array(
+			'</b>', '</i>', '</u>', '</sup>', '</sub>',
+			'</pre>', '</blockquote>',
+			'</big>', '</small>',
+			'</center>', '</div>'
+		);
+	}
 
 	#Proste znaczniki
 	$t = str_replace($bbc[0], $bbc[2], $x, $c1);
@@ -43,44 +45,50 @@ function BBCode($x, $exc=false)
 		if($exc) throw new Exception($lang['notClosed']); else return $x;
 	}
 
-	#Pomoc: Generator BBCode - bbcode.strefaphp.net
+	#Kolor, e-mail
 	$t = preg_replace(
 		array(
-			'#\[color=(http://)?(.*?)\](.*?)\[/color\]#si',
-			'#\[url\](.*?)?(.*?)\[/url\]#si',
-			'#\[url=(.*?)?(.*?)\](.*?)\[/url\]#si',
-			'#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[a-z0-9\-\.,\?!%\*_\#:;~\\&$@\/=\+]*)?)#i',
-			'#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)?[\w]+)#i',
+			'@\[color=([A-Za-z0-9#].*?)\](.*?)\[/color\]@si',
 			'#\[email\]([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)?[\w]+)\[/email\]#i',
+			'#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)?[\w]+)#i',
 		), array(
-			'<span style="color:\\2">\\3</span>',
-			'<a href="\\1\\2">\\1\\2</a>',
-			'<a href="\\2">\\3</a>',
-			'<a href="http://www.\\2.\\3\\4" target="_blank">www.\\2.\\3\\4</a>',
-			'\\1<a href="mailto:\\2&#64;\\3">\\2&#64;\\3</a>',
-			'<a href="mailto:\\1&#64;\\2">\\1&#64;\\2</a>'
+			'<span style="color:\\1">\\2</span>',
+			'<a href="mailto:\\1@\\2">\\1@\\2</a>',
+			'\\1<a href="mailto:\\2@\\3">\\2@\\3</a>',
 		), $t);
 
-	#Automatyczne tworzenie linków + JS
-	$t=preg_replace_callback('#([\n ])([a-z]+?)://([a-z0-9\-\.,\?!%\*_\#:;~\\&$@\/=\+]+)#si', 'autolink', $t);
-	$t=preg_replace_callback('#\<a(.*?)\>#si', 'bbcode_js', $t);
+	#Linki
+	$t = preg_replace_callback(
+		array(
+			'#\[url]([^\]].*?)\[/url\]#i',
+			'#\[url=([^\]]+)\](.*?)\[/url\]#i',
+			'#[\n ]+(www\.[a-z0-9\-]+\.[a-z0-9\-.\~,\?!%\*_\#:;~\\&$@\/=\+]*)#i',
+			'#[\n ]+(http+s?://[a-z0-9\-]+\.[a-z0-9\-.\~,\?!%\*_\#:;~\\&$@\/=\+]*)#i',
+		), 'bburl', $t);
 
-	return $t;
+	#Usuñ JS i zwróæ gotowy tekst
+	return preg_replace_callback('#\<a(.*?)\>#si', 'bbcode_js', $t);
 }
 
-function autolink($t)
+#Zabezpiecz URL i skróæ link
+function bburl($t)
 {
-	$link = $t[3];
-	if(isset($link[31]))
+	$link = trim(str_replace(' ', '%20', $t[1]), '.,');
+	if(strpos($link, '"') !== false) return '';
+	if(strpos($link, 'www.') === 0) $link = 'http://' . $link;
+	if(isset($t[2]))
 	{
-		$l = substr($link, 0, 3) == 'www' ? 9 : 5;
-		$link = substr($link, 0, $l) . '(...)' . substr($link, strlen($link)-8);
+		return '<a href="'.$link.'">'.$t[2].'</a>';
 	}
-	return '<a href="'.$t[2].'://'.$t[3].'" target="_blank">'.$t[2].'://'.$link.'</a>';
+	else
+	{
+		$text = isset($t[1][31]) ? substr($t[1], 0, 21) . '...' . substr($t[1], -8) : $t[1];
+		return ' <a href="'.$link.'">'.$text.'</a>';
+	}
 }
 
 #Anty JS
 function bbcode_js($t)
 {
-	return str_replace( array('javascript','vbscript'), array('java_script','vb_script'), $t[0]);
+	return str_ireplace( array('javascript:','vbscript:'), array('java_script','vb_script'), $t[0]);
 }

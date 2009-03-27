@@ -274,10 +274,10 @@ Request.prototype.send = function(list)
 	if(this.url == '') return;
 
 	//Otwórz po³¹czenie
-	this.http.open((this.post || this.list) ? 'POST' : 'GET', this.url, true);
+	this.http.open((this.post || list) ? 'POST' : 'GET', this.url, true);
 
 	//Typ POST
-	if(this.post)
+	if(this.post || list)
 	{
 		if(typeof list == 'object')
 		{
