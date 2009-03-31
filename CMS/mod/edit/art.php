@@ -94,7 +94,9 @@ else
 	}
 	else
 	{
-		$art=array('pages'=>1,'name'=>'','access'=>1,'priority'=>2,'dsc'=>'','author'=>UID,'cat'=>$lastCat);
+		$art = array(
+			'pages' => 1, 'name' => '', 'access' => 1, 'priority' => 2, 'dsc' => '',
+			'author'=> $user[UID]['login'], 'cat' => $lastCat);
 		$full = array(array(1,'',1));
 	}
 }

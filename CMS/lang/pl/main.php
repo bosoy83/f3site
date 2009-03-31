@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('Europe/Warsaw'); //CZAS
 $lang = Array(
+'THIS'=>'Polski',
 '404'=>'Strona nie istnieje',
 'add'=>'Dodaj',
 'addComm'=>'Dodaj komentarz',

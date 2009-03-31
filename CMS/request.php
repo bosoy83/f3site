@@ -2,8 +2,12 @@
 define('iCMS',1);
 require 'kernel.php';
 
-#Brak modu³u / zawiera uko¶nik / za d³ugi?
-if(!isset($_GET['co']) OR strpos($_GET['co'], '/') !== false OR isset($_GET['co'][30])) exit;
+#Gdy to nie jest ¿±danie JS lub brakuje modu³u
+if(!JS OR !isset($_GET['co']) OR strpos($_GET['co'], '/') !== false OR isset($_GET['co'][30]))
+{
+	Header('Location: '.URL);
+	exit;
+}
 
 #Szablon
 $content->file = array($_GET['co']);

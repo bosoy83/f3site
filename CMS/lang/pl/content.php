@@ -29,7 +29,7 @@ $lang+=Array(
 'high'=>'Wysoki',
 'normal'=>'Normalny',
 'low'=>'Niski',
-'nameid'=>'Dowolna nazwa lub ID<br />zarejestrowanego u¿ytkownika.',
+'nameid'=>'Je¿eli autor ma konto, wpisz jego login lub ID.',
 'dtoolong'=>'Opis jest za d³ugi!',
 'artlong'=>'Opis (lub tekst) jest za d³ugi!',
 

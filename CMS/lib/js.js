@@ -30,12 +30,19 @@ function CSS(x)
 }
 
 //Do³¹cz plik JS
-function include(file)
+function include(file, loaded)
 {
 	var js = document.createElement('script');
 	js.type = 'text/javascript';
 	js.src = file;
 	document.getElementsByTagName('head')[0].appendChild(js);
+
+	//Wywo³aj funkcjê, gdy plik zostanie za³adowany
+	if(loaded)
+	{
+		js.onreadystatechange = function() { if(js.readyState == 'complete') loaded() };
+    js.onload = loaded;
+	}
 	return false
 }
 
@@ -113,45 +120,6 @@ document.onclick = function()
 	}
 };
 
-//Utwórz menu lub warstwê
-function dialog(title, txt, opt)
-{
-	//Utwórz
-	var x = document.createElement('div');
-	x.className = 'hint';
-
-	//Tytu³
-	if(title) x.innerHTML = '<div class="title">'+title+'</div>';
-
-	//Menu
-	if(typeof txt=='object')
-	{
-		var v = '';
-		for(var i=0; i<txt.length; i++)
-		{
-			v += '<li onclick="'+txt[i]+'">'+txt[++i]+'</li>';
-		}
-		x.innerHTML += '<ul class="menulist">'+v+'</ul>';
-	}
-	//Zawartoœæ tekstowa
-	else
-	{
-		x.txt = x.appendChild(document.createElement('div'));
-		x.txt.className = 'win';
-		x.txt.innerHTML = txt;
-
-		//Przycisk OK
-		x.appendChild(document.createElement('center')).
-		innerHTML = '<button onclick="hint(parentNode.parentNode)">OK</button>';
-	}
-	
-	//Opcje
-	if(opt) for(var i in opt) x.text.setAttribute(i,opt[i]);
-
-	//Zwróæ element
-	return document.body.appendChild(x);
-}
-
 //Hint
 function hint(o, left, top, autoHide)
 {
@@ -161,12 +129,6 @@ function hint(o, left, top, autoHide)
 	}
 	if(o.style.visibility != 'visible')
 	{
-		//Na œrodku?
-		if(left == undefined)
-		{
-			left = (document.documentElement.clientWidth - o.clientWidth) / 2;
-			top  = (document.documentElement.clientHeight - o.clientHeight) / 2;
-		}
 		if(top != 0)
 		{
 			o.style.left = left + 'px';
@@ -198,7 +160,11 @@ function Request(url, box, opt)
 //Wyœlij ¿¹danie
 Request.prototype.send = function(list)
 {
-	if(!this.http)
+	if(this.http)
+	{
+		this.http.abort();
+	}
+	else
 	{
 		if(window.XMLHttpRequest) //XMLHttpRequest
 		{
@@ -242,7 +208,7 @@ Request.prototype.send = function(list)
 			{
 				try
 				{
-					if(self.http.status == 200)
+					if(self.http.status == 200 || self.http.status == 0)
 					{
 						//Wstaw odpowiedŸ
 						self.done(self.http.responseText);
@@ -306,6 +272,53 @@ Request.prototype.add = function(key, val)
 
 //Reset
 Request.prototype.reset = function() { this.param = [] };
+
+//
+// *** WYŒLIJ FORMULARZ ZA POMOC¥ AJAX ***
+//
+
+//Utwórz tymczasowy obiekt Request i wyœlij formularz
+function send(o,id,opt)
+{
+	new Request(o.form.action, id, opt).sendForm(o);
+	return false;
+}
+
+//Wyœlij formularz za pomoc¹ istniej¹cego obiektu Request
+//Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
+Request.prototype.sendForm = function(o)
+{
+	var param = {}, el = o.form.elements, x;
+	for(var i=0; i<el.length; ++i)
+	{
+		x = el[i];
+		switch(x.type || '')
+		{
+			case 'radio':
+			case 'checkbox':
+				if(x.checked) this.add(x.name, x.value || 1); //Radio
+				break;
+			case 'text':
+			case 'textarea':
+			case 'hidden':
+			case 'password':
+				this.add(x.name, x.value); //Text field
+				break;
+			case 'select':
+			case 'select-one':
+			case 'select-multiple':
+				for(var y=0; y<x.options.length; ++y)
+				{
+					if(x.options[y].selected) this.add(x.name, x.options[y].value) //Select field
+				}
+				break;
+		}
+	}
+	if(o.name) this.add(o.name, o.value);
+	this.send();
+	o.disabled = 1;
+	return false;
+};
 
 //
 // *** DIALOG WINDOWS WITH AJAX SUPPORT ***

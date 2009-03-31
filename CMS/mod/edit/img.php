@@ -71,8 +71,9 @@ else
 	}
 	else
 	{
-		$img = array('cat'=>$lastCat,'name'=>'','dsc'=>'','priority'=>2,'file'=>'img/',
-			'filem'=>'img/','size'=>'','author'=>UID,'access'=>1,'type'=>1);
+		$img = array(
+			'cat' => $lastCat, 'name' => '', 'dsc' => '', 'priority' => 2, 'file'=> 'img/',
+			'filem' => 'img/', 'size' => '', 'author' => $user[UID]['login'], 'access' => 1, 'type' => 1);
 	}
 }
 

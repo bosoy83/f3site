@@ -69,8 +69,9 @@ else
 	}
 	else
 	{
-		$file = array('cat'=>$lastCat,'name'=>'','dsc'=>'','priority'=>2,'file'=>'files/',
-			'size'=>'','author'=>UID,'fulld'=>'','access'=>1);
+		$file = array(
+			'cat' => $lastCat, 'name' => '', 'dsc' => '', 'priority' => 2,
+			'file'=> 'files/', 'size' => '', 'author' => $user[UID]['login'], 'fulld' => '', 'access' => 1);
 	}
 }
 

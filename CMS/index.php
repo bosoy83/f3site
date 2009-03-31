@@ -34,12 +34,20 @@ else
 	(include './lib/category.php') OR $content->set404();
 }
 
-#Kod HEAD
-if($cfg['head']) $content->head .= $cfg['head'];
+#Gdy ¿±danie AJAX
+if(JS)
+{
+	$content->display();
+}
+else
+{
+	#Kod HEAD
+	if($cfg['head']) $content->head .= $cfg['head'];
 
-#Menu
-require './cache/menu'.$nlang.'.php';
+	#Menu
+	require './cache/menu'.$nlang.'.php';
 
-#Skórka
-include $content->path('body');
+	#Skórka
+	include $content->path('body');
+}
 #echo (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024).' KB) ';

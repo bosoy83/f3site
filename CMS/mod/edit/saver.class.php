@@ -39,6 +39,9 @@ class Saver
 		{
 			throw new Exception($GLOBALS['lang']['nor']); //Skoñcz
 		}
+
+		//Autor
+		if(isset($data['author'])) $data['author'] = $this->authorID($data['author']);
 	}
 
 	//Koniec
@@ -75,5 +78,27 @@ class Saver
 		{
 			throw new Exception($e->errorInfo[2]);
 		}
+	}
+
+	#Sprawd¼, czy autor jest zarejestrowany - $x musi byæ zabezpieczony!
+	function authorID($x)
+	{
+		global $db,$user;
+		if($x == $user[UID]['login'])
+		{
+			return UID;
+		}
+		if(is_numeric($x))
+		{
+			return $x;
+		}
+		if(isset($x[2]) && !isset($x[31]))
+		{
+			if($id = $db->query('SELECT ID FROM '.PRE.'users WHERE login='.$db->quote($x))->fetchColumn())
+			{
+				$x = $id;
+			}
+		}
+		return $x;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('America/Chicago');
 $lang=Array(
+'THIS'=>'English',
 '404'=>'Page does not exist',
 'add'=>'Add',
 'addComm'=>'Add comment',

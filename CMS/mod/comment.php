@@ -85,7 +85,7 @@ if($_POST)
 	);
 
 	#D³ugo¶æ
-	if(isset($c['name'][51]) || isset($c['text'][801]))
+	if(isset($c['name'][51]) || isset($c['text'][1999]))
 	{
 		$error[] = $lang['c5'];
 	}
@@ -169,9 +169,18 @@ if($_POST)
 				#Ustaw anty-flood
 				$_SESSION['post'] = time() + $cfg['antyFlood'];
 
-				#Info
-				$url = $mod ? '?co='.$mod.'&amp;id='.$id : '.';
-				$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7'], $url);
+				#Info lub komentarze (AJAX)
+				if(JS)
+				{
+					define('CT', $type);
+					include './lib/comm.php';
+					return 1;
+				}
+				else
+				{
+					$url = $mod ? '?co='.$mod.'&amp;id='.$id : '.';
+					$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7'], $url);
+				}
 			}
 			catch(PDOException $e)
 			{

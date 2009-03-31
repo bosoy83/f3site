@@ -1,7 +1,9 @@
+<div id="comments">
+
 <!-- IF comment -->
 
 <h2>{lang.comms}</h2>
-<table cellspacing="1" class="tb" id="comments">
+<table cellspacing="1" class="tb">
 <colgroup>
 	<col style="width: 115px" />
 	<col />
@@ -25,7 +27,7 @@
 		<!-- END -->
 
 		<!-- IF del -->
-		<img src="img/icon/del.png" alt="-" onclick="if(confirm(window.lang.del)) a('{del}','del',this)" />
+		<img src="img/icon/del.png" alt="-" onclick="coma('{del}','del',this)" />
 		<!-- END -->
 
 		<!-- IF edit -->
@@ -33,7 +35,7 @@
 		<!-- END -->
 
 		<!-- IF accept -->
-		<img src="img/icon/accept.png" alt="+" onclick="a('{accept}','ok',this)" /></a>
+		<img src="img/icon/accept.png" alt="+" onclick="coma('{accept}','ok',this)" /></a>
 		<!-- END -->
 
 	</td>
@@ -54,33 +56,19 @@
 
 <!-- END -->
 
+</div>
+
 <!-- IF url -->
 <div id="com">
 <div class="box" style="width: 150px; margin: auto; text-align: center">
-	<img src="img/icon/add.png" style="vertical-align: top" /> <a href="{url}" onclick="return c(this)">{lang.addComm}</a>
+	<img src="img/icon/add.png" style="vertical-align: top" />
+	<a href="{url}" onclick="return comment(this)">{lang.addComm}</a>
 </div>
 </div>
-
-<script type="text/javascript">
-function c(o)
-{
-	include('lib/editor.js');
-	include('cache/emots.js');
-	new Request('request.php'+o.search, id('com'), {scripts:1}).send();
-	return false
-}
-function a(url,act,o)
-{
-	var x;
-	if(!x) x = new Request('request.php'+url, null, {post:1,done:function(x){alert(x)}});
-	x.url = url;
-	x.send({act:act});
-	o.parentNode.removeChild(o)
-}
-include('{LANG_DIR}edit.js')
-</script>
 <!-- END -->
 
 <!-- IF mustLogin -->
 <div class="box" style="text-align: center">{lang.loginComm}</div>
 <!-- END -->
+
+<script type="text/javascript">include('lib/comm.js')</script>

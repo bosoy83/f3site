@@ -25,4 +25,5 @@ img:'Wpisz lub skopiuj adres obrazka:',
 saving:'Trwa wysy³anie danych...',
 leave:'Formularz nie zosta³ jeszcze wys³any.',
 sure:'Na pewno chcesz wykonaæ tê akcjê?',
+wait:'Czekaj...',
 del:'Na pewno usun±æ?'};

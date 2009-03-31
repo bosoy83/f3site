@@ -25,4 +25,5 @@ img:'Type or copy URL address of the image:',
 saving:'Sending data...',
 leave:'Data has not been sent yet.',
 sure:'Are you sure to commit this action?',
+wait:'Wait...',
 del:'Are you sure to delete it?'}
