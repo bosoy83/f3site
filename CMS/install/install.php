@@ -17,7 +17,8 @@ class Installer
 		else
 		{
 			$this->db = new PDO('mysql:host='.$data['host'].';dbname='.$data['db'],$data['user'],$data['pass']);
-			$this->db->exec('SET CHARACTER SET "latin2"');
+			$this->db->exec('SET CHARACTER SET "utf8"');
+			$this->db->exec('SET CHARACTER SET "utf8_polish_ci"');
 		}
 		$this->db->setAttribute(3,2); //ERRMODE: Exceptions
 		$this->db->beginTransaction();
@@ -63,7 +64,7 @@ class Installer
 	#Instaluj zawarto¶æ dla jêzyka $x
 	function setupLang($x)
 	{
-		static $c, $g, $m, $n, $i, $lft, $rgt, $db; //TRIGGERY DO LFT/RGT???
+		static $c, $g, $m, $n, $i, $lft, $rgt, $db;
 		require './install/lang/'.$x.'.php';
 
 		#Przygotuj zapytania

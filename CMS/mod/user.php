@@ -33,11 +33,33 @@ else
 #PM
 $pm = isset($cfg['pmOn']) && LOGD==1 ? '?co=pms&amp;act=e&amp;to='.$id : false;
 
+#URL linku EDYTUJ
+if(LOGD)
+{
+	if($id == UID)
+	{
+		$may = '?co=account';
+	}
+	elseif(LEVEL > 2 && Admit('U'))
+	{
+		$may = 'adm.php?a=editUser&id='.$id;
+	}
+	else
+	{
+		$may = false;
+	}
+}
+else
+{
+	$may = false;
+}
+
 #Do szablonu
 $content->title = $u['login'];
 $content->data  = array(
 	'u'  => &$u,
 	'pm' => $pm,
+	'edit' => $may,
 	'users'  => '?co=users',
 	'join_date' => genDate($u['regt'],1), //Data rejestracji
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],1) : NA

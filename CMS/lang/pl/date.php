@@ -1,14 +1,14 @@
 <?php
 $months = array('',
-'Styczeñ',
+'StyczeÅ„',
 'Luty',
 'Marzec',
-'Kwiecieñ',
+'KwiecieÅ„',
 'Maj',
 'Czerwiec',
 'Lipiec',
-'Sierpieñ',
-'Wrzesieñ',
-'Pa¼dziernik',
+'SierpieÅ„',
+'WrzesieÅ„',
+'PaÅºdziernik',
 'Listopad',
-'Grudzieñ');
+'GrudzieÅ„');

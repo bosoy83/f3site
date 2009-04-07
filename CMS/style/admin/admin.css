@@ -16,12 +16,12 @@
 .a_rss {background: url(../../img/icon/rss.png)}
 .a_cat {background: url(../../img/icon/folder.png)}
 .a_poll {background: url(../../img/icon/poll.png)}
-.a_page,.a_ads {background: url(../../img/icon/win.png)}
+.a_page,.a_menu {background: url(../../img/icon/win.png)}
 .a_user {background: url(../../img/icon/group.png)}
 .a_log {background: url(../../img/icon/flag.png)}
 .a_mail {background: url(../../img/editor/mail.png)}
 .a_cfg,.a_db {background: url(../../img/icon/cog.png)}
 .a_plug {background: url(../../img/icon/plugin.png)}
-.a_menu {background: url(../../img/icon/edit.png)}
+.a_ads {background: url(../../img/icon/coins.png)}
 
 td>small {display: block}

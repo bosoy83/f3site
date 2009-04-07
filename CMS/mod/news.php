@@ -12,7 +12,7 @@ if(!$news = $res->fetch(2)) return;  $res = null;
 #Pe³na treœæ
 if($news['opt']&4)
 {
-	$full = $db->query('SELECT text FROM '.PRE.'fnews WHERE ID='.$id) -> fetchColumn();
+	$full = $db->query('SELECT text FROM '.PRE.'newstxt WHERE ID='.$id) -> fetchColumn();
 }
 else
 {

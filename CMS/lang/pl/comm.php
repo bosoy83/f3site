@@ -1,20 +1,20 @@
 <?php
 $lang+=Array(
 'c1'=>'Edytuj komentarz',
-'c2'=>'Kod z obrazka zosta³ przepisany niepoprawnie.',
-'c3'=>'Nie mo¿esz wys³aæ drugiego komentarza tak szybko po poprzednim. Spróbuj ponownie za chwilê.',
-'c4'=>'Pola "tre¶æ" i "autor" musz± byæ uzupe³nione.',
-'c5'=>'Tre¶æ jest zbyt d³uga.',
-'c6'=>'Komentarz zosta³ wys³any i oczekuje na zatwierdzenie go przez moderatora.',
-'c7'=>'Komentarz zosta³ zapisany.',
-'c8'=>'&laquo; Powrót',
-'c9'=>'Go¶æ',
-'c10'=>'Nie uda³o siê zapisaæ komentarza. Spróbuj ponownie za chwilê. Je¶li problem powtórzy siê, zg³o¶ go administratorom. Kod b³êdu: ',
-'c11'=>'Komentowana pozycja nie istnieje lub jest niedostêpna.',
-'c12'=>'Nie mo¿esz zamieszczaæ odno¶ników do innych stron.',
+'c2'=>'Kod z obrazka zostaÅ‚ przepisany niepoprawnie.',
+'c3'=>'Nie moÅ¼esz wysÅ‚aÄ‡ drugiego komentarza tak szybko po poprzednim. SprÃ³buj ponownie za chwilÄ™.',
+'c4'=>'Pola "treÅ›Ä‡" i "autor" muszÄ… byÄ‡ uzupeÅ‚nione.',
+'c5'=>'TreÅ›Ä‡ jest zbyt dÅ‚uga.',
+'c6'=>'Komentarz zostaÅ‚ wysÅ‚any i oczekuje na zatwierdzenie go przez moderatora.',
+'c7'=>'Komentarz zostaÅ‚ zapisany.',
+'c8'=>'&laquo; PowrÃ³t',
+'c9'=>'GoÅ›Ä‡',
+'c10'=>'Nie udaÅ‚o siÄ™ zapisaÄ‡ komentarza. SprÃ³buj ponownie za chwilÄ™. JeÅ›li problem powtÃ³rzy siÄ™, zgÅ‚oÅ› go administratorom. Kod bÅ‚Ä™du: ',
+'c11'=>'Komentowana pozycja nie istnieje lub jest niedostÄ™pna.',
+'c12'=>'Nie moÅ¼esz zamieszczaÄ‡ odnoÅ›nikÃ³w do innych stron.',
 'hide'=>'ukryj',
 'accept'=>'zaakceptuj',
-'show'=>'Poka¿',
+'show'=>'PokaÅ¼',
 'all'=>'wszystkie',
-'un'=>'oczekuj±ce na akceptacjê'
+'un'=>'oczekujÄ…ce na akceptacjÄ™'
 );

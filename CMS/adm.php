@@ -100,14 +100,24 @@ else
 
 	'</ul></div>';
 
-	#Wtyczki
-	$menu .= file_get_contents('./cache/pluginmenu.php');
+	#Rozszerzenia
+	$res = $db->query('SELECT ID,text,file FROM '.PRE.'admmenu WHERE menu=1');
+	$ex = '';
+	foreach($res as $x)
+	{
+		$ex .= MI($x['text'],$x['file'],$x['ID']);
+	}
+	if($ex)
+	{
+		$menu .= '<div class="adm"><ul>'.$ex.'</ul></div>';
+	}
 
 	#Zapisz uk³ad menu
 	if(file_put_contents('./cache/adm'.UID.'.php', $menu))
 	{
 		$_SESSION['admmenu'] = true;
 	}
+	unset($ex,$res,$x);
 }
 
 #Szablon i tytu³

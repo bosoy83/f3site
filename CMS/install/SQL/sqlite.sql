@@ -38,12 +38,6 @@ CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `opt` tinyint(2) NOT NULL,
 PRIMARY KEY (ID,page));
 
-CREATE TRIGGER IF NOT EXISTS `{pre}artsd` AFTER DELETE ON `{pre}arts`
-BEGIN
-	DELETE FROM `{pre}artstxt` WHERE ID = old.ID;
-	DELETE FROM `{pre}comms` WHERE TYPE = 1 AND CID = old.ID;
-END;
-
 CREATE TABLE IF NOT EXISTS `{pre}banners` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `gen` tinyint(2) NOT NULL,
@@ -87,8 +81,9 @@ CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
 `ID` varchar(50) NOT NULL,
 `name` varchar(50),
 `lang` varchar(5) NOT NULL,
-`img` varchar(230),
-PRIMARY KEY (ID));
+`img` varchar(230));
+
+CREATE INDEX IF NOT EXISTS ID ON {pre}confmenu (ID);
 
 CREATE TABLE IF NOT EXISTS `{pre}files` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -104,17 +99,6 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `priority` tinyint(1) NOT NULL,
 `rate` tinyint(1),
 `fulld` mediumtext);
-
-CREATE TRIGGER IF NOT EXISTS `{pre}filesd` AFTER DELETE ON `{pre}files`
-BEGIN
-	DELETE FROM `{pre}comms` WHERE TYPE = 2 AND CID = old.ID;
-END;
-
-CREATE TABLE IF NOT EXISTS `{pre}fnews` (
-`ID` int(11) NOT NULL,
-`cat` int(11) NOT NULL,
-`text` mediumtext,
-PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS `{pre}groups` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -137,11 +121,6 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `filem` varchar(255) NOT NULL,
 `file` varchar(255) NOT NULL,
 `size` varchar(9) NOT NULL);
-
-CREATE TRIGGER IF NOT EXISTS `{pre}imgsd` AFTER DELETE ON `{pre}imgs`
-BEGIN
-	DELETE FROM `{pre}comms` WHERE TYPE = 3 AND CID = old.ID;
-END;
 
 CREATE TABLE IF NOT EXISTS `{pre}links` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -178,11 +157,6 @@ CREATE TABLE IF NOT EXISTS `{pre}mitems` (
 `nw` tinyint(1) NOT NULL DEFAULT 0,
 `seq` tinyint(2) NOT NULL DEFAULT 0);
 
-CREATE TRIGGER IF NOT EXISTS `{pre}menud` AFTER DELETE ON `{pre}menu`
-BEGIN
-	DELETE FROM `{pre}mitems` WHERE menu = old.ID;
-END;
-
 CREATE TABLE IF NOT EXISTS `{pre}news` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
@@ -195,13 +169,13 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `access` tinyint(1) NOT NULL,
 `opt` tinyint(2) NOT NULL DEFAULT 3);
 
-CREATE TRIGGER IF NOT EXISTS `{pre}newsd` AFTER DELETE ON `{pre}news`
-BEGIN
-	DELETE FROM `{pre}fnews` WHERE ID = old.ID;
-	DELETE FROM `{pre}comms` WHERE TYPE = 5 AND CID = old.ID;
-END;
-
 CREATE INDEX IF NOT EXISTS cat ON {pre}news (cat);
+
+CREATE TABLE IF NOT EXISTS `{pre}newstxt` (
+`ID` int(11) NOT NULL,
+`cat` int(11) NOT NULL,
+`text` mediumtext,
+PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS `{pre}online` (
 `IP` varchar(40) PRIMARY KEY NOT NULL,
@@ -215,11 +189,6 @@ CREATE TABLE IF NOT EXISTS `{pre}pages` (
 `access` varchar(3) NOT NULL,
 `opt` tinyint(2) NOT NULL,
 `text` mediumtext);
-
-CREATE TRIGGER IF NOT EXISTS `{pre}pagesd` AFTER DELETE ON `{pre}pages`
-BEGIN
-	DELETE FROM `{pre}comms` WHERE TYPE = 59 AND CID = old.ID;
-END;
 
 CREATE TABLE IF NOT EXISTS `{pre}plugins` (
 `ID` varchar(30) NOT NULL,
@@ -282,9 +251,3 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `tlen` varchar(50),
 `gg` int(11),
 `photo` varchar(150));
-
-CREATE TRIGGER IF NOT EXISTS `{pre}userd` AFTER DELETE ON `{pre}users`
-BEGIN
-	DELETE FROM `{pre}pollvotes` WHERE user = old.ID;
-	DELETE FROM `{pre}comms` WHERE (guest != 1 AND author = old.ID) OR (type = 10 AND CID = old.ID);
-END;

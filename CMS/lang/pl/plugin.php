@@ -1,10 +1,13 @@
 <?php
 $lang+=Array(
-'api'=>'Rozszerzenia pozwalaj± zwiêkszyæ funkcjonalno¶æ serwisu lub upro¶ciæ niektóre zadania.<br /><span style="color: green">Kolor zielony &rarr; wtyczka zainstalowana</span>',
-'warn'=>'OSTRZE¯ENIE: Dodatki pochodz±ce z niezaufanego ¼ród³a mog± zniszczyæ lub wykra¶æ dane. Je¿eli jeste¶ pewny, ¿e rozszerzenie jest bezpieczne, kliknij OK. W przeciwnym wypadku wróæ do poprzedniej strony.',
-'warn2'=>'OSTRZE¯ENIE: Po dezinstalacji rozszerzenia stracisz wszystkie dane utworzone przez nie!',
+'api'=>'Rozszerzenia pozwalajÄ… zwiÄ™kszyÄ‡ funkcjonalnoÅ›Ä‡ serwisu lub uproÅ›ciÄ‡ niektÃ³re zadania.<br /><span style="color: green">Kolor zielony &rarr; dodatek zainstalowany</span>',
+'warn'=>'OSTRZEÅ»ENIE: Dodatki pochodzÄ…ce z niezaufanego ÅºrÃ³dÅ‚a mogÄ… wyrzÄ…dziÄ‡ szkody lub wykraÅ›Ä‡ dane. JeÅ¼eli jesteÅ› pewny, Å¼e rozszerzenie jest bezpieczne, kliknij OK. W przeciwnym wypadku wrÃ³Ä‡ do poprzedniej strony.',
+'warn2'=>'OSTRZEÅ»ENIE: Po dezinstalacji rozszerzenia stracisz wszystkie dane utworzone przez nie!',
 'uninst'=>'odinstaluj',
 'inst'=>'zainstaluj',
+'conf'=>'konfiguruj',
+'menuItem'=>'Dodaj odnoÅ›niki do menu:',
 'noinst'=>'Rozszerzenie nie wymaga instalacji.',
+'pos'=>'Poz',
 'ver'=>'Wersja'
 );

@@ -18,7 +18,7 @@
 <tr>
 	<td><b>4. {lang.img}:</b></td>
 	<td>
-		<input name="img" id="img" value="{news.img}" />
+		<input name="img" value="{news.img}" />
 		<!-- IF fileman -->
 		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.img)" />
 		<!-- END -->
@@ -76,7 +76,8 @@ function FN(x)
 }
 function P()
 {
-	e.preview({NL: l.br.checked, EMOTS: l.emo.checked}, null, l.txt.value+'<br /><br />'+l.text.value);
+	e.preview({NL: l.br.checked, EMOTS: l.emo.checked}, null,
+	(f.img.value && '<img src="'+f.img.value+'" class="newsimg" />')+l.txt.value+'<br /><br />'+l.text.value);
 }
 if(done==1) FN(1);
 include('lib/forms.js')

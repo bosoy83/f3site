@@ -1,7 +1,7 @@
 Witaj %u!<br><br>
-Nowe has≥o dostÍpowe do Twojego konta zosta≥o wygenerowane. Po zalogowaniu siÍ moøesz je zmieniÊ. Je∂li nie korzysta≥e∂(a∂) z generatora nowego has≥a w %title, zg≥o∂ problem administratorowi strony.
+Nowe has≈Ço dostƒôpowe do Twojego konta zosta≈Ço wygenerowane. Po zalogowaniu siƒô mo≈ºesz je zmieniƒá. Je≈õli nie korzysta≈Çe≈õ(a≈õ) z generatora nowego has≈Ça w %title, zg≈Ço≈õ problem administratorowi strony.
 <br><br>
-Nowe has≥o: %psw
+Nowe has≈Ço: %psw
 <br><br>
 ----------<br>
 %title<br>

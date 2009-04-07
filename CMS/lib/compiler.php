@@ -97,7 +97,7 @@ class Compiler
 		$this->data = str_replace($in, $out, $this->data);
 
 		#Pêtle
-		if(($pos = strpos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
+		while(($pos = strpos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
 
 		#Do zamiany
 		$in = array(
@@ -177,13 +177,16 @@ class Compiler
 	protected function checkLoop($pos)
 	{
 		#Poziom zag³êbienia
-		static $lv = 0;  ++$lv;
+		static $lv = 1;
 
 		#Dalsze pêtle?
-		if(($pos2 = strpos($this->data,'<!-- START',$pos+1)) !== false) $this->checkLoop($pos2);
-
-		#Aktualna pozycja
-		$pos = strpos($this->data, '<!-- START');
+		if(($pos2 = strpos($this->data, '<!-- START',$pos+9)) !== false)
+		{
+			if(strpos($this->data,'<!-- STOP',$pos) > $pos2)
+			{
+				++$lv; $this->checkLoop($pos2); --$lv;
+			}
+		}
 
 		#Zmienna dla pêtli FOREACH (foreach $zmienna as $item)
 		$frag = substr($this->data, $pos, strpos($this->data, '<!-- STOP -->')-$pos+13);
@@ -229,9 +232,6 @@ class Compiler
 
 		#Zaktualizuj zmiany
 		$this->data = substr_replace($this->data, $frag, $pos, $len);
-
-		#Zmniejsz poziom zag³êbienia
-		-- $lv;
 	}
 
 	#F: Formularze

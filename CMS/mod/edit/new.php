@@ -41,7 +41,7 @@ if($_POST)
 		#Nowe ID
 		if(!$id) $id = $db->lastInsertId();
 
-		$q = $db->prepare('REPLACE INTO '.PRE.'fnews (id,cat,text) VALUES ('.$id.',?,?)');
+		$q = $db->prepare('REPLACE INTO '.PRE.'newstxt (id,cat,text) VALUES ('.$id.',?,?)');
 		$q->bindValue(1, $news['cat'], 1); //INT
 		$q->bindParam(2, $full);
 		$q->execute();
@@ -68,7 +68,7 @@ else
 	if($id)
 	{
 		$news = $db->query('SELECT n.*,f.text FROM '.PRE.'news n LEFT JOIN '.
-			PRE.'fnews f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2); //ASSOC
+			PRE.'newstxt f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2); //ASSOC
 		$full = &$news['text'];
 
 		#Prawa

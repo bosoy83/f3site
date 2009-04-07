@@ -1,4 +1,4 @@
-<?php /* J±dro systemu */
+<?php /* JÄ…dro systemu */
 if(iCMS!=1) exit;
 define('PATH',str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
 define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
@@ -10,7 +10,7 @@ if($_POST && isset($_SERVER['HTTP_REFERER']))
 	if($pos < 3 OR $pos > 8) exit;
 }
 
-#Register globals: usuñ zmienne
+#Register globals: usuÅ„ zmienne
 if(ini_get('register_globals'))
 {
 	foreach(array_keys($_REQUEST) as $x) unset($$x);
@@ -25,7 +25,7 @@ if(isset($_GET['page']) && !is_numeric($_GET['page']))
 	$_GET['page'] = 1;
 }
 
-#Utwórz krytyczne tablice
+#UtwÃ³rz krytyczne tablice
 $lang = array();
 $cfg  = array();
 $user = null;
@@ -40,18 +40,14 @@ if(!empty($cfg['ban']))
 	$ban = explode("\n", $cfg['ban']);
 	if(in_array($_SERVER['REMOTE_ADDR'], $ban))
 	{
-		Header('Location: '.$cfg['banurl']);
 		exit;
 	}
 }
 
-#Przepisywanie linków - aktualnie nieobs³ugiwane
-define('NICE_URL', 0);
-
-#Czy to ¿±danie AJAX?
+#Czy to Å¼Ä…danie AJAX?
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 
-#Katalog skórki
+#Katalog skÃ³rki
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 
@@ -59,18 +55,18 @@ define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 session_name(PRE);
 session_start();
 
-#Jêzyk: zmiana
+#JÄ™zyk: zmiana
 if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
 {
 	$nlang = $_SESSION['lang'] = $_GET['setlang'];
-	setcookie(PRE.'lang', $nlang, time()+23328000); //9 miesiêcy
+	setcookie(PRE.'lang', $nlang, time()+23328000); //9 miesiÄ™cy
 }
-#Jêzyk: sesja
+#JÄ™zyk: sesja
 elseif(isset($_SESSION['lang']))
 {
 	$nlang = $_SESSION['lang'];
 }
-#Jêzyk: cookies
+#JÄ™zyk: cookies
 elseif(isset($_COOKIE[PRE.'lang']))
 {
 	if(ctype_alnum($_COOKIE[PRE.'lang']) && is_dir('./lang/'.$_COOKIE[PRE.'lang']))
@@ -78,7 +74,7 @@ elseif(isset($_COOKIE[PRE.'lang']))
 		$nlang = $_SESSION['lang'] = $_COOKIE[PRE.'lang'];
 	}
 }
-#Autowykrywanie jêzyka
+#Autowykrywanie jÄ™zyka
 elseif(isset($cfg['detectLang']))
 {
 	foreach(explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
@@ -96,16 +92,13 @@ elseif(isset($cfg['detectLang']))
 }
 if(!isset($nlang)) $nlang = 'en';
 
-#Katalog z plikami jêzykowymi
+#Katalog z plikami jÄ™zykowymi
 define('LANG_DIR', './lang/'.$nlang.'/');
 
-#Do³±cz g³ówny plik jêzyka
+#DoÅ‚Ä…cz gÅ‚Ã³wny plik jÄ™zyka
 require LANG_DIR.'main.php';
 
-#Dzisiaj
-define('TODAY', strftime($cfg['now']));
-
-#Do³±cz klasê skórek i utwórz obiekt
+#DoÅ‚Ä…cz klasÄ™ skÃ³rek i utwÃ³rz obiekt
 require './lib/content.php';
 $content = new Content;
 
@@ -119,7 +112,7 @@ else
 	$content->addCSS(SKIN_DIR . '1.css');
 }
 
-#Po³±cz z baz± danych
+#PoÅ‚Ä…cz z bazÄ… danych
 try
 {
 	#SQLite
@@ -130,8 +123,7 @@ try
 	#MySQL
 	else
 	{
-		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p); //Potem: $cfg['sqlpc']
-		$db ->exec('SET CHARACTER SET "latin2"'); //!!!!!!!!!!!!
+		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
 	}
 	$db->setAttribute(3,2); #ERRMODE: Exceptions
 	$db->setAttribute(19,2); #DefaultFetchMode: ASSOC
@@ -143,7 +135,7 @@ catch(PDOException $e)
 
 $xuid=false;
 
-#U¿ytkownik - sesja
+#UÅ¼ytkownik - sesja
 if(isset($_SESSION['uid']))
 {
 	if($_SERVER['REMOTE_ADDR']===$_SESSION['IP'])
@@ -157,7 +149,7 @@ if(isset($_SESSION['uid']))
 	}
 }
 
-#U¿ytkownik - pamiêtanie
+#UÅ¼ytkownik - pamiÄ™tanie
 elseif(isset($_COOKIE[PRE.'login']))
 {
 	$usrc = $_COOKIE[PRE.'login'];
@@ -200,7 +192,7 @@ if(is_numeric($xuid))
 }
 unset($xuid,$xpass);
 
-#Data wej¶cia na stronê, RECENT w sesji = data ostatniej wizyty
+#Data wejÅ›cia na stronÄ™, RECENT w sesji = data ostatniej wizyty
 if(defined('LOGD'))
 {
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
@@ -217,20 +209,23 @@ else
 	define('LEVEL',0);
 }
 
+#Dzisiaj
+define('TODAY', strftime($cfg['now']));
+
 #Typ,kodowanie
 Header('Cache-Control: public');
-Header('Content-type: text/html; charset=iso-8859-2');
+Header('Content-type: text/html; charset=utf-8');
 
 #FUNKCJE
 
-#Prawa - wpu¶ciæ u¿ytkownika?
+#Prawa - wpuÅ›ciÄ‡ uÅ¼ytkownika?
 function Admit($id,$type=null)
 {
-	if(LOGD!=1) return false; //Go¶æ
+	if(LOGD!=1) return false; //GoÅ›Ä‡
 	global $user, $db;
 	static $global, $all;
 
-	#W³a¶ciciel?
+	#WÅ‚aÅ›ciciel?
 	if($user[UID]['lv']==4) return true;
 
 	#Kategoria
@@ -370,9 +365,9 @@ function genDate($x, $time=false)
 	global $cfg,$lang;
 
 	if(!$x) return $x;
-	if($x[4] === '-') $x = strtotime($x.' GMT'); //Zamieñ DATETIME na znacznik czasu
+	if($x[4] === '-') $x = strtotime($x.' GMT'); //ZamieÅ„ DATETIME na znacznik czasu
 
-	#Ró¿nica czasu
+	#RÃ³Å¼nica czasu
 	$diff = $_SERVER['REQUEST_TIME'] - $x;
 
 	#X minut temu (do 99)
@@ -386,7 +381,7 @@ function genDate($x, $time=false)
 		return str_replace('%', ceil(-$diff/60), $lang['in']);
 	}
 
-	#Formatuj datê
+	#Formatuj datÄ™
 	if(!$cur) $cur = strftime($cfg['date'], $_SERVER['REQUEST_TIME']);
 	$date = strftime($cfg['date'], $x);
 
@@ -431,9 +426,9 @@ function Clean($val,$max=0,$wr=0)
 	{
 		static $words1,$words2;
 		include_once './cfg/words.php';
-		$val = str_replace($words1,$words2,$val); //Zamiana s³ów
+		$val = str_replace($words1,$words2,$val); //Zamiana sÅ‚Ã³w
 	}
-	return trim(htmlspecialchars($val,0));
+	return trim(htmlspecialchars($val));
 }
 
 #Licz w bazie

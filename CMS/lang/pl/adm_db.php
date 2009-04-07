@@ -1,11 +1,11 @@
 <?php
 $lang+=array(
-'dbInfo'=>'Tutaj mo¿esz pobraæ zawarto¶æ bazy danych na swój komputer w formacie .SQL. Operacja chwilê potrwa, je¿eli jej rozmiar jest du¿y. Aby zaznaczyæ kilka tabel, przytrzymaj klawisz CTRL podczas wyboru.',
+'dbInfo'=>'Tutaj moÅ¼esz pobraÄ‡ zawartoÅ›Ä‡ bazy danych na swÃ³j komputer w formacie .SQL. Operacja chwilÄ™ potrwa, jeÅ¼eli jej rozmiar jest duÅ¼y. Aby zaznaczyÄ‡ kilka tabel, przytrzymaj klawisz CTRL podczas wyboru.',
 'all'=>'Zaznacz wszystkie',
 'dbTitle'=>'Wykonywanie kopii bazy danych',
 'dbCreate'=>'Dodaj polecenie utworzenia tabel.',
 'dbSelect'=>'Wybierz tabele',
-'dbDelete'=>'Usuwanie tabel, gdy istniej±',
+'dbDelete'=>'Usuwanie tabel, gdy istniejÄ…',
 'fileName'=>'Nazwa pliku (bez rozszerzenia)',
-'gz'=>'Skompresuj plik za pomoc± GZIP',
+'gz'=>'Skompresuj plik za pomocÄ… GZIP',
 );

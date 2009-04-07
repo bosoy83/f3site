@@ -1,9 +1,9 @@
 <?php
 define('INSTALL',1);
 Header('Cache-Control: public');
-Header('Content-type: text/html; charset=iso-8859-2');
+Header('Content-type: text/html; charset=utf-8');
 
-#ZmieÒ katalog roboczy i ustaw katalogi szablonÛw
+#Zmie≈Ñ katalog roboczy i ustaw katalogi szablon√≥w
 chdir('../');
 define('VIEW_DIR', './cache/default/');
 define('SKIN_DIR', './style/default/');
@@ -14,7 +14,7 @@ $content = new Content;
 $content -> dir = './install/HTML/';
 $content -> cache = './cache/install/';
 
-#JÍzyk
+#Jƒôzyk
 $nlang = 'en';
 $error = array();
 
@@ -32,7 +32,7 @@ foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
 unset($x);
 require './install/lang/'.$nlang.'.php';
 
-#Skompiluj najwaøniejsze pliki szablonu
+#Skompiluj najwa≈ºniejsze pliki szablonu
 if(!file_exists('./cache/default/info.php'))
 {
 	include_once './lib/compiler.php';
@@ -63,14 +63,14 @@ if($_POST OR isset($_GET['next']))
 {
 	if($_POST)
 	{
-		#Do≥±cz klasÍ zapisu do .php
+		#Do≈Ç¬±cz klasƒô zapisu do .php
 		require './lib/config.php';
 		require './install/install.php';
 
 		#TYP
 		$type = ($_POST['type']=='sqlite' OR $_POST['type']=='mysql') ? $_POST['type'] : null;
 
-		#Dane dostÍpowe
+		#Dane dostƒôpowe
 		$data = array(
 			'type' => $type,
 			'host' => $type=='mysql' ? htmlspecialchars($_POST['host']) : '',
@@ -88,32 +88,32 @@ if($_POST OR isset($_GET['next']))
 			$error[] = $lang['e1'];
 		}
 
-		#Has≥o admina
+		#Has≈Ço admina
 		if(!preg_match('/^[a-zA-Z0-9_-]{5,20}$/', $_POST['uPass']))
 		{
 			$error[] = $lang['e2'];
 		}
 
-		#Has≥o admina
+		#Has≈Ço admina
 		if($_POST['uPass'] != $_POST['uPass2'])
 		{
 			$error[] = $lang['e3'];
 		}
 
-		#Prefix do sta≥ej
+		#Prefix do sta≈Çej
 		define('PRE', $data['pre']);
 		try
 		{
-			#Gdy s± b≥Ídy
+			#Gdy s¬± b≈Çƒôdy
 			if($error) throw new Exception('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 
-			#API instalatora - przekaø domy∂lny jÍzyk i dane
+			#API instalatora - przeka≈º domy≈õlny jƒôzyk i dane
 			$setup = new Installer($nlang, $data);
 
-			#Za≥aduj plik SQL
+			#Za≈Çaduj plik SQL
 			$setup -> loadSQL('./install/SQL/'.$type.'.sql');
 
-			#Instaluj zawarto∂Ê dla kaødego jÍzyka
+			#Instaluj zawarto≈õƒá dla ka≈ºdego jƒôzyka
 			foreach(scandir('./lang') as $dir)
 			{
 				if($dir[0]!='.' && file_exists('./install/lang/'.$dir.'.php')) $setup -> setupLang($dir);
@@ -149,11 +149,11 @@ if($_POST OR isset($_GET['next']))
 				RebuildPoll();
 			}
 
-			#ZakoÒcz instalacjÍ
+			#Zako≈Ñcz instalacjƒô
 			$setup -> commit();
 			$content -> data = null;
 			$content -> info($lang['OK'], array('../.' => $lang[0]));
-			include './cache/install/body.html';
+			include $content->path('body');
 			exit;
 		}
 		catch(Exception $e)
@@ -224,7 +224,7 @@ else
 		$error[] = $lang['e6'];
 	}
 
-	#B≥Ídy
+	#B≈Çƒôdy
 	if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 
 	#Do szablonu
@@ -239,5 +239,5 @@ else
 	);
 }
 
-#Szablon g≥Ûwny
+#Szablon g≈Ç√≥wny
 include $content->path('body');

@@ -18,11 +18,23 @@
 		<!-- START options -->
 		<label><input type="checkbox" name="{KEY}" /> {ITEM}</label><br />
 		<!-- STOP -->
+
+		<!-- IF menu -->
+		<label><input type="checkbox" name="m" checked="checked" /> {lang.menuItem}</label>
+		<div style="margin: 9px">
+			<!-- START menu -->
+			<label>{lang.title}: <input type="text" name="mt[]" value="{title}" /></label>
+			<label>{lang.pos}. <input size="2" name="mp[]" value="2" /></label>
+			<select name="mid[]">{menus}</select><br />
+			<!-- STOP -->
+		</div>
+		<!-- END -->
 	</td>
 </tr>
 <tr>
 	<td class="eth" colspan="2"><input type="submit" name="setup" value="OK" /></td>
 </tr>
+
 </tbody>
 </table>
 </form>
@@ -44,7 +56,7 @@
 	<td style="color: green">{name}</td>
 	<td align="center">{id}</td>
 	<td align="center">
-		<a href="?a={id}">{lang.opt}</a>
+		<a href="?a={id}">{lang.conf}</a>
 		<!-- IF del -->&middot; <a href="{del}">{lang.uninst}</a><!-- END -->
 	</td>
 </tr>

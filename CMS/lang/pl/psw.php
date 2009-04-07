@@ -1,12 +1,12 @@
 <?php
 $lang+=Array(
-'psw_1'=>'Tutaj mo¿esz wygenerowaæ nowe has³o. Zostanie ono przes³ane poczt± elektroniczn±. Podaj swój login i adres e-mail, który poda³e¶(a¶) przy rejestracji, a nastêpnie kliknij OK.',
-'psw_2'=>'Przypominanie has³a jest wy³±czone.',
-'psw_3'=>'Jeste¶ ju¿ zalogowany.',
-'psw_4'=>'Generator nowego has³a',
-'psw_5'=>'Pola w poprzednim formularzu musz± byæ wype³nione.',
-'psw_6'=>'Wpisane dane s± niepoprawne.',
-'psw_7'=>'Odzyskiwanie has³a dla tego u¿ytkownika jest wy³±czone.',
-'psw_8'=>'Nowe has³o zosta³o wys³ane.',
-'psw_9'=>'Wys³anie wiadomo¶ci e-mail z has³em nie powiod³o siê. Spróbuj ponownie za chwilê. Je¶li problem bêdzie siê powtarza³, zg³o¶ go administratorowi.'
+'psw_1'=>'Tutaj moÅ¼esz wygenerowaÄ‡ nowe hasÅ‚o. Zostanie ono przesÅ‚ane pocztÄ… elektronicznÄ…. Podaj swÃ³j login i adres e-mail, ktÃ³ry podaÅ‚eÅ›(aÅ›) przy rejestracji, a nastÄ™pnie kliknij OK.',
+'psw_2'=>'Przypominanie hasÅ‚a jest wyÅ‚Ä…czone.',
+'psw_3'=>'JesteÅ› juÅ¼ zalogowany.',
+'psw_4'=>'Generator nowego hasÅ‚a',
+'psw_5'=>'Pola w poprzednim formularzu muszÄ… byÄ‡ wypeÅ‚nione.',
+'psw_6'=>'Wpisane dane sÄ… niepoprawne.',
+'psw_7'=>'Odzyskiwanie hasÅ‚a dla tego uÅ¼ytkownika jest wyÅ‚Ä…czone.',
+'psw_8'=>'Nowe hasÅ‚o zostaÅ‚o wysÅ‚ane.',
+'psw_9'=>'WysÅ‚anie wiadomoÅ›ci e-mail z hasÅ‚em nie powiodÅ‚o siÄ™. SprÃ³buj ponownie za chwilÄ™. JeÅ›li problem bÄ™dzie siÄ™ powtarzaÅ‚, zgÅ‚oÅ› go administratorowi.'
 );

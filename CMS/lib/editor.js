@@ -1,4 +1,4 @@
-//Przyciski - pierwsze 6 s¹ tekstem, zaœ pozosta³e grafik¹ .png
+//Przyciski - pierwsze 6 sÄ… tekstem, zaÅ› pozostaÅ‚e grafikÄ… .png
 var button = [
 	'<b style="margin: 0 3px">B</b>',
 	'<i style="margin: 0 4px">I</i>', //1
@@ -19,12 +19,12 @@ var button = [
 	'img', //16
 ],
 
-//Podwójne tablice powoduj¹ niewielki spadek wydajnoœci w stosunku do pojedynczych,
-//ale ich przemierzanie w pêtli FOR jest znacznie szybsze od przemierzania obiektów {},
-//gdy¿ nie trzeba u¿ywaæ konstrukcji `var i in tags`
-//Podwójne tablice zosta³y u¿yte w celu ³atwiejszej edycji znaczników
+//PodwÃ³jne tablice powodujÄ… niewielki spadek wydajnoÅ›ci w stosunku do pojedynczych,
+//ale ich przemierzanie w pÄ™tli FOR jest znacznie szybsze od przemierzania obiektÃ³w {},
+//gdyÅ¼ nie trzeba uÅ¼ywaÄ‡ konstrukcji `var i in tags`
+//PodwÃ³jne tablice zostaÅ‚y uÅ¼yte w celu Å‚atwiejszej edycji znacznikÃ³w
 
-//Kolejnoœæ: BBCode, pocz¹tek HTML, koniec HTML
+//KolejnoÅ›Ä‡: BBCode, poczÄ…tek HTML, koniec HTML
 tags = [
 	['b', '<b>', '</b>'],
 	['i', '<i>', '</i>'],
@@ -40,15 +40,16 @@ tags = [
 	['code', '<pre>', '</pre>'] //11
 ],
 
-tagNum = 17, //Liczba wszystkich tagów - tak¿e spoza tablicy `tags`
-iso = 12, //Liczba znaków specjalnych w kodowaniu ISO - dozwolone w BBCode
+tagNum = 17, //Liczba wszystkich tagÃ³w - takÅ¼e spoza tablicy `tags`
 
-//Symbole: BBCode, HTML, po œrodku / po lewej, po prawej
+//Symbole: BBCode, HTML, po Å›rodku / po lewej, po prawej
 symbol = [
-	'°', '§', '¤', '÷', '×', 'ß',
-	'Ä', 'Ö', 'Ü', 'ä', 'ö', 'ü',
-	'&reg;', '&copy;', '&trade;', '&bull;', '&lt;', '&gt;',
-	'&frac12;', '&raquo;', '&lArr;', '&rArr;', '&middot;'
+	'Â°', 'Â§', 'Â¤', 'Ã·', 'Ã—', 'ÃŸ',
+	'Ã„', 'Ã–', 'Ãœ', 'Ã¤', 'Ã¶', 'Ã¼',
+	'Â®', 'Â©', 'â„¢', 'â€¢', '&lt;', '&gt;',
+	'&frac12;', 'Â»', '&lArr;', '&rArr;', 'Âµ', 'Â§',
+	'&#945;', '&#946;', '&#947;', '&#949;', '&#916;', '&#937;',
+	'â‚¬', '&hearts;', 'â€°', '&#9835;', 'Â·',
 ],
 
 //Kolory
@@ -57,7 +58,7 @@ color = [
 	'black', 'gray', 'olive', 'gold', 'brown', 'blue', 'green', 'navy'
 ],
 
-//Dla paneli znaki + kolory wystêpuj¹cych 1 raz
+//Dla paneli znaki + kolory wystÄ™pujÄ…cych 1 raz
 eO, eCurBBC, eColors, eChars;
 
 //Konstruktor
@@ -112,7 +113,7 @@ Editor.prototype.format = function(i)
 	}
 };
 
-//Utwórz edytor
+//UtwÃ³rz edytor
 Editor.prototype.create = function()
 {
 	var that = this,
@@ -141,7 +142,7 @@ Editor.prototype.create = function()
 	}
 	this.o.parentNode.insertBefore(out,this.o);
 
-	//Skróty klawiszowe
+	//SkrÃ³ty klawiszowe
 	this.o.onkeydown = function(e)
 	{
 		if(e == undefined) e = event;
@@ -169,7 +170,7 @@ Editor.prototype.emots = function(x)
 	//Wykryj
 	var exist = this.emo ? 1 : 0;
 
-	//Usuñ
+	//UsuÅ„
 	if(this.emo)
 	{
 		if(x == false)
@@ -203,7 +204,7 @@ Editor.prototype.emots = function(x)
 	this.emo = this.o.parentNode.insertBefore(out, this.o.nextSibling)
 };
 
-//Zbuduj tabelê symboli
+//Zbuduj tabelÄ™ symboli
 Editor.prototype.make = function(buildChars)
 {
 	var out = document.createElement('div');
@@ -220,15 +221,14 @@ Editor.prototype.make = function(buildChars)
 	//Kolory
 	if(buildChars)
 	{
-		var num = (this.bbcode) ? iso : symbol.length;
+		var num = symbol.length;
 		for(var i=0; i<num; ++i)
 		{
 			if(y==1) var tr = document.createElement('tr');
 
 			var td = document.createElement('td');
-			td.item = symbol[i];
 			td.style.padding = '5px';
-			td.onclick = function() { BBC(eO, this.item, '') };
+			td.onclick = function() { BBC(eO, this.innerHTML, '') };
 			td.innerHTML = symbol[i];
 
 			tr.appendChild(td);
@@ -236,15 +236,12 @@ Editor.prototype.make = function(buildChars)
 			if(y==6) { tb.appendChild(tr); y=1 } else { ++y }
 		}
 
-		//Cudzys³owy
-		if(!this.bbcode)
-		{
-			var td = document.createElement('td');
-			td.onclick = function() { BBC(eO, '<q>', '</q>') };
-			td.innerHTML = '&bdquo; &rdquo;';
-			tr.appendChild(td);
-			tb.appendChild(tr);
-		}
+		//CudzysÅ‚owy
+		var td = document.createElement('td');
+		td.onclick = function() { BBC(eO, 'â€', 'â€') };
+		td.innerHTML = 'â€ â€';
+		tr.appendChild(td);
+		tb.appendChild(tr);
 		eChars = out;
 	}
 	else
@@ -314,7 +311,7 @@ Editor.prototype.ins = function(co)
 	}
 };
 
-//Podgl¹d
+//PodglÄ…d
 Editor.prototype.preview = function(opt,where,text)
 {
 	//Tekst
@@ -361,7 +358,7 @@ Editor.prototype.preview = function(opt,where,text)
 		}
 	}
 
-	//Wyœwietl
+	//WyÅ›wietl
 	this.box.innerHTML = text;
 	this.box.scrollIntoView()
 };

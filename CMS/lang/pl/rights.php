@@ -1,13 +1,13 @@
 <?php $lang+=Array(
-'admins'=>'Prawa u¿ytkowników',
-'iadms'=>'Tutaj mo¿esz nadawaæ, zmieniaæ i usuwaæ prawa administratorom i redaktorom.',
+'admins'=>'Prawa uÅ¼ytkownikÃ³w',
+'iadms'=>'Tutaj moÅ¼esz nadawaÄ‡, zmieniaÄ‡ i usuwaÄ‡ prawa administratorom i redaktorom.',
 'editAdm'=>'Edytuj prawa',
-'fileMan'=>'Menad¿er plików - przegl±danie',
-'fileMan2'=>'Mened¿er plików - zarz±dzanie',
+'fileMan'=>'MenadÅ¼er plikÃ³w - przeglÄ…danie',
+'fileMan2'=>'MenedÅ¼er plikÃ³w - zarzÄ…dzanie',
 'global'=>'Globalne uprawnienia',
 'ldb'=>'Ustawienia i kopia SQL',
 'privs'=>'Prawa',
 'profile'=>'profil',
 'manComm'=>'Usuwanie i edycja komentarzy',
-'range2'=>'Nieaktywny - deaktywuje konto<br />Administrator - dostêp do administracji<br />Redaktor - dostêp do centrum edycji tre¶ci<br />W³a¶ciciel - wszystkie prawa',
+'range2'=>'Nieaktywny - deaktywuje konto<br />Administrator - dostÄ™p do administracji<br />Redaktor - dostÄ™p do centrum edycji treÅ›ci<br />WÅ‚aÅ›ciciel - wszystkie prawa',
 );

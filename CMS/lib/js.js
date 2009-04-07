@@ -274,53 +274,6 @@ Request.prototype.add = function(key, val)
 Request.prototype.reset = function() { this.param = [] };
 
 //
-// *** WYŒLIJ FORMULARZ ZA POMOC¥ AJAX ***
-//
-
-//Utwórz tymczasowy obiekt Request i wyœlij formularz
-function send(o,id,opt)
-{
-	new Request(o.form.action, id, opt).sendForm(o);
-	return false;
-}
-
-//Wyœlij formularz za pomoc¹ istniej¹cego obiektu Request
-//Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
-Request.prototype.sendForm = function(o)
-{
-	var param = {}, el = o.form.elements, x;
-	for(var i=0; i<el.length; ++i)
-	{
-		x = el[i];
-		switch(x.type || '')
-		{
-			case 'radio':
-			case 'checkbox':
-				if(x.checked) this.add(x.name, x.value || 1); //Radio
-				break;
-			case 'text':
-			case 'textarea':
-			case 'hidden':
-			case 'password':
-				this.add(x.name, x.value); //Text field
-				break;
-			case 'select':
-			case 'select-one':
-			case 'select-multiple':
-				for(var y=0; y<x.options.length; ++y)
-				{
-					if(x.options[y].selected) this.add(x.name, x.options[y].value) //Select field
-				}
-				break;
-		}
-	}
-	if(o.name) this.add(o.name, o.value);
-	this.send();
-	o.disabled = 1;
-	return false;
-};
-
-//
 // *** DIALOG WINDOWS WITH AJAX SUPPORT ***
 //
 function Dialog(title, txt, width, height)

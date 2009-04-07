@@ -1,16 +1,16 @@
 <?php
 $lang+=Array(
-'ipoll'=>'Sondy mog± zawieraæ jedno pytanie z nieograniczon± ilo¶ci± odpowiedzi. Aktualn± sond± jest najnowsza (danego jêzyka).',
-'addPoll'=>'Dodaj sondê',
-'editPoll'=>'Edytuj sondê',
+'ipoll'=>'Sondy mogÄ… zawieraÄ‡ jedno pytanie z nieograniczonÄ… iloÅ›ciÄ… odpowiedzi. AktualnÄ… sondÄ… jest najnowsza (danego jÄ™zyka).',
+'addPoll'=>'Dodaj sondÄ™',
+'editPoll'=>'Edytuj sondÄ™',
 'que'=>'Pytanie',
 'zerp'=>'wyzeruj wyniki',
 'answers'=>'Odpowiedzi',
-'max'=>'G³osuj±cy mog± wybraæ',
-'one'=>'tylko 1 odpowied¼',
+'max'=>'GÅ‚osujÄ…cy mogÄ… wybraÄ‡',
+'one'=>'tylko 1 odpowiedÅº',
 'much'=>'wiele odpowiedzi',
-'addans'=>'Dodaj odpowied¼',
-'whoMay'=>'Kto mo¿e g³osowaæ',
+'addans'=>'Dodaj odpowiedÅº',
+'whoMay'=>'Kto moÅ¼e gÅ‚osowaÄ‡',
 'every'=>'Wszyscy',
 'none'=>'Nikt',
 );

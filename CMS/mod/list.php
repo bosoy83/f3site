@@ -12,32 +12,38 @@ switch($act)
 	case 5:
 		$type = $lang['news'];
 		$table = 'news';
+		$table2 = 'newstxt';
 		$href = '?co=news&amp;id=';
 		break;
 	case 4:
 		$type = $lang['links'];
 		$href = 'go.php?link=';
 		$table = 'links';
+		$table2 = false;
 		break;
 	case 3:
 		$type = $lang['images'];
 		$href = '?co=img&amp;id=';
 		$table = 'imgs';
+		$table2 = false;
 		break;
 	case 2:
 		$type = $lang['files'];
 		$href = '?co=file&amp;id=';
 		$table = 'files';
+		$table2 = 'false';
 		break;
 	case 1:
 		$type = $lang['arts'];
 		$href = '?co=art&amp;id=';
 		$table = 'arts';
+		$table2 = 'artstxt';
 		break;
 	default:
 		if(!$data = parse_ini_file('./cfg/types.ini',1) OR !isset($data[$act])) return;
 		$type = $data[$act][$nlang];
 		$table = $data[$act]['table'];
+		$table2 = isset($data[$act]['table2']) ? $data[$act]['table2'] : false;
 		$href = isset($data[$act]['name']) ? '?co='.$data[$act]['name'].'&amp;id=' : '';
 		unset($data);
 }
@@ -48,12 +54,19 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 	$q = Admit('GLOBAL') ? '' : ' AND cat IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID;
 	$ids = array();
 
+	$db->beginTransaction();
+
 	foreach($_POST['x'] as $x=>$n) $ids[] = (int)$x;
 	$ids = join(',', $ids);
 
 	if(isset($_POST['del']))
 	{
 		$db->exec('DELETE FROM '.PRE.$table.' WHERE ID IN ('.$ids.')'.$q);
+		if($table2) $db->exec('DELETE FROM '.PRE.$table2.' WHERE ID IN ('.$ids.')'.$q); //TRIGGER
+
+		#Usuñ stare komentarze - TRIGGER
+		$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$act.' AND CID NOT IN (
+			SELECT ID FROM '.PRE.$table.')');
 	}
 	else
 	{
@@ -66,6 +79,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 	}
 	CountItems();
 	Latest();
+	$db->commit();
 	unset($q,$ids,$ch,$x);
 }
 
@@ -145,7 +159,7 @@ foreach($res as $i)
 		'id'   => $i[0],
 		'on'   => $a,
 		'url'  => $href.$i[0],
-		'edit_url' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0]
+		'editURL' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0]
 	);
 }
 
@@ -159,6 +173,6 @@ $content->data = array(
 	'type'  => $type,
 	'cats'  => Slaves($act),
 	'pages' => Pages($page,$total,30,$url.'&amp;find='.$find,1),
-	'add_url' => '?co=edit&amp;act='.$act,
-	'cats_url'=> Admit('C') ? 'adm.php?a=cats&amp;co='.$act : '',
+	'addURL' => '?co=edit&amp;act='.$act.($id ? '&catid='.$id : ''),
+	'catsURL'=> Admit('C') ? 'adm.php?a=cats&amp;co='.$act : '',
 );

@@ -1,13 +1,13 @@
 <?php
 $lang+=Array(
-'aw_c'=>'zamieÒ na',
-'aw_f'=>'Zamiana s≥Ûw jest aktualnie wy≥±czona. Moøesz j± w≥±czyÊ w opcjach ogÛlnych.',
-'aw_i'=>'Tutaj moøesz zdefiniowaÊ s≥owa, ich fragmenty lub dowolne ci±gi znakÛw, ktÛre bÍd± zamieniane na podane obok nich odpowiedniki w wypowiedziach uøytkownikÛw.',
+'aw_c'=>'zamie≈Ñ na',
+'aw_f'=>'Zamiana s≈Ç√≥w jest aktualnie wy≈ÇƒÖczona. Mo≈ºesz jƒÖ w≈ÇƒÖczyƒá w opcjach og√≥lnych.',
+'aw_i'=>'Tutaj mo≈ºesz zdefiniowaƒá s≈Çowa, ich fragmenty lub dowolne ciƒÖgi znak√≥w, kt√≥re bƒôdƒÖ zamieniane na podane obok nich odpowiedniki w wypowiedziach u≈ºytkownik√≥w.',
 
-'main'=>'Opcje ogÛlne',
-'censor'=>'Zamiana s≥Ûw',
-'content'=>'Zawarto∂Ê',
+'main'=>'Opcje og√≥lne',
+'censor'=>'Zamiana s≈Ç√≥w',
+'content'=>'Zawarto≈õƒá',
 'latest'=>'Najnowsze pozycje',
 'emots'=>'Emotikony',
-'ua'=>'Konta uøytkownikÛw',
+'ua'=>'Konta u≈ºytkownik√≥w',
 );

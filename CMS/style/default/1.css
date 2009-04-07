@@ -200,6 +200,14 @@ small {font-size: 11px}
 }
 .pages {padding: 8px !important; text-align: center}
 
+/* LINKI */
+a.edit {
+	background: url(../../img/icon/edit.png) no-repeat;
+	padding-left: 20px;
+	display: block;
+	float: right;
+}
+
 /* DIALOG */
 .dialog {
 	position: absolute;

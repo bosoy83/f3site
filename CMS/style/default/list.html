@@ -1,19 +1,9 @@
-<script type="text/javascript">
-//<![CDATA[
-function Se()
-{
-	var a; if(a=prompt("{lang.searp}")) location="?co=list&act={act}&find="+a;
-}
-//]]>
-</script>
-
 <h2>{lang.info}</h2>
 <div class="box" style="text-align: center; line-height: 25px">
-	{intro}
-	<br />
-	<a href="javascript:Se()">{lang.search}</a> -
-	<a href="{add_url}">{lang.addItem}</a> -
-	<!-- IF cats_url --><a href="{cats_url}">{lang.cats}: {type}</a><!-- END -->
+	<div>{intro}</div>
+	<a href="javascript:S()">{lang.search}</a> |
+	<a href="{addURL}">{lang.addItem}</a> |
+	<!-- IF catsURL --><a href="{catsURL}">{lang.cats}: {type}</a><!-- END -->
 </div>
 
 <!-- LISTA -->
@@ -32,11 +22,9 @@ function Se()
 <!-- START item -->
 
 <tr>
-	<td id="i{id}">{num}. <a href="{url}">{title}</a></td>
+	<td>{num}. <a href="{url}">{title}</a></td>
 	<td align="center">{on}</td>
-	<td align="center" nowrap="nowrap">
-		<a href="{edit_url}">{lang.edit}</a>
-	</td>
+	<td align="center"><a href="{editURL}">{lang.edit}</a></td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 
@@ -85,3 +73,11 @@ function Se()
 </table>
 </div>
 </form>
+
+<script type="text/javascript">
+function S()
+{
+	var a = prompt("{lang.searp}")
+	if(a) location="?co=list&act={act}&find="+a
+}
+</script>

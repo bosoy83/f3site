@@ -1,71 +1,4 @@
-/* Rozszerzenie klasy Request */
-
-HTMLFormElement.prototype.send = function(box, o)
-{
-	//ID
-	if(box == undefined) box = id('main');
-
-	//Obiekt Request i zdarzenia
-	var o = new Request(this.action, box);
-	o.failed = function() { lock(this, true) };
-	o.loading = function() { lock(this) };
-	o.done = function(x) { box.innerHTML = x; box.scrollIntoView() };
-	return o.sendForm(this);
-};
-
-Request.prototype.sendForm = function(form)
-{
-	//POST / GET
-	this.method = form.method;
-
-	//Elementy
-	var elem = form.elements;
-	var num = elem.length;
-
-	//Dodaj
-	for(var i=0; i<num; ++i)
-	{
-		if(elem.type == 'undefined') continue;
-		switch(elem.type)
-		{
-			case 'radio':
-				if(elem.checked) this.add(elem.name, elem.value); //Radio
-				break;
-			case 'checkbox':
-				if(elem.checked) this.add(elem.name, elem.value||1); //Checkbox
-				break;
-			case 'text':
-			case 'textarea':
-			case 'hidden':
-			case 'password':
-				this.add(elem.name, elem.value); //Pola tekstowe
-				break;
-			case 'select':
-			case 'select-one':
-			case 'select-multiple':
-				for(var i in elem.options)
-				{
-					if(elem.options[i].selected) this.add(elem.name, elem.options[i].value) //Pole wyboru
-				}
-				break;
-		}
-	}
-
-	//Wy¶lij
-	this.run(1);
-};
-
-function lock(form, restore)
-{
-	var submits = form.elements('input');
-	for(var i=0; i<submits.length; ++i)
-	{
-		if(submits[i].type == 'submit')
-		{
-			submits[i].disabled = (restore === undefined)
-		}
-	}
-}
+/* Mened¿er plików */
 
 var FM = null;
 var FMWin = null;
@@ -85,25 +18,100 @@ function fileman(folder, input)
 	FM = input;
 }
 
-//Fragment formularza do powielania
+//
+// *** WY¦LIJ FORMULARZ ZA POMOC¡ AJAX ***
+//
+
+//Utwórz tymczasowy obiekt Request i wy¶lij formularz
+function send(o,id,opt)
+{
+	new Request(o.form.action, id, opt).sendForm(o);
+	return false;
+}
+
+//Wy¶lij formularz za pomoc± istniej±cego obiektu Request
+//Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
+Request.prototype.sendForm = function(o)
+{
+	var param = {}, el = o.form.elements, x;
+	for(var i=0; i<el.length; ++i)
+	{
+		x = el[i];
+		switch(x.type || '')
+		{
+			case 'radio':
+			case 'checkbox':
+				if(x.checked) this.add(x.name, x.value || 1); //Radio
+				break;
+			case 'text':
+			case 'textarea':
+			case 'hidden':
+			case 'password':
+				this.add(x.name, x.value); //Text field
+				break;
+			case 'select':
+			case 'select-one':
+			case 'select-multiple':
+				for(var y=0; y<x.options.length; ++y)
+				{
+					if(x.options[y].selected) this.add(x.name, x.options[y].value) //Select field
+				}
+				break;
+		}
+	}
+	if(o.name) this.add(o.name, o.value);
+	this.send();
+	o.disabled = 1;
+	return false;
+};
+
+//
+// *** Fragment formularza do powielania ***
+//
 function Fragment(box,opt)
 {
 	var box  = id(box);
 	var self = this;
+
+	//Element, w którym znajduj± siê fragmenty
 	this.box = box;
-	this.num = box.getElementsByTagName(opt.tag).length;
+
+	//Lista fragmentów
+	this.nodes = box.getElementsByTagName(opt.tag || 'div');
+	
+	//Aktualna ilo¶æ fragmentów
+	this.num = this.nodes.length;
+
+	//Maksymalna ilo¶æ fragmentów
 	this.limit = opt.limit || 30;
-	this.focus = opt.focus || 'input';
+
+	//Znacznik aktywowany po wykonaniu akcji
+	this.focus = opt.focus || 'input'; 
+
+	//Tryby: clean - czy¶ci pola po skopiowaniu fragmentu
 	this.mode = opt.mode || null;
 
-	//G³êboko¶æ przycisków wzglêdem powtarzanego elementu lub nazwa znacznika
-	if(opt.tag == undefined)
-		this.depth = opt.depth || 1;
-	else
-		this.tag = opt.tag;
-
-	//Zdefiniowano kod HTML do powielania?
+	//Kod HTML, który nale¿y wstawiæ po klikniêciu "Dodaj fragment"
 	if(opt.html != undefined) this.html = opt.html;
+
+	//Przesuwanie fragmentów za pomoc± klawiatury - CTRL + ...
+	box.onkeydown = function(e)
+	{
+		e = e || event;
+		var o = e.srcElement || e.target;
+		if(!e.ctrlKey) return true;
+
+		//Rodzicem przycisków jest element fragmentu
+		var node = o.parentNode;
+
+		switch(e.keyCode)
+		{
+			case 38: self.up(node); break;
+			case 40: self.down(node); break;
+			default: return true;
+		}
+		return false;
+	};
 
 	//Zdarzenie onclick dla obszaru powtarzanych elementów
 	box.onclick = function(e)
@@ -112,69 +120,97 @@ function Fragment(box,opt)
 		var o = e.srcElement || e.target;
 		if(!o.alt) return false;
 
-		//Znajd¼ najbli¿szy znacznik self.tag
+		//Rodzicem przycisków jest element fragmentu
 		var node = o.parentNode;
-		if(self.depth != undefined)
-		{
-			if(self.depth>1) while(++self.depth>1) { node = node.parentNode }
-		}
-		else
-		{
-			while(node.tagName != self.tag && node.parentNode) { node = node.parentNode }
-		}
 
 		//Wykryj, który przycisk wci¶niêto
 		switch(o.alt)
 		{
-			case '+':
-				if(self.num > self.limit) return false;
-				if(self.html)
-				{
-					var newNode = self.html.cloneNode(true); newNode.style.display = 'block'
-				}
-				else
-				{
-					var newNode = node.cloneNode(true);
-					if(self.mode == 'clean')
-					{
-						var list = newNode.getElementsByTagName('input');
-						for(var i=0; i<list.length; i++) list[i].value = '';
-					}
-				}
-				node.parentNode.insertBefore(newNode, node);
-				self.num++;
-
-				//Aktywuj pierwsze pole INPUT
-				var list = newNode.getElementsByTagName(this.focus);
-				if(list.length>0) list[0].focus();
-				
-			break;
-
-			case '-':
-				node.parentNode.removeChild(node);
-				self.num--;
-			break;
-
-			case '^': case 'UP':
-				if(node.previousSibling) node.parentNode.insertBefore(node, node.previousSibling);
-			break;
-
-			case 'v': case 'DOWN':
-				if(node.nextSibling) node.parentNode.insertBefore(node.nextSibling, node);
-			break;
+			case '+': self.copy(node); break;
+			case '-': self.del(node);  break;
+			case '^': case 'UP': self.up(node); break;
+			case 'v': case 'DOWN': self.down(node); break;
+			default: return true;
 		}
 		return false; //Nie wysy³aj formularza
 	};
 };
 
-//Nowy element
-Fragment.prototype.addItem = function()
-{
-	if(this.num > this.limit || this.html == undefined) return false;
-	with(this.box.appendChild(this.html.cloneNode(true)))
+Fragment.prototype = {
+
+	//Kopiuj fragment lub dodaj nowy
+	copy: function(node)
 	{
-		style.display = 'block';
-		var list = getElementsByTagName(this.focus); if(list.length>0) list[0].focus();
+		if(this.num > this.limit) return false;
+		if(this.html)
+		{
+			var newNode = this.html.cloneNode(true);
+			newNode.style.display = 'block'
+		}
+		else
+		{
+			var newNode = node.cloneNode(true);
+			if(this.mode == 'clean')
+			{
+				var list = newNode.getElementsByTagName('input');
+				for(var i=0; i<list.length; i++) list[i].value = '';
+			}
+		}
+		node.parentNode.insertBefore(newNode, node);
+		this.num++;
+
+		//Aktywuj pierwsze pole INPUT
+		this.act(newNode);
+	},
+
+	//Usuñ fragment i uaktywnij s±siada
+	del: function(node)
+	{
+		if(node.nextSibling)
+		{
+			this.act(node.nextSibling);
+		}
+		else if(node.previousSibling)
+		{
+			this.act(node.previousSibling);
+		}
+		node.parentNode.removeChild(node);
+		this.num--;
+	},
+
+	//Przesuñ w górê
+	up: function(node)
+	{
+		if(node.previousSibling)
+		{
+			node.parentNode.insertBefore(node, node.previousSibling);
+		}
+	},
+
+	//Przesuñ w dó³
+	down: function(node)
+	{
+		if(node.nextSibling)
+		{
+			node.parentNode.insertBefore(node.nextSibling, node);
+		}
+	},
+
+	//Nowy element
+	addItem: function()
+	{
+		if(this.num > this.limit || this.html == undefined) return false;
+		var o = this.box.appendChild(this.html.cloneNode(true));
+		o.style.display = 'block';
+		this.act(o);
+		this.num++;
+	},
+
+	//Uaktywnij pierwszy element we fragmencie
+	act: function(node)
+	{
+		var list = node.getElementsByTagName(this.focus);
+		if(list.length>0) list[0].focus();
 	}
-	this.num++;
+
 }

@@ -72,11 +72,8 @@ if($_POST)
 		RenderMenu();
 
 		#Lista
-		unset($q,$id);
-		$_POST = array();
-		$content->file = 'menu';
-		include './admin/menu.php';
-		return 1;
+		Header('Location: '.URL.'adm.php?a=menu');
+		$content->message($lang['saved'], '?a=menu');
 	}
 	catch(PDOException $e)
 	{

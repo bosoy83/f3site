@@ -7,7 +7,10 @@ if($_POST && $x = GetID(true))
 {
 	if(isset($_POST['del']))
 	{
+		$db->beginTransaction();
 		$db->exec('DELETE FROM '.PRE.'pages WHERE ID IN('.$x.')');
+		$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE=59 AND CID IN('.$x.')');
+		$db->commit();
 	}
 }
 

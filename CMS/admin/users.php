@@ -3,10 +3,19 @@ if(iCMSa!=1 || !Admit('U')) exit;
 require LANG_DIR.'adm_o.php';
 require LANG_DIR.'profile.php';
 
-#Usuñ
+#Usuñ + 2 triggers
 if(isset($_POST['del']) && !isset($_POST['x'][1]) && $x = GetID(true))
 {
-	$db->exec('DELETE FROM '.PRE.'users WHERE ID IN ('.$x.')'.(UID!=1 ? ' AND lv<'.LEVEL : ''));
+	$db->beginTransaction();
+	$res = $db->query('SELECT ID FROM '.PRE.'users WHERE ID IN('.$x.')'.(UID!=1 ? ' AND lv<'.LEVEL : ''));
+	if($all = join(',', $res->fetchAll(7))) //FETCH_COLUMN
+	{
+		$db->exec('DELETE FROM '.PRE.'users WHERE ID IN ('.$all.')');
+		$db->exec('DELETE FROM '.PRE.'pollvotes WHERE user IN ('.$all.')');
+		$db->exec('DELETE FROM '.PRE.'comms WHERE (guest!=1 AND author IN('.$all.'))
+		OR (type=10 AND CID IN('.$all.'))');
+		$db->commit();
+	}
 }
 
 #Strona
