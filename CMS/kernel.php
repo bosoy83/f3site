@@ -428,7 +428,7 @@ function Clean($val,$max=0,$wr=0)
 		include_once './cfg/words.php';
 		$val = str_replace($words1,$words2,$val); //Zamiana słów
 	}
-	return trim(htmlspecialchars($val));
+	return trim(htmlspecialchars($val, 2, 'UTF-8'));
 }
 
 #Licz w bazie

@@ -102,15 +102,15 @@ class Compiler
 		#Do zamiany
 		$in = array(
 			'/\{BANNER ([0-9]+)\}/',
-			'/\{this\.([A-Za-z0-9:_ ]*)\}/', //Obiekt $this
-			'/\{([A-Za-z0-9_]*)\.([0-9]*)\}/', //Tablice numeryczne
-			'/\{([A-Za-z0-9_]*)\.([A-Za-z0-9:_ ]*)\}/', //Tablice
-			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]*)\.([A-Za-z0-9:_ ]*)\}/',
-			'/\{([A-Za-z0-9_]*)\-\>([A-Za-z0-9_]*)\}/', //Obiekty
-			'/\{([A-Z0-9_]*)\}/', //Sta³e
-			'/\{([A-Za-z0-9_]*)\}/',
-			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]*)\}/',
-			'/<!-- INCLUDE ([A-Za-z0-9_.]*) -->/');
+			'/\{this\.([A-Za-z0-9:_ ]+)\}/', //Obiekt $this
+			'/\{([A-Za-z0-9_]+)\.([0-9]+)\}/', //Tablice numeryczne
+			'/\{([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/', //Tablice
+			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/',
+			'/\{([A-Za-z0-9_]+)\-\>([A-Za-z0-9_]+)\}/', //Obiekty
+			'/\{([A-Z0-9_]+)\}/', //Sta³e
+			'/\{([A-Za-z0-9_]+)\}/',
+			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]+)\}/',
+			'/<!-- INCLUDE ([A-Za-z0-9_.]+) -->/');
 
 		$out = array(
 			'<?=Banner(\\1);?>',
@@ -221,9 +221,9 @@ class Compiler
 		#Zmienne i IF
 		$frag = preg_replace(
 			array(
-				'/\{([A-Za-z0-9_]*)\}/',
-				'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]*)\}/',
-				'/\<!-- IF ([A-Za-z0-9_])(.*) --\>/'),
+				'/\{([A-Za-z0-9_]+)\}/',
+				'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]+)\}/',
+				'/\<!-- IF ([A-Za-z0-9_])(.+) --\>/'),
 			array(
 				'<?=$i'.$lv.'[\'\\1\'];?>',
 				'<?=\\1($i'.$lv.'[\'\\2\']);?>',

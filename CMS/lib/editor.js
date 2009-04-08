@@ -97,10 +97,10 @@ Editor.prototype.format = function(i)
 				hint(eColors, cx-90, cy, 1);
 				break;
 			case 14:
-				this.ins('link');
+				this.link();
 				break;
 			case 15:
-				this.ins('mail');
+				this.mail();
 				break;
 			case 16:
 				var a = prompt(lang.img);
@@ -126,19 +126,19 @@ Editor.prototype.create = function()
 		if(i > 5)
 		{
 			var b = document.createElement('img');
-			b.src = 'img/editor/'+button[i]+'.png';
+			b.src = 'img/editor/'+button[i]+'.png'
 		}
 		else
 		{
 			var b = document.createElement('span');
 			b.innerHTML = button[i];
-			b.style.verticalAlign = 'middle';
+			b.style.verticalAlign = 'middle'
 		}
 		b.item = i;
 		b.title = tips[i];
 		b.width = 16;
 		b.onclick = function() { that.format(this.item); };
-		out.appendChild(b);
+		out.appendChild(b)
 	}
 	this.o.parentNode.insertBefore(out,this.o);
 
@@ -157,9 +157,9 @@ Editor.prototype.create = function()
 				case 87: that.format(14); break; //W
 				case 72: if(!that.bbcode) BBC(this, '<h3>', '</h3>'); break; //H
 				case 80: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
-				default: return true;
+				default: return true
 			}
-			return false;
+			return false
 		}
 	};
 };
@@ -181,7 +181,7 @@ Editor.prototype.emots = function(x)
 		{
 			this.emo.style.display = 'block'
 		}
-		return;
+		return
 	}
 	else if(x && x==0) return;
 
@@ -199,7 +199,7 @@ Editor.prototype.emots = function(x)
 		img.width = 16;
 		img.title = emots[i][0];
 		img.onclick = function() { BBC(that, '', '', this.alt); };
-		out.appendChild(img);
+		out.appendChild(img)
 	}
 	this.emo = this.o.parentNode.insertBefore(out, this.o.nextSibling)
 };
@@ -261,11 +261,11 @@ Editor.prototype.make = function(buildChars)
 			{
 				if(eCurBBC)
 				{
-					BBC(eO, '[color='+this.item+']', '[/color]');
+					BBC(eO, '[color='+this.item+']', '[/color]')
 				}
 				else
 				{
-					BBC(eO, '<span style="color: '+this.item+'">', '</span>');
+					BBC(eO, '<span style="color: '+this.item+'">', '</span>')
 				}
 			};
 			tr.appendChild(td);
@@ -273,42 +273,60 @@ Editor.prototype.make = function(buildChars)
 			if(y==8 || z==ile) { tb.appendChild(tr); y=1 } else { ++y; } ++z
 		}
 		eCurBBC = this.bbcode;
-		eColors = out;
+		eColors = out
 	}
 	t.appendChild(tb);
 	out.appendChild(t);
-	document.body.appendChild(out);
+	document.body.appendChild(out)
 };
 
-Editor.prototype.ins = function(co)
+Editor.prototype.link = function()
 {
-	if(co == 'link')
+	var url = prompt(lang.adr, 'http://');
+	if(url && url != 'http://')
 	{
-		var a = prompt(lang.adr, 'http://');
-		if(a && a != 'http://')
+		if(this.o.selectionStart != this.o.selectionEnd)
 		{
-			var b = prompt(lang.adr2);
-			if(b)
-			{
-				if(this.bbcode) BBC(this.o, '[url='+a+']'+b, '[/url]');
-				else BBC(this.o, '<a href="'+a+'">'+b, '</a>')
-			}
-			else
-			{
-				if(this.bbcode) BBC(this.o, '[url]'+a, '[/url]');
-				else BBC(this.o, '<a href="'+a+'">'+a, '</a>')
-			}
+			var title = ''
 		}
+		else
+		{
+			var input = prompt(lang.adr2), title = input ? input : url
+		}
+		if(this.bbcode)
+		{
+			BBC(this.o, (title == url) ? '[url]' : '[url='+url+']', '[/url]', title)
+		}
+		else
+		{
+			BBC(this.o, '<a href="'+url+'">', '</a>', title)
+		}
+	}
+	else this.o.focus()
+};
+
+Editor.prototype.mail = function()
+{
+	if(this.o.selectionStart != this.o.selectionEnd)
+	{
+		var input = undefined
 	}
 	else
 	{
-		var a = prompt(lang.mail);
-		if(a)
+		var input = prompt(lang.mail)
+	}
+	if(input != '')
+	{
+		if(this.bbcode)
 		{
-			if(this.bbcode) BBC(this.o, '[mail]'+a, '[/mail]');
-			else BBC(this.o, '<a href="mailto:'+a+'">'+a, '</a>')
+			BBC(this.o, '[mail]', '[/mail]', input)
+		}
+		else
+		{
+			BBC(this.o, '<a href="mailto:'+input+'">', '</a>', input)
 		}
 	}
+	else this.o.focus()
 };
 
 //Podgląd
@@ -328,7 +346,7 @@ Editor.prototype.preview = function(opt,where,text)
 		{
 			this.box = document.createElement('div');
 			this.box.className = 'box';
-			this.o.form.parentNode.insertBefore(this.box, this.o.form);
+			this.o.form.parentNode.insertBefore(this.box, this.o.form)
 		}
 	}
 
@@ -343,7 +361,7 @@ Editor.prototype.preview = function(opt,where,text)
 	{
 		text = text.replace(/&/g, '&amp;');
 		text = text.replace(/</g, '&lt;');
-		text = text.replace(/>/g, '&gt;');
+		text = text.replace(/>/g, '&gt;')
 	}
 
 	//Emotikony
