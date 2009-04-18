@@ -44,12 +44,12 @@ tagNum = 17, //Liczba wszystkich tagów - także spoza tablicy `tags`
 
 //Symbole: BBCode, HTML, po środku / po lewej, po prawej
 symbol = [
-	'°', '§', '¤', '÷', '×', 'ß',
+	'°', '§', '¤', '÷', '×', '&frac12;',
 	'Ä', 'Ö', 'Ü', 'ä', 'ö', 'ü',
 	'®', '©', '™', '•', '&lt;', '&gt;',
-	'&frac12;', '»', '&lArr;', '&rArr;', 'µ', '§',
+	'«', '»', '&lArr;', '&rArr;', '·', 'µ',
 	'&#945;', '&#946;', '&#947;', '&#949;', '&#916;', '&#937;',
-	'€', '&hearts;', '‰', '&#9835;', '·',
+	'€', '&hearts;', '‰', '&#9835;', '†',
 ],
 
 //Kolory
@@ -146,7 +146,7 @@ Editor.prototype.create = function()
 	this.o.onkeydown = function(e)
 	{
 		if(e == undefined) e = event;
-		if(e.ctrlKey)
+		if(e.ctrlKey && !e.altKey)
 		{
 			switch(e.keyCode)
 			{
@@ -154,7 +154,7 @@ Editor.prototype.create = function()
 				case 73: that.format(1); break; //I
 				case 85: that.format(2); break; //U
 				case 81: that.format(10); break; //Q
-				case 87: that.format(14); break; //W
+				case 76: that.format(14); break; //L
 				case 72: if(!that.bbcode) BBC(this, '<h3>', '</h3>'); break; //H
 				case 80: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
 				default: return true

@@ -22,7 +22,7 @@ function Latest($lang=array())
 	include './cfg/latest.php';
 	if(!isset($cfg['newOn']) OR !isset($cfg['newTypes'])) return;
 
-	#Jêzyki
+	#JÄ™zyki
 	if($lang)
 	{
 		$lang = array($lang);
@@ -38,7 +38,7 @@ function Latest($lang=array())
 	#Typy kategorii
 	$data = parse_ini_file('./cfg/types.ini',1);
 	
-	#Dla ka¿dego jêzyka
+	#Dla kaÅ¼dego jÄ™zyka
 	foreach($lang as $l)
 	{
 		$out = '';
@@ -56,10 +56,9 @@ function Latest($lang=array())
 
 			foreach($res as $x)
 			{
-				$got .= '<li><a href="'.$url.$x[0].'" title="'.$x[2].'">'.
-				(isset($x[1][18]) ? substr($x[1],0,16).'...' : $x[1]).'</a></li>';
+				$got .= '<li><a href="'.$url.$x[0].'" title="'.$x[2].'">'.$x[1].'</a></li>';
 			}
-			if($got) $out .= '<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul>'.$got.'</ul>';
+			if($got) $out .= '<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul class="latest">'.$got.'</ul>';
 		}
 		if($out) file_put_contents('./cache/new-'.$l.'.php', $out, 2);
 	}
@@ -70,7 +69,7 @@ function UpdateCatPath($cat)
 {
 	global $db;
 
-	#Pobierz kategoriê?
+	#Pobierz kategoriÄ™?
 	if(is_numeric($cat))
 	{
 		$cat = $db->query('SELECT ID,name,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$cat)->fetch(2);
@@ -96,7 +95,7 @@ function UpdateCatPath($cat)
 	return $out;
 }
 
-#Zmieñ iloœæ pozycji
+#ZmieÅ„ iloÅ›Ä‡ pozycji
 function SetItems($id,$ile)
 {
 	global $db;
@@ -105,7 +104,7 @@ function SetItems($id,$ile)
 	$ile = (int)$ile;
 	$ile = ($ile>0) ? '+'.$ile : '-'.$ile;
 
-	#Pobierz LFT i RGT i zmieñ iloœæ ca³kowit¹ w aktualnym katalogu i wy¿szych
+	#Pobierz LFT i RGT i zmieÅ„ iloÅ›Ä‡ caÅ‚kowitÄ… w aktualnym katalogu i wyÅ¼szych
 	$res = $db->query('SELECT sc,lft,rgt FROM '.PRE.'cats WHERE access!=2 AND access!=3 AND ID='.$id);
 	if(!$cat = $res->fetch(3)) return;
 
@@ -158,7 +157,7 @@ function Slaves($type=0,$id=0,$o=null)
 	return $o;
 }
 
-#Przelicz zawartoœæ w kat.
+#Przelicz zawartoÅ›Ä‡ w kat.
 function CountItems()
 {
 	#Odczyt
@@ -177,7 +176,7 @@ function CountItems()
 		}
 		for($i=0;$i<$ile;$i++)
 		{
-			#Je¿eli dostêpna
+			#JeÅ¼eli dostÄ™pna
 			if($cat[$i][2]!=2 && $cat[$i][2]!=3)
 			{
 				$x=$cat[$i][3]; #Nadkat.

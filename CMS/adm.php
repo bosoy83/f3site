@@ -75,7 +75,7 @@ if(isset($_SESSION['admmenu']))
 }
 else
 {
-	$menu='<div class="adm"><ul>'.
+	$menu = '<div class="adm"><ul>'.
 
 	MI($lang['cats'],'cats','C','cat').
 	MI($lang['polls'],'polls','f3s','poll').
@@ -125,4 +125,4 @@ if(!$content->file) $content->file = $A;
 if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
 #Skórka - admin
-require $content->path('admin');
+require $content->path('admin', 1);

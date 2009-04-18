@@ -250,7 +250,7 @@ class Compiler
 
 		if($array OR strpos($form, 'f3:var'))
 		{
-			if($array) $form = str_replace(' '.$array[0], '', $form);
+			if($array) $form = str_replace(array(' '.$array[0], ' f3:mode="isset"'), '', $form);
 			preg_match_all('#<input.*?type="(checkbox|radio)".*?>#i', $form, $inputs);
 
 			#Pobierz atrybuty i z³ó¿ tagi
@@ -312,8 +312,9 @@ class Compiler
 					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\1</option>'
 				), $tag[3]) . '</select>';
 			}
+			$this->data = substr_replace($this->data, str_replace($in, $out, $form), $pos, $end);
 		}
-		$this->data = substr_replace($this->data, str_replace($in, $out, $form), $pos, $end);
+		if(($pos = strpos($this->data, '<form', $pos+7)) !== false) $this->forms($pos);
 	}
 
 	#F: Instrukcje warunkowe

@@ -304,7 +304,7 @@ Dialog.prototype.show = function()
 		this.o.style.top = (document.documentElement.clientHeight - this.o.clientHeight) / 2 + 'px';
 	}
 	curDialog = this;
-}
+};
 Dialog.prototype.hide = function()
 {
 	if(this.o.parentNode)
@@ -312,7 +312,7 @@ Dialog.prototype.hide = function()
 		document.body.removeChild(this.bg);
 		document.body.removeChild(this.o);
 	}
-}
+};
 Dialog.prototype.load = function(url, post)
 {
 	new Request(url, this.body, {scripts:1}).send(post);

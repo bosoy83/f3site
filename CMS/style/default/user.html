@@ -74,8 +74,9 @@
 	<td><b>Skype:</b></td>
 	<td>
 		<!-- Skype My status button http://www.skype.com/go/skypebuttons -->
-		<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
-		<img src="http://mystatus.skype.com/smallclassic/{u.skype}" style="cursor: pointer" onclick="if(confirm('{lang.callq}{u.skype}?')) location='skype:{u.skype}?call'" alt="My status" />
+		<a href="skype:{u.skype}?call" onclick="return confirm('{lang.callq}{u.skype}?')">
+			<img src="http://mystatus.skype.com/smallclassic/{u.skype}" alt="My status" />
+		</a>
 	</td>
 </tr>
 <!-- END -->

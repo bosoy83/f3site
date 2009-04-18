@@ -134,7 +134,7 @@ function Fragment(box,opt)
 		}
 		return false; //Nie wysy³aj formularza
 	};
-};
+}
 
 Fragment.prototype = {
 

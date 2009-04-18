@@ -50,11 +50,35 @@ Extensions & skins
 You can add new features with extensions. Before you install any add-on, make sure whether it comes from trusted source because it may damage your site or steal confidential data.
 
 
+Security
+========
+
+1. Create a COPY OF DATABASE at least once a month.
+2. Set 444 privilege to cfg/db.php (read only) after installation.
+3. KEEP YOUR PASSWORD STRICTLY PRIVATE! IF YOU GO ONLINE ON PUBLIC COMPUTERS, ALWAYS LOG OFF AFTER YOU HAVE FINISHED YOUR WORK!
+
+
 Notices
 =======
 
-1. At intervals create SECURITY COPY OF DATABASE.
-2. To stop masking your URL by domain, redirect it to domain.php file.
+1. To stop masking your URL by domain, redirect to domain.php file.
 3. Skins are compiled as PHP code into CACHE directory, where F3Site loads them from. 
-4. To increase SECURITY, set 444 privilege to cfg/db.php (read only) after installation.
-5. You can get into admin panel by typing ADMIN directory manually in web browser. To login if you hide `Your account` block, go to login.php.
+5. 
+
+
+Admin panel
+===========
+
+After you have logged in, a link to admin panel should appear. Only you and privileged users may see it. You can also access AP typing the path manually into ADMIN directory or adm.php.
+
+
+Content management
+==================
+
+Only users who have Editor, Admin or Owner privilege may edit content. After you have logged in, a link "Manage content" should appear. To add new item in category view, select: Options -> Add item (only if displaying category hierarchy is enabled).
+
+
+Known issues
+============
+
+If your website is NOT displayed or a server error occurs, modify or delete .htaccess file from main and CFG directory. Read your hosting documentation in order to find out more information. However, .htaccess file adds some important security options. Figure out whether they are enabled on the server by default. If not, maybe you may apply them in another way.

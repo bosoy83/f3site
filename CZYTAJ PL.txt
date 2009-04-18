@@ -50,11 +50,34 @@ Rozszerzenia i skórki
 Mo¿esz zwiêkszyæ mo¿liwoœci systemu za pomoc¹ rozszerzeñ. Przed instalacj¹ jakiegokolwiek dodatku upewnij siê, ¿e pochodzi z zaufanego Ÿród³a, gdy¿ mo¿e on uszkodziæ Twój wortal lub wykraœæ poufne dane!
 
 
+Bezpieczeñstwo
+==============
+
+1. Co pewien czas utwórz KOPIÊ BAZY DANYCH.
+2. Po instalacji nadaj plikowi cfg/db.php prawa 444 (tylko odczyt).
+3. NIKOMU NIE PODAWAJ SWOJEGO HAS£A! JE¯ELI KORZYSTASZ Z INTERNETU W MIEJSCACH PUBLICZNYCH, ZAWSZE WYLOGUJ SIÊ PO ODEJŒCIU OD KOMPUTERA!
+
+
 Uwagi
 =====
 
-1. Co pewien czas utwórz KOPIÊ BAZY DANYCH.
-2. Skórki s¹ kompilowane do kodu PHP do folderu CACHE, sk¹d system je wczytuje.
-3. Aby zlikwidowaæ maskowanie adresu przez domenê, przekieruj j¹ do pliku domain.php.
-4. Aby zwiêkszyæ BEZPIECZEÑSTWO, po instalacji nadaj plikowi cfg/db.php prawa 444 (tylko odczyt).
-5. Do panelu administracyjnego mo¿esz dostaæ siê, wpisuj¹c rêcznie œcie¿kê do katalogu ADMIN. Aby zalogowaæ siê, gdy blok `Konto u¿ytkownika` jest ukryty, przejdŸ do pliku login.php.
+1. Skórki s¹ kompilowane do kodu PHP do folderu CACHE, sk¹d system je wczytuje.
+2. Aby zlikwidowaæ maskowanie adresu przez domenê, przekieruj j¹ do pliku domain.php.
+
+
+Panel administracyjny
+=====================
+
+Po zalogowaniu jest dostêpny odnoœnik do PA. Widzisz go tylko Ty oraz uprawnieni u¿ytkownicy. Do PA mo¿esz te¿ dostaæ siê, wpisuj¹c rêcznie œcie¿kê do katalogu ADMIN lub pliku adm.php.
+
+
+Edycja treœci
+=============
+
+Tylko u¿ytkownicy z rang¹ Redaktor, Administrator lub W³aœciciel mog¹ edytowaæ zawartoœæ. Po zalogowaniu jest dostêpny odnoœnik "Zarz¹dzaj treœci¹". Aby w widoku kategorii dodaæ now¹ pozycjê, wybierz: Opcje -> Dodaj pozycjê (tylko wtedy, gdy wyœwietlanie struktury kategorii jest w³¹czone).
+
+
+Znane problemy
+==============
+
+Je¿eli strona nie wyœwietli siê lub wyst¹pi b³¹d serwera, zmodyfikuj lub usuñ plik .htaccess z katalogu g³ównego oraz CFG. Przeczytaj dokumentacjê Twojego hostingu, aby uzyskaæ wiêcej informacji. Plik .htaccess ustawia opcje, które zwiêkszaj¹ bezpieczeñstwo! SprawdŸ, czy s¹ one domyœlnie w³¹czone na serwerze. Jeœli nie, byæ mo¿e istnieje inny sposób, aby je zastosowaæ.

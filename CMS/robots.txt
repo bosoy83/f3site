@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /cfg/
 Disallow: /admin/
 Disallow: /install/
-Disallow: /db/
+Disallow: /cache/
