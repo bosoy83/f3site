@@ -65,7 +65,7 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 		}
 		catch(Exception $e)
 		{
-			$content->info($e); return 1;
+			$content->info($e->getMessage()); return 1;
 		}
 	}
 	else

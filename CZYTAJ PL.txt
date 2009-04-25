@@ -54,8 +54,12 @@ Bezpieczeñstwo
 ==============
 
 1. Co pewien czas utwórz KOPIÊ BAZY DANYCH.
+
 2. Po instalacji nadaj plikowi cfg/db.php prawa 444 (tylko odczyt).
+
 3. NIKOMU NIE PODAWAJ SWOJEGO HAS£A! JE¯ELI KORZYSTASZ Z INTERNETU W MIEJSCACH PUBLICZNYCH, ZAWSZE WYLOGUJ SIÊ PO ODEJŒCIU OD KOMPUTERA!
+
+4. Chroñ swój komputer programem antywirusowym z AKTUALN¥ BAZ¥ WIRUSÓW! Po sieci kr¹¿y koñ trojañski, który kradnie has³a z programów do obs³ugi FTP, a nastêpnie dodaje ukryte ramki <iframe> prowadz¹ce do niebezpiecznych witryn i skrypty JavaScript do plików stron na serwerze! Je¿eli zobaczysz jakiekolwiek objawy wskazuj¹ce na dzia³alnoœæ trojana (np. nowe znaczniki w Ÿródle strony), koniecznie zmieñ has³a do serwerów FTP, przeskanuj komputer i za³aduj ponownie czyste pliki.
 
 
 Uwagi

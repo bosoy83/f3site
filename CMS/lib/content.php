@@ -111,7 +111,14 @@ class Content
 				include_once './lib/compiler.php';
 				$compiler = new Compiler;
 			}
-			$compiler -> compile($file, $path, $cache);
+			try
+			{
+				$compiler->compile($file, $path, $cache);
+			}
+			catch(Exception $e)
+			{
+				exit($e->getMessage());
+			}
 		}
 
 		return $cache . $file . '.html';

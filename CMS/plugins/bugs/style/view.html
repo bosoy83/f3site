@@ -1,0 +1,80 @@
+<div class="hint menulist" id="chst">
+	<div class="title">{lang.status}:</div>
+	<ul>
+		<li onclick="St(1)">{lang.S1}</li>
+		<li onclick="St(2)">{lang.S2}</li>
+		<li onclick="St(3)">{lang.S3}</li>
+		<li onclick="St(4)">{lang.S4}</li>
+		<li onclick="St(5)">{lang.S5}</li>
+	</ul>
+</div>
+
+<div class="cs">
+
+	<!-- IF edit -->
+	<div style="float: right"><a class="edit" href="?co=edit">{lang.edit}</a></div>
+	<!-- END -->
+
+	<a href="?co=bugs">{lang.TOC}</a> &raquo;
+	<a href="?co=bugs&amp;act=l&amp;id={bug.cat}">{bug.catName}</a>
+</div>
+
+<h2>{bug.name}</h2>
+<table cellspacing="1" class="tb">
+<tr>
+	<th style="width: 25%" align="right">{lang.added}:</th>
+	<td>{bug.date}</td>
+</tr>
+<tr>
+	<th align="right">{lang.wrote}:</th>
+	<td>{bug.who}</td>
+</tr>
+<tr>
+	<th align="right">{lang.status}:</th>
+	<td><span id="st">{bug.status}</span>
+
+		<!-- IF editStatus -->
+		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',cx-10,cy+7,1)" style="cursor: pointer" />
+		<!-- END -->
+
+	</td>
+</tr>
+<tr>
+	<th align="right">{lang.level}:</th>
+	<td>{bug.level}</td>
+</tr>
+
+<!-- IF hands -->
+<tr>
+	<th align="right">{lang.rate}:</th>
+	<td id="hands">
+		<span onclick="RateBug(1)"><img src="plugins/bugs/thup.png" alt="YES" /> {bug.pos}</span>
+		<span onclick="RateBug(2)"><img src="plugins/bugs/thd.png" alt="NO" /> {bug.neg}</span>
+	</td>
+</tr>
+<!-- END -->
+
+<!-- IF stars -->
+<tr>
+	<th align="right">{lang.rate}:</th>
+	<td>
+		<form action="?co=bugs&act=r" method="post" class="rate avg{bug.mark} by">
+			<input type="submit" name="v" value="1" class="r1" />
+			<input type="submit" name="v" value="2" class="r2" />
+			<input type="submit" name="v" value="3" class="r3" />
+			<input type="submit" name="v" value="4" class="r4" />
+			<input type="submit" name="v" value="5" class="r5" />
+		</form>
+		{lang.rates}: {bug.marks}
+	</td>
+</tr>
+<!-- END -->
+
+<tr>
+	<th align="right">{lang.bugsEnv}:</th>
+	<td>{bug.env}</td>
+</tr>
+<tr>
+	<td colspan="2" class="txt">{bug.text}</td>
+</tr>
+</table>

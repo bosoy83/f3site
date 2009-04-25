@@ -9,6 +9,7 @@ class Compiler
 		$removePHP, //Ustaw na TRUE, aby usuwaæ kod PHP z szablonów
 		$src = SKIN_DIR,
 		$cache = VIEW_DIR,
+		$file,
 		$debug,
 		$byteCode;
 
@@ -17,7 +18,7 @@ class Compiler
 	{
 		if(!$f = opendir($this->src))
 		{
-			throw new Exception('Cannot open scheme directory.');
+			throw new Exception('ERROR: Cannot open scheme directory.');
 		}
 		while(false !== ($x = readdir($f)))
 		{
@@ -44,7 +45,11 @@ class Compiler
 		#Katalog cache nie istnieje?
 		if(!file_exists($cache))
 		{
-			if(!@mkdir($cache)) throw new Exception('Cannot create cache directory!');
+			if(!@mkdir($cache, 0777, 1))
+			{
+				$dir = substr($cache, strpos($cache, '/', 3) + 1, -1);
+				throw new Exception(sprintf('ERROR: Cannot create cache directory for %s templates!', $dir));
+			}
 			$this->examine();
 		}
 
@@ -62,8 +67,11 @@ class Compiler
 		}
 		else
 		{
-			throw new Exception('Template '.$file.' does not exist.');
+			throw new Exception('ERROR: Template '.$file.' does not exist.');
 		}
+
+		#Nazwa pliku
+		$this->file = $file;
 
 		#Wyrzuæ PHP (code stolen from PhpBB 3 - GPL v2 forum)
 		if($this->removePHP)
@@ -136,7 +144,7 @@ class Compiler
 		$this->data = str_replace('<!-- ELSE -->', '<?php }else{?>', $this->data, $c3);
 
 		#Tyle samo IF, END i ELSE?
-		if($c1 != $c2 OR $c3 > $c1) { throw new Exception('IF condition is not closed.'); }
+		if($c1 != $c2 OR $c3 > $c1) { throw new Exception('IF condition is not closed in '.$this->file); }
 
 		#Optymalizacja otwaræ PHP
 		$this->data = str_replace( array('?><?php', '?><?=', "?>\n<?php"), array('','echo ',''), $this->data);
@@ -197,7 +205,7 @@ class Compiler
 		#Poprawno¶æ zmiennej
 		if(!ctype_alpha($var[0]) || !ctype_alnum($var))
 		{
-			throw new Exception('Wrong variable name in START '.$lv.' definition!');
+			throw new Exception(sprintf('Wrong variable name in START command in %s!', $this->file));
 		}
 
 		#Klucz?
@@ -286,7 +294,7 @@ class Compiler
 				$in[] = $tag;
 			}
 
-			#Select
+			#Select - PREG_SET_ORDER
 			preg_match_all('#<select name="([A-Za-z0-9].*?)"(.*?)>(.*?)</select>#si', $form, $inputs, 2);
 			foreach($inputs as &$tag)
 			{
@@ -303,9 +311,9 @@ class Compiler
 
 				$in[]  = $tag[0];
 				$out[] = '<select name="'.$tag[1].'"'. $tag[2] .'>' . preg_replace( array(
-					'#<option value="([0-9].*?)">(.*?)</option>#si',
-					'#<option value="(.*?)">(.*?)</option>#si',
-					'#<option>(.*?)</option>#si'
+					'#<option value="([0-9].*?)">(.*?)</option>#i',
+					'#<option value="([^{}].*?)">(.*?)</option>#i',
+					'#<option>([^{}].*?)</option>#i'
 				), array(
 					'<option value="\\1"<?php if('.$var.'==\\1) echo \' selected="selected"\'?>>\\2</option>',
 					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\2</option>',

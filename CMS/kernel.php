@@ -208,6 +208,7 @@ else
 	define('LOGD',0);
 	define('UID',0);
 	define('LEVEL',0);
+	define('GID',0);
 }
 
 #Dzisiaj

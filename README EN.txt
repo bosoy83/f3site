@@ -54,16 +54,19 @@ Security
 ========
 
 1. Create a COPY OF DATABASE at least once a month.
+
 2. Set 444 privilege to cfg/db.php (read only) after installation.
+
 3. KEEP YOUR PASSWORD STRICTLY PRIVATE! IF YOU GO ONLINE ON PUBLIC COMPUTERS, ALWAYS LOG OFF AFTER YOU HAVE FINISHED YOUR WORK!
+
+4. Protect your computer with a good ANTIVIRUS SOFTWARE. A dangerous trojan horse is active in the Internet which steals passwords from FTP clients and injects hidden <iframe>s leading to unsafe websites and JavaScript code into your files on the server! If you notice ANY symptom of such activity, CHANGE your passwords to all FTP servers, scan your computer and upload again clean files.
 
 
 Notices
 =======
 
 1. To stop masking your URL by domain, redirect to domain.php file.
-3. Skins are compiled as PHP code into CACHE directory, where F3Site loads them from. 
-5. 
+2. Skins are compiled as PHP code into CACHE directory, where F3Site loads them from. 
 
 
 Admin panel

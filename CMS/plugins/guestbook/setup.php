@@ -7,7 +7,11 @@ function Install()
 	{
 		if(!copy('./plugins/guestbook/cfg.php', './cfg/gb.php'))
 		{
-			throw new Exception('Cannot create configuration file! CHMOD <b>cfg</b> directory to 777!');
+			throw new Exception('Cannot create configuration file! CHMOD <b>cfg</b> catalog to 777!');
+		}
+		if(!mkdir('./cache/bugs'))
+		{
+			throw new Exception('ERROR: You must CHMOD <b>cache</b> catalog to 777!');
 		}
 	}
 
@@ -26,7 +30,7 @@ function Install()
 		mail varchar(70) NOT NULL DEFAULT "",
 		www  varchar(70) NOT NULL DEFAULT "",
 		ip   varchar(50) NOT NULL DEFAULT "",
-		txt  mediumtext)');
+		txt  text)');
 
 	$q = $db->prepare('INSERT INTO '.PRE.'confmenu (ID,name,lang,img) VALUES (?,?,?,?)');
 	$q -> execute(array('guestbook', 'Guestbook', 'en', 'img/admin/c1.png'));

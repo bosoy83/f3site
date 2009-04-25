@@ -209,8 +209,11 @@ Fragment.prototype = {
 	//Uaktywnij pierwszy element we fragmencie
 	act: function(node)
 	{
-		var list = node.getElementsByTagName(this.focus);
-		if(list.length>0) list[0].focus();
+		if(node.nodeType == 1)
+		{
+			var list = node.getElementsByTagName(this.focus);
+			if(list.length>0) list[0].focus();
+		}
 	}
 
 }

@@ -1,0 +1,56 @@
+<form method="post" action="" id="bug" f3:array="bug">
+<h2>{this.title}</h2>
+<table cellspacing="1" class="tb">
+
+<!-- IF code -->
+<tr>
+	<td><b>{lang.code}:</b><br /><small>{lang.imgcode}</small></td>
+	<td>
+		<img src="code.php" alt="CODE" style="margin-bottom: 5px; border: 1px solid gray" /><br />
+		<input name="code" />
+	</td>
+</tr>
+<!-- END -->
+
+<!-- IF who -->
+<tr>
+	<td>{lang.author}:</td>
+	<td><input name="who" maxlength="20" value="{bug.who}" /></td>
+</tr>
+<!-- END -->
+
+<tr>
+	<td>{lang.title}:</td>
+	<td><input name="name" maxlength="30" size="30" value="{bug.name}" /></td>
+</tr>
+<tr>
+	<td>{lang.bugsEnv}:<br /><small>{lang.optional}</small></td>
+	<td><input name="env" maxlength="100" size="50" value="{bug.env}" /></td>
+</tr>
+<tr>
+	<td>{lang.level}:</td>
+	<td><select name="level" style="font-weight: bold">
+		<option style="color: red" value="1">{lang.L1}</option>
+		<option style="color: #c4ab00" value="2">{lang.L2}</option>
+		<option style="color: #8aa61e" value="3">{lang.L3}</option>
+		<option style="color: #21a393" value="4">{lang.L4}</option>
+	</select></td>
+</tr>
+<tr>
+	<th colspan="2">{lang.text}</th>
+</tr>
+<tr>
+	<td align="center" colspan="2">
+		<textarea name="text" rows="18" cols="50" style="width: 99%">{bug.text}</textarea>
+	</td>
+</tr>
+<tr>
+	<td class="eth" colspan="2"><input type="submit" value="{lang.save}" /></td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+var e,f = document.forms['bug'];
+f[0].focus()
+<!-- IF bbcode -->e = new Editor(f.text,1); e.emots()<!-- END -->
+</script>

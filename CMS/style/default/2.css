@@ -267,13 +267,13 @@ a.edit {
 	background-color: white;
 	position: absolute;
 	visibility: hidden;
-	margin: 0;
+	margin: 0
 }
 .hint .win {
 	padding: 8px;
 	overflow: auto;
 }
-.menulist {
+.hint ul, ul.hint {
 	margin: 0;
 	padding: 0;
 	list-style-type: none
