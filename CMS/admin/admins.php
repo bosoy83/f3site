@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('AD')) exit;
+if(iCMSa!=1 || !Admit('U')) exit;
 require LANG_DIR.'rights.php';
 
 #Odczyt

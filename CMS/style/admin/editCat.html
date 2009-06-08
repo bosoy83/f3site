@@ -4,15 +4,23 @@
 <table cellspacing="1" class="tb">
 <tbody>
 <tr>
-	<td style="width: 30%"><b>1. {lang.name}:</b></td>
+	<td style="width: 200px"><b>{lang.title}:</b></td>
 	<td><input name="name" value="{cat.name}" maxlength="50" size="50" /></td>
 </tr>
 <tr>
-	<td><b>2. {lang.desc}:</b></td>
+	<td><b>{lang.desc}:</b></td>
 	<td><input name="dsc" value="{cat.dsc}" maxlength="200" size="50" /></td>
 </tr>
 <tr>
-	<td><b>3. {lang.acc}:</b></td>
+	<td><b>{lang.upcat}:</b></td>
+	<td>
+		<select name="sc">
+			<option value="0">{lang.basic}</option>{cats}
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><b>{lang.access}:</b></td>
 	<td>
 		<select name="vis" f3:var="cat.access">
 			<option value="1">{lang.on}</option>
@@ -23,7 +31,7 @@
 	</td>
 </tr>
 <tr>
-	<td><b>4. {lang.type}:</b></td>
+	<td><b>{lang.type}:</b></td>
 	<td>
 		<label><input type="radio" name="type" value="1" /> {lang.arts}</label>
 		<label><input type="radio" name="type" value="2" /> {lang.files}</label>
@@ -34,36 +42,18 @@
 </tr>
 <tr>
 	<td>
-		<b>5. {lang.wtxt}:</b>
-		<small>{lang.wtxtd}</small>
-	</td>
-	<td>
-		<span onclick="exp(this)" style="cursor: crosshair; color: brown">¤ {lang.clickedit} ¤</span>
-		<textarea name="txt" style="width: 95%" cols="30" rows="12">{Clean: cat.text}</textarea>
-	</td>
-</tr>
-<tr>
-	<td><b>6. {lang.upcat}:</b></td>
-	<td>
-		<select name="sc">
-			<option value="0">{lang.scno}</option>{cats}
-		</select>
-	</td>
-</tr>
-<tr>
-	<td>
-		<b>7. {lang.sort}:</b>
+		<b>{lang.sort}:</b>
 		<small>{lang.nnews}</small>
 	</td>
 	<td>
-		<label><input type="radio" name="sort" value="1" /> {lang.sortid}</label><br />
-		<label><input type="radio" name="sort" value="2" /> {lang.sortid2}</label><br />
-		<label><input type="radio" name="sort" value="3" /> {lang.sortn}</label>
+		<label><input type="radio" name="sort" value="1" /> {lang.sort1}</label><br />
+		<label><input type="radio" name="sort" value="2" /> {lang.sort2}</label><br />
+		<label><input type="radio" name="sort" value="3" /> {lang.sort3}</label>
 	</td>
 </tr>
 <tr>
 	<td>
-		<b>8. {lang.opt}:</b>
+		<b>{lang.opt}:</b>
 		<small>{lang.disd}</small>
 	</td>
 	<td>
@@ -74,10 +64,20 @@
 		<label><input type="checkbox" name="o3" f3:var="o3" /> {lang.dis3}</label>
 	</td>
 </tr>
+<tr>
+	<th colspan="2">{lang.intro}</th>
+</tr>
+<tr>
+	<td colspan="2" style="text-align: center">
+		<textarea name="txt" style="width: 99%" cols="30" rows="12">{Clean: cat.text}</textarea>
+	</td>
+</tr>
+
 <tr class="eth">
 	<td colspan="2">
 		<input type="submit" value="{lang.save}" />
-		<input type="reset" value="{lang.reset}" />
+		<input type="button" value="{lang.preview}" onclick="e.preview()" />
+		<input type="reset" value="{lang.reset}" onclick="return confirm(this.value)" />
 	</td>
 </tr>
 </tbody>
@@ -86,12 +86,6 @@
 
 <script type="text/javascript">
 f = document.forms[0];
+e = new Editor(f.txt);
 f.name.focus();
-show(f.txt);
-function exp(o)
-{
-	show(f.txt);
-	new Editor(f.txt);
-	o.style.display='none'
-}
 </script>

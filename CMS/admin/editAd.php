@@ -47,14 +47,14 @@ else
 }
 
 #Jêzyk
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admAll.php';
 
 #Edytor
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('lib/editor.js');
 
 #Tytu³ i dane
-$content->title = $id ? $lang['editbn'] : $lang['addbn'];
+$content->title = $id ? $lang['editAd'] : $lang['addAd'];
 $content->data = array(
 	'ad'  => &$ad,
 	'url' => '?a=editAd'.($id ? '&amp;id='.$id : '')

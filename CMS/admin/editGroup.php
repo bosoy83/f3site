@@ -1,9 +1,9 @@
 <?php
-if(iCMSa!=1 || !Admit('UG')) exit;
-require LANG_DIR.'adm_o.php';
+if(iCMSa!=1 || !Admit('G')) exit;
+require LANG_DIR.'admAll.php';
 
 #Tytu³ strony
-$content->title = $id ? $lang['gredit'] : $lang['gradd'];
+$content->title = $id ? $lang['editGroup'] : $lang['addGroup'];
 
 #Zapis
 if($_POST)

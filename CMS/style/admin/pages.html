@@ -1,18 +1,13 @@
 <script type="text/javascript">
-//<![CDATA[
-function Del(c)
+function de(o)
 {
-	var o = c.parentNode.parentNode; //TR
-	if(confirm('{lang.delc}\n' + o.cells[0].innerHTML))
+	if(confirm('{lang.delc}'))
 	{
-		del = new Request('request.php?co=del&id='+id, 'i'+id);
-		del.method='POST';
-		del.add('type','page')
-		del.done = function(x) { if(x == 'OK') o.parentNode.deleteRow(o.rowIndex); }
-		del.send()
+		send(o);
+		o.value = '...';
 	}
+	return false;
 }
-//]]>
 </script>
 
 <form action="" method="post">
@@ -42,6 +37,6 @@ function Del(c)
 </table>
 
 <div class="end">
-	<input type="submit" name="del" value="{lang.del}" />
+	<input type="submit" name="del" value="{lang.del}" onclick="return de(this)" />
 </div>
 </form>

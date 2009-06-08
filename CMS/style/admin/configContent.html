@@ -1,21 +1,14 @@
 <form action="" method="post" f3:array="cfg" f3:mode="isset">
-<h2>{lang.cfgcont}</h2>
+<h2>{lang.content}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody class="bg">
 <tr>
-	<th colspan="2">{lang.general}</th>
-</tr>
-<tr>
-	<td style="width: 45%"><b>{lang.countlinks}?</b></td>
-	<td><input type="checkbox" name="lcnt" /></td>
-</tr>
-<tr>
-	<td><b>{lang.itemNum}?</b><small>{lang.itemNum2}</small></td>
+	<td><b>{lang.itemNum}:</b><small>{lang.itemNum2}</small></td>
 	<td><input name="np" value="{cfg.np}" size="5" /></td>
 </tr>
 <tr>
-	<td><b>{lang.catStr}?</b></td>
+	<td><b>{lang.catStr}:</b></td>
 	<td><input type="checkbox" name="catStr" /></td>
 </tr>
 <tr>
@@ -31,84 +24,76 @@
 	<th colspan="2">{lang.arts}</th>
 </tr>
 <tr>
-	<td><b>{lang.ratesOn}?</b></td>
+	<td><b>{lang.ratesOn}:</b></td>
 	<td><input type="checkbox" name="arate" /></td>
 </tr>
 <tr>
-	<td><b>{lang.artDisp}?</b></td>
-	<td><input type="checkbox" name="adisp" /></td>
+	<td><b>{lang.comms}:</b></td>
+	<td><input type="checkbox" name="acomm" /></td>
 </tr>
 <tr>
-	<td><b>{lang.comments}?</b></td>
-	<td><input type="checkbox" name="acomm" /></td>
+	<td><b>{lang.artDisp}:</b></td>
+	<td><input type="checkbox" name="adisp" /></td>
 </tr>
 
 <tr>
 	<th colspan="2">{lang.files}</th>
 </tr>
 <tr>
-	<td><b>{lang.ratesOn}?</b></td>
+	<td><b>{lang.ratesOn}:</b></td>
 	<td><input type="checkbox" name="frate" /></td>
 </tr>
 <tr>
-	<td><b>{lang.downloads}?</b></td>
-	<td><input type="checkbox" name="fgets" /></td>
+	<td><b>{lang.comms}:</b></td>
+	<td><input type="checkbox" name="fcomm" /></td>
 </tr>
 <tr>
-	<td><b>{lang.comments}?</b></td>
-	<td><input type="checkbox" name="fcomm" /></td>
+	<td><b>{lang.downloads}:</b></td>
+	<td><input type="checkbox" name="fgets" /></td>
 </tr>
 
 <tr>
 	<th colspan="2">{lang.news}</th>
 </tr>
 <tr>
-	<td><b>{lang.recent}:</b></td>
-	<td><input name="newsNum" value="{cfg.newsNum}" size="5" /></td>
+	<td><b>{lang.comms}:</b></td>
+	<td><input type="checkbox" name="ncomm" /></td>
 </tr>
 <tr>
 	<td><b>{lang.divide}:</b><small>{lang.rest}</small></td>
 	<td><input type="checkbox" name="newsPages" /></td>
 </tr>
 <tr>
-	<td><b>{lang.comments}?</b></td>
-	<td><input type="checkbox" name="ncomm" /></td>
-</tr>
-<tr>
 	<td><b>{lang.ay}</b>:<small>{lang.ay2}</small></td>
 	<td><input type="checkbox" name="archYear" /></td>
+</tr>
+<tr>
+	<td><b>{lang.recent}:</b></td>
+	<td><input name="newsNum" value="{cfg.newsNum}" size="5" /></td>
 </tr>
 
 <tr>
 	<th colspan="2">{lang.imgs}</th>
 </tr>
 <tr>
-	<td><b>{lang.comments}?</b></td>
+	<td><b>{lang.ratesOn}:</b></td>
+	<td><input type="checkbox" name="irate" /></td>
+</tr>
+<tr>
+	<td><b>{lang.comms}:</b></td>
 	<td><input type="checkbox" name="icomm" /></td>
 </tr>
 <tr>
 	<td><b>{lang.min}:</b></td>
 	<td><input name="inp" value="{cfg.inp}" size="5" /></td>
 </tr>
-<tr>
-	<td><b>{lang.ratesOn}?</b></td>
-	<td><input type="checkbox" name="irate" /></td>
-</tr>
 
 <tr>
-	<th colspan="2">{lang.se}</th>
+	<th colspan="2">{lang.links}</th>
 </tr>
 <tr>
-	<td><b>{lang.cfind}?</b></td>
-	<td><input type="checkbox" name="cfind" /></td>
-</tr>
-<tr>
-	<td><b>{lang.tfind}:</b><small>{lang.tfind2}</small></td>
-	<td><input type="checkbox" name="ftfind" /></td>
-</tr>
-<tr>
-	<td><b>{lang.ffind}:</b></td>
-	<td><input name="afind" value="{cfg.afind}" size="5" /> sec.</td>
+	<td style="width: 290px"><b>{lang.countLinks}:</b></td>
+	<td><input type="checkbox" name="lcnt" /></td>
 </tr>
 
 <tr>

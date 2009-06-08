@@ -51,35 +51,41 @@ switch($act)
 #Masowe zmiany
 if(isset($_POST['x']) && count($_POST['x'])>0)
 {
-	$q = Admit('GLOBAL') ? '' : ' AND cat IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID;
-	$ids = array();
-
-	$db->beginTransaction();
-
-	foreach($_POST['x'] as $x=>$n) $ids[] = (int)$x;
-	$ids = join(',', $ids);
-
-	if(isset($_POST['del']))
+	try
 	{
-		$db->exec('DELETE FROM '.PRE.$table.' WHERE ID IN ('.$ids.')'.$q);
-		if($table2) $db->exec('DELETE FROM '.PRE.$table2.' WHERE ID IN ('.$ids.')'.$q); //TRIGGER
+		$q = Admit('+') ? '' : ' AND cat IN (SELECT CatID FROM '.PRE.'acl WHERE type="CAT" AND UID='.UID.')';
+		$ids = array();
+		$db->beginTransaction();
 
-		#Usuñ stare komentarze - TRIGGER
-		$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$act.' AND CID NOT IN (
-			SELECT ID FROM '.PRE.$table.')');
+		foreach($_POST['x'] as $x=>$n) $ids[] = (int)$x;
+		$ids = join(',', $ids);
+
+		if(isset($_POST['del']))
+		{
+			$db->exec('DELETE FROM '.PRE.$table.' WHERE ID IN ('.$ids.')'.$q);
+			if($table2) $db->exec('DELETE FROM '.PRE.$table2.' WHERE ID IN ('.$ids.')'.$q);
+
+			#Usuñ stare komentarze - TRIGGER
+			$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$act.' AND CID NOT IN (
+				SELECT ID FROM '.PRE.$table.')');
+		}
+		else
+		{
+			$ch = array();
+			if($_POST['cat'] != 'N') $ch[] = 'cat='.(int)$_POST['cat'];
+			if($_POST['pub'] != 'N') $ch[] = 'access='.(int)$_POST['pub'];
+
+			if($ch = join(',', $ch))
+			$db->exec('UPDATE '.PRE.$table.' SET '.$ch.' WHERE ID IN ('.$ids.')'.$q);
+		}
+		CountItems();
+		Latest();
+		$db->commit();
 	}
-	else
+	catch(PDOException $e)
 	{
-		$ch = array();
-		if($_POST['cat'] != 'N') $ch[] = 'cat='.(int)$_POST['cat'];
-		if($_POST['pub'] != 'N') $ch[] = 'access='.(int)$_POST['pub'];
-
-		if($ch = join(',', $ch))
-		$db->exec('UPDATE '.PRE.$table.' SET '.$ch.' WHERE ID IN ('.$ids.')'.$q);
+		$content->info($e->getMessage());
 	}
-	CountItems();
-	Latest();
-	$db->commit();
 	unset($q,$ids,$ch,$x);
 }
 
@@ -94,7 +100,7 @@ else
 }
 
 #Prawa
-if(Admit('GLOBAL'))
+if(Admit('+'))
 {
 	$join = '';
 }

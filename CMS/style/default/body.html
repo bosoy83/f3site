@@ -9,36 +9,27 @@
 </head>
 <body>
 
-<table class="all" cellspacing="1" align="center">
-<tbody class="al2">
-<tr>
-	<td colspan="3" id="header">{BANNER 1}</td>
-</tr>
-<tr>
-	<td id="gm" colspan="3">
-		<div style="float: left">
-			<a href="?co=cats&amp;id=5">{lang.news}</a> |
-			<a href="?co=cats&amp;id=1">{lang.arts}</a> |
-			<a href="?co=cats&amp;id=2">{lang.files}</a> |
-			<a href="javascript:CSS()">{lang.skin} &dArr;</a>
-		</div>
-		<div style="float: right">{TODAY}</div>
-		<div id="flags">
-			<a href="?setlang=pl"><img src="img/pl.png" alt="PL" /></a>
-			<a href="?setlang=en"><img src="img/en.png" alt="EN" /></a>
-			<a href="?setlang=de"><img src="img/de.png" alt="DE" /></a>
-		</div>
-	</td>
-</tr>
-<tr>
-	<td class="nav" valign="top">{LEFT MENU}</td>
-	<td id="main" valign="top">{CONTENT}</td>
-	<td class="nav" valign="top">{RIGHT MENU}</td>
-</tr>
-</tbody>
-</table>
-
+<div id="top">{BANNER 1}</div>
+<div id="bar">
+	<div id="today">{TODAY}</div>
+	<div id="flags">
+		<a href="?setlang=pl"><img src="img/pl.png" alt="PL" /></a>
+		<a href="?setlang=en"><img src="img/en.png" alt="EN" /></a>
+		<a href="?setlang=de"><img src="img/de.png" alt="DE" /></a>
+	</div>
+	<a href="?co=cats&amp;id=5">{lang.news}</a> |
+	<a href="?co=cats&amp;id=1">{lang.arts}</a> |
+	<a href="?co=cats&amp;id=2">{lang.files}</a> |
+	<a href="javascript:CSS()">{lang.skin} &dArr;</a>
+</div>
+<div id="mid">
+	<div id="main">{CONTENT}</div>
+	<div id="left">{LEFT MENU}</div>
+	<div id="right">{RIGHT MENU}</div>
+</div>
 <div id="footer">{cfg.footer}</div>
 
 </body>
 </html>
+
+<!-- HELP: http://www.alistapart.com/articles/holygrail -->

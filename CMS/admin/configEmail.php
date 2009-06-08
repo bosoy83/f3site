@@ -23,9 +23,9 @@ if($_POST)
 	$f = null;
 }
 
-include LANG_DIR.'adm_cfgm.php';
+include LANG_DIR.'admCfg.php';
 include './cfg/mail.php';
 
 #Do szablonu
-$content->title = 'E-mail';
+$content->title = 'E-Mail';
 $content->data['cfg'] =& $opt;

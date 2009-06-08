@@ -8,7 +8,7 @@ $from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : '';
 #Wyloguj?
 if(isset($_GET['logout']) && LOGD==1)
 {
-	unset($_SESSION['uid'],$_SESSION['userdata'],$_SESSION['uidl'],$_SESSION['uidp']);
+	session_destroy();
 	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-31104000);
 	$content->message(4, '.');
 	exit;
@@ -44,6 +44,8 @@ elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 	elseif(strtolower($u['login'])===strtolower($login) && $u['pass']===$md5)
 	{
 		#Nowe ID sesji dla bezpieczeñstwa
+		session_destroy();
+		session_start();
 		session_regenerate_id(1);
 
 		#Pamiêtanie
@@ -56,6 +58,10 @@ elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 			$_SESSION['uid'] = $u['ID'];
 			$_SESSION['uidp'] = $md5;
 			$_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
+		}
+		if(isset($_SESSION['online']))
+		{
+			unset($_SESSION['online']);
 		}
 		$content->message(1, $from ? $from.'.php' : '.');
 	}

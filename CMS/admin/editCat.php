@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('C')) exit;
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
 #Zapis
@@ -74,8 +74,8 @@ if($_POST)
 		$db->commit();
 		UpdateCatPath($id);
 		$content->info($lang['saved'].' ID: '.$id, array(
-			'?a=editCat' => $lang['addcat'],
-			'.?d='.$id => $lang['gocat']
+			'?a=editCat' => $lang['addCat'],
+			'.?d='.$id => $lang['goCat']
 		));
 		return 1;
 	}
@@ -101,7 +101,7 @@ else
 #Edytor JS, tytu³, dane
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('lib/editor.js');
-$content->title = $id ? $lang['editcat'] : $lang['addcat'];
+$content->title = $id ? $lang['editCat'] : $lang['addCat'];
 $content->data = array(
 	'cat'  => &$cat,
 	'o1'   => $cat['opt'] & 1,

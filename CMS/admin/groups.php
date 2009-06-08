@@ -1,6 +1,6 @@
 <?php
-if(iCMSa!=1 || !Admit('UG')) exit;
-require LANG_DIR.'adm_o.php'; //Jêzyk
+if(iCMSa!=1 || !Admit('G')) exit;
+require LANG_DIR.'admAll.php'; //Jêzyk
 
 #Usuñ
 if($_POST)
@@ -16,7 +16,7 @@ if($_POST)
 }
 
 #Info
-$content->info($lang['ugrw'], array('?a=editGroup'=>$lang['gradd']));
+$content->info($lang['groupInfo'], array('?a=editGroup'=>$lang['addGroup']));
 
 #Odczyt
 $res = $db->query('SELECT ID,name,opened FROM '.PRE.'groups');

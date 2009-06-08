@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('B')) exit;
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admAll.php';
 
 #Usuñ
 if($_POST && $x = GetID(true))
@@ -9,7 +9,7 @@ if($_POST && $x = GetID(true))
 }
 
 #Info
-$content->info($lang['bnrinfo'], array('?a=editAd' => $lang['addbn']));
+$content->info($lang['adInfo'], array('?a=editAd' => $lang['addAd']));
 
 #Odczyt
 $res = $db->query('SELECT ID,gen,name,ison FROM '.PRE.'banners ORDER BY gen,name');

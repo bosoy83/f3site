@@ -2,9 +2,6 @@
 if(iCMS!=1) return;
 require LANG_DIR.'comm.php';
 
-#JS
-$js = defined('JS');
-
 #B³êdy
 $error = array();
 $preview = null;
@@ -80,8 +77,8 @@ if($_POST)
 {
 	#Dane
 	$c = array(
-		'name'  => Clean($_POST['name'], 30, 1),
-		'text'  => Clean($_POST['text'], 0, 1)
+		'name' => Clean($_POST['name'], 30, 1),
+		'text' => Clean($_POST['text'], 0, 1)
 	);
 
 	#D³ugo¶æ
@@ -172,6 +169,7 @@ if($_POST)
 				#Info lub komentarze (AJAX)
 				if(JS)
 				{
+					$content->file = array();
 					define('CT', $type);
 					include './lib/comm.php';
 					return 1;
@@ -184,7 +182,7 @@ if($_POST)
 			}
 			catch(PDOException $e)
 			{
-				$content->info($lang['c10'].$e->errorInfo[2]);
+				$content->info($lang['c10'].$e->getMessage());
 			}
 		}
 	}

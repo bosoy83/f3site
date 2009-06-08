@@ -222,11 +222,16 @@ small {font-size: 11px}
 .pages {padding: 8px !important; text-align: center}
 
 /* LINKI */
+a.edit, a.add {
+	padding-left: 20px
+}
 a.edit {
 	background: url(../../img/icon/edit.png) no-repeat;
-	padding-left: 20px;
 	display: block;
 	float: right;
+}
+a.add {
+	background: url(../../img/icon/add.png) no-repeat;
 }
 
 /* DIALOG */

@@ -1,6 +1,6 @@
 <?php
-if(iCMSa!=1 || !Admit('IP')) exit;
-require LANG_DIR.'adm_o.php';
+if(iCMSa!=1 || !Admit('P')) exit;
+require LANG_DIR.'admAll.php';
 
 #Usuñ / w³¹cz / wy³¹cz
 if($_POST && $x = GetID(true))
@@ -15,7 +15,7 @@ if($_POST && $x = GetID(true))
 }
 
 #Info
-$content->info($lang['pinfo'], array('adm.php?a=editPage'=>$lang['addp']));
+$content->info($lang['pageTip'], array('?a=editPage'=>$lang['addPage']));
 
 #Odczyt
 $res = $db->query('SELECT ID,name,access FROM '.PRE.'pages ORDER BY ID DESC');

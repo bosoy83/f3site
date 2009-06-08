@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('CFG')) exit;
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admCfg.php';
 $emodata = array();
 
 #Zapis

@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('CFG')) exit;
-require LANG_DIR.'adm_conf.php';
+require LANG_DIR.'admCfg.php';
 
 #Zapis
 if($_POST)
@@ -47,5 +47,5 @@ for($i=0; $i<$num; ++$i)
 
 #Do szablonu
 $content->addScript('lib/forms.js');
-$content->info( isset($cfg['censor']) ? $lang['aw_i'] : $lang['aw_f'] );
+$content->info( isset($cfg['censor']) ? $lang['wordInfo'] : $lang['wordOff'] );
 $content->data['word'] =& $word;

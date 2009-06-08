@@ -21,19 +21,20 @@
 		<legend>{lang.global}</legend>
 			<label><input type="checkbox" name="CM" /> {lang.manComm}</label><br />
 			<label><input type="checkbox" name="FM" /> {lang.fileMan}</label><br />
-			<label><input type="checkbox" name="FM2" /> {lang.fileMan2}</label><br /><br />
+			<label><input type="checkbox" name="UP" /> {lang.fileMan2}</label><br /><br />
 			<label><input type="checkbox" name="C" /> {lang.cats}</label><br />
 			<label><input type="checkbox" name="Q" /> {lang.polls}</label><br />
-			<label><input type="checkbox" name="IP" /> {lang.ipages}</label><br />
-			<label><input type="checkbox" name="RSS" /> RSS</label><br /><br />
-			<label><input type="checkbox" name="U" /> {lang.users}, {lang.admins}...</label><br />
-			<label><input type="checkbox" name="LOG" /> {lang.log}</label><br />
-			<label><input type="checkbox" name="MM" /> {lang.mailing}</label><br /><br />
+			<label><input type="checkbox" name="P" /> {lang.ipages}</label><br />
+			<label><input type="checkbox" name="R" /> RSS</label><br /><br />
+			<label><input type="checkbox" name="U" /> {lang.users} + {lang.admins}</label><br />
+			<label><input type="checkbox" name="G" /> {lang.groups}</label><br />
+			<label><input type="checkbox" name="L" /> {lang.log}</label><br />
+			<label><input type="checkbox" name="M" /> {lang.mailing}</label><br /><br />
 			<label><input type="checkbox" name="CFG" /> {lang.config}</label><br />
 			<label><input type="checkbox" name="DB" /> {lang.dbcopy}</label><br />
-			<label><input type="checkbox" name="NM" /> {lang.nav}</label><br />
+			<label><input type="checkbox" name="N" /> {lang.nav}</label><br />
 			<label><input type="checkbox" name="B" /> {lang.ads}</label><br />
-			<label><input type="checkbox" name="PI" /> {lang.plugs}</label>
+			<label><input type="checkbox" name="E" /> {lang.plugs}</label>
 		</fieldset>
 
 		<!-- IF plugins -->
@@ -44,6 +45,11 @@
 		<!-- END --></div>
 	</td>
 	<td style="overflow: auto; max-height: 700px; width: 50%">
+		<fieldset>
+			<legend>{lang.cats}</legend>
+			<label><input type="checkbox" name="+" /> {lang.global}</label>
+			<div style="padding: 5px 0 0 3px"><small>{lang.allCat}</small></div>
+		</fieldset>
 		{cats}
 	</td>
 </tr>

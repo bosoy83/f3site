@@ -19,53 +19,6 @@ function fileman(folder, input)
 }
 
 //
-// *** WY¦LIJ FORMULARZ ZA POMOC¡ AJAX ***
-//
-
-//Utwórz tymczasowy obiekt Request i wy¶lij formularz
-function send(o,id,opt)
-{
-	new Request(o.form.action, id, opt).sendForm(o);
-	return false;
-}
-
-//Wy¶lij formularz za pomoc± istniej±cego obiektu Request
-//Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
-Request.prototype.sendForm = function(o)
-{
-	var param = {}, el = o.form.elements, x;
-	for(var i=0; i<el.length; ++i)
-	{
-		x = el[i];
-		switch(x.type || '')
-		{
-			case 'radio':
-			case 'checkbox':
-				if(x.checked) this.add(x.name, x.value || 1); //Radio
-				break;
-			case 'text':
-			case 'textarea':
-			case 'hidden':
-			case 'password':
-				this.add(x.name, x.value); //Text field
-				break;
-			case 'select':
-			case 'select-one':
-			case 'select-multiple':
-				for(var y=0; y<x.options.length; ++y)
-				{
-					if(x.options[y].selected) this.add(x.name, x.options[y].value) //Select field
-				}
-				break;
-		}
-	}
-	if(o.name) this.add(o.name, o.value);
-	this.send();
-	o.disabled = 1;
-	return false;
-};
-
-//
 // *** Fragment formularza do powielania ***
 //
 function Fragment(box,opt)
@@ -118,7 +71,7 @@ function Fragment(box,opt)
 	{
 		e = e || event;
 		var o = e.srcElement || e.target;
-		if(!o.alt) return false;
+		if(!o.alt) return true;
 
 		//Rodzicem przycisków jest element fragmentu
 		var node = o.parentNode;

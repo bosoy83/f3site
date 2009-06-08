@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('U')) exit;
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admAll.php';
 require LANG_DIR.'profile.php';
 
 #Usuñ + 2 triggers

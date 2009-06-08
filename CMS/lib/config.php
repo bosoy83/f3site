@@ -68,7 +68,7 @@ class Config
 	function save(&$data=null)
 	{
 		if($data) $this->set($data);
-		if(file_put_contents($this->file, '<?php '.$this->in.' ?>', 2))
+		if(file_put_contents($this->file, '<?php '.$this->in, 2))
 		{
 			return true;
 		}

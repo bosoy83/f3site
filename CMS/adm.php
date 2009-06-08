@@ -68,37 +68,37 @@ else
 	include './admin/summary.php';
 }
 
-#Menu
-if(isset($_SESSION['admmenu']))
+
+if(isset($_SESSION['admmenu']) && $_SESSION['admmenu'] === $nlang)
 {
 	$menu = file_get_contents('./cache/adm'.UID.'.php');
 }
 else
 {
-	$menu = '<div class="adm"><ul>'.
+	$menu = '<ul class="adm">'.
 
 	MI($lang['cats'],'cats','C','cat').
-	MI($lang['polls'],'polls','f3s','poll').
-	MI($lang['ipages'],'pages','IP','page').
-	MI($lang['rss'],'summary','RSS','rss').
+	MI($lang['polls'],'polls','Q','poll').
+	MI($lang['ipages'],'pages','P','page').
+	MI($lang['rss'],'summary','R','rss').
 
-	'</ul></div><div class="adm"><ul>'.
+	'</ul><ul class="adm">'.
 
 	MI($lang['users'],'users','U','user').
-	MI($lang['admins'],'admins','AD','user').
-	MI($lang['groups'],'groups','UG','user').
-	MI($lang['log'],'log','LOG','log').
-	MI($lang['mailing'],'mailing','MM','mail').
+	MI($lang['admins'],'admins','U','user').
+	MI($lang['groups'],'groups','G','user').
+	MI($lang['log'],'log','L','log').
+	MI($lang['mailing'],'mailing','M','mail').
 
-	'</ul></div><div class="adm"><ul>'.
+	'</ul><ul class="adm">'.
 
 	MI($lang['config'],'config','CFG','cfg').
-	MI($lang['dbcopy'],'db','CDB','db').
-	MI($lang['nav'],'menu','NM','menu').
+	MI($lang['dbcopy'],'db','DB','db').
+	MI($lang['nav'],'menu','N','menu').
 	MI($lang['ads'],'ads','B','ads').
-	MI($lang['plugs'],'plugins','PI').
+	MI($lang['plugs'],'plugins','E').
 
-	'</ul></div>';
+	'</ul>';
 
 	#Rozszerzenia
 	$res = $db->query('SELECT ID,text,file FROM '.PRE.'admmenu WHERE menu=1');
@@ -109,13 +109,13 @@ else
 	}
 	if($ex)
 	{
-		$menu .= '<div class="adm"><ul>'.$ex.'</ul></div>';
+		$menu .= '<ul class="adm">'.$ex.'</ul>';
 	}
 
 	#Zapisz uk³ad menu
 	if(file_put_contents('./cache/adm'.UID.'.php', $menu))
 	{
-		$_SESSION['admmenu'] = true;
+		$_SESSION['admmenu'] = $nlang;
 	}
 	unset($ex,$res,$x);
 }
@@ -124,5 +124,12 @@ else
 if(!$content->file) $content->file = $A;
 if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
-#Skórka - admin
-require $content->path('admin', 1);
+#¯±danie JS czy standardowe
+if(JS)
+{
+	$content->display();
+}
+else
+{
+	require $content->path('admin', 1);
+}

@@ -5,6 +5,7 @@
 'fileMan'=>'Menadżer plików - przeglądanie',
 'fileMan2'=>'Menedżer plików - zarządzanie',
 'global'=>'Globalne uprawnienia',
+'allCat'=>'UWAGA! Po włączeniu tej opcji użytkownik będzie mógł zarządzać treścią w całym serwisie!',
 'ldb'=>'Ustawienia i kopia SQL',
 'privs'=>'Prawa',
 'profile'=>'profil',

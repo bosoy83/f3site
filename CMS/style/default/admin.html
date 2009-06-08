@@ -9,29 +9,21 @@
 </head>
 <body>
 
-<table class="all" cellspacing="1" align="center">
-<tbody class="al2">
-<tr>
-	<td colspan="2" id="header"></td>
-</tr>
-<tr>
-	<td id="gm" colspan="2">
-		<div style="float: left">
-			<a href=".">{lang.mainPage}</a> |
-			<a href="adm.php">{lang.summary}</a> |
-			<a href=".?co=edit">{lang.mantxt}</a>
-		</div>
-		<div style="float: right">{TODAY}</div>
-	</td>
-</tr>
-<tr>
-	<td style="width: 180px; padding: 9px" valign="top">{menu}</td>
-	<td valign="top" id="main">{CONTENT}</td>
-</tr>
-</tbody>
-</table>
+<div id="top"></div>
+<div id="bar">
+	<div id="today">{TODAY}</div>
+	<a href=".">{lang.mainPage}</a> |
+	<a href="adm.php">{lang.summary}</a> |
+	<a href=".?co=edit">{lang.mantxt}</a>
+</div>
+<div id="mid">
+	<div id="main" class="admin">{CONTENT}</div>
+	<div id="left">{menu}</div>
+</div>
 
 <div id="footer"><a href="login.php?logout">{lang.logout}</a></div>
+
+<?= (xdebug_memory_usage()/1024).' KB (max: '.(xdebug_peak_memory_usage()/1024) ?> KB)
 
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 if(!$_POST || iCMSa!=1 || !Admit('C')) exit;
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
 #Usuñ

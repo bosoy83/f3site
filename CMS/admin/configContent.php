@@ -23,8 +23,8 @@ if($_POST)
 	$f = null;
 }
 
-require LANG_DIR.'adm_cfgz.php';
-require 'cfg/content.php';
+require LANG_DIR.'admCfg.php';
+require './cfg/content.php';
 
 #Zmienna zawiera opcje <select>
 $out = '<optgroup label="'.$lang['cats'].'">';
@@ -57,7 +57,7 @@ foreach(scandir('./lang') as $dir)
 }
 
 #Tytu³
-$content->title = $lang['cfgcont'];
+$content->title = $lang['content'];
 
 #Do szablonu
 $content->data = array(

@@ -62,12 +62,19 @@ if($_POST)
 		}
 
 		#Odpowiedzi
-		$q1 = $db->prepare('UPDATE '.PRE.'answers SET a=? WHERE ID=? AND IDP='.$id);
-		$q2 = $db->prepare('INSERT INTO '.PRE.'answers (ID,IDP,a) VALUES (?,'.$id.',?)');
+		$q1 = $db->prepare('UPDATE '.PRE.'answers SET a=?, seq=? WHERE ID=? AND IDP=?');
+		$q2 = $db->prepare('INSERT INTO '.PRE.'answers (seq,IDP,a) VALUES (?,?,?)');
 
 		for($i=0; $i<$num; $i++)
 		{
-			if($an[$i][0]) $q1->execute($an[$i]); else $q2->execute(array($an[$i][1],$an[$i][1]));
+			if($an[$i][0])
+			{
+				$q1->execute( array($an[$i][1], $i, $an[$i][0], $id) );
+			}
+			else
+			{
+				$q2->execute( array($i, $id, $an[$i][1]) );
+			}
 		}
 
 		#Aktualizuj cache najnowszych sond

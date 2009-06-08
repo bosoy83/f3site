@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('C')) exit;
-require LANG_DIR.'adm_o.php';
+require LANG_DIR.'admAll.php';
 
 #Przelicz ilo¶æ
 if(isset($_GET['act']))
@@ -15,8 +15,8 @@ if(isset($_GET['act']))
 
 #Informacja
 $content->info($lang['dinfo'], array(
-	'adm.php?a=editCat'  => $lang['addcat'],
-	'?a=cats&amp;act=rec'=> $lang['count']
+	'?a=editCat' => $lang['addCat'],
+	'?a=cats&amp;act=rec' => $lang['count']
 ) );
 
 #Odczyt

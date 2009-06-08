@@ -1,10 +1,28 @@
 <?php
-if(iCMSa!=1 || !Admit('AD') || !$id || $id==UID) exit($lang['noex']);
+if(iCMSa!=1 || !Admit('U') || !$id || $id==UID) exit($lang['noex']);
 require LANG_DIR.'rights.php';
 require LANG_DIR.'profile.php';
 
-#Zbiór praw
-$set = array('C','IP','Q','RSS','U','LOG','MM','CFG','DB','NM','B','PI','CM','FM','FM2');
+#Uprawnienia
+$set = array(
+	'C',	//Kategorie
+	'P',	//Wolne strony
+	'Q',	//Ankiety
+	'R',	//RSS
+	'U',	//U¿ytkownicy
+	'G',	//Grupy
+	'L',	//Indeks zdarzeñ
+	'M',	//Masowe listy
+	'CFG',	//Opcje
+	'DB',	//Kopia bazy danych
+	'N',	//Menu
+	'B',	//Bannery
+	'E',	//PI
+	'CM',	//Komentarze
+	'FM',	//Mened¿er plików
+	'UP',	//Upload
+	'+' 	//Globalny redaktor
+);
 
 #Pobierz u¿ytkownika
 $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
@@ -74,7 +92,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->errorInfo[2]);
+		$content->info($e->getMessage());
 	}
 	return 1;
 }

@@ -33,7 +33,7 @@ else
 {
 	require './cfg/latest.php';
 }
-require LANG_DIR.'adm_cfgz.php';
+require LANG_DIR.'admCfg.php';
 
 foreach($data as $num => &$x)
 {

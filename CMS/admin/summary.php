@@ -1,15 +1,17 @@
-<?php
+<?php if(iCMSa!=1) exit;
+
 #Do szablonu
 $content->data = array(
-	'intro'  => str_replace('%name', $cfg['title'], $lang['admintro']),
+	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
 	'system' => isset($_ENV['OS']) ? $_ENV['OS'] : 'N/A',
-	'server' => $_SERVER['SERVER_SOFTWARE']
+	'server' => $_SERVER['SERVER_SOFTWARE'],
+	'course' => $nlang == 'pl' ? 'http://html.boo.pl' : 'http://www.w3schools.com/html'
 );
 
 #Katalog INSTALL
 if(LEVEL==4 && is_dir('install'))
 {
-	$content->info('<b style="color: red">'.$lang['warninst'].'</b>');
+	$content->info('<b style="color: red">'.$lang['INSTALL'].'</b>');
 }
 
 #Kompiluj szablony

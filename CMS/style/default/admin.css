@@ -1,17 +1,17 @@
-.adm {
-	margin-bottom: 8px;
+#mid {
+	padding-right: 17px !important
+}
+ul.adm  {
 	background: #F7F7F7;
 	border: 1px solid #C6CDC2;
 	padding: 3px;
-}
-.adm ul {
 	margin: 0;
-	padding: 0;
+	margin-bottom: 8px;
 	list-style-type: none;
 	line-height: 20px;
 }
-.adm li {background-repeat: no-repeat; background-position: 0; padding-left: 22px}
-.adm li a {display: block} /*color: #0d4439*/
+ul.adm li {background-repeat: no-repeat; background-position: 0; padding-left: 22px}
+ul.adm li a {display: block} /*color: #0d4439*/
 
 .a_rss {background: url(../../img/icon/rss.png)}
 .a_cat {background: url(../../img/icon/folder.png)}

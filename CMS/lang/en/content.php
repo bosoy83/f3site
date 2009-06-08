@@ -20,7 +20,7 @@ $lang+=Array(
 'i1'=>'Click article\'s name to show it.',
 'edit1'=>'Edit article',
 'add1'=>'Add article',
-'arttip'=>'To delete the page, leave the text area.',
+'addPage'=>'New page',
 
 'chopt'=>'Options of selected items',
 'chdel'=>'Delete all selected items',

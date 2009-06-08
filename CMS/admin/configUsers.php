@@ -31,10 +31,10 @@ include './cfg/account.php';
 include './cfg/mail.php';
 
 #Jêzyk
-require LANG_DIR.'adm_cfgm.php';
+require LANG_DIR.'admCfg.php';
 
 #Tytu³ strony
-$content->title = $lang['config'];
+$content->title = $lang['ua'];
 
 #Do szablonu
 $content->data = array(

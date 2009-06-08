@@ -26,7 +26,7 @@ $banEx = array('.php'=>1, '.db'=>1, '.ini'=>1);
 
 #Uprawnienia
 Admit('FM') or exit;
-$admin = Admit('FM2');
+$admin = Admit('UP');
 
 #Aktualny katalog
 if(isset($_GET['dir']) && strpos($_GET['dir'],'.')===false)

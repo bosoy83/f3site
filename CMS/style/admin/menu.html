@@ -46,7 +46,9 @@
 <tr>
 	<td colspan="6" class="eth">
 		<input type="submit" value="{lang.save}" />
-		<input type="button" value="{lang.navnewm}" onclick="location='adm.php?a=editMenu'" />
+		<a href="?a=editMenu">
+			<input type="button" value="{lang.addBox}" onclick="location='?a=editMenu';return false" />
+		</a>
 	</td>
 </tr>
 </tbody>

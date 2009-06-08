@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('PI')) exit;
+if(iCMSa!=1 || !Admit('E')) exit;
 require LANG_DIR.'plugin.php';
 
 #Pobierz zainstalowane

@@ -1,6 +1,6 @@
 <?php
-if(iCMSa!=1 || !Admit('IP')) exit;
-require LANG_DIR.'adm_o.php';
+if(iCMSa!=1 || !Admit('P')) exit;
+require LANG_DIR.'admAll.php';
 
 #Zapis
 if($_POST)
@@ -60,7 +60,7 @@ else
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('lib/editor.js');
 $content->addScript('cache/emots.js');
-$content->title = $id ? $lang['editp'] : $lang['addp'];
+$content->title = $id ? $lang['editPage'] : $lang['addPage'];
 $content->data = array(
 	'page' => &$page,
 	'o1'   => $page['opt']&1,

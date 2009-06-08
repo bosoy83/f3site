@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('DB')) exit;
-require LANG_DIR.'adm_db.php';
+require LANG_DIR.'admAll.php';
 
 #Tytu³ strony
 $content->title = $lang['dbcopy'];

@@ -1,9 +1,9 @@
 <?php
-if(iCMSa!=1 || !Admit('NM')) exit;
-require LANG_DIR.'adm_o.php';
+if(iCMSa!=1 || !Admit('N')) exit;
+require LANG_DIR.'admAll.php';
 
 #Tytu³ strony
-$content->title = $id ? $lang['navbe'] : $lang['navbn'];
+$content->title = $id ? $lang['editBox'] : $lang['addBox'];
 
 #Zapis
 if($_POST)
@@ -20,14 +20,13 @@ if($_POST)
 
 	#Opcje menu
 	$o = array();
-
 	$ile = isset($_POST['adr']) ? count($_POST['adr']) : 0;
 	for($i=0;$i<$ile;++$i)
 	{
 		$o[] = array(
 			0 => &$_POST['txt'][$i],
 			1 => Clean($_POST['adr'][$i]),
-			2 => isset($_POST['nw'][$i]) ? 1 : 0,
+			2 => isset($_POST['nw'][$i]),
 			3 => $i
 		);
 	}
@@ -77,7 +76,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->errorInfo[2]);
+		$content->info($e->getMessage());
 	}
 }
 

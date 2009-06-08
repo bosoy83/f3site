@@ -264,7 +264,7 @@ class Compiler
 			#Pobierz atrybuty i z³ó¿ tagi
 			foreach($inputs[0] as $tag)
 			{
-				preg_match_all('/\s?(\S+)="(\S+)"/i', $tag, $list);
+				preg_match_all('/\s?(\S+)="([^"]*)"/i', $tag, $list);
 				$attr = array_combine($list[1],$list[2]);
 				if(isset($attr['f3:var']))
 				{
@@ -289,7 +289,7 @@ class Compiler
 				#Pola RADIO
 				else
 				{
-					$out[] = '<input'.join('',$list[0]).'<?php if('.$var.'=='.((is_numeric($attr['value'])) ? $attr['value'] : '\''.$attr['value'].'\'').') echo \'checked="checked"\'?> />';
+					$out[] = '<input'.join('',$list[0]).'<?php if('.$var.'=='.((is_numeric($attr['value'])) ? $attr['value'] : '\''.$attr['value'].'\'').') echo \' checked="checked"\'?> />';
 				}
 				$in[] = $tag;
 			}

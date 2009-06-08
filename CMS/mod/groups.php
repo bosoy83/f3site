@@ -29,7 +29,7 @@ foreach($res as $x)
 	);
 
 	#Je¶li mo¿e do³±czyæ
-	if($x[0] != $user[UID]['gid'] && ($x[3] OR LEVEL > 2)) $may[$x[0]] = $x[1];
+	if($x[0] != $user[UID]['gid'] && ($x[3] OR LEVEL > 3)) $may[$x[0]] = $x[1];
 }
 
 #Do szablonu

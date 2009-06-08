@@ -1,7 +1,7 @@
 <?php
-if(iCMSa!=1 || !Admit('MM')) exit;
-require 'cfg/mail.php';
-require LANG_DIR.'adm_ml.php';
+if(iCMSa!=1 || !Admit('M')) exit;
+require './cfg/mail.php';
+require LANG_DIR.'admMail.php';
 
 #Grupa i poziom
 function Prepare($x)

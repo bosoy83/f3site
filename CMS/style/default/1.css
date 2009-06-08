@@ -1,7 +1,9 @@
 /*G³ówne*/
 body {
 	font: 13px Verdana,Helvetica,Arial,Times;
-	background-color: #9CBCC0
+	background-color: #9CBCC0;
+	margin: auto;
+	width: 950px;
 }
 a {
 	text-decoration: none;
@@ -33,13 +35,77 @@ optgroup {font-style: normal}
 textarea {font: 13px Verdana,Helvetica}
 label {cursor: pointer}
 
+/* Uk³ad Strony */
+#top, #bar, #mid, #footer {border: 1px solid #ACACA4}
+#top {
+	height: 60px;
+	padding-left: 220px;
+	text-align: center;
+	background: #E8E8E6 url(logo.png) no-repeat;
+}
+#bar {
+	background-color: #F0F0EE;
+	padding: 3px 8px 3px 8px;
+	border-width: 0 1px;
+}
+#bar a {
+	color: #2872AE;
+	font-weight: bold
+}
+#flags {
+	float: right;
+	width: 300px;
+}
+#today {
+	float: right;
+}
+#mid {
+	padding-left: 200px;
+	padding-right: 218px;
+	overflow: hidden;
+	position: relative;
+	background-color: #E8E8E6 /* main color */
+}
+#left {
+	width: 182px; /* width - padding */
+	margin-left: -100%;
+	right: 216px;
+}
+#right {
+	width: 182px;
+	margin-right: -218px;
+}
+#main {
+	width: 100%;
+	background-color: #EDEDEB;
+	border: 1px solid #ACACA4;
+	border-width: 0 1px;
+	
+}
+#left, #right, #main {
+	padding: 8px 8px 10000px;
+	margin-bottom: -10000px;
+	position: relative;
+	float: left
+}
+#footer {
+	clear: both;
+	background-color: #DCDCD6;
+	padding: 2px;
+	border-top: 0;
+	text-align: center
+}
+* html #left {
+	left: 200px; /* IE hack */
+}
+
 /* Listy */
 ul,ol {margin: 9px; padding-left: 25px}
 ul.go {list-style-image: url(../../img/icon/go.png)}
 ul.gallery {list-style: none; padding: 0; margin: 0}
 ul.gallery li {
 	display: inline-block;
-	width: 141px;
+	width: 30%;
 	padding: 5px;
 	text-align: center;
 }
@@ -66,22 +132,12 @@ ul.cats li {
 .items h3 {margin: 0}
 
 /* Szablon */
-.all {width: 880px; background-color: #ACACA4}
-.al2 {background-color: #E8E8E6}
 td.nav {width: 175px; padding: 9px}
 td#main {background-color: #EDEDEB; padding: 9px}
 
 /*Nag³ówek i stopka*/
-#header {
-	height: 60px;
-	padding-left: 220px;
-	text-align: center;
-	background-image: url(logo.png);
-	background-repeat: no-repeat
-}
-#flags {
-	text-align: center;
-}
+
+/*
 #footer {
 	background-color: #DCDCD6;
 	padding: 2px;
@@ -94,11 +150,8 @@ td#main {background-color: #EDEDEB; padding: 9px}
 #gm {
 	background-color: #F0F0EE;
 	padding: 3px 8px 3px 8px
-}
-#gm a {
-	color: #2872AE;
-	font-weight: bold
-}
+}*/
+
 
 /*Menu*/
 .menu {
@@ -200,18 +253,22 @@ small {font-size: 11px}
 .pages {padding: 8px !important; text-align: center}
 
 /* LINKI */
+a.edit, a.add {
+	padding-left: 20px
+}
 a.edit {
 	background: url(../../img/icon/edit.png) no-repeat;
-	padding-left: 20px;
 	display: block;
 	float: right;
+}
+a.add {
+	background: url(../../img/icon/add.png) no-repeat;
 }
 
 /* DIALOG */
 .dialog {
 	position: absolute;
 	z-index: 99;
-
 	padding: 5px;
 	background-color: #EFEBE7;
 	border: 1px solid #B1A598;
@@ -245,6 +302,8 @@ a.edit {
 	background-color: #ebfbfe;
 	position: absolute;
 	visibility: hidden;
+	z-index: 99;
+	width: auto;
 	margin: 0;
 }
 .hint .win {
@@ -256,7 +315,7 @@ a.edit {
 	background-color: #a8dff4;
 	padding: 2px
 }
-.menulist {
+.menulist, ul.hint {
 	margin: 0;
 	padding: 0;
 	list-style-type: none

@@ -27,7 +27,7 @@ if($_POST)
 	$f = null;
 }
 
-include LANG_DIR.'adm_cfg.php';
+include LANG_DIR.'admCfg.php';
 
 #Skórki
 $skin = '';
@@ -39,7 +39,7 @@ foreach(scandir('style') as $x)
 	}
 }
 
-$content->title = $lang['mainopt'];
+$content->title = $lang['main'];
 $content->data = array(
 	'cfg' => &$opt,
 	'skinlist' => &$skin,

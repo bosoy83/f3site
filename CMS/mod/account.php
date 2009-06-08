@@ -69,7 +69,7 @@ if($_POST)
 	{
 		#Login
 		$u['login'] = Clean($_POST['login'],30);
-		if(isset($u['login'][21]) || !isset($u['login'][2]))
+		if(isset($u['login'][31]) || !isset($u['login'][2]))
 		{
 			$error[] = $lang['badLogin'];
 		}

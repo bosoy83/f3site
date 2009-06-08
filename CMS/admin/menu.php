@@ -1,6 +1,6 @@
 <?php
-if(iCMSa!=1 || !Admit('NM')) exit;
-require LANG_DIR.'adm_o.php';
+if(iCMSa!=1 || !Admit('N')) exit;
+require LANG_DIR.'admAll.php';
 
 #Tytu³ strony
 $content->title = $lang['nav'];

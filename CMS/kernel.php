@@ -233,7 +233,7 @@ function Admit($id,$type=null)
 	#Kategoria
 	if($type)
 	{
-		if($type=='CAT' && LEVEL>1 && Admit('GLOBAL'))
+		if($type=='CAT' && LEVEL>1 && Admit('+'))
 		{
 			return true;
 		}
@@ -241,7 +241,9 @@ function Admit($id,$type=null)
 		{
 			if(!isset($all[$type]))
 			{
-				$all[$type] = $db->query('SELECT CatID FROM '.PRE.'acl WHERE type="'.$type.'" AND UID='.UID) -> fetchAll(7);
+				$q = $db->query('SELECT CatID,1 FROM '.PRE.'acl WHERE type=? AND UID=?');
+				$q -> execute(array($type, UID));
+				$all[$type] = $q->fetchAll(12); //KEY_PAIR
 			}
 			return isset($all[$type][$id]);
 		}
@@ -375,12 +377,12 @@ function genDate($x, $time=false)
 	#X minut temu (do 99)
 	if($diff < 5941 && $diff > 0)
 	{
-		return ceil($diff/60).$lang['ago'];
+		return sprintf($lang['ago'], ceil($diff/60));
 	}
 	#Za X minut
 	elseif($diff > -5941 && $diff < 0)
 	{
-		return str_replace('%', ceil(-$diff/60), $lang['in']);
+		return sprintf($lang['in'], ceil(-$diff/60));
 	}
 
 	#Formatuj datę

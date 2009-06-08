@@ -2,9 +2,9 @@
 //Po zakoñczeniu zmian skompresuj go: http://dean.edwards.name/packer
 
 //Otwórz okno na œrodku ekranu
-function okno(url,w,h)
+function okno(url, width, height)
 {
-	return open(url, '', 'scrollbars=yes,width='+w+',height='+h+',top='+(screen.height-h)/2+',left='+(screen.width-w)/2)
+	return open(url, '', 'scrollbars=yes,width='+width+',height='+height+',top='+(screen.height-height)/2+',left='+(screen.width-width)/2)
 }
 
 //Zmieñ CSS
@@ -35,7 +35,6 @@ function include(file, loaded)
 	var js = document.createElement('script');
 	js.type = 'text/javascript';
 	js.src = file;
-	document.getElementsByTagName('head')[0].appendChild(js);
 
 	//Wywo³aj funkcjê, gdy plik zostanie za³adowany
 	if(loaded)
@@ -43,7 +42,7 @@ function include(file, loaded)
 		js.onreadystatechange = function() { if(js.readyState == 'complete') loaded() };
     js.onload = loaded;
 	}
-	return false
+	document.getElementsByTagName('head')[0].appendChild(js);
 }
 
 //Szybki dostêp do elementów po ID
@@ -149,12 +148,11 @@ function Request(url, box, opt)
 	this.url = url;
 	this.post = opt.post || false; //Typ POST - domyœlnie false (typ GET)
 	this.param = []; //Parametry POST
-	//this.silent = opt.silent || true; //true = tryb cichy
 	this.scripts = opt.scripts || false; //true = wykonaj skrypty JS
-	//this.timeout = opt.timeout || 50000; //Czas oczekiwania na odpowiedŸ
 	this.loading = opt.loading || null; //Gdy odpowiedŸ jest pobierana
 	this.fail = opt.fail || function(x) { alert(x) }; //Gdy ¿¹danie nie powiod³o siê
 	this.done = opt.done || function(x) { this.o.innerHTML = x } //Gdy ¿¹danie zakoñczone sukcesem
+	//this.timeout = opt.timeout || 50000; //Czas oczekiwania na odpowiedŸ
 }
 
 //Wyœlij ¿¹danie
@@ -272,6 +270,54 @@ Request.prototype.add = function(key, val)
 
 //Reset
 Request.prototype.reset = function() { this.param = [] };
+
+//
+// *** WYŒLIJ FORMULARZ ZA POMOC¥ AJAX ***
+//
+
+//Utwórz tymczasowy obiekt Request i wyœlij formularz
+function send(o,id,opt)
+{
+	new Request(o.form.action || o.form.baseURI, id, opt).sendForm(o);
+	return false;
+}
+
+//Wyœlij formularz za pomoc¹ istniej¹cego obiektu Request
+//Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
+Request.prototype.sendForm = function(o)
+{
+	var el = o.form.elements, x;
+	for(var i=0; i<el.length; ++i)
+	{
+		x = el[i];
+		switch(x.type || '')
+		{
+			case 'radio':
+			case 'checkbox':
+				if(x.checked) this.add(x.name, x.value || 1); //Radio + Checkbox
+				break;
+			case 'text':
+			case 'textarea':
+			case 'hidden':
+			case 'password':
+				this.add(x.name, x.value); //Text
+				break;
+			case 'select':
+			case 'select-one':
+			case 'select-multiple':
+				for(var y=0; y<x.options.length; ++y)
+				{
+					if(x.options[y].selected) this.add(x.name, x.options[y].value) //Select
+				}
+				break;
+		}
+	}
+	if(o.name) this.add(o.name, o.value);
+	this.send();
+	this.reset();
+	o.disabled = 1;
+	return false;
+};
 
 //
 // *** DIALOG WINDOWS WITH AJAX SUPPORT ***

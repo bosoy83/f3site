@@ -1,22 +1,29 @@
 //Pobierz formularz
 function comment(o)
 {
-	include('/cache/emots.js', function()
+	include('cache/emots.js', function()
 	{
-		include('/lib/editor.js', function()
+		include('lib/editor.js', function()
 		{
-			var http = new Request(o.href, id('com'), {scripts: 1});
+			var http = new Request(o.href, id('com'));
 
-			/* Przejmij kontrolê nad formularzem - dopiero po wprowadzniu XML lub JSON
+			//Przejmij kontrolê nad formularzem
 			http.done = function(x)
 			{
-				id('com').innerHTML = x;
-			}
-			var f = document.forms['comm'];
-			var func = function() { http.sendForm(this) };
-			f.prev.onclick = func;
-			f.save.onclick = func;*/
-
+				if(x.indexOf('<form') == -1)
+				{
+					id('comments').innerHTML = x;
+				}
+				else
+				{
+					id('com').innerHTML = x;
+					var f = document.forms['comm'];
+					new Editor(f.text, 1).emots();
+					f.prev.onclick = function() { return http.sendForm(this) };
+					f.save.onclick = function() { return http.sendForm(this) };
+					this.scripts = 0;
+				}
+			};
 			http.send();
 		})
 	});

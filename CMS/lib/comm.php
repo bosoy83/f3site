@@ -2,7 +2,7 @@
 if(iCMS!=1 OR CT=='CT') return;
 
 #Akcje POST - dodaj, akceptuj komentarz
-if($_POST) include './mod/comment.php';
+#if($_POST) include './mod/comment.php';
 
 #Podzia³ na strony?
 if($cfg['commNum'])

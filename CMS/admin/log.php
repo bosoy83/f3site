@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('LOG')) exit;
+if(iCMSa!=1 || !Admit('L')) exit;
 
 #Usuñ?
 if($_POST && $x = GetID(true))
@@ -28,13 +28,16 @@ $res = $db->query('SELECT l.*,u.login FROM '.PRE.'log l LEFT JOIN '.PRE.'users u
 	ON l.user=u.ID AND l.user!=0 LIMIT '.$st.',30');
 $res->setFetchMode(3); //Assoc
 
+#Plik jêzykowy
+require LANG_DIR.'events.php';
+
 #Lista
 foreach($res as $i)
 {
 	$event[] = array(
 		'id'   => $i[0],
-		'text' => $i[1],
-		'date' => genDate($i[2]),
+		'text' => isset($events[$i[1]]) ? $events[$i[1]] : $i[1],
+		'date' => genDate($i[2], true),
 		'login'=> $i[5],
 		'ip'   => $i[3],
 		'user' => $i[4] ? '.?co=user&amp;id='.$i[4] : false

@@ -1,10 +1,10 @@
 <form action="" method="post" f3:array="cfg" f3:mode="isset">
-<h2>{lang.mainopt}</h2>
+<h2>{lang.main}</h2>
 
 <table cellspacing="1" class="tb">
 <tbody class="bg">
 <tr>
-	<td style="width: 45%"><b>{lang.deflang}:</b></td>
+	<td style="width: 290px"><b>{lang.defLang}:</b></td>
 	<td><select name="lang" style="text-transform: uppercase">{langlist}</select></td>
 </tr>
 <tr>
@@ -26,15 +26,15 @@
 </tr>
 <tr>
 	<td><b>{lang.footer}:</b></td>
-	<td><textarea name="footer" cols="45" rows="4">{Clean: cfg.footer}</textarea></td>
+	<td><textarea name="footer" cols="45" rows="4" style="width: 99%">{Clean: cfg.footer}</textarea></td>
 </tr>
 <tr>
 	<td><b>{lang.siteDesc}:</b><small>{lang.indexed}</small></td>
-	<td><textarea name="metaDesc" cols="45" rows="3">{cfg.metaDesc}</textarea></td>
+	<td><textarea name="metaDesc" cols="45" rows="3" style="width: 99%">{cfg.metaDesc}</textarea></td>
 </tr>
 <tr>
 	<td><b>{lang.head} &lt;head&gt;:</b><small>{lang.head2}</small></td>
-	<td><textarea name="head" rows="6" cols="45">{Clean: cfg.head}</textarea></td>
+	<td><textarea name="head" rows="6" cols="45" style="width: 99%">{Clean: cfg.head}</textarea></td>
 </tr>
 
 <tr>
@@ -56,7 +56,7 @@
 	<td><input type="text" name="time" value="{cfg.time}" style="font-family: monospace" /></td>
 </tr>
 <tr>
-	<td><b>{lang.lastv}?</b></td>
+	<td><b>{lang.lastv}:</b></td>
 	<td><input type="checkbox" name="lastVisit" /></td>
 </tr>
 
@@ -64,15 +64,15 @@
 	<th colspan="2">{lang.security}</th>
 </tr>
 <tr>
-	<td><b>{lang.censor}?</b></td>
+	<td><b>{lang.censor}:</b></td>
 	<td><input type="checkbox" name="censor" /></td>
 </tr>
 <tr>
-	<td><b>{lang.BBCode}?</b><small>{lang.BBCode2}</small></td>
+	<td><b>{lang.BBCode}:</b><small>{lang.BBCode2}</small></td>
 	<td><input type="checkbox" name="bbcode" /></td>
 </tr>
 <tr>
-	<td><b>{lang.captcha}:</b><small>{lang.regCom}</small></td>
+	<td><b>{lang.captcha}:</b><small>{lang.captcha2}</small></td>
 	<td><input type="checkbox" name="captcha" /></td>
 </tr>
 <tr>
@@ -88,7 +88,7 @@
 	<td><input type="checkbox" name="userComm" /></td>
 </tr>
 <tr>
-	<td><b>{lang.pmOn}?</b></td>
+	<td><b>{lang.pmOn}:</b></td>
 	<td><input type="checkbox" name="pmOn" /></td>
 </tr>
 <tr>
@@ -100,11 +100,7 @@
 	<td><input type="checkbox" name="userFind" /></td>
 </tr>
 <tr>
-	<td><b>{lang.newPass}:</b></td>
-	<td><input type="checkbox" name="newPass" /></td>
-</tr>
-<tr>
-	<td><b>{lang.detect}?</b><small>{lang.detect2}</small></td>
+	<td><b>{lang.detect}:</b><small>{lang.detect2}</small></td>
 	<td><input type="checkbox" name="detectLang" /></td>
 </tr>
 <tr>
@@ -131,11 +127,11 @@
 	<td><input type="checkbox" name="moderate" /></td>
 </tr>
 <tr>
-	<td><b>{lang.guestComm}?</b><small>{lang.guest2}</small></td>
+	<td><b>{lang.guestComm}:</b><small>{lang.guest2}</small></td>
 	<td><input type="checkbox" name="commGuest" /></td>
 </tr>
 <tr>
-	<td><b>{lang.hasURL}?</b><small>{lang.spam}</small></td>
+	<td><b>{lang.hasURL}:</b><small>{lang.spam}</small></td>
 	<td><input type="checkbox" name="URLs" /></td>
 </tr>
 
@@ -143,7 +139,7 @@
 	<th colspan="2">{lang.poll}</th>
 </tr>
 <tr>
-	<td><b>{lang.common}?</b></td>
+	<td><b>{lang.common}:</b></td>
 	<td><input type="checkbox" name="pollComm" /></td>
 </tr>
 <tr>

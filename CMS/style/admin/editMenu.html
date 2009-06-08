@@ -2,13 +2,12 @@
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
-	<td width="38%"><b>1. {lang.title}:</b></td>
+	<td style="width: 230px"><b>1. {lang.title}:</b></td>
 	<td><input name="text" maxlength="50" value="{menu.text}" /></td>
 </tr>
 <tr>
-	<td><b>2. {lang.acc}:</b></td>
+	<td><b>2. {lang.access}:</b></td>
 	<td>
 		<select name="disp">
 			<option value="1">{lang.on}</option>
@@ -27,14 +26,14 @@
 <tr>
 	<td><b>4. {lang.type}:</b></td>
 	<td>
-		<label><input type="radio" value="1" name="type" /> {lang.cont}</label> &nbsp;
+		<label><input type="radio" value="1" name="type" /> {lang.plain}</label> &nbsp;
 		<label><input type="radio" value="3" name="type" /> {lang.urls}</label> &nbsp;
 		<label><input type="radio" value="2" name="type" /> {lang.file}</label> &nbsp;
 		<label><input type="radio" value="4" name="type" /> {lang.merged}</label>
 	</td>
 </tr>
 <tr>
-	<td><b>5. {lang.bgimg}:</b><br /><small>{lang.0off}</small></td>
+	<td><b>5. {lang.boxImg}:</b><br /><small>{lang.0off}</small></td>
 	<td>
 		<input name="img" maxlength="200" value="{menu.img}" />
 		<!-- IF fileman -->
@@ -43,25 +42,21 @@
 	</td>
 </tr>
 <tr>
-	<td><b>6. {lang.txtfile}</b><br /><small>{lang.nmlink}</small></td>
+	<td><b>6. {lang.txtfile}</b><br /><small>{lang.noLinks}</small></td>
 	<td>
 		<textarea rows="4" name="value" cols="45">{Clean: menu.value}</textarea>
 	</td>
 </tr>
 <tr>
-	<th colspan="2"><b>{lang.navbody}</b></td>
+	<th colspan="2"><b>{lang.items}</b></th>
 </tr>
 <tr>
 	<td colspan="2" align="center" id="items">
 	<!-- START item -->
-		<div id="i1">
+		<div>
 		{lang.title}: <input name="txt[]" value="{htmlspecialchars: 0}" />
 		{lang.adr}: <input name="adr[]" value="{1}" />
-		<!-- IF 2 -->
-		<input type="checkbox" name="nw[]" checked="checked" />
-		<!-- ELSE -->
-		<input type="checkbox" name="nw[]" />
-		<!-- END -->
+		<input type="checkbox" name="nw[{KEY}]" title="{lang.openNew}" style="cursor: help" f3:var="i1.2" />
 		<input type="image" src="img/icon/add.png" alt="+" />
 		<input type="image" src="img/icon/del.png" alt="-" />
 		<input type="image" src="img/icon/up.png" alt="UP" />
@@ -70,12 +65,11 @@
 </tr>
 <tr>
 	<td colspan="2" class="eth">
-		<input type="button" value="{lang.navadd}" onclick="f.addItem()" style="width: 99px" />
+		<input type="button" value="{lang.addLink}" onclick="f.addItem()" style="width: 99px" />
 		<input type="submit" value="{lang.save}" />
-		<input type="submit" value="{lang.savenew}" name="savenew" style="width: 142px" />
+		<input type="submit" value="{lang.saveNew}" name="savenew" style="width: 142px" />
 	</td>
 </tr>
-</tbody>
 </table>
 </form>
 
@@ -91,7 +85,7 @@
 
 <script type="text/javascript">
 //<![CDATA[
-document.forms[0].elements[0].focus()
+document.forms[0][0].focus()
 f = new Fragment('items',{depth:1,html:id('tpl')})
 //]]>
 </script>
