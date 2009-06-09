@@ -104,7 +104,7 @@ elseif($id)
 else
 {
 	$poll = array('name'=>'', 'q'=>'', 'type'=>1, 'ison'=>1, 'access'=>$nlang);
-	$an = array( array(0, ''), array(0, '') );
+	$an = array( array(0, ''), array(0, ''), array(0, '') );
 }
 
 #Szablon

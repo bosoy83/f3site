@@ -2,6 +2,8 @@
 body {
 	font: 13px Verdana,Helvetica,Arial,Times;
 	background-color: #C7C5B8;
+	margin: auto;
+	width: 950px;
 }
 a {
 	text-decoration: none;
@@ -33,16 +35,76 @@ optgroup {font-style: normal}
 textarea {font: 13px Verdana,Helvetica}
 label {cursor: pointer}
 
+/* Uk³ad strony */
+#top, #bar, #mid, #footer {border: 1px solid #728FA7}
+#top {
+	height: 60px;
+	padding-left: 220px;
+	text-align: center;
+	background: #B3C4D7 url(2/logo.png) no-repeat;
+}
+#bar {
+	background-color: #EFEEE6;
+	padding: 3px 8px 3px 8px;
+	border-width: 0 1px;
+}
+#bar a {
+	color: #2872AE;
+	font-weight: bold
+}
+#flags {
+	float: right;
+	width: 300px;
+}
+#today {
+	float: right;
+}
+#mid {
+	padding-left: 200px;
+	padding-right: 218px;
+	overflow: hidden;
+	position: relative;
+	background-color: #B3C4D7 /* main color */
+}
+#left {
+	width: 182px; /* width - padding */
+	margin-left: -100%;
+	right: 216px;
+}
+#right {
+	width: 182px;
+	margin-right: -218px;
+}
+#main {
+	width: 100%;
+	background-color: #C4D0DF;
+	border: 1px solid #728FA7;
+	border-width: 0 1px;
+}
+#left, #right, #main {
+	padding: 8px 8px 10000px;
+	margin-bottom: -10000px;
+	position: relative;
+	float: left
+}
+#footer {
+	clear: both;
+	background-color: #AABCCA;
+	padding: 2px;
+	border-top: 0;
+	text-align: center
+}
+* html #left {
+	left: 200px; /* IE hack */
+}
+
 /* Listy */
 ul,ol {margin: 9px; padding-left: 25px}
 ul.go {list-style-image: url(../../img/icon/go.png)}
 ul.gallery {list-style: none; padding: 0; margin: 0}
 ul.gallery li {
-	display: block;
-	float: left;
-	overflow: hidden;
-	width: 141px;
-	height: 150px;
+	display: inline-block;
+	width: 30%;
 	padding: 5px;
 	text-align: center;
 }
@@ -68,56 +130,6 @@ ul.cats li {
 .items a {font-weight: bold}
 .items h3 {margin: 0}
 
-/* Szablon */
-.all {
-	width: 880px;
-	background-color: #728FA7
-}
-.al2 {
-	background-color: #B3C4D7
-}
-td.nav {
-	width: 175px;
-	padding: 9px
-}
-td#main {
-	background-color: #C4D0DF;
-	padding: 9px
-}
-
-/*Nag³ówek i stopka*/
-#header {
-	height: 60px;
-	padding-left: 220px;
-	text-align: center;
-	background-image: url(2/logo.png);
-	background-repeat: no-repeat
-}
-#flags {
-	margin: -2px auto 0 auto;
-	text-align: center;
-}
-#flags img {
-	height: 11px;
-}
-#footer {
-	background-color: #AABCCA;
-	padding: 2px;
-	width: 874px;
-	margin: 0 auto 5px auto;
-	text-align: center;
-	border: 1px #728FA7 solid;
-	border-top: 0
-}
-#gm {
-	background-color: #EFEEE6;
-	padding: 3px 8px 3px 8px
-}
-#gm a {
-	color: #2872AE;
-	font-weight: bold
-}
-
 /*Menu*/
 .menu {
 	background-color: #EFEEE6;
@@ -125,7 +137,7 @@ td#main {
 	margin-bottom: 7px;
 	border: 1px solid #416298
 }
-.mh, .hint .title {
+.mh {
 	padding: 1px;
 	color: white;
 	font-weight: bold;
@@ -200,9 +212,6 @@ blockquote {
 	border: 1px outset #d2b473;
 	height: 10px;
 }
-.post1 {padding: 3px}
-.post2 {padding: 3px; background-color: #EEEEEE}
-.nag {background-color: #D9E6DB}
 big {font-size: 15px}
 small {font-size: 11px}
 
@@ -238,7 +247,6 @@ a.add {
 .dialog {
 	position: absolute;
 	z-index: 99;
-
 	padding: 5px;
 	background-color: #EFEBE7;
 	border: 1px solid #B1A598;
@@ -272,13 +280,13 @@ a.add {
 	background-color: white;
 	position: absolute;
 	visibility: hidden;
-	margin: 0
+	z-index: 99;
 }
 .hint .win {
 	padding: 8px;
 	overflow: auto;
 }
-.hint ul, ul.hint {
+.menulist, ul.hint {
 	margin: 0;
 	padding: 0;
 	list-style-type: none
@@ -292,12 +300,16 @@ a.add {
 }
 
 /*Edytor*/
-.editor {margin: 2px}
+.editor {margin-top: 2px}
 .editor img, .editor span {
 	cursor: pointer;
 	padding: 4px;
 	vertical-align: middle;
+	border: 1px solid #EFEEE6;
 }
 .editor img:hover, .editor span:hover {
-	background-color: #fffdd9;
+	border: 1px outset #ece9d8;
+}
+.editor img:active, .editor span:active {
+	border: 1px inset #ece9d8;
 }

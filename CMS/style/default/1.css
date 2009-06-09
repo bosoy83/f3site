@@ -131,28 +131,6 @@ ul.cats li {
 .items a {font-weight: bold}
 .items h3 {margin: 0}
 
-/* Szablon */
-td.nav {width: 175px; padding: 9px}
-td#main {background-color: #EDEDEB; padding: 9px}
-
-/*Nag³ówek i stopka*/
-
-/*
-#footer {
-	background-color: #DCDCD6;
-	padding: 2px;
-	width: 874px;
-	margin: 0 auto 5px auto;
-	text-align: center;
-	border: 1px solid #ACACA4;
-	border-top: 0
-}
-#gm {
-	background-color: #F0F0EE;
-	padding: 3px 8px 3px 8px
-}*/
-
-
 /*Menu*/
 .menu {
 	background-color: #F4F4F2;
@@ -302,9 +280,7 @@ a.add {
 	background-color: #ebfbfe;
 	position: absolute;
 	visibility: hidden;
-	z-index: 99;
-	width: auto;
-	margin: 0;
+	z-index: 99
 }
 .hint .win {
 	padding: 8px;
