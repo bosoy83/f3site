@@ -1,5 +1,4 @@
-<div id="online">
-<?php
+<div id="online"><?php
 if(iCMS!=1) exit;
 $online = isset($_SESSION['online']) ? $_SESSION['online'] : 0;
 
@@ -64,5 +63,4 @@ echo
 	$lang['visits'].'<br /><b>'.$licznik.'</b><br />'.
 	$lang['online'].'<br /><b>'.$num.'</b>'.$list;
 unset($online);
-?>
-</div>
+?></div>

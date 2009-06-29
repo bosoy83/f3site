@@ -27,14 +27,13 @@
 
 'mainPage'=>'Strona główna',
 'summary' =>'Podsumowanie',
-'admIntro'=>'Witaj w panelu administracyjnym %name. Wybierz odpowiedni moduł z menu.',
+'admIntro'=>'Witaj w panelu administracyjnym %s. Wybierz odpowiedni moduł z menu.',
 'skinComp'=>'Zatwierdź zmiany w bieżącej skórce',
 'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2009',
 'course'=>'Kurs HTML, xHTML, CSS...',
 'what'=>'Co chcesz zrobić?',
 'SVN' =>'Odwiedź stronę projektu w Google Code',
 
-'adr' => 'Adres',
 'delc'=> 'Na pewno usunąć?',
 'disp'=> 'Dost.',
 'off' => 'Wyłączone',

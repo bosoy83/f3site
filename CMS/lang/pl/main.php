@@ -72,6 +72,7 @@ $lang = Array(
 'search'=>'Szukaj',
 'size'=>'Rozmiar',
 'skin'=>'Wygląd',
+'tags'=>'Słowa kluczowe',
 'text'=>'Treść',
 'title'=>'Tytuł',
 'toc'=>'Spis treści',

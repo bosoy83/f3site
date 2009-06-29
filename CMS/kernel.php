@@ -375,7 +375,7 @@ function genDate($x, $time=false)
 	$diff = $_SERVER['REQUEST_TIME'] - $x;
 
 	#X minut temu (do 99)
-	if($diff < 5941 && $diff > 0)
+	if($diff < 5941 && $diff >= 0)
 	{
 		return sprintf($lang['ago'], ceil($diff/60));
 	}

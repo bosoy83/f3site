@@ -35,7 +35,7 @@ foreach($res as $n)
 		'edit_url' => $rights ? '?co=edit&amp;act=5&amp;id='.$n['ID'] : false,
 
 		#Komentarze URL
-		'comm_url' => $comm ? '?co=news&amp;id='.$n['ID'].'#comments' : false,
+		'comm_url' => $comm ? '?co=news&amp;id='.$n['ID'] : false,
 
 		#Autor URL
 		'wrote_url' => '?co=user&amp;id='.$n['author']

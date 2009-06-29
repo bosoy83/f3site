@@ -88,9 +88,9 @@ if(isset($_POST['poll']))
 				$correct = array();
 				foreach(array_keys($_POST['vote']) as $key)
 				{
-					if(is_numeric($key)) $correct[] = (int)$key; //Wiele odp.
+					if(is_numeric($key)) $correct[] = $key; //Wiele odp.
 				}
-				$q = $correct ? implode(',',$correct) : 0;
+				$q = $correct ? join(',',$correct) : 0;
 			}
 			#Aktualizuj
 			try

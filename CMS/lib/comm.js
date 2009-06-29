@@ -21,6 +21,7 @@ function comment(o)
 					new Editor(f.text, 1).emots();
 					f.prev.onclick = function() { return http.sendForm(this) };
 					f.save.onclick = function() { return http.sendForm(this) };
+					f.name.focus();
 					this.scripts = 0;
 				}
 			};
@@ -34,16 +35,22 @@ function comment(o)
 }
 
 //Akcja komentarza
-function coma(url,act,o)
+function coma(act,o)
 {
 	if(act == 'ok' || confirm(lang.del))
 	{
-		var x;
-		if(!x) x = new Request('request.php'+url, null, {post:1,done:function(x){alert(x)}});
-		x.url = url;
-		x.send({act:act});
-		o.parentNode.removeChild(o)
+		new Request(o.href, null, {post: 1, done: function(x)
+		{
+			if(x == 'OK')
+			{
+				if(act == 'del') o.parentNode.parentNode.parentNode.removeChild(o.parentNode.parentNode);
+				else o.parentNode.removeChild(o);
+			}
+			else alert(x);
+		} }
+		).send({act:act});
 	}
+	return false;
 }
 
 //Wczytaj plik jêzyka

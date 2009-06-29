@@ -80,7 +80,7 @@ else
 	MI($lang['cats'],'cats','C','cat').
 	MI($lang['polls'],'polls','Q','poll').
 	MI($lang['ipages'],'pages','P','page').
-	MI($lang['rss'],'summary','R','rss').
+	MI($lang['rss'],'rss','R','rss').
 
 	'</ul><ul class="adm">'.
 

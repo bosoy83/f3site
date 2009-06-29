@@ -27,7 +27,7 @@
 
 'mainPage'=>'Main page',
 'summary' =>'Summary',
-'admIntro'=>'Welcome to %name admin panel. Select a module from left menu.',
+'admIntro'=>'Welcome to %s admin panel. Select a module from left menu.',
 'skinComp'=>'Apply changes in current skin',
 'official'=>'Get help and extensions for F3Site 2009',
 'course'=>'HTML, xHTML, CSS course (PL)',
