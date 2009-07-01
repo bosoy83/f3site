@@ -3,7 +3,7 @@
 <div class="box">{nl2br: preview}</div>
 <!-- END -->
 
-<form action="" method="post" id="pm">
+<form action="{url}" method="post" id="pm">
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -34,7 +34,7 @@
 <tr>
 	<td colspan="2" class="eth">
 		<input type="submit" value="{lang.preview}" />
-		<input type="submit" value="OK" name="send" />
+		<input type="submit" value="{lang.send}" name="send" />
 		<input type="submit" value="{lang.later}" name="save" />
 	</td>
 </tr>
@@ -45,7 +45,9 @@
 <!-- IF bbcode -->
 
 <script type="text/javascript">
-new Editor(document.forms['pm'].txt, 1).emots()
+f = document.forms['pm']
+new Editor(f.txt, 1).emots()
+f[0].focus()
 </script>
 
 <!-- ELSE -->

@@ -8,6 +8,7 @@ $lang += Array(
 
 'reply'=>'reply',
 'fwd'=>'forward to...',
+'send'=>'Send now',
 'later'=>'Send later',
 
 'fold'=>'Folders',

@@ -1,44 +1,44 @@
 * F3Site 2.1 *
-- indeks zdarzeÒ
-- blokada dostÍpu
-- licznik odwiedzin i liczba obecnych osÛb
+- indeks zdarze≈Ñ
+- blokada dostƒôpu
+- licznik odwiedzin i liczba obecnych os√≥b
 - emotikony
 - zapis wizyty Google do indeksu
-- masowa zmiana kategorii i dostÍpno∂ci
-- centrum ustawieÒ
+- masowa zmiana kategorii i dostƒôpno≈õci
+- centrum ustawie≈Ñ
 - poprawione zliczanie pozycji w kategoriach
 - inne zmiany i poprawki
-- obs≥uga XMLHTTPRequest (inc/adv.js)
-- wykrywanie domy∂lnego jÍzyka przegl±darki
+- obs≈Çuga XMLHTTPRequest (inc/adv.js)
+- wykrywanie domy≈õlnego jƒôzyka przeglƒÖdarki
 
 * F3Site 2.0 *
-- uøycie sesji PHP do logowania
-- poprawa dzia≥ania BBCode
+- u≈ºycie sesji PHP do logowania
+- poprawa dzia≈Çania BBCode
 - nowe przyciski BBCode/HTML
-- zamiana (cenzura) s≥Ûw
+- zamiana (cenzura) s≈Ç√≥w
 - eksport bazy danych
 - rozszerzony formularz do pisania komentarzy
-- grupy uøytkownikÛw
+- grupy u≈ºytkownik√≥w
 - potwierdzanie kodu z obrazka
 - wczytywanie menu z pliku jako opcja
-- przetwarzanie kodu PHP w artyku≥ach i stronach inf.
-- wyszukiwarka uøytkownikÛw i zawarto∂ci
-- g≥Ûwna strona moøe byÊ kategori± lub stron± inf.
-- lepszy wygl±d ustawieÒ
+- przetwarzanie kodu PHP w artyku≈Çach i stronach inf.
+- wyszukiwarka u≈ºytkownik√≥w i zawarto≈õci
+- g≈Ç√≥wna strona mo≈ºe byƒá kategoriƒÖ lub stronƒÖ inf.
+- lepszy wyglƒÖd ustawie≈Ñ
 - poprawki xHTML i CS
-- poprawione wy∂wietlanie galerii
+- poprawione wy≈õwietlanie galerii
 - opcje kategorii (SCRO)
 - inne poprawki
 
 * F3Site 1.4 *
-- generator nowych hase≥
-- poprawione wysy≥anie wiadomo∂ci e-mail
-- czas ostatniej wizyty uøytkownikÛw
-- prywatne wiadomo∂ci
+- generator nowych hase≈Ç
+- poprawione wysy≈Çanie wiadomo≈õci e-mail
+- czas ostatniej wizyty u≈ºytkownik√≥w
+- prywatne wiadomo≈õci
 - zapisywanie liczby pozycji w kategoriach
 - znaki specjalne
 - bezpieczniejsza instalacja wtyczek
 - inne poprawki
-- poprawka: resetowanie g≥osÛw w sondach
-- poprawka: wy∂wietlanie sond
-- poprawka: zarz±dzanie i wy∂wietlanie emotikon
+- poprawka: resetowanie g≈Ços√≥w w sondach
+- poprawka: wy≈õwietlanie sond
+- poprawka: zarzƒÖdzanie i wy≈õwietlanie emotikon

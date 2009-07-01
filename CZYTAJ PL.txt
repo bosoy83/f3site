@@ -2,86 +2,86 @@ Rozpowszechnianie i licencja
 ============================
 
 Copyright 2009 COMPMaster
-F3Site 2009 jest wolnym oprogramowaniem. Mo¿esz go rozprowadzaæ dalej, modyfikowaæ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundacjê Wolnego Oprogramowania wg 2. wersji tej Licencji lub którejœ z póŸniejszych.
+F3Site 2009 jest wolnym oprogramowaniem. MoÅ¼esz go rozprowadzaÄ‡ dalej, modyfikowaÄ‡ na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez FundacjÄ™ Wolnego Oprogramowania wg 2. wersji tej Licencji lub ktÃ³rejÅ› z pÃ³Åºniejszych.
 
-Skrypt rozpowszechniany jest z nadziej¹, i¿ bêdzie on u¿yteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI,nawet domyœlnej gwarancji PRZYDATNOŒCI HANDLOWEJ albo PRZYDATNOŒCI DO OKREŒLONYCH ZASTOSOWAÑ. W celu uzyskania bli¿szych informacji - Powszechna Licencja Publiczna GNU.
+Skrypt rozpowszechniany jest z nadziejÄ…, iÅ¼ bÄ™dzie on uÅ¼yteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI,nawet domyÅ›lnej gwarancji PRZYDATNOÅšCI HANDLOWEJ albo PRZYDATNOÅšCI DO OKREÅšLONYCH ZASTOSOWAÅƒ. W celu uzyskania bliÅ¼szych informacji - Powszechna Licencja Publiczna GNU.
 
-System korzysta z komponentów:
+System korzysta z komponentÃ³w:
 * ikony Silk i Flags - http://www.famfamfam.com
 
 
 Wymagania
 =========
 
-* PHP 5.2 lub nowszy z w³¹czonym rozszerzeniem PDO
+* PHP 5.2 lub nowszy z wÅ‚Ä…czonym rozszerzeniem PDO
 * Baza danych: MySQL 5.0.2+ lub SQLite 3+
-* Obs³uga sesji PHP
+* ObsÅ‚uga sesji PHP
 
 
 Instalacja
 ==========
 
-1. Za³aduj zawartoœc katalogu SYSTEM na serwer za pomoc¹ klienta FTP lub mened¿era plików. Mo¿esz wczeœniej usun¹æ niepotrzebne jêzyki i skórki (oprócz DEFAULT). Nastêpnie nadaj plikom i folderom uprawnienia (CHMOD):
+1. ZaÅ‚aduj zawartoÅ›c katalogu SYSTEM na serwer za pomocÄ… klienta FTP lub menedÅ¼era plikÃ³w. MoÅ¼esz wczeÅ›niej usunÄ…Ä‡ niepotrzebne jÄ™zyki i skÃ³rki (oprÃ³cz DEFAULT). NastÄ™pnie nadaj plikom i folderom uprawnienia (CHMOD):
 * katalogi: CFG, CACHE - 0777
-* wszystkie foldery w powy¿szych katalogach - 0777
-* wszystkie pliki w powy¿szych katalogach - 0766
-* katalogi: FILES, IMG - 0777 (nieobowi¹zkowo)
-* katalogi: IMG/USER - 0777 (wymagane, aby u¿ytkownicy mogli wgrywaæ zdjêcia)
+* wszystkie foldery w powyÅ¼szych katalogach - 0777
+* wszystkie pliki w powyÅ¼szych katalogach - 0766
+* katalogi: FILES, IMG - 0777 (nieobowiÄ…zkowo)
+* katalogi: IMG/USER - 0777 (wymagane, aby uÅ¼ytkownicy mogli wgrywaÄ‡ zdjÄ™cia)
 
-2. PrzejdŸ do katalogu INSTALL w przegl¹darce internetowej, wpisuj¹c: http://adres.strony.pl/install/
-Aby instalacja przebieg³a poprawnie, u¿ytkownik bazy danych musi mieæ do niej pe³ne prawa. 
+2. PrzejdÅº do katalogu INSTALL w przeglÄ…darce internetowej, wpisujÄ…c: http://adres.strony.pl/install/
+Aby instalacja przebiegÅ‚a poprawnie, uÅ¼ytkownik bazy danych musi mieÄ‡ do niej peÅ‚ne prawa. 
 
-3. Po instalacji USUÑ KATALOG INSTALL!
+3. Po instalacji USUÅƒ KATALOG INSTALL!
 
-4. Zaloguj siê i dostosuj system w panelu administracyjnym.
+4. Zaloguj siÄ™ i dostosuj system w panelu administracyjnym.
 
 
 Aktualizacje i pomoc techniczna
 ===============================
 
-Oficjalna strona F3Site: compmaster.go.pl (wortal COMPMaster). Pomoc dotycz¹c¹ skryptu mo¿esz uzyskaæ na forum. UWAGA! Strony niezgodne z prawem, nieprzyzwoite lub propaguj¹ce piractwo nie otrzymaj¹ wsparcia.
+Oficjalna strona F3Site: compmaster.go.pl (wortal COMPMaster). Pomoc dotyczÄ…cÄ… skryptu moÅ¼esz uzyskaÄ‡ na forum. UWAGA! Strony niezgodne z prawem, nieprzyzwoite lub propagujÄ…ce piractwo nie otrzymajÄ… wsparcia.
 
-Aktualna wersja rozwojowa F3Site z repozytorium SVN, systemem b³êdów oraz Wiki znajduje siê w serwisie Google Code: f3site.googlecode.com
+Aktualna wersja rozwojowa F3Site z repozytorium SVN, systemem bÅ‚Ä™dÃ³w oraz Wiki znajduje siÄ™ w serwisie Google Code: f3site.googlecode.com
 
 
-Rozszerzenia i skórki
+Rozszerzenia i skÃ³rki
 =====================
 
-Mo¿esz zwiêkszyæ mo¿liwoœci systemu za pomoc¹ rozszerzeñ. Przed instalacj¹ jakiegokolwiek dodatku upewnij siê, ¿e pochodzi z zaufanego Ÿród³a, gdy¿ mo¿e on uszkodziæ Twój wortal lub wykraœæ poufne dane!
+MoÅ¼esz zwiÄ™kszyÄ‡ moÅ¼liwoÅ›ci systemu za pomocÄ… rozszerzeÅ„. Przed instalacjÄ… jakiegokolwiek dodatku upewnij siÄ™, Å¼e pochodzi z zaufanego ÅºrÃ³dÅ‚a, gdyÅ¼ moÅ¼e on uszkodziÄ‡ TwÃ³j wortal lub wykraÅ›Ä‡ poufne dane!
 
 
-Bezpieczeñstwo
+BezpieczeÅ„stwo
 ==============
 
-1. Co pewien czas utwórz KOPIÊ BAZY DANYCH.
+1. Co pewien czas utwÃ³rz KOPIÄ˜ BAZY DANYCH.
 
 2. Po instalacji nadaj plikowi cfg/db.php prawa 444 (tylko odczyt).
 
-3. NIKOMU NIE PODAWAJ SWOJEGO HAS£A! JE¯ELI KORZYSTASZ Z INTERNETU W MIEJSCACH PUBLICZNYCH, ZAWSZE WYLOGUJ SIÊ PO ODEJŒCIU OD KOMPUTERA!
+3. NIKOMU NIE PODAWAJ SWOJEGO HASÅA! JEÅ»ELI KORZYSTASZ Z INTERNETU W MIEJSCACH PUBLICZNYCH, ZAWSZE WYLOGUJ SIÄ˜ PO ODEJÅšCIU OD KOMPUTERA!
 
-4. Chroñ swój komputer programem antywirusowym z AKTUALN¥ BAZ¥ WIRUSÓW! Po sieci kr¹¿y koñ trojañski, który kradnie has³a z programów do obs³ugi FTP, a nastêpnie dodaje ukryte ramki <iframe> prowadz¹ce do niebezpiecznych witryn i skrypty JavaScript do plików stron na serwerze! Je¿eli zobaczysz jakiekolwiek objawy wskazuj¹ce na dzia³alnoœæ trojana (np. nowe znaczniki w Ÿródle strony), koniecznie zmieñ has³a do serwerów FTP, przeskanuj komputer i za³aduj ponownie czyste pliki.
+4. ChroÅ„ swÃ³j komputer programem antywirusowym z AKTUALNÄ„ BAZÄ„ WIRUSÃ“W! Po sieci krÄ…Å¼y koÅ„ trojaÅ„ski, ktÃ³ry kradnie hasÅ‚a z programÃ³w do obsÅ‚ugi FTP, a nastÄ™pnie dodaje ukryte ramki <iframe> prowadzÄ…ce do niebezpiecznych witryn i skrypty JavaScript do plikÃ³w stron na serwerze! JeÅ¼eli zobaczysz jakiekolwiek objawy wskazujÄ…ce na dziaÅ‚alnoÅ›Ä‡ trojana (np. nowe znaczniki w ÅºrÃ³dle strony), koniecznie zmieÅ„ hasÅ‚a do serwerÃ³w FTP, przeskanuj komputer i zaÅ‚aduj ponownie czyste pliki.
 
 
 Uwagi
 =====
 
-1. Skórki s¹ kompilowane do kodu PHP do folderu CACHE, sk¹d system je wczytuje.
-2. Aby zlikwidowaæ maskowanie adresu przez domenê, przekieruj j¹ do pliku domain.php.
+1. SkÃ³rki sÄ… kompilowane do kodu PHP do folderu CACHE, skÄ…d system je wczytuje.
+2. Aby zlikwidowaÄ‡ maskowanie adresu przez domenÄ™, przekieruj jÄ… do pliku domain.php.
 
 
 Panel administracyjny
 =====================
 
-Po zalogowaniu jest dostêpny odnoœnik do PA. Widzisz go tylko Ty oraz uprawnieni u¿ytkownicy. Do PA mo¿esz te¿ dostaæ siê, wpisuj¹c rêcznie œcie¿kê do katalogu ADMIN lub pliku adm.php.
+Po zalogowaniu jest dostÄ™pny odnoÅ›nik do PA. Widzisz go tylko Ty oraz uprawnieni uÅ¼ytkownicy. Do PA moÅ¼esz teÅ¼ dostaÄ‡ siÄ™, wpisujÄ…c rÄ™cznie Å›cieÅ¼kÄ™ do katalogu ADMIN lub pliku adm.php.
 
 
-Edycja treœci
+Edycja treÅ›ci
 =============
 
-Tylko u¿ytkownicy z rang¹ Redaktor, Administrator lub W³aœciciel mog¹ edytowaæ zawartoœæ. Po zalogowaniu jest dostêpny odnoœnik "Zarz¹dzaj treœci¹". Aby w widoku kategorii dodaæ now¹ pozycjê, wybierz: Opcje -> Dodaj pozycjê (tylko wtedy, gdy wyœwietlanie struktury kategorii jest w³¹czone).
+Tylko uÅ¼ytkownicy z rangÄ… Redaktor, Administrator lub WÅ‚aÅ›ciciel mogÄ… edytowaÄ‡ zawartoÅ›Ä‡. Po zalogowaniu jest dostÄ™pny odnoÅ›nik "ZarzÄ…dzaj treÅ›ciÄ…". Aby w widoku kategorii dodaÄ‡ nowÄ… pozycjÄ™, wybierz: Opcje -> Dodaj pozycjÄ™ (tylko wtedy, gdy wyÅ›wietlanie struktury kategorii jest wÅ‚Ä…czone).
 
 
 Znane problemy
 ==============
 
-Je¿eli strona nie wyœwietli siê lub wyst¹pi b³¹d serwera, zmodyfikuj lub usuñ plik .htaccess z katalogu g³ównego oraz CFG. Przeczytaj dokumentacjê Twojego hostingu, aby uzyskaæ wiêcej informacji. Plik .htaccess ustawia opcje, które zwiêkszaj¹ bezpieczeñstwo! SprawdŸ, czy s¹ one domyœlnie w³¹czone na serwerze. Jeœli nie, byæ mo¿e istnieje inny sposób, aby je zastosowaæ.
+JeÅ¼eli strona nie wyÅ›wietli siÄ™ lub wystÄ…pi bÅ‚Ä…d serwera, zmodyfikuj lub usuÅ„ plik .htaccess z katalogu gÅ‚Ã³wnego oraz CFG. Przeczytaj dokumentacjÄ™ Twojego hostingu, aby uzyskaÄ‡ wiÄ™cej informacji. Plik .htaccess ustawia opcje, ktÃ³re zwiÄ™kszajÄ… bezpieczeÅ„stwo! SprawdÅº, czy sÄ… one domyÅ›lnie wÅ‚Ä…czone na serwerze. JeÅ›li nie, byÄ‡ moÅ¼e istnieje inny sposÃ³b, aby je zastosowaÄ‡.

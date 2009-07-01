@@ -35,12 +35,12 @@ if($_POST)
 			if(isset($_POST['send']) && $o->to != $user[UID]['login'])
 			{
 				if($id && !isset($_POST['keep']))
-				{
+				{echo '///////////////////WY¦LIJ KOPIÊ';
 					$o -> status = 1;
-					$o -> update($id); //Wy¶lij kopiê robocz± - zmiana w³a¶ciciela
+					$o -> update($id); //Wy¶lij kopiê - zmiana w³a¶ciciela
 				}
 				else
-				{
+				{echo '///////////////////WY¦LIJ NOW¡';
 					$o -> send(); //Wy¶lij now± wiadomo¶æ
 				}
 				if(isset($_POST['sent']) && $cfg['pmLimit'] > $content->data['size'])
@@ -52,11 +52,12 @@ if($_POST)
 			else
 			{
 				if($id)
-				{
+				{echo '///////////////////AKTUALIZUJ';
+					$o -> status = 3;
 					$o -> update($id); //Aktualizuj kopiê robocz±
 				}
 				else
-				{
+				{echo '///////////////////NOWA KOPIA';
 					$o -> status = 3;
 					$o -> send(); //Nowa kopia robocza
 				}
@@ -64,7 +65,7 @@ if($_POST)
 			$db -> commit();
 
 			#Poka¿ listê PW
-			$id = $o->status;
+			$id = ($o->status == 3) ? 3 : 1;
 			include './mod/pms/list.php';
 			return 1;
 		}
@@ -115,6 +116,7 @@ elseif($id)
 		if(strpos($pm['topic'], $lang['re']) === false)
 		{
 			$pm['topic'] = $lang['re'].$pm['topic'];
+			$pm['txt'] = isset($cfg['bbcode']) ? '[quote]'.$pm['txt']."[/quote]\n" : '"'.$pm['txt']."\"\n";
 		}
 		$url = '?co=pms&amp;act=e';
 	}

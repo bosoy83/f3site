@@ -66,8 +66,8 @@ class PM
 			VALUES (:topic,:usr,:owner,:st,:date,:bbc,:txt)');
 
 		$q->execute( array(
-			'owner' => $this->status > 2 ? UID : $this->to,
-			'usr'   => $this->status < 3 ? UID : $this->sender,
+			'owner' => $this->status > 2 ? $this->sender : $this->to,
+			'usr'   => $this->status < 3 ? $this->sender : $this->to,
 			'topic' => $this->topic,
 			'txt'   => $this->text,
 			'bbc'   => $this->bbcode,
@@ -88,12 +88,13 @@ class PM
 		if(!is_numeric($this->to)) $this->to = userID($this->to);
 
 		$q = $db->prepare('UPDATE '.PRE.'pms SET topic=:topic, usr=:usr, owner=:owner,
-			st=:st, date=:date, bbc=:bbc, txt=:txt WHERE owner=:owner AND st=4 AND ID=:id');
+			st=:st, date=:date, bbc=:bbc, txt=:txt WHERE owner=:you AND st=3 AND ID=:id');
 
 		$q->execute( array(
+			'you'   => UID,
 			'id'    => $id,
-			'owner' => $this->status > 2 ? UID : $this->to,
-			'usr'   => $this->status < 3 ? UID : $this->sender,
+			'owner' => $this->status > 2 ? $this->sender : $this->to,
+			'usr'   => $this->status < 3 ? $this->sender : $this->to,
 			'topic' => $this->topic,
 			'txt'   => $this->text,
 			'bbc'   => $this->bbcode,
