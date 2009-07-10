@@ -41,8 +41,8 @@
 <!-- IF u.gg -->
 <tr>
 	<td><b>Gadu-Gadu:</b></td>
-	<td>
-		<a href="gg:{u.gg}"><img src="http://status.gadu-gadu.pl/users/status.asp?id={u.gg}" alt="GG" /></a> {u.gg}
+	<td style="background: url(http://status.gadu-gadu.pl/users/status.asp?id={u.gg}) no-repeat 2px 2px">
+		<a href="gg:{u.gg}" style="padding-left: 22px">{u.gg}</a>
 	</td>
 </tr>
 <!-- END -->
@@ -50,10 +50,8 @@
 <!-- IF u.tlen -->
 <tr>
 	<td><b>Tlen.pl:</b></td>
-	<td>
-		<a href="http://ludzie.tlen.pl/{u.tlen}/">
-			<img src="http://status.tlen.pl/?u={u.tlen}&amp;t=1" alt="TLEN" />
-		</a>
+	<td style="background: url(http://status.tlen.pl/?u={u.tlen}&amp;t=1) no-repeat 3px 2px">
+		<a href="http://ludzie.tlen.pl/{u.tlen}" style="padding-left: 22px">{u.tlen}</a>
 	</td>
 </tr>
 <!-- END -->
@@ -61,10 +59,17 @@
 <!-- IF u.icq -->
 <tr>
 	<td><b>ICQ:</b></td>
-	<td>
-		<a href="http://www.icq.com/people/about_me.php?uin={u.icq}">
-			<img src="http://status.icq.com/online.gif?icq={u.icq}&amp;img=5" alt="ICQ" />
-		</a>
+	<td style="background: url(http://status.icq.com/online.gif?icq={u.icq}&amp;img=5) no-repeat 3px 2px">
+		<a href="http://www.icq.com/people/about_me.php?uin={u.icq}" style="padding-left: 22px">{u.icq}</a>
+	</td>
+</tr>
+<!-- END -->
+
+<!-- IF u.jabber -->
+<tr>
+	<td><b>Jabber:</b></td>
+	<td style="background: url(img/icon/bulb.png) no-repeat 3px 3px">
+		<a href="xmpp:{u.jabber}" style="padding-left: 22px">{u.jabber}</a>
 	</td>
 </tr>
 <!-- END -->

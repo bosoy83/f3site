@@ -16,6 +16,7 @@ if($_POST)
 		'login' => Clean($_POST['login']),
 		'about' => Clean($_POST['about']),
 		'skype' => Clean($_POST['skype'],40),
+		'jabber'=> Clean($_POST['jabber'],60),
 		'photo' => Clean($_POST['photo']),
 		'mail'  => Clean($_POST['mail']),
 		'city' => Clean($_POST['city']),
@@ -55,12 +56,12 @@ if($_POST)
 	{
 		try
 		{
-			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail,
-			about=:about, www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen,
+			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail, about=:about,
+			www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen, jabber=:jabber,
 			gg=:gg, gid=:gid, photo=:photo WHERE ID='.$id) -> execute($u);
 
 			$content->info($lang['upd'], array(
-				'.?co=user&amp;id='.$id => $lang['account'].' '.$u['login'])); return;
+				'.?co=user&amp;id='.$id => $u['login'])); return;
 		}
 		catch(PDOException $e)
 		{

@@ -253,6 +253,7 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `city` varchar(50) NOT NULL DEFAULT '',
 `icq` varchar(15),
 `skype` varchar(50),
+`jabber` varchar(60),
 `tlen` varchar(50),
 `gg` int(11),
 `photo` varchar(150));

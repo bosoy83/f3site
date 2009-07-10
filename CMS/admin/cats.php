@@ -3,20 +3,23 @@ if(iCMSa!=1 || !Admit('C')) exit;
 require LANG_DIR.'admAll.php';
 
 #Przelicz ilo¶æ
-if(isset($_GET['act']))
+if(isset($_GET['count']))
 {
-	include './lib/categories.php';
-	switch($_GET['act'])
+	try
 	{
-		case 'rec': CountItems(); break;
-		case 'rep': RebuildTree(); break;
+		include './lib/categories.php';
+		$db->beginTransaction(); CountItems(); $db->commit();
+	}
+	catch(PDOException $e)
+	{
+		$content->info($e->getMessage());
 	}
 }
 
 #Informacja
 $content->info($lang['dinfo'], array(
 	'?a=editCat' => $lang['addCat'],
-	'?a=cats&amp;act=rec' => $lang['count']
+	'?a=cats&amp;count' => $lang['count']
 ) );
 
 #Odczyt
@@ -24,7 +27,7 @@ $res = $db->query('SELECT ID,name,access,type,num,lft,rgt FROM '.PRE.'cats'
 	.((isset($_GET['co']))?' WHERE type='.(int)$_GET['co']:'').' ORDER BY lft');
 
 #Typy i struktura
-$types = Array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
+$types = array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
 $depth = 0;
 $last = 1;
 

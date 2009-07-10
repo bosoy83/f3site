@@ -58,6 +58,7 @@ if($_POST)
 	'mails' => isset($_POST['mails']),
 	'city'  => Clean($_POST['city'],30),
 	'skype' => Clean($_POST['skype'],30),
+	'jabber'=> Clean($_POST['jabber'],50),
 	'about' => Clean($_POST['about'],9999,1)
 	);
 
@@ -176,17 +177,18 @@ if($_POST)
 			{
 				#Konto aktywne?
 				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
+				$u['regt'] = $_SERVER['REQUEST_TIME'];
 
 				$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,opt,lv,regt,
-				about,mails,www,city,icq,skype,tlen,gg) VALUES (:login,:pass,:mail,:opt,:lv,'.
-				$_SERVER['REQUEST_TIME'].',:about,:mails,:www,:city,:icq,:skype,:tlen,:gg)');
+				about,mails,www,city,icq,skype,jabber,tlen,gg) VALUES (:login,:pass,:mail,
+				:opt,:lv,:regt,:about,:mails,:www,:city,:icq,:skype,:jabber,:tlen,:gg)');
 			}
 			#Edycja
 			else
 			{
 				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, opt=:opt,
 				about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
-				tlen=:tlen, gg=:gg WHERE ID='.UID);
+				jabber=:jabber, tlen=:tlen, gg=:gg WHERE ID='.UID);
 			}
 
 			#Aktywacja e-mail
@@ -234,7 +236,7 @@ if($_POST)
 		}
 		catch(Exception $e)
 		{
-			$content->info($lang['error'].$e);
+			$content->info($lang['error'].$e->getMessage());
 		}
 	}
 }
@@ -250,7 +252,19 @@ else
 	}
 	else
 	{
-		$u = array('login'=>'','mail'=>'','city'=>'','opt'=>3,'mails'=>1,'gg'=>null,'icq'=>null,'tlen'=>'','www'=>'http://','about'=>'','skype'=>'');
+		$u = array(
+		'login' => '',
+		'mail'  => '',
+		'city'  => '',
+		'opt'   => 3,
+		'mails' => 1,
+		'gg'    => null,
+		'icq'   => null,
+		'tlen'  => '',
+		'www'   => 'http://',
+		'about' => '',
+		'skype' => '',
+		'jabber'=> '');
 	}
 }
 

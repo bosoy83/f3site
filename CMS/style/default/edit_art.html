@@ -1,5 +1,5 @@
-<h2>{this.title}</h2>
 <form action="" id="art" method="post" f3:array="art">
+<h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb" id="at">
 <tbody>
@@ -93,24 +93,33 @@ function CP(o)
 		var x = c.cloneNode(1);
 		var n = x.getElementsByTagName('textarea')[0];
 		num++;
-		cur = num;
 		x.id = 'p'+num;
 		n.value = '';
 		n.focus();
 		show(c);
 		they.appendChild(x);
-		id('b').innerHTML += '<input type="button" value="'+cur+'" onclick="CP(this)" />';
+		id('b').innerHTML += '<input type="button" value="'+num+'" onclick="CP(this)" />';
+		B(num);
+		cur = num;
 		e.o = n;
 	}
 	else if(o.value != cur)
 	{
 		show(c);
+		B(o.value);
 		cur = o.value;
 		x = id('p'+cur);
 		show(x);
 		e.o = x.getElementsByTagName('textarea')[0];
 	}
 }
+function B(x)
+{
+	var o = id('they').getElementsByTagName('input');
+	o[cur-1].style.fontWeight = 'normal';
+	o[x-1].style.fontWeight = 'bold';
+}
+B(1);
 function P()
 {
 	e.preview({EMOTS:f.elements['emo[]'].checked, NL:f.elements['br[]'].checked})

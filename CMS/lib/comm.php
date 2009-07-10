@@ -37,7 +37,7 @@ $mayDel  = $mayEdit || (CT == 10 && $id == UID);
 if($TOTAL !== 0)
 {
 	#SQL
-	$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.text,u.login
+	$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.text,u.login,u.photo
 		FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.author=u.ID AND c.guest!=1
 		WHERE c.TYPE='.CT.' AND c.CID='.$id.
 		(($mayEdit) ? '' : ' AND c.access=1').
@@ -59,7 +59,8 @@ if($TOTAL !== 0)
 			'ip'   => $mayEdit ? $x[4] : null,
 			'edit' => $mayEdit ? '?co=comment&amp;id='.$x[0] : false,
 			'del'  => $mayDel ? '?co=comment&amp;id='.$x[0] : false,
-			'accept'  => ($mayEdit && $x[1]!=1) ? '?co=comment&amp;id='.$x[0] : null,
+			'photo' => isset($cfg['commPhoto']) && $x[8] ? $x[8] : false,
+			'accept' => ($mayEdit && $x[1]!=1) ? '?co=comment&amp;id='.$x[0] : null,
 			'profile' => $x[7] ? '?co=user&amp;id='.$x[3] : null
 		);
 	}

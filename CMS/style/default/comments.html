@@ -12,18 +12,25 @@
 
 <!-- START comment -->
 <tr>
-	<td>
-
+	<td align="center" valign="top">
+		<div class="eth"><b>
+		
 		<!-- IF profile -->
-		<b><a href="{profile}">{user}</a></b>
+		<a href="{profile}">{user}</a>
 		<!-- ELSE -->
-		<b>{user}</b>
+		{user}
 		<!-- END -->
 
-		<div>{date}</div>
-
+		</b></div>
+		
 		<!-- IF ip -->
 		<div>{ip}</div>
+		<!-- END -->
+
+		<!-- IF photo -->
+		<div style="text-align: center; margin: 2px; overflow: hidden">
+			<img src="{photo}" alt="{user}" />
+		</div>
 		<!-- END -->
 
 		<!-- IF del -->
@@ -39,7 +46,8 @@
 		<!-- END -->
 
 	</td>
-	<td>
+	<td valign="top">
+		<div class="eth">{date}</div>
 		<h3>{title}</h3>{text}
 	</td>
 </tr>

@@ -1,7 +1,7 @@
 <?php $lang+=Array(
 'ipages'=>'Wolne strony',
 'polls'=>'Sondy i ankiety',
-'rss'=>'Kanały RSS',
+'rss'=>'Wiadomości RSS',
 
 'admins'=>'Administratorzy',
 'log'=>'Indeks zdarzeń',

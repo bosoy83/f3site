@@ -61,22 +61,22 @@
 	<td><input name="skype" maxlength="50" value="{u.skype}" /></td>
 </tr>
 <tr>
+	<td><b>Jabber:</b></td>
+	<td><input name="jabber" maxlength="50" value="{u.jabber}" /></td>
+</tr>
+<tr>
 	<td><b>{lang.wwwp}:</b></td>
 	<td><input name="www" size="30" maxlength="120" value="{u.www}" /></td>
 </tr>
 <tr>
 	<td><b>{lang.opt}:</b></td>
 	<td>
-		<input id="mv" type="checkbox" name="mvis" />
-		<label for="mv">{lang.vismail}</label><br />
-		<input id="ms" type="checkbox" name="mails" />
-		<label for="ms">{lang.getmails}</label><br />
-		<input id="cs" type="checkbox" name="comm" />
-		<label for="cs">{lang.allowComm}</label>
+		<label><input type="checkbox" name="mvis" /> {lang.vismail}</label><br />
+		<label><input type="checkbox" name="mails" /> {lang.getmails}</label><br />
+		<label><input type="checkbox" name="comm" /> {lang.allowComm}</label>
 		<!-- IF del -->
 		<br />
-		<input id="dp" type="checkbox" name="del" f3:var="0" />
-		<label for="dp">{lang.delPhoto}</label>
+		<label><input type="checkbox" name="del" f3:var="0" /> {lang.delPhoto}</label>
 		<!-- END -->
 	</td>
 </tr>

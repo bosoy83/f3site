@@ -251,6 +251,7 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `city` varchar(50) NOT NULL,
 `icq` varchar(15),
 `skype` varchar(50) NOT NULL,
+`jabber` varchar(60) NOT NULL,
 `tlen` varchar(50) NOT NULL,
 `gg` int(11),
 `photo` varchar(150) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';

@@ -2,16 +2,15 @@
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
-	<td><b>1. {lang.name}:</b></td>
+	<td style="width: 150px"><b>1. {lang.title}:</b></td>
 	<td><input name="name" value="{ad.name}" size="30" maxlength="50" /></td>
 </tr>
 <tr>
 	<td><b>2. {lang.access}:</b></td>
 	<td>
-		<input type="radio" name="ison" value="1" id="i1" /> <label for="i1">{lang.on}</label> &nbsp;
-		<input type="radio" name="ison" value="2" id="i2" /> <label for="i2">{lang.off}</label>
+		<label><input type="radio" name="ison" value="1" /> {lang.on}</label> &nbsp;
+		<label><input type="radio" name="ison" value="2" /> {lang.off}</label>
 	</td>
 </tr>
 <tr>
@@ -21,7 +20,7 @@
 <tr>
 	<td><b>4. {lang.HTML}:</b></td>
 	<td>
-		<textarea name="code" style="width: 90%" rows="12">{Clean: ad.code}</textarea>
+		<textarea name="code" style="width: 99%" rows="12" cols="50">{Clean: ad.code}</textarea>
 		<script type="text/javascript">
 		var f = document.forms[0]; var e = new Editor(f.code); f.elements[0].focus()
 		</script>
@@ -33,6 +32,5 @@
 		<input type="submit" value="{lang.save}" />
 	</td>
 </tr>
-</tbody>
 </table>
 </form>

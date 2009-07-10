@@ -25,6 +25,7 @@ function Fragment(box,opt)
 {
 	var box  = id(box);
 	var self = this;
+	var opt  = opt || {};
 
 	//Element, w którym znajduj± siê fragmenty
 	this.box = box;
@@ -157,6 +158,7 @@ Fragment.prototype = {
 		o.style.display = 'block';
 		this.act(o);
 		this.num++;
+		return o;
 	},
 
 	//Uaktywnij pierwszy element we fragmencie
@@ -168,5 +170,4 @@ Fragment.prototype = {
 			if(list.length>0) list[0].focus();
 		}
 	}
-
 }
