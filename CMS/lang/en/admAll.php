@@ -34,6 +34,16 @@ $lang+=Array(
 'subCats'	=> 'Move all subcategories to',
 'keep'		=> 'leave without category',
 
+/* RSS */
+'addRss'  => 'Add RSS',
+'editRss' => 'Edit RSS',
+'autoRss' => 'Update automatically',
+'infoRss' => 'Visitors may subscribe news with RSS readers.',
+'pageRss' => 'URL to home page or any category',
+'itemNum' => 'Number of items',
+'allNews' => 'all news',
+'missing' => 'file missing',
+
 /* MENU */
 'plain'		=> 'text or HTML',
 'file'		=> 'file',

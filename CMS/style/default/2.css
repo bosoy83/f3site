@@ -94,6 +94,15 @@ label {cursor: pointer}
 	border-top: 0;
 	text-align: center
 }
+#credits {
+	font-size: 11px;
+	text-align: center;
+	color: #AAAAAA;
+	margin: 5px
+}
+#credits a {
+	color: #707070
+}
 * html #left {
 	left: 200px; /* IE hack */
 }
@@ -176,7 +185,10 @@ th {
 	background-color: #F5F5F5;
 	border: 1px solid #9EAA97;
 	padding: 3px;
-	margin-bottom: 8px
+	margin-bottom: 8px;
+	line-height: 18px;
+	text-align: justify;
+	word-wrap: break-word
 }
 .eth td,th,pre,blockquote {padding: 2px}
 .tb tbody {background-color: #EFEEE6}

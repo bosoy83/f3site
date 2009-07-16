@@ -365,7 +365,7 @@ function Emots($txt)
 #Data
 function genDate($x, $time=false)
 {
-	static $cur;
+	static $now,$yda,$tom;
 	global $cfg,$lang;
 
 	if(!$x) return $x;
@@ -386,16 +386,30 @@ function genDate($x, $time=false)
 	}
 
 	#Formatuj datę
-	if(!$cur) $cur = strftime($cfg['date'], $_SERVER['REQUEST_TIME']);
 	$date = strftime($cfg['date'], $x);
-
-	if($cur === $date)
+	
+	#Dzisiaj, wczoraj, jutro
+	if(!$now)
+	{
+		$now = strftime($cfg['date'], $_SERVER['REQUEST_TIME']);
+		$yda = strftime($cfg['date'], $_SERVER['REQUEST_TIME'] - 86400);
+		$tom = strftime($cfg['date'], $_SERVER['REQUEST_TIME'] + 86400);
+	}
+	if($now === $date)
 	{
 		$date = $lang['today'];
 	}
+	elseif($yda === $date)
+	{
+		$date = $lang['YDA'];
+	}
+	elseif($tom === $date)
+	{
+		$date = $lang['TOM'];
+	}
 	if($time)
 	{
-		return strftime($cfg['time'], $x);
+		return $date . strftime($cfg['time'], $x);
 	}
 	else
 	{

@@ -73,6 +73,7 @@
 'text'		=>'Content',
 'title'		=>'Title',
 'toc'			=>'Table of content',
+'TOM'     =>'Tomorrow',
 'today'		=>'Today',
 'upanel'	=>'Personal details',
 'user'		=>'User',
@@ -81,5 +82,6 @@
 'visits'	=>'Total visits:',
 'votes'		=>'Votes',
 'wrote'		=>'Wrote',
+'YDA'     =>'Yesterday',
 'yes'			=>'Yes',
 );

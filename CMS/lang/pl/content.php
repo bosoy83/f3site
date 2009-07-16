@@ -45,7 +45,7 @@ $lang+=Array(
 'i4'=>'Odnośniki do innych stron.',
 'add4'=>'Dodaj link',
 'edit4'=>'Edytuj link',
-'openinnw'=>'Otwórz stronę w tym samym oknie.',
+'newTab'=>'Otwórz stronę w nowej karcie',
 
 'add5'=>'Dodaj nowość',
 'edit5'=>'Edytuj nowość',

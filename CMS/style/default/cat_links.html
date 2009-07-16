@@ -4,11 +4,18 @@
 
 <!-- START links -->
 <tr>
-	<td>
-		<h3>{num}. <a href="{url}">{title}</a></h3>
-		<small>
-		{desc}
+	<td><h3>{num}. 
+	
+		<!-- IF nw -->
+		<a href="{url}" target="_blank">{title}</a>
+		<!-- ELSE -->
+		<a href="{url}">{title}</a>
+		<!-- END -->
+
+		</h3><small>{desc}
+
 		<!-- IF views --><div>{lang.disps}: {views}</div><!-- END -->
+
 		</small>
 	</td>
 </tr>

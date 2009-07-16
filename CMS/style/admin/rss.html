@@ -1,0 +1,30 @@
+<form action="" method="post">
+<h2>{this.title}</h2>
+<table cellspacing="1" class="tb">
+<tr>
+	<th style="width: 360px">{lang.title}</th>
+	<th style="width: 80px">Auto</th>
+	<th>{lang.opt}</th>
+	<th style="width: 20px"></th>
+</tr>
+
+<!-- START channel -->
+<tr>
+	<td>
+		<!-- IF file -->
+		<a href="{file}">{title}</a>
+		<!-- ELSE -->
+		<span style="color: red">{title} ({lang.missing})</span>
+		<!-- END -->
+	</td>
+	<td align="center">{auto}</td>
+	<td align="center"><a href="?a=editRss&amp;id={id}">{lang.edit}</a></td>
+	<td><input type="checkbox" name="x[{id}]" /></td>
+</tr>
+<!-- STOP -->
+
+<tr>
+	<td colspan="4" class="eth"><input type="submit" name="del" value="{lang.del}" /></td>
+</tr>
+</table>
+</form>

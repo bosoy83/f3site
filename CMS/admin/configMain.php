@@ -7,8 +7,12 @@ if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 #Zapisz
 if($_POST)
 {
-	$opt['title'] = Clean($opt['title'],40); //Tytu³
+	$opt['title'] = Clean($opt['title'],50);
 	$opt['metaDesc'] = Clean($opt['metaDesc']);
+	$opt['antyFlood'] = (int)$opt['antyFlood'];
+	$opt['pmLimit'] = (int)$opt['pmLimit'];
+	$opt['commNum'] = (int)$opt['commNum'];
+	$opt['pollRound'] = (int)$opt['pollRound'];
 
 	require './lib/config.php';
 	$f = new Config('main');

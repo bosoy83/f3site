@@ -18,7 +18,7 @@ foreach($res as $link)
 		'title' => $link[1],
 		'url'   => $count ? 'go.php?link='.$link[0] : $link[3],
 		'views' => $count ? $link[4] : null,
-		'nw'    => $link[4],
+		'nw'    => $link[5],
 		'desc'  => $link[2],
 		'num'   => ++$st
 	);

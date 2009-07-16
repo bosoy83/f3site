@@ -29,7 +29,7 @@ $lang+=Array(
 'now2'=>'Patrz w podręczniku PHP:',
 'date1'=>'Format daty',
 'date2'=>'%d - dzień &nbsp;&nbsp;%m - mies. &nbsp;&nbsp;%Y - rok',
-'time1'=>'Format daty z godziną',
+'time1'=>'Format godziny',
 'time2'=>'%H - godzina &nbsp;&nbsp;%M - minuta &nbsp;&nbsp;%S - sekunda',
 'lastv'=>'Zapisuj datę ostatniej wizyty',
 

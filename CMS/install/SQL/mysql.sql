@@ -227,6 +227,17 @@ CREATE TABLE IF NOT EXISTS `{pre}rates` (
 `mark` tinyint(1) NOT NULL DEFAULT 5,
 `IP` varchar(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
+CREATE TABLE IF NOT EXISTS `{pre}rss` (
+`ID` INT NOT NULL auto_increment PRIMARY KEY,
+`auto` tinyint(1) NOT NULL,
+`name` varchar(50) NOT NULL,
+`dsc` varchar(99) NOT NULL,
+`url` varchar(80) NOT NULL,
+`lang` varchar(3) NOT NULL,
+`cat` int(11) NOT NULL,
+`num` int(11) NOT NULL
+) ENGINE=InnoDB CHARACTER SET='utf8';
+
 CREATE TABLE IF NOT EXISTS `{pre}tmp` (
 `KEYID` varchar(50) NOT NULL,
 `UID` int(11) NOT NULL,

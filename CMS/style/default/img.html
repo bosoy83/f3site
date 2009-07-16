@@ -11,20 +11,36 @@
 <div class="box">
 	<div style="margin: 3px; text-align: center">
 
-	<!-- IF movie -->
-	{movie}
-
-	<!-- ELSE -->
+	<!-- IF image -->
 
 		<!-- IF size -->
 		<a href="{img.file}">
 			<img src="{img.file}" alt="{img.name}" width="{size.0}" height="{size.1}" />
 		</a>
 		<!-- ELSE -->
-		<img src="{img.file}" alt="{img.name}" style="overflow: hidden" />
+		<img src="{img.file}" alt="{img.name}" style="overflow: hidden; max-width: 100%" />
 		<!-- END -->
 
 	<!-- END -->
+
+	<!-- IF flash -->
+	<object type="application/x-shockwave-flash" data="{img.file}" width="{size.0}" height="{size.1}">
+    <param name="movie" value="{img.file}" />
+	</object>
+	<!-- END -->
+
+	<!-- IF movie -->
+	<object type="video/quicktime" data="{img.file}" width="{size.0}" height="{size.1}">
+    <param name="movie" value="{img.file}" />
+	</object>
+	<!-- END -->
+
+	<!-- IF video -->
+	<video controls="true" width="{size.0}" height="{size.1}" poster="{img.filem}" src="{img.file}">
+		<a href="http://opera.com">HTML 5 <code>video</code></a>
+	</video>
+	<!-- END -->
+	
 	</div>
 	<div style="line-height: 20px">
 		<div style="float: left; width: 50%"><b>{lang.added}:</b> {img.date}</div>

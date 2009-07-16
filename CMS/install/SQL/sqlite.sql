@@ -227,8 +227,13 @@ CREATE TABLE IF NOT EXISTS `{pre}rates` (
 
 CREATE TABLE IF NOT EXISTS `{pre}rss` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`auto` tinyint(1) NOT NULL DEFAULT 0,
 `name` varchar(50) NOT NULL DEFAULT '',
-`auto` tinyint(1) NOT NULL DEFAULT 0);
+`dsc` varchar(99) NOT NULL DEFAULT '',
+`url` varchar(80) NOT NULL DEFAULT '',
+`lang` varchar(3) NOT NULL DEFAULT 'en',
+`cat` int(11) NOT NULL DEFAULT 0,
+`num` int(11) NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `{pre}tmp` (
 `KEYID` varchar(50) NOT NULL,

@@ -13,7 +13,7 @@
 </tr>
 <tr>
 	<td><b>{lang.siteTitle}:</b></td>
-	<td><input name="title" size="36" value="{cfg.title}" /></td>
+	<td><input name="title" size="36" value="{cfg.title}" maxlength="50" /></td>
 </tr>
 <tr>
 	<td><b>{lang.robots}:</b></td>
@@ -45,15 +45,15 @@
 		<b>{lang.now1}:</b>
 		<small>{lang.now2} <a href="http://php.net/date">date()</a></small>
 	</td>
-	<td><input type="text" name="now" value="{cfg.now}" style="font-family: monospace" /></td>
+	<td><input type="text" name="now" value="{htmlspecialchars: cfg.now}" style="font-family: monospace" /></td>
 </tr>
 <tr>
 	<td><b>{lang.date1}:</b><small>{lang.date2}</small></td>
-	<td><input type="text" name="date" value="{cfg.date}" style="font-family: monospace" /></td>
+	<td><input type="text" name="date" value="{htmlspecialchars: cfg.date}" style="font-family: monospace" /></td>
 </tr>
 <tr>
 	<td><b>{lang.time1}:</b><small>{lang.time2}</small></td>
-	<td><input type="text" name="time" value="{cfg.time}" style="font-family: monospace" /></td>
+	<td><input type="text" name="time" value="{htmlspecialchars: cfg.time}" style="font-family: monospace" /></td>
 </tr>
 <tr>
 	<td><b>{lang.lastv}:</b></td>

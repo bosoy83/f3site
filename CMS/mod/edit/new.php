@@ -46,7 +46,10 @@ if($_POST)
 		$q->bindParam(2, $full);
 		$q->execute();
 
-		#OK?
+		#Aktualizuj RSS
+		RSS();
+
+		#OK
 		$e->apply();
 		$content->info( $lang['saved'], array(
 			'?co=edit&amp;act=5' => $lang['add5'],

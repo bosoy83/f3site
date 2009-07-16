@@ -34,6 +34,16 @@ $lang+=Array(
 'content'=> 'Gehalt',
 'keep'   => 'außen Vorläufer halten',
 
+/* RSS */
+'addRss'  => 'Neu RSS',
+'editRss' => 'RSS ändern',
+'autoRss' => 'Automatisch updaten',
+'infoRss' => 'Besucher können Nachrichten mit RSS-Leser vorbestellen.',
+'pageRss' => 'URL zur Hauptseite oder einer Kategorie',
+'itemNum' => 'Betrag',
+'allNews' => 'alle Nachrichten',
+'missing' => 'keinen File',
+
 /* MENU */
 'plain' => 'Text oder HTML',
 'file'  => 'File',

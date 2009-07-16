@@ -45,7 +45,7 @@ $lang+=Array(
 'i4'=>'Links to other pages',
 'add4'=>'Add link',
 'edit4'=>'Edit link',
-'openinnw'=>'Open the website in new window or tab.',
+'newTab'=>'Open the website in new tab',
 
 'add5'=>'Add news',
 'edit5'=>'Edit news',

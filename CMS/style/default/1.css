@@ -95,6 +95,15 @@ label {cursor: pointer}
 	border-top: 0;
 	text-align: center
 }
+#credits {
+	font-size: 10px;
+	text-align: center;
+	color: #05a984;
+	margin: 5px
+}
+#credits a {
+	color: #017e6b
+}
 * html #left {
 	left: 200px; /* IE hack */
 }

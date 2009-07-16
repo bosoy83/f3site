@@ -12,20 +12,6 @@ if(!$img = $res->fetch(2)) return;  $res = null;
 #Rozm.
 $size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;
 
-#Animacja?
-if($img['type'] !== 1)
-{
-	include './lib/movie.php';
-	if($img['type'] == 2)
-	{
-		$movie = Flash($img['file'], $size[0], $size[1]);
-	}
-	else
-	{
-		$movie = Movie($img['file'], $size[0], $size[1]);
-	}
-}
-
 #Opis, data, autor
 $img['dsc'] = nl2br($img['dsc']);
 $img['date'] = genDate($img['date'], true);
@@ -52,7 +38,10 @@ $content->title = $img['name'];
 $content->data = array(
 	'img'  => &$img,
 	'size' => &$size,
-	'movie'=> $img['type'] != 1,
+	'image'=> $img['type'] === '1' ? true : false,
+	'flash'=> $img['type'] === '2' ? true : false,
+	'movie'=> $img['type'] === '3' ? true : false,
+	'video'=> $img['type'] === '4' ? true : false,
 	'path' => CatPath($img['cat']),
 	'rates'=> $rates
 );

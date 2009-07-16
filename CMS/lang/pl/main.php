@@ -76,6 +76,7 @@ $lang = Array(
 'text'=>'Treść',
 'title'=>'Tytuł',
 'toc'=>'Spis treści',
+'TOM'=>'Jutro',
 'today'=>'Dzisiaj',
 'upanel'=>'Edytuj profil',
 'user'=>'Użytkownik',
@@ -84,5 +85,6 @@ $lang = Array(
 'visits'=>'Ilość wizyt',
 'votes'=>'Głosów',
 'wrote'=>'Napisał',
+'YDA'=>'Wczoraj',
 'yes'=>'Tak',
 );

@@ -1,17 +1,17 @@
 <?php /* Funkcje kategorii */
 
 #Nazwa tabeli
-function typeOf($co)
+function typeOf($x)
 {
 	static $data;
-	switch($co)
+	switch($x)
 	{
 		case 1: return 'arts'; break;
 		case 2: return 'files'; break;
 		case 3: return 'imgs'; break;
 		case 4: return 'links'; break;
 		case 5: return 'news'; break;
-		default: if(!$data) $data = parse_ini_file('./cfg/types.ini',1); return $data[$co]['table'];
+		default: if(!$data) $data = parse_ini_file('./cfg/types.ini',1); return $data[$x]['table'];
 	}
 }
 
@@ -61,6 +61,40 @@ function Latest($lang=array())
 			if($got) $out .= '<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul class="latest">'.$got.'</ul>';
 		}
 		if($out) file_put_contents('./cache/new-'.$l.'.php', $out, 2);
+	}
+}
+
+#Zbuduj RSS
+function RSS($id = null, $cat = null)
+{
+	global $db;
+	$q = is_numeric($id) ? 'ID='.$id : 'auto=1';
+	$all = $db->query('SELECT ID,name,dsc,url,lang,num FROM '.PRE.'rss WHERE '.$q)->fetchAll(3);
+	foreach($all as $x)
+	{
+		require_once './lib/rss.php';
+		$rss = new RSS;
+		$rss -> title = $x[1];
+		$rss -> desc  = $x[2];
+		$rss -> link  = $x[3];
+
+		#Pobierz ostatnie nowości
+		$q = $db->query('SELECT i.ID,i.name,i.date,i.txt,c.name as cat FROM '.
+		PRE.'news i JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND
+		(c.access=1 OR c.access="'.$x[4].'") ORDER BY i.ID DESC LIMIT '.$x[5]);
+
+		foreach($q as $item)
+		{
+			$rss->add( array(
+				'ID'    => $item['ID'],
+				'title' => $item['name'],
+				'text'  => $item['txt'],
+				'cat'   => $item['cat'],
+				'date'  => $item['date'],
+				'url'   => URL . '?co=news&id=' . $item['ID']
+			));
+		}
+		$rss->save('rss/'.$x[0].'.xml');
 	}
 }
 
@@ -157,41 +191,47 @@ function Slaves($type=0,$id=0,$o=null)
 	return $o;
 }
 
-#Przelicz zawartość w kat.
+#Przelicz zawartość w kategoriach
 function CountItems()
 {
-	#Odczyt
 	global $db;
-	$cat = $db->query('SELECT ID,type,access,sc FROM '.PRE.'cats') -> fetchAll(3); //NUM
-
+	$cat = $db->query('SELECT ID,type,access,sc FROM '.PRE.'cats') -> fetchAll(3); //FETCH_NUM
 	$ile = count($cat);
 	if($ile > 0)
 	{
+		#Dla każdej kategorii policz liczbę zawartości
 		for($i=0; $i<$ile; ++$i)
 		{
 			$id = $cat[$i][0];
 			$num[$id] = db_count(typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access=1');
+
+			#ID kategorii nadrzędnej
 			$sub[$id] = $cat[$i][3];
-			$total[$id]=$num[$id];
+
+			#Tablica będzie zawierać ilość kategorii w podkategoriach
+			$total[$id] = $num[$id];
 		}
-		for($i=0;$i<$ile;$i++)
+		for($i=0; $i<$ile; $i++)
 		{
-			#Jeżeli dostępna
-			if($cat[$i][2]!=2 && $cat[$i][2]!=3)
+			#Jeżeli dostępna - znajdź podkategorie i dolicz ilość zawartości
+			if($cat[$i][2] != 2 && $cat[$i][2] != 3)
 			{
-				$x=$cat[$i][3]; #Nadkat.
+				$x = $cat[$i][3]; #Nadkategoria
 				while($x!=0 && is_numeric($x))
 				{
-					#Dolicz
-					$total[$x]+=$total[$cat[$i][0]];
-					$x=$sub[$x];
+					$total[$x] += $total[$cat[$i][0]];
+					$x = $sub[$x];
 				}
 			}
 		}
+		#Zapisz ilość dla każdej kategorii
+		$q = $db->prepare('UPDATE '.PRE.'cats SET num=?, nums=? WHERE ID=?');
 		foreach($total as $k=>$x)
 		{
-			#Zapis
-			if(is_numeric($x) && is_numeric($num[$k])) $db->exec('UPDATE '.PRE.'cats SET num='.$num[$k].', nums='.$x.' WHERE ID='.$k);
+			if(is_numeric($x) && is_numeric($num[$k]))
+			{
+				$q->execute(array($num[$k], $x, $k));
+			}
 		}
 	}
 }

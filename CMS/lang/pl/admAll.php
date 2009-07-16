@@ -34,6 +34,16 @@ $lang+=Array(
 'content'=> 'Co zrobić z zawartością',
 'keep'   => 'zostaw bez kategorii',
 
+/* RSS */
+'addRss'  => 'Dodaj plik RSS',
+'editRss' => 'Edytuj RSS',
+'autoRss' => 'Aktualizuj automatycznie',
+'infoRss' => 'Internauci mogą subskrybować wiadomości za pomocą czytników RSS.',
+'pageRss' => 'URL do strony głównej lub wybranego działu',
+'itemNum' => 'Ilość wpisów',
+'allNews' => 'wszystkie nowości',
+'missing' => 'brak pliku',
+
 /* MENU */
 'plain' => 'tekst lub kod HTML',
 'file'  => 'plik',

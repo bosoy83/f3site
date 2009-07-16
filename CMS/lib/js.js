@@ -39,8 +39,11 @@ function include(file, loaded)
 	//Wywo³aj funkcjê, gdy plik zostanie za³adowany
 	if(loaded)
 	{
-		js.onreadystatechange = function() { if(js.readyState == 'complete') loaded() };
-    js.onload = loaded;
+		js.onreadystatechange = function()
+		{
+			if(js.readyState == 'complete') loaded()
+		};
+		js.onload = loaded;
 	}
 	document.getElementsByTagName('head')[0].appendChild(js);
 }
