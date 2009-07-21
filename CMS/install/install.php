@@ -2,6 +2,7 @@
 class Installer
 {
 	public
+		$sample = false,  //Przyk³ady
 		$db;
 	protected
 		$lang,
@@ -65,14 +66,13 @@ class Installer
 	#Instaluj zawarto¶æ dla jêzyka $x
 	function setupLang($x)
 	{
-		static $c, $g, $m, $n, $i, $lft, $rgt, $db;
+		static $c, $g, $m, $n, $i, $lft, $db;
 		require './install/lang/'.$x.'.php';
 
 		#Przygotuj zapytania
 		if(!$c)
 		{
-			$lft = 1;
-			$rgt = 2;
+			$lft = 0;
 			$db = $this->db;
 			$g = $db->prepare('INSERT INTO '.PRE.'groups (name,access,opened) VALUES (?,?,?)');
 			$m = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,value) VALUES (?,?,?,?,?,?)');
@@ -83,23 +83,18 @@ class Installer
 		}
 
 		#Strona g³ówna
-		$c->execute(array($lang[0], $x, 5, 1, 1, 6, $lft, $rgt));
+		$c->execute(array($lang[0], $x, 5, 1, 1, 6, ++$lft, ++$lft));
 		$catID = $db->lastInsertId();
 		$this->catid[$x] = $catID;
 
-		#Artyku³y
-		$c->execute(array($lang[12], $x, 1, 0, 0, 15, $lft+=2, $rgt+=2));
-
-		#Pliki
-		$c->execute(array($lang[13], $x, 2, 0, 0, 15, $lft+=2, $rgt+=2));
-
-		#Galeria
-		$c->execute(array($lang[8], $x, 3, 0, 0, 15, $lft+=2, $rgt+=2));
-
-		#Linki
-		$c->execute(array($lang[7], $x, 4, 0, 0, 15, $lft+=2, $rgt+=2));
-		$rgt += 2;
-		$lft += 2;
+		#Przyk³adowe kategorie
+		if($this->sample)
+		{
+			$c->execute(array($lang[12], $x, 1, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang[13], $x, 2, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang[8], $x, 3, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang[9], $x, 4, 0, 0, 15, ++$lft, ++$lft));
+		}
 
 		#Grupy
 		$g->execute(array($lang[1], $x, 1));

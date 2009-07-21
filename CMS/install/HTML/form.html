@@ -8,12 +8,10 @@
 	<td colspan="2">{lang.sure} <a href="http://{host}">{host}</a></td>
 </tr>
 <tr>
-	<td style="width: 50%">1. {lang.type}</td>
+	<td style="width: 250px">1. {lang.type}</td>
 	<td>
-		<input type="radio" value="mysql" name="type" onclick="Change()" id="m" />
-			<label for="m">MySQL 5+</label><br />
-		<input type="radio" value="sqlite" name="type" onclick="Change()" id="s" />
-			<label for="s">SQLite 3+</label>
+		<label><input type="radio" value="mysql" name="type" /> MySQL 5+</label><br />
+		<label><input type="radio" value="sqlite" name="type" /> SQLite 3+</label>
 	</td>
 </tr>
 <tr>
@@ -39,6 +37,13 @@
 <tr>
 	<td>7. {lang.pre}<br /><small>{lang.pre2}</small></td>
 	<td><input name="pre" value="{data.pre}" /></td>
+</tr>
+<tr>
+	<td>8. {lang.opt}</td>
+	<td>
+		<label><input type="radio" value="0" name="samp" /> {lang.manual}</label><br />
+		<label><input type="radio" value="1" name="samp" /> {lang.sample}</label>
+	</td>
 </tr>
 <tr>
 	<th colspan="2">{lang.data}</th>
@@ -67,8 +72,9 @@
 
 <script type="text/javascript">
 //<![CDATA[
-var f = document.forms[0].elements
-var def = f[6].value
+f = document.forms[0].elements;
+def = f[6].value;
+f[0].onclick = f[1].onclick = Change;
 
 function Change()
 {

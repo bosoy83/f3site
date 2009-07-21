@@ -79,7 +79,8 @@ if($_POST OR isset($_GET['next']))
 			'pass' => $type=='mysql' ? htmlspecialchars($_POST['pass']) : '',
 			'file' => $type=='sqlite' ? htmlspecialchars($_POST['file']) : '',
 			'pre'  => htmlspecialchars($_POST['pre']),
-			'login'=> htmlspecialchars($_POST['login'])
+			'login'=> htmlspecialchars($_POST['login']),
+			'samp' => (int)$_POST['samp']
 		);
 
 		#Prefix
@@ -104,11 +105,14 @@ if($_POST OR isset($_GET['next']))
 		define('PRE', $data['pre']);
 		try
 		{
-			#Gdy s± błędy
+			#Gdy są błędy
 			if($error) throw new Exception('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 
 			#API instalatora - przekaż domyślny język i dane
 			$setup = new Installer($nlang, $data);
+
+			#Przykładowe dane
+			$setup -> sample = $data['samp'];
 
 			#Załaduj plik SQL
 			$setup -> loadSQL('./install/SQL/'.$type.'.sql');
@@ -171,7 +175,8 @@ if($_POST OR isset($_GET['next']))
 			'db'   => '',
 			'file' => (file_exists('../htdocs/../') && is_writable('../')) ? '../db.db' : './cfg/db.db',
 			'pre'  => 'f3_',
-			'login'=> 'Admin'
+			'login'=> 'Admin',
+			'samp' => false
 		);
 	}
 
