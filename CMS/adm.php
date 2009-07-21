@@ -69,7 +69,7 @@ else
 }
 
 
-if(isset($_SESSION['admmenu']) && $_SESSION['admmenu'] === $nlang)
+if(isset($_SESSION['admenu']) && $_SESSION['admenu'] === $nlang)
 {
 	$menu = file_get_contents('./cache/adm'.UID.'.php');
 }
@@ -115,7 +115,7 @@ else
 	#Zapisz uk³ad menu
 	if(file_put_contents('./cache/adm'.UID.'.php', $menu))
 	{
-		$_SESSION['admmenu'] = $nlang;
+		$_SESSION['admenu'] = $nlang;
 	}
 	unset($ex,$res,$x);
 }

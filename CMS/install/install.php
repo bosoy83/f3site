@@ -5,7 +5,8 @@ class Installer
 		$db;
 	protected
 		$lang,
-		$groupID = 2; //Jêzyk i grupa admina
+		$catid = array(), //ID kategorii startowych
+		$groupID = 2;     //Jêzyk i grupa admina
 
 	function __construct($lang, &$data)
 	{
@@ -17,8 +18,8 @@ class Installer
 		else
 		{
 			$this->db = new PDO('mysql:host='.$data['host'].';dbname='.$data['db'],$data['user'],$data['pass']);
+			$this->db->exec('SET NAMES "utf8"');
 			$this->db->exec('SET CHARACTER SET "utf8"');
-			$this->db->exec('SET CHARACTER SET "utf8_polish_ci"');
 		}
 		$this->db->setAttribute(3,2); //ERRMODE: Exceptions
 		$this->db->beginTransaction();
@@ -73,21 +74,39 @@ class Installer
 			$lft = 1;
 			$rgt = 2;
 			$db = $this->db;
-			$c = $db->prepare('INSERT INTO '.PRE.'cats (name,access,num,nums,opt,lft,rgt) VALUES (?,?,?,?,?,?,?)');
 			$g = $db->prepare('INSERT INTO '.PRE.'groups (name,access,opened) VALUES (?,?,?)');
 			$m = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,value) VALUES (?,?,?,?,?,?)');
 			$n = $db->prepare('INSERT INTO '.PRE.'news (cat,name,txt,date,author,access) VALUES (?,?,?,?,?,?)');
 			$i = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,url,seq) VALUES (?,?,?,?)');
+			$c = $db->prepare('INSERT INTO '.PRE.'cats (name,access,type,num,nums,opt,lft,rgt)
+			VALUES (?,?,?,?,?,?,?,?)');
 		}
 
-		$c->execute(array($lang[0], $x, 1, 1, 6, $lft, $rgt)); //Strona g³ówna
+		#Strona g³ówna
+		$c->execute(array($lang[0], $x, 5, 1, 1, 6, $lft, $rgt));
 		$catID = $db->lastInsertId();
-		$rgt += 2;  $lft += 2;
+		$this->catid[$x] = $catID;
 
+		#Artyku³y
+		$c->execute(array($lang[12], $x, 1, 0, 0, 15, $lft+=2, $rgt+=2));
+
+		#Pliki
+		$c->execute(array($lang[13], $x, 2, 0, 0, 15, $lft+=2, $rgt+=2));
+
+		#Galeria
+		$c->execute(array($lang[8], $x, 3, 0, 0, 15, $lft+=2, $rgt+=2));
+
+		#Linki
+		$c->execute(array($lang[7], $x, 4, 0, 0, 15, $lft+=2, $rgt+=2));
+		$rgt += 2;
+		$lft += 2;
+
+		#Grupy
 		$g->execute(array($lang[1], $x, 1));
 		$g->execute(array($lang[2], $x, 0));
 		if($this->lang == $x) $this->groupID = $db->lastInsertId();
 
+		#Menu
 		$m->execute(array(1, 'Menu', $x, 1, 3, null));
 		$menuID = $db->lastInsertId();
 		$m->execute(array(2, $lang[3], $x, 2, 2, './mod/panels/user.php'));
@@ -95,9 +114,10 @@ class Installer
 		$m->execute(array(4, $lang[5], $x, 1, 2, './mod/panels/online.php'));
 		$m->execute(array(5, $lang[6], $x, 2, 2, './mod/panels/new.php'));
 
-		//Pierwszy NEWS
-		$n->execute(array($catID, $lang[11], $lang[12], gmdate('Y-m-d H:i:s'), 1, 1));
+		#Pierwszy NEWS
+		$n->execute(array($catID, $lang[11], $lang[14], gmdate('Y-m-d H:i:s'), 1, 1));
 
+		#Pozycje menu
 		$i->execute(array($menuID, $lang[0], '.', 1));
 		$i->execute(array($menuID, $lang[7], '?co=archive', 2));
 		$i->execute(array($menuID, $lang[8], '?co=cats&amp;id=4', 3));
@@ -113,11 +133,19 @@ class Installer
 		$u -> execute(array(1, $login, md5($pass), $this->groupID, 4, $_SERVER['REQUEST_TIME']));
 	}
 
-	#Zakoñcz
+	#Zapisz ID startowych kategorii i zakoñcz
 	function commit()
 	{
+		$cfg = array();
+		require './cfg/content.php';
+
+		foreach($this->catid as $lang => $id)
+		{
+			$cfg['start'][$lang] = $id;
+		}
+
+		$o = new Config('content');
+		$o -> save($cfg);
 		$this->db->commit();
-		@rmdir('./install');
-		@rmdir('./cache/install'); //Autodestrukcja instalatora
 	}
 }

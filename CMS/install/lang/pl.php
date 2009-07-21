@@ -12,7 +12,9 @@ $lang = array(
 9 => 'Galeria zdjęć',
 10 => 'Grupy użytkowników',
 11 => 'Pierwszy news',
-12 => 'To jest pierwszy news w Twoim serwisie. Po zalogowaniu możesz go edytować, klikając ikonę <img src="img/icon/edit.png" alt="E" /> poniżej.
+12 => 'Artykuły',
+13 => 'Pliki do pobrania',
+14 => 'To jest pierwszy news w Twoim serwisie. Po zalogowaniu możesz go edytować, klikając ikonę <img src="img/icon/edit.png" alt="E" /> poniżej.
 
 Życzymy przyjemnej pracy z systemem. :)',
 
@@ -23,7 +25,7 @@ $lang = array(
 'chmod' => 'Uprawnienia plików',
 'title' => 'Instalator F3Site 2009 - wybierz akcję',
 'new' => 'Nowa instalacja',
-'intro' => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2009. Zanim będziesz kontynuować, zapoznaj się z dołączoną ulotką - CZYTAJ PL.txt.',
+'intro' => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2009. Zanim przejdziesz dalej, zapoznaj się z dołączoną ulotką - CZYTAJ PL.txt.',
 
 'e1' => 'Prefix zawiera niedozwolone znaki.',
 'e2' => 'Hasło do Twojego profilu zawiera niedozwolone znaki lub jest za krótkie.',

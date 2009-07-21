@@ -87,7 +87,7 @@ class Compiler
 
 		#Sta³e predefiniowane i niepotrzebne znaki
 		$in  = array(
-			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{ADMIN}', '{MENU}',
+			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}',
 			'{MAIN TITLE}', '{PAGE TITLE}', '{HEAD TAGS}', "\t", "\n\n");
 
 		$out = array(
@@ -95,7 +95,6 @@ class Compiler
 			'<?php newnav(1); ?>',
 			'<?php newnav(2); ?>',
 			'<?= $nlang; ?>',
-			'<?php include MOD?>',
 			'<?= $menu ?>',
 			'<?= $cfg[\'title\']; ?>',
 			'<?= $content->title; ?>',
@@ -130,7 +129,7 @@ class Compiler
 			'<?=\\1;?>',
 			'<?=$\\1;?>',
 			'<?=\\1($\\2);?>',
-			'<?php include VIEW_DIR.\'\\1.html\';?>');
+			'<?php include $this->path(\'\\1.html\')?>');
 
 		$this->data = preg_replace($in, $out, $this->data);
 

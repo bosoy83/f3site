@@ -12,7 +12,9 @@ $lang = array(
 9 => 'Photo gallery',
 10 => 'User groups',
 11 => 'The first news',
-12 => 'You can see the first news in your website. After you have login, you may edit it by clicking <img src="img/icon/edit.png" alt="E" /> icon below.
+12 => 'Articles',
+13 => 'Files download',
+14 => 'You can see the first news in your website. After you have login, you may edit it by clicking <img src="img/icon/edit.png" alt="E" /> icon below.
 
 We wish you pleasant work with this vortal system :)',
 

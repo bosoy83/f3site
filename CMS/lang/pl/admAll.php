@@ -34,6 +34,21 @@ $lang+=Array(
 'content'=> 'Co zrobić z zawartością',
 'keep'   => 'zostaw bez kategorii',
 
+/* ANKIETY */
+'ipoll'   => 'Aktualną sondą jest najnowsza dla danego języka.',
+'addPoll' => 'Dodaj sondę',
+'editPoll'=> 'Edytuj sondę',
+'question'=> 'Pytanie',
+'anew'    => 'wyzeruj wyniki',
+'answers' => 'Odpowiedzi',
+'max'     => 'Głosujący mogą wybrać',
+'one'     => 'tylko 1 odpowiedź',
+'much'    => 'wiele odpowiedzi',
+'addans'  => 'Dodaj odpowiedź',
+'whoMay'  => 'Kto może głosować',
+'every'   => 'Wszyscy',
+'none'    => 'Nikt',
+
 /* RSS */
 'addRss'  => 'Dodaj plik RSS',
 'editRss' => 'Edytuj RSS',
@@ -57,8 +72,8 @@ $lang+=Array(
 'addLink' => 'Dodaj element',
 'items'   => 'Linki (nie dotyczy typów: tekst i plik)',
 'txtfile' => 'Tekst / adres do pliku:',
-'noLinks' => 'Nie dotyczy typu: linki.<br />Pliki menu są w katalogu mod/m/".',
-'openNew' => 'otwórz w nowym oknie lub karcie (niezalecane)',
+'noLinks' => 'Nie dotyczy typu: linki.<br />Pliki menu są w katalogu mod/panels.',
+'openNew' => 'otwórz w nowej karcie (niezalecane)',
 'saveNew' => 'Zapisz jako nowy blok',
 
 /* BANNERY */
@@ -75,15 +90,13 @@ $lang+=Array(
 'addGroup'  => 'Dodawanie grupy',
 'editGroup' => 'Edytowanie grupy',
 'userDel2'  => 'Czy chcesz także usunąć po nim wszelkie pozostałości (np. komentarze)?',
-'groupInfo' => 'Każdy użytkownik należy do jednej z poniższych grup. Nowi użytkownicy automatycznie przystępują do domyślnej (o ID równym 1). Jeśli grupa jest otwarta, zarejestrowani mogą samodzielnie dołączyć do niej. Kliknij nazwę grupy, aby wyświetlić jej członków.',
+'groupInfo' => 'Każdy użytkownik należy do 1 z poniższych grup. Nowi automatycznie przystępują do domyślnej o ID równym 1. Jeśli grupa jest otwarta, zarejestrowani mogą samodzielnie dołączyć do niej.',
 
 /* KOPIA BAZY */
 'all' => 'Zaznacz wszystkie',
 'gz'  => 'Skompresuj plik za pomocą GZIP',
 'dbInfo' => 'Tutaj możesz pobrać zawartość bazy danych na swój komputer w formacie .SQL. Operacja chwilę potrwa, jeżeli jej rozmiar jest duży. Aby zaznaczyć kilka tabel, przytrzymaj klawisz CTRL podczas wyboru.',
-'dbTitle' =>'Wykonywanie kopii bazy danych',
 'dbCreate'=>'Dodaj polecenie utworzenia tabel.',
 'dbSelect'=>'Wybierz tabele',
 'dbDelete'=>'Usuwanie tabel, gdy istnieją',
-'fileName'=>'Nazwa pliku (bez rozszerzenia)',
 );

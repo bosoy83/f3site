@@ -19,8 +19,8 @@ switch($_GET['co'])
 	case 'comment': (include './mod/comment.php') or $content->set404(); break; //Dodaj komentarz
 	case 'css': break;
 	default:
-		if(file_exists('./plugins/'.$co.'/js.php'))
-			(include './plugins/'.$co.'/js.php') or $content->set404();
+		if(file_exists('./plugins/'.$_GET['co'].'/js.php'))
+			(include './plugins/'.$_GET['co'].'/js.php') or $content->set404();
 		else
 			exit;
 }

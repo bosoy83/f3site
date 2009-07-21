@@ -29,6 +29,10 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 		require './plugins/'.$name.'/setup.php';
 		try
 		{
+			#Operacje objête transakcj±
+			$db->beginTransaction();
+
+			#Usuñ rozszerzenie
 			if(isset($setup[$name]))
 			{
 				unset($setup[$name]);
@@ -40,6 +44,7 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 					RenderMenu();
 				}
 			}
+			#Zainstaluj rozszerzenie i dodaj pozycje do menu
 			else
 			{
 				$setup[$name] = (float)$data['version'];
@@ -61,7 +66,8 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 			$o = new Config('plug');
 			$o -> add('setup', $setup);
 			$o -> save();
-			unset($_SESSION['admmenu']);
+			$db -> commit();
+			unset($_SESSION['admenu']);
 		}
 		catch(Exception $e)
 		{

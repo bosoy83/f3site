@@ -124,7 +124,7 @@ try
 	else
 	{
 		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
-		$db -> exec('SET CHARACTER SET utf8');
+		$db -> exec('SET NAMES utf8');
 	}
 	$db->setAttribute(3,2); #ERRMODE: Exceptions
 	$db->setAttribute(19,2); #DefaultFetchMode: ASSOC

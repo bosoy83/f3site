@@ -12,7 +12,9 @@ $lang = array(
 9 => 'Bildstrecke',
 10 => 'Benutzergruppen',
 11 => 'Die erste Nachricht',
-12 => 'Es ist die erste Nachricht in Deiner Website. Melde an und klick Icon <img src="img/icon/edit.png" alt="E" /> um die Kunde zu ändern.
+12 => 'Schriften',
+13 => 'Download',
+14 => 'Es ist die erste Nachricht in Deiner Website. Melde an und klick Icon <img src="img/icon/edit.png" alt="E" /> um die Kunde zu ändern.
 
 Wir wünchen Euch schöne Erlebnisse mit dem System. :)',
 

@@ -13,29 +13,33 @@ if($_POST)
 		'opt' 	=> (isset($_POST['o1'])?1:0) + (isset($_POST['o2'])?2:0) + (isset($_POST['o3'])?4:0) +
 		(isset($_POST['o4'])?8:0) + (isset($_POST['o5'])?16:0) );
 
-	#Edycja
-	if($id)
-	{
-		$q=$db->prepare('UPDATE '.PRE.'pages SET name=:name,access=:access,opt=:opt,text=:text WHERE ID='.$id);
-	}
-	#Nowa strona
-	else
-	{
-		$q=$db->prepare('INSERT INTO '.PRE.'pages (name,access,opt,text) VALUES (:name,:access,:opt,:text)');
-	}
-
-	#OK
 	try
 	{
-		$q->execute($page);  if(!$id) $id = $db->lastInsertId();
+		#Edycja
+		if($id)
+		{
+			$q=$db->prepare('UPDATE '.PRE.'pages SET name=:name,access=:access,opt=:opt,text=:text WHERE ID=:id');
+			$page['id'] = $id;
+		}
+		#Nowa strona
+		else
+		{
+			$q=$db->prepare('INSERT INTO '.PRE.'pages (name,access,opt,text) VALUES (:name,:access,:opt,:text)');
+		}
+		$q->execute($page);
+
+		#ID strony
+		if(!$id) $id = $db->lastInsertId();
+
 		$content->info($lang['saved'], array(
-			'.?co=page&amp;id='.$id => $lang['goto'],
-			'?a=editPage' => $lang['addp'] ));
+			'.?co=page&amp;id='.$id   => $lang['goto'],
+			'?a=editPage&amp;id='.$id => $lang['edit'],
+			'?a=editPage' => $lang['addPage'] ));
 		return 1;
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->errorInfo[0]);
+		$content->info($e);
 	}
 }
 
@@ -58,8 +62,8 @@ else
 
 #Biblioteki JS, tytu³, dane
 $content->addScript(LANG_DIR.'edit.js');
-$content->addScript('lib/editor.js');
 $content->addScript('cache/emots.js');
+$content->addScript('lib/editor.js');
 $content->title = $id ? $lang['editPage'] : $lang['addPage'];
 $content->data = array(
 	'page' => &$page,

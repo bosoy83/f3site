@@ -36,7 +36,10 @@ $all = array();
 $query = $db->prepare('SELECT * FROM '.PRE.'guestbook WHERE lang=? ORDER BY ID DESC LIMIT ?,?');
 
 #Podepnij dane do zapytania bezpiecznie
-$query -> execute(array($nlang, $st, $cfg['gbNum']));
+$query -> bindValue(1, $nlang);
+$query -> bindValue(2, $st, 1);
+$query -> bindValue(3, $cfg['gbNum'], 1); //PDO::PARAM_INT
+$query -> execute();
 
 #BBCode
 if(isset($cfg['bbcode'])) require './lib/bbcode.php';
@@ -79,5 +82,5 @@ $content->data = array(
 	'pages'   => &$pages,
 	'intro'   => &$cfg['gbIntro'],
 	'rights'  => $right,
-	'mayPost' => (LOGD OR isset($cfg['gbGuest'])) AND (strpos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false)
+	'mayPost' => (LOGD OR isset($cfg['gbGuest'])) AND (stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false)
 );

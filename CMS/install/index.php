@@ -63,7 +63,7 @@ if($_POST OR isset($_GET['next']))
 {
 	if($_POST)
 	{
-		#Doł±cz klasę zapisu do .php
+		#Dołącz klasę zapisu do .php
 		require './lib/config.php';
 		require './install/install.php';
 
@@ -83,7 +83,7 @@ if($_POST OR isset($_GET['next']))
 		);
 
 		#Prefix
-		if(!preg_match('/^[a-zA-Z0-9_]{0,9}$/', $data['pre']))
+		if(!preg_match('/^[a-zA-Z0-9_]{1,9}$/', $data['pre']))
 		{
 			$error[] = $lang['e1'];
 		}

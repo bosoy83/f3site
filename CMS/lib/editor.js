@@ -377,6 +377,7 @@ Editor.prototype.preview = function(opt,where,text)
 	}
 
 	//Wyświetl
+	this.o.focus()
 	this.box.innerHTML = text;
 	this.box.scrollIntoView()
 };

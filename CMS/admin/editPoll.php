@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1) exit;
-require LANG_DIR.'poll.php'; //Jêzyk
+require LANG_DIR.'admAll.php'; //Jêzyk
 
 #Tytu³ strony
 $content->title = $id ? $lang['editPoll'] : $lang['addPoll'];
@@ -85,11 +85,11 @@ if($_POST)
 		$db->commit();
 		$content->info($lang['saved'], array(
 			'?a=editPoll' => $lang['addPoll'],
-			'?a=editPoll&amp;id='.$id => $poll['name'].' - '.$lang['edit'],
+			'?a=editPoll&amp;id='.$id => $lang['editPoll'],
 			'.?co=poll&amp;id='.$id => $poll['name']));
 		return 1;
 	}
-	catch(PDOException $e)
+	catch(Exception $e)
 	{
 		$content->info($lang['error'].$e);
 	}

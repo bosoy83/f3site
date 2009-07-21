@@ -36,7 +36,7 @@ if(isset($_POST['tab']))
 		header('Content-type: text/plain'); $ex='.sql';
 	}
 	header('Content-Disposition: attachment; filename='.
-		str_replace( array('?','*',':','\\','/','<','>','|','"'),'',$_POST['name']).$ex);
+		str_replace( array('?','*',':','\\','/','<','>','|','"'),'',strftime('%Y-%m-%d')).$ex);
 
 	#Kompresja GZ?
 	if(isset($_POST['gz'])) ob_start('ob_gzhandler'); else ob_start();
@@ -118,6 +118,5 @@ foreach($list as $tab)
 $content->info($lang['dbInfo']);
 $content->data = array(
 	'tables' => $tabs,
-	'name' => 'DB-'.strftime('%Y-%m-%d'),
-	'gz' => function_exists('gzopen')
+	'gz'     => function_exists('gzopen')
 );

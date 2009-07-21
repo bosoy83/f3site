@@ -9,7 +9,7 @@ if($_POST)
 	#Wy¿sza kat.
 	$up = (int)$_POST['sc'];
 
-	#Dane - 1: struktura kategorii 2: komentarze 3: oceny 4: lista kat, 5: zawartoœæ z podkat.
+	#Dane - 1: struktura kategorii 2: komentarze 4: oceny 8: lista kat, 16: zawartoœæ z podkat.
 	$cat = array(
 		'sc'  => $up,
 		'text'  => $_POST['txt'],
@@ -74,12 +74,15 @@ if($_POST)
 		$db->commit();
 		UpdateCatPath($id);
 		$content->info($lang['saved'].' ID: '.$id, array(
+			'.?d='.$id   => $lang['goCat'],
 			'?a=editCat' => $lang['addCat'],
-			'.?d='.$id => $lang['goCat']
+			'?a=editCat&amp;id='.$id => $lang['editCat'],
+			'.?co=list&amp;id='.$id  => $lang['mantxt'],
+			'.?co=edit&amp;act='.$cat['type'].'&amp;catid='.$id => $lang['addItem']
 		));
 		return 1;
 	}
-	catch(PDOException $e)
+	catch(Exception $e)
 	{
 		$content->info($e); //B³¹d
 	}

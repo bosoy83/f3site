@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1 || !Admit('Q')) exit;
-require LANG_DIR.'poll.php';
+require LANG_DIR.'admAll.php';
 
 #Operacje
 if($_POST)

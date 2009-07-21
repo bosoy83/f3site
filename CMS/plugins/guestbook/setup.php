@@ -15,7 +15,6 @@ function Install()
 		}
 	}
 
-	$db->beginTransaction();
 	$db->exec('CREATE TABLE IF NOT EXISTS '.PRE.'guestbook (
 		ID '.AUTONUM.',
 		UID  int NOT NULL DEFAULT 0,
@@ -37,15 +36,12 @@ function Install()
 	$q -> execute(array('guestbook', 'Księga gości', 'pl', 'img/admin/c1.png'));
 
 	$db->exec('INSERT INTO '.PRE.'admmenu (ID,text,file,menu,rights) VALUES ("GB","Guestbook","guestbook",1,1)');
-	$db->commit();
 }
 
 function Uninstall()
 {
 	global $db;
-	$db->beginTransaction();
 	$db->exec('DROP TABLE IF EXISTS '.PRE.'guestbook');
 	$db->exec('DELETE FROM '.PRE.'admmenu WHERE ID="GB"');
 	$db->exec('DELETE FROM '.PRE.'confmenu WHERE ID="guestbook"');
-	$db->commit();
 }

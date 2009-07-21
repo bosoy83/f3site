@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 `access` varchar(9) NOT NULL,
 `type` tinyint(1) NOT NULL DEFAULT 5,
 `sc` int(11) NOT NULL DEFAULT 0,
-`sort` tinyint(1) NOT NULL DEFAULT 0,
+`sort` tinyint(1) NOT NULL DEFAULT 2,
 `text` text,
 `num` int(10) NOT NULL DEFAULT 0,
 `nums` int(10) NOT NULL DEFAULT 0,

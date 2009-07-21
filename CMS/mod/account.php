@@ -88,7 +88,7 @@ if($_POST)
 		{
 			foreach($cfg['nickban'] as $x)
 			{
-				if(strpos($u['login'],$x)!==false) $error[] = $lang['loginEx'];
+				if(stripos($u['login'],$x)!==false) $error[] = $lang['loginEx'];
 			}
 			unset($x,$nicks);
 		}
@@ -155,7 +155,7 @@ if($_POST)
 	{
 		foreach($cfg['mailban'] as $x)
 		{
-			if(strpos($u['mail'],$x)!==false) $error[] = $lang['mailEx'];
+			if(stripos($u['mail'],$x)!==false) $error[] = $lang['mailEx'];
 		}
 	}
 

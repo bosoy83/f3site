@@ -21,7 +21,7 @@ Requirements
 Installation
 ============
 
-1. Load content of SYSTEM directory into server using FTP client or file manager. You can delete useless languages and skins (except DEFAULT) before. Then set privileges (CHMOD) to files:
+1. Load content of SYSTEM directory into server using FTP client or file manager. Delete useless languages and skins (except DEFAULT) before. Then set privileges (CHMOD) to files:
 * folders: CFG, CACHE - 0777
 * all folders in above catalogs - 0777
 * all files in above directories - 0766
@@ -30,6 +30,8 @@ Installation
 
 2. Go to INSTALL directory in your web browser - e.g. http://your.site.pl/install/
 To finish the installation, database user must have full privileges.
+
+3. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
 
 3. After the installation DELETE INSTALL FOLDER!
 

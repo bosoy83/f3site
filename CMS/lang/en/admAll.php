@@ -2,7 +2,7 @@
 $lang+=Array(
 
 /* FREE PAGES */
-'pageTip'	=> 'Free pages may contain HTML, JavaScript and PHP code. Users may comment them.',
+'pageTip'	=> 'Free pages may contain HTML, JavaScript and PHP code. Users can comment them.',
 'editPage'	=> 'Edit free page',
 'addPage'	=> 'Create free page',
 'inside'	=> 'Put content (HTML) into box',
@@ -33,6 +33,21 @@ $lang+=Array(
 'content'	=> 'Move all items to',
 'subCats'	=> 'Move all subcategories to',
 'keep'		=> 'leave without category',
+
+/* POLLS */
+'ipoll'   => 'Current poll is the newest one for each language.',
+'addPoll' => 'Add poll',
+'editPoll'=> 'Edit poll',
+'question'=> 'Question',
+'anew'    => 'reset results',
+'answers' => 'Answers',
+'max'     => 'Users may select',
+'one'     => 'only 1 answer',
+'much'    => 'more answers',
+'addans'  => 'Add answer',
+'whoMay'  => 'Who may vote',
+'every'   => 'Everyone',
+'none'    => 'Nobody',
 
 /* RSS */
 'addRss'  => 'Add RSS',
@@ -75,15 +90,13 @@ $lang+=Array(
 'addGroup'	=> 'Add group',
 'editGroup'	=> 'Edit group',
 'userDel2'	=> 'Do you want to delete all user activity, e.g. comments?',
-'groupInfo'	=> 'Each user belongs to one of defined group. New users join the default group (ID = 1). If you open a group, registered users may join it. Click group name to display members.',
+'groupInfo'	=> 'Each user belongs to one of defined group. New users join the default group (ID = 1). If you open a group, registered users may join it.',
 
 /* DATABASE */
 'all' => 'Select all',
 'gz'  => 'Compress file using GZIP alghoritm',
-'dbInfo' => 'You can download content of database on your computer as .SQL file. This operation may take some time if database size is big. To select more tables, hold CTRL key during selection.',
-'dbTitle' => 'Making database copy',
-'dbCreate'=> 'Add CREATE TABLE command',
-'dbSelect'=> 'Select tables',
-'dbDelete'=> 'Deleting tables if exist',
-'fileName'=> 'File name (without extension)',
+'dbCreate' => 'Add CREATE TABLE command',
+'dbSelect' => 'Select tables',
+'dbDelete' => 'Deleting tables if exist',
+'dbInfo'   => 'You can download content of database on your computer as .SQL file. This operation may take some time if database size is big. To select more tables, hold CTRL key during selection.',
 );

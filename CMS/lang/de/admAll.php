@@ -1,13 +1,13 @@
 <?php
 $lang+=Array(
 
-/* WOLNE STRONY */
+/* FREIE SEITEN */
 'pageTip'  => 'Freie Seiten sind zu Kategorien Wolne strony nie są przypisywane do kategorii. Mogą zawierać kod HTML, JavaScript i PHP.',
 'editPage' => 'Freie Seite ändern',
 'addPage'  => 'Neu freie Seite',
 'inside'   => 'Text in den Rind setzen',
 
-/* KATEGORIE */
+/* KATEGORIEN */
 'editCat'=> 'Kategorie ändern',
 'addCat' => 'Neue Kategorie',
 'goCat' => 'Nach Kategorie gehen',
@@ -27,12 +27,27 @@ $lang+=Array(
 'sort2' => 'absteigende zeitlicher Verlauf',
 'sort3' => 'alphabetische Reihenfolge',
 
-/* USUWANIE KATEGORII */
+/* KATEGORIEN ÄNDERN */
 'delCat' => 'Kategorie löschen',
 'moveTo' => 'Ziehen nach',
 'subCats'=> 'Unterkategorien',
 'content'=> 'Gehalt',
 'keep'   => 'außen Vorläufer halten',
+
+/* UMFRAGEN */
+'ipoll'   => 'Umfragen haben 1 Frage und unendlich Antworten.',
+'addPoll' => 'Neue Umfrage',
+'editPoll'=> 'Umfrage ändern',
+'question'=> 'Frage',
+'anew'    => 'Resultate zurücksetzen',
+'answers' => 'Antworten',
+'max'     => 'Wählers wählen',
+'one'     => 'nur 1 Antwort',
+'much'    => 'viele Antworten',
+'addans'  => 'Neue Antwort',
+'whoMay'  => 'Wo mag voten?',
+'every'   => 'Jedermann',
+'none'    => 'Niemand',
 
 /* RSS */
 'addRss'  => 'Neu RSS',
@@ -61,14 +76,14 @@ $lang+=Array(
 'openNew' => 'im neue Karte öffnen (abgeraten)',
 'saveNew' => 'Als neues Block speichern',
 
-/* BANNERY */
+/* BANNERS */
 'addAd'  => 'Neues Banner',
 'editAd' => 'Banner ändern',
 'adInfo' => 'Man kann wahllose Elementen zeigen, z. B. Grafik, Banners, Tips...',
 'genID'  => 'Generator ID',
 'HTML'   => 'HTML Kode',
 
-/* UŻYTKOWNICY I GRUPY */
+/* BENUTZER */
 'priv' => 'Privilegen',
 'open' => 'offen',
 'profile' => 'Profil',
@@ -77,13 +92,11 @@ $lang+=Array(
 'userDel2'  => 'Willst du alle Überreste lössen, z.B. Kommentare?',
 'groupInfo' => 'Jeder Benutzer gehört zu einer von folgendes Gruppe. Neue Benutzer vereinen vorgegeben Gruppe (ID = 1) automatisch. Registierte Benutzer können offene Gruppe beitreten.',
 
-/* KOPIA BAZY */
+/* DATENBANK */
 'all' => 'Alles markieren',
 'gz'  => 'Mit GZIP komprimieren',
-'dbInfo' => 'Man kann export die Datenbank zum .SQL Format. Es mag viel Zeit nehmen. Um viele Tabellen zu marken, drück CTRL bei Auswahl.',
-'dbTitle' =>'Datenbankkopie',
-'dbCreate'=>'CREATE TABLE Syntax einsetzen',
-'dbSelect'=>'Tabellen markieren',
-'dbDelete'=>'Existente Tabellen löschen',
-'fileName'=>'Filename (ohne Dateiendung)',
+'dbCreate' => 'CREATE TABLE Syntax einsetzen',
+'dbSelect' => 'Tabellen markieren',
+'dbDelete' => 'Existente Tabellen löschen',
+'dbInfo'   => 'Man kann export die Datenbank zum .SQL Format. Es mag viel Zeit nehmen. Um viele Tabellen zu marken, drück CTRL bei Auswahl.',
 );
