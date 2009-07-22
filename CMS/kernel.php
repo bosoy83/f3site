@@ -105,11 +105,11 @@ $content = new Content;
 #Arkusz CSS
 if(isset($_COOKIE['CSS']) && is_numeric($_COOKIE['CSS']))
 {
-	$content->addCSS(SKIN_DIR . $_COOKIE['CSS'] . '.css');
+	define('CSS', $_COOKIE['CSS']);
 }
 else
 {
-	$content->addCSS(SKIN_DIR . '1.css');
+	define('CSS', '1');
 }
 
 #Połącz z bazą danych

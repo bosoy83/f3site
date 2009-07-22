@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `{pre}acl` (
 `UID` int(11) NOT NULL,
 `CatID`int(11) NOT NULL,
 `type` varchar(9) NOT NULL,
-PRIMARY KEY(UID,CatID)) ENGINE=InnoDB CHARACTER SET='utf8';
+PRIMARY KEY (UID,CatID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
 `ID` varchar(9) PRIMARY KEY NOT NULL,
@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS `{pre}answers` (
 `IDP` int(10) NOT NULL,
 `seq` int(11),
 `a` varchar(200),
-`num` int(11) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
+`num` int(11) NOT NULL DEFAULT 0,
+KEY (IDP)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -29,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `access` tinyint(4) NOT NULL,
 `priority` tinyint(1) NOT NULL,
 `pages` tinyint(2) NOT NULL,
-`ent` int(11) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
+`ent` int(11) NOT NULL DEFAULT 0,
+KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `ID` int(11) NOT NULL,
@@ -59,11 +61,9 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 `nums` int(10) NOT NULL DEFAULT 0,
 `opt` tinyint(2) NOT NULL,
 `lft` tinyint(4) NOT NULL,
-`rgt` tinyint(4) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
-
-CREATE INDEX sc ON {pre}cats (sc);
-
-CREATE INDEX pos ON {pre}cats (lft,rgt);
+`rgt` tinyint(4) NOT NULL,
+KEY `sc` (sc),
+KEY `pos` (lft,rgt)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -75,17 +75,15 @@ CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `guest` tinyint(1) NOT NULL DEFAULT 1,
 `ip` varchar(20) NOT NULL,
 `date` int(11),
-`text` text) ENGINE=InnoDB CHARACTER SET='utf8';
-
-CREATE INDEX th ON {pre}comms (TYPE,CID);
+`text` text,
+KEY `th` (TYPE,CID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
 `ID` varchar(50) NOT NULL,
 `name` varchar(50),
 `lang` varchar(5) NOT NULL,
-`img` varchar(230)) ENGINE=InnoDB CHARACTER SET='utf8';
-
-CREATE INDEX ID ON {pre}confmenu (ID);
+`img` varchar(230),
+KEY (ID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}files` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -100,7 +98,8 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `size` varchar(50),
 `priority` tinyint(1) NOT NULL,
 `rate` tinyint(1),
-`fulld` mediumtext) ENGINE=InnoDB CHARACTER SET='utf8';
+`fulld` mediumtext,
+KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}groups` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -122,7 +121,8 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `author` varchar(50) NOT NULL,
 `filem` varchar(255) NOT NULL,
 `file` varchar(255) NOT NULL,
-`size` varchar(9) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`size` varchar(9) NOT NULL,
+KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}links` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -133,7 +133,8 @@ CREATE TABLE IF NOT EXISTS `{pre}links` (
 `adr` varchar(255) NOT NULL,
 `priority` tinyint(1) NOT NULL,
 `count` int(11) NOT NULL DEFAULT 0,
-`nw` tinyint(1) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`nw` tinyint(1) NOT NULL,
+KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}log` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -169,15 +170,13 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `img` varchar(255) NOT NULL,
 `comm` int(11) NOT NULL DEFAULT 0,
 `access` tinyint(1) NOT NULL,
-`opt` tinyint(2) NOT NULL DEFAULT 3) ENGINE=InnoDB CHARACTER SET='utf8';
-
-CREATE INDEX cat ON {pre}news (cat);
+`opt` tinyint(2) NOT NULL DEFAULT 3,
+KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}newstxt` (
-`ID` int(11) NOT NULL,
+`ID` int(11) NOT NULL PRIMARY KEY,
 `cat` int(11) NOT NULL,
-`text` mediumtext,
-PRIMARY KEY (ID)) ENGINE=InnoDB CHARACTER SET='utf8';
+`text` mediumtext) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}online` (
 `IP` varchar(40) NOT NULL PRIMARY KEY,
@@ -204,7 +203,8 @@ CREATE TABLE IF NOT EXISTS `{pre}pms` (
 `st` tinyint(1) NOT NULL,
 `date` int(11) NOT NULL,
 `bbc` tinyint(1) NOT NULL,
-`txt` text) ENGINE=InnoDB CHARACTER SET='utf8';
+`txt` text,
+KEY (owner)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}polls` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `{pre}rss` (
 ) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `{pre}tmp` (
-`KEYID` varchar(50) NOT NULL,
+`KEYID` varchar(50) NOT NULL PRIMARY KEY,
 `UID` int(11) NOT NULL,
 `type` varchar(9) NOT NULL
 ) ENGINE=InnoDB CHARACTER SET='utf8';

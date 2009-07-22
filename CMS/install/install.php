@@ -19,8 +19,8 @@ class Installer
 		else
 		{
 			$this->db = new PDO('mysql:host='.$data['host'].';dbname='.$data['db'],$data['user'],$data['pass']);
-			$this->db->exec('SET NAMES "utf8"');
 			$this->db->exec('SET CHARACTER SET "utf8"');
+			$this->db->exec('SET NAMES "utf8"');
 		}
 		$this->db->setAttribute(3,2); //ERRMODE: Exceptions
 		$this->db->beginTransaction();

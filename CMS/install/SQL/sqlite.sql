@@ -3,6 +3,8 @@ CREATE TABLE IF NOT EXISTS `{pre}acl` (
 `CatID` KEY int(11) NOT NULL,
 `type` varchar(9) NOT NULL);
 
+CREATE INDEX IF NOT EXISTS ID ON `{pre}acl` (UID,CatID);
+
 CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
 `ID` varchar(9) PRIMARY KEY NOT NULL,
 `text` varchar(30) NOT NULL,
@@ -17,6 +19,8 @@ CREATE TABLE IF NOT EXISTS `{pre}answers` (
 `a` varchar(200),
 `num` int(11) NOT NULL DEFAULT 0);
 
+CREATE INDEX IF NOT EXISTS p ON `{pre}answers` (IDP);
+
 CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
@@ -29,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `priority` tinyint(1) NOT NULL,
 `pages` tinyint(2) NOT NULL,
 `ent` int(11) NOT NULL DEFAULT 0);
+
+CREATE INDEX IF NOT EXISTS cat ON `{pre}arts` (cat);
 
 CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `ID` int(11) NOT NULL,
@@ -60,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 `lft` tinyint(4) NOT NULL,
 `rgt` tinyint(4) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS sc ON {pre}cats (sc);
-CREATE INDEX IF NOT EXISTS pos ON {pre}cats (lft,rgt);
+CREATE INDEX IF NOT EXISTS sc ON `{pre}cats` (sc);
+CREATE INDEX IF NOT EXISTS pos ON `{pre}cats` (lft,rgt);
 
 CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -75,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `date` int(11),
 `text` text);
 
-CREATE INDEX IF NOT EXISTS th ON {pre}comms (TYPE,CID);
+CREATE INDEX IF NOT EXISTS th ON `{pre}comms` (TYPE,CID);
 
 CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
 `ID` varchar(50) NOT NULL,
@@ -83,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
 `lang` varchar(5) NOT NULL,
 `img` varchar(230));
 
-CREATE INDEX IF NOT EXISTS ID ON {pre}confmenu (ID);
+CREATE INDEX IF NOT EXISTS ID ON `{pre}confmenu` (ID);
 
 CREATE TABLE IF NOT EXISTS `{pre}files` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -99,6 +105,8 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `priority` tinyint(1) NOT NULL,
 `rate` tinyint(1),
 `fulld` mediumtext);
+
+CREATE INDEX IF NOT EXISTS cat ON `{pre}files` (cat);
 
 CREATE TABLE IF NOT EXISTS `{pre}groups` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -122,6 +130,8 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `file` varchar(255) NOT NULL,
 `size` varchar(9) NOT NULL);
 
+CREATE INDEX IF NOT EXISTS cat ON `{pre}imgs` (cat);
+
 CREATE TABLE IF NOT EXISTS `{pre}links` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
@@ -132,6 +142,8 @@ CREATE TABLE IF NOT EXISTS `{pre}links` (
 `priority` tinyint(1) NOT NULL,
 `count` int(11) NOT NULL DEFAULT 0,
 `nw` tinyint(1) NOT NULL);
+
+CREATE INDEX IF NOT EXISTS cat ON `{pre}links` (cat);
 
 CREATE TABLE IF NOT EXISTS `{pre}log` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -169,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `access` tinyint(1) NOT NULL,
 `opt` tinyint(2) NOT NULL DEFAULT 3);
 
-CREATE INDEX IF NOT EXISTS cat ON {pre}news (cat);
+CREATE INDEX IF NOT EXISTS cat ON `{pre}news` (cat);
 
 CREATE TABLE IF NOT EXISTS `{pre}newstxt` (
 `ID` int(11) NOT NULL,
@@ -204,6 +216,8 @@ CREATE TABLE IF NOT EXISTS `{pre}pms` (
 `bbc` tinyint(1) NOT NULL,
 `txt` text);
 
+CREATE INDEX IF NOT EXISTS o ON `{pre}pms` (owner);
+
 CREATE TABLE IF NOT EXISTS `{pre}polls` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -236,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `{pre}rss` (
 `num` int(11) NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `{pre}tmp` (
-`KEYID` varchar(50) NOT NULL,
+`KEYID` varchar(50) NOT NULL PRIMARY KEY,
 `UID` int(11) NOT NULL,
 `type` varchar(9) NOT NULL);
 

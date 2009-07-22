@@ -9,11 +9,28 @@ $res = $db->query('SELECT f.*,c.opt FROM '.PRE.'files f INNER JOIN '.PRE.'cats c
 #Do tablicy
 if(!$file = $res->fetch(2)) return;
 
+#Tytu³ strony
+$content->title = $file['name'];
+
+#Zdalny
+$remote = strpos($file['file'], ':');
+
 #Rozmiar i URL
-if(strpos($file['file'],':') OR file_exists('./'.$file['file']))
+if($remote OR file_exists('./'.$file['file']))
 {
-	$file['url'] = isset($cfg['fgets']) ? 'go.php?file='.$id : $file['file'];
-	if($file['size'] === 'AUTO') $file['size'] = filesize($file['file']);
+	$file['url']  = isset($cfg['fgets']) ? 'go.php?file='.$id : $file['file'];
+	if(!$file['size'] && !$remote)
+	{
+		$size = filesize($file['file']);
+		if($file['size'] > 1048575)
+		{
+			$file['size'] = round($size/1048576) . ' MB';
+		}
+		else
+		{
+			$file['size'] = round($size/1024) . ' KB';
+		}
+	}
 }
 else
 {
