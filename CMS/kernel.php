@@ -241,7 +241,7 @@ function Admit($id,$type=null)
 		{
 			if(!isset($all[$type]))
 			{
-				$q = $db->query('SELECT CatID,1 FROM '.PRE.'acl WHERE type=? AND UID=?');
+				$q = $db->prepare('SELECT CatID,1 FROM '.PRE.'acl WHERE type=? AND UID=?');
 				$q -> execute(array($type, UID));
 				$all[$type] = $q->fetchAll(12); //KEY_PAIR
 			}
