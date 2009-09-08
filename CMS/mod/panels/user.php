@@ -5,10 +5,12 @@ if(iCMS!=1) exit;
 if(LOGD==1)
 {
 	echo
-	sprintf($lang['uwlogd'],'<a href="?co=user">'.$user[UID]['login'].'</a>').'<ul>
-	<li><a href="?co=edit">'.$lang['mantxt'].'</a></li>'.
+	sprintf($lang['uwlogd'],'<a href="?co=user">'.$user[UID]['login'].'</a>').'<ul>'.
 
-	(($user[UID]['lv']>2)?
+	((LEVEL > 1) ?
+	'<li><a href="?co=edit">'.$lang['mantxt'].'</a></li>' : '').
+
+	((LEVEL > 2) ?
 	'<li><a href="adm.php">'.$lang['cpanel'].'</a></li>':'').
 
 	((isset($cfg['pmOn']))?
@@ -20,8 +22,7 @@ if(LOGD==1)
 	return;
 }
 
-?>
-<form action="login.php" method="post" style="text-align: center">
+?><form action="login.php" method="post" style="text-align: center">
 	Login:
 	<input name="u" style="height: 15px; width: 93%" />
 	<?= $lang['pass'] ?>:

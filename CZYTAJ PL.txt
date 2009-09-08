@@ -21,8 +21,8 @@ Wymagania
 Instalacja
 ==========
 
-1. Załaduj zawartośc katalogu SYSTEM na serwer za pomocą klienta FTP lub menedżera plików. Usuń niepotrzebne języki i skórki (oprócz DEFAULT). Następnie nadaj plikom i folderom uprawnienia (CHMOD):
-* katalogi: CFG, CACHE - 0777
+1. Załaduj zawartośc katalogu SYSTEM na serwer za pomocą klienta FTP lub menedżera plików. Usuń niepotrzebne języki i skórki (oprócz DEFAULT), których nie będziesz używał. Nadaj plikom i folderom uprawnienia (CHMOD):
+* katalogi: CFG, CACHE, RSS - 0777
 * wszystkie foldery w powyższych katalogach - 0777
 * wszystkie pliki w powyższych katalogach - 0766
 * katalogi: FILES, IMG - 0777 (nieobowiązkowo)
@@ -31,7 +31,7 @@ Instalacja
 2. Przejdź do katalogu INSTALL w przeglądarce internetowej, wpisując: http://adres.strony.pl/install/
 Aby instalacja przebiegła poprawnie, użytkownik bazy danych musi mieć do niej pełne prawa.
 
-3. Instalator wprowadzi rekordy do bazy danych dla wszystkich dostępnych na serwerze języków. Przed instalacją pozostaw na serwerze tylko te języki, w których będziesz prowadził serwis!
+3. Instalator wprowadzi rekordy do bazy danych dla WSZYSTKICH dostępnych na serwerze języków.
 
 4. Po instalacji USUŃ KATALOG INSTALL!
 

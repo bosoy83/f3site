@@ -11,7 +11,6 @@ function Install()
 		}
 	}
 
-	$db->beginTransaction();
 	$db->exec('CREATE TABLE IF NOT EXISTS '.PRE.'bugsect (
 		ID  '.AUTONUM.',
 		seq   int NOT NULL DEFAULT 0,
@@ -48,17 +47,13 @@ function Install()
 	$q = $db->prepare('INSERT INTO '.PRE.'admmenu (ID,text,file,menu,rights) VALUES (?,?,?,?,?)');
 	$q -> execute(array('BUGS',   'Issue system - moderator', 'bugs', 0, 1));
 	$q -> execute(array('BUGADM', 'Issue system', 'bugs', 1, 1));
-
-	$db->commit();
 }
 
 function Uninstall()
 {
 	global $db;
-	$db->beginTransaction();
 	$db->exec('DROP TABLE IF EXISTS '.PRE.'bugs');
 	$db->exec('DROP TABLE IF EXISTS '.PRE.'bugsect');
 	$db->exec('DROP TABLE IF EXISTS '.PRE.'bugcats');
 	$db->exec('DELETE FROM '.PRE.'admmenu WHERE ID="BUGS" OR ID="BUGADM"');
-	$db->commit();
 }

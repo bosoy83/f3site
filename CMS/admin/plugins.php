@@ -4,7 +4,7 @@ require LANG_DIR.'plugin.php';
 
 #Pobierz zainstalowane
 $setup = array();
-include './cfg/plug.php';
+if(file_exists('./cfg/plug.php')) include './cfg/plug.php';
 
 #Tytu³
 $content->title = $lang['plugs'];

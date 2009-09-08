@@ -23,9 +23,9 @@ $lang+=Array(
 'dis2'  => 'Włącz wyświetlanie komentarzy',
 'dis3'  => 'Włącz ocenianie zawartości',
 'disd'  => 'Domyślne ustawienia dla wszystkich kategorii można zmienić w opcjach zawartości.',
-'sort1' => 'wg kolejności dodania',
-'sort2' => 'odwrotnie wg kol. dodania',
-'sort3' => 'wg nazwy',
+'sort1' => 'najnowsze na końcu',
+'sort2' => 'najnowsze na początku',
+'sort3' => 'alfabetycznie',
 
 /* USUWANIE KATEGORII */
 'delCat' => 'Usuwanie kategorii',

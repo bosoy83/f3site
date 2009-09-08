@@ -1,5 +1,5 @@
 <?php /* Zarz±dzanie tre¶ci± - dla zalogowanych */
-if(iCMS!=1 || LOGD!=1) return;
+if(iCMS!=1 || LEVEL<2) return;
 define('EC',1);
 require LANG_DIR.'content.php';
 require './lib/categories.php';
