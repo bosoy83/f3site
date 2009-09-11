@@ -29,13 +29,13 @@ if(isset($_GET['keyid']))
 		unset($id,$res);
 	}
 	else $content->info($lang['badKey']);
-	return;
+	return 1;
 }
 
 #Rejestracja wy³¹czona?
-if(!isset($cfg['reg']) && LOGD!=1)
+if(!isset($cfg['reg']) && !LOGD)
 {
-	$content->info($lang['regoff']); return;
+	$content->info($lang['regoff']); return 1;
 }
 
 #Zapis
@@ -66,7 +66,7 @@ if($_POST)
 	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
 	#Niezalogowani
-	if(LOGD!=1)
+	if(!LOGD)
 	{
 		#Login
 		$u['login'] = Clean($_POST['login'],30);
@@ -116,8 +116,14 @@ if($_POST)
 		$photo = RemoveAvatar($error);
 	}
 
+	#Zmiana has³a lub E-mail
+	if(LOGD && $_POST['pass'] && $_POST['curPass'] != $user[UID]['pass'])
+	{
+		$error[] = $lang['mustPass'];
+	}
+
 	#Has³o
-	if(LOGD==1 && empty($_POST['pass']))
+	if(LOGD && empty($_POST['pass']))
 	{
 		$u['pass'] = $user[UID]['pass'];
 	}
@@ -140,7 +146,7 @@ if($_POST)
 	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
 		#E-mail istnieje w bazie?
-		if(db_count('users WHERE mail="'.$u['mail'].'"'.((LOGD==1)?' AND ID!='.UID:'')) != 0)
+		if(db_count('users WHERE mail="'.$u['mail'].'"'.((LOGD)?' AND ID!='.UID:'')) != 0)
 		{
 			$error[] = $lang['mailEx'];
 		}
@@ -163,7 +169,7 @@ if($_POST)
 	if($error)
 	{
 		$content->info(join('<br /><br />',$error));
-		if(LOGD==1 && !$photo)
+		if(LOGD && !$photo)
 		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID) -> fetchColumn();
 	}
 
@@ -172,8 +178,15 @@ if($_POST)
 	{
 		try
 		{
+			#Edytuj
+			if(LOGD)
+			{
+				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, opt=:opt,
+				about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
+				jabber=:jabber, tlen=:tlen, gg=:gg WHERE ID='.UID);
+			}
 			#Nowy
-			if(LOGD!=1)
+			else
 			{
 				#Konto aktywne?
 				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
@@ -183,16 +196,9 @@ if($_POST)
 				about,mails,www,city,icq,skype,jabber,tlen,gg) VALUES (:login,:pass,:mail,
 				:opt,:lv,:regt,:about,:mails,:www,:city,:icq,:skype,:jabber,:tlen,:gg)');
 			}
-			#Edycja
-			else
-			{
-				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, opt=:opt,
-				about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
-				jabber=:jabber, tlen=:tlen, gg=:gg WHERE ID='.UID);
-			}
 
 			#Aktywacja e-mail
-			if(LOGD!=1 && $cfg['actmeth']==2)
+			if(!LOGD && $cfg['actmeth']==2)
 			{
 				#Klucz
 				$key = uniqid(mt_rand(100,999),1);
@@ -219,10 +225,10 @@ if($_POST)
 				unset($m,$key);
 			}
 			#Inne
-			elseif(LOGD==1)
+			elseif(LOGD)
 			{
-				$q->execute($u); $_POST = null; include './mod/user.php';
-				$content->file = 'user';
+				$q->execute($u);
+				header('Location: '.URL.'?co=user&id='.UID);
 			}
 			elseif($cfg['actmeth']!=1)
 			{
@@ -245,7 +251,7 @@ if($_POST)
 else
 {
 	#Odczyt
-	if(LOGD==1)
+	if(LOGD)
 	{
 		$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.UID) -> fetch(2);
 		$photo = $u['photo'];
@@ -278,7 +284,8 @@ $content->data = array(
 	'width' => $cfg['maxDim1'],
 	'height'=> $cfg['maxDim2'],
 	'size'  => $cfg['maxSize'],
-	'code'  => isset($cfg['captcha']) && LOGD!=1,
 	'del'   => $photo,
-	'photo' => (LOGD==1 && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
+	'bbcode'=> isset($cfg['aboutBBC']),
+	'code'  => isset($cfg['captcha']) && !LOGD,
+	'photo' => (LOGD && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
 );

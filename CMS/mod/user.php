@@ -16,6 +16,13 @@ if(!$u) return;
 #O sobie
 $u['about'] = nl2br(Emots($u['about']));
 
+#BBCode
+if(isset($cfg['aboutBBC']))
+{
+	include_once './lib/bbcode.php';
+	$u['about'] = BBCode($u['about']);
+}
+
 #WWW
 $u['www'] = ($u['www'] && $u['www']!='http://') ? $u['www'] : null;
 

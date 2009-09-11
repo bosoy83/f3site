@@ -1,25 +1,57 @@
-<form action="" method="post" enctype="multipart/form-data" f3:array="u">
+<form action="" id="eu" method="post" enctype="multipart/form-data" f3:array="u">
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
+
+<!-- IF LOGD -->
+
+<tbody id="edit">
+<tr>
+	<td width="200px"><b>{lang.curPass}:</b></td>
+	<td><input type="password" name="curPass" maxlength="30" /></td>
+</tr>
+<tr>
+	<td><b>{lang.newPass}:</b><br /><small>{lang.passd}</small></td>
+	<td><input type="password" name="pass" maxlength="30" /></td>
+</tr>
+<tr>
+	<td><b>{lang.retPass}:</b></td>
+	<td><input type="password" name="pass2" maxlength="30" /></td>
+</tr>
+<tr>
+	<td><b>{lang.mail}:</b></td>
+	<td><input name="mail" value="{u.mail}" maxlength="50" /></td>
+</tr>
+</tbody>
+<tbody id="goedit" style="display: none; text-align: center; color: blue">
+<tr>
+	<td style="padding: 5px" colspan="2">
+		<a href="#" style="background: url(img/icon/key.png) no-repeat; padding-left: 22px">{lang.editPass}</a>
+		<script type="text/javascript">
+		show('edit');
+		id('goedit').style.display = '';
+		id('goedit').onclick = function() { id('edit').style.display = ''; show(this); f[0].focus() }
+		</script>
+	</td>
+</tr>
+</tbody>
+
+<!-- ELSE -->
+
 <tbody>
 <tr>
 	<th colspan="2">{lang.editup}</th>
 </tr>
-
-<!-- IF LOGD != 1 -->
 <tr>
-	<td><b>{lang.login}:</b><br /><small>{lang.logind}</small></td>
+	<td width="200px"><b>{lang.login}:</b><br /><small>{lang.logind}</small></td>
 	<td><input name="login" maxlength="30" value="{u.login}" /></td>
 </tr>
-<!-- END -->
-
 <tr>
-	<td width="43%"><b>{lang.newpass}:</b><br /><small>{lang.passd}</small></td>
+	<td><b>{lang.pass}:</b><br /><small>{lang.passd}</small></td>
 	<td><input type="password" name="pass" maxlength="30" /></td>
 </tr>
 <tr>
-	<td><b>{lang.retpass}:</b></td>
+	<td><b>{lang.retPass}:</b></td>
 	<td><input maxlength="30" type="password" name="pass2" /></td>
 </tr>
 <tr>
@@ -37,11 +69,16 @@
 </tr>
 <!-- END -->
 
+</tbody>
+
+<!-- END -->
+
+<tbody>
 <tr>
 	<th colspan="2">{lang.editus}</th>
 </tr>
 <tr>
-	<td><b>{lang.ufrom}</b></td>
+	<td width="200px"><b>{lang.ufrom}</b></td>
 	<td><input name="city" maxlength="50" value="{u.city}" /></td>
 </tr>
 <tr>
@@ -114,3 +151,8 @@
 </tbody>
 </table>
 </form>
+
+<script type="text/javascript">
+f = document.forms['eu'];
+if(f.login) f[0].focus(); else f[4].focus()
+</script>
