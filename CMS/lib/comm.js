@@ -5,18 +5,18 @@ function comment(o)
 	{
 		include('lib/editor.js', function()
 		{
-			var http = new Request(o.href, id('com'));
+			var http = new Request(o.href, $('com'));
 
 			//Przejmij kontrolê nad formularzem
 			http.done = function(x)
 			{
 				if(x.indexOf('<form') == -1)
 				{
-					id('comments').innerHTML = x;
+					$('comments').innerHTML = x;
 				}
 				else
 				{
-					id('com').innerHTML = x;
+					$('com').innerHTML = x;
 					var f = document.forms['comm'];
 					new Editor(f.text, 1).emots();
 					f.prev.onclick = function() { return http.sendForm(this) };

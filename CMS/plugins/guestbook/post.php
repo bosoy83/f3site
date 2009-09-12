@@ -23,11 +23,11 @@ if($id && !Admit('GB'))
 }
 elseif(!$id)
 {
-	if(!isset($cfg['gbPost']))
+	if(empty($cfg['gbPost']))
 	{
 		$error[] = $lang['disabled'];
 	}
-	elseif(!LOGD && !isset($cfg['gbGuest']))
+	elseif(!LOGD && $cfg['gbPost']==2)
 	{
 		$error[] = $lang['mustLogin'];
 	}

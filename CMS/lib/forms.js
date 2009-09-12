@@ -23,7 +23,7 @@ function fileman(folder, input)
 //
 function Fragment(box,opt)
 {
-	var box  = id(box);
+	var box  = $(box);
 	var self = this;
 	var opt  = opt || {};
 

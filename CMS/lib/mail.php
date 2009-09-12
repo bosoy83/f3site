@@ -13,6 +13,7 @@ class Mailer
 		$from,
 		$mailFrom,
 		$topic = '[no topic]',
+		$siteTitle,
 		$text,
 		$url,
 		$HTML = 1,
@@ -90,7 +91,7 @@ class Mailer
 			#Nag³ówki i tekst
 			$this->cmd('Subject: '.sanitize($this->topic)."\r\n" . 'To: '.$name."\r\n" . $h."\r\n" . str_replace(
 				array('%to%', '%to.email%', '%siteurl%', '%from%'),
-				array($name, $adr, '<a href="'.$this->url.'">'.$this->url.'</a>', $this->from),
+				array($name, $adr, '<a href="'.$this->url.'">'.$this->siteTitle.'</a>', $this->from),
 				$this->text
 			));
 
@@ -121,6 +122,7 @@ class Mailer
 	{
 		global $cfg;
 		$this->url = $cfg['adr'];
+		$this->siteTitle = $cfg['title'];
 
 		#Po³±czenie SMTP
 		if($cfg['mailh']==2 && isset($cfg['mailon']))

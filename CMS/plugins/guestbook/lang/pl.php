@@ -13,6 +13,8 @@ $lang+=Array(
 'gbRules2' => 'Wyświetlane przy dodawaniu wpisu',
 'gbIntro'  => 'Powitanie',
 'gbNum'    => 'Ilość wpisów na 1 stronie',
+'all'      => 'Wszyscy odwiedzający',
+'noOne'    => 'Nikt',
 
 'guestbook'=> 'Księga gości',
 'sign'     => 'Wpisz się',

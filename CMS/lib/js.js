@@ -12,19 +12,19 @@ function CSS(x)
 {
 	if(x)
 	{
-		var link = document.getElementsByTagName('link')[0];
+		var link = document.styleSheets[0];
 		link.href = link.href.slice(0,-5) + x + '.css';
 	}
 	else
 	{
-		if(!this.d)
+		if(!CSS.d)
 		{
-			this.d = new Dialog('SKIN','',250,200);
-			this.d.load('request.php?co=css');
+			CSS.d = new Dialog('SKIN','',250,200);
+			CSS.d.load('request.php?co=css');
 		}
 		else
 		{
-			this.d.show();
+			CSS.d.show();
 		}
 	}
 }
@@ -49,7 +49,7 @@ function include(file, loaded)
 }
 
 //Szybki dostêp do elementów po ID
-function id(x) { return document.getElementById(x) }
+function $(x) { return document.getElementById(x) }
 
 //Wstaw kod
 function BBC(o, left, right, inside)
@@ -89,7 +89,7 @@ function setCookie(name, txt, expires)
 //Poka¿ lub ukryj
 function show(o, once)
 {
-	if(typeof o == 'string') o = id(o);
+	if(typeof o == 'string') o = $(o);
 	var x = o.style;
 	if(x.display=='none') x.display='block'; else if(once==undefined) x.display='none'
 }
@@ -127,7 +127,7 @@ function hint(o, left, top, autoHide)
 {
 	if(typeof o == 'string')
 	{
-		o = id(o);
+		o = $(o);
 	}
 	if(o.style.visibility != 'visible')
 	{
@@ -147,7 +147,7 @@ function hint(o, left, top, autoHide)
 function Request(url, box, opt)
 {
 	opt = opt || {};
-	this.o = box || id('main'); //Gdzie wstawiæ odpowiedŸ?
+	this.o = box || $('main'); //Gdzie wstawiæ odpowiedŸ?
 	this.url = url;
 	this.post = opt.post || false; //Typ POST - domyœlnie false (typ GET)
 	this.param = []; //Parametry POST
@@ -345,7 +345,7 @@ function Dialog(title, txt, width, height)
 }
 Dialog.prototype.show = function()
 {
-	if(!this.o.parentNode)
+	if(this.o.parentNode != document.body)
 	{
 		document.body.appendChild(this.bg);
 		document.body.appendChild(this.o);
@@ -356,7 +356,7 @@ Dialog.prototype.show = function()
 };
 Dialog.prototype.hide = function()
 {
-	if(this.o.parentNode)
+	if(this.o.parentNode == document.body)
 	{
 		document.body.removeChild(this.bg);
 		document.body.removeChild(this.o);

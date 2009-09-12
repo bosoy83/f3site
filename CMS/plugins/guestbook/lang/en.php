@@ -13,6 +13,8 @@ $lang+=Array(
 'gbRules2' => 'Displayed while writing a post',
 'gbIntro'  => 'Welcome text',
 'gbNum'    => 'Number of posts on 1 page',
+'all'      => 'Everyone',
+'noOne'    => 'No one',
 
 'guestbook'=> 'Guestbook',
 'contact'  => 'Contact',

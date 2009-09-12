@@ -183,6 +183,8 @@ function Slaves($type=0,$id=0,$o=null)
 		elseif($depth>0 && $last+2!=$cat['rgt'] && $last+1!=$cat['lft'])
 			$depth -= floor(($cat['lft']-$last)/2);
 
+		if($depth < 0) $depth = 0;
+
 		$last = $cat['rgt'];
 
 		$o.='<option value="'.$cat['ID'].'"'.(($id==$cat['ID'])? ' selected="selected"':'').

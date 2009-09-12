@@ -14,11 +14,22 @@ $adms = array();
 
 foreach($res as $adm)
 {
+	#Kim jest
+	switch($adm[2])
+	{
+		case 0: $lv = $lang['locked']; break;
+		case 1: $lv = $lang['user']; break;
+		case 2: $lv = $lang['editor']; break;
+		case 3: $lv = $lang['admin']; break;
+		case 4: $lv = $lang['owner']; break;
+		default: $lv = 'ERR!';
+	}
 	$adms[] = array(
 		'url'   => '.?co=user&amp;id='.$adm[0],
 		'rights'=> str_replace('|',' ',$adm[3]),
+		'level' => $lv,
 		'login' => $adm[1],
-		'allow' => $adm[0] != UID && (UID == 1 OR $adm[2] < LEVEL) ? true : false,
+		'allow' => $adm[0] != UID && (UID == 1 OR $adm[2] < LEVEL),
 		'url1'  => '?a=editAdmin&amp;id='.$adm[0],
 		'url2'  => '?a=editUser&amp;id='.$adm[0],
 	);

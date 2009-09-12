@@ -17,7 +17,7 @@ if(isset($_GET['logout']) && LOGD==1)
 #Rejestruj?
 elseif(isset($_POST['reg']))
 {
-	Header('Location: '.URL.'?co=account');
+	header('Location: '.URL.'?co=account');
 	exit;
 }
 
@@ -35,7 +35,7 @@ elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 	$res = null;
 
 	#Nieaktywny?
-	if($u['lv']===0)
+	if($u['lv']=='0')
 	{
 		$content->message(16);
 	}

@@ -82,5 +82,6 @@ $content->data = array(
 	'pages'   => &$pages,
 	'intro'   => &$cfg['gbIntro'],
 	'rights'  => $right,
-	'mayPost' => (LOGD OR isset($cfg['gbGuest'])) AND (stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false)
+	'mayPost' => ($cfg['gbPost']==1 OR (LOGD && $cfg['gbPost']==2)) AND
+		(stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false)
 );

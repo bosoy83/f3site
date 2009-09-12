@@ -52,7 +52,7 @@ $total = db_count('users'.$w);
 $users = array();
 
 #Pobierz
-$res = $db->query('SELECT ID,login,lv FROM '.PRE.'users'.$w.' ORDER BY lv DESC, ID DESC LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,lv FROM '.PRE.'users'.$w.' ORDER BY lv, ID DESC LIMIT '.$st.',30');
 $res ->setFetchMode(3); //NUM
 
 foreach($res as $user)

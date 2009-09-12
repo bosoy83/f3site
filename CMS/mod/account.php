@@ -3,7 +3,7 @@ if(iCMS!=1) exit;
 require LANG_DIR.'profile.php'; #Jêzyk
 require 'cfg/account.php'; #Opcje
 
-$error = array();
+$error = $bad = array();
 $photo = '';
 
 #Tytu³ strony
@@ -73,6 +73,7 @@ if($_POST)
 		if(isset($u['login'][31]) || !isset($u['login'][2]))
 		{
 			$error[] = $lang['badLogin'];
+			$bad[] = 'login';
 		}
 
 		#Login istnieje w bazie?
@@ -80,6 +81,7 @@ if($_POST)
 		if($res->fetchColumn() > 0)
 		{
 			$error[] = $lang['loginEx'];
+			$bad[] = 'login';
 		}
 		$res=null;
 
@@ -99,6 +101,7 @@ if($_POST)
 			if($_POST['code']!=$_SESSION['code'] || empty($_SESSION['code']))
 			{
 				$error[] = $lang['badCode'];
+				$bad[] = 'code';
 			}
 			$_SESSION['code'] = false;
 		}
@@ -120,6 +123,7 @@ if($_POST)
 	if(LOGD && $_POST['pass'] && $_POST['curPass'] != $user[UID]['pass'])
 	{
 		$error[] = $lang['mustPass'];
+		$bad[] = 'curPass';
 	}
 
 	#Has³o
@@ -133,11 +137,13 @@ if($_POST)
 		if(!preg_match('/^[a-zA-Z0-9_-]{5,20}$/', $u['pass']))
 		{
 			$error[] = $lang['badPass'];
+			$bad[] = 'pass';
 		}
 		#Has³a równe?
 		elseif($u['pass']!=$_POST['pass2'])
 		{
 			$error[] = $lang['pass2'];
+			$bad[] = 'pass2';
 		}
 		$u['pass'] = md5($u['pass']);
 	}
@@ -149,11 +155,14 @@ if($_POST)
 		if(db_count('users WHERE mail="'.$u['mail'].'"'.((LOGD)?' AND ID!='.UID:'')) != 0)
 		{
 			$error[] = $lang['mailEx'];
+			$bad[] = 'mail';
 		}
 	}
 	else
 	{
-		$u['mail'] = Clean($u['mail']); $error[] = $lang['badMail'];
+		$u['mail'] = Clean($u['mail']);
+		$error[] = $lang['badMail'];
+		$bad[] = 'mail';
 	}
 
 	#Zabrioniony e-mail?
@@ -207,7 +216,7 @@ if($_POST)
 				include './lib/mail.php';
 				$m = new Mailer;
 				$m->topic = $lang['mail1'].$u['login'];
-				$m->text = file_get_contents(LANG_DIR.'mail_account.php');
+				$m->text = file_get_contents(LANG_DIR.'mailReg.php');
 				$m->text = str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
 
 				#Wyœlij i zapisz u¿ytkownika
@@ -285,6 +294,7 @@ $content->data = array(
 	'height'=> $cfg['maxDim2'],
 	'size'  => $cfg['maxSize'],
 	'del'   => $photo,
+	'bad'   => $bad,
 	'bbcode'=> isset($cfg['aboutBBC']),
 	'code'  => isset($cfg['captcha']) && !LOGD,
 	'photo' => (LOGD && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false

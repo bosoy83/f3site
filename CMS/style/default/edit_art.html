@@ -66,12 +66,12 @@
 </form>
 
 <script type="text/javascript">
-f = document.forms['art'];
-they = id('they');
-area = they.getElementsByTagName('textarea');
-butt = '{lang.page}: <span id="b">';
-num = area.length;
-cur = 1;
+var f = document.forms['art'],
+they = $('they'),
+area = they.getElementsByTagName('textarea'),
+butt = '{lang.page}: <span id="b">',
+num = area.length,
+cur = 1,
 e = new Editor(they.firstChild);
 e.o = f[6];
 
@@ -87,7 +87,7 @@ they.insertBefore(b,they.firstChild);
 
 function CP(o)
 {
-	var c = id('p'+cur);
+	var c = $('p'+cur);
 	if(o==0)
 	{
 		var x = c.cloneNode(1);
@@ -98,7 +98,7 @@ function CP(o)
 		n.focus();
 		show(c);
 		they.appendChild(x);
-		id('b').innerHTML += '<input type="button" value="'+num+'" onclick="CP(this)" />';
+		$('b').innerHTML += '<input type="button" value="'+num+'" onclick="CP(this)" />';
 		B(num);
 		cur = num;
 		e.o = n;
@@ -108,14 +108,14 @@ function CP(o)
 		show(c);
 		B(o.value);
 		cur = o.value;
-		x = id('p'+cur);
+		x = $('p'+cur);
 		show(x);
 		e.o = x.getElementsByTagName('textarea')[0];
 	}
 }
 function B(x)
 {
-	var o = id('they').getElementsByTagName('input');
+	var o = $('they').getElementsByTagName('input');
 	o[cur-1].style.fontWeight = 'normal';
 	o[x-1].style.fontWeight = 'bold';
 }
