@@ -233,9 +233,16 @@ function Admit($id,$type=null)
 	#Kategoria
 	if($type)
 	{
-		if($type=='CAT' && LEVEL>1 && Admit('+'))
+		if($type=='CAT')
 		{
-			return true;
+			if(LEVEL>1 && Admit('+'))
+			{
+				return true;
+			}
+			elseif(LEVEL<2)
+			{
+				return false;
+			}
 		}
 		else
 		{

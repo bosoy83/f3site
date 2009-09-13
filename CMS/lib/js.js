@@ -29,7 +29,7 @@ function CSS(x)
 	}
 }
 
-//Do³¹cz plik JS
+//Do³¹cz plik JS - loaded opcjonalny
 function include(file, loaded)
 {
 	var js = document.createElement('script');
@@ -39,11 +39,17 @@ function include(file, loaded)
 	//Wywo³aj funkcjê, gdy plik zostanie za³adowany
 	if(loaded)
 	{
-		js.onreadystatechange = function()
+		if(js.readyState)
 		{
-			if(js.readyState == 'complete') loaded()
-		};
-		js.onload = loaded;
+			js.onreadystatechange = function()
+			{
+				if(js.readyState == 'complete' || js.readyState == 'loaded')
+				{
+					loaded(); js.onreadystatechange = null
+				}
+			}
+		}
+		else js.onload = loaded;
 	}
 	document.getElementsByTagName('head')[0].appendChild(js);
 }
@@ -161,11 +167,7 @@ function Request(url, box, opt)
 //Wyœlij ¿¹danie
 Request.prototype.send = function(list)
 {
-	if(this.http)
-	{
-		this.http.abort();
-	}
-	else
+	if(!this.http)
 	{
 		if(window.XMLHttpRequest) //XMLHttpRequest
 		{

@@ -16,7 +16,7 @@ var button = [
   'char',
 	'www',
 	'mail',
-	'img', //16
+	'img' //16
 ],
 
 //Podwójne tablice powodują niewielki spadek wydajności w stosunku do pojedynczych,
@@ -49,7 +49,7 @@ symbol = [
 	'®', '©', '™', '•', '&lt;', '&gt;',
 	'«', '»', '&lArr;', '&rArr;', '·', 'µ',
 	'&#945;', '&#946;', '&#947;', '&#949;', '&#916;', '&#937;',
-	'€', '&hearts;', '‰', '&#9835;', '†',
+	'€', '&hearts;', '‰', '&#9835;', '†'
 ],
 
 //Kolory
@@ -78,7 +78,7 @@ Editor.prototype.format = function(i)
 		if(this.bbcode)
 			BBC(this.o, '['+tags[i][0]+']', '[/'+tags[i][0]+']');
 		else
-			BBC(this.o, tags[i][1], tags[i][2])
+			BBC(this.o, tags[i][1], tags[i][2]);
 	}
 	//Nieopisane w tablicy `tags`
 	else
@@ -361,7 +361,7 @@ Editor.prototype.preview = function(opt,where,text)
 	{
 		text = text.replace(/&/g, '&amp;');
 		text = text.replace(/</g, '&lt;');
-		text = text.replace(/>/g, '&gt;')
+		text = text.replace(/>/g, '&gt;');
 	}
 
 	//Emotikony
@@ -377,7 +377,7 @@ Editor.prototype.preview = function(opt,where,text)
 	}
 
 	//Wyświetl
-	this.o.focus()
+	this.o.focus();
 	this.box.innerHTML = text;
 	this.box.scrollIntoView()
 };
