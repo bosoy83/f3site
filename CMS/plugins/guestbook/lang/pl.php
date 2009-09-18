@@ -18,6 +18,7 @@ $lang+=Array(
 
 'guestbook'=> 'Księga gości',
 'sign'     => 'Wpisz się',
+'gall'     => 'Anonim',
 'editPost' => 'Edytuj wpis',
 'contact'  => 'Kontakt',
 'mayNot'   => 'Nie masz uprawnień, aby edytować wpisy.',

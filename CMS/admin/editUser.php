@@ -61,7 +61,7 @@ if($_POST)
 			gg=:gg, gid=:gid, photo=:photo WHERE ID='.$id) -> execute($u);
 
 			$content->info($lang['upd'], array(
-				'.?co=user&amp;id='.$id => $u['login'])); return;
+				'.?co=user&amp;id='.$id => $u['login'])); return 1;
 		}
 		catch(PDOException $e)
 		{

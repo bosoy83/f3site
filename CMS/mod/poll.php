@@ -19,7 +19,7 @@ $content->title = $poll['name'];
 if($poll['num'] == 0)
 {
 	$content->info($lang['novotes']);
-	return;
+	return 1;
 }
 
 #Odpowiedzi

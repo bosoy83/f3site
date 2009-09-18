@@ -56,7 +56,7 @@ if($_POST)
 			'?co=list&amp;act=5' => $lang['news'],
 			'?co=news&amp;id='.$id => $lang['seeit']));
 		unset($e,$news);
-		return;
+		return 1;
 	}
 	catch(Exception $e)
 	{

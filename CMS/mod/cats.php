@@ -30,7 +30,7 @@ foreach($res as $x)
 #Brak kategorii?
 if($total === 0)
 {
-	$content -> info($lang['nocats']); return;
+	$content -> info($lang['nocats']); return 1;
 }
 #Tylko 1 - przekierowaæ?
 elseif($total === 1)

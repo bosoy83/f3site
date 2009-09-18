@@ -1,5 +1,5 @@
 <?php /* Wyœwietl szczegó³y o pliku */
-if(iCMS!=1) return;
+if(iCMS!=1) exit;
 require './cfg/content.php';
 
 #Pobierz dane

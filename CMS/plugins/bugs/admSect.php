@@ -20,25 +20,39 @@ if($_POST)
 		}
 	}
 	#Usuñ stare
-	$db->beginTransaction();
-	$db->exec('DELETE FROM '.PRE.'bugsect WHERE ID NOT IN('.join(',', $all).')');
-
-	#Zmieñ istniej¹ce
-	if($fix)
+	try
 	{
-		$q = $db->prepare('UPDATE '.PRE.'bugsect SET seq=:seq, title=:title WHERE ID=:id');
-		foreach($fix as &$x) $q -> execute($x);
-	}
+		$db->beginTransaction();
+		if($all)
+		{
+			$db->exec('DELETE FROM '.PRE.'bugsect WHERE ID NOT IN('.join(',', $all).')');
+		}
+		else
+		{
+			$db->exec('DELETE FROM '.PRE.'bugsect');
+		}
 
-	#Nowe rekordy
-	if($add)
-	{
-		$q = $db->prepare('INSERT INTO '.PRE.'bugsect (seq,title) VALUES (:seq,:title)');
-		foreach($add as &$x) $q -> execute($x);
+		#Zmieñ istniej¹ce
+		if($fix)
+		{
+			$q = $db->prepare('UPDATE '.PRE.'bugsect SET seq=?, title=? WHERE ID=?');
+			foreach($fix as &$x) $q -> execute($x);
+		}
+
+		#Nowe rekordy
+		if($add)
+		{
+			$q = $db->prepare('INSERT INTO '.PRE.'bugsect (seq,title) VALUES (?,?)');
+			foreach($add as $x) $q -> execute($x);
+		}
+		$db->commit();
+		header('Location: '.URL.'adm.php?a=bugs');
+		return 1;
 	}
-	$db->commit();
-	Header('Location: '.URL.'adm.php?a=bugs');
-	unset($fix,$add,$all,$x);
+	catch(PDOException $e)
+	{
+		$content->info($e);
+	}
 }
 
 #Pobierz sekcje - FETCH_ASSOC

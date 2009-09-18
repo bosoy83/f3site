@@ -66,7 +66,11 @@ class Mailer
 		$h.= 'From: ' . $this->from . '<'.$this->mailFrom . ">\r\n";
 
 		#HTML
-		if($this->HTML) $h.='Content-type: text/html; charset=iso-8859-2'."\r\n";
+		if($this->HTML)
+		{
+			$h.='Content-type: text/html; charset=iso-8859-2'."\r\n";
+			$this->text = nl2br($this->text);
+		}
 
 		#BBC
 		if(count($this->bcc)>0) $h.='Bcc: '.join(',', $this->bcc)."\r\n";

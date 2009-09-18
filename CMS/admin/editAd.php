@@ -37,8 +37,8 @@ else
 {
 	if($id)
 	{
-		$ad = $db->query('SELECT * FROM '.PRE.'banners WHERE ID='.$id)->fetch(2);
-		if(!$ad) { $content->info($lang['noex']); return; }
+		if(!$ad = $db->query('SELECT * FROM '.PRE.'banners WHERE ID='.$id)->fetch(2))
+		return;
 	}
 	else
 	{

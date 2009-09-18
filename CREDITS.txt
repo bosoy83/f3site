@@ -2,8 +2,9 @@ Tu będą informacje o autorach.
 
 Betatesterzy i osoby zasłużone:
 * PanYeti (CyfroGraf)
-* Fenek
+* jareQ
 * skygod
+* Fenek
 * Sh1moda
 * bolek12
 * Lavanos

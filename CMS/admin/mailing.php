@@ -41,7 +41,7 @@ elseif(isset($_POST['txt']))
 	$mail = new Mailer();
 	$mail->setSender($_POST['from'],$cfg['mail']);
 	$mail->topic = Clean($_POST['topic']);
-	$mail->text  = nl2br($_POST['txt'])."\r\n\r\n-----\r\n".$lang['candis'];
+	$mail->text  = $_POST['txt']."\r\n\r\n-----\r\n".$lang['candis'];
 
 	#Emoty
 	if(isset($_POST['emot'])) $mail->text = RemoteEmots($mail->text);

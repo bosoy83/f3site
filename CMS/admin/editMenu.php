@@ -80,11 +80,11 @@ if($_POST)
 	}
 }
 
-#Odczyt
+#Odczyt (ASSOC)
 elseif($id)
 {
-	$m = $db->query('SELECT * FROM '.PRE.'menu WHERE ID='.$id) -> fetch(2); //ASSOC
-	if(!$m) { $content->info($lang['noex']); return; }
+	if(!$m = $db->query('SELECT * FROM '.PRE.'menu WHERE ID='.$id) -> fetch(2))
+	return;
 
 	if($m['type'] == 3)
 	{

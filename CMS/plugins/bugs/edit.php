@@ -6,9 +6,8 @@ $error = $cat = $bug = array();
 #Edytuj zg³oszenie
 if($id)
 {
-	if(!$bug = $db->query('SELECT cat,name,level,poster,text FROM '.PRE.'bugs WHERE ID='.$id)->fetch(2))
+	if(!$bug = $db->query('SELECT cat,name,env,level,who,text FROM '.PRE.'bugs WHERE ID='.$id)->fetch(2))
 	{
-		$content->set404();
 		return;
 	}
 	$f = $bug['cat'];
@@ -24,7 +23,6 @@ else
 	#Kategoria w URL
 	if(!isset($_GET['f']) OR !is_numeric($_GET['f']))
 	{
-		$content->set404();
 		return;
 	}
 	$f = $_GET['f'];
@@ -141,7 +139,7 @@ elseif(!$id)
 if($error)
 {
 	$content->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
-	if(!$_POST) return;
+	if(!$_POST) return 1;
 }
 elseif(isset($cfg['bugsWhile']) && $cat[3])
 {

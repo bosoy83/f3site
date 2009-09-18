@@ -17,7 +17,7 @@ switch($db_db)
 		$show = 'SELECT name FROM sqlite_master WHERE type="table" ORDER BY name';
 		break;
 	default:
-		$content->info('Cannot parse database type.'); return;
+		$content->info('Cannot parse database type.'); return 1;
 }
 
 #Tworzenie

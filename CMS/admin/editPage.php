@@ -48,11 +48,8 @@ else
 {
 	if($id)
 	{
-		$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id)->fetch(2);
-		if(!$page)
-		{
-			$content->info($lang['error']); return;
-		}
+		if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id)->fetch(2))
+		return;
 	}
 	else
 	{

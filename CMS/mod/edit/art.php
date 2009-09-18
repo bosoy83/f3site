@@ -66,7 +66,7 @@ if($_POST)
 			'?co=list&amp;act=1' => $lang['arts'],
 			'?co=art&amp;id='.$id  => $art['name']));
 		unset($e,$q,$art,$full);
-		return;
+		return 1;
 	}
 	catch(Exception $e)
 	{

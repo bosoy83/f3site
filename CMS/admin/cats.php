@@ -40,7 +40,7 @@ foreach($res as $cat)
 	}
 	elseif($depth > 0 && $last+2 != $cat['rgt'] && $last+1 != $cat['lft'])
 	{
-		$depth -= floor(($cat['lft']-$last)/2);
+		$depth -= ($cat['lft']-$last-1);
 	}
 	$last = $cat['rgt'];
 

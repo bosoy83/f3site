@@ -7,7 +7,7 @@ if(!isset($cfg['captcha'])) exit;
 header('Content-type: image/png');
 
 #Losujemy liczbê
-$_SESSION['code'] = $num = mt_rand(10,300).date('s');
+$_SESSION['code'] = $num = mt_rand(99,300).date('s');
 
 #Generuj obrazek
 $img = imagecreate(80,25);

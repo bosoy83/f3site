@@ -22,8 +22,8 @@ if($_POST)
 			(isset($_POST['o3']) ? 4 : 0) + (isset($_POST['o4']) ? 8 : 0) + (isset($_POST['o5']) ? 16 : 0)
 	);
 
-	#START
-	try {
+	try
+	{
 		$db->beginTransaction();
 
 		#Edytuj
@@ -41,8 +41,8 @@ if($_POST)
 				VALUES (:name,:dsc,:access,:type,:sc,:sort,:text,:opt,:lft,:rgt)');
 
 			#Pobierz prawy indeks ostatniej kategorii
-			$cat['lft'] = (int) $db->query('SELECT rgt FROM '.PRE.'cats'. (($up) ?
-				' WHERE ID='.$up : ' ORDER BY lft DESC LIMIT 1') ) -> fetchColumn();
+			$cat['lft'] = (int) $db->query('SELECT rgt FROM '.PRE.'cats WHERE'.(($up) ?
+				' ID='.$up : ' sc=0 ORDER BY lft DESC LIMIT 1')) -> fetchColumn();
 
 			#Przesuñ kategorie
 			if($up)
@@ -92,9 +92,7 @@ if($_POST)
 elseif($id)
 {
 	if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$id) -> fetch(2)) //ASSOC
-	{
-		$content->info($lang['noex']); return;
-	}
+	return;
 }
 #Domyœlne dane
 else

@@ -12,7 +12,7 @@
 <div class="cs">
 
 	<!-- IF edit -->
-	<div style="float: right"><a class="edit" href="?co=edit">{lang.edit}</a></div>
+	<div style="float: right"><a class="edit" href="?co=bugs&amp;act=e&amp;id={bug.ID}">{lang.edit}</a></div>
 	<!-- END -->
 
 	<a href="?co=bugs">{lang.TOC}</a> &raquo;
@@ -34,7 +34,7 @@
 	<td><span id="st">{bug.status}</span>
 
 		<!-- IF editStatus -->
-		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',cx-10,cy+7,1)" style="cursor: pointer" />
+		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',cx,cy,1)" style="cursor: pointer" />
 		<!-- END -->
 
 	</td>
@@ -48,8 +48,8 @@
 <tr>
 	<th align="right">{lang.rate}:</th>
 	<td id="hands">
-		<span onclick="RateBug(1)"><img src="plugins/bugs/thup.png" alt="YES" /> {bug.pos}</span>
-		<span onclick="RateBug(2)"><img src="plugins/bugs/thd.png" alt="NO" /> {bug.neg}</span>
+		<span onclick="RateBug(1)"><img src="plugins/bugs/up.png" alt="YES" /> {bug.pos}</span>
+		<span onclick="RateBug(2)"><img src="plugins/bugs/down.png" alt="NO" /> {bug.neg}</span>
 	</td>
 </tr>
 <!-- END -->

@@ -19,6 +19,7 @@ $lang+=Array(
 'guestbook'=> 'Guestbook',
 'contact'  => 'Contact',
 'sign'     => 'Sign',
+'gall'     => 'Anonim',
 'editPost' => 'Edit post',
 'mayNot'   => 'You have no privileges to edit posts.',
 'mustLogin'=> 'You must login in order to sign the guestbook!',

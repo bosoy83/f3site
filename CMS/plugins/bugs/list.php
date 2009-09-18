@@ -23,7 +23,10 @@ else
 #Pobierz zg³oszenia
 $res = $db->prepare('SELECT ID,name,num,date,status,level FROM '.PRE.'bugs WHERE cat=?'.
 	(Admit('BUGS') ? '' : ' AND status!=5').' ORDER BY ID DESC LIMIT ?,?');
-$res -> execute(array($id, $st, $cfg['bugsNum']));
+$res -> bindValue(1, $id, 1);
+$res -> bindValue(2, $st, 1);
+$res -> bindValue(3, $cfg['bugsNum'], 1);
+$res -> execute();
 
 $all = array();
 $num = 0;

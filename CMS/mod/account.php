@@ -12,7 +12,7 @@ $content->title = $lang['account'];
 #Aktywacja
 if(isset($_GET['keyid']))
 {
-	if(strlen($_GET['keyid'])==26 && ctype_alnum($_GET['keyid']))
+	if(strlen($_GET['keyid'])==16 && ctype_alnum($_GET['keyid']))
 	{
 		$res = $db->query('SELECT UID FROM '.PRE.'tmp WHERE type="ACT" AND KEYID="'.$_GET['keyid'].'"');
 		$id = $res->fetchColumn();
@@ -210,7 +210,7 @@ if($_POST)
 			if(!LOGD && $cfg['actmeth']==2)
 			{
 				#Klucz
-				$key = uniqid(mt_rand(100,999),1);
+				$key = uniqid(mt_rand(100,999));
 
 				#Przygotuj e-mail
 				include './lib/mail.php';

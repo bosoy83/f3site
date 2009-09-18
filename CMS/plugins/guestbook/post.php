@@ -164,6 +164,7 @@ if($error)
 #Dane do szablonu
 $content->data = array(
 	'post'   => &$post,
+	'code'   => !LOGD && isset($cfg['captcha']),
 	'rules'  => $cfg['gbRules'],
 	'bbcode' => isset($cfg['bbcode'])
 );

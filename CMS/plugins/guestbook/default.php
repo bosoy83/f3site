@@ -23,7 +23,7 @@ $content->file = $cfg['gbSkin'];
 if(!isset($cfg['gbOn']))
 {
 	$content->info($lang['disabled']);
-	return;
+	return 1;
 }
 
 #Akcja

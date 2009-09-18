@@ -135,9 +135,9 @@ $total = db_count($table.$param);
 #Brak?
 if($total == 0)
 {
-	if($id) Header('Location: '.URL.'?co=edit&act='.$act.'&catid='.$id);
+	if($id) header('Location: '.URL.'?co=edit&act='.$act.'&catid='.$id);
 	$content->info($lang['noc']);
-	return;
+	return 1;
 }
 
 #Czê¶æ URL

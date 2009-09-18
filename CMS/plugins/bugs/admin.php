@@ -28,5 +28,5 @@ if(isset($_GET['act']))
 }
 else
 {
-	require 'plugins/bugs/admcats.php';
+	require 'plugins/bugs/admCats.php';
 }

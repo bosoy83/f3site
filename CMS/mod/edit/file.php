@@ -46,7 +46,7 @@ if($_POST)
 			'?co=list&amp;act=2' => $lang['files'],
 			'?co=file&amp;id='.$id => $file['name']));
 		unset($e,$file);
-		return;
+		return 1;
 	}
 	catch(Exception $e)
 	{

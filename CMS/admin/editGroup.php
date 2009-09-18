@@ -31,7 +31,7 @@ if($_POST)
 	#OK?
 	try
 	{
-		$q->execute($group); $content->info($lang['saved']); return;
+		$q->execute($group); $content->info($lang['saved']); return 1;
 	}
 	catch(PDOException $e)
 	{

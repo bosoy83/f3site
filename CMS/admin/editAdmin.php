@@ -31,7 +31,7 @@ $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
 #Brak uprawnieñ?
 if(!$adm OR (UID != 1 && $adm[1] >= LEVEL))
 {
-	$content->info($lang['noex']); return;
+	return;
 }
 
 #Pobierz wtyczki
@@ -53,7 +53,7 @@ if($_POST)
 	#Mo¿e zmieniæ w³a¶ciciela?
 	if(LEVEL!=4 && ($lv>3 OR $lv<0))
 	{
-		$content->info($lang['noex']); return;
+		return;
 	}
 
 	$glo = array(); //Globalne

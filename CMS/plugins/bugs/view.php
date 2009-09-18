@@ -15,11 +15,7 @@ else
 $bug = $db->query('SELECT b.*, c.name as catName, c.rate FROM '.PRE.'bugs b INNER JOIN '.PRE.'bugcats c ON b.cat = c.ID WHERE b.ID='.$id.' AND (c.see=1 OR c.see="'.$nlang.'")') -> fetch(2);
 
 #Brak
-if(!$bug)
-{
-	$content->set404();
-	return;
-}
+if(!$bug) return;
 
 #Niemoderowany?
 if($bug['status']==5 && $bug['author']!=UID && !$rights)
