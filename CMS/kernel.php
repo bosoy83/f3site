@@ -228,7 +228,7 @@ function Admit($id,$type=null)
 	static $global, $all;
 
 	#Właściciel?
-	if($user[UID]['lv']==4) return true;
+	if(LEVEL==4) return true;
 
 	#Kategoria
 	if($type)

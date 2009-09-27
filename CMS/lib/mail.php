@@ -79,6 +79,12 @@ class Mailer
 		$adr  = sanitize($adr);
 		$name = sanitize($name);
 
+		#Podmianki
+		$this->text = str_replace(
+			array('%to%', '%to.email%', '%siteurl%', '%from%'),
+			array($name, $adr, '<a href="'.$this->url.'">'.$this->siteTitle.'</a>', $this->from),
+			$this->text);
+		
 		#Dla SMTP
 		if($this->method == 'SMTP')
 		{
@@ -93,11 +99,10 @@ class Mailer
 			$this->cmd('DATA');
 
 			#Nag³ówki i tekst
-			$this->cmd('Subject: '.sanitize($this->topic)."\r\n" . 'To: '.$name."\r\n" . $h."\r\n" . str_replace(
-				array('%to%', '%to.email%', '%siteurl%', '%from%'),
-				array($name, $adr, '<a href="'.$this->url.'">'.$this->siteTitle.'</a>', $this->from),
-				$this->text
-			));
+			$this->cmd('Subject: '.sanitize($this->topic)."\r\n" . 'To: '.$name."\r\n" . $h."\r\n" . $this->text);
+
+			#Dane
+			$this->cmd('data');
 
 			#Wy¶lij (250 = powodzenie)
 			$ok = strpos( $this->cmd('.'), '250' ) !== false ? true : false;

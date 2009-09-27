@@ -1,6 +1,4 @@
-<?php
-date_default_timezone_set('Europe/Warsaw'); //CZAS
-$lang = Array(
+<?php date_default_timezone_set('Europe/Berlin'); $lang = array(
 'THIS'=>'Deutsch',
 '404'=>'Seite nich gefunden',
 'add'=>'Neu',
@@ -72,7 +70,7 @@ $lang = Array(
 'search'=>'Suchen',
 'size'=>'Gröüe',
 'skin'=>'Skin',
-'tags'=>'Tags',
+'tags'=>'Etiketten',
 'text'=>'Inhalt',
 'title'=>'Titel',
 'toc'=>'Inhaltsverzeichnis',

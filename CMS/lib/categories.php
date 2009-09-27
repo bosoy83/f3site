@@ -114,7 +114,7 @@ function UpdateCatPath($cat)
 	if($cat['sc'] != 0)
 	{
 		$res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE lft<'.$cat['lft'].
-		' AND rgt>'.$cat['rgt'].' AND (access!=2 OR access!=3) ORDER BY lft DESC');
+		' AND rgt>'.$cat['rgt'].' AND (access!=2 OR access!=3) ORDER BY lft');
 
 		$res -> setFetchMode(3);
 		foreach($res as $c)

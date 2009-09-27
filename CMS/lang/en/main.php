@@ -1,4 +1,4 @@
-<?php date_default_timezone_set('America/Chicago'); $lang=Array(
+<?php date_default_timezone_set('America/Chicago'); $lang=array(
 'THIS'		=>'English',
 '404'			=>'Page does not exist',
 'add'			=>'Add',
@@ -68,8 +68,9 @@
 'results'	=>'Results',
 'save'		=>'Save',
 'search'	=>'Search',
-'skin'		=>'Skin',
 'size'		=>'Size',
+'skin'		=>'Skin',
+'tags'    =>'Tags',
 'text'		=>'Content',
 'title'		=>'Title',
 'toc'			=>'Table of content',
