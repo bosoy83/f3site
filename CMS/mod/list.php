@@ -48,6 +48,9 @@ switch($act)
 		unset($data);
 }
 
+#Tytu³
+$content->title = $type;
+
 #Masowe zmiany
 if(isset($_POST['x']) && count($_POST['x'])>0)
 {
@@ -170,7 +173,6 @@ foreach($res as $i)
 }
 
 #Do szablonu
-$content->title = $type;
 $content->data = array(
 	'item'  => $items,
 	'act'   => $act,

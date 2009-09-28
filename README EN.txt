@@ -1,10 +1,13 @@
 Distribution and license
 ========================
 
-Copyright 2009 COMPMaster
-F3Site 2009 is a free software. You can redistribute and modify it under the terms of GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+F3Site 3.0 - (C) 2009 COMPMaster
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License or any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 F3Site uses the following components:
 * Silk icons - http://www.famfamfam.com/lab/icons/silk
@@ -21,21 +24,23 @@ Requirements
 Installation
 ============
 
-1. Load content of SYSTEM directory into server using FTP client or file manager. Delete useless languages and skins (except DEFAULT) before. Then set privileges (CHMOD) to files:
+1. Load content of SYSTEM directory into server using FTP client or file manager. Delete useless languages and skins (except DEFAULT) before.
+
+2. Set privileges (CHMOD) to files:
 * folders: CFG, CACHE - 0777
 * all folders in above catalogs - 0777
 * all files in above directories - 0766
 * folders: FILES, IMG - 0777 (optional)
 * folders: IMG/USER - 0777 (required to let users upload photos)
 
-2. Go to INSTALL directory in your web browser - e.g. http://your.site.pl/install/
+3. Go to INSTALL directory in your web browser - e.g. http://your.site.pl/install/
 To finish the installation, database user must have full privileges.
 
-3. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
+4. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
 
-3. After the installation DELETE INSTALL FOLDER!
+5. After the installation DELETE INSTALL FOLDER!
 
-4. Log in and customize the system in admin panel.
+6. Log in and customize the system in admin panel.
 
 
 Updates and help
@@ -83,7 +88,16 @@ Content management
 Only users who have Editor, Admin or Owner privilege may edit content. After you have logged in, a link "Manage content" should appear. To add new item in category view, select: Options -> Add item (only if displaying category hierarchy is enabled).
 
 
-Known issues
-============
+Changing PHP options
+====================
 
-If your website is NOT displayed or a server error occurs, modify or delete .htaccess file from main and CFG directory. Read your hosting documentation in order to find out more information. However, .htaccess file adds some important security options. Figure out whether they are enabled on the server by default. If not, maybe you may apply them in another way.
+Default F3Site installation does NOT affect PHP configuration. If the installer notices there are options enabled that slow down performance or are insecure, it's recommended to DISABLE them. Read your hosting's documentation to find out, how to change PHP directives.
+
+Most servers support the following commands in .htaccess file (place it in the main directory):
+
+php_flag session.use_only_cookies 1
+php_flag session.use_trans_sid 0
+php_flag register_globals 0
+php_flag magic_quotes_gpc 0
+
+If your server does NOT support php_flag command, an empty page or error 500 may be displayed. Some hostings can interpret SetEnv instruction. Check if your hosting's admin panel lets you change options.

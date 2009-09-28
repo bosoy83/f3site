@@ -1,6 +1,4 @@
-<?php
-/* F3Site 3.0: copyright (C) 2009 COMPMaster
-Skrypt rozpowszechniany na licencji GPL (wiêcej w license.txt i CZYTAJ.txt) */
+<?php //F3Site 3.0 - (C) 2009 COMPMaster - license in: LICENSE.TXT
 
 #J±dro
 define('iCMS',1);

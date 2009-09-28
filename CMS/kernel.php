@@ -16,6 +16,14 @@ if(ini_get('register_globals'))
 	foreach(array_keys($_REQUEST) as $x) unset($$x);
 }
 
+#Magic quotes: usuń ukośniki
+if(ini_get('magic_quotes_gpc'))
+{
+	$gpc = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+	function xxx(&$x) { $x = stripslashes($x); }
+	array_walk_recursive($gpc, 'xxx');
+}
+
 #ID do zmienej: $id zawsze istnieje
 $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : 0;
 

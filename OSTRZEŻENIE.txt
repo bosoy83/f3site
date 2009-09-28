@@ -1,13 +1,5 @@
-Zamieszczona wersja F3Site 3.0 w katalogu CMS jest wersją roboczą. Wielu funkcji wciąż brakuje. Może zawierać wiele błędów, dlatego budowanie serwisu na wersji roboczej lub przedwczesna aktualizacja skryptu nie są zalecane!
-
-WYMAGANIA:
-- PHP 5.2+
-- MySQL 5+ lub SQLite 3+
-- PDO
+Zamieszczona wersja F3Site w katalogu CMS jest wersją roboczą, aktualizowaną na bieżąco. Może zawierać błędy!
 
 Możesz przyłączyć się do tworzenia projektu. Odwiedź stronę http://compmaster.prv.pl, aby dowiedzieć się więcej. Informacje o brakujących funkcjach lub modułach będą też zamieszczane w tym pliku.
 
-Dyskusje o nowościach i zmianach w F3Site 3.0:
-http://dhost.info/compmaster/punbb/viewtopic.php?id=257
-
-Niektóre moduły z poprzedniej wersji systemu nie zostały jeszcze zaktualizowane i usprawnione. Z biegiem czasu będą pojawiać się w repozytorium SVN.
+Na serwerze SVN znajdują się pliki .htaccess w głównym katalogu oraz CFG. Na niektórych konfiguracjach serwera mogą powodować problemy z wyświetleniem strony.
