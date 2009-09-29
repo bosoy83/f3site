@@ -68,6 +68,8 @@ Security
 
 4. Protect your computer with a good ANTIVIRUS SOFTWARE. A dangerous trojan horse is active in the Internet which steals passwords from FTP clients and injects hidden <iframe>s leading to unsafe websites and JavaScript code into your files on the server! If you notice ANY symptom of such activity, CHANGE your passwords to all FTP servers, scan your computer and upload again clean files.
 
+5. If you use SQLite database, place .db file OUTSIDE the main directory (www, htdocs).
+
 
 Notices
 =======

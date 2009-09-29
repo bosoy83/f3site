@@ -3,24 +3,6 @@ define('iCMS',1);
 require './kernel.php';
 require LANG_DIR.'fileman.php';
 
-/* Zabezpieczenia - upload na razie niedostêpny
-if(isset($_SERVER['PHP_AUTH_PW']) && md5($_SERVER['PHP_AUTH_PW']) == $user[UID]['pass'])
-{
-	echo 'yes';
-}
-else
-{
-	header('HTTP/1.1 401 Unauthorized');
-	header('WWW-Authenticate: Basic realm="'.$lang['repass'].'"');
-	exit;
-}
-
-#Upload
-if($_FILES)
-{
-	
-}*/
-
 #Rozszerzenia, ktorych nie mo¿na wyœwietliæ
 $banEx = array('.php'=>1, '.db'=>1, '.ini'=>1);
 

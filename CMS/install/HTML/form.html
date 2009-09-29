@@ -1,6 +1,5 @@
 <form action="index.php" method="post" f3:array="data">
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<th colspan="2">{lang.dba}</th>
 </tr>
@@ -8,10 +7,15 @@
 	<td colspan="2">{lang.sure} <a href="http://{host}">{host}</a></td>
 </tr>
 <tr>
-	<td style="width: 250px">1. {lang.type}</td>
+	<td style="width: 45%">1. {lang.type}</td>
 	<td>
+		<!-- IF mysql -->
 		<label><input type="radio" value="mysql" name="type" /> MySQL 5+</label><br />
+		<!-- END -->
+		
+		<!-- IF sqlite -->
 		<label><input type="radio" value="sqlite" name="type" /> SQLite 3+</label>
+		<!-- END -->
 	</td>
 </tr>
 <tr>
@@ -49,15 +53,15 @@
 	<th colspan="2">{lang.data}</th>
 </tr>
 <tr>
-	<td>8. {lang.login}</td>
+	<td>9. {lang.login}</td>
 	<td><input name="login" value="{data.login}" /></td>
 </tr>
 <tr>
- <td>9. {lang.pass2}<br /><small>{lang.allowed} <b>A-Z, a-z, 1-9, _, -</b>.</small></td>
+ <td>10. {lang.pass2}<br /><small>{lang.allowed} <b>A-Z, a-z, 1-9, _, -</b>.</small></td>
  <td><input type="password" name="uPass" /></td>
 </tr>
 <tr>
-	<td>10. {lang.retype}</td>
+	<td>11. {lang.retype}</td>
 	<td><input type="password" name="uPass2" /></td>
 </tr>
 <tr>
@@ -66,27 +70,35 @@
 <tr>
 	<th colspan="2" align="center"><input type="submit" value="OK" /></th>
 </tr>
-</tbody>
 </table>
 </form>
 
 <script type="text/javascript">
 //<![CDATA[
 f = document.forms[0].elements;
-def = f[6].value;
-f[0].onclick = f[1].onclick = Change;
+def = f['file'].value;
+
+if(f['type'][0])
+{
+	f['type'][0].onclick = f['type'][1].onclick = Change;
+	my = f['type'][0]
+}
+else
+{
+	my = (f['type'].value == 'mysql') ? f['type'] : false
+}
 
 function Change()
 {
-	var v = f[0].checked ? '' : 'disabled';
-	f[2].disabled = v;
-	f[3].disabled = v;
-	f[4].disabled = v;
-	f[5].disabled = v;
-	f[6].disabled = !v;
-	if(f[6].value == '' && v) f[6].value = def;
-	if(f[6].value == def && !v) f[6].value = '';
-	if(v) f[6].focus(); else f[2].focus()
+	var v = (my && my.checked) ? '' : 'disabled';
+	f['host'].disabled = v;
+	f['user'].disabled = v;
+	f['pass'].disabled = v;
+	f['db'].disabled = v;
+	f['file'].disabled = !v;
+	if(f['file'].value == '' && v) f['file'].value = def;
+	if(f['file'].value == def && !v) f['file'].value = '';
+	if(v) f['file'].focus(); else f['host'].focus()
 }
 Change();
 //]]>

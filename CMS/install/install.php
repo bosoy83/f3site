@@ -2,12 +2,12 @@
 class Installer
 {
 	public
-		$sample = false,  //Przyk³ady
+		$sample = false,  //PrzykÅ‚ady
 		$db;
 	protected
 		$lang,
 		$catid = array(), //ID kategorii startowych
-		$groupID = 2;     //Jêzyk i grupa admina
+		$groupID = 2;     //JÄ™zyk i grupa admina
 
 	function __construct($lang, &$data)
 	{
@@ -23,7 +23,7 @@ class Installer
 			$this->db->exec('SET CHARACTER SET "utf8"');
 			$this->db->exec('SET NAMES "utf8"');
 		}
-		$this->db->setAttribute(3,2); //ERRMODE: Exceptions
+		$this->db->setAttribute(3,2); //Exceptions
 		$this->db->beginTransaction();
 		$this->lang = $lang;
 	}
@@ -36,7 +36,7 @@ class Installer
 		#Znak nowej linii
 		if(strpos($sql, "\r\n"))
 		{
-			$sql = explode(";\r\n\r\n", $sql); //Windows
+			$sql = explode(";\r\n\r\n", $sql); //Win
 		}
 		elseif(strpos($sql, "\r"))
 		{
@@ -64,7 +64,7 @@ class Installer
 		}
 	}
 
-	#Instaluj zawarto¶æ dla jêzyka $x
+	#Instaluj dane dla jÄ™zyka $x
 	function setupLang($x)
 	{
 		static $c, $g, $m, $n, $i, $lft, $db;
@@ -83,12 +83,12 @@ class Installer
 			VALUES (?,?,?,?,?,?,?,?)');
 		}
 
-		#Strona g³ówna
+		#Strona gÅ‚Ã³wna
 		$c->execute(array($lang[0], $x, 5, 1, 1, 6, ++$lft, ++$lft));
 		$catID = $db->lastInsertId();
 		$this->catid[$x] = $catID;
 
-		#Przyk³adowe kategorie
+		#PrzykÅ‚adowe kategorie
 		if($this->sample)
 		{
 			$c->execute(array($lang[12], $x, 1, 0, 0, 15, ++$lft, ++$lft));
@@ -129,7 +129,7 @@ class Installer
 		$u -> execute(array(1, $login, md5($pass), $this->groupID, 4, $_SERVER['REQUEST_TIME']));
 	}
 
-	#Zapisz ID startowych kategorii i zakoñcz
+	#Zapisz ID startowych kategorii i zakoÅ„cz
 	function commit()
 	{
 		$cfg = array();

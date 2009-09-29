@@ -182,7 +182,7 @@ if($_POST OR isset($_GET['next']))
 
 	#Szablon
 	$content->file = 'form';
-	$content->data = array('data' => $data, 'host' => $_SERVER['HTTP_HOST']);
+	$content->data = array('data' => $data, 'host' => $_SERVER['HTTP_HOST'], 'mysql' => $my, 'sqlite' => $li);
 }
 
 #START

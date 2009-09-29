@@ -68,6 +68,8 @@ Bezpieczeństwo
 
 4. Chroń swój komputer programem antywirusowym z AKTUALNĄ BAZĄ WIRUSÓW! Po sieci krąży koń trojański, który kradnie hasła z programów do obsługi FTP, a następnie dodaje ukryte ramki <iframe> prowadzące do niebezpiecznych witryn i skrypty JavaScript do plików stron na serwerze! Jeżeli zobaczysz jakiekolwiek objawy wskazujące na działalność trojana (np. nowe znaczniki w źródle strony), koniecznie zmień hasła do serwerów FTP, przeskanuj komputer i załaduj ponownie czyste pliki.
 
+5. Jeżeli używasz bazy danych SQLite, umieść plik .db w folderze prywatnym, np. POZA [www] lub [htdocs].
+
 
 Uwagi
 =====

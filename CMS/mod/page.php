@@ -12,7 +12,7 @@ if(!$page) return;
 if($page['opt'] & 16)
 {
 	ob_start();
-	eval('?>'.$page['text'].'<?php');
+	eval('?>'.$page['text']);
 	$page['text'] = ob_get_clean();
 }
 
