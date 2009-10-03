@@ -1,7 +1,7 @@
 Distribution and license
 ========================
 
-F3Site 3.0 - (C) 2009 COMPMaster
+F3Site 3.0 - (C) 2009 COMPMaster - compmaster.prv.pl
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License or any later version.
 
@@ -46,7 +46,7 @@ To finish the installation, database user must have full privileges.
 Updates and help
 ================
 
-Official F3Site website: compmaster.go.pl (vortal COMPMaster). You can get support at forum. WARNING! Websites with illegal or sexual contents will NOT get support.
+Official F3Site website: compmaster.prv.pl (vortal COMPMaster). You can get support at forum. WARNING! Websites with illegal or sexual contents will NOT get support.
 
 Current development version of F3Site with SVN repository, issue system and Wiki you can find at Google Code service: f3site.googlecode.com
 

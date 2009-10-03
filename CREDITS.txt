@@ -3,6 +3,7 @@ Tu będą informacje o autorach.
 Betatesterzy i osoby zasłużone:
 * PanYeti (CyfroGraf)
 * jareQ
+* rafal
 * skygod
 * Fenek
 * Sh1moda

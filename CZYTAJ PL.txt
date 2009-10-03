@@ -1,7 +1,7 @@
 Rozpowszechnianie i licencja
 ============================
 
-F3Site 3.0 - (C) 2009 COMPMaster
+F3Site 3.0 - (C) 2009 COMPMaster - compmaster.prv.pl
 
 Niniejszy program jest wolnym oprogramowaniem - możesz go rozpowszechniać dalej i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU wydanej przez Fundację Wolnego Oprogramowania, według wersji 3 tej Licencji lub dowolnej z późniejszych wersji.
 
@@ -46,7 +46,7 @@ Aby instalacja przebiegła poprawnie, użytkownik bazy danych musi mieć do niej
 Aktualizacje i pomoc techniczna
 ===============================
 
-Oficjalna strona F3Site: compmaster.go.pl (wortal COMPMaster). Pomoc dotyczącą skryptu możesz uzyskać na forum. UWAGA! Strony niezgodne z prawem, nieprzyzwoite lub propagujące piractwo nie otrzymają wsparcia.
+Oficjalna strona F3Site: compmaster.prv.pl (wortal COMPMaster). Pomoc dotyczącą skryptu możesz uzyskać na forum. UWAGA! Strony niezgodne z prawem, nieprzyzwoite lub propagujące piractwo nie otrzymają wsparcia.
 
 Aktualna wersja rozwojowa F3Site z repozytorium SVN, systemem błędów oraz Wiki znajduje się w serwisie Google Code: f3site.googlecode.com
 

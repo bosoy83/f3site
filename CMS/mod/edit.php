@@ -4,39 +4,44 @@ define('EC',1);
 require LANG_DIR.'content.php';
 require './lib/categories.php';
 
-#Klasa zapisu + ost. kat.
+#Typ kategorii
+$TYPE = isset($_GET['act']) && ctype_alnum($_GET['act']) ? $_GET['act'] : 0;
+
+#Klasa zapisu + ostatnia kategoria
 if($_POST)
 {
-	if(isset($_POST['cat'])) $_SESSION['lastCat'] = (int)$_POST['cat'];
+	if(isset($_POST['cat'])) $_SESSION['lastCat'][$TYPE] = (int)$_POST['cat'];
 	require './mod/edit/saver.class.php';
 }
 if(isset($_GET['catid']))
 {
 	$lastCat = (int)$_GET['catid'];
 }
+elseif(isset($_SESSION['lastCat'][$TYPE]))
+{
+	$lastCat = $_SESSION['lastCat'][$TYPE];
+}
 else
 {
-	$lastCat = isset($_SESSION['lastCat']) ? $_SESSION['lastCat'] : 1;
+	require_once './cfg/content.php';
+	$lastCat = $cfg['start'][$nlang];
 }
 
 #Akcja
-if(isset($_GET['act']))
+if($TYPE)
 {
-	switch($_GET['act'])
+	switch($TYPE)
 	{
 		case '5': (require './mod/edit/new.php') or $content->set404(); break;
 		case '1': (require './mod/edit/art.php') or $content->set404(); break;
 		case '2': (require './mod/edit/file.php') or $content->set404(); break;
 		case '3': (require './mod/edit/img.php') or $content->set404(); break;
 		case '4': (require './mod/edit/link.php') or $content->set404(); break;
-		default: 
-			if(ctype_alnum($_GET['act']) && file_exists('./mod/edit/'.$_GET['act'].'.php'))
-			{
-				(require './mod/edit/'.$_GET['act'].'.php') or $content->set404();
-			}
-			else return;
+		default: if(file_exists('./mod/edit/'.$TYPE.'.php')) {
+			(require './mod/edit/'.$TYPE.'.php') or $content->set404();
+		} else return;
 	}
-	unset($last_cat,$id,$_POST); return 1;
+	unset($_POST); return 1;
 }
 
 #Tytu³
