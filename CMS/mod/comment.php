@@ -144,9 +144,9 @@ if($_POST)
 		#START
 		if(!$error)
 		{
-			$db->beginTransaction();
 			try
 			{
+				$db->beginTransaction();
 				if($type)
 				{
 					$q = $db->prepare('INSERT INTO '.PRE.'comms (TYPE,CID,name,access,author,guest,ip,date,text)

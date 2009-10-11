@@ -5,7 +5,7 @@ $content->data = array(
 	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
 	'system' => isset($_ENV['OS']) ? $_ENV['OS'] : 'N/A',
 	'server' => $_SERVER['SERVER_SOFTWARE'],
-	'course' => $nlang == 'pl' ? 'http://html.boo.pl' : 'http://www.w3schools.com/html'
+	'course' => $nlang == 'pl' ? 'http://webmaster.helion.pl' : 'http://www.w3schools.com/html'
 );
 
 #Katalog INSTALL

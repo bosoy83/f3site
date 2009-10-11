@@ -5,7 +5,7 @@ if(iCMS!=1) exit;
 if(file_exists('./cache/poll_'.$GLOBALS['nlang'].'.php')):
 	include('./cache/poll_'.$GLOBALS['nlang'].'.php');
 else:
-	echo '<center>'.$lang['lack'].'</center>';
+	echo '<div style="text-align: center">'.$lang['lack'].'</div>';
 	return;
 endif;
 

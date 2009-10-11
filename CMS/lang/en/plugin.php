@@ -5,6 +5,9 @@ $lang+=Array(
 'warn2'=>'WARNING: All data created by this extension will be removed during uninstallation.',
 'uninst'=>'uninstall',
 'inst'=>'install',
+'conf'=>'configure',
+'menuItem'=>'Dodaj odno¶niki do menu:',
 'noinst'=>'This extension works wihout installation.',
+'pos'=>'Pos',
 'ver'=>'Version'
 );

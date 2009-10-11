@@ -12,7 +12,7 @@ function CSS(x)
 {
 	if(x)
 	{
-		var link = document.styleSheets[0];
+		var link = document.getElementsByTagName('link')[0];
 		link.href = link.href.slice(0,-5) + x + '.css';
 	}
 	else

@@ -101,7 +101,7 @@ class Compiler
 			'<?= $cfg[\'head\'].$content->head; ?>',
 			'', "\n"
 		);
-		$this->data = str_replace($in, $out, $this->data);
+		$this->data = str_ireplace($in, $out, $this->data);
 
 		#Pêtle
 		while(($pos = strpos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
@@ -149,7 +149,7 @@ class Compiler
 		$this->data = str_replace( array('?><?php', '?><?=', "?>\n<?php"), array('','echo ',''), $this->data);
 
 		#Wyrzuæ komentarze HTML
-		$this->data = preg_replace('#\<!--*--\>#', '', $this->data);
+		$this->data = preg_replace('#\<!--(.|\s)*?--\>#', '', $this->data);
 
 		#Zapisz
 		if($this->byteCode && extension_loaded('bcompiler'))

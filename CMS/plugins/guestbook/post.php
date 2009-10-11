@@ -15,6 +15,7 @@ if(isset($cfg['bbcode']))
 
 #Błędy
 $error = array();
+$preview = null;
 
 #Nie może postować
 if($id && !Admit('GB'))
@@ -49,28 +50,15 @@ if($_POST)
 		'txt'   => Clean($_POST['txt'], 0, 1)
 	);
 
-	#Blokada czasowa
-	if(isset($_SESSION['postTime']) && $_SESSION['postTime'] > $_SERVER['REQUEST_TIME'])
-	{
-		$error[] = $lang['noFlood'];
-	}
-	elseif(!empty($cfg['antyFlood']))
-	{
-		$_SESSION['gbTime'] = $_SERVER['REQUEST_TIME'] + $cfg['antyFlood'];
-	}
-	#Kod z obrazka
-	if(!LOGD && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
-	{
-		$error[] = $lang['badCode'];
-	}
-	#Linki
-	if(!isset($cfg['URLs']))
+	#Gdy goście nie mogą wstawiać linków
+	if(!LOGD && !isset($cfg['URLs']))
 	{
 		if(strpos($post['txt'],'://') OR strpos($post['txt'],'www.'))
 		{
 			$error[] = $lang['noURL'];
 		}
 	}
+
 	#Strona WWW
 	if($post['www'] === 'http://')
 	{
@@ -80,6 +68,7 @@ if($_POST)
 	{
 		$post['www'] = (strpos($post['www'], 'www.') === 0) ? 'http://'.$post['www'] : '';
 	}
+
 	#Długość tekstu
 	if(empty($post['txt']))
 	{
@@ -91,40 +80,71 @@ if($_POST)
 	}
 
 	#Zapisz
-	if(isset($_POST['save']) && !$error)
+	if(isset($_POST['save']))
 	{
-		try
+		#Blokada czasowa
+		if(isset($_SESSION['postTime']) && $_SESSION['postTime'] > $_SERVER['REQUEST_TIME'])
 		{
-			if($id)
-			{
-				$q = $db->prepare('UPDATE '.PRE.'guestbook SET who=:who, gg=:gg, tlen=:tlen, icq=:icq,
-				skype=:skype, jabber=:jabber, mail=:mail, www=:www, txt=:txt WHERE ID=:id');
-				$post['id'] = $id;
-			}
-			else
-			{
-				$q = $db->prepare('INSERT INTO '.PRE.'guestbook
-				(who, UID, lang, date, gg, tlen, icq, skype, jabber, mail, www, ip, txt) VALUES
-				(:who, :uid, :lang, :date, :gg, :tlen, :icq, :skype, :jabber, :mail, :www, :ip, :txt)');
-				$post['lang'] = $nlang;
-				$post['date'] = $_SERVER['REQUEST_TIME'];
-				$post['ip']  =  $_SERVER['REMOTE_ADDR'];
-				$post['uid'] = (LOGD && $post['who'] === $user[UID]['login']) ? UID : 0;
-			}
-			$q->execute($post);
-
-			#Ustaw blokadę czasową
-			$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'];
-
-			#Przekieruj do księgi
-			header('Location: '.URL.'?co=guestbook');
-
-			#Gdy przekierowanie nie nastąpi
-			$content->message($lang['saved']);
+			$error[] = $lang['noFlood'];
 		}
-		catch(PDOException $e)
+		elseif(!empty($cfg['antyFlood']))
 		{
-			$content->info($lang['error'].$e);
+			$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'] + $cfg['antyFlood'];
+		}
+
+		#Kod z obrazka
+		if(!LOGD && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
+		{
+			$error[] = $lang['badCode'];
+		}
+
+		#Gdy nie ma błędów, dodaj lub zedytuj wpis
+		if(!$error)
+		{
+			try
+			{
+				if($id)
+				{
+					$q = $db->prepare('UPDATE '.PRE.'guestbook SET who=:who, gg=:gg, tlen=:tlen, icq=:icq,
+					skype=:skype, jabber=:jabber, mail=:mail, www=:www, txt=:txt WHERE ID=:id');
+					$post['id'] = $id;
+				}
+				else
+				{
+					$q = $db->prepare('INSERT INTO '.PRE.'guestbook
+					(who, UID, lang, date, gg, tlen, icq, skype, jabber, mail, www, ip, txt) VALUES
+					(:who, :uid, :lang, :date, :gg, :tlen, :icq, :skype, :jabber, :mail, :www, :ip, :txt)');
+					$post['lang'] = $nlang;
+					$post['date'] = $_SERVER['REQUEST_TIME'];
+					$post['ip']  =  $_SERVER['REMOTE_ADDR'];
+					$post['uid'] = (LOGD && $post['who'] === $user[UID]['login']) ? UID : 0;
+				}
+				$q->execute($post);
+
+				#Ustaw blokadę czasową
+				$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'];
+
+				#Przekieruj do księgi
+				header('Location: '.URL.'?co=guestbook');
+
+				#Gdy przekierowanie nie nastąpi
+				$content->message($lang['saved']);
+			}
+			catch(PDOException $e)
+			{
+				$content->info($lang['error'].$e);
+			}
+		}
+	}
+
+	#Podgląd
+	elseif(!$error)
+	{
+		$preview = nl2br(Emots($post['txt']));
+		if(isset($cfg['bbcode']))
+		{
+			include './lib/bbcode.php';
+			$preview = BBCode($preview);
 		}
 	}
 }
@@ -166,5 +186,6 @@ $content->data = array(
 	'post'   => &$post,
 	'code'   => !LOGD && isset($cfg['captcha']),
 	'rules'  => $cfg['gbRules'],
+	'preview'=> $preview,
 	'bbcode' => isset($cfg['bbcode'])
 );

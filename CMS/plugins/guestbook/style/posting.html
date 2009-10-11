@@ -2,6 +2,11 @@
 <div class="box" style="white-space: pre-wrap">{rules}</div>
 <!-- END -->
 
+<!-- IF preview -->
+<h2>{lang.preview}</h2>
+<div class="box">{preview}</div>
+<!-- END -->
+
 <h2>{this.title}</h2>
 <form action="" method="post" id="post">
 <table cellspacing="1" class="tb">
@@ -58,6 +63,7 @@
 </tr>
 <tr>
 	<td class="eth" colspan="2">
+		<input type="submit" value="{lang.preview}" name="prev" />
 		<input type="submit" value="{lang.save}" name="save" />
 		<input type="button" value="{lang.return}" onclick="history.back()" />
 	</td>

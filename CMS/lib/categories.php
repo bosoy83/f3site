@@ -79,7 +79,7 @@ function RSS($id = null, $cat = null)
 		$rss -> link  = $x[3];
 
 		#Pobierz ostatnie nowości
-		$q = $db->query('SELECT i.ID,i.name,i.date,i.txt,c.name as cat FROM '.
+		$q = $db->query('SELECT i.ID,i.name,i.date,i.txt,i.opt,c.name as cat FROM '.
 		PRE.'news i JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND
 		(c.access=1 OR c.access="'.$x[4].'") ORDER BY i.ID DESC LIMIT '.$x[5]);
 
@@ -88,7 +88,7 @@ function RSS($id = null, $cat = null)
 			$rss->add( array(
 				'ID'    => $item['ID'],
 				'title' => $item['name'],
-				'text'  => $item['txt'],
+				'text'  => $item['opt'] & 1 ? nl2br($item['txt']) : $item['txt'],
 				'cat'   => $item['cat'],
 				'date'  => $item['date'],
 				'url'   => URL . '?co=news&id=' . $item['ID']

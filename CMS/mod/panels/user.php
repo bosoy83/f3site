@@ -22,7 +22,7 @@ if(LOGD==1)
 	return;
 }
 
-?><form action="login.php" method="post" style="text-align: center">
+?><form action="login.php" method="post"><div style="text-align: center">
 	Login:
 	<input name="u" style="height: 15px; width: 93%" />
 	<?= $lang['pass'] ?>:
@@ -34,4 +34,4 @@ if(LOGD==1)
 
 	<input type="submit" value="<?= $lang['logme'] ?>" />
 	<input type="submit" value="<?= $lang['regme'] ?>" name="reg" />
-</form>
+</div></form>
