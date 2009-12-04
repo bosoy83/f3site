@@ -15,9 +15,9 @@ if($_POST)
 	$art = array(
 	'pages' => $num,
 	'cat'   => (int)$_POST['cat'],
-	'dsc'   => Clean($_POST['dsc']),
-	'name'  => Clean($_POST['name']),
-	'author' => Clean($_POST['author']),
+	'dsc'   => clean($_POST['dsc']),
+	'name'  => clean($_POST['name']),
+	'author' => clean($_POST['author']),
 	'access'  => isset($_POST['access']),
 	'priority'=> (int)$_POST['priority']);
 
@@ -62,9 +62,9 @@ if($_POST)
 		$e->apply();
 
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=1' => $lang['add1'],
-			'?co=list&amp;act=1' => $lang['arts'],
-			'?co=art&amp;id='.$id  => $art['name']));
+			'edit/1' => $lang['add1'],
+			'list/1' => $lang['arts'],
+			'art/'.$id  => $art['name']));
 		unset($e,$q,$art,$full);
 		return 1;
 	}
@@ -84,7 +84,7 @@ else
 		$res = null;
 
 		#Prawa
-		if(!$art || !Admit($art['cat'],'CAT',$art['author'])) return;
+		if(!$art || !admit($art['cat'],'CAT',$art['author'])) return;
 
 		#Pobierz tre¶æ
 		$res = $db->query('SELECT page,text,opt FROM '.PRE.'artstxt WHERE ID='.$id.' ORDER BY page');
@@ -96,7 +96,7 @@ else
 	{
 		$art = array(
 			'pages' => 1, 'name' => '', 'access' => 1, 'priority' => 2, 'dsc' => '',
-			'author'=> $user[UID]['login'], 'cat' => $lastCat);
+			'author'=> $user['login'], 'cat' => $lastCat);
 		$full = array(array(1,'',1));
 	}
 }

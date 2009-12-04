@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('G')) exit;
+if(iCMSa!=1 || !admit('G')) exit;
 require LANG_DIR.'admAll.php'; //Jêzyk
 
 #Usuñ
@@ -16,7 +16,7 @@ if($_POST)
 }
 
 #Info
-$content->info($lang['groupInfo'], array('?a=editGroup'=>$lang['addGroup']));
+$content->info($lang['groupInfo'], array(url('editGroup','','admin')=>$lang['addGroup']));
 
 #Odczyt
 $res = $db->query('SELECT ID,name,opened FROM '.PRE.'groups');
@@ -29,12 +29,14 @@ $num = 0;
 foreach($res as $g)
 {
 	$group[] = array(
-		'id'  => $g[0],
-		'num' => ++$num,
+		'id'     => $g[0],
+		'num'    => ++$num,
+		'url'    => url('users/'.$g[0], '', 'admin'),
+		'edit'   => url('editGroup/'.$g[0], '', 'admin'),
 		'title'  => $g[1],
-		'opened' => ($g[2]===1) ? $lang['yes'] : $lang['no']
+		'opened' => $g[2] ? $lang['yes'] : $lang['no']
 	);
 }
 
 $res = null;
-$content->data['group'] = $group;
+$content->data['group'] = &$group;

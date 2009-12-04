@@ -9,22 +9,22 @@ $res->setFetchMode(3);
 
 #Tu zapisuj
 $poll = array();
-$lp = 0;
+$num = 0;
 
 foreach($res as $p)
 {
 	$poll[] = array(
 		'title' => $p[1],
-		'url'   => '?co=poll&amp;id='.$p[0],
+		'url'   => url('poll/'.$p[0]),
 		'date'  => genDate($p[3]),
 		'votes' => $p[2],
-		'num'   => ++$lp
+		'num'   => ++$num
 	);
 }
 
 #Dane LUB brak?
-if($lp > 0)
-	$content->data['poll'] =& $poll;
+if($num > 0)
+	$content->data = array('poll' => &$poll);
 else
 	$content->info($lang['noc']);
 

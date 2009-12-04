@@ -17,9 +17,11 @@
 	<td>{id}</td>
 	<td>{level}</td>
 	<td>
-		<!-- IF options -->
-			<a href="?a=editUser&amp;id={id}">{lang.profile}</a> &middot;
-			<a href="?a=editAdmin&amp;id={id}">{lang.priv}</a>
+		<!-- IF edit -->
+		<a href="{edit}">{lang.profile}</a>
+		<!-- END -->
+		<!-- IF priv -->
+		&middot; <a href="{priv}">{lang.priv}</a>
 		<!-- END -->
 	</td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
@@ -27,10 +29,7 @@
 <!-- STOP -->
 
 <tr class="eth">
-	<td>
-		{lang.search}:
-		<input name="s" value="{search}" style="height: 14px" />
-	</td>
+	<td>{lang.search}: <input name="s" value="{search}" style="height: 14px" /></td>
 	<td colspan="2">{lang.page}: {pages}</td>
 	<td colspan="2" align="right"><input type="submit" name="del" value="{lang.del}" /></td>
 </tr>

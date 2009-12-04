@@ -1,27 +1,32 @@
 <?php
-if(iCMSa!=1 || !Admit('U') || !$id || ($id==1 && UID!=1)) exit;
-
+if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'profile.php';
-$error = array(); //B³êdy
+require './cfg/account.php';
 
 #Tytu³ i JS
 $content->title = $lang['account'];
 $content->addScript('lib/forms.js');
+
+#User ID
+if(!$id || ($id==1 && UID!=1)) return;
+
+#B³êdy
+$error = array();
 
 #Uaktualnienie
 if($_POST)
 {
 	#Dane
 	$u = array(
-		'login' => Clean($_POST['login']),
-		'about' => Clean($_POST['about']),
-		'skype' => Clean($_POST['skype'],40),
-		'jabber'=> Clean($_POST['jabber'],60),
-		'photo' => Clean($_POST['photo']),
-		'mail'  => Clean($_POST['mail']),
-		'city' => Clean($_POST['city']),
-		'tlen' => Clean($_POST['tlen'],30),
-		'www'  => Clean($_POST['www']),
+		'login' => clean($_POST['login']),
+		'about' => clean($_POST['about']),
+		'skype' => clean($_POST['skype'],40),
+		'jabber'=> clean($_POST['jabber'],60),
+		'photo' => clean($_POST['photo']),
+		'mail'  => clean($_POST['mail']),
+		'city' => clean($_POST['city']),
+		'tlen' => clean($_POST['tlen'],30),
+		'www'  => clean($_POST['www']),
 		'gid' => (int)$_POST['gid'],
 		'icq' => (is_numeric($_POST['icq'])) ? $_POST['icq'] : null,
 		'gg'  => (is_numeric($_POST['gg'])) ? $_POST['gg'] : null);
@@ -31,9 +36,19 @@ if($_POST)
 	{
 		$error[] = $lang['eplerr'];
 	}
-	if(db_count('users WHERE login="'.$u['login'].'" AND ID!='.$id)!==0)
+	if(dbCount('users WHERE login="'.$u['login'].'" AND ID!='.$id)!==0)
 	{
 		$error[] = $lang['eploginex'];
+	}
+	switch($cfg['logins'])
+	{
+		case 1: $re = '/^[A-Za-z0-9 _-]*$/'; break;
+		case 2: $re = '/^[0-9\pL _.-]*$/u'; break;
+		default: $re = '/^[^&/?#=]$/'; break;
+	}
+	if(!preg_match($re, $u['login']))
+	{
+		$error[] = $lang['loginChar'];
 	}
 
 	#E-mail
@@ -60,8 +75,8 @@ if($_POST)
 			www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen, jabber=:jabber,
 			gg=:gg, gid=:gid, photo=:photo WHERE ID='.$id) -> execute($u);
 
-			$content->info($lang['upd'], array(
-				'.?co=user&amp;id='.$id => $u['login'])); return 1;
+			$content->info($lang['upd'], array(url('user/'.$id) => $u['login']));
+			return 1;
 		}
 		catch(PDOException $e)
 		{
@@ -82,7 +97,7 @@ require './lib/user.php';
 #Do szablonu
 $content->data = array(
 	'u' => &$u,
-	'url' => 'adm.php?a=editUser&amp;id='.$id,
+	'url' => url('editUser/'.$id, '', 'admin'),
 	'groups' => GroupList($u['gid']),
-	'fileman'=> Admit('FM')
+	'fileman'=> admit('FM')
 );

@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('BUGADM')) exit;
+if(iCMSa!=1 || !admit('BUGADM')) exit;
 
 #Jêzyk
 if(file_exists('./plugins/bugs/lang/adm'.$nlang.'.php'))
@@ -16,13 +16,13 @@ $content->dir = './plugins/bugs/style/';
 $content->cache = './cache/bugs/';
 $content->title = $lang['tracker'];
 
-if(isset($_GET['act']))
+if(isset($URL[1]))
 {
-	switch($_GET['act'])
+	switch($URL[1])
 	{
-		case 's': require 'plugins/bugs/admSect.php'; break;
-		case 'o': require 'plugins/bugs/admCfg.php'; break;
-		case 'e': require 'plugins/bugs/admEdit.php'; break;
+		case 'sections': require 'plugins/bugs/admSect.php'; break;
+		case 'config': require 'plugins/bugs/admCfg.php'; break;
+		case 'edit': require 'plugins/bugs/admEdit.php'; break;
 		default: return;
 	}
 }

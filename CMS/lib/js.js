@@ -54,6 +54,23 @@ function include(file, loaded)
 	document.getElementsByTagName('head')[0].appendChild(js);
 }
 
+//Dodaj zdarzenie - IE i W3
+function addEvent(type, f, o)
+{
+	if(window.addEventListener)
+	{
+		(o||window).addEventListener(type, f, false)
+	}
+	else if(window.attachEvent)
+	{
+		(o||window).attachEvent('on'+type, f)
+	}
+	else if(!o['on'+type])
+	{
+		(o||window)[type] = f
+	}
+}
+
 //Szybki dostêp do elementów po ID
 function $(x) { return document.getElementById(x) }
 

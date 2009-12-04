@@ -115,11 +115,11 @@ class Installer
 
 		#Pozycje menu
 		$i->execute(array($menuID, $lang[0], '.', 1));
-		$i->execute(array($menuID, $lang[7], '?co=archive', 2));
-		$i->execute(array($menuID, $lang[8], '?co=cats&amp;id=4', 3));
-		$i->execute(array($menuID, $lang[9], '?co=cats&amp;id=3', 4));
-		$i->execute(array($menuID, $lang[1], '?co=users', 5));
-		$i->execute(array($menuID, $lang[10], '?co=groups', 6));
+		$i->execute(array($menuID, $lang[7], 'archive', 2));
+		$i->execute(array($menuID, $lang[8], 'cats/4', 3));
+		$i->execute(array($menuID, $lang[9], 'cats/3', 4));
+		$i->execute(array($menuID, $lang[1], 'users', 5));
+		$i->execute(array($menuID, $lang[10], 'groups', 6));
 	}
 
 	#Dodaj admina

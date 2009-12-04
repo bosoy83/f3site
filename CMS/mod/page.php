@@ -2,11 +2,12 @@
 if(iCMS!=1) exit;
 
 #Pobierz
-$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id.
-	' AND (access=1'.((LOGD) ? ' OR access=3' : '').')') -> fetch(2);
-
-#Nie istnieje?
-if(!$page) return;
+if(isset($URL[1]) && is_numeric($URL[1]))
+{
+	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$URL[1].
+	' AND (access=1'.((LOGD) ? ' OR access=3' : '').')')->fetch(2)) return;
+}
+else return;
 
 #PHP - nale¿y wykonaæ go najpierw
 if($page['opt'] & 16)
@@ -19,7 +20,7 @@ if($page['opt'] & 16)
 #Emotikony
 if($page['opt'] & 2)
 {
-	$page['text'] = Emots($page['text']);
+	$page['text'] = emots($page['text']);
 }
 
 #BR
@@ -33,12 +34,12 @@ $content->title = $page['name'];
 $content->data = array(
 	'page' => &$page,
 	'box'  => $page['opt'] & 4,
-	'edit' => Admit('P')
+	'edit' => admit('P') ? url('editPage/'.$page['ID'], '', 'admin') : false
 );
 
 #Komentarze
 if($page['opt'] & 8)
 {
-	define('CT','59');
 	require './lib/comm.php';
+	comments($page['ID'], 59);
 }

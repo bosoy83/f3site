@@ -25,7 +25,7 @@ foreach($res as $x)
 		$show = 0;
 	}
 	$cat[] = array(
-		'url'    => '?co=bugs&amp;act=l&amp;id='.$x['ID'],
+		'url'    => url('bugs/list/'.$x['ID']),
 		'num'    => $x['num'],
 		'title'  => $x['name'],
 		'desc'   => $x['dsc'],
@@ -45,7 +45,5 @@ else
 	$content->file = 'cats';
 	$content->addCSS('plugins/bugs/style/bugs.css');
 	$content->title = $lang['BUGS'];
-	$content->data = array(
-		'cat' => &$cat
-	);
+	$content->data = array('cat' => &$cat);
 }

@@ -6,7 +6,6 @@ $res = $db->query('SELECT ID,name,date,dsc,file,size FROM '.PRE.'files WHERE '.$
 	AND access=1 ORDER BY priority,'.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['np']);
 
 $res->setFetchMode(3);
-
 $total = 0;
 $files = array();
 
@@ -19,22 +18,22 @@ foreach($res as $file)
 		'size'  => $file[5],
 		'num'   => ++$st,
 		'date'  => genDate($file[2]),
-		'url'   => '?co=file&amp;id='.$file[0],
+		'url'   => url('file/'.$file[0]),
 		'file_url' => isset($cfg['fcdl']) ? 'go.php?file='.$file[0] : $file[4]
 	);
 	++$total;
 }
 
 #Strony
-$pages = $cat['num']>$total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
+$pages = $cat['num']>$total ? pages($page,$cat['num'],$cfg['np'],$d) : null;
 
 #Do szablonu
 $content->file[] = 'cat_files';
 $content->data += array(
 	'files' => &$files,
 	'pages' => &$pages,
-	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=2' : null,
+	'add_url' => admit($d,'CAT') ? url('edit/2') : null,
+	'cats_url'=> url('cats/files'),
 	'cat_type'=> $lang['files']
 );
-
 unset($res,$total,$file);

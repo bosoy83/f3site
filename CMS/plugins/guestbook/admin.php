@@ -1,10 +1,10 @@
 <?php
-if(iCMSa!=1 || !Admit('GB')) exit;
+if(iCMSa!=1 || !admit('GB')) exit;
 
 #Konfiguracja
 require './cfg/gb.php';
 
-#Jêzyk
+#JÄ™zyk
 if(file_exists('./plugins/guestbook/lang/'.$nlang.'.php'))
 {
 	require './plugins/guestbook/lang/'.$nlang.'.php';
@@ -20,7 +20,7 @@ $content->cache = './cache/guestbook/';
 $content->file = 'admin';
 $content->title = $lang['gbAdmin'];
 
-#Usuñ stare
+#UsuÅ„ stare
 if(isset($_POST['prune']) && strlen($_POST['prune'])===20)
 {
 	$db->prepare('DELETE FROM '.PRE.'guestbook WHERE date<?')->execute(array(strtotime($_POST['prune'])));
@@ -31,7 +31,7 @@ $styles = '';
 $opt = null;
 
 #Ustawienia
-if(Admit('CFG'))
+if(admit('CFG'))
 {
 	#Zapis
 	if(isset($_POST['gbSkin']))

@@ -1,7 +1,7 @@
 Rozpowszechnianie i licencja
 ============================
 
-F3Site 3.0 - (C) 2009 COMPMaster - compmaster.prv.pl
+F3Site 3.1 - (C) 2009 COMPMaster - compmaster.prv.pl
 
 Niniejszy program jest wolnym oprogramowaniem - możesz go rozpowszechniać dalej i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU wydanej przez Fundację Wolnego Oprogramowania, według wersji 3 tej Licencji lub dowolnej z późniejszych wersji.
 
@@ -19,6 +19,7 @@ Wymagania
 * PHP 5.2 lub nowszy z włączonym rozszerzeniem PDO
 * Baza danych: MySQL 5.0.2+ lub SQLite 3+
 * Obsługa sesji PHP
+* Obsługa mod_rewrite, jeżeli chcesz używać przyjaznych adresów URL
 
 
 Instalacja

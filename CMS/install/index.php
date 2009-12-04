@@ -38,7 +38,7 @@ if(!file_exists('./cache/default/info.php'))
 	include_once './lib/compiler.php';
 	try
 	{
-		$c = new Compiler();
+		$c = new Compiler;
 		$c -> compile('info.html');
 		$c -> compile('message.html');
 		$c -> compile('body.html');
@@ -157,6 +157,7 @@ if($_POST OR isset($_GET['next']))
 			$setup -> commit();
 			$content -> data = null;
 			$content -> info($lang['OK'], array('../.' => $lang[0]));
+			header('Location: ..');
 			include $content->path('body');
 			exit;
 		}

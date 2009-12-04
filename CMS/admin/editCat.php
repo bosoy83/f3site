@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('C')) exit;
+if(iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
@@ -9,17 +9,31 @@ if($_POST)
 	#Wy¿sza kat.
 	$up = (int)$_POST['sc'];
 
-	#Dane - 1: struktura kategorii 2: komentarze 4: oceny 8: lista kat, 16: zawartoœæ z podkat.
+	#Struktura kategorii: 1
+	$o = isset($_POST['o1']);
+
+	#Komentarze: 2
+	isset($_POST['o2']) AND $o |= 2;
+
+	#Oceny: 4
+	isset($_POST['o3']) AND $o |= 4;
+
+	#Lista kategorii
+	isset($_POST['o4']) AND $o |= 8;
+
+	#Zawartoœæ z podkategorii
+	isset($_POST['o5']) AND $o |= 16;
+
+	#Dane
 	$cat = array(
-		'sc'  => $up,
-		'text'  => $_POST['txt'],
-		'dsc'   => Clean($_POST['dsc']),
-		'name'  => Clean($_POST['name']),
-		'access'=> Clean($_POST['vis']),
-		'type'  => (int)$_POST['type'],
-		'sort'  => (int)$_POST['sort'],
-		'opt'   => (isset($_POST['o1']) ? 1 : 0) + (isset($_POST['o2']) ? 2 : 0) +
-			(isset($_POST['o3']) ? 4 : 0) + (isset($_POST['o4']) ? 8 : 0) + (isset($_POST['o5']) ? 16 : 0)
+	'sc'    => $up,
+	'opt'   => $o,
+	'text'  => $_POST['txt'],
+	'dsc'   => clean($_POST['dsc']),
+	'name'  => clean($_POST['name']),
+	'access'=> clean($_POST['vis']),
+	'type'  => (int)$_POST['type'],
+	'sort'  => (int)$_POST['sort']
 	);
 
 	try
@@ -30,8 +44,9 @@ if($_POST)
 		if($id)
 		{
 			$q = $db->prepare('UPDATE '.PRE.'cats SET name=:name,dsc=:dsc,access=:access,
-				type=:type,sc=:sc,sort=:sort,text=:text,opt=:opt WHERE ID='.$id);
-			$old = $db->query('SELECT ID,access,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id)->fetch(3); //NUM
+				type=:type,sc=:sc,sort=:sort,text=:text,opt=:opt WHERE ID=:id');
+			$old = $db->query('SELECT ID,access,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id)->fetch(3);
+			$cat['id'] = $id;
 		}
 		#Nowa
 		else
@@ -74,11 +89,11 @@ if($_POST)
 		$db->commit();
 		UpdateCatPath($id);
 		$content->info($lang['saved'].' ID: '.$id, array(
-			'.?d='.$id   => $lang['goCat'],
-			'?a=editCat' => $lang['addCat'],
-			'?a=editCat&amp;id='.$id => $lang['editCat'],
-			'.?co=list&amp;id='.$id  => $lang['mantxt'],
-			'.?co=edit&amp;act='.$cat['type'].'&amp;catid='.$id => $lang['addItem']
+			url('?d='.$id) => $lang['goCat'],
+			url('editCat', '', 'admin') => $lang['addCat'],
+			url('editCat/'.$id, '', 'admin') => $lang['editCat'],
+			url('list/'.$id) => $lang['mantxt'],
+			url('edit/'.$cat['type'], 'catid='.$id) => $lang['addItem']
 		));
 		return 1;
 	}
@@ -111,5 +126,5 @@ $content->data = array(
 	'o4'   => $cat['opt'] & 8,
 	'o5'   => $cat['opt'] & 16,
 	'cats' => Slaves(0,$cat['sc'],$id),
-	'langs'=> ListBox('lang',1,$cat['access'])
+	'langs'=> listBox('lang',1,$cat['access'])
 );

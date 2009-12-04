@@ -6,18 +6,17 @@ include './cfg/content.php';
 $content->title = $lang['archive'];
 
 #Lista nowo¶ci
-if($id)
+if(isset($URL[1]))
 {
 	#Ca³y rok / 1 miesi±c
-	if(isset($cfg['archYear']) && $id == (int)$id)
+	if(isset($cfg['archYear']) && is_numeric($URL[1]))
 	{
-		$q = 'date BETWEEN \''.$id.'-01-01\' AND \''.$id.'-12-31\'';
+		$q = 'date BETWEEN \''.$URL[0].'-01-01\' AND \''.$URL[0].'-12-31\'';
 	}
-	elseif($id == (float)$id)
+	elseif(is_numeric($URL[1]) && is_numeric($URL[2]))
 	{
-		$date = explode('.',$id);
-		if(!isset($date[1][1])) $date[1] = '0'.$date[1][0];
-		$q = 'date BETWEEN \''.$date[0].'-'.$date[1].'-01\' AND \''.$date[0].'-'.$date[1].'-31\'';
+		if(!isset($URL[1][1])) $date[1] = '0'.$URL[2];
+		$q = 'date BETWEEN \''.$URL[1].'-'.$URL[2].'-01\' AND \''.$URL[1].'-'.$URL[2].'-31\'';
 	}
 	else return;
 	
@@ -35,14 +34,13 @@ if($id)
 			'num'  => ++$num,
 			'date' => genDate($n[2], true),
 			'title'=> $n[1],
-			'url'  => '?co=news&amp;id='.$n[0]
+			'url'  => url('news/'.$n[0])
 		);
 	}
 	$res=null;
 
 	#Do szablonu
-	$content->data['news'] =& $news;
-	$content->data['newslist'] = true;
+	$content->data = array('news' => &$news, 'newslist' => true);
 	return 1;
 }
 
@@ -67,7 +65,7 @@ if(isset($cfg['archYear']))
 {
 	do {
 		$dates[] = array(
-			'url'   => '?co=archive&amp;id='.$y,
+			'url'   => url('archive/'.$y),
 			'title' => $y--
 		);
 	}
@@ -80,7 +78,7 @@ elseif($mon)
 	include LANG_DIR.'date.php';
 	do {
 		$dates[] = array(
-			'url'   => '?co=archive&amp;id='.$y.'.'.$m,
+			'url'   => url('archive/'.$y.'/'.$m),
 			'title' => $months[$m].' '.$y
 		);
 		if($m==1)
@@ -94,5 +92,4 @@ elseif($mon)
 unset($y,$m,$date);
 
 #Do szablonu
-$content->data['dates'] =& $dates;
-$content->data['newslist'] = false;
+$content->data = array('dates' => &$dates, 'newslist' => false);

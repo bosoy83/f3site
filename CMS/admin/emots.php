@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('CFG')) exit;
+if(iCMSa!=1 || !admit('CFG')) exit;
 require LANG_DIR.'admCfg.php';
 $emodata = array();
 
@@ -12,7 +12,7 @@ if($_POST)
 
 	for($i=0; $i<$num; ++$i)
 	{
-		$emodata[] = array(Clean($_POST['dsc'][$i],20), Clean($_POST['file'][$i],80), Clean($_POST['txt'][$i],8));
+		$emodata[] = array(clean($_POST['dsc'][$i],20), clean($_POST['file'][$i],80), clean($_POST['txt'][$i],8));
 		$js[] = '["'.$emodata[$i][0].'","'.$emodata[$i][1].'","'.$emodata[$i][2].'"]';
 	}
 
@@ -45,5 +45,4 @@ if(!$_POST) include_once 'cfg/emots.php';
 
 #Do szablonu
 $content->addScript('lib/forms.js');
-$content->data['emo'] =& $emodata;
-$content->data['files'] =& $files;
+$content->data = array('emo' => &$emodata, 'files' => &$files);

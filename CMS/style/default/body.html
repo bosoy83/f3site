@@ -4,6 +4,7 @@
 	<title>{PAGE TITLE} - {MAIN TITLE}</title>
 	<meta name="description" content="{cfg.metaDesc}" />
 	<meta name="robots" content="{cfg.robots}" />
+	<base href="{URL}" />
 	<script type="text/javascript" src="lib/js.js"></script>
 	<link rel="stylesheet" type="text/css" href="style/default/{CSS}.css" />
 	{HEAD TAGS}
@@ -18,9 +19,8 @@
 		<a href="?setlang=en"><img src="img/en.png" alt="EN" /></a>
 		<a href="?setlang=de"><img src="img/de.png" alt="DE" /></a>
 	</div>
-	<a href="?co=cats&amp;id=5">{lang.news}</a> |
-	<a href="?co=cats&amp;id=1">{lang.arts}</a> |
-	<a href="?co=cats&amp;id=2">{lang.files}</a> |
+	<a href=".">{lang.news}</a> |
+	<a href="cats">{lang.cats}</a> |
 	<a href="javascript:CSS()">{lang.skin} &dArr;</a>
 </div>
 <div id="mid">

@@ -6,17 +6,17 @@
 		<div style="float: right; text-align: center; width: 50%">
 			{new}<br /><br />
 			{lang.pm15} {size} / {limit}<br /><br />
-			<a href="?co=pms&amp;act=e">
+			<a href="pms/edit">
 				<button onclick="location=this.parentNode.href; return false;">{lang.write}</button>
 			</a>
 		</div>
 		<div>
 			<b>{lang.fold}:</b>
 			<ul style="list-style-image: url(img/icon/folder.png); margin: 3px">
-				<li><a href="?co=pms">{lang.inbox}</a></li>
-				<li><a href="?co=pms&amp;id=4">{lang.sent}</a></li>
-				<li><a href="?co=pms&amp;id=1">{lang.await}</a></li>
-				<li><a href="?co=pms&amp;id=3">{lang.drafts}</a></li>
+				<li><a href="pms">{lang.inbox}</a></li>
+				<li><a href="pms/sent">{lang.sent}</a></li>
+				<li><a href="pms/outbox">{lang.await}</a></li>
+				<li><a href="pms/drafts">{lang.drafts}</a></li>
 			</ul>
 		</div>
 	</td>

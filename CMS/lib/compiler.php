@@ -13,7 +13,7 @@ class Compiler
 		$debug,
 		$byteCode;
 
-	#F: Zbadaj pliki skórki i skompiluj zmodyfikowane
+	#Zbadaj pliki skórki i skompiluj zmodyfikowane
 	function examine()
 	{
 		if(!$f = opendir($this->src))
@@ -32,7 +32,7 @@ class Compiler
 		}
 	}
 
-	#F: Kompiluj
+	#Kompiluj
 	function compile($file, $src=null, $cache=null)
 	{
 		#Katalog ¼ród³owy i cache
@@ -112,15 +112,15 @@ class Compiler
 			'/\{this\.([A-Za-z0-9:_ ]+)\}/', //Obiekt $this
 			'/\{([A-Za-z0-9_]+)\.([0-9]+)\}/', //Tablice numeryczne
 			'/\{([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/', //Tablice
-			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/',
+			'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/',
 			'/\{([A-Za-z0-9_]+)\-\>([A-Za-z0-9_]+)\}/', //Obiekty
 			'/\{([A-Z0-9_]+)\}/', //Sta³e
 			'/\{([A-Za-z0-9_]+)\}/',
-			'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]+)\}/',
+			'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\}/',
 			'/<!-- INCLUDE ([A-Za-z0-9_.]+) -->/');
 
 		$out = array(
-			'<?=Banner(\\1);?>',
+			'<?=banner(\\1);?>',
 			'<?=$this->\\1;?>',
 			'<?=$\\1[\\2];?>',
 			'<?=$\\1[\'\\2\'];?>',
@@ -180,7 +180,7 @@ class Compiler
 		throw new Exception('Cannot save template: '.$file);
 	}
 
-	#F: Pêtle
+	#Pêtle
 	protected function checkLoop($pos)
 	{
 		#Poziom zag³êbienia
@@ -229,7 +229,7 @@ class Compiler
 		$frag = preg_replace(
 			array(
 				'/\{([A-Za-z0-9_]+)\}/',
-				'/\{(nl2br|Clean|htmlspecialchars|Autor|genDate): ([A-Za-z0-9_]+)\}/',
+				'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\}/',
 				'/\<!-- IF ([A-Za-z0-9_])(.+) --\>/'),
 			array(
 				'<?=$i'.$lv.'[\'\\1\'];?>',
@@ -241,7 +241,7 @@ class Compiler
 		$this->data = substr_replace($this->data, $frag, $pos, $len);
 	}
 
-	#F: Formularze
+	#Formularze
 	protected function forms($pos)
 	{
 		$end  = strpos($this->data, '</form>')-$pos+7;
@@ -324,7 +324,7 @@ class Compiler
 		if(($pos = strpos($this->data, '<form', $pos+7)) !== false) $this->forms($pos);
 	}
 
-	#F: Instrukcje warunkowe
+	#Instrukcje warunkowe
 	protected function checkIF($pos)
 	{
 		#Fragment

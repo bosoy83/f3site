@@ -11,12 +11,12 @@ if($_POST)
 	#Dane
 	$file = array(
 	'cat'  => (int)$_POST['cat'],
-	'dsc'  => Clean($_POST['dsc']),
-	'name' => Clean($_POST['name']),
-	'file' => Clean($_POST['file']),
-	'size' => Clean($_POST['size']),
+	'dsc'  => clean($_POST['dsc']),
+	'name' => clean($_POST['name']),
+	'file' => clean($_POST['file']),
+	'size' => clean($_POST['size']),
 	'fulld' => &$_POST['full'],
-	'author' => Clean($_POST['author']),
+	'author' => clean($_POST['author']),
 	'access' => isset($_POST['access']),
 	'priority' => (int)$_POST['priority']);
 
@@ -42,9 +42,9 @@ if($_POST)
 		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=2' => $lang['add2'],
-			'?co=list&amp;act=2' => $lang['files'],
-			'?co=file&amp;id='.$id => $file['name']));
+			url('edit/2') => $lang['add2'],
+			url('list/2') => $lang['files'],
+			url('file/'.$id) => $file['name']));
 		unset($e,$file);
 		return 1;
 	}
@@ -62,7 +62,7 @@ else
 	{
 		$file = $db->query('SELECT * FROM '.PRE.'files WHERE ID='.$id)->fetch(2);
 
-		if(!$file || !Admit($file['cat'],'CAT',$file['author']))
+		if(!$file || !admit($file['cat'],'CAT',$file['author']))
 		{
 			return;
 		}
@@ -71,7 +71,7 @@ else
 	{
 		$file = array(
 			'cat' => $lastCat, 'name' => '', 'dsc' => '', 'priority' => 2,
-			'file'=> 'files/', 'size' => '', 'author' => $user[UID]['login'], 'fulld' => '', 'access' => 1);
+			'file'=> 'files/', 'size' => '', 'author' => $user['login'], 'fulld' => '', 'access' => 1);
 	}
 }
 
@@ -83,5 +83,5 @@ $content->addScript('lib/editor.js');
 $content->data = array(
 	'file' => &$file,
 	'cats' => Slaves(2,$file['cat']),
-	'fileman' => Admit('FM') ? true : false
+	'fileman' => admit('FM') ? true : false
 );

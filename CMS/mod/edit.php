@@ -4,8 +4,9 @@ define('EC',1);
 require LANG_DIR.'content.php';
 require './lib/categories.php';
 
-#Typ kategorii
-$TYPE = isset($_GET['act']) && ctype_alnum($_GET['act']) ? $_GET['act'] : 0;
+#Typ kategorii i ID elementu
+$TYPE = isset($URL[1]) && ctype_alnum($URL[1]) ? $URL[1] : 0;
+$id   = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
 
 #Klasa zapisu + ostatnia kategoria
 if($_POST)
@@ -49,7 +50,7 @@ $content->title = $lang['mantxt'];
 $content->file  = 'content';
 
 #Ostatni komentarz
-if(Admit('CM') && $c = $db->query('SELECT name,date FROM '.PRE.'comms ORDER BY ID DESC LIMIT 1')->fetch(3))
+if(admit('CM') && $c = $db->query('SELECT name,date FROM '.PRE.'comms ORDER BY ID DESC LIMIT 1')->fetch(3))
 {
 	$content->data = array('title'=>$c[0], 'last'=>genDate($c[1],1));
 }

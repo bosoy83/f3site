@@ -1,8 +1,8 @@
 <?php
-if(iCMSa!=1 || !Admit('G')) exit;
+if(iCMSa!=1 || !admit('G')) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony
+#Tytu³ strony i ID
 $content->title = $id ? $lang['editGroup'] : $lang['addGroup'];
 
 #Zapis
@@ -10,9 +10,9 @@ if($_POST)
 {
 	#Dane
 	$group = array(
-		'name' => Clean($_POST['name']),
+		'name' => clean($_POST['name']),
 		'dsc'  => $_POST['dsc'],
-		'access' => Clean($_POST['access']),
+		'access' => clean($_POST['access']),
 		'opened' => isset($_POST['opened'])
 	);
 
@@ -45,10 +45,9 @@ else
 	#Edycja
 	if($id)
 	{
-		$group = $db->query('SELECT * FROM '.PRE.'groups WHERE ID='.$id)->fetch(2);
-		if(!$group)
+		if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE ID='.$id)->fetch(2))
 		{
-			$content->info($lang['noex']); return;
+			return;
 		}
 	}
 	#Nowy
@@ -65,5 +64,5 @@ $content->addScript('lib/editor.js');
 #Dane
 $content->data = array(
 	'group' => &$group,
-	'langs' => ListBox('lang', 1, ($id ? $group['access'] : null))
+	'langs' => listBox('lang', 1, ($id ? $group['access'] : null))
 );

@@ -20,7 +20,7 @@ function BugRights($x)
 	global $user;
 	switch($x)
 	{
-		case '': case NULL: if(Admit('BUGS')) return true; break;
+		case '': case NULL: if(admit('BUGS')) return true; break;
 		case 'ALL': return true; break;
 		case 'LOGD': if(LOGD==1) return true; break;
 		default:
@@ -54,16 +54,16 @@ if(!isset($cfg['bugsOn']))
 }
 
 #Akcja
-if(isset($_GET['act']))
+if(isset($URL[1]))
 {
-	switch($_GET['act'])
+	switch($URL[1])
 	{
-		case 'e': require 'plugins/bugs/edit.php'; break;
-		case 'l': require 'plugins/bugs/list.php'; break;
+		case 'post': require 'plugins/bugs/edit.php'; break;
+		case 'list': require 'plugins/bugs/list.php'; break;
 		default: return;
 	}
 }
-elseif($id)
+elseif(isset($URL[2]))
 {
 	require 'plugins/bugs/view.php';
 }

@@ -2,7 +2,7 @@
 function RenderMenu()
 {
 	global $db;
-	if(!is_writable('cache')) { echo 'CHMOD "CACHE" DIRECTORY TO 777!'; return false; }
+	if(!is_writable('cache')) throw new Exception('Chmod CACHE directory to 777');
 
 	#Odczyt bloków - ASSOC
 	$block = $db->query('SELECT * FROM '.PRE.'menu WHERE disp!=2 ORDER BY seq')->fetchAll(2);
@@ -10,40 +10,35 @@ function RenderMenu()
 	#Odczyt linków menu - NUM
 	$items = $db->query('SELECT menu,text,url,nw FROM '.PRE.'mitems ORDER BY seq')->fetchAll(3);
 
-	#Zamieñ '
-	function Ap($x) { return str_replace(array('\'','\\'),array('\\\'','\\\\'),$x); }
-
 	#Jêzyki
 	foreach(scandir('./lang') as $dir)
 	{
 		if($dir[0]=='.' || !is_dir('./lang/'.$dir)) continue;
-		$out = array('','','');
+		$out = array(null,'','');
 
-		foreach($block as &$x)
+		foreach($block as &$b)
 		{
-			if($x['disp']!=1 && $x['disp']!=$dir) continue;
-
-			#Nowy blok
-			$page = $x['menu'];
-			$out[$page].= '<div class="mh"'.(($x['img'])?' style="background: url('.$x['img'].') no-repeat bottom right"':'').'>'.$x['text'].'</div><div class="menu">';
+			if($b['disp']!=1 && $b['disp']!=$dir) continue;
+			$page = $b['menu'];
+			$out[$page] .= '<div class="mh"'.(($b['img'])?' style="background: url('.$b['img'].') no-repeat bottom right"':'').'>'.$b['text'].'</div><div class="menu">';
 
 			#Tekst, plik, linki
-			switch($x['type'])
+			switch($b['type'])
 			{
-				case 1: $out[$page] .= $x['value']; break;
-				case 2: $out[$page] .= '<?php include \''.Ap($x['value']).'\'?>'; break;
-				case 4: $got = file_get_contents($x['value']);
+				case 1: $out[$page] .= $b['value']; break;
+				case 2: $out[$page] .= '<?php include \''.str_replace(array('\'','\\'),array('\\\'','\\\\'),$b['value']).'\'?>'; break;
+				case 4: $got = file_get_contents($b['value']);
 					if(substr_count($got,'<?') > substr_count($got,'?>')) $got .= ' ?>';
 					$out[$page] .= $got;
 					break;
 				default: 
 
 				$links = '';
-				foreach($items as &$y)
+				foreach($items as &$i)
 				{
-					if($y[0] == $x['ID'])
+					if($i[0] == $b['ID'])
 					{
-						$links.= '<li><a href="'.$y[2].'"'.(($y[3])?' target="_blank"':'').'>'.$y[1].'</a></li>';
+						$links .= '<li><a href="'.$i[2].'"'.(($i[3])?' target="_blank"':'').'>'.$i[1].'</a></li>';
 					}
 				}
 				if($links) $out[$page].= '<ul>'.$links.'</ul>';

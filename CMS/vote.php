@@ -18,13 +18,13 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	$t = (int)$_GET['type'];
 
 	#Referer
-	$ref = isset($_SERVER['HTTP_REFERER']) ? Clean($_SERVER['HTTP_REFERER']) : '';
+	$ref = isset($_SERVER['HTTP_REFERER']) ? clean($_SERVER['HTTP_REFERER']) : '';
 
 	#Zalogowany?
 	if(LOGD!=1 && !isset($cfg['grate'])) $content->message(9, $ref);
 
 	#Czy oceniany ID istnieje i jest w³±czony
-	if(!isset($data[$t]['rate']) OR !db_count($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))
+	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))
 	{
 		$content->message(7, $ref);
 	}
@@ -36,7 +36,7 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	if(in_array($t.'.'.$id, $rated)) $content->message(6, $ref);
 
 	#Je¿eli brak wpisu w bazie, ¿e ocenia³...
-	if(db_count('rates WHERE type='.$t.' AND ID='.$id.' AND IP='.$ip) === 0)
+	if(dbCount('rates WHERE type='.$t.' AND ID='.$id.' AND IP='.$ip) === 0)
 	{
 		$db->beginTransaction();
 		$db->exec('INSERT INTO '.PRE.'rates (type,ID,mark,IP) VALUES ('.$t.','.$id.','.$v.','.$ip.')');
@@ -77,7 +77,7 @@ if(isset($_POST['poll']))
 	if(!in_array($poll['ID'],$voted) && $poll['ison']!=2 && (LOGD==1 || $poll['ison']==1))
 	{
 		#Je¿eli brak wpisu w bazie, ¿e g³osowa³...
-		if(db_count('pollvotes WHERE ID='.$id.' AND user='.$u)==0)
+		if(dbCount('pollvotes WHERE ID='.$id.' AND user='.$u)==0)
 		{
 			if($poll['type']==1)
 			{
@@ -129,6 +129,6 @@ if(isset($_POST['poll']))
 	}
 	else
 	{
-		$content->message(5, '.?co=poll&amp;id='.$id);
+		$content->message(5, url('poll/'.$id));
 	}
 }

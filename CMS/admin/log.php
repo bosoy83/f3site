@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('L')) exit;
+if(iCMSa!=1 || !admit('L')) exit;
 
 #Usuñ?
 if($_POST && $x = GetID(true))
@@ -20,7 +20,7 @@ else
 }
 
 #Suma
-$total = db_count('log');
+$total = dbCount('log');
 $event = array();
 
 #Pobierz
@@ -40,11 +40,11 @@ foreach($res as $i)
 		'date' => genDate($i[2], true),
 		'login'=> $i[5],
 		'ip'   => $i[3],
-		'user' => $i[4] ? '.?co=user&amp;id='.$i[4] : false
+		'user' => $i[4] ? url('user/'.urlencode($i[5])) : false
 	);
 }
 $content->data = array(
 	'event' => &$event,
-	'pages' => Pages($page, $total, 30, '?a=log', 1),
-	'url'   => '?a=log&amp;page='.$page
+	'pages' => pages($page, $total, 30, url('log', '', 'admin'), 1),
+	'url'   => url('log', 'page='.$page, 'admin')
 );

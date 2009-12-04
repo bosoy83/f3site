@@ -69,7 +69,7 @@
 </tr>
 <tr>
 	<td colspan="2" style="text-align: center">
-		<textarea name="txt" style="width: 99%" cols="30" rows="12">{Clean: cat.text}</textarea>
+		<textarea name="txt" style="width: 99%" cols="30" rows="12">{clean: cat.text}</textarea>
 	</td>
 </tr>
 
@@ -85,7 +85,8 @@
 </form>
 
 <script type="text/javascript">
-f = document.forms[0];
-e = new Editor(f.txt);
-f.name.focus();
+f = document.forms[0]
+e = new Editor(f.txt)
+e.protect()
+f.name.focus()
 </script>

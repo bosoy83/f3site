@@ -11,7 +11,7 @@ if(isset($_POST['HTML']))
 }
 else
 {
-	$text = Clean($_POST['text'], $l);
+	$text = clean($_POST['text'], $l);
 }
 
 #BBCode
@@ -22,7 +22,7 @@ if(isset($_POST['BBCODE']) && isset($cfg['bbcode']))
 }
 
 #Emoty
-if(isset($_POST['EMOTS'])) $text = Emots($text);
+if(isset($_POST['EMOTS'])) $text = emots($text);
 
 #Nowa linia i wy¶wietl
 echo isset($_POST['NL']) ? nl2br($text) : $text;

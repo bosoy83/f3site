@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 OR !Admit('CFG')) exit;
+if(iCMSa!=1 OR !admit('CFG')) exit;
 
 #Zapis
 if($_POST)
@@ -10,8 +10,8 @@ if($_POST)
 		include './lib/config.php';
 		$f = new Config('bugs');
 		$f -> save($_POST);
-		Header('Location: '.URL.'adm.php?a=bugs');
-		$content->message($lang['saved'], '?a=bugs');
+		header('Location: '.URL.url('bugs'));
+		$content->message($lang['saved'], url('bugs', '', 'admin'));
 	}
 	catch(Exception $e)
 	{
@@ -26,6 +26,4 @@ else
 
 #Szablony
 $content->file = 'adminConfig';
-$content->data = array(
-	'cfg'  => &$opt
-);
+$content->data = array('cfg'  => &$opt);

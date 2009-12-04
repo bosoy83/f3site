@@ -33,7 +33,7 @@
 <tbody>
 <tr>
 	<td colspan="2" align="center">
-		<textarea name="txt" cols="60" rows="20" style="width: 98%">{Clean: page.text}</textarea>
+		<textarea name="txt" cols="60" rows="20" style="width: 98%">{clean: page.text}</textarea>
 	</td>
 </tr>
 <tr>
@@ -50,5 +50,6 @@
 var f = document.forms[0]
 var e = new Editor(f.txt)
 e.emots()
+e.protect()
 f.elements[0].focus()
 </script>

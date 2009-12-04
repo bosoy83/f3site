@@ -6,7 +6,7 @@ require(LANG_DIR.'profile.php'); #Plik jêzyka
 $content->title = $lang['users'];
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
 	$st = ($page-1)*30;
@@ -18,40 +18,38 @@ else
 }
 
 #Szukanie
-$url = '';
-$param = Array();
-
+$url = $param = array();
 if(isset($cfg['userFind']))
 {
 	if(!empty($_GET['sl']))
 	{
-		$sl = Clean($_GET['sl'],20);
-		$param[] = 'login LIKE "%'.$sl.'%"';  $url.='&amp;sl='.$sl; //Login
+		$sl = clean($_GET['sl'],20);
+		$param[] = 'login LIKE "%'.$sl.'%"';  $url[] = 'sl='.$sl; //Login
 	}
 	if(!empty($_GET['pl']))
 	{
-		$pl = Clean($_GET['pl'],30);
-		$param[] = 'city LIKE "%'.$pl.'%"';  $url.='&amp;pl='.$pl; //Miasto
+		$pl = clean($_GET['pl'],30);
+		$param[] = 'city LIKE "%'.$pl.'%"';  $url[] = 'pl='.$pl; //Miasto
 	}
 	if(!empty($_GET['www']))
 	{
-		$www = Clean($_GET['www'],80);
-		$param[] = 'www LIKE "%'.$www.'%"';  $url.='&amp;www='.$www; //WWW
+		$www = clean($_GET['www'],80);
+		$param[] = 'www LIKE "%'.$www.'%"';  $url[] = 'www='.$www; //WWW
 	}
 	if(!empty($_GET['gg']))
 	{
 		$gg = (int)$_GET['gg'];
-		$param[] = 'gg='.$gg;  $url.='&amp;gg='.$gg; //GG
+		$param[] = 'gg='.$gg;  $url[] = 'gg='.$gg; //GG
 	}
 }
 #ID Grupy
 if(isset($_GET['id']) && $_GET['id'])
 {
-	$id = $_GET['id'];  $param[] = 'gid='.$id;  $url.='&amp;id='.$id;
+	$id = $_GET['id'];  $param[] = 'gid='.$id;  $url[] = 'id='.$id;
 }
 
 #Licz
-$total = db_count('users'.(($url=='')?'':' WHERE '.join(' AND ',$param)));
+$total = dbCount('users'.($url ? ' WHERE '.join(' AND ',$param) : ''));
 
 #Brak?
 if($total < 1)
@@ -63,7 +61,7 @@ if($total < 1)
 #Sortowanie
 if(isset($_GET['sort']) && ctype_alnum($_GET['sort']))
 {
-	$sortURL = '&amp;sort='.$_GET['sort'];
+	$sortURL = 'sort='.$_GET['sort'];
 	switch($_GET['sort'])
 	{
 		case 1: $sort = 'login'; break;
@@ -78,7 +76,7 @@ else
 }
 
 #Odczyt
-$res = $db->query('SELECT ID,login,lv,regt,lvis FROM '.PRE.'users'.(($url)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,lv,regt,city FROM '.PRE.'users'.(($url)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
 
 $res->setFetchMode(3);
 unset($param);
@@ -99,14 +97,17 @@ foreach($res as $u)
 
 	$users[] = array(
 		'login' => $u[1],
+		'city'  => $u[4],
 		'date'  => genDate($u[3]),
-		'last'  => genDate($u[4]),
+		'url'   => url('user/'.urlencode($u[1])),
 		'level' => $lv,
-		'num'   => ++$st,
-		'url'   => '?co=user&amp;id='.$u[0]
+		'num'   => ++$st
 	);
 }
 $res=null;
+
+#Z³±cz parametry
+$url = $url ? '&'.join('&',$url) : '';
 
 #Dane do szablonu
 $content->data = array(
@@ -114,14 +115,14 @@ $content->data = array(
 	'total' => $total,
 	'id'    => $id,
 	'find'  => isset($cfg['userFind']),
-	'joined_url' => '?co=users'.$url,
-	'login_url'  => '?co=users&amp;sort=1'.$url,
-	'last_url'   => '?co=users&amp;sort=3'.$url,
+	'joined_url' => url('users', 'sort=2'.$url),
+	'login_url'  => url('users', 'sort=1'.$url),
+	'last_url'   => url('users', 'sort=3'.$url),
 	'find_login' => !empty($sl) ? $sl : '',
 	'find_www'   => !empty($www) ? $www : '',
 	'find_place' => !empty($pl) ? $pl : '',
 	'find_gg'    => !empty($gg) ? $gg : '',
-	'pages'      => Pages($page,$total,30,'?co=users'.$url.$sortURL,1)
+	'pages'      => pages($page,$total,30,url('users',$sortURL.$url),1)
 );
 
 #Usuñ zbêdne dane

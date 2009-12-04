@@ -25,8 +25,8 @@
 </tbody>
 <tbody id="goedit" style="display: none; text-align: center; color: blue">
 <tr>
-	<td style="padding: 5px" colspan="2">
-		<a href="#" style="background: url(img/icon/key.png) no-repeat; padding-left: 22px">{lang.editPass}</a>
+	<td style="padding: 5px; cursor: pointer" colspan="2">
+		<span style="background: url(img/icon/key.png) no-repeat; padding-left: 22px">{lang.editPass}</span>
 		<script type="text/javascript">
 		show('edit');
 		$('goedit').style.display = '';
@@ -78,7 +78,17 @@
 	<th colspan="2">{lang.editus}</th>
 </tr>
 <tr>
-	<td style="width: 200px"><b>{lang.ufrom}</b></td>
+	<td><b>{lang.sex}:</b></td>
+	<td>
+		<select name="sex">
+			<option value="0"></option>
+			<option value="1">{lang.male}</option>
+			<option value="2">{lang.female}</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td style="width: 200px"><b>{lang.from}:</b></td>
 	<td><input name="city" maxlength="50" value="{u.city}" /></td>
 </tr>
 <tr>
@@ -103,7 +113,7 @@
 </tr>
 <tr>
 	<td><b>{lang.wwwp}:</b></td>
-	<td><input name="www" size="30" maxlength="120" value="{u.www}" /></td>
+	<td><input name="www" size="40" maxlength="120" value="{u.www}" /></td>
 </tr>
 <tr>
 	<td><b>{lang.opt}:</b></td>
@@ -155,5 +165,13 @@
 <script type="text/javascript">
 f = document.forms['eu'];
 if(f.login) f[0].focus(); else f[4].focus()
-<!-- START bad -->f['{ITEM}'].style.borderColor = 'red';<!-- STOP -->
+<!-- START bad -->
+f['{ITEM}'].style.borderColor = 'red';
+<!-- STOP -->
+<!-- IF bbcode -->
+include('lang/' + document.documentElement.lang + '/edit.js')
+include('lib/editor.js')
+include('cache/emots.js')
+f['about'].onfocus = function() { new Editor(this,1).emots(); this.onfocus = undefined }
+<!-- END -->
 </script>

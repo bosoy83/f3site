@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('N')) exit;
+if(iCMSa!=1 || !admit('N')) exit;
 require LANG_DIR.'admAll.php';
 
 #Tytu³ strony
@@ -10,9 +10,9 @@ if($_POST)
 {
 	#Dane
 	$m = array(
-		'text' => Clean($_POST['text']),
-		'disp' => Clean($_POST['disp']),
-		'img'  => Clean($_POST['img']),
+		'text' => clean($_POST['text']),
+		'disp' => clean($_POST['disp']),
+		'img'  => clean($_POST['img']),
 		'menu' => (int)$_POST['menu'],
 		'type' => (int)$_POST['type'],
 		'value'=> &$_POST['value']
@@ -25,7 +25,7 @@ if($_POST)
 	{
 		$o[] = array(
 			0 => &$_POST['txt'][$i],
-			1 => Clean($_POST['adr'][$i]),
+			1 => clean($_POST['adr'][$i]),
 			2 => isset($_POST['nw'][$i]),
 			3 => $i
 		);
@@ -47,7 +47,7 @@ if($_POST)
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,img,value)
-				VALUES ('.(db_count('menu')+1).',:text,:disp,:menu,:type,:img,:value)');
+				VALUES ('.(dbCount('menu')+1).',:text,:disp,:menu,:type,:img,:value)');
 		}
 		$q->execute($m);
 
@@ -71,8 +71,8 @@ if($_POST)
 		RenderMenu();
 
 		#Lista
-		Header('Location: '.URL.'adm.php?a=menu');
-		$content->message($lang['saved'], '?a=menu');
+		header('Location: '.URL.url('menu', '', 'admin'));
+		$content->message($lang['saved'], url('menu', '', 'admin'));
 	}
 	catch(PDOException $e)
 	{
@@ -102,6 +102,6 @@ $content->addScript('lib/forms.js');
 $content->data = array(
 	'menu' => &$m,
 	'item' => &$o,
-	'fileman'  => Admit('FM'),
-	'langlist' => ListBox('lang', 1, $m['disp'])
+	'fileman'  => admit('FM'),
+	'langlist' => listBox('lang', 1, $m['disp'])
 );

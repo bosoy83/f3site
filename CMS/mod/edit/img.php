@@ -10,10 +10,10 @@ if($_POST)
 {
 	$img = array(
 	'cat'   => (int)$_POST['cat'],
-	'name'  => Clean($_POST['name']),
-	'author'=> Clean($_POST['author']),
-	'file'	=> Clean($_POST['file']),
-	'filem' => Clean($_POST['fm']),
+	'name'  => clean($_POST['name']),
+	'author'=> clean($_POST['author']),
+	'file'	=> clean($_POST['file']),
+	'filem' => clean($_POST['fm']),
 	'access'=> isset($_POST['access']),
 	'priority'=> (int)$_POST['priority'],
 	'type'	=> (int)$_POST['type'],
@@ -45,9 +45,9 @@ if($_POST)
 		#OK?
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=3' => $lang['add3'],
-			'?co=list&amp;act=3' => $lang['imgs'],
-			'?co=img&amp;id='.$id => $img['name']));
+			url('edit/3') => $lang['add3'],
+			url('list/3') => $lang['imgs'],
+			url('img/'.$id) => $img['name']));
 		unset($e,$img);
 		return 1;
 	}
@@ -64,7 +64,7 @@ else
 	{
 		$img=$db->query('SELECT * FROM '.PRE.'imgs WHERE ID='.$id)->fetch(2);
 
-		if(!$img || !Admit($img['cat'],'CAT',$img['author']))
+		if(!$img || !admit($img['cat'],'CAT',$img['author']))
 		{
 			return;
 		}
@@ -73,7 +73,7 @@ else
 	{
 		$img = array(
 			'cat' => $lastCat, 'name' => '', 'dsc' => '', 'priority' => 2, 'file'=> 'img/',
-			'filem' => 'img/', 'size' => '', 'author' => $user[UID]['login'], 'access' => 1, 'type' => 1);
+			'filem' => 'img/', 'size' => '', 'author' => $user['login'], 'access' => 1, 'type' => 1);
 	}
 }
 
@@ -86,5 +86,5 @@ $content->data = array(
 	'img'  => &$img,
 	'cats' => Slaves(3,$img['cat']),
 	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
-	'fileman' => Admit('FM') ? true : false
+	'fileman' => admit('FM') ? true : false
 );

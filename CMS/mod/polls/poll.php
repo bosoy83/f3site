@@ -50,25 +50,29 @@ function RebuildPoll($only = null)
 	{
 		return false;
 	}
-	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE access IN (\''.join('\',\'', $lang).'\') ORDER BY access, ID DESC') -> fetchAll(2); //ASSOC
+	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE access IN (\''.join('\',\'', $lang).'\') ORDER BY ID DESC') -> fetchAll(2); //ASSOC
 
-	$i = 0;
-	foreach($lang as $x)
+	foreach($poll as $x)
 	{
-		if(isset($used[$x]))
+		if(isset($used[$x['access']]))
 		{
-			++$i; continue;
+			continue;
 		}
-		if(isset($poll[$i]) && $x == $poll[$i]['access'])
+		if(in_array($x['access'], $lang))
 		{
-			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$poll[$i]['ID'].' ORDER BY seq') -> fetchAll(3); //NUM
-			$file = new Config('./cache/poll_'.$x.'.php');
-			$file->add('poll', $poll[$i++]);
+			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$x['ID'].' ORDER BY seq')->fetchAll(3);
+			$file = new Config('./cache/poll_'.$x['access'].'.php');
+			$file->add('poll', $x);
 			$file->add('option', $o);
 			$file->save();
-			$used[$x] = 1;
+			$used[$x['access']] = 1;
 		}
-		elseif(file_exists('./cache/poll_'.$x.'.php'))
+	}
+
+	//Zbêdne pliki cache
+	foreach($lang as $x)
+	{
+		if(!isset($used[$x]) && file_exists('./cache/poll_'.$x.'.php'))
 		{
 			unlink('./cache/poll_'.$x.'.php');
 		}

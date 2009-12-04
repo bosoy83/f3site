@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('CFG')) exit;
+if(iCMSa!=1 || !admit('CFG')) exit;
 require LANG_DIR.'admCfg.php';
 
 #Zapis
@@ -42,7 +42,7 @@ else
 $word = array();
 for($i=0; $i<$num; ++$i)
 {
-	$word[] = array(Clean($words1[$i]), Clean($words2[$i]));
+	$word[] = array(clean($words1[$i]), clean($words2[$i]));
 }
 
 #Do szablonu

@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('CFG')) exit;
+if(iCMSa!=1 || !admit('CFG')) exit;
 
 #Dostêpne opcje
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
@@ -7,8 +7,8 @@ if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 #Zapisz
 if($_POST)
 {
-	$opt['title'] = Clean($opt['title'],50);
-	$opt['metaDesc'] = Clean($opt['metaDesc']);
+	$opt['title'] = clean($opt['title'],50);
+	$opt['metaDesc'] = clean($opt['metaDesc']);
 	$opt['antyFlood'] = (int)$opt['antyFlood'];
 	$opt['pmLimit'] = (int)$opt['pmLimit'];
 	$opt['commNum'] = (int)$opt['commNum'];
@@ -47,5 +47,5 @@ $content->title = $lang['main'];
 $content->data = array(
 	'cfg' => &$opt,
 	'skinlist' => &$skin,
-	'langlist' => ListBox('lang', 1, $opt['lang']),
+	'langlist' => listBox('lang', 1, $opt['lang']),
 );

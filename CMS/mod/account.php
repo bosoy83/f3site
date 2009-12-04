@@ -1,20 +1,20 @@
 <?php /* Edytuj konto */
 if(iCMS!=1) exit;
-require LANG_DIR.'profile.php'; #Jêzyk
+require LANG_DIR.'profile.php'; #JÄ™zyk
 require 'cfg/account.php'; #Opcje
 
 $error = $bad = array();
 $photo = '';
 
-#Tytu³ strony
+#TytuÅ‚ strony
 $content->title = $lang['account'];
 
 #Aktywacja
-if(isset($_GET['keyid']))
+if(isset($URL[2]) && $URL[1] == 'key')
 {
-	if(strlen($_GET['keyid'])==16 && ctype_alnum($_GET['keyid']))
+	if(strlen($URL[2])==16 && ctype_alnum($URL[2]))
 	{
-		$res = $db->query('SELECT UID FROM '.PRE.'tmp WHERE type="ACT" AND KEYID="'.$_GET['keyid'].'"');
+		$res = $db->query('SELECT UID FROM '.PRE.'tmp WHERE type="ACT" AND KEYID="'.$URL[2].'"');
 		$id = $res->fetchColumn();
 		if(is_numeric($id))
 		{
@@ -32,7 +32,7 @@ if(isset($_GET['keyid']))
 	return 1;
 }
 
-#Rejestracja wy³¹czona?
+#Rejestracja wyÅ‚Ä…czona?
 if(!isset($cfg['reg']) && !LOGD)
 {
 	$content->info($lang['regoff']); return 1;
@@ -42,37 +42,49 @@ if(!isset($cfg['reg']) && !LOGD)
 if($_POST)
 {
 	#WWW
-	$www = Clean($_POST['www'],200);
+	$www = clean($_POST['www'],200);
 	$www = str_replace('javascript:','java_script',$www);
 	$www = str_replace('vbscript:','vb_script',$www);
 	if($www==='http://') $www='';
 
-	#Dane + opcje - 1: pokazuj mail, 2: pozwól komentowaæ
+	#Dane + opcje - 1: pokazuj mail, 2: pozwÃ³l komentowaÄ‡
 	$u = array(
-	'gg'  => is_numeric($_POST['gg']) ? (int)$_POST['gg'] : null,
-	'icq' => is_numeric($_POST['icq']) ? (int)$_POST['icq'] : null,
-	'tlen' => Clean($_POST['tlen'],30),
+	'gg'  => is_numeric($_POST['gg']) ? $_POST['gg'] : null,
+	'icq' => is_numeric($_POST['icq']) ? $_POST['icq'] : null,
+	'tlen' => clean($_POST['tlen'],30),
 	'www'  => $www,
 	'mail' => $_POST['mail'],
+	'sex'  => (int)$_POST['sex'],
 	'opt'  => isset($_POST['mvis']) | (isset($_POST['comm']) ? 2 : 0),
 	'mails' => isset($_POST['mails']),
-	'city'  => Clean($_POST['city'],30),
-	'skype' => Clean($_POST['skype'],30),
-	'jabber'=> Clean($_POST['jabber'],50),
-	'about' => Clean($_POST['about'],9999,1)
+	'city'  => clean($_POST['city'],30),
+	'skype' => clean($_POST['skype'],30),
+	'jabber'=> clean($_POST['jabber'],50),
+	'about' => clean($_POST['about'],9999,1)
 	);
 
-	#O sobie - za d³ugi?
+	#O sobie - za dÅ‚ugi?
 	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
 	#Niezalogowani
 	if(!LOGD)
 	{
 		#Login
-		$u['login'] = Clean($_POST['login'],30);
+		$u['login'] = clean($_POST['login'],30);
 		if(isset($u['login'][31]) || !isset($u['login'][2]))
 		{
 			$error[] = $lang['badLogin'];
+			$bad[] = 'login';
+		}
+		switch($cfg['logins'])
+		{
+			case 1: $re = '/^[A-Za-z0-9 _-]*$/'; break;
+			case 2: $re = '/^[0-9\pL _.-]*$/u'; break;
+			default: $re = '@^[^&/?#=\\\]*$@'; break;
+		}
+		if(!preg_match($re, $u['login']))
+		{
+			$error[] = $lang['loginChar'];
 			$bad[] = 'login';
 		}
 
@@ -119,17 +131,17 @@ if($_POST)
 		$photo = RemoveAvatar($error);
 	}
 
-	#Zmiana has³a lub E-mail
-	if(LOGD && $_POST['pass'] && $_POST['curPass'] != $user[UID]['pass'])
+	#Zmiana hasÅ‚a lub E-mail
+	if(LOGD && $_POST['pass'] && $_POST['curPass'] != $user['pass'])
 	{
 		$error[] = $lang['mustPass'];
 		$bad[] = 'curPass';
 	}
 
-	#Has³o
+	#HasÅ‚o
 	if(LOGD && empty($_POST['pass']))
 	{
-		$u['pass'] = $user[UID]['pass'];
+		$u['pass'] = $user['pass'];
 	}
 	else
 	{
@@ -139,7 +151,7 @@ if($_POST)
 			$error[] = $lang['badPass'];
 			$bad[] = 'pass';
 		}
-		#Has³a równe?
+		#HasÅ‚a rÃ³wne?
 		elseif($u['pass']!=$_POST['pass2'])
 		{
 			$error[] = $lang['pass2'];
@@ -152,7 +164,7 @@ if($_POST)
 	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
 		#E-mail istnieje w bazie?
-		if(db_count('users WHERE mail="'.$u['mail'].'"'.((LOGD)?' AND ID!='.UID:'')) != 0)
+		if(dbCount('users WHERE mail="'.$u['mail'].'"'.(LOGD?' AND ID!='.UID:'')))
 		{
 			$error[] = $lang['mailEx'];
 			$bad[] = 'mail';
@@ -160,7 +172,7 @@ if($_POST)
 	}
 	else
 	{
-		$u['mail'] = Clean($u['mail']);
+		$u['mail'] = clean($u['mail']);
 		$error[] = $lang['badMail'];
 		$bad[] = 'mail';
 	}
@@ -174,7 +186,7 @@ if($_POST)
 		}
 	}
 
-	#B³êdy?
+	#BÅ‚Ä™dy?
 	if($error)
 	{
 		$content->info(join('<br /><br />',$error));
@@ -190,9 +202,9 @@ if($_POST)
 			#Edytuj
 			if(LOGD)
 			{
-				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, opt=:opt,
-				about=:about, mails=:mails, www=:www, city=:city, icq=:icq, skype=:skype,
-				jabber=:jabber, tlen=:tlen, gg=:gg WHERE ID='.UID);
+				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, sex=:sex,
+				opt=:opt, about=:about, mails=:mails, www=:www, city=:city, icq=:icq,
+				skype=:skype, jabber=:jabber, tlen=:tlen, gg=:gg WHERE ID='.UID);
 			}
 			#Nowy
 			else
@@ -201,9 +213,9 @@ if($_POST)
 				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
 				$u['regt'] = $_SERVER['REQUEST_TIME'];
 
-				$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,opt,lv,regt,
+				$q = $db->prepare('INSERT INTO '.PRE.'users (login,pass,mail,sex,opt,lv,regt,
 				about,mails,www,city,icq,skype,jabber,tlen,gg) VALUES (:login,:pass,:mail,
-				:opt,:lv,:regt,:about,:mails,:www,:city,:icq,:skype,:jabber,:tlen,:gg)');
+				:sex,:opt,:lv,:regt,:about,:mails,:www,:city,:icq,:skype,:jabber,:tlen,:gg)');
 			}
 
 			#Aktywacja e-mail
@@ -217,9 +229,9 @@ if($_POST)
 				$m = new Mailer;
 				$m->topic = $lang['mail1'].$u['login'];
 				$m->text = file_get_contents(LANG_DIR.'mailReg.php');
-				$m->text = str_replace('%link%', URL.'?co=account&amp;keyid='.$key, $m->text);
+				$m->text = str_replace('%link%', URL.url('account/key/'.$key), $m->text);
 
-				#Wyœlij i zapisz u¿ytkownika
+				#WyÅ›lij i zapisz uÅ¼ytkownika
 				if($m->sendTo($u['login'],$u['mail']))
 				{
 					$q->execute($u);
@@ -237,7 +249,7 @@ if($_POST)
 			elseif(LOGD)
 			{
 				$q->execute($u);
-				header('Location: '.URL.'?co=user&id='.UID);
+				header('Location: '.URL.url('user/'.urlencode($user['login'])));
 			}
 			elseif($cfg['actmeth']!=1)
 			{
@@ -271,7 +283,8 @@ else
 		'login' => '',
 		'mail'  => '',
 		'city'  => '',
-		'opt'   => 3,
+		'opt'   => 2,
+		'sex'   => 1,
 		'mails' => 1,
 		'gg'    => null,
 		'icq'   => null,
@@ -295,7 +308,7 @@ $content->data = array(
 	'size'  => $cfg['maxSize'],
 	'del'   => $photo,
 	'bad'   => $bad,
-	'bbcode'=> isset($cfg['aboutBBC']),
+	'bbcode'=> isset($cfg['bbcode']),
 	'code'  => isset($cfg['captcha']) && !LOGD,
 	'photo' => (LOGD && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
 );

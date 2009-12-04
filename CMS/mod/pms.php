@@ -11,14 +11,14 @@ $content->title = $lang['pm3'];
 if(isset($cfg['pmOn']) && LOGD==1)
 {
 	#Nowe PM
-	if($user[UID]['pms']==0)
+	if($user['pms']==0)
 	{
 		$pm_new = $lang['zero'];
 	}
 	else
 	{
-		$pm_new = $user[UID]['pms']==1 ? $lang['new1'] :
-			str_replace('%', '<b>'.$user[UID]['pms'].'</b>', $lang['new2']);
+		$pm_new = $user['pms']==1 ? $lang['new1'] :
+			str_replace('%', '<b>'.$user['pms'].'</b>', $lang['new2']);
 	}
 
 	#Dane do szablonu
@@ -29,12 +29,13 @@ if(isset($cfg['pmOn']) && LOGD==1)
 	);
 
 	#Akcja
-	if(isset($_GET['act']))
+	if(isset($URL[1]))
 	{
-		switch($_GET['act']) {
-			case 'v': require './mod/pms/message.php'; break;
-			case 'e': require './mod/pms/posting.php'; break;
-			case 'm': require './mod/pms/action.php'; break;
+		switch($URL[1]) {
+			case 'view': require './mod/pms/message.php'; break;
+			case 'edit': require './mod/pms/posting.php'; break;
+			case 'del':  require './mod/pms/action.php'; break;
+			default: require './mod/pms/list.php';
 		}
 	}
 	else require './mod/pms/list.php';

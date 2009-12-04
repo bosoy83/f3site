@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('R')) exit;
+if(iCMSa!=1 || !admit('R')) exit;
 require LANG_DIR.'admAll.php';
 
 #Aktualizuj lub usuń kanały
@@ -12,7 +12,7 @@ if($_POST && $x = GetID(true))
 }
 
 #Info i linki
-$content->info($lang['infoRss'], array('?a=editRss' => $lang['addRss']));
+$content->info($lang['infoRss'], array(url('editRss','','admin') => $lang['addRss']));
 
 #Pobierz kanały RSS
 $res = $db->query('SELECT ID,auto,name FROM '.PRE.'rss ORDER BY name');
@@ -24,6 +24,7 @@ foreach($res as $x)
 		'id'    => $x['ID'],
 		'title' => $x['name'],
 		'auto'  => $x['auto'] ? $lang['yes'] : $lang['no'],
+		'edit'  => url('editRSS/'.$x['ID'], '', 'admin'),
 		'file'  => file_exists('rss/'.$x['ID'].'.xml') ? 'rss/'.$x['ID'].'.xml' : null,
 	);
 }

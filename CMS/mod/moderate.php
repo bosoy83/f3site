@@ -1,5 +1,5 @@
 <?php
-if(iCMS!=1 OR !Admit('CM')) exit;
+if(iCMS!=1 OR !admit('CM')) exit;
 require LANG_DIR.'comm.php';
 
 #Tytu³ strony
@@ -33,7 +33,7 @@ if(isset($_POST['a']))
 #Strona
 if(isset($_GET['page']) && $_GET['page']!=1)
 {
-	$page = $_GET['page'];
+	$page = (int)$_GET['page'];
 	$st = ($page-1)*20;
 }
 else
@@ -43,17 +43,15 @@ else
 }
 
 #Tylko do akceptacji?
-$q = isset($_GET['no']) ? ' WHERE access!=1' : '';
+$q = isset($URL[1]) ? ' WHERE access!=1' : '';
 
 #Razem
-$total = db_count('comms'.$q);
+$total = dbCount('comms'.$q);
+$com   = array();
 
 #Pobierz ostatnie komentarze
 $res = $db->query('SELECT c.*,u.login FROM '.PRE.'comms c LEFT JOIN '.PRE.
 	'users u ON c.author=u.ID AND c.guest!=1'.$q.' ORDER BY c.ID DESC LIMIT '.$st.',20');
-
-$com = array();
-$num = 0;
 
 #BBCode?
 if(isset($cfg['bbcode'])) include_once('./lib/bbcode.php');
@@ -71,21 +69,23 @@ foreach($res as $x)
 		default: $co = isset($type[$x['TYPE']]) ? $type[$x['TYPE']]['name'] : null;
 	}
 	$com[] = array(
-		'text'  => nl2br(Emots(isset($cfg['bbcode']) ? BBCode($x['text']) : $x['text'])),
+		'text'  => nl2br(emots(isset($cfg['bbcode']) ? BBCode($x['text']) : $x['text'])),
 		'date'  => genDate($x['date'],1),
-		'item'  => $co ? '?co='.$co.'&amp;id='.$x['CID'] : null,
+		'url'   => url('comment/'.$x['ID']),
+		'item'  => $co ? url($co.'/'.$x['CID']) : null,
 		'id'    => $x['ID'],
 		'title' => $x['name'],
 		'user'  => $x['login'] ? $x['login'] : $x['author'],
 		'ip'    => $x['ip'],
 		'access' => $x['access'],
-		'profile' => $x['login'] ? '?co=user&amp;id='.$x['author'] : null
+		'profile' => $x['login'] ? url('user/'.urlencode($x['login'])) : null
 	);
-	++$num;
 }
 
 $content->data = array(
 	'comment' => $com,
 	'total'   => $total,
-	'pages'   => Pages($page,$total,20,'?co=moderate',1)
+	'url'     => url('moderate'),
+	'nourl'   => url('moderate/hidden'),
+	'pages'   => pages($page,$total,20,'moderate',1)
 );

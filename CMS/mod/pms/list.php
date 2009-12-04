@@ -14,18 +14,18 @@ else
 }
 
 #Tytu³ strony + warunek do zapytania SQL
-switch($id)
+switch((isset($URL[1]) ? $URL[1] : ''))
 {
-	case 4:
+	case 'sent':
 		$q = ' WHERE p.st=4 AND p.owner='.UID; #Wys³ane
 		$content->title = $lang['sent'];
 		break;
-	case 1:
+	case 'outbox':
 		$q = ' WHERE p.st=1 AND p.usr='.UID; #Oczekuj¹ce
 		$content->title = $lang['await'];
 		$content->info($lang['pm3i']);
 		break;
-	case 3:
+	case 'drafts':
 		$q = ' WHERE p.st=3 AND p.owner='.UID; #Kopie robocze
 		$content->title = $lang['drafts'];
 		break;
@@ -36,7 +36,7 @@ switch($id)
 }
 
 #Licz
-$total = db_count('pms p'.$q);
+$total = dbCount('pms p'.$q);
 
 #Brak?
 if($total < 1)
@@ -63,9 +63,9 @@ foreach($res as $pm)
 		'topic'  => $pm[1],
 		'num'    => ++$num,
 		'new'    => $id==2 && $pm[6]==1,
-		'url'    => '?co=pms&amp;act=v&amp;id='.$pm[0],
+		'url'    => url('pms/view/'.$pm[0]),
 		'login'  => $pm[5],
-		'user_url' => '?co=user&amp;id='.$pm[4]
+		'user_url' => 'user/'.$pm[4]
 	);
 }
 $res=null;
@@ -77,7 +77,7 @@ $content->file[] = 'pms_list';
 $content->data += array(
 	'pm'  => $pms,
 	'who' => ($id > 3) ? $lang['pm12'] : $lang['pm13'],
-	'url' => '?co=pms&amp;act=m&amp;id='.$id,
+	'url' => 'pms/del/'.$id,
 	'total' => $total,
-	'pages' => Pages($page, $total, 30, '?co=pms&amp;id='.$id, 1)
+	'pages' => pages($page, $total, 30, '/pms/'.$id, 1)
 );

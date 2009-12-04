@@ -2,6 +2,7 @@
 if(iCMS!=1) exit;
 
 $error = $cat = $bug = array();
+$id = isset($URL[2]) ? (int)$URL[2] : 0;
 
 #Edytuj zg³oszenie
 if($id)
@@ -13,7 +14,7 @@ if($id)
 	$f = $bug['cat'];
 
 	#Prawa
-	if(!Admit('BUGS') && ($bug['UID'] != UID || !isset($cfg['bugsEdit'])))
+	if(!admit('BUGS') && ($bug['UID'] != UID || !isset($cfg['bugsEdit'])))
 	{
 		$error[] = $lang['noRight'];
 	}
@@ -41,9 +42,9 @@ if(!$cat[1] OR !BugRights($cat[2]))
 if($_POST)
 {
 	$bug = array(
-		'name' => Clean($_POST['name'],50,1),
-		'env'  => Clean($_POST['env'],150,1),
-		'text' => Clean($_POST['text'],0,1),
+		'name' => clean($_POST['name'],50,1),
+		'env'  => clean($_POST['env'],150,1),
+		'text' => clean($_POST['text'],0,1),
 		'level'=> (int)$_POST['level']
 	);
 
@@ -85,12 +86,12 @@ if($_POST)
 				if(LOGD)
 				{
 					$bug['UID'] = UID;
-					$bug['who'] = $user[UID]['login'];
+					$bug['who'] = $user['login'];
 				}
 				else
 				{
 					$bug['UID'] = 0;
-					$bug['who'] = empty($_POST['who']) ? $lang['guest'] : Clean($_POST['who'],30,1);
+					$bug['who'] = empty($_POST['who']) ? $lang['guest'] : clean($_POST['who'],30,1);
 				}
 				$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'] + $cfg['antyFlood'];
 				$bug['ip'] = $_SERVER['REMOTE_ADDR'];
@@ -116,12 +117,12 @@ if($_POST)
 			#Gdy trzeba moderowaæ
 			if(!$id && isset($cfg['bugs_mod']))
 			{
-				$content->message($lang['queued'], '?co=bugs&id='.$newID);
+				$content->message($lang['queued'], url('bugs/'.$newID));
 			}
 			else
 			{
-				Header('Location: '.URL.'?co=bugs&id='.$newID);
-				$content->message($lang['saved'], '?co=bugs&id='.$newID);
+				header('Location: '.URL.url('bugs/'.$newID));
+				$content->message($lang['saved'], url('bugs/'.$newID));
 			}
 		}
 		catch(PDOException $e)

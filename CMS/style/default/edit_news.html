@@ -38,7 +38,7 @@
 <!-- TRE¦Æ -->
 <h2>{lang.text}</h2>
 <div class="box" style="text-align: center">
-	<textarea name="txt" rows="13" style="width: 100%">{Clean: news.txt}</textarea>
+	<textarea name="txt" rows="13" style="width: 100%">{clean: news.txt}</textarea>
 	<div style="margin-top: 7px">
 		<input type="button" value="{lang.preview}" onclick="P()" />
 		<input type="submit" name="sav" value="{lang.save}" />
@@ -49,17 +49,17 @@
 <div id="full" style="display: none">
 <h2>{lang.ftxt}</h2>
 <div class="box" style="text-align: center">
-	<textarea name="text" rows="18" style="width: 100%">{Clean: full}</textarea>
+	<textarea name="text" rows="18" style="width: 100%">{clean: full}</textarea>
 </div>
 </div>
 </form>
 
 <script type="text/javascript">
-<!--
 var f = document.forms['news'];
 var l = f.elements;
 var e = new Editor(l.txt);
 e.emots();
+e.protect();
 var done = l.fn.checked;
 
 if(l[0].value == 0) l[0].focus(); else l[1].focus();
@@ -81,5 +81,4 @@ function P()
 }
 if(done==1) FN(1);
 include('lib/forms.js')
--->
 </script>

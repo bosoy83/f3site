@@ -11,12 +11,12 @@ if($_POST)
 	{
 		if(isset($_POST['id'][$seq]))
 		{
-			$fix[] = array($seq, Clean($title), $_POST['id'][$seq]);
+			$fix[] = array($seq, clean($title), $_POST['id'][$seq]);
 			$all[] = (int)$_POST['id'][$seq];
 		}
 		else
 		{
-			$add[] = array($seq, Clean($title));
+			$add[] = array($seq, clean($title));
 		}
 	}
 	#Usuñ stare
@@ -46,7 +46,7 @@ if($_POST)
 			foreach($add as $x) $q -> execute($x);
 		}
 		$db->commit();
-		header('Location: '.URL.'adm.php?a=bugs');
+		header('Location: '.URL.url('bugs'));
 		return 1;
 	}
 	catch(PDOException $e)

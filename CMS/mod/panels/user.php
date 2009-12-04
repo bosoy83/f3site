@@ -5,19 +5,18 @@ if(iCMS!=1) exit;
 if(LOGD==1)
 {
 	echo
-	sprintf($lang['uwlogd'],'<a href="?co=user">'.$user[UID]['login'].'</a>').'<ul>'.
+	sprintf($lang['uwlogd'],'<a href="'.url('user').'">'.$user['login'].'</a>').'<ul>'.
 
 	((LEVEL > 1) ?
-	'<li><a href="?co=edit">'.$lang['mantxt'].'</a></li>' : '').
+	'<li><a href="'.url('edit').'">'.$lang['mantxt'].'</a></li>' : '').
 
 	((LEVEL > 2) ?
-	'<li><a href="adm.php">'.$lang['cpanel'].'</a></li>':'').
+	'<li><a href="admin">'.$lang['cpanel'].'</a></li>':'').
 
 	((isset($cfg['pmOn']))?
-	'<li><a href="?co=pms"'.(($user[UID]['pms']==0)?'>'.$lang['pms']
-	:' class="newpms"><b>'.$lang['pms'].' ('.$user[UID]['pms'].')</b>').'</a></li>':'').
+	'<li><a href="'.url('pms').'"'.(($user['pms']>0)?' class="newpms"><b>'.$lang['pms'].' ('.$user['pms'].')</b>':'>'.$lang['pms']).'</a></li>':'').
 
-	'<li><a href="?co=account">'.$lang['upanel'].'</a></li><li><a href="login.php?logout">'.$lang['logout'].'</a></li></ul>';
+	'<li><a href="'.url('account').'">'.$lang['upanel'].'</a></li><li><a href="login.php?logout">'.$lang['logout'].'</a></li></ul>';
 
 	return;
 }

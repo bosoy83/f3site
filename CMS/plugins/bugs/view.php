@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Prawa
-if(Admit('BUGS'))
+if(admit('BUGS'))
 {
 	$rights = 1;
 }
@@ -33,7 +33,7 @@ if(isset($cfg['bbcode']))
 
 #Data, autor
 $bug['date'] = genDate($bug['date']);
-$bug['who']  = $bug['UID'] ? Autor($bug['UID']) : $bug['who'];
+$bug['who']  = $bug['UID'] ? autor($bug['UID']) : $bug['who'];
 $bug['text'] = Emots(nl2br($bug['text']));
 $bug['level'] = $lang['L'.$bug['level']];
 $bug['status'] = $lang['S'.$bug['status']];

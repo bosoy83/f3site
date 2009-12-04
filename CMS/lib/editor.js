@@ -164,6 +164,17 @@ Editor.prototype.create = function()
 	};
 };
 
+//Chroń przed wyjściem
+Editor.prototype.protect = function(text)
+{
+	onbeforeunload = function()
+	{
+		if(e) e.returnValue = text||lang.leave;
+		return text||lang.leave
+	};
+	addEvent('submit', function() { onbeforeunload=undefined }, this.o.form)
+}
+
 //Emoty
 Editor.prototype.emots = function(x)
 {
@@ -299,7 +310,7 @@ Editor.prototype.link = function()
 		}
 		else
 		{
-			BBC(this.o, '<a href="'+url+'">', '</a>', title)
+			BBC(this.o, '<a href="'+encodeURI(url)+'">', '</a>', title)
 		}
 	}
 	else this.o.focus()

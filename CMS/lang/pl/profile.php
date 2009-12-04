@@ -1,10 +1,14 @@
 <?php
 $lang+=Array(
 'na'=>'-',
+'sex'=>'Płeć',
+'male'=>'Mężczyzna',
+'vague'=>'Nieokreślona',
+'female'=>'Kobieta',
 'joined'=>'Dołączył',
 'lastv'=>'Ostatnia wizyta',
 'isNow'=>'użytkownik przebywa na stronie',
-'ufrom'=>'Skąd?',
+'from'=>'Skąd',
 'wwwp'=>'Strona WWW',
 'mail'=>'Adres e-mail',
 'private'=>'prywatny',
@@ -39,7 +43,6 @@ $lang+=Array(
 'nousers'=>'Brak użytkowników',
 'group'=>'Grupa',
 'cont'=>' zawiera',
-'sort'=>'Sortuj według',
 
 'editor'=>'Redaktor',
 'locked'=>'Nieaktywny',
@@ -73,4 +76,5 @@ $lang+=Array(
 'badPass'=>'Hasło wpisane niepoprawnie. Sprawdź, czy nie zawiera niedozwolonych znaków oraz czy jego długość jest poprawna.',
 'mustPass'=>'Musisz podać swoje aktualne hasło, aby je zmienić!',
 'badLogin'=>'Login jest wpisany niepoprawnie. Sprawdź, czy jego długość jest poprawna.',
+'loginChar'=>'Login zawiera niedozwolone znaki.',
 );

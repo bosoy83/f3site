@@ -11,9 +11,9 @@ if($_POST)
 	#Dane
 	$link = array(
 	'cat' => (int)$_POST['cat'],
-	'dsc' => Clean($_POST['dsc']),
-	'adr' => Clean( str_replace(array('javascript:','vbscript:'),'',$_POST['adr']) ),
-	'name'=> Clean($_POST['name']),
+	'dsc' => clean($_POST['dsc']),
+	'adr' => clean( str_replace(array('javascript:','vbscript:'),'',$_POST['adr']) ),
+	'name'=> clean($_POST['name']),
 	'nw'  => isset($_POST['nw']),
 	'access'=> isset($_POST['access']),
 	'priority'=> (int)$_POST['priority'] );
@@ -39,8 +39,8 @@ if($_POST)
 		#Zatwierd¼
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=4' => $lang['add4'],
-			'?co=list&amp;act=4' => $lang['links'],
+			url('edit/4') => $lang['add4'],
+			url('list/4') => $lang['links'],
 			$link['adr'] => $link['name'])
 		);
 		unset($e,$link);
@@ -60,7 +60,7 @@ else
 		$link = $db->query('SELECT * FROM '.PRE.'links WHERE ID='.$id) -> fetch(2); //ASSOC
 
 		#Prawa
-		if(!$link || !Admit($link['cat'],'CAT'))
+		if(!$link || !admit($link['cat'],'CAT'))
 		{
 			return;
 		}

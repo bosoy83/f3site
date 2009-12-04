@@ -4,7 +4,7 @@ if(iCMS!=1) exit;
 #Konfiguracja
 require './cfg/gb.php';
 
-#Jêzyk
+#JÄ™zyk
 if(file_exists('./plugins/guestbook/lang/'.$nlang.'.php'))
 {
 	require './plugins/guestbook/lang/'.$nlang.'.php';
@@ -19,7 +19,7 @@ $content->dir = './plugins/guestbook/style/';
 $content->cache = './cache/guestbook/';
 $content->file = $cfg['gbSkin'];
 
-#Ksiêga wy³¹czona
+#KsiÄ™ga wyÅ‚Ä…czona
 if(!isset($cfg['gbOn']))
 {
 	$content->info($lang['disabled']);
@@ -27,9 +27,9 @@ if(!isset($cfg['gbOn']))
 }
 
 #Akcja
-if(isset($_GET['act']))
+if(isset($URL[1]))
 {
-	switch($_GET['act'])
+	switch($URL[1])
 	{
 		case 'post': require './plugins/guestbook/post.php'; break;
 		default: return;

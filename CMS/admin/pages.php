@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('P')) exit;
+if(iCMSa!=1 || !admit('P')) exit;
 require LANG_DIR.'admAll.php';
 
 #Usuñ / w³¹cz / wy³¹cz
@@ -15,7 +15,7 @@ if($_POST && $x = GetID(true))
 }
 
 #Info
-$content->info($lang['pageTip'], array('?a=editPage'=>$lang['addPage']));
+$content->info($lang['pageTip'], array(url('editPage','','admin')=>$lang['addPage']));
 
 #Odczyt
 $res = $db->query('SELECT ID,name,access FROM '.PRE.'pages ORDER BY ID DESC');
@@ -27,9 +27,10 @@ $pages = array();
 foreach($res as $page)
 {
 	$pages[] = array(
-		'id'  => $page[0],
-		'num' => ++$total,
-		'url' => '.?co=page&amp;id='.$page[0],
+		'id'    => $page[0],
+		'num'   => ++$total,
+		'url'   => url('page/'.$page[0]),
+		'edit'  => url('editPage/'.$page[0], '', 'admin'),
 		'title' => $page[1],
 		'access'=> $page[2]!=2 ? $lang['on2'] : $lang['off2']
 	);

@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('M')) exit;
+if(iCMSa!=1 || !admit('M')) exit;
 require './cfg/mail.php';
 require LANG_DIR.'admMail.php';
 
@@ -40,7 +40,7 @@ elseif(isset($_POST['txt']))
 	require './lib/mail.php';
 	$mail = new Mailer();
 	$mail->setSender($_POST['from'],$cfg['mail']);
-	$mail->topic = Clean($_POST['topic']);
+	$mail->topic = clean($_POST['topic']);
 	$mail->text  = $_POST['txt']."\r\n\r\n-----\r\n".$lang['candis'];
 
 	#Emoty
@@ -87,7 +87,7 @@ elseif(isset($_POST['next']))
 	$gr = Prepare($_POST['gr']);
 	if($lv && $gr)
 	{
-		$ile = db_count('users WHERE mails=1 AND lv IN('.$lv.') AND gid IN('.$gr.')');
+		$ile = dbCount('users WHERE mails=1 AND lv IN('.$lv.') AND gid IN('.$gr.')');
 	}
 	if($ile==0) $content->info($lang['nousnd']);
 }
@@ -110,7 +110,7 @@ if(isset($_POST['next']) && $ile>0)
 #START
 if(!$_POST)
 {
-	include './lib/user.php'; //Funkcje
+	include './lib/user.php';
 	$content->info($lang['apmm1']);
 	$content->data = array(
 		'levels' => LevelList('all',1),

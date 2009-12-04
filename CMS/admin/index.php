@@ -1,4 +1,5 @@
 <?php
+chdir('..');
 define('iCMS',1);
 define('iCMSa',1);
 require 'kernel.php';
@@ -40,21 +41,21 @@ function GetID($toStr=false, $array=null)
 #Menu boczne
 function MI($title,$url,$r,$c='plug')
 {
-	if(Admit($r)) return '<li class="a_'.$c.'"><a href="?a='.$url.'">'.$title.'</a></li>';
+	if(admit($r)) return '<li class="a_'.$c.'"><a href="'.url($url,'','admin').'">'.$title.'</a></li>';
 }
 
 #Modu³
-if(isset($_GET['a']))
+if(isset($URL[0]))
 {
-	$A = str_replace('/', '', $_GET['a']);
+	$A = str_replace('/', '', $URL[0]);
 	$A = str_replace('.', '', $A);
 	if(file_exists('./admin/'.$A.'.php'))
 	{
-		include './admin/'.$A.'.php';
+		(include './admin/'.$A.'.php') or $content->set404();
 	}
 	elseif(file_exists('./plugins/'.$A.'/admin.php'))
 	{
-		include './plugins/'.$A.'/admin.php';
+		(include './plugins/'.$A.'/admin.php') or $content->set404();
 	}
 	else
 	{

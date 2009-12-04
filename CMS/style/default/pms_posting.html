@@ -46,8 +46,10 @@
 
 <script type="text/javascript">
 f = document.forms['pm']
-new Editor(f.txt, 1).emots()
-f[0].focus()
+e = new Editor(f.txt, 1)
+e.emots()
+e.protect()
+if(f[0].value) f[1].focus(); else f[0].focus()
 </script>
 
 <!-- ELSE -->

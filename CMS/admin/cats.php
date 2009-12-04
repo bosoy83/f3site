@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('C')) exit;
+if(iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 
 #Przelicz ilo¶æ
@@ -18,13 +18,13 @@ if(isset($_GET['count']))
 
 #Informacja
 $content->info($lang['dinfo'], array(
-	'?a=editCat' => $lang['addCat'],
-	'?a=cats&amp;count' => $lang['count']
+	url('editCat', '', 'admin') => $lang['addCat'],
+	url('cats/count','','admin') => $lang['count']
 ) );
 
 #Odczyt
 $res = $db->query('SELECT ID,name,access,type,num,lft,rgt FROM '.PRE.'cats'
-	.((isset($_GET['co']))?' WHERE type='.(int)$_GET['co']:'').' ORDER BY lft');
+	.(isset($URL[1]) ? ' WHERE type='.(int)$URL[1] : '').' ORDER BY lft');
 
 #Typy i struktura
 $types = array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
@@ -57,11 +57,15 @@ foreach($res as $cat)
 		'id'   => $cat['ID'],
 		'name' => $cat['name'],
 		'type' => $types[$cat['type']],
-		'url'  => '.?co=list&amp;act='.$cat['type'].'&amp;id='.$cat['ID'],
 		'num'  => $cat['num'],
+		'url'  => url('list/'.$cat['type'].'/'.$cat['ID']),
+		'edit' => url('editCat/'.$cat['ID'], '', 'admin'),
 		'depth'=> $depth,
 		'disp' => $a,
 	);
 }
 
-$content->data['cat'] = $cats;
+$content->data = array(
+	'cat' => $cats,
+	'url' => url('editCats', '', 'admin')
+);

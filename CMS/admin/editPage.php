@@ -1,17 +1,35 @@
 <?php
-if(iCMSa!=1 || !Admit('P')) exit;
+if(iCMSa!=1 || !admit('P')) exit;
 require LANG_DIR.'admAll.php';
+
+#Tytu³ strony
+$content->title = $id ? $lang['editPage'] : $lang['addPage'];
 
 #Zapis
 if($_POST)
 {
-	#Dane, OPCJE: 1 - BR, 2 - emoty, 4 - w tabeli, 8 - komentarze, 16 - PHP
+	#Dziel linie
+	$o = isset($_POST['o1']);
+
+	#Emoty
+	isset($_POST['o2']) && $o |= 2;
+
+	#Na warstwie
+	isset($_POST['o3']) && $o |= 4;
+
+	#Komentarze
+	isset($_POST['o4']) && $o |= 8;
+
+	#PHP
+	isset($_POST['o5']) && $o |= 16;
+
+	#Dane
 	$page = array(
-		'text'	=> &$_POST['txt'],
-		'access'=> Clean($_POST['access']),
-		'name'	=> Clean($_POST['name']),
-		'opt' 	=> (isset($_POST['o1'])?1:0) + (isset($_POST['o2'])?2:0) + (isset($_POST['o3'])?4:0) +
-		(isset($_POST['o4'])?8:0) + (isset($_POST['o5'])?16:0) );
+	'text'	=> &$_POST['txt'],
+	'access'=> clean($_POST['access']),
+	'name'	=> clean($_POST['name']),
+	'opt' 	=> $o
+	);
 
 	try
 	{
@@ -32,9 +50,9 @@ if($_POST)
 		if(!$id) $id = $db->lastInsertId();
 
 		$content->info($lang['saved'], array(
-			'.?co=page&amp;id='.$id   => $lang['goto'],
-			'?a=editPage&amp;id='.$id => $lang['edit'],
-			'?a=editPage' => $lang['addPage'] ));
+			url('page/'.$id) => $lang['goto'],
+			url('editPage/'.$id, '', 'admin') => $lang['edit'],
+			url('editPage', '', 'admin') => $lang['addPage'] ));
 		return 1;
 	}
 	catch(PDOException $e)
@@ -61,7 +79,6 @@ else
 $content->addScript(LANG_DIR.'edit.js');
 $content->addScript('cache/emots.js');
 $content->addScript('lib/editor.js');
-$content->title = $id ? $lang['editPage'] : $lang['addPage'];
 $content->data = array(
 	'page' => &$page,
 	'o1'   => $page['opt']&1,

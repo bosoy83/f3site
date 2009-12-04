@@ -3,7 +3,7 @@
 <tbody>
 <tr>
 	<th style="min-width: 150px"><a href="{login_url}">{lang.login}</a></th>
-	<th><a href="{last_url}">{lang.lastv}</a></th>
+	<th><a href="{last_url}">{lang.from}</a></th>
 	<th><a href="{joined_url}">{lang.joined}</a></th>
 	<th>{lang.range}</th>
 </tr>
@@ -12,7 +12,7 @@
 
 <tr>
 	<td>{num}. <a href="{url}">{login}</a></td>
-	<td align="center">{last}</td>
+	<td align="center">{city}</td>
 	<td align="center">{date}</td>
 	<td align="center">{level}</td>
 </tr>
@@ -22,7 +22,7 @@
 <tr class="eth">
 	<td style="font-weight: normal">
 		<!-- IF find -->
-		<a href="#" onclick="var f=document.forms.sf;show(f);f.sl.focus()">{lang.search} &raquo;</a>
+		<a href="#" onclick="return showFind()">{lang.search} &raquo;</a>
 		<!-- END -->
 	</td>
 	<td colspan="3">{lang.page}: {pages}</td>
@@ -42,7 +42,7 @@
 			<input name="sl" maxlength="40" value="{find_login}" /></label>
 		</td>
 		<td>
-			<label>{lang.ufrom}<br />
+			<label>{lang.from}<br />
 			<input name="pl" maxlength="50" value="{find_place}" /></label>
 		</td>
 	</tr>
@@ -60,8 +60,16 @@
 	<input type="submit" value="OK" />
 </div>
 <input type="hidden" name="id" value="{id}" />
-<input type="hidden" name="co" value="users" />
-<script type="text/javascript">show('sf')</script>
 </form>
+<script type="text/javascript">
+function showFind()
+{
+	var f = document.forms.sf;
+	show(f);
+	f.sl.focus();
+	return false
+}
+show('sf')
+</script>
 
 <!-- END -->

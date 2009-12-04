@@ -1,1 +1,1 @@
-<?php $cfg+=array('reg'=>1,'mailban'=>array(),'nickban'=>array('0'=>'admin','1'=>'moderator',),'actmeth'=>1,'upload'=>1,'maxSize'=>30,'maxDim1'=>80,'maxDim2'=>80,);
+<?php $cfg+=array('reg'=>1,'mailban'=>array(),'nickban'=>array('0'=>'admin','1'=>'moderator',),'logins'=>2,'actmeth'=>1,'upload'=>1,'maxDim1'=>80,'maxDim2'=>80,'maxSize'=>30,);

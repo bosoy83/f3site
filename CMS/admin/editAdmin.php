@@ -1,7 +1,10 @@
 <?php
-if(iCMSa!=1 || !Admit('U') || !$id || $id==UID) exit($lang['noex']);
+if(iCMSa!=1 || !admit('U')) return;
 require LANG_DIR.'rights.php';
 require LANG_DIR.'profile.php';
+
+#Brak uprawnieñ
+if(!$id || $id < 1 || ($id == UID && LEVEL != 4)) return;
 
 #Uprawnienia
 $set = array(
@@ -24,25 +27,22 @@ $set = array(
 	'+' 	//Globalny redaktor
 );
 
-#Pobierz u¿ytkownika
+#Pobierz u¿ytkownika - FETCH_NUM
 $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
-	((LEVEL!=4)?' && lv!=4':'')) -> fetch(3); //FETCH_NUM
+	((LEVEL!=4) ? ' && lv!=4' : '')) -> fetch(3);
 
-#Brak uprawnieñ?
-if(!$adm OR (UID != 1 && $adm[1] >= LEVEL))
-{
-	return;
-}
+#Brak uprawnieñ
+if(!$adm OR (LEVEL != 4 && $adm[1] >= LEVEL)) return;
 
-#Pobierz wtyczki
-$plug1 = $db->query('SELECT ID,text FROM '.PRE.'admmenu WHERE rights=1') -> fetchAll(3); //NUM
+#Pobierz wtyczki - FETCH_NUM
+$plug1 = $db->query('SELECT ID,text FROM '.PRE.'admmenu WHERE rights=1')->fetchAll(3);
 
 #Pobierz kategorie
 $cats1 = $db->query('SELECT ID,name,c.type,CatID FROM '.PRE.'cats c LEFT JOIN '.PRE.'acl a
 	ON c.ID=a.CatID AND a.type="CAT" AND a.UID='.$id.' ORDER BY c.type') -> fetchAll(3);
 
 #Tytu³ strony
-$content->title = $lang['editAdm'].' - '.$adm[0];
+$content->title = sprintf('%s - %s', $lang['editAdm'], $adm[0]);
 
 #Zapis
 if($_POST)
@@ -51,13 +51,11 @@ if($_POST)
 	$lv = (int)$_POST['lv'];
 
 	#Mo¿e zmieniæ w³a¶ciciela?
-	if(LEVEL!=4 && ($lv>3 OR $lv<0))
-	{
-		return;
-	}
+	if(LEVEL!=4 && ($lv>3 OR $lv<0)) return;
 
-	$glo = array(); //Globalne
-	$new = array(); //Nowe prawa
+	#Globalne i nowe uprawnienia
+	$glo = array();
+	$new = array();
 	foreach($set as $x)
 	{
 		if(isset($_POST[$x])) $glo[] = $x;
@@ -67,8 +65,6 @@ if($_POST)
 		if(isset($_POST[$x[0]])) $glo[] = $x[0];
 	}
 	$checked = isset($_POST['c']) ? join(',', array_map('intval',$_POST['c'])) : ''; //Wybrane
-
-	#Start transakcji
 	try
 	{
 		$db->beginTransaction();
@@ -126,7 +122,7 @@ $cats = '';
 $type = 0;
 foreach($cats1 as &$x)
 {
-	if($x[2]>$type) //Inny typ
+	if($x[2] > $type) //Inny typ
 	{
 		if($type!=0) $cats .= '</fieldset>';
 		$cats .= '<fieldset><legend>'.$lang['cats'].': '.$lang[ typeOf($x[2]) ].'</legend>';
@@ -138,7 +134,7 @@ foreach($cats1 as &$x)
 if($cats!='') $cats.='</fieldset>';
 
 $content->data = array(
-	'owner' => LEVEL==4 ? true : false,
+	'owner' => LEVEL==4,
 	'lv'    => $lv,
 	'cats'  => &$cats,
 	'plugins' => &$plugins,

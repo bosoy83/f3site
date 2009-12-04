@@ -42,7 +42,7 @@
 
 	<!-- START full -->
 	<div id="p{0}">
-	<textarea name="txt[]" style="width: 100%" cols="50" rows="20">{Clean: 1}</textarea>
+	<textarea name="txt[]" style="width: 100%" cols="50" rows="20">{clean: 1}</textarea>
 	<fieldset>
 		<legend>{lang.opt}</legend>
 		<label><input type="checkbox" name="emo[]" f3:var="i1.emo" /> {lang.emo}</label>
@@ -73,6 +73,7 @@ num = area.length,
 cur = 1,
 e = new Editor(they.firstChild);
 e.o = f[6];
+e.protect();
 
 for(i=1;i<=area.length;++i)
 {

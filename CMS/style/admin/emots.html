@@ -27,7 +27,7 @@
 </form>
 
 <div id="tpl" style="display: none; text-align: center">
-	<img src="img/emo/{1}" alt="E" />
+	<img src="" alt="E" />
   {lang.desc}: <input maxlength="30" name="dsc[]" />
   {lang.txt}: <input maxlength="10" name="txt[]" style="width: 70px" />
   {lang.file}: <select name="file[]" onchange="Pr(this)">
@@ -48,6 +48,7 @@ for(var i=0;i<l;++i)
 	x[i].getElementsByTagName('select')[0].value = x[i].getElementsByTagName('img')[0].attributes['src'].value.substring(8)
 }
 f = new Fragment('items',{depth:1,html:$('tpl')});
-function Pr(x){x.parentNode.getElementsByTagName('img')[0].src='img/emo/'+x.value}
+function Pr(x) { x.parentNode.getElementsByTagName('img')[0].src = 'img/emo/'+x.value }
+$('tpl').getElementsByTagName('img')[0].src = $('items').getElementsByTagName('img')[0].src;
 //]]>
 </script>

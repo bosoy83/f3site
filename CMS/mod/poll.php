@@ -2,18 +2,19 @@
 if(iCMS!=1) exit;
 
 #Pobierz
-if($id):
-	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$id) -> fetch(2);
-else:
+if(isset($URL[1]) && is_numeric($URL[1]))
+{
+	if(!$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$URL[1]) -> fetch(2)) return;
+}
+elseif(file_exists('./cache/poll_'.$nlang))
+{
 	require('./cache/poll_'.$nlang);
-	$id = $poll['ID'];
-endif;
-
-#Brak?
-if(!$poll) return;
+}
+else return;
 
 #Tytu³ strony
 $content->title = $poll['name'];
+$id = $poll['ID'];
 
 #Bez g³osów?
 if($poll['num'] == 0)
@@ -48,12 +49,13 @@ foreach($option as &$o)
 #Szablon
 $content->data = array(
 	'poll' => &$poll,
-	'item' => &$item
+	'item' => &$item,
+	'archive' => url('polls')
 );
 
 #Komentarze
 if(isset($cfg['pollComm']))
 {
-	define('CT','15');
 	include './lib/comm.php';
+	comments($id, 15);
 }

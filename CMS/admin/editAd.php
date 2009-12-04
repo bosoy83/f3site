@@ -1,11 +1,11 @@
 <?php
-if(iCMSa!=1 || !Admit('B')) exit;
+if(iCMSa!=1 || !admit('B')) exit;
 
 #Zapis
 if($_POST)
 {
 	$ad = array(
-		'name' => Clean($_POST['name']),
+		'name' => clean($_POST['name']),
 		'code' => $_POST['code'],
 		'ison' => (int)$_POST['ison'],
 		'gen'  => (int)$_POST['gen'] ); //Dane
@@ -55,7 +55,4 @@ $content->addScript('lib/editor.js');
 
 #Tytu³ i dane
 $content->title = $id ? $lang['editAd'] : $lang['addAd'];
-$content->data = array(
-	'ad'  => &$ad,
-	'url' => '?a=editAd'.($id ? '&amp;id='.$id : '')
-);
+$content->data = array('ad' => &$ad);

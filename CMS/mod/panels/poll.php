@@ -47,7 +47,7 @@ foreach($option as $o)
 
 echo '</div><div style="text-align: center">
 	<input type="submit" value="OK" name="poll" />
-	<input type="button" value="'.$lang['results'].'" onclick="location=\'?co=poll&amp;id='.$poll['ID'].'\'" />
+	<input type="button" value="'.$lang['results'].'" onclick="location=\'poll/'.$poll['ID'].'\'" />
 </div>
 </form>';
 

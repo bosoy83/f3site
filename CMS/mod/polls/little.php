@@ -21,6 +21,6 @@ foreach($item as &$o)
 </tbody>
 </table>
 <div align="center" style="padding: 2px">
-	<input type="button" value="<?=$lang['results']?>" onclick="location='?co=poll&amp;id=<?=$poll['ID']?>'" />
-	<input type="button" value="<?=$lang['archive']?>" onclick="location='?co=polls'" />
+	<input type="button" value="<?=$lang['results']?>" onclick="location='<?=url('poll/'.$poll['ID'])?>'" />
+	<input type="button" value="<?=$lang['archive']?>" onclick="location='<?=url('polls')?>'" />
 </div>

@@ -1,6 +1,9 @@
 <?php
 if(iCMS!=1) exit;
 
+#ID wpisu
+$id = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
+
 #Szablon
 $content->title = $id ? $lang['editPost'] : $lang['sign'];
 $content->file = 'posting';
@@ -18,7 +21,7 @@ $error = array();
 $preview = null;
 
 #Nie może postować
-if($id && !Admit('GB'))
+if($id && !admit('GB'))
 {
 	$error[] = $lang['mayNot'];
 }
@@ -39,15 +42,15 @@ if($_POST)
 {
 	#Dane
 	$post = array(
-		'who'   => empty($_POST['who']) ? $lang['gall'] : Clean($_POST['who'], 40, 1),
+		'who'   => empty($_POST['who']) ? $lang['gall'] : clean($_POST['who'], 40, 1),
 		'mail'  => filter_input(0, 'mail', 274), //FILTER_VALIDATE_EMAIL
-		'www'   => Clean(str_replace(array('javascript:','vbscript:'),'',$_POST['www']), 70, 1),
+		'www'   => clean(str_replace(array('javascript:','vbscript:'),'',$_POST['www']), 70, 1),
 		'gg'    => (int)$_POST['gg'],
 		'icq'   => (int)$_POST['icq'],
-		'tlen'  => Clean($_POST['tlen'], 30),
-		'skype' => Clean($_POST['skype'], 32),
-		'jabber'=> Clean($_POST['jabber'], 80),
-		'txt'   => Clean($_POST['txt'], 0, 1)
+		'tlen'  => clean($_POST['tlen'], 30),
+		'skype' => clean($_POST['skype'], 32),
+		'jabber'=> clean($_POST['jabber'], 80),
+		'txt'   => clean($_POST['txt'], 0, 1)
 	);
 
 	#Gdy goście nie mogą wstawiać linków
@@ -64,7 +67,7 @@ if($_POST)
 	{
 		$post['www'] = '';
 	}
-	elseif(strpos($post['www'], 'http://') !== 0)
+	elseif(strpos($post['www'], 'http://') !== 0 && strpos($post['www'], 'https://') !== 0)
 	{
 		$post['www'] = (strpos($post['www'], 'www.') === 0) ? 'http://'.$post['www'] : '';
 	}
@@ -117,7 +120,7 @@ if($_POST)
 					$post['lang'] = $nlang;
 					$post['date'] = $_SERVER['REQUEST_TIME'];
 					$post['ip']  =  $_SERVER['REMOTE_ADDR'];
-					$post['uid'] = (LOGD && $post['who'] === $user[UID]['login']) ? UID : 0;
+					$post['uid'] = (LOGD && $post['who'] === $user['login']) ? UID : 0;
 				}
 				$q->execute($post);
 
@@ -125,7 +128,7 @@ if($_POST)
 				$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'];
 
 				#Przekieruj do księgi
-				header('Location: '.URL.'?co=guestbook');
+				header('Location: '.URL.url('guestbook'));
 
 				#Gdy przekierowanie nie nastąpi
 				$content->message($lang['saved']);
@@ -140,7 +143,7 @@ if($_POST)
 	#Podgląd
 	elseif(!$error)
 	{
-		$preview = nl2br(Emots($post['txt']));
+		$preview = nl2br(emots($post['txt']));
 		if(isset($cfg['bbcode']))
 		{
 			include './lib/bbcode.php';
@@ -162,7 +165,7 @@ elseif($id)
 else
 {
 	$post = array(
-		'who'   => LOGD ? $user[UID]['login'] : '',
+		'who'   => LOGD ? $user['login'] : '',
 		'mail'  => '',
 		'www'   => 'http://',
 		'gg'    => '',

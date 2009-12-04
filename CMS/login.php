@@ -17,7 +17,7 @@ if(isset($_GET['logout']) && LOGD==1)
 #Rejestruj?
 elseif(isset($_POST['reg']))
 {
-	header('Location: '.URL.'?co=account');
+	header('Location: '.URL.url('account'));
 	exit;
 }
 
@@ -25,8 +25,8 @@ elseif(isset($_POST['reg']))
 elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 {
 	#Wpisane dane
-	$login = Clean($_POST['u'],30);
-	$pass  = Clean($_POST['p'],30);
+	$login = clean($_POST['u'],30);
+	$pass  = clean($_POST['p'],30);
 	$md5   = md5($pass);
 
 	#Pobierz dane
@@ -63,7 +63,7 @@ elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
 		{
 			unset($_SESSION['online']);
 		}
-		$content->message(1, $from ? $from.'.php' : '.');
+		$content->message(1, $from ? $from : '.');
 	}
 	else
 	{

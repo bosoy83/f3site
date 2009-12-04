@@ -2,4 +2,4 @@ Zamieszczona wersja F3Site w katalogu CMS jest wersją roboczą, aktualizowaną 
 
 Możesz przyłączyć się do tworzenia projektu. Odwiedź stronę http://compmaster.prv.pl, aby dowiedzieć się więcej. Informacje o brakujących funkcjach lub modułach będą też zamieszczane w tym pliku.
 
-Na serwerze SVN znajdują się pliki .htaccess w głównym katalogu oraz CFG. Na niektórych konfiguracjach serwera mogą powodować problemy z wyświetleniem strony.
+Na serwerze SVN znajdują się pliki .htaccess w głównym katalogu, ADMIN oraz CFG. Na niektórych konfiguracjach serwera mogą powodować problemy z wyświetleniem strony.

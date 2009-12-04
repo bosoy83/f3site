@@ -19,7 +19,7 @@ if($_POST && $x = GetID(true))
 		if($_POST['acc'] != 'N')
 		{
 			$s[] = 'see=?';
-			$b[] = Clean($_POST['ch_a']);
+			$b[] = clean($_POST['ch_a']);
 		}
 		if($s)
 		{
@@ -72,7 +72,7 @@ foreach($res as $x)
 if($num > 0)
 {
 	$sect = $db->query('SELECT ID,title FROM '.PRE.'bugsect ORDER BY seq')->fetchAll(2);
-	$lng  = ListBox('lang',1,'');
+	$lng  = listBox('lang',1,'');
 }
 else
 {

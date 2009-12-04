@@ -249,6 +249,7 @@ CREATE TABLE IF NOT EXISTS `{pre}users` (
 `login` varchar(50) UNIQUE NOT NULL,
 `pass` char(32) NOT NULL,
 `mail` varchar(80) NOT NULL,
+`sex` tinyint(1) NOT NULL DEFAULT 0,
 `opt` tinyint(2) NOT NULL DEFAULT 2,
 `gid` int(11) NOT NULL DEFAULT 1,
 `lv` tinyint(1) NOT NULL DEFAULT 1,

@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('DB')) exit;
+if(iCMSa!=1 || !admit('DB')) exit;
 require LANG_DIR.'admAll.php';
 
 #Tytu³ strony

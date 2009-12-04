@@ -2,7 +2,7 @@
 if(iCMSa!=1) exit;
 require LANG_DIR.'admAll.php'; //Jêzyk
 
-#Tytu³ strony
+#Tytu³ strony i ID
 $content->title = $id ? $lang['editPoll'] : $lang['addPoll'];
 
 #Zapis
@@ -10,11 +10,11 @@ if($_POST)
 {
 	#Dane
 	$poll = array(
-		'name' => Clean($_POST['name']),
-		'q'    => Clean($_POST['q']),
-		'ison' => (int)$_POST['ison'],
-		'type' => (int)$_POST['type'],
-		'access' => ctype_alpha($_POST['access']) ? $_POST['access'] : $nlang
+	'q'      => clean($_POST['q']),
+	'name'   => clean($_POST['name']),
+	'ison'   => (int)$_POST['ison'],
+	'type'   => (int)$_POST['type'],
+	'access' => ctype_alpha($_POST['access']) ? $_POST['access'] : $nlang
 	);
 
 	$num  = count($_POST['an']);
@@ -26,11 +26,11 @@ if($_POST)
 	{
 		if(!$id || empty($_POST['id'][$i]))
 		{
-			$an[] = array(null, Clean($_POST['an'][$i]));
+			$an[] = array(null, clean($_POST['an'][$i]));
 		}
 		else
 		{
-			$an[] = array( (int)$_POST['id'][$i], Clean($_POST['an'][$i]) );
+			$an[] = array( (int)$_POST['id'][$i], clean($_POST['an'][$i]) );
 			$keep[] = (int)$_POST['id'][$i];
 		}
 	}
@@ -43,8 +43,9 @@ if($_POST)
 		#Edycja + usuñ zlikwidowane odpowiedzi
 		if($id)
 		{
+			$poll['ID'] = $id;
 			$q = $db->prepare('UPDATE '.PRE.'polls SET name=:name, q=:q, ison=:ison,
-				type=:type, access=:access WHERE ID='.$id);
+				type=:type, access=:access WHERE ID=:id');
 			$db->exec('DELETE FROM '.PRE.'answers WHERE ID NOT IN ('.join(',',$keep).') AND IDP='.$id);
 		}
 		#Nowy
@@ -84,9 +85,9 @@ if($_POST)
 		#ZatwierdŸ
 		$db->commit();
 		$content->info($lang['saved'], array(
-			'?a=editPoll' => $lang['addPoll'],
-			'?a=editPoll&amp;id='.$id => $lang['editPoll'],
-			'.?co=poll&amp;id='.$id => $poll['name']));
+			url('editPoll', '', 'admin') => $lang['addPoll'],
+			url('editPoll/'.$id, '', 'admin') => $lang['editPoll'],
+			url('poll/'.$id) => $poll['name']));
 		return 1;
 	}
 	catch(Exception $e)
@@ -110,8 +111,7 @@ else
 #Szablon
 $content->addScript('lib/forms.js');
 $content->data = array(
-	'url'  => '?a=editPoll'.(($id) ? '&amp;id='.$id : ''),
-	'langs'=> ListBox('lang', 1, ($id) ? $poll['access'] : $nlang),
+	'langs'=> listBox('lang', 1, $id ? $poll['access'] : $nlang),
 	'poll' => &$poll,
 	'item' => &$an
 );

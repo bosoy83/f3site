@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('U')) exit;
+if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'rights.php';
 
 #Odczyt
@@ -25,13 +25,12 @@ foreach($res as $adm)
 		default: $lv = 'ERR!';
 	}
 	$adms[] = array(
-		'url'   => '.?co=user&amp;id='.$adm[0],
+		'url'   => url('user/'.urlencode($adm[1])),
 		'rights'=> str_replace('|',' ',$adm[3]),
 		'level' => $lv,
 		'login' => $adm[1],
-		'allow' => $adm[0] != UID && (UID == 1 OR $adm[2] < LEVEL),
-		'url1'  => '?a=editAdmin&amp;id='.$adm[0],
-		'url2'  => '?a=editUser&amp;id='.$adm[0],
+		'url1'  => $adm[2] < LEVEL || LEVEL == 4 ? url('editAdmin/'.$adm[0], '', 'admin') : false,
+		'url2'  => $adm[2] < LEVEL || LEVEL == 4 ? url('editUser/'.$adm[0], '', 'admin') : false,
 	);
 }
 

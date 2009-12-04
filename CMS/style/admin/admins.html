@@ -14,8 +14,11 @@
 	<td align="center">{level}</td>
 	<td align="center">{rights}</td>
 	<td align="center">
-		<!-- IF allow -->
-		<a href="{url1}">{lang.privs}</a> &middot; <a href="{url2}">{lang.profile}</a>
+		<!-- IF url1 -->
+		<a href="{url1}">{lang.privs}</a> &middot;
+		<!-- END -->
+		<!-- IF url2 -->
+		<a href="{url2}">{lang.profile}</a>
 		<!-- END -->
 	</td>
 </tr>

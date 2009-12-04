@@ -1,4 +1,4 @@
-<form action="?a=editCats" method="post">
+<form action="{url}" method="post">
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
@@ -18,7 +18,7 @@
 	<td>{id}</td>
 	<td>{disp}</td>
 	<td>{type}</td>
-	<td><a href="adm.php?a=editCat&amp;id={id}">{lang.edit}</a></td>
+	<td><a href="{edit}">{lang.edit}</a></td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->

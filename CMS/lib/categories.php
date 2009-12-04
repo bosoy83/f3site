@@ -52,7 +52,7 @@ function Latest($lang=array())
 
 			$got = '';
 			$cur = &$data[$t];
-			$url = isset($cur['name']) ? '?co='.$cur['name'].'&amp;id=' : '';
+			$url = isset($cur['name']) ? url($cur['name'].'/') : '';
 
 			foreach($res as $x)
 			{
@@ -91,7 +91,7 @@ function RSS($id = null, $cat = null)
 				'text'  => $item['opt'] & 1 ? nl2br($item['txt']) : $item['txt'],
 				'cat'   => $item['cat'],
 				'date'  => $item['date'],
-				'url'   => URL . '?co=news&id=' . $item['ID']
+				'url'   => URL . 'news/' . $item['ID']
 			));
 		}
 		$rss->save('rss/'.$x[0].'.xml');
@@ -119,10 +119,10 @@ function UpdateCatPath($cat)
 		$res -> setFetchMode(3);
 		foreach($res as $c)
 		{
-			$out.= '<a href="?d='.$c[0].'">'.$c[1].'</a> &raquo; ';
+			$out.= '<a href="'.url($c[0]).'">'.$c[1].'</a> &raquo; ';
 		}
 	}
-	$out.= '<a href="?d='.$cat['ID'].'">'.$cat['name'].'</a>';
+	$out.= '<a href="'.url($cat['ID']).'">'.$cat['name'].'</a>';
 
 	#Zapisz
 	file_put_contents('./cache/cat'.$cat['ID'].'.php', $out, 2);
@@ -157,7 +157,7 @@ function Slaves($type=0,$id=0,$o=null)
 	if(is_numeric($o)) $where[]='ID!='.$o;
 
 	#Prawa i typ
-	if(LEVEL!=4 && !$where && !Admit('+'))
+	if(LEVEL!=4 && !$where && !admit('+'))
 	{
 		$where[] = 'ID IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID.')';
 	}
@@ -205,7 +205,7 @@ function CountItems()
 		for($i=0; $i<$ile; ++$i)
 		{
 			$id = $cat[$i][0];
-			$num[$id] = db_count(typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access=1');
+			$num[$id] = dbCount(typeOf($cat[$i][1]).' WHERE cat='.$id.' AND access=1');
 
 			#ID kategorii nadrzędnej
 			$sub[$id] = $cat[$i][3];

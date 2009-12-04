@@ -1,15 +1,3 @@
-<script type="text/javascript">
-function de(o)
-{
-	if(confirm('{lang.delc}'))
-	{
-		send(o);
-		o.value = '...';
-	}
-	return false;
-}
-</script>
-
 <form action="" method="post">
 <h2>{lang.ipages}</h2>
 
@@ -28,7 +16,7 @@ function de(o)
   <td>{num}. <a href="{url}">{title}</a></td>
   <td align="center">{id}</td>
   <td align="center">{access}</td>
-  <td align="center"><a href="?a=editPage&amp;id={id}">{lang.edit}</a></td>
+  <td align="center"><a href="{edit}">{lang.edit}</a></td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->
@@ -40,3 +28,15 @@ function de(o)
 	<input type="submit" name="del" value="{lang.del}" onclick="return de(this)" />
 </div>
 </form>
+
+<script type="text/javascript">
+function de(o)
+{
+	if(confirm('{lang.delc}'))
+	{
+		send(o);
+		o.value = '...';
+	}
+	return false;
+}
+</script>

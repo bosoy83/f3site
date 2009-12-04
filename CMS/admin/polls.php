@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('Q')) exit;
+if(iCMSa!=1 || !admit('Q')) exit;
 require LANG_DIR.'admAll.php';
 
 #Operacje
@@ -11,7 +11,7 @@ if($_POST)
 }
 
 #Info
-$content->info($lang['ipoll'], array('?a=editPoll'=>$lang['addPoll']));
+$content->info($lang['ipoll'], array(url('editPoll','','admin')=>$lang['addPoll']));
 
 #Odczyt
 $res = $db->query('SELECT ID,name,num,access FROM '.PRE.'polls ORDER BY ID DESC');
@@ -25,7 +25,8 @@ foreach($res as $x)
 {
 	$polls[] = array(
 		'num'  => ++$total,
-		'url'  => '.?co=poll&amp;id='.$x[0],
+		'url'  => url('poll/'.$x[0]),
+		'edit' => url('editPoll/'.$x[0], '', 'admin'),
 		'id'   => $x[0],
 		'title'  => $x[1],
 		'votes'  => $x[2],

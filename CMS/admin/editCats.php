@@ -1,5 +1,5 @@
 <?php
-if(!$_POST || iCMSa!=1 || !Admit('C')) exit;
+if(!$_POST || iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
@@ -50,7 +50,7 @@ if(isset($_POST['del']) && $x = GetID(1))
 		RebuildTree();
 		CountItems();
 		$db->commit();
-		Header('Location: '.URL.'adm.php?a=cats');
+		header('Location: '.URL.url('cats', '', 'admin'));
 	}
 	else
 	{
@@ -68,4 +68,8 @@ if(isset($_POST['del']) && $x = GetID(1))
 	$content->title = $lang['delCat'];
 }
 
-else exit;
+else
+{
+	header('Location: '.URL.url('cats'));
+	$content->info($lang['nocats']);
+}

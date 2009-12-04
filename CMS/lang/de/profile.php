@@ -1,10 +1,14 @@
 <?php
 $lang+=Array(
 'na'=>'-',
+'sex'=>'Gender',
+'male'=>'Männlich',
+'vague'=>'Unspezifiziert',
+'female'=>'Weiblich',
 'joined'=>'Registriert seit',
 'lastv'=>'Letzter Besuch',
 'isNow'=>'online',
-'ufrom'=>'Wohnort',
+'from'=>'Wohnort',
 'wwwp'=>'Homepage',
 'mail'=>'E-Mail',
 'private'=>'privat',
@@ -73,4 +77,5 @@ $lang+=Array(
 'badPass'=>'Passwort ist inkorrekt. Möglicherweise es enthält verboten Zeichen oder ist zu kurz.',
 'mustPass'=>'Du musst dein aktuelle Passwort eingeben um es zu ändern!',
 'badLogin'=>'Login ist inkorrekt. Möglicherweise es ist zu kurz / lang.',
+'loginChar'=>'Login hat inkorrekte Zeichen.',
 );

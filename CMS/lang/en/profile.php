@@ -1,10 +1,14 @@
 <?php
 $lang+=Array(
 'na'=>'N/A',
+'sex'=>'Gender',
+'male'=>'Male',
+'vague'=>'Not specified',
+'female'=>'Kobieta',
 'joined'=>'Joined',
 'lastv'=>'Last visit',
 'isNow'=>'user is online',
-'ufrom'=>'From',
+'from'=>'From',
 'wwwp'=>'Website',
 'mail'=>'E-mail address',
 'private'=>'private',
@@ -72,4 +76,5 @@ $lang+=Array(
 'badPass'=>'Password contains illegal characters or is too short / too long.',
 'mustPass'=>'You must type your current password in order to change it!',
 'badLogin'=>'Login is incorrect. Check if its length is proper.',
+'loginChar'=>'Login contains incorrect characters.',
 );

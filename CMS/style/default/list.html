@@ -78,6 +78,6 @@
 function S()
 {
 	var a = prompt("{lang.searp}")
-	if(a) location="?co=list&act={act}&find="+a
+	if(a) location = location.pathname + "?find=" + a
 }
 </script>

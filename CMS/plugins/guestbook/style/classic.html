@@ -5,9 +5,9 @@
 <div style="white-space: pre-wrap">{intro}</div>
 <!-- END -->
 
-<!-- IF mayPost -->
+<!-- IF postURL -->
 <ul class="go">
-	<li><a href="?co=guestbook&amp;act=post">{lang.sign}</a></li>
+	<li><a href="{postURL}">{lang.sign}</a></li>
 </ul>
 <!-- END -->
 
@@ -45,7 +45,7 @@
 
 		<!-- IF edit -->
 		<div style="float: right">
-			<a href="?co=guestbook&amp;act=post&amp;id={id}" title="{lang.edit}">
+			<a href="{edit}" title="{lang.edit}">
 				<img src="img/icon/edit.png" alt="E" />
 			</a>
 			<input type="checkbox" name="x[{id}]" />
@@ -54,7 +54,7 @@
 
 		<!-- IF gg -->
 		<a href="gg:{gg}" title="Gadu-Gadu">
-			<img src="http://status.gadu-gadu.pl/users/status.asp?id={gg}" alt="GG" />
+			<img src="http://status.gadu-gadu.pl/users/status.asp?id={gg}&amp;styl=5" alt="GG" />
 		</a>
 		<!-- END -->
 

@@ -68,7 +68,7 @@
 </tr>
 <tr>
   <td colspan="2" align="center">
-		<textarea name="dsc" rows="12" style="width: 100%">{Clean: img.dsc}</textarea>
+		<textarea name="dsc" rows="12" style="width: 100%">{clean: img.dsc}</textarea>
 	</td>
 </tr>
 <tr>
@@ -83,6 +83,7 @@
 <script type="text/javascript">
 var f = document.forms['img'];
 var e = new Editor(f.dsc);
+e.protect();
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 include('lib/forms.js')
 </script>

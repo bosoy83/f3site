@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('N')) exit;
+if(iCMSa!=1 || !admit('N')) exit;
 require LANG_DIR.'admAll.php';
 
 #Tytu³ strony
@@ -22,7 +22,7 @@ if($_POST)
 			}
 			else
 			{
-				$q->execute(array( (int)$seq, Clean($_POST['vis'][$id]), (int)$_POST['page'][$id], $id));
+				$q->execute(array( (int)$seq, clean($_POST['vis'][$id]), (int)$_POST['page'][$id], $id));
 			}
 		}
 
@@ -66,11 +66,12 @@ foreach($res as $m)
 	$blocks[] = array(
 		'id' => $m[0],
 		'seq' => $m[1],
-		'langs' => ListBox('lang',1,$m[3]),
+		'url'  => url('editMenu/'.$m[0], '', 'admin'),
+		'langs' => listBox('lang',1,$m[3]),
 		'disp'  => $m[3],
 		'title' => $m[2],
 		'page'  => $m[4],
-		'lang'  => $lng
+		'group' => $lng
 	);
 }
 

@@ -27,12 +27,10 @@
 
 <!-- ELSE -->
 
-<div id="box" class="box" style="display: none"></div>
-<form action="?a=mailing" method="post">
+<form action="" method="post">
 <h2>{title}</h2>
 
 <table cellspacing="1" class="tb">
-<tbody class="bg">
 <tr>
 	<td style="width: 25%"><b>1. {lang.sender}:</b></td>
 	<td><input name="from" maxlength="50" size="30" value="{cfg.title}" /></td>
@@ -69,30 +67,14 @@
 		<input type="submit" value="OK" />
 	</td>
 </tr>
-</tbody>
 </table>
 </form>
 
 <script type="text/javascript">
-<!--
-var box = $('box');
-var f = document.forms[0];
-var e = new Editor(f.txt);
-e.emots();
-
-function Prev(step,o)
-{
-	show(box,1);
-	location='#box';
-	var mm = new Request('request.php?co=preview',box);
-	mm.method = 'POST';
-	mm.reset()
-	mm.add('text',f.txt.value)
-	mm.add('NL',1)
-	if(f.html.checked) mm.add('HTML',1)
-	if(f.emot.checked) mm.add('EMOTS')
-	mm.send()
-}
--->
+var box = $('box')
+var f = document.forms[0]
+var e = new Editor(f.txt)
+e.emots()
+e.protect()
 </script>
 <!-- END -->

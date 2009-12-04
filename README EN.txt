@@ -1,7 +1,7 @@
 Distribution and license
 ========================
 
-F3Site 3.0 - (C) 2009 COMPMaster - compmaster.prv.pl
+F3Site 3.1 - (C) 2009 COMPMaster - compmaster.prv.pl
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License or any later version.
 
@@ -19,6 +19,7 @@ Requirements
 * PHP 5.2 or newer with enabled PDO extension
 * Database: MySQL 5.0.2+ or SQLite 3+
 * PHP sessions support
+* mod_rewrite support if you want nice URLs
 
 
 Installation

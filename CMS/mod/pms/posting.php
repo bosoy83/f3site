@@ -9,10 +9,10 @@ if($_POST)
 {
 	#Dane
 	$pm = array(
-		'to'  => Clean($_POST['to']),
-		'txt' => Clean($_POST['txt'],0,1),
+		'to'  => clean($_POST['to']),
+		'txt' => clean($_POST['txt'],0,1),
 		'bbc' => isset($cfg['bbcode']) && isset($_POST['bbc']) ? 1 : 0,
-		'topic' => empty($_POST['topic']) ? $lang['notopic'] : Clean($_POST['topic'],50,1)
+		'topic' => empty($_POST['topic']) ? $lang['notopic'] : clean($_POST['topic'],50,1)
 	);
 
 	#Wy¶lij lub edytuj
@@ -32,7 +32,7 @@ if($_POST)
 			$o -> to = $pm['to'];
 
 			#Wy¶lij - je¶li do siebie, zapisz jako kopiê robocz±
-			if(isset($_POST['send']) && $o->to != $user[UID]['login'])
+			if(isset($_POST['send']) && $o->to != $user['login'])
 			{
 				if($id && !isset($_POST['keep']))
 				{
@@ -90,7 +90,7 @@ if($_POST)
 	}
 	#Zapis od wys³anych?
 	$saveSent = isset($_POST['sent']);
-	$url = '?co=pms&amp;act=e&amp;id='.$id;
+	$url = 'pms/edit/'.$id;
 }
 
 #Pobierz wiadomo¶æ
@@ -109,7 +109,7 @@ elseif($id)
 		{
 			$pm['topic'] = 'Fwd: '.$pm['topic'];
 		}
-		$url = '?co=pms&amp;act=e';
+		$url = 'pms/edit';
 	}
 	elseif($pm['st'] == 2)
 	{
@@ -118,11 +118,11 @@ elseif($id)
 			$pm['topic'] = $lang['re'].$pm['topic'];
 			$pm['txt'] = isset($cfg['bbcode']) ? '[quote]'.$pm['txt']."[/quote]\n" : '"'.$pm['txt']."\"\n";
 		}
-		$url = '?co=pms&amp;act=e';
+		$url = 'pms/edit';
 	}
 	else
 	{
-		$url = '?co=pms&amp;act=e&amp;id='.$id;
+		$url = 'pms/edit/'.$id;
 	}
 
 	#Zapis od wys³anych?
@@ -144,7 +144,7 @@ else
 		'txt' => '',
 		'topic' => '',
 	);
-	$url = '?co=pms&amp;act=e';
+	$url = 'pms/edit';
 	$saveSent = false;
 }
 

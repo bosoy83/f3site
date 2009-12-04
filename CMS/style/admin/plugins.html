@@ -56,15 +56,15 @@
 	<td style="color: green">{name}</td>
 	<td align="center">{id}</td>
 	<td align="center">
-		<a href="?a={id}">{lang.conf}</a>
-		<!-- IF del -->&middot; <a href="{del}">{lang.uninst}</a><!-- END -->
+		<a href="{config}">{lang.conf}</a>
+		<!-- IF url -->&middot; <a href="{url}">{lang.uninst}</a><!-- END -->
 	</td>
 </tr>
 <!-- ELSE -->
 <tr>
 	<td>{name}</td>
 	<td align="center">{id}</td>
-	<td align="center"><a href="?a=plugins&amp;setup={id}">{lang.inst}</a></td>
+	<td align="center"><a href="{url}">{lang.inst}</a></td>
 </tr>
 <!-- END -->
 <!-- STOP -->

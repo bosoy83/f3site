@@ -24,15 +24,6 @@ if(ini_get('magic_quotes_gpc'))
 	array_walk_recursive($gpc, 'xxx');
 }
 
-#ID do zmienej: $id zawsze istnieje
-$id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : 0;
-
-#Nr strony
-if(isset($_GET['page']) && !is_numeric($_GET['page']))
-{
-	$_GET['page'] = 1;
-}
-
 #Utwórz krytyczne tablice
 $lang = array();
 $cfg  = array();
@@ -54,14 +45,42 @@ if(!empty($cfg['ban']))
 
 #Czy to żądanie AJAX?
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
+define('NICEURL', $cfg['niceURL']);
 
 #Katalog skórki
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 
+#Adres URL - ścieżka do aktualnej podstrony
+#$URL = $_SERVER['QUERY_STRING'] ? explode('/', $_SERVER['QUERY_STRING']) : array();
+$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
+
+#ID do zmienej: $id zawsze istnieje
+if(isset($_GET['id']) && is_numeric($_GET['id']))
+{
+	$id = $_GET['id'];
+}
+elseif(isset($URL[1]) && is_numeric($URL[1]))
+{
+	$id = $URL[1];
+}
+else
+{
+	$id = 0;
+}
+
+#Nr strony
+if(isset($_GET['page']) && !is_numeric($_GET['page']))
+{
+	$_GET['page'] = 1;
+}
+
 #Sesja
 session_name(PRE);
 session_start();
+
+#Domyślny język
+$nlang = $cfg['lang'];
 
 #Język: zmiana
 if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
@@ -98,7 +117,6 @@ elseif(isset($cfg['detectLang']))
 	}
 	unset($x);
 }
-if(!isset($nlang)) $nlang = 'en';
 
 #Katalog z plikami językowymi
 define('LANG_DIR', './lang/'.$nlang.'/');
@@ -175,23 +193,23 @@ if(is_numeric($xuid))
 {
 	if(isset($_SESSION['userdata']))
 	{
-		$user[$xuid] =& $_SESSION['userdata'];
+		$user =& $_SESSION['userdata'];
 	}
 	else
 	{
-		$user[$xuid] = $_SESSION['userdata'] = $db->query('SELECT login,pass,gid,lv,adm,lvis,pms
+		$user = $_SESSION['userdata'] = $db->query('SELECT login,pass,gid,lv,adm,lvis,pms
 		FROM '.PRE.'users WHERE lv>0 AND ID='.$xuid) -> fetch(2); //ASSOC
 	}
 
 	#Test
-	if(isset($user[$xuid]))
+	if(isset($user))
 	{
-		if($xpass===$user[$xuid]['pass'])
+		if($xpass===$user['pass'])
 		{
 			define('LOGD', 1);
 			define('UID', $xuid);
-			define('LEVEL', $user[UID]['lv']);
-			define('GID', $user[UID]['gid']);
+			define('LEVEL', $user['lv']);
+			define('GID', $user['gid']);
 		}
 		else
 		{
@@ -207,7 +225,7 @@ if(defined('LOGD'))
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
 	{
 		$db->exec('UPDATE '.PRE.'users SET lvis='.$_SERVER['REQUEST_TIME'].' WHERE ID='.UID);
-		$_SESSION['recent'] = (int) $user[UID]['lvis'];
+		$_SESSION['recent'] = (int) $user['lvis'];
 	}
 }
 else
@@ -229,7 +247,7 @@ Header('Content-type: text/html; charset=utf-8');
 #FUNKCJE
 
 #Prawa - wpuścić użytkownika?
-function Admit($id,$type=null)
+function admit($id,$type=null)
 {
 	if(LOGD!=1) return false; //Gość
 	global $user, $db;
@@ -243,7 +261,7 @@ function Admit($id,$type=null)
 	{
 		if($type=='CAT')
 		{
-			if(LEVEL>1 && Admit('+'))
+			if(LEVEL>1 && admit('+'))
 			{
 				return true;
 			}
@@ -265,13 +283,25 @@ function Admit($id,$type=null)
 	}
 	else
 	{
-		if(!isset($global)) $global = explode('|',$user[UID]['adm']);
+		if(!isset($global)) $global = explode('|',$user['adm']);
 		return in_array($id,$global);
 	}
 }
 
+#URL - mod_rewrite
+function url($x, $query=null, $path=null)
+{
+	if($path) $path .= '/';
+	switch(NICEURL)
+	{
+		case 1: return $path . $x . ($query ? '?'.$query : ''); break;
+		case 2: return $path . 'index.php/' . $x . ($query ? '?'.$query : ''); break;
+		default: return $path . '?go=' . $x . ($query ? '&'.$query : '');
+	}
+}
+
 #Struktura kategorii
-function CatPath($id, &$cat=null)
+function catPath($id, &$cat=null)
 {
 	if(file_exists('./cache/cat'.$id.'.php'))
 	{
@@ -285,7 +315,7 @@ function CatPath($id, &$cat=null)
 }
 
 #Skanowanie katalogu
-function ListBox($dir,$co,$ch)
+function listBox($dir,$co,$ch)
 {
 	if(!is_dir($dir)) return '';
 	$out = '';
@@ -317,14 +347,14 @@ function ListBox($dir,$co,$ch)
 }
 
 #Strony
-function Pages($page,$ile,$max,$url,$type=0)
+function pages($page,$ile,$max,$url='',$type=0)
 {
 	global $lang;
 	$all = ceil($ile / $max);
 	$out = '';
 
 	#URL
-	$url .= '&amp;page=';
+	$url .= strpos($url, '?')===false ? '?page=' : '&amp;page=';
 
 	#Select
 	if($type)
@@ -358,7 +388,7 @@ function Pages($page,$ile,$max,$url,$type=0)
 }
 
 #Banner
-function Banner($gid)
+function banner($gid)
 {
 	return $GLOBALS['db']->query('SELECT code FROM '.PRE.'banners WHERE gen='.(int)$gid.
 		' AND ison=1 ORDER BY RAND'.(($GLOBALS['db_db']=='sqlite') ? 'OM' : '').'() LIMIT 1')
@@ -366,7 +396,7 @@ function Banner($gid)
 }
 
 #Emoty
-function Emots($txt)
+function emots($txt)
 {
 	static $emodata;
 	include_once './cfg/emots.php';
@@ -433,26 +463,35 @@ function genDate($x, $time=false)
 }
 
 #Autorzy
-function Autor($v)
+function autor($x)
 {
-	global $user,$db;
-	if(is_numeric($v))
+	global $db,$user;
+	static $all;
+	if(is_numeric($x))
 	{
-		if(!isset($user[$v]))
+		if($x == UID)
 		{
-			$user[$v] = $db->query('SELECT login FROM '.PRE.'users WHERE ID='.$v) -> fetch(2);
+			$login = $user['login'];
 		}
-		if($user[$v]['login'])
+		else
 		{
-			return '<a href="?co=user&amp;id='.$v.'">'.$user[$v]['login'].'</a>';
+			if(!isset($all[$x]))
+			{
+				$all[$x] = $db->query('SELECT login FROM '.PRE.'users WHERE ID='.$x)->fetchColumn();
+			}
+			if($all[$x])
+			{
+				$login = $all[$x];
+			}
+			else return $x;
 		}
-		else return $v;
+		return '<a href="'.url('user/'.urlencode($login)).'">'.$login.'</a>';
 	}
-	else return $v;
+	else return $x;
 }
 
 #Znaki specjalne, cenzura
-function Clean($val,$max=0,$wr=0)
+function clean($val,$max=0,$wr=0)
 {
 	if($max) $val = substr($val,0,$max);
 	if($wr && isset($GLOBALS['cfg']['censor']))
@@ -465,7 +504,7 @@ function Clean($val,$max=0,$wr=0)
 }
 
 #Licz w bazie
-function db_count($table)
+function dbCount($table)
 {
 	return (int)$GLOBALS['db']->query('SELECT COUNT(*) FROM '.PRE.$table)->fetchColumn();
 }

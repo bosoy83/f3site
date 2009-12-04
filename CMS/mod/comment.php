@@ -2,6 +2,9 @@
 if(iCMS!=1) return;
 require LANG_DIR.'comm.php';
 
+#Brak ID
+if(isset($URL[1]) && is_numeric($URL[1])) $id = $URL[1]; else return;
+
 #B³êdy
 $error = array();
 $preview = null;
@@ -12,12 +15,12 @@ if(isset($_POST['act']) && $id)
 	switch($_POST['act'])
 	{
 		case 'ok':
-		if(Admit('CM')) $db->exec('UPDATE '.PRE.'comms SET access=1 WHERE ID='.$id);
+		if(admit('CM')) $db->exec('UPDATE '.PRE.'comms SET access=1 WHERE ID='.$id);
 		break;
 		case 'del':
 		if($comm = $db->query('SELECT CID,TYPE FROM '.PRE.'comms WHERE ID='.$id)->fetch(3))
 		{
-			if(($comm[0] == UID && $comm[1] == '10') OR Admit('CM'))
+			if(($comm[0] == UID && $comm[1] == '10') OR admit('CM'))
 			{
 				if($db->exec('DELETE FROM '.PRE.'comms WHERE ID='.$id) && $comm[1] == '5')
 				{
@@ -30,14 +33,14 @@ if(isset($_POST['act']) && $id)
 	exit;
 }
 
-#Je¶li istnieje zmienna $type, dodaj nowy komentarz
-if(isset($_GET['type']))
+#Je¶li jest typ w URL, dodaj nowy komentarz
+if(isset($URL[2]))
 {
 	#Go¶æ nie mo¿e pisaæ?
-	if(LOGD!=1 && $cfg['commGuest']!=1) $error[] = $lang['c11'];
+	if(LOGD!=1 && !isset($cfg['commGuest'])) $error[] = $lang['c11'];
 
 	#TYP JEST LICZB¡
-	$type = (int)$_GET['type'];
+	$type = (int)$URL[2];
 
 	#Sprawd¼, czy pozycja jest w³±czona
 	if(!isset($_SESSION['CV'][$type][$id]))
@@ -51,7 +54,7 @@ if(isset($_GET['type']))
 				$if = isset($data[$type]['comm']) ? $data[$type]['table'].' i INNER JOIN '.
 				PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&2 AND i.ID='.$id : '';
 		}
-		if(!$if OR !db_count($if))
+		if(!$if OR !dbCount($if))
 		{
 			$error[] = $lang['c11'];
 		}
@@ -59,7 +62,7 @@ if(isset($_GET['type']))
 }
 else
 {
-	if(!Admit('CM'))
+	if(!admit('CM'))
 	{
 		$error[] = $lang['c11']; #Edycja komentarza - brak praw
 	}
@@ -69,16 +72,13 @@ else
 #Tytu³ strony
 $content->title = $type ? $lang['addComm'] : $lang['c1'];
 
-#Modu³
-$mod = (isset($_GET['mod']) && ctype_alnum($_GET['mod'])) ? $_GET['mod'] : '';
-
 #Dane POST
 if($_POST)
 {
 	#Dane
 	$c = array(
-		'name' => Clean($_POST['name'], 30, 1),
-		'text' => Clean($_POST['text'], 0, 1)
+		'name' => clean($_POST['name'], 30, 1),
+		'text' => clean($_POST['text'], 0, 1)
 	);
 
 	#D³ugo¶æ
@@ -100,7 +100,7 @@ if($_POST)
 		}
 		else
 		{
-			$c['author'] = empty($_POST['author']) ? $lang['c9'] : Clean($_POST['author'],30,1);
+			$c['author'] = empty($_POST['author']) ? $lang['c9'] : clean($_POST['author'],30,1);
 			if(!isset($cfg['URLs']))
 			{
 				if(strpos($c['author'],'://') OR strpos($c['text'],'://') OR strpos($c['name'],'://'))
@@ -136,7 +136,7 @@ if($_POST)
 			if(isset($_SESSION['post']) && $_SESSION['post']>time()) $error[] = $lang['c3'];
 
 			#Moderowaæ? + IP
-			$c['access'] = !isset($cfg['moderate']) || LEVEL>1 || Admit('CM') ? 1 : 0;
+			$c['access'] = !isset($cfg['moderate']) || LEVEL>1 || admit('CM') ? 1 : 0;
 			$c['ip'] = $_SERVER['REMOTE_ADDR'];
 			$c['guest'] = LOGD ? 0 : 1;
 		}
@@ -170,14 +170,13 @@ if($_POST)
 				if(JS)
 				{
 					$content->file = array();
-					define('CT', $type);
 					include './lib/comm.php';
+					comments($id, $type);
 					return 1;
 				}
 				else
 				{
-					$url = $mod ? '?co='.$mod.'&amp;id='.$id : '.';
-					$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7'], $url);
+					$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7']);
 				}
 			}
 			catch(PDOException $e)
@@ -210,7 +209,7 @@ $content->data = array(
 	'code'    => $type && LOGD!=1 && isset($cfg['captcha']) ? true : false,
 	'author'  => $type && LOGD!=1 ? true : false,
 	'preview' => $preview,
-	'url'     => '?co=comment&amp;id='.$id.(($type)?'&amp;type='.$type:'').(($mod)?'&amp;mod='.$mod:'')
+	'url'     => url('comment/'.$id.($type ? '/'.$type : ''))
 );
 
 #JS

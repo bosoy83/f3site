@@ -17,7 +17,7 @@
 		<small>{lang.domainex}</small>
 	</td>
 	<td>
-		<textarea cols="30" rows="4" name="mailban">{mailBan}</textarea>
+		<textarea cols="40" rows="4" name="mailban">{mailBan}</textarea>
 	</td>
 </tr>
 <tr>
@@ -26,7 +26,17 @@
 		<small>{lang.nickex}</small>
 	</td>
 	<td>
-		<textarea cols="30" rows="4" name="nickban">{nickBan}</textarea>
+		<textarea cols="40" rows="4" name="nickban">{nickBan}</textarea>
+	</td>
+</tr>
+<tr>
+	<td>
+		<b>{lang.logins}:</b>
+	</td>
+	<td>
+		<label><input type="radio" name="logins" value="1" /> {lang.login1}</label><br />
+		<label><input type="radio" name="logins" value="2" /> {lang.login2}</label><br />
+		<label><input type="radio" name="logins" value="0" /> {lang.login3}</label>
 	</td>
 </tr>
 <tr>
@@ -55,16 +65,9 @@
 		<b>{lang.maxSize}:</b>
 	</td>
 	<td>
-		<input name="maxSize" value="{cfg.maxSize}" size="5" maxlength="5" /> KB
-	</td>
-</tr>
-<tr>
-	<td>
-		<b>{lang.maxDim}:</b>
-	</td>
-	<td>
 		{lang.width} <input name="maxDim1" value="{cfg.maxDim1}" size="5" maxlength="5" />
-		{lang.height} <input name="maxDim2" value="{cfg.maxDim2}" size="5" maxlength="5" /> px
+		{lang.height} <input name="maxDim2" value="{cfg.maxDim2}" size="5" maxlength="5" /> px ...
+		<input name="maxSize" value="{cfg.maxSize}" size="5" maxlength="5" /> KB
 	</td>
 </tr>
 <tr>

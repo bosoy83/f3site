@@ -19,7 +19,7 @@ foreach($res as $x)
 		'num'   => ++$total,
 		'title' => $x[1],
 		'src'   => $x[3],
-		'url'   => '?co=img&amp;id='.$x[0],
+		'url'   => url('img/'.$x[0]),
 		'date'  => genDate($x[2])
 	);
 }
@@ -30,7 +30,7 @@ if($total === 0): $content->info($lang['noc']); return 1; endif;
 #Strony
 if($cat['num'] > $total)
 {
-	$pages = Pages($page,$cat['num'],$cfg['np'], '?d='.$d);
+	$pages = pages($page,$cat['num'],$cfg['inp'],$d);
 }
 else
 {
@@ -42,8 +42,8 @@ $content->file[] = 'cat_images';
 $content->data += array(
 	'pages' => &$pages,
 	'img'   => &$img,
-	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=4' : null,
+	'add_url' => admit($d,'CAT') ? url('edit/3') : null,
+	'cats_url'=> url('cats/images'),
 	'cat_type'=> $lang['imgs']
 );
-
 unset($res,$total,$x);

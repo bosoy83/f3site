@@ -2,9 +2,17 @@
 if(iCMS!=1) exit;
 
 #Odczyt
-$res = $db->query('SELECT * FROM '.PRE.'pms WHERE (owner='.UID.' OR (usr='.UID.' AND st=1)) AND ID='.$id);
-$pm = $res->fetch(2); //ASSOC
-$res = null;
+if(isset($URL[2]) && is_numeric($URL[2]))
+{
+	$q = $db->prepare('SELECT * FROM '.PRE.'pms WHERE (owner=? OR (usr=? AND st=1)) AND ID=?');
+	$q->execute(array(UID, UID, $URL[2]));
+	$pm = $q->fetch(2); //ASSOC
+	$q = null;
+}
+else
+{
+	$pm = false;
+}
 
 #Brak?
 if(!$pm)
@@ -26,15 +34,15 @@ $pm['txt'] = nl2br(Emots($pm['txt']));
 #Przeczytana?
 if($pm['st']==1 && $pm['owner']==UID)
 {
-	$db->exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$id);
+	$db->exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$pm['ID']);
 	$db->exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
-	-- $user[UID]['pms'];
+	-- $user['pms'];
 	$pm['st'] = 2;
 }
 
 #Data, autor
 $pm['date'] = genDate($pm['date'], true);
-$pm['usr'] = Autor($pm['usr']);
+$pm['usr'] = autor($pm['usr']);
 
 #Tytu³ strony i plik
 $content->title = $pm['topic'];
@@ -43,8 +51,8 @@ $content->file[] = 'pms_view';
 #Do szablonu
 $content->data += array(
 	'pm'   => &$pm,
-	'id'   => $id,
-	'edit' => $pm['st'] == 3 ? '?co=pms&amp;act=e&amp;id='.$id : null,
-	'reply'=> $pm['st'] == 2 ? '?co=pms&amp;act=e&amp;id='.$id : null,
-	'fwd'  => '?co=pms&amp;act=e&amp;fwd&amp;id='.$id
+	'id'   => $pm['ID'],
+	'edit' => $pm['st'] == 3 ? 'pms/edit/'.$pm['ID'] : null,
+	'reply'=> $pm['st'] == 2 ? 'pms/edit/'.$pm['ID'] : null,
+	'fwd'  => 'pms/edit/'.$pm['ID'].'?fwd'
 );

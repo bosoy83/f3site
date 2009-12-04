@@ -6,7 +6,6 @@ $res = $db->query('SELECT ID,name,dsc,date FROM '.PRE.'arts WHERE cat='.$d.' AND
 	access=1 ORDER BY priority,'.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['np']);
 
 $res->setFetchMode(3);
-
 $arts = array();
 $total = 0;
 
@@ -17,7 +16,7 @@ foreach($res as $art)
 		'title' => $art[1],
 		'desc'  => $art[2],
 		'num'   => ++$st,
-		'url'   => '?co=art&amp;id='.$art[0],
+		'url'   => url('art/'.$art[0]),
 		'date'  => $art[3]
 	);
 	++$total;
@@ -27,15 +26,15 @@ foreach($res as $art)
 if($total===0) { $content->info($lang['noc']); return 1; }
 
 #Strony
-$pages = $cat['num'] > $total ? Pages($page,$cat['num'],$cfg['np'],'?d='.$d) : null;
+$pages = $cat['num'] > $total ? pages($page,$cat['num'],$cfg['np'],$d) : null;
 
 #Do szablonu
 $content->file[] = 'cat_arts';
 $content->data += array(
 	'pages' => &$pages,
 	'arts'  => &$arts,
-	'add_url' => Admit($d,'CAT') ? '?co=edit&amp;act=1' : null,
+	'add_url' => admit($d,'CAT') ? url('edit/1') : null,
+	'cats_url'=> url('cats/articles'),
 	'cat_type'=> $lang['arts']
 );
-
 unset($res,$total,$art);

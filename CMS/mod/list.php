@@ -3,8 +3,9 @@ if(iCMS!=1 OR LEVEL<2) return;
 require LANG_DIR.'content.php';
 require './lib/categories.php';
 
-#Akcja
-$act = isset($_GET['act']) ? (int)$_GET['act'] : 5;
+#Akcja i ID kategorii
+$act = isset($URL[1]) ? (int)$URL[1] : 5;
+$id  = isset($URL[2]) ? (int)$URL[2] : 0;
 
 #Typ
 switch($act)
@@ -13,7 +14,7 @@ switch($act)
 		$type = $lang['news'];
 		$table = 'news';
 		$table2 = 'newstxt';
-		$href = '?co=news&amp;id=';
+		$href = url('news/');
 		break;
 	case 4:
 		$type = $lang['links'];
@@ -23,19 +24,19 @@ switch($act)
 		break;
 	case 3:
 		$type = $lang['images'];
-		$href = '?co=img&amp;id=';
+		$href = url('img/');
 		$table = 'imgs';
 		$table2 = false;
 		break;
 	case 2:
 		$type = $lang['files'];
-		$href = '?co=file&amp;id=';
+		$href = url('file/');
 		$table = 'files';
 		$table2 = 'false';
 		break;
 	case 1:
 		$type = $lang['arts'];
-		$href = '?co=art&amp;id=';
+		$href = url('art/');
 		$table = 'arts';
 		$table2 = 'artstxt';
 		break;
@@ -44,7 +45,7 @@ switch($act)
 		$type = $data[$act][$nlang];
 		$table = $data[$act]['table'];
 		$table2 = isset($data[$act]['table2']) ? $data[$act]['table2'] : false;
-		$href = isset($data[$act]['name']) ? '?co='.$data[$act]['name'].'&amp;id=' : '';
+		$href = isset($data[$act]['name']) ? url($data[$act]['name'].'/') : '';
 		unset($data);
 }
 
@@ -56,7 +57,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 {
 	try
 	{
-		$q = Admit('+') ? '' : ' AND cat IN (SELECT CatID FROM '.PRE.'acl WHERE type="CAT" AND UID='.UID.')';
+		$q = admit('+') ? '' : ' AND cat IN (SELECT CatID FROM '.PRE.'acl WHERE type="CAT" AND UID='.UID.')';
 		$ids = array();
 		$db->beginTransaction();
 
@@ -103,7 +104,7 @@ else
 }
 
 #Prawa
-if(Admit('+'))
+if(admit('+'))
 {
 	$join = '';
 }
@@ -126,25 +127,25 @@ else
 }
 
 #Szukaj
-$find = isset($_GET['find']) ? Clean($_GET['find'],30) : '';
+$find = isset($_GET['find']) ? clean($_GET['find'],30) : '';
 if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 
 #Parametry -> string
 $param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
 #Ilo¶æ wszystkich
-$total = db_count($table.$param);
+$total = dbCount($table.$param);
 
 #Brak?
 if($total == 0)
 {
-	if($id) header('Location: '.URL.'?co=edit&act='.$act.'&catid='.$id);
+	if($id) header('Location: '.URL.url('edit/'.$act, 'catid='.$id));
 	$content->info($lang['noc']);
 	return 1;
 }
 
 #Czê¶æ URL
-$url = '?co=list&amp;act='.$act.'&amp;id='.$id;
+$url = url('list/'.$act.'/'.$id);
 
 #Pobierz pozycje
 $res = $db->query('SELECT ID,name,access FROM '.PRE.$table.$param.
@@ -168,7 +169,7 @@ foreach($res as $i)
 		'id'   => $i[0],
 		'on'   => $a,
 		'url'  => $href.$i[0],
-		'editURL' => '?co=edit&amp;act='.$act.'&amp;id='.$i[0]
+		'editURL' => url('edit/'.$act.'/'.$i[0])
 	);
 }
 
@@ -180,7 +181,7 @@ $content->data = array(
 	'intro' => $lang['i'.$act],
 	'type'  => $type,
 	'cats'  => Slaves($act),
-	'pages' => Pages($page,$total,30,$url.'&amp;find='.$find,1),
-	'addURL' => '?co=edit&amp;act='.$act.($id ? '&catid='.$id : ''),
-	'catsURL'=> Admit('C') ? 'adm.php?a=cats&amp;co='.$act : '',
+	'pages' => pages($page,$total,30,$url.'&amp;find='.$find,1),
+	'addURL' => url('edit/'.$act.($id ? '?catid='.$id : '')),
+	'catsURL'=> admit('C') ? url('cats', 'co='.$act, 'admin') : false,
 );

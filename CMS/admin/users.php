@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('U')) exit;
+if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'admAll.php';
 require LANG_DIR.'profile.php';
 
@@ -32,33 +32,33 @@ else
 
 #Grupa
 $w = '';
-if(isset($_GET['gid']))
+if(isset($URL[1]))
 {
-	$gid = (int)$_GET['gid'];
-	$w.= ' WHERE gid='.$_GET['gid'];
+	$gid = (int)$URL[1];
+	$w .= ' WHERE gid='.$gid;
 }
 else { $gid=null; }
 
 #Szukaj
 if(isset($_REQUEST['s']) && $_REQUEST['s'])
 {
-	$s = str_replace(array('"','\'','%'), '', Clean($_REQUEST['s'],30));
+	$s = str_replace(array('"','\'','%'), '', clean($_REQUEST['s'],30));
 	$w.= (($w=='')?' WHERE ':' AND ').'login LIKE "'.str_replace('*', '%', $s).'"';
 }
 else { $s=''; }
 
 #Wszystkich
-$total = db_count('users'.$w);
+$total = dbCount('users'.$w);
 $users = array();
 
 #Pobierz
 $res = $db->query('SELECT ID,login,lv FROM '.PRE.'users'.$w.' ORDER BY lv, ID DESC LIMIT '.$st.',30');
 $res ->setFetchMode(3); //NUM
 
-foreach($res as $user)
+foreach($res as $u)
 {
 	#Kim jest
-	switch($user[2])
+	switch($u[2])
 	{
 		case 0: $lv = $lang['locked']; break;
 		case 1: $lv = $lang['user']; break;
@@ -69,12 +69,13 @@ foreach($res as $user)
 	}
 
 	$users[] = array(
-		'id'   => $user[0],
-		'login'=> $user[1],
-		'num'  => ++$st,
-		'url'  => '.?co=user&amp;id='.$user[0],
-		'level'=> $lv,
-		'options' => $user[2]==4 || $user[0]==UID ? false : true,
+		'id'    => $u[0],
+		'login' => $u[1],
+		'num'   => ++$st,
+		'url'   => url('user/'.urlencode($u[1])),
+		'level' => $lv,
+		'priv'  => $u[2]<LEVEL || LEVEL==4 ? url('editAdmin/'.$u[0], '', 'admin') : false,
+		'edit'  => $u[2]<LEVEL || LEVEL==4 ? url('editUser/'.$u[0], '', 'admin') : false
 	);
 }
 
@@ -83,5 +84,5 @@ $content->title = $lang['users'];
 $content->data = array(
 	'users' => &$users,
 	'search'=> $s,
-	'pages' => Pages($page,$total,30,'adm.php?a=users&amp;s='.$s.(($gid)?'&amp;gid='.$gid:''),1)
+	'pages' => pages($page,$total,30,url('users'.($gid ? '/'.$gid : ''),'?s='.$s,'admin'),1)
 );

@@ -19,14 +19,18 @@ if(!$online)
 #IP
 $ip = $_SERVER['REMOTE_ADDR'];
 
-#Google?
-if(strpos($_SERVER['HTTP_USER_AGENT'],'Googlebot')!==false)
+#Google, Bing, user
+if(UID)
+{
+	$name = $user['login'];
+}
+elseif(strpos($_SERVER['HTTP_USER_AGENT'],'Googlebot')!==false)
 {
 	$name = 'Google';
 }
-elseif(UID)
+elseif(strpos($_SERVER['HTTP_USER_AGENT'],'msnbot')!==false)
 {
-	$name = $user[UID]['login'];
+	$name = 'Bing';
 }
 else
 {
@@ -51,7 +55,7 @@ foreach($res as $x)
 {
 	if($x[0])
 	{
-		$list .= '<br /><a href="?co=user&amp;id='.$x[0].'">'.$x[1].'</a>';
+		$list .= '<br /><a href="'.url('user/'.urlencode($x[1])).'">'.$x[1].'</a>';
 	}
 	elseif($x[1])
 	{

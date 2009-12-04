@@ -3,11 +3,15 @@ if(iCMS!=1) exit;
 require './cfg/content.php';
 
 #Pobierz dane
-$res = $db->query('SELECT i.*,c.opt FROM '.PRE.'imgs i LEFT JOIN '.PRE.
-	'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$id);
+if(isset($URL[1]) && is_numeric($URL[1]))
+{
+	$res = $db->query('SELECT i.*,c.opt FROM '.PRE.'imgs i LEFT JOIN '.PRE.
+	'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$URL[1]);
 
-#Do tablicy
-if(!$img = $res->fetch(2)) return;  $res = null;
+	#Do tablicy
+	if(!$img = $res->fetch(2)) return;  $res = null;
+}
+else return;
 
 #Rozm.
 $size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;
@@ -15,13 +19,13 @@ $size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;
 #Opis, data, autor
 $img['dsc'] = nl2br($img['dsc']);
 $img['date'] = genDate($img['date'], true);
-$img['author'] = Autor($img['author']);
+$img['author'] = autor($img['author']);
 
 #Ocena
 if(isset($cfg['irate']) AND $img['opt'] & 4)
 {
 	$content->addCSS(SKIN_DIR.'rate.css');
-	$rates = 'vote.php?type=3&amp;id='.$id;
+	$rates = 'vote.php?type=3&amp;id='.$img['ID'];
 }
 else
 {
@@ -29,7 +33,7 @@ else
 }
 
 #Mo¿e edytowaæ?
-$img['edit'] = Admit($img['cat'],'CAT') ? '?co=edit&amp;act=3&amp;id='.$id : false;
+$img['edit'] = admit($img['cat'],'CAT') ? url('edit/3/'.$img['ID']) : false;
 
 #Tytu³
 $content->title = $img['name'];
@@ -42,13 +46,14 @@ $content->data = array(
 	'flash'=> $img['type'] === '2' ? true : false,
 	'movie'=> $img['type'] === '3' ? true : false,
 	'video'=> $img['type'] === '4' ? true : false,
-	'path' => CatPath($img['cat']),
+	'path' => catPath($img['cat']),
+	'cats' => url('cats/images'),
 	'rates'=> $rates
 );
 
 #Komentarze
 if(isset($cfg['icomm']) && $img['opt']&2)
 {
-	define('CT','3');
 	require 'lib/comm.php';
+	comments($img['ID'], 3);
 }

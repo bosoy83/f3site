@@ -1,15 +1,18 @@
 <?php
 if(iCMSa!=1) exit;
 
+#ID kategorii
+$id = isset($URL[2]) ? (int)$URL[2] : 0;
+
 #Zapis
 if($_POST)
 {
 	$cat = array(
 		'sect' => (int)$_POST['sect'],
-		'name' => Clean($_POST['name']),
-		'dsc'  => Clean($_POST['dsc']),
-		'see'  => Clean($_POST['see']),
-		'post' => Clean($_POST['post']),
+		'name' => clean($_POST['name']),
+		'dsc'  => clean($_POST['dsc']),
+		'see'  => clean($_POST['see']),
+		'post' => clean($_POST['post']),
 		'rate' => (int)$_POST['rate'],
 		'text' => &$_POST['text']
 	);
@@ -29,8 +32,8 @@ if($_POST)
 		$q->execute($cat);
 
 		#Przekieruj do listy kategorii
-		Header('Location: '.URL.'adm.php?a=bugs');
-		$content->message($lang['saved'], '?a=bugs');
+		header('Location: '.URL.url('bugs'));
+		$content->message($lang['saved'], url('bugs', '', 'admin'));
 	}
 	catch(PDOException $e)
 	{
@@ -71,6 +74,6 @@ $content->file = 'adminEdit';
 $content->data = array(
 	'cat'   => &$cat,
 	'sect'  => &$sect,
-	'langs' => ListBox('lang', 1, $cat['see']),
+	'langs' => listBox('lang', 1, $cat['see']),
 	'title' => $id ? $lang['editCat'] : $lang['addCat']
 );

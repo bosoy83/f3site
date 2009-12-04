@@ -1,10 +1,10 @@
 <?php
 if(iCMS!=1) exit;
 
-#Mo¿e zobaczyæ IP?
-$right = (LEVEL > 2 && Admit('GB'));
+#MoÅ¼e zobaczyÄ‡ IP?
+$right = (LEVEL > 2 && admit('GB'));
 
-#Usuñ wpisy
+#UsuÅ„ wpisy
 if(isset($_POST['del']) && $right && isset($_POST['x']))
 {
 	$del = array();
@@ -27,8 +27,8 @@ else
 	$st = 0;
 }
 
-#Iloœæ wpisów
-$total = db_count('guestbook WHERE lang="'.$nlang.'"');
+#IloÅ›Ä‡ wpisÃ³w
+$total = dbCount('guestbook WHERE lang="'.$nlang.'"');
 $num = 0;
 $all = array();
 
@@ -49,10 +49,10 @@ foreach($query as $x)
 {
 	$all[] = array(
 		'id'    => $x['ID'],
-		'who'   => $x['UID'] ? '<a href="?co=user&amp;id='.$x['UID'].'">'.$x['who'].'</a>' : $x['who'],
+		'who'   => $x['UID'] ? '<a href="'.url('user/'.urlencode($x['who'])).'">'.$x['who'].'</a>' : $x['who'],
 		'date'  => genDate($x['date'], true),
 		'www'   => $x['www'],
-		'text'  => Emots(isset($cfg['bbcode']) ? BBCode($x['txt']) : $x['txt']),
+		'text'  => emots(isset($cfg['bbcode']) ? BBCode($x['txt']) : $x['txt']),
 		'gg'    => $x['gg'],
 		'icq'   => $x['icq'],
 		'tlen'  => $x['tlen'],
@@ -60,7 +60,7 @@ foreach($query as $x)
 		'jabber'=> $x['jabber'],
 		'mail'  => str_replace('@', '&#64;', $x['mail']),
 		'ip'    => $right ? $x['ip'] : false,
-		'edit'  => $right
+		'edit'  => $right ? url('guestbook/post/'.$x['ID']) : false
 	);
 	++$num;
 }
@@ -68,7 +68,7 @@ foreach($query as $x)
 #Strony
 if($total > $num)
 {
-	$pages = Pages($page, $total, $cfg['gbNum'], '?co=guestbook');
+	$pages = pages($page, $total, $cfg['gbNum'], url('guestbook'));
 }
 else
 {
@@ -82,6 +82,6 @@ $content->data = array(
 	'pages'   => &$pages,
 	'intro'   => &$cfg['gbIntro'],
 	'rights'  => $right,
-	'mayPost' => ($cfg['gbPost']==1 OR (LOGD && $cfg['gbPost']==2)) AND
-		(stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false)
+	'postURL' => ($cfg['gbPost']==1 || (LOGD && $cfg['gbPost']==2)) &&
+		(stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false) ? url('guestbook/post') : false
 );

@@ -10,9 +10,9 @@ if($_POST)
 {
 	#Nowe dane
 	$news = array(
-	'opt'  => (isset($_POST['br']) ? 1:0) + (isset($_POST['emo']) ? 2:0) + (isset($_POST['fn']) ? 4:0),
-	'name' => Clean($_POST['name']),
-	'img'  => Clean($_POST['img']),
+	'opt'  => isset($_POST['br']) + (isset($_POST['emo']) ? 2:0) + (isset($_POST['fn']) ? 4:0),
+	'name' => clean($_POST['name']),
+	'img'  => clean($_POST['img']),
 	'txt'  => &$_POST['txt'],
 	'cat'	 => (int)$_POST['cat'],
 	'access' => isset($_POST['access']));
@@ -52,9 +52,9 @@ if($_POST)
 		#OK
 		$e->apply();
 		$content->info( $lang['saved'], array(
-			'?co=edit&amp;act=5' => $lang['add5'],
-			'?co=list&amp;act=5' => $lang['news'],
-			'?co=news&amp;id='.$id => $lang['seeit']));
+			url('edit/5') => $lang['add5'],
+			url('list/5') => $lang['news'],
+			url('news/'.$id) => $lang['seeit']));
 		unset($e,$news);
 		return 1;
 	}
@@ -71,11 +71,11 @@ else
 	if($id)
 	{
 		$news = $db->query('SELECT n.*,f.text FROM '.PRE.'news n LEFT JOIN '.
-			PRE.'newstxt f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2); //ASSOC
+			PRE.'newstxt f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2);
 		$full = &$news['text'];
 
 		#Prawa
-		if(!$news || !Admit($news['cat'],'CAT',$news['author'])) return;
+		if(!$news || !admit($news['cat'],'CAT',$news['author'])) return;
 	}
 	else
 	{
@@ -99,5 +99,5 @@ $content->data = array(
 	'news' => &$news,
 	'full' => &$full,
 	'cats' => Slaves(5,$news['cat']),
-	'fileman' => Admit('FM')
+	'fileman' => admit('FM')
 );

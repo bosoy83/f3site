@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('CFG')) exit;
+if(iCMSa!=1 || !admit('CFG')) exit;
 
 #Dostêpne opcje
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }

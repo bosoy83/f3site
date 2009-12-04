@@ -23,6 +23,9 @@ $lang+=Array(
 'indexed'=>'Indiziert von Suchmaschinen.',
 'head'=>'Zusätzlich Kode in ',
 'head2'=>'Optional, z.B. tags &lt;meta&gt;, &lt;link&gt;...',
+'urls'=>'Schöne URLs',
+'url1'=>'Ja - mod_rewrite',
+'url3'=>'Nein',
 
 'date'=>'Datum Einstellungen',
 'now1'=>'Jetzigedatumsformat',
@@ -121,11 +124,14 @@ $lang+=Array(
 'auto'=>'Automatisch',
 'bymail'=>'E-Mail - Aktivierunglink',
 'byadmin'=>'von Administrators',
+'logins'=>'Format des Benutzernames',
+'login1'=>'Nur lateinisches Alphabet, Ziffern, Space, _ -',
+'login2'=>'Jede Letters, Ziffern, Space, _ . - (empfohlen)',
+'login3'=>'Jede Schriftbild ohne: ? / # & = (abgeraten)',
 
 'photo'=>'Avatars und Fotos',
 'upload'=>'Fotos Upload',
-'maxDim'=>'Max. Format',
-'maxSize'=>'Max. Filesize',
+'maxSize'=>'Max. Size',
 'width'=>'Weite',
 'height'=>'Höhe',
 

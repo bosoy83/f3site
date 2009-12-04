@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 || !Admit('E')) exit;
+if(iCMSa!=1 || !admit('E')) exit;
 require LANG_DIR.'plugin.php';
 
 #Pobierz zainstalowane
@@ -10,9 +10,9 @@ if(file_exists('./cfg/plug.php')) include './cfg/plug.php';
 $content->title = $lang['plugs'];
 
 #Instalacja
-if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
+if(isset($URL[1]) && ctype_alnum($URL[1]))
 {
-	$name = $_GET['setup'];
+	$name = $URL[1];
 	$data = parse_ini_file('./plugins/'.$name.'/plugin.ini');
 
 	if(!isset($data['install']))
@@ -39,7 +39,7 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 				Uninstall();
 				if(isset($data['link']))
 				{
-					$db->exec('DELETE FROM '.PRE.'mitems WHERE url="?co='.$name.'"');
+					$db->exec('DELETE FROM '.PRE.'mitems WHERE url="'.$name.'"');
 					include './lib/mcache.php';
 					RenderMenu();
 				}
@@ -56,7 +56,7 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 					{
 						if(!empty($_POST['mt'][$i]))
 						{
-							$q->execute(array($_POST['mid'][$i], $_POST['mt'][$i], '?co='.$name, $_POST['mp'][$i]));
+							$q->execute(array($_POST['mid'][$i], $_POST['mt'][$i], $name, $_POST['mp'][$i]));
 						}
 					}
 					include './lib/mcache.php';
@@ -84,7 +84,7 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 			$i = 0;
 			foreach(explode('+', $data[$useOpt]) as $o)
 			{
-				$opt['o'.++$i] = Clean($o); //Opcje
+				$opt['o'.++$i] = clean($o); //Opcje
 			}
 		}
 		if(isset($data['link']) && !isset($setup[$name]))
@@ -105,7 +105,7 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 					}
 					$langs[] = array(
 						'title' => $data[$l],
-						'url'   => '?co='.$name,
+						'url'   => $name,
 						'menus' => $menuList
 					);
 				}
@@ -117,11 +117,11 @@ if(isset($_GET['setup']) && ctype_alnum($_GET['setup']))
 		}
 		$content->data = array(
 			'setup' => true,
-			'www'   => isset($data['www']) ? Clean($data['www']) : null,
-			'name'  => isset($data[$nlang]) ? Clean($data[$nlang]) : $name,
+			'www'   => isset($data['www']) ? clean($data['www']) : null,
+			'name'  => isset($data[$nlang]) ? clean($data[$nlang]) : $name,
 			'ver'   => (float)$data['version'],
 			'menu'  => $langs,
-			'credits' => isset($data['credits']) ? Clean($data['credits']) : 'N/A',
+			'credits' => isset($data['credits']) ? clean($data['credits']) : 'N/A',
 			'options' => $opt
 		);
 		$content->info(isset($setup[$name]) ? $lang['warn2'] : $lang['warn']);
@@ -146,9 +146,9 @@ foreach(scandir('./plugins') as $plug)
 	$plugs[] = array(
 		'id'    => $plug,
 		'ready' => isset($setup[$plug]) OR empty($data['install']),
-		'name'  => isset($data[$nlang]) ? Clean($data[$nlang]) : $plug,
-		'del'   => isset($setup[$plug]) ? '?a=plugins&amp;setup='.$plug : false,
-		'config'=> isset($data['config'])
+		'name'  => isset($data[$nlang]) ? clean($data[$nlang]) : $plug,
+		'url'   => isset($data['install']) ? url('plugins/'.$plug, '', 'admin') : false,
+		'config'=> isset($data['config']) ? url($plug, '', 'admin') : false
 	);
 }
 

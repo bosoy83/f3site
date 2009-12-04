@@ -13,7 +13,11 @@ function CatSort($sort)
 }
 
 #Kategoria?
-if(isset($_GET['d']))
+if(isset($URL[0]))
+{
+	$d = (int)$URL[0];
+}
+elseif(isset($_GET['d']))
 {
 	$d = (int)$_GET['d'];
 }
@@ -71,7 +75,7 @@ if($cat['opt'] & 8)
 	foreach($res as $c)
 	{
 		$sc[] = array(
-			'url'  => '?d='.$c[0],
+			'url'  => url($c[0]),
 			'name' => $c[1],
 			'num'  => $c[2]
 		);
@@ -83,16 +87,15 @@ $content->file = array('cat');
 $content->data = array(
 	'cat'  => &$cat,
 	'subcats' => isset($sc) ? $sc : null,
-	'options' => Admit($d,'CAT'),
-	'cats_url'=> '?co=cats&id='.$cat['type'],
-	'add_url' => '?co=edit&act='.$cat['type'].'&catid='.$d,
-	'list_url'=> '?co=list&act='.$cat['type'].'&id='.$d
+	'options' => admit($d,'CAT'),
+	'add_url' => url('edit/'.$cat['type'], 'catid='.$d),
+	'list_url'=> url('list/'.$cat['type'].'/'.$d)
 );
 
 #Struktura kategorii
 if($cat['opt'] & 1 && isset($cfg['catStr']))
 {
-	$content->data['path'] = CatPath($d,$cat);
+	$content->data['path'] = catPath($d,$cat);
 }
 else
 {

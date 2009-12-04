@@ -35,7 +35,7 @@ class Saver
 		}
 
 		//Prawa do kategorii
-		if(!Admit($this->data['cat'], 'CAT') || ($this->data['cat'] != $this->old_cat && !Admit($this->old_cat, 'CAT')))
+		if(!admit($this->data['cat'], 'CAT') || ($this->data['cat'] != $this->old_cat && !admit($this->old_cat, 'CAT')))
 		{
 			throw new Exception($GLOBALS['lang']['nor']); //Skoñcz
 		}
@@ -84,7 +84,7 @@ class Saver
 	function authorID($x)
 	{
 		global $db,$user;
-		if($x == $user[UID]['login'])
+		if($x == $user['login'])
 		{
 			return UID;
 		}
