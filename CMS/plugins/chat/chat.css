@@ -1,0 +1,16 @@
+.chat {
+	height: 400px;
+	background-color: white;
+	border: 1px solid gray;
+	overflow: auto;
+}
+.chatTime {
+	color: blue;
+	vertical-align: top;
+	background-color: #f0f5ff
+}
+.chatNick {
+	color: brown;
+	background-color: #fffcf0;
+	vertical-align: top;
+}

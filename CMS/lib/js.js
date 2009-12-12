@@ -1,5 +1,5 @@
-//To jest plik przeznaczony do edycji.
-//Po zakoñczeniu zmian skompresuj go: http://dean.edwards.name/packer
+//Plik przeznaczony do edycji
+//Skompresuj go: http://dean.edwards.name/packe0
 
 //Otwórz okno na œrodku ekranu
 function okno(url, width, height)
@@ -165,20 +165,40 @@ function hint(o, left, top, autoHide)
 	else o.style.visibility = 'hidden';
 }
 
-//¯¹danie AJAX - domyœlne wartoœci opcji
-//alert(this instanceof arguments.callee ? 'object instance' : 'function call')
+//
+// *** AJAX REQUESTS ***
+//
 function Request(url, box, opt)
 {
+	//Opcje
 	opt = opt || {};
-	this.o = box || $('main'); //Gdzie wstawiæ odpowiedŸ?
+
+	//Gdzie wstawiæ odpowiedŸ?
+	this.o = box || $('main');
+
+	//Adres docelowy
 	this.url = url;
-	this.post = opt.post || false; //Typ POST - domyœlnie false (typ GET)
-	this.param = []; //Parametry POST
-	this.scripts = opt.scripts || false; //true = wykonaj skrypty JS
-	this.loading = opt.loading || null; //Gdy odpowiedŸ jest pobierana
-	this.fail = opt.fail || function(x) { alert(x) }; //Gdy ¿¹danie nie powiod³o siê
-	this.done = opt.done || function(x) { this.o.innerHTML = x } //Gdy ¿¹danie zakoñczone sukcesem
-	//this.timeout = opt.timeout || 50000; //Czas oczekiwania na odpowiedŸ
+
+	//Metoda POST - domyœlnie GET
+	this.post = opt.post || false;
+
+	//Parametry POST
+	this.param = [];
+
+	//Wykonaj skrypty JS - domyœlnie NIE
+	this.scripts = opt.scripts || false;
+
+	//Gdy odpowiedŸ jest pobierana
+	this.loading = opt.loading || null;
+
+	//Gdy ¿¹danie nie powiedzie siê
+	this.fail = opt.fail || function(x) { alert(x) };
+
+	//Gdy ¿¹danie zakoñczone sukcesem
+	this.done = opt.done || function(x) { this.o.innerHTML = x }
+
+	//Czas oczekiwania na odpowiedŸ
+	this.timeout = opt.timeout || 50000;
 }
 
 //Wyœlij ¿¹danie
@@ -386,3 +406,5 @@ Dialog.prototype.load = function(url, post)
 	new Request(url, this.body, {scripts:1}).send(post);
 	this.show();
 }
+
+//this instanceof arguments.callee ? 'object instance' : 'function call'
