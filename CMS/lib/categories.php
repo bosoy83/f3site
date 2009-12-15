@@ -77,6 +77,7 @@ function RSS($id = null, $cat = null)
 		$rss -> title = $x[1];
 		$rss -> desc  = $x[2];
 		$rss -> link  = $x[3];
+		$rss -> base  = URL;
 
 		#Pobierz ostatnie nowości
 		$q = $db->query('SELECT i.ID,i.name,i.date,i.txt,i.opt,c.name as cat FROM '.
@@ -91,7 +92,7 @@ function RSS($id = null, $cat = null)
 				'text'  => $item['opt'] & 1 ? nl2br($item['txt']) : $item['txt'],
 				'cat'   => $item['cat'],
 				'date'  => $item['date'],
-				'url'   => URL . 'news/' . $item['ID']
+				'url'   => URL . url('news/' . $item['ID'])
 			));
 		}
 		$rss->save('rss/'.$x[0].'.xml');

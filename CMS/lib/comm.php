@@ -32,6 +32,7 @@ function comments($id, $type=5, $mayPost=true)
 	$mayEdit = admit('CM');
 	$mayDel  = $mayEdit || ($type == 10 && $id == UID);
 	$comURL  = url('comment/');
+	$modURL  = url('moderate/');
 	$userURL = url('user/');
 
 	#Pobierz
@@ -61,8 +62,9 @@ function comments($id, $type=5, $mayPost=true)
 				'edit' => $mayEdit ? $comURL.$x[0] : false,
 				'del'  => $mayDel ? $comURL.$x[0] : false,
 				'photo' => isset($cfg['commPhoto']) && $x[8] ? $x[8] : false,
-				'accept' => ($mayEdit && $x[1]!=1) ? $comURL.$x[0] : null,
-				'profile' => $x[7] ? $userURL.urlencode($x[7]) : null
+				'accept' => $mayEdit && $x[1]!=1 ? $comURL.$x[0] : false,
+				'findIP' => $mayEdit ? $modURL.$x[4] : false,
+				'profile' => $x[7] ? $userURL.urlencode($x[7]) : false
 			);
 		}
 		$res = null;

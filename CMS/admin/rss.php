@@ -24,7 +24,7 @@ foreach($res as $x)
 		'id'    => $x['ID'],
 		'title' => $x['name'],
 		'auto'  => $x['auto'] ? $lang['yes'] : $lang['no'],
-		'edit'  => url('editRSS/'.$x['ID'], '', 'admin'),
+		'edit'  => url('editRss/'.$x['ID'], '', 'admin'),
 		'file'  => file_exists('rss/'.$x['ID'].'.xml') ? 'rss/'.$x['ID'].'.xml' : null,
 	);
 }

@@ -42,8 +42,22 @@ else
 	$st = 0;
 }
 
-#Tylko do akceptacji?
-$q = isset($URL[1]) ? ' WHERE access!=1' : '';
+#Filtr - IP / tylko ukryte
+if(isset($URL[1]))
+{
+	if($URL[1] == 'hidden')
+	{
+		$q = ' WHERE access!=1';
+	}
+	else
+	{
+		$q = ' WHERE ip='.$db->quote($URL[1]);
+	}
+}
+else
+{
+	$q = '';
+}
 
 #Razem
 $total = dbCount('comms'.$q);
@@ -72,6 +86,7 @@ foreach($res as $x)
 		'text'  => nl2br(emots(isset($cfg['bbcode']) ? BBCode($x['text']) : $x['text'])),
 		'date'  => genDate($x['date'],1),
 		'url'   => url('comment/'.$x['ID']),
+		'findIP'=> url('moderate/'.$x['ip']),
 		'item'  => $co ? url($co.'/'.$x['CID']) : null,
 		'id'    => $x['ID'],
 		'title' => $x['name'],

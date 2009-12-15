@@ -4,6 +4,7 @@ class RSS
 	public
 		$title, //Title of RSS
 		$link,  //URL
+		$base,  //Base URL
 		$desc;  //Description of RSS
 	private
 		$data = array(),
@@ -24,7 +25,7 @@ class RSS
 		{
 			throw new Exception(sprintf('Cannot write to %s - CHMOD it 766!', $file));
 		}
-		$xml = new SimpleXMLElement('<rss version="2.0"></rss>');
+		$xml = new SimpleXMLElement('<rss version="2.0" xml:base="'.$this->base.'"></rss>');
 		$rss = $xml->addChild('channel'); 
 		$rss->title = $this->title;
 		$rss->link  = $this->link;
