@@ -19,6 +19,7 @@ $lang=Array(
 13=>'Die Umfrage ist nicht vorhanden.',
 14=>'FEHLER! Jedes Wort muss min. 3 Zeichen haben.',
 16=>'Dein Konto ist inaktiv.',
+19=>'Bitte warten',
 21=>'Du wirst verbannt.',
 22=>'Datenbank Fehler<br />Betätige F5 um zu wieder versuchen.',
 23=>'Die Datenbank ist unerreichbar. Komm wieder nach einer Weile.<br /><br />Wartungsarbeiten können dauern.',

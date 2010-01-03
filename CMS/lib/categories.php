@@ -240,9 +240,8 @@ function CountItems()
 }
 
 //Help: sitepoint.com
-function RTR($parent,$left)
+function RTR($parent,$left,$db)
 {
-	global $db;
 	$right = $left+1;
 	$all = $db->query('SELECT ID FROM '.PRE.'cats WHERE sc='.$parent)->fetchAll(3);
 	foreach($all as $row)
@@ -252,11 +251,12 @@ function RTR($parent,$left)
 	$db->exec('UPDATE '.PRE.'cats SET lft='.$left.', rgt='.$right.' WHERE ID='.$parent);
 	return $right+1;
 }
-function RebuildTree()
+function RebuildTree(PDO $db=null)
 {
-	$left=1;
-	foreach($GLOBALS['db']->query('SELECT ID FROM '.PRE.'cats WHERE sc=0 ORDER BY type,name') as $x)
+	$left = 1;
+	if(!$db) global $db;
+	foreach($db->query('SELECT ID FROM '.PRE.'cats WHERE sc=0 ORDER BY type,name') as $x)
 	{
-		$left = RTR($x['ID'],$left);
+		$left = RTR($x['ID'],$left,$db);
 	}
 }

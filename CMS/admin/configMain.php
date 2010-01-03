@@ -1,6 +1,30 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
+#Aktualizuj cache menu
+if(isset($_SESSION['renew']))
+{
+	try
+	{
+		require './lib/mcache.php';
+		require './lib/categories.php';
+		RenderMenu();
+		Latest();
+		RSS();
+		if(function_exists('glob') && $glob = glob('cache/cat*.php'))
+		{
+			foreach($glob as $x) unlink($x); #Wyczy¶æ cache kategorii
+		}
+		unset($_SESSION['renew'],$glob,$x);
+		include './admin/config.php';
+		return 1;
+	}
+	catch(Exception $e)
+	{
+		$content->info($lang['saved']);
+	}
+}
+
 #Dostêpne opcje
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 
@@ -20,15 +44,21 @@ if($_POST)
 	try
 	{
 		$f->save();
+		if($cfg['niceURL'] != $opt['niceURL'])
+		{
+			$_SESSION['admenu'] = null;
+			$_SESSION['renew'] = 1;
+			$content->message(19, url('configMain','renew','admin'));
+		}
+		$cfg = &$opt;
 		$content->info($lang['saved']);
 		include './admin/config.php';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$content->info($e);
 	}
-	$f = null;
 }
 
 include LANG_DIR.'admCfg.php';

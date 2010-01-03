@@ -31,7 +31,7 @@ foreach($res as $g)
 	$group[] = array(
 		'id'     => $g[0],
 		'num'    => ++$num,
-		'url'    => url('users/'.$g[0], '', 'admin'),
+		'url'    => url('group/'.$g[0]),
 		'edit'   => url('editGroup/'.$g[0], '', 'admin'),
 		'title'  => $g[1],
 		'opened' => $g[2] ? $lang['yes'] : $lang['no']

@@ -1,5 +1,4 @@
-<?php
-$lang+=Array(
+<?php $lang+=Array(
 'na'=>'-',
 'sex'=>'Płeć',
 'male'=>'Mężczyzna',
@@ -15,6 +14,8 @@ $lang+=Array(
 'callq'=>'Czy na pewno chcesz zadzwonić do użytkownika ',
 'sendPM'=>'Wyślij prywatną wiadomość',
 'abouty'=>'O sobie',
+
+'founder'=>'Założył',
 
 'account'=>'Konto użytkownika',
 'editup'=>'Obowiązkowe informacje',
@@ -67,6 +68,7 @@ $lang+=Array(
 'photoBig'=> 'Wymiary zdjęcia są za duże. Zmniejsz je w programie graficznym.',
 'photoErr'=> 'Nie udało się załadować zdjęcia.',
 
+'isBot'=>'Formularz wysłany za szybko. Poczekaj kilka sekund i wyślij ponownie.',
 'pass2'=>'Wpisane hasła nie pasują do siebie.',
 'mailEx'=>'Podany adres e-mail jest już używany.',
 'badMail'=>'Adres e-mail jest nieprawidłowy.',
@@ -74,7 +76,7 @@ $lang+=Array(
 'badCode'=>'Kod z obrazka został przepisany niepoprawnie.',
 'tooLong'=>'Zawartość pola O SOBIE jest za długa.',
 'badPass'=>'Hasło wpisane niepoprawnie. Sprawdź, czy nie zawiera niedozwolonych znaków oraz czy jego długość jest poprawna.',
-'mustPass'=>'Musisz podać swoje aktualne hasło, aby je zmienić!',
+'mustPass'=>'Musisz podać swoje aktualne hasło!',
 'badLogin'=>'Login jest wpisany niepoprawnie. Sprawdź, czy jego długość jest poprawna.',
 'loginChar'=>'Login zawiera niedozwolone znaki.',
 );

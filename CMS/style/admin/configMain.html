@@ -64,10 +64,6 @@
 	<th colspan="2">{lang.security}</th>
 </tr>
 <tr>
-	<td><b>{lang.urls}:</b></td>
-	<td><input type="checkbox" name="niceURL" /></td>
-</tr>
-<tr>
 	<td><b>{lang.censor}:</b></td>
 	<td><input type="checkbox" name="censor" /></td>
 </tr>
@@ -82,6 +78,14 @@
 <tr>
 	<td><b>{lang.flood}:</b><small>{lang.0off}</small></td>
 	<td><input name="antyFlood" size="5" value="{cfg.antyFlood}" /> sec.</td>
+</tr>
+<tr>
+	<td><b>{lang.urls}:</b></td>
+	<td><select name="niceURL" id="urls">
+		<option value="1">{lang.url1}</option>
+		<option value="2">{lang.url2}</option>
+		<option value="3">{lang.url3}</option>
+	</select></td>
 </tr>
 
 <tr>
@@ -161,3 +165,13 @@
 </tbody>
 </table>
 </form>
+
+<script type="text/javascript">
+urlbox = $('urls');
+urlbox.now = urlbox.selectedIndex;
+urlbox.onchange = function(e)
+{
+	if(this.selectedIndex < 2)
+	if(!confirm('{lang.warn}')) this.selectedIndex = this.now;
+}
+</script>

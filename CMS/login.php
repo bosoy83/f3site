@@ -6,7 +6,7 @@ require 'kernel.php';
 $from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : '';
 
 #Wyloguj?
-if(isset($_GET['logout']) && LOGD==1)
+if(isset($_GET['logout']) && UID)
 {
 	session_destroy();
 	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-31104000);
@@ -17,12 +17,12 @@ if(isset($_GET['logout']) && LOGD==1)
 #Rejestruj?
 elseif(isset($_POST['reg']))
 {
-	header('Location: '.URL.url('account'));
+	header('Location: '.URL.url('account', $_POST['u'] ? 'u='.urlencode($_POST['u']) : ''));
 	exit;
 }
 
 #Loguj?
-elseif(LOGD!=1 && !empty($_POST['u']) && !empty($_POST['p']))
+elseif(!UID && !empty($_POST['u']) && !empty($_POST['p']))
 {
 	#Wpisane dane
 	$login = clean($_POST['u'],30);

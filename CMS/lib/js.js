@@ -14,18 +14,7 @@ function CSS(x)
 	{
 		var link = document.getElementsByTagName('link')[0];
 		link.href = link.href.slice(0,-5) + x + '.css';
-	}
-	else
-	{
-		if(!CSS.d)
-		{
-			CSS.d = new Dialog('SKIN','',250,200);
-			CSS.d.load('request.php?co=css');
-		}
-		else
-		{
-			CSS.d.show();
-		}
+		setCookie('CSS', x, 3600)
 	}
 }
 
@@ -114,7 +103,7 @@ function show(o, once)
 {
 	if(typeof o == 'string') o = $(o);
 	var x = o.style;
-	if(x.display=='none') x.display='block'; else if(once==undefined) x.display='none'
+	if(x.display=='none') x.display=''; else if(once==undefined) x.display='none'
 }
 
 //Kursor

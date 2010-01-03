@@ -21,6 +21,7 @@ $lang=Array(
 16=>'The account is not active.',
 17=>'You cannot start new search as quickly after the previous. Wait for a while and try again.',
 18=>'No content found.',
+19=>'Click OK to update links.',
 20=>'The search has been finished.',
 21=>'Sorry, you have been banned!',
 22=>'Database caused an error.<br />Click F5 to try again.',

@@ -7,7 +7,7 @@ if(isset($URL[1]))
 {
 	$login = $URL[1];
 }
-elseif(LOGD)
+elseif(UID)
 {
 	$login = $user['login'];
 }
@@ -56,10 +56,10 @@ switch($u['sex'])
 }
 
 #PM
-$pm = isset($cfg['pmOn']) && LOGD==1 ? 'pms/edit?to='.$u['ID'] : false;
+$pm = isset($cfg['pmOn']) && UID ? 'pms/edit?to='.$u['ID'] : false;
 
 #URL linku EDYTUJ
-if(LOGD)
+if(UID)
 {
 	if($u['ID'] == UID)
 	{

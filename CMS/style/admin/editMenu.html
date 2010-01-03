@@ -56,6 +56,14 @@
 		<div>
 		{lang.title}: <input name="txt[]" value="{htmlspecialchars: 0}" />
 		{lang.adr}: <input name="adr[]" value="{1}" />
+		<!--
+		<select>
+			<option>{lang.mainPage}</option>
+			<option>{lang.adr}</option>
+			<option>{lang.cat}</option>
+			<option>{lang.mod}</option>
+		</select>
+		-->
 		<input type="checkbox" name="nw[{KEY}]" title="{lang.openNew}" style="cursor: help" f3:var="i1.2" />
 		<input type="image" src="img/icon/add.png" alt="+" />
 		<input type="image" src="img/icon/del.png" alt="-" />
@@ -84,8 +92,6 @@
 </div>
 
 <script type="text/javascript">
-//<![CDATA[
 document.forms[0][0].focus()
 f = new Fragment('items',{depth:1,html:$('tpl')})
-//]]>
 </script>

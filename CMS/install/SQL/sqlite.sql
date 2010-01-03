@@ -1,27 +1,27 @@
-CREATE TABLE IF NOT EXISTS `{pre}acl` (
+CREATE TABLE IF NOT EXISTS `f3_acl` (
 `UID` KEY int(11) NOT NULL,
 `CatID` KEY int(11) NOT NULL,
 `type` varchar(9) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS ID ON `{pre}acl` (UID,CatID);
+CREATE INDEX IF NOT EXISTS ID ON `f3_acl` (UID,CatID);
 
-CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
+CREATE TABLE IF NOT EXISTS `f3_admmenu` (
 `ID` varchar(9) PRIMARY KEY NOT NULL,
 `text` varchar(30) NOT NULL,
 `file` varchar(30) NOT NULL,
 `menu` tinyint(1) NOT NULL,
 `rights` tinyint(1) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS `{pre}answers` (
+CREATE TABLE IF NOT EXISTS `f3_answers` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `IDP` int(10) NOT NULL,
 `seq` int(11) NOT NULL DEFAULT 0,
 `a` varchar(200),
 `num` int(11) NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS p ON `{pre}answers` (IDP);
+CREATE INDEX IF NOT EXISTS p ON `f3_answers` (IDP);
 
-CREATE TABLE IF NOT EXISTS `{pre}arts` (
+CREATE TABLE IF NOT EXISTS `f3_arts` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `pages` tinyint(2) NOT NULL,
 `ent` int(11) NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS cat ON `{pre}arts` (cat);
+CREATE INDEX IF NOT EXISTS cat ON `f3_arts` (cat);
 
-CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
+CREATE TABLE IF NOT EXISTS `f3_artstxt` (
 `ID` int(11) NOT NULL,
 `page` tinyint(4) NOT NULL,
 `cat` int(11) NOT NULL,
@@ -44,14 +44,14 @@ CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `opt` tinyint(2) NOT NULL,
 PRIMARY KEY (ID,page));
 
-CREATE TABLE IF NOT EXISTS `{pre}banners` (
+CREATE TABLE IF NOT EXISTS `f3_banners` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `gen` tinyint(2) NOT NULL,
 `name` varchar(50),
 `ison` tinyint(1),
 `code` text);
 
-CREATE TABLE IF NOT EXISTS `{pre}cats` (
+CREATE TABLE IF NOT EXISTS `f3_cats` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `name` varchar(50) NOT NULL,
 `dsc` varchar(255),
@@ -66,10 +66,10 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 `lft` tinyint(4) NOT NULL,
 `rgt` tinyint(4) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS sc ON `{pre}cats` (sc);
-CREATE INDEX IF NOT EXISTS pos ON `{pre}cats` (lft,rgt);
+CREATE INDEX IF NOT EXISTS sc ON `f3_cats` (sc);
+CREATE INDEX IF NOT EXISTS pos ON `f3_cats` (lft,rgt);
 
-CREATE TABLE IF NOT EXISTS `{pre}comms` (
+CREATE TABLE IF NOT EXISTS `f3_comms` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `TYPE` tinyint(1) NOT NULL,
 `CID` int(11) NOT NULL,
@@ -81,17 +81,17 @@ CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `date` int(11),
 `text` text);
 
-CREATE INDEX IF NOT EXISTS th ON `{pre}comms` (TYPE,CID);
+CREATE INDEX IF NOT EXISTS th ON `f3_comms` (TYPE,CID);
 
-CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
+CREATE TABLE IF NOT EXISTS `f3_confmenu` (
 `ID` varchar(50) NOT NULL,
 `name` varchar(50),
 `lang` varchar(5) NOT NULL,
 `img` varchar(230));
 
-CREATE INDEX IF NOT EXISTS ID ON `{pre}confmenu` (ID);
+CREATE INDEX IF NOT EXISTS ID ON `f3_confmenu` (ID);
 
-CREATE TABLE IF NOT EXISTS `{pre}files` (
+CREATE TABLE IF NOT EXISTS `f3_files` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
 `name` varchar(50),
@@ -106,16 +106,23 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `rate` tinyint(1),
 `fulld` mediumtext);
 
-CREATE INDEX IF NOT EXISTS cat ON `{pre}files` (cat);
+CREATE INDEX IF NOT EXISTS cat ON `f3_files` (cat);
 
-CREATE TABLE IF NOT EXISTS `{pre}groups` (
+CREATE TABLE IF NOT EXISTS `f3_groups` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `name` varchar(50) NOT NULL,
 `dsc` text,
 `access` varchar(3) NOT NULL,
-`opened` tinyint(1) NOT NULL);
+`opened` tinyint(1) NOT NULL,
+`who` int(11) NOT NULL DEFAULT 0,
+`date` int(11));
 
-CREATE TABLE IF NOT EXISTS `{pre}imgs` (
+CREATE TABLE IF NOT EXISTS `f3_groupuser` (
+`u` int(11) NOT NULL,
+`g` int(11) NOT NULL,
+PRIMARY KEY (u,g));
+
+CREATE TABLE IF NOT EXISTS `f3_imgs` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -130,9 +137,9 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `file` varchar(255) NOT NULL,
 `size` varchar(9) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS cat ON `{pre}imgs` (cat);
+CREATE INDEX IF NOT EXISTS cat ON `f3_imgs` (cat);
 
-CREATE TABLE IF NOT EXISTS `{pre}links` (
+CREATE TABLE IF NOT EXISTS `f3_links` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -143,16 +150,16 @@ CREATE TABLE IF NOT EXISTS `{pre}links` (
 `count` int(11) NOT NULL DEFAULT 0,
 `nw` tinyint(1) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS cat ON `{pre}links` (cat);
+CREATE INDEX IF NOT EXISTS cat ON `f3_links` (cat);
 
-CREATE TABLE IF NOT EXISTS `{pre}log` (
+CREATE TABLE IF NOT EXISTS `f3_log` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `name` varchar(50) NOT NULL,
 `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
 `ip` varchar(40),
 `user` int(11) NOT NULL DEFAULT 0);
 
-CREATE TABLE IF NOT EXISTS `{pre}menu` (
+CREATE TABLE IF NOT EXISTS `f3_menu` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `seq` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
@@ -162,14 +169,14 @@ CREATE TABLE IF NOT EXISTS `{pre}menu` (
 `img` varchar(200),
 `value` text);
 
-CREATE TABLE IF NOT EXISTS `{pre}mitems` (
+CREATE TABLE IF NOT EXISTS `f3_mitems` (
 `menu` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
 `url` varchar(255) NOT NULL,
 `nw` tinyint(1) NOT NULL DEFAULT 0,
 `seq` tinyint(2) NOT NULL DEFAULT 0);
 
-CREATE TABLE IF NOT EXISTS `{pre}news` (
+CREATE TABLE IF NOT EXISTS `f3_news` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -181,32 +188,32 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `access` tinyint(1) NOT NULL,
 `opt` tinyint(2) NOT NULL DEFAULT 3);
 
-CREATE INDEX IF NOT EXISTS cat ON `{pre}news` (cat);
+CREATE INDEX IF NOT EXISTS cat ON `f3_news` (cat);
 
-CREATE TABLE IF NOT EXISTS `{pre}newstxt` (
+CREATE TABLE IF NOT EXISTS `f3_newstxt` (
 `ID` int(11) NOT NULL,
 `cat` int(11) NOT NULL,
 `text` mediumtext,
 PRIMARY KEY (ID));
 
-CREATE TABLE IF NOT EXISTS `{pre}online` (
+CREATE TABLE IF NOT EXISTS `f3_online` (
 `IP` varchar(40) PRIMARY KEY NOT NULL,
 `user` int(11) NOT NULL,
 `name` varchar(50),
 `time` timestamp NOT NULL default CURRENT_TIMESTAMP);
 
-CREATE TABLE IF NOT EXISTS `{pre}pages` (
+CREATE TABLE IF NOT EXISTS `f3_pages` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `name` varchar(50) NOT NULL,
 `access` varchar(3) NOT NULL,
 `opt` tinyint(2) NOT NULL,
 `text` mediumtext);
 
-CREATE TABLE IF NOT EXISTS `{pre}plugins` (
+CREATE TABLE IF NOT EXISTS `f3_plugins` (
 `ID` varchar(30) NOT NULL,
 `name` varchar(50) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS `{pre}pms` (
+CREATE TABLE IF NOT EXISTS `f3_pms` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `topic` varchar(50) NOT NULL,
 `usr` int(11) NOT NULL,
@@ -216,9 +223,9 @@ CREATE TABLE IF NOT EXISTS `{pre}pms` (
 `bbc` tinyint(1) NOT NULL,
 `txt` text);
 
-CREATE INDEX IF NOT EXISTS o ON `{pre}pms` (owner);
+CREATE INDEX IF NOT EXISTS o ON `f3_pms` (owner);
 
-CREATE TABLE IF NOT EXISTS `{pre}polls` (
+CREATE TABLE IF NOT EXISTS `f3_polls` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `name` varchar(50) NOT NULL,
 `q` varchar(80) NOT NULL,
@@ -228,18 +235,18 @@ CREATE TABLE IF NOT EXISTS `{pre}polls` (
 `access` varchar(3) NOT NULL,
 `date` date);
 
-CREATE TABLE IF NOT EXISTS `{pre}pollvotes` (
+CREATE TABLE IF NOT EXISTS `f3_pollvotes` (
 `user` varchar(40) NOT NULL,
 `ID` int(11) NOT NULL,
 `date` date NOT NULL DEFAULT CURRENT_DATE);
 
-CREATE TABLE IF NOT EXISTS `{pre}rates` (
+CREATE TABLE IF NOT EXISTS `f3_rates` (
 `type` tinyint(2) NOT NULL,
 `ID` int(11) NOT NULL,
 `mark` tinyint(1) NOT NULL DEFAULT 5,
 `IP` varchar(50) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS `{pre}rss` (
+CREATE TABLE IF NOT EXISTS `f3_rss` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `auto` tinyint(1) NOT NULL DEFAULT 0,
 `name` varchar(50) NOT NULL DEFAULT '',
@@ -249,19 +256,18 @@ CREATE TABLE IF NOT EXISTS `{pre}rss` (
 `cat` int(11) NOT NULL DEFAULT 0,
 `num` int(11) NOT NULL DEFAULT 0);
 
-CREATE TABLE IF NOT EXISTS `{pre}tmp` (
+CREATE TABLE IF NOT EXISTS `f3_tmp` (
 `KEYID` varchar(50) NOT NULL PRIMARY KEY,
 `UID` int(11) NOT NULL,
 `type` varchar(9) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS `{pre}users` (
+CREATE TABLE IF NOT EXISTS `f3_users` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 `login` varchar(50) UNIQUE NOT NULL,
 `pass` char(32) NOT NULL,
 `mail` varchar(80),
 `sex` tinyint(1) NOT NULL DEFAULT 0,
 `opt` tinyint(2) NOT NULL DEFAULT 2,
-`gid` int(11) NOT NULL DEFAULT 1,
 `lv` tinyint(1) NOT NULL DEFAULT 1,
 `adm` text,
 `regt` int(11),

@@ -8,7 +8,7 @@ require LANG_DIR.'pms.php';
 $content->title = $lang['pm3'];
 
 #Jest dostêp?
-if(isset($cfg['pmOn']) && LOGD==1)
+if(isset($cfg['pmOn']) && UID)
 {
 	#Nowe PM
 	if($user['pms']==0)
@@ -40,7 +40,7 @@ if(isset($cfg['pmOn']) && LOGD==1)
 	}
 	else require './mod/pms/list.php';
 }
-elseif(LOGD!=1)
+elseif(!UID)
 {
 	$content->info($lang['pm2']);
 }

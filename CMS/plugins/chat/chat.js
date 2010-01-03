@@ -12,6 +12,9 @@ function Chat(formID, out)
 	//Output box - may be table or div
 	this.output = out || $('chatout');
 
+	//Topic box
+	//this.topicBox = $('chatTopic');
+
 	//Scrolled chat box - div recommended
 	this.chatBox = this.output.parentNode;
 
@@ -55,6 +58,13 @@ function Chat(formID, out)
 
 	//If failed
 	this.http.fail = function(x) { alert(x) };
+
+	//Input ENTER
+	this.input.onkeydown = function(e)
+	{
+		if(e == undefined) e = event;
+		if(e.keyCode == 13 && !e.shiftKey) { this.form.onsubmit(); return false }
+	};
 
 	//Autofocus input
 	this.input.focus();

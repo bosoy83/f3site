@@ -32,12 +32,6 @@ else
 
 #Grupa
 $w = '';
-if(isset($URL[1]))
-{
-	$gid = (int)$URL[1];
-	$w .= ' WHERE gid='.$gid;
-}
-else { $gid=null; }
 
 #Szukaj
 if(isset($_REQUEST['s']) && $_REQUEST['s'])
@@ -84,5 +78,5 @@ $content->title = $lang['users'];
 $content->data = array(
 	'users' => &$users,
 	'search'=> $s,
-	'pages' => pages($page,$total,30,url('users'.($gid ? '/'.$gid : ''),'?s='.$s,'admin'),1)
+	'pages' => pages($page,$total,30,url('users','?s='.$s,'admin'),1)
 );

@@ -30,6 +30,7 @@ $lang+=Array(
 /* CATEGORY REMOVAL */
 'delCat'	=> 'Delete categories',
 'moveTo'	=> 'Move to',
+'warnCat' => 'You try to delete default category for %s! Click here to change its settings instead.',
 'content'	=> 'Move all items to',
 'subCats'	=> 'Move all subcategories to',
 'keep'		=> 'leave without category',
@@ -65,6 +66,7 @@ $lang+=Array(
 'urls'		=> 'links',
 'left'		=> 'left',
 'right'		=> 'right',
+'mod'     => 'Module',
 'merged'	=> 'merged file',
 'editBox'	=> 'Edit block',
 'addBox'	=> 'Add block',

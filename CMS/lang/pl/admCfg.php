@@ -24,8 +24,10 @@ $lang+=Array(
 'head'=>'Dodatkowy kod w sekcji',
 'head2'=>'Nieobowiązkowy, np. znaczniki &lt;meta&gt;, &lt;link&gt;...',
 'urls'=>'Przyjazne adresy URL',
-'url1'=>'Włączone - wymagana obsługa mod_rewrite',
+'url1'=>'Włączone - z modułem mod_rewrite',
+'url2'=>'Włączone - bez mod_rewrite',
 'url3'=>'Wyłączone',
+'warn'=>'Nieprawidłowe ustawienie tej opcji zdestabilizuje serwis! Czy jesteś pewny, że funkcja jest dostępna na serwerze?',
 
 'date'=>'Ustawienia daty',
 'now1'=>'Format aktualnej daty',
@@ -134,6 +136,8 @@ $lang+=Array(
 'maxSize'=>'Maksymalny rozmiar',
 'width'=>'Szer.',
 'height'=>'Wys.',
+
+'whoMay'=>'Kto może zakładać grupy',
 
 /* CENZURA */
 'replace' =>'zamień na',

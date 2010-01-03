@@ -29,6 +29,7 @@ $lang+=Array(
 
 /* KATEGORIEN ÄNDERN */
 'delCat' => 'Kategorie löschen',
+'warnCat'=> 'Du löschst die Hauptkategorie des %s! Klick hier um Zusätze zu ändern.',
 'moveTo' => 'Ziehen nach',
 'subCats'=> 'Unterkategorien',
 'content'=> 'Gehalt',
@@ -65,6 +66,7 @@ $lang+=Array(
 'urls'  => 'Links',
 'left'  => 'links',
 'right' => 'rechts',
+'mod'   => 'Modul',
 'merged'  => 'fusioniert',
 'editBox' => 'Block ändern',
 'addBox'  => 'Neuer Block',

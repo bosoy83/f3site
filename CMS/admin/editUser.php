@@ -27,7 +27,6 @@ if($_POST)
 		'city' => clean($_POST['city']),
 		'tlen' => clean($_POST['tlen'],30),
 		'www'  => clean($_POST['www']),
-		'gid' => (int)$_POST['gid'],
 		'icq' => (is_numeric($_POST['icq'])) ? $_POST['icq'] : null,
 		'gg'  => (is_numeric($_POST['gg'])) ? $_POST['gg'] : null);
 
@@ -54,7 +53,7 @@ if($_POST)
 	#E-mail
 	if(!preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
-		$error[] = $lang['eperrm'];
+		$error[] = $lang['badMail'];
 	}
 	
 	#WWW
@@ -73,7 +72,7 @@ if($_POST)
 		{
 			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail, about=:about,
 			www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen, jabber=:jabber,
-			gg=:gg, gid=:gid, photo=:photo WHERE ID='.$id) -> execute($u);
+			gg=:gg, photo=:photo WHERE ID='.$id) -> execute($u);
 
 			$content->info($lang['upd'], array(url('user/'.$id) => $u['login']));
 			return 1;
@@ -98,6 +97,5 @@ require './lib/user.php';
 $content->data = array(
 	'u' => &$u,
 	'url' => url('editUser/'.$id, '', 'admin'),
-	'groups' => GroupList($u['gid']),
 	'fileman'=> admit('FM')
 );

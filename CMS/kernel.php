@@ -1,7 +1,5 @@
 <?php /* Jądro systemu */
 if(iCMS!=1) exit;
-define('PATH',str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
-define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
 
 #Ochrona przed CSRF
 if($_POST && isset($_SERVER['HTTP_REFERER']))
@@ -47,13 +45,18 @@ if(!empty($cfg['ban']))
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 define('NICEURL', $cfg['niceURL']);
 
+#Ścieżka do podstrony z PATH_INFO
+if(isset($_SERVER['PATH_INFO']))
+{
+	$_GET['go'] = substr($_SERVER['PATH_INFO'], 1);
+}
+
+#Adres URL - ścieżka do aktualnej podstrony
+$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
+
 #Katalog skórki
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
-
-#Adres URL - ścieżka do aktualnej podstrony
-#$URL = $_SERVER['QUERY_STRING'] ? explode('/', $_SERVER['QUERY_STRING']) : array();
-$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
 
 #ID do zmienej: $id zawsze istnieje
 if(isset($_GET['id']) && is_numeric($_GET['id']))
@@ -75,8 +78,14 @@ if(isset($_GET['page']) && !is_numeric($_GET['page']))
 	$_GET['page'] = 1;
 }
 
+#Przekieruj stare URL na nowe
+if(isset($_GET['co']) && ctype_alnum($_GET['co']))
+{
+	header('HTTP/1.1 301 Moved Permanently');
+	header('Location: ' . URL . url($_GET['co'] . ($id ? '/'.$id : '')));
+}
+
 #Sesja
-session_name(PRE);
 session_start();
 
 #Domyślny język
@@ -86,7 +95,7 @@ $nlang = $cfg['lang'];
 if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
 {
 	$nlang = $_SESSION['lang'] = $_GET['setlang'];
-	setcookie(PRE.'lang', $nlang, time()+23328000); //9 miesięcy
+	setcookie('lang', $nlang, time()+23328000); //9 miesięcy
 }
 #Język: sesja
 elseif(isset($_SESSION['lang']))
@@ -94,11 +103,11 @@ elseif(isset($_SESSION['lang']))
 	$nlang = $_SESSION['lang'];
 }
 #Język: cookies
-elseif(isset($_COOKIE[PRE.'lang']))
+elseif(isset($_COOKIE['lang']))
 {
-	if(ctype_alnum($_COOKIE[PRE.'lang']) && is_dir('./lang/'.$_COOKIE[PRE.'lang']))
+	if(ctype_alnum($_COOKIE['lang']) && is_dir('./lang/'.$_COOKIE['lang']))
 	{
-		$nlang = $_SESSION['lang'] = $_COOKIE[PRE.'lang'];
+		$nlang = $_SESSION['lang'] = $_COOKIE['lang'];
 	}
 }
 #Autowykrywanie języka
@@ -197,7 +206,7 @@ if(is_numeric($xuid))
 	}
 	else
 	{
-		$user = $_SESSION['userdata'] = $db->query('SELECT login,pass,gid,lv,adm,lvis,pms
+		$user = $_SESSION['userdata'] = $db->query('SELECT login,pass,lv,adm,lvis,pms
 		FROM '.PRE.'users WHERE lv>0 AND ID='.$xuid) -> fetch(2); //ASSOC
 	}
 
@@ -206,10 +215,8 @@ if(is_numeric($xuid))
 	{
 		if($xpass===$user['pass'])
 		{
-			define('LOGD', 1);
 			define('UID', $xuid);
 			define('LEVEL', $user['lv']);
-			define('GID', $user['gid']);
 		}
 		else
 		{
@@ -220,7 +227,7 @@ if(is_numeric($xuid))
 unset($xuid,$xpass);
 
 #Data wejścia na stronę, RECENT w sesji = data ostatniej wizyty
-if(defined('LOGD'))
+if(defined('UID'))
 {
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
 	{
@@ -231,10 +238,8 @@ if(defined('LOGD'))
 else
 {
 	#Nie usuwaj!
-	define('LOGD',0);
 	define('UID',0);
 	define('LEVEL',0);
-	define('GID',0);
 }
 
 #Dzisiaj
@@ -249,7 +254,7 @@ Header('Content-type: text/html; charset=utf-8');
 #Prawa - wpuścić użytkownika?
 function admit($id,$type=null)
 {
-	if(LOGD!=1) return false; //Gość
+	if(!UID) return false; //Gość
 	global $user, $db;
 	static $global, $all;
 
@@ -292,6 +297,7 @@ function admit($id,$type=null)
 function url($x, $query=null, $path=null)
 {
 	if($path) $path .= '/';
+	if($query && is_array($query)) $query = http_build_query($query);
 	switch(NICEURL)
 	{
 		case 1: return $path . $x . ($query ? '?'.$query : ''); break;

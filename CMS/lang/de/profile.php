@@ -1,5 +1,4 @@
-<?php
-$lang+=Array(
+<?php $lang+=Array(
 'na'=>'-',
 'sex'=>'Gender',
 'male'=>'Männlich',
@@ -15,6 +14,8 @@ $lang+=Array(
 'callq'=>'Willst du %s anrufen?',
 'sendPM'=>'Private Nachricht senden',
 'abouty'=>'öber den Benutzer',
+
+'founder'=>'Gründer',
 
 'account'=>'Benutzerkonto',
 'editup'=>'Zwingende Daten',
@@ -43,7 +44,6 @@ $lang+=Array(
 'nousers'=>'Keine Benutzer',
 'group'=>'Gruppe',
 'cont'=>' enthält',
-'sort'=>'sortieren nach',
 
 'editor'=>'Redakteur',
 'locked'=>'Inaktiv',
@@ -68,6 +68,7 @@ $lang+=Array(
 'photoBig'=> 'Abmessungen des Foto sind zu groü. Verkleiner es mit dem Zeichenprogramm.',
 'photoErr'=> 'Das Foto könntet hochgeladen worden.',
 
+'isBot'=>'Das Formular wird zu schnell geschickt. Warte eine Zeitlang und schick es erneut.',
 'pass2'=>'Getippt Passwörter anpassen nicht.',
 'mailEx'=>'E-Mail-Addresse ist schon belegt.',
 'badMail'=>'E-Mail-Addresse ist inkorrekt.',

@@ -28,9 +28,9 @@ function ResetPoll($x = null)
 }
 
 #Odbuduj cache aktualnej sondy
-function RebuildPoll($only = null)
+function RebuildPoll($only = null, PDO $db = null)
 {
-	global $db;
+	if(!$db) global $db;
 	require_once './lib/config.php';
 	$lang = array();
 	$used = array();

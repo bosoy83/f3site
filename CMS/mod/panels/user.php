@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Zalogowany
-if(LOGD==1)
+if(UID)
 {
 	echo
 	sprintf($lang['uwlogd'],'<a href="'.url('user').'">'.$user['login'].'</a>').'<ul>'.

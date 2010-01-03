@@ -33,7 +33,7 @@ if(isset($URL[2]) && $URL[1] == 'key')
 }
 
 #Rejestracja wyłączona?
-if(!isset($cfg['reg']) && !LOGD)
+if(!isset($cfg['reg']) && !UID)
 {
 	$content->info($lang['regoff']); return 1;
 }
@@ -41,6 +41,12 @@ if(!isset($cfg['reg']) && !LOGD)
 #Zapis
 if($_POST)
 {
+	#Za krótki interwał
+	if(!isset($_SESSION['formTime']) || $_SESSION['formTime'] > $_SERVER['REQUEST_TIME'])
+	{
+		$error[] = $lang['isBot'];
+	}
+
 	#WWW
 	$www = clean($_POST['www'],200);
 	$www = str_replace('javascript:','java_script',$www);
@@ -67,10 +73,10 @@ if($_POST)
 	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
 	#Niezalogowani
-	if(!LOGD)
+	if(!UID)
 	{
 		#Login
-		$u['login'] = clean($_POST['login'],30);
+		$u['login'] = clean($_POST['login']);
 		if(isset($u['login'][31]) || !isset($u['login'][2]))
 		{
 			$error[] = $lang['badLogin'];
@@ -132,14 +138,14 @@ if($_POST)
 	}
 
 	#Zmiana hasła lub E-mail
-	if(LOGD && $_POST['pass'] && $_POST['curPass'] != $user['pass'])
+	if(UID && $_POST['pass'] && $_POST['curPass'] != $user['pass'])
 	{
 		$error[] = $lang['mustPass'];
 		$bad[] = 'curPass';
 	}
 
 	#Hasło
-	if(LOGD && empty($_POST['pass']))
+	if(UID && empty($_POST['pass']))
 	{
 		$u['pass'] = $user['pass'];
 	}
@@ -164,7 +170,7 @@ if($_POST)
 	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
 		#E-mail istnieje w bazie?
-		if(dbCount('users WHERE mail="'.$u['mail'].'"'.(LOGD?' AND ID!='.UID:'')))
+		if(dbCount('users WHERE mail="'.$u['mail'].'"'.(UID?' AND ID!='.UID:'')))
 		{
 			$error[] = $lang['mailEx'];
 			$bad[] = 'mail';
@@ -190,7 +196,7 @@ if($_POST)
 	if($error)
 	{
 		$content->info(join('<br /><br />',$error));
-		if(LOGD && !$photo)
+		if(UID && !$photo)
 		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID) -> fetchColumn();
 	}
 
@@ -200,7 +206,7 @@ if($_POST)
 		try
 		{
 			#Edytuj
-			if(LOGD)
+			if(UID)
 			{
 				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, sex=:sex,
 				opt=:opt, about=:about, mails=:mails, www=:www, city=:city, icq=:icq,
@@ -219,7 +225,7 @@ if($_POST)
 			}
 
 			#Aktywacja e-mail
-			if(!LOGD && $cfg['actmeth']==2)
+			if(!UID && $cfg['actmeth']==2)
 			{
 				#Klucz
 				$key = uniqid(mt_rand(100,999));
@@ -246,7 +252,7 @@ if($_POST)
 				unset($m,$key);
 			}
 			#Inne
-			elseif(LOGD)
+			elseif(UID)
 			{
 				$q->execute($u);
 				header('Location: '.URL.url('user/'.urlencode($user['login'])));
@@ -271,8 +277,7 @@ if($_POST)
 #Form
 else
 {
-	#Odczyt
-	if(LOGD)
+	if(UID)
 	{
 		$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.UID) -> fetch(2);
 		$photo = $u['photo'];
@@ -280,7 +285,7 @@ else
 	else
 	{
 		$u = array(
-		'login' => '',
+		'login' => isset($_GET['u']) ? clean($_GET['u'],30) : '',
 		'mail'  => '',
 		'city'  => '',
 		'opt'   => 2,
@@ -296,6 +301,9 @@ else
 	}
 }
 
+#Czas formularza
+$_SESSION['formTime'] = $_SERVER['REQUEST_TIME'] + 5;
+
 #Opcje
 $u['mvis'] = $u['opt'] & 1;
 $u['comm'] = $u['opt'] & 2;
@@ -309,6 +317,9 @@ $content->data = array(
 	'del'   => $photo,
 	'bad'   => $bad,
 	'bbcode'=> isset($cfg['bbcode']),
-	'code'  => isset($cfg['captcha']) && !LOGD,
-	'photo' => (LOGD && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
+	'hide'  => empty($_POST['pass']) || !isset($_POST['curPass']),
+	'code'  => isset($cfg['captcha']) && !UID,
+	'pass'  => isset($_POST['pass']) ? clean($_POST['pass']) : '',
+	'pass2' => isset($_POST['pass2']) ? clean($_POST['pass2']) : '',
+	'photo' => (UID && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
 );

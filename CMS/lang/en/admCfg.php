@@ -25,7 +25,9 @@ $lang+=Array(
 'head2'=>'Not required, e.g. &lt;meta&gt; or &lt;link&gt; tags.',
 'urls'=>'Fancy URLs',
 'url1'=>'Enabled - required mod_rewrite',
+'url2'=>'Enabled - required PATH_INFO',
 'url3'=>'Disabled',
+'warn'=>'Setting unsupported option may cause unpredictable results. Are you sure?',
 
 'date'=>'Date and time settings',
 'now1'=>'Current date format',
@@ -134,6 +136,8 @@ $lang+=Array(
 'maxSize'=>'Max. size',
 'width'=>'Width:',
 'height'=>'Height:',
+
+'whoMay'=>'Who may found groups',
 
 /* WORD REPLACEMENT */
 'replace'=>'replace with',

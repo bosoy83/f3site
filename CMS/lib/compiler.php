@@ -87,7 +87,7 @@ class Compiler
 
 		#Sta³e predefiniowane i niepotrzebne znaki
 		$in  = array(
-			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}',
+			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}', '{CATS URL}',
 			'{MAIN TITLE}', '{PAGE TITLE}', '{HEAD TAGS}', "\t", "\n\n");
 
 		$out = array(
@@ -96,6 +96,7 @@ class Compiler
 			'<?php newnav(2); ?>',
 			'<?= $nlang; ?>',
 			'<?= $menu ?>',
+			'<?= url(\'cats\') ?>',
 			'<?= $cfg[\'title\']; ?>',
 			'<?= $content->title; ?>',
 			'<?= $cfg[\'head\'].$content->head; ?>',

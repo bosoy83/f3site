@@ -30,6 +30,7 @@ $lang+=Array(
 /* USUWANIE KATEGORII */
 'delCat' => 'Usuwanie kategorii',
 'moveTo' => 'Przenieś do',
+'warnCat'=> 'Usuwasz stronę główną języka %s! Kliknij tutaj, aby zmienić jej ustawienia.',
 'subCats'=> 'Co zrobić z podkategoriami',
 'content'=> 'Co zrobić z zawartością',
 'keep'   => 'zostaw bez kategorii',
@@ -65,6 +66,7 @@ $lang+=Array(
 'urls'  => 'linki',
 'left'  => 'lewa',
 'right' => 'prawa',
+'mod'   => 'Moduł',
 'merged'  => 'plik scalony',
 'editBox' => 'Edycja bloku',
 'addBox'  => 'Nowy blok',
@@ -90,7 +92,7 @@ $lang+=Array(
 'addGroup'  => 'Dodawanie grupy',
 'editGroup' => 'Edytowanie grupy',
 'userDel2'  => 'Czy chcesz także usunąć po nim wszelkie pozostałości (np. komentarze)?',
-'groupInfo' => 'Każdy użytkownik należy do 1 z poniższych grup. Nowi automatycznie przystępują do domyślnej o ID równym 1. Jeśli grupa jest otwarta, zarejestrowani mogą samodzielnie dołączyć do niej.',
+'groupInfo' => 'Grupy łączą użytkowników o podobnych poglądach, zainteresowaniach lub funkcjach w serwisie.',
 
 /* KOPIA BAZY */
 'all' => 'Zaznacz wszystkie',

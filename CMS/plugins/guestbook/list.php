@@ -82,6 +82,6 @@ $content->data = array(
 	'pages'   => &$pages,
 	'intro'   => &$cfg['gbIntro'],
 	'rights'  => $right,
-	'postURL' => ($cfg['gbPost']==1 || (LOGD && $cfg['gbPost']==2)) &&
+	'postURL' => ($cfg['gbPost']==1 || (UID && $cfg['gbPost']==2)) &&
 		(stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false) ? url('guestbook/post') : false
 );

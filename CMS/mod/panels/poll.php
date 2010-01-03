@@ -13,7 +13,7 @@ endif;
 $voted = isset($_COOKIE['voted']) ? explode('o',$_COOKIE['voted']) : array();
 
 #Wyniki
-if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && LOGD!=1))
+if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && !UID))
 {
 	#Brak g³osów?
 	if($poll['num']==0) { echo '<center>'.$lang['novotes'].'</center>'; return; }

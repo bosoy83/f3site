@@ -1,17 +1,17 @@
-CREATE TABLE IF NOT EXISTS `{pre}acl` (
+CREATE TABLE IF NOT EXISTS `f3_acl` (
 `UID` int(11) NOT NULL,
 `CatID`int(11) NOT NULL,
 `type` varchar(9) NOT NULL,
 PRIMARY KEY (UID,CatID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}admmenu` (
+CREATE TABLE IF NOT EXISTS `f3_admmenu` (
 `ID` varchar(9) PRIMARY KEY NOT NULL,
 `text` varchar(30) NOT NULL,
 `file` varchar(30) NOT NULL,
 `menu` tinyint(1) NOT NULL,
 `rights` tinyint(1) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}answers` (
+CREATE TABLE IF NOT EXISTS `f3_answers` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `IDP` int(10) NOT NULL,
 `seq` int(11),
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `{pre}answers` (
 `num` int(11) NOT NULL DEFAULT 0,
 KEY (IDP)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}arts` (
+CREATE TABLE IF NOT EXISTS `f3_arts` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `{pre}arts` (
 `ent` int(11) NOT NULL DEFAULT 0,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
+CREATE TABLE IF NOT EXISTS `f3_artstxt` (
 `ID` int(11) NOT NULL,
 `page` tinyint(4) NOT NULL,
 `cat` int(11) NOT NULL,
@@ -41,14 +41,14 @@ CREATE TABLE IF NOT EXISTS `{pre}artstxt` (
 `opt` tinyint(2) NOT NULL,
 PRIMARY KEY (ID,page)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}banners` (
+CREATE TABLE IF NOT EXISTS `f3_banners` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `gen` tinyint(2) NOT NULL,
 `name` varchar(50),
 `ison` tinyint(1),
 `code` text) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}cats` (
+CREATE TABLE IF NOT EXISTS `f3_cats` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `dsc` varchar(255),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `{pre}cats` (
 KEY `sc` (sc),
 KEY `pos` (lft,rgt)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}comms` (
+CREATE TABLE IF NOT EXISTS `f3_comms` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `TYPE` tinyint(1) NOT NULL,
 `CID` int(11) NOT NULL,
@@ -78,14 +78,14 @@ CREATE TABLE IF NOT EXISTS `{pre}comms` (
 `text` text,
 KEY `th` (TYPE,CID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}confmenu` (
+CREATE TABLE IF NOT EXISTS `f3_confmenu` (
 `ID` varchar(50) NOT NULL,
 `name` varchar(50),
 `lang` varchar(5) NOT NULL,
 `img` varchar(230),
 KEY (ID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}files` (
+CREATE TABLE IF NOT EXISTS `f3_files` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50),
@@ -101,14 +101,21 @@ CREATE TABLE IF NOT EXISTS `{pre}files` (
 `fulld` mediumtext,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}groups` (
+CREATE TABLE IF NOT EXISTS `f3_groups` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `dsc` text,
 `access` varchar(3) NOT NULL,
-`opened` tinyint(1) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`opened` tinyint(1) NOT NULL,
+`who` int(11) NOT NULL DEFAULT 0,
+`date` int(11)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}imgs` (
+CREATE TABLE IF NOT EXISTS `f3_groupuser` (
+`u` int(11) NOT NULL,
+`g` int(11) NOT NULL,
+PRIMARY KEY (u,g)) ENGINE=InnoDB CHARACTER SET='utf8';
+
+CREATE TABLE IF NOT EXISTS `f3_imgs` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -124,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `{pre}imgs` (
 `size` varchar(9) NOT NULL,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}links` (
+CREATE TABLE IF NOT EXISTS `f3_links` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -136,14 +143,14 @@ CREATE TABLE IF NOT EXISTS `{pre}links` (
 `nw` tinyint(1) NOT NULL,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}log` (
+CREATE TABLE IF NOT EXISTS `f3_log` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
 `ip` varchar(40) NOT NULL,
 `user` int(11) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}menu` (
+CREATE TABLE IF NOT EXISTS `f3_menu` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `seq` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
@@ -153,14 +160,14 @@ CREATE TABLE IF NOT EXISTS `{pre}menu` (
 `img` varchar(200) NOT NULL,
 `value` text) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}mitems` (
+CREATE TABLE IF NOT EXISTS `f3_mitems` (
 `menu` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
 `url` varchar(255) NOT NULL,
 `nw` tinyint(1) NOT NULL DEFAULT 0,
 `seq` tinyint(2) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}news` (
+CREATE TABLE IF NOT EXISTS `f3_news` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -173,29 +180,29 @@ CREATE TABLE IF NOT EXISTS `{pre}news` (
 `opt` tinyint(2) NOT NULL DEFAULT 3,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}newstxt` (
+CREATE TABLE IF NOT EXISTS `f3_newstxt` (
 `ID` int(11) NOT NULL PRIMARY KEY,
 `cat` int(11) NOT NULL,
 `text` mediumtext) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}online` (
+CREATE TABLE IF NOT EXISTS `f3_online` (
 `IP` varchar(40) NOT NULL PRIMARY KEY,
 `user` int(11) NOT NULL,
 `name` varchar(50),
 `time` timestamp NOT NULL default CURRENT_TIMESTAMP) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}pages` (
+CREATE TABLE IF NOT EXISTS `f3_pages` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `access` varchar(3) NOT NULL,
 `opt` tinyint(2) NOT NULL,
 `text` mediumtext) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}plugins` (
+CREATE TABLE IF NOT EXISTS `f3_plugins` (
 `ID` varchar(30) NOT NULL,
 `name` varchar(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}pms` (
+CREATE TABLE IF NOT EXISTS `f3_pms` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `topic` varchar(50) NOT NULL,
 `usr` int(11) NOT NULL,
@@ -206,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `{pre}pms` (
 `txt` text,
 KEY (owner)) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}polls` (
+CREATE TABLE IF NOT EXISTS `f3_polls` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `name` varchar(50) NOT NULL,
 `q` varchar(80) NOT NULL,
@@ -216,18 +223,18 @@ CREATE TABLE IF NOT EXISTS `{pre}polls` (
 `access` varchar(3) NOT NULL,
 `date` date) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}pollvotes` (
+CREATE TABLE IF NOT EXISTS `f3_pollvotes` (
 `user` varchar(40) NOT NULL,
 `ID` int(11) NOT NULL,
 `date` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}rates` (
+CREATE TABLE IF NOT EXISTS `f3_rates` (
 `type` tinyint(2) NOT NULL,
 `ID` int(11) NOT NULL,
 `mark` tinyint(1) NOT NULL DEFAULT 5,
 `IP` varchar(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}rss` (
+CREATE TABLE IF NOT EXISTS `f3_rss` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `auto` tinyint(1) NOT NULL,
 `name` varchar(50) NOT NULL,
@@ -238,20 +245,19 @@ CREATE TABLE IF NOT EXISTS `{pre}rss` (
 `num` int(11) NOT NULL
 ) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}tmp` (
+CREATE TABLE IF NOT EXISTS `f3_tmp` (
 `KEYID` varchar(50) NOT NULL PRIMARY KEY,
 `UID` int(11) NOT NULL,
 `type` varchar(9) NOT NULL
 ) ENGINE=InnoDB CHARACTER SET='utf8';
 
-CREATE TABLE IF NOT EXISTS `{pre}users` (
+CREATE TABLE IF NOT EXISTS `f3_users` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `login` varchar(50) UNIQUE NOT NULL,
 `pass` char(32) NOT NULL,
 `mail` varchar(80) NOT NULL,
 `sex` tinyint(1) NOT NULL DEFAULT 0,
 `opt` tinyint(2) NOT NULL DEFAULT 2,
-`gid` int(11) NOT NULL DEFAULT 1,
 `lv` tinyint(1) NOT NULL DEFAULT 1,
 `adm` text,
 `regt` int(11),

@@ -22,9 +22,9 @@ function BugRights($x)
 	{
 		case '': case NULL: if(admit('BUGS')) return true; break;
 		case 'ALL': return true; break;
-		case 'LOGD': if(LOGD==1) return true; break;
+		case 'LOGD': if(UID) return true; break;
 		default:
-		if(LOGD==1)
+		if(UID)
 		{
 			$r = explode(' ', $x);
 			if(in_array('U:'.UID, $r) || in_array('G:'.GID, $r)) return true;

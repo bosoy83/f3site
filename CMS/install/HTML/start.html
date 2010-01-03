@@ -1,60 +1,21 @@
-<h2>{lang.title}</h2>
-<div class="box">
-
-<p>{lang.intro}</p>
-
-<table cellspacing="1" class="comp" style="width: 80%; margin: auto">
-<colgroup>
-	<col />
-	<col style="width: 140px" />
-	<col style="color: red; width: 140px" />
-</colgroup>
-<tbody align="center">
-<tr>
-	<th>{lang.conf}</th>
-	<th>{lang.recomm}</th>
-	<th>{lang.state}</th>
-</tr>
-<tr>
-	<td><a href="http://php.net">PHP</a></td>
-	<td>5.2+</td>
-	<td>{php}</td>
-</tr>
-<tr>
-	<td><a href="http://php.net/PDO">{lang.db}</a></td>
-	<td>MySQL 5 / SQLite 3</td>
-	<td>{pdo}</td>
-</tr>
-<tr>
-	<td><a href="http://php.net/manual/security.globals.php">register_globals</a></td>
-	<td>OFF</td>
-	<td>{rg}</td>
-</tr>
-<tr>
-	<td><a href="http://php.net/magic_quotes">magic_quotes_gpc</a></td>
-	<td>OFF</td>
-	<td>{mq}</td>
-</tr>
-<tr>
-	<td>{lang.chmod}</td>
-	<td>cfg, cache - 777</td>
-	<td>{chmod}</td>
-</tr>
-</tbody>
-</table>
-
-<div style="text-align: center; margin-top: 15px">
-
-<!-- IF next -->
-	<a href="?next">
-		<button onclick="location=this.parentNode.href; return false" />{lang.new} &gt;</button>
-	</a>
-
-<!-- ELSE -->
-
-	<span style="color: red">{lang.NO}</span>
-
-<!-- END -->
-
+<form action="" method="post">
+<h2>{lang.installer}</h2>
+<div id="box">
+	<p>{lang.intro}</p>
+	<fieldset>
+		<legend>{lang.engine}</legend>
+		<label>
+			<input type="radio" value="mysql" name="type" checked="checked" />
+			<b>MySQL</b><br /><span>{lang.MySQL}</span>
+		</label>
+		<label>
+			<input type="radio" value="sqlite" name="type" />
+			<b>SQLite</b><br /><span>{lang.SQLite}</span>
+		</label>
+	</fieldset>
+	<div id="buttons">
+		<input type="hidden" name="stage" value="1" />
+		<input type="submit" value="{lang.next} &gt;&gt;" />
+	</div>
 </div>
-</div>
+</form>

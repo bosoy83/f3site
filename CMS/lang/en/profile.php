@@ -16,6 +16,8 @@ $lang+=Array(
 'sendPM'=>'Send a private message',
 'abouty'=>'About user',
 
+'founder'=>'Founder',
+
 'account'=>'User\'s account',
 'editup'=>'Required informations',
 'logind'=>'3-20 characters',
@@ -67,6 +69,7 @@ $lang+=Array(
 'photoBig'=> 'The photo is too big. Scale it down using a graphic program.',
 'photoErr'=> 'Cannot upload new photo.',
 
+'isBot'=>'Form sent too fast. Wait a while and send it again.',
 'pass2'=>'Typed passwords do not match.',
 'mailEx'=>'This e-mail address is already used.',
 'badMail'=>'E-mail address is incorrect.',

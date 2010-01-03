@@ -29,7 +29,7 @@ elseif(isset($cfg['start'][$nlang]))
 #Brak
 else
 {
-	$d = 1;
+	require './mod/cats.php'; return 1;
 }
 
 #Pobierz, 2 = ASSOC
@@ -110,4 +110,5 @@ if($cat['num'])
 else
 {
 	$content->data['cat_type'] = $lang['cats'];
+	$content->data['cats_url'] = url('cats');
 }

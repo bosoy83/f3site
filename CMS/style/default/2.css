@@ -3,7 +3,8 @@ body {
 	font: 13px Verdana,Helvetica,Arial,Times;
 	background-color: #C7C5B8;
 	margin: auto;
-	width: 950px;
+	width: 100%;
+	max-width: 1024px;
 }
 a {
 	text-decoration: none;

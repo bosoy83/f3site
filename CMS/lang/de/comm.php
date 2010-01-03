@@ -12,6 +12,7 @@ $lang+=Array(
 'c10'=>'Dein Kommentar kann nicht speichern werden. Versuch wieder oder kontaktiere dem Administrator. Fehler Code: ',
 'c11'=>'Kommentiertes Blatt ist nicht vorhanden.',
 'c12'=>'Man kann Adresse nicht posten.',
+'unclosed'=>'BBCode Tags sind eröffnet.',
 'hide'=>'verdeckt',
 'accept'=>'sichtbar',
 'show'=>'zeigen',

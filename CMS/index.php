@@ -43,6 +43,11 @@ else
 	if($cfg['head']) $content->head .= $cfg['head'];
 
 	#Menu
+	if(!file_exists('./cache/menu'.$nlang.'.php'))
+	{
+		include './lib/mcache.php';
+		RenderMenu();
+	}
 	require './cache/menu'.$nlang.'.php';
 
 	#Skórka

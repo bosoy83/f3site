@@ -3,7 +3,7 @@
 
 <table cellspacing="1" class="tb">
 
-<!-- IF LOGD -->
+<!-- IF UID -->
 
 <tbody id="edit">
 <tr>
@@ -12,17 +12,19 @@
 </tr>
 <tr>
 	<td><b>{lang.newPass}:</b><br /><small>{lang.passd}</small></td>
-	<td><input type="password" name="pass" maxlength="30" /></td>
+	<td><input type="password" name="pass" value="{pass}" maxlength="30" /></td>
 </tr>
 <tr>
 	<td><b>{lang.retPass}:</b></td>
-	<td><input type="password" name="pass2" maxlength="30" /></td>
+	<td><input type="password" name="pass2" value="{pass}" maxlength="30" /></td>
 </tr>
 <tr>
 	<td><b>{lang.mail}:</b></td>
 	<td><input name="mail" value="{u.mail}" maxlength="50" /></td>
 </tr>
 </tbody>
+
+<!-- IF hide -->
 <tbody id="goedit" style="display: none; text-align: center; color: blue">
 <tr>
 	<td style="padding: 5px; cursor: pointer" colspan="2">
@@ -35,6 +37,7 @@
 	</td>
 </tr>
 </tbody>
+<!-- END -->
 
 <!-- ELSE -->
 
@@ -48,11 +51,11 @@
 </tr>
 <tr>
 	<td><b>{lang.pass}:</b><br /><small>{lang.passd}</small></td>
-	<td><input type="password" name="pass" maxlength="30" /></td>
+	<td><input type="password" name="pass" value="{pass}" maxlength="30" /></td>
 </tr>
 <tr>
 	<td><b>{lang.retPass}:</b></td>
-	<td><input maxlength="30" type="password" name="pass2" /></td>
+	<td><input type="password" name="pass2" value="{pass2}" maxlength="30" /></td>
 </tr>
 <tr>
 	<td><b>{lang.mail}:</b></td>
@@ -172,6 +175,6 @@ f['{ITEM}'].style.borderColor = 'red';
 include('lang/' + document.documentElement.lang + '/edit.js')
 include('lib/editor.js')
 include('cache/emots.js')
-f['about'].onfocus = function() { new Editor(this,1).emots(); this.onfocus = undefined }
+f['about'].onfocus = function() { new Editor(this,1).emots(); this.onfocus = null }
 <!-- END -->
 </script>

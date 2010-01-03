@@ -80,6 +80,7 @@ foreach($res as $x)
 		case '10': $co = 'user'; break;
 		case '59': $co = 'page'; break;
 		case '15': $co = 'poll'; break;
+		case '11': $co = 'group'; break;
 		default: $co = isset($type[$x['TYPE']]) ? $type[$x['TYPE']]['name'] : null;
 	}
 	$com[] = array(

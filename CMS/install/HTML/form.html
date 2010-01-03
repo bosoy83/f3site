@@ -1,105 +1,124 @@
 <form action="index.php" method="post" f3:array="data">
 <table cellspacing="1" class="tb">
+<colgroup>
+	<col style="width: 40%" />
+	<col />
+</colgroup>
+<tbody>
 <tr>
 	<th colspan="2">{lang.dba}</th>
 </tr>
+
+<!-- IF mysql -->
 <tr>
 	<td colspan="2">{lang.sure} <a href="http://{host}">{host}</a></td>
 </tr>
 <tr>
-	<td style="width: 45%">1. {lang.type}</td>
+	<td align="right">{lang.host}</td>
+	<td><input name="host" value="{data.host}" size="30" /></td>
+</tr>
+<tr>
+	<td align="right">{lang.user}</td>
+	<td><input name="user" value="{data.user}" size="30" /></td>
+</tr>
+<tr>
+	<td align="right">{lang.pass}</td>
+	<td><input type="password" name="pass" value="{data.pass}" size="30" /></td>
+</tr>
+<tr>
+	<td align="right">{lang.name}</td>
+	<td><input name="db" value="{data.db}" size="30" /></td>
+</tr>
+<!-- ELSE -->
+<tr>
+	<td align="right">{lang.file}</td>
+	<td><input name="file" value="{data.file}" size="30" title="{lang.file2}" /></td>
+</tr>
+<!-- END -->
+
+<tr>
+	<td align="right">{lang.pre}</td>
+	<td><input name="pre" value="{data.pre}" size="30" title="{lang.pre2}" /></td>
+</tr>
+<tr>
+	<th colspan="2">{lang.site}</th>
+</tr>
+<tr>
+	<td align="right">{lang.title}</td>
+	<td><input name="title" value="{data.title}" size="30" /></td>
+</tr>
+<tr>
+	<td align="right">{lang.skin}</td>
+	<td><select name="skin">{skins}</select></td>
+</tr>
+</tbody>
+
+<tbody id="advanced">
+<tr>
+	<td align="right">{lang.url}</td>
+	<td><input name="url" value="{data.url}" size="30" /></td>
+</tr>
+<tr>
+	<td align="right">{lang.path}</td>
+	<td><input name="path" value="{data.path}" size="30" /></td>
+</tr>
+<tr>
+	<td align="right">{lang.opt}</td>
+	<td><label><input type="checkbox" name="samp" size="30" /> {lang.sample}</label></td>
+</tr>
+<tr>
+	<td align="right">{lang.urls}</td>
 	<td>
-		<!-- IF mysql -->
-		<label><input type="radio" value="mysql" name="type" /> MySQL 5+</label><br />
-		<!-- END -->
-		
-		<!-- IF sqlite -->
-		<label><input type="radio" value="sqlite" name="type" /> SQLite 3+</label>
-		<!-- END -->
+		<label title="{lang.rewrite2}"><input type="radio" name="urls" value="1" /> {lang.rewrite}</label>
+		<label title="{lang.pathinfo2}"><input type="radio" name="urls" value="2" /> {lang.pathinfo}</label>
+		<label><input type="radio" name="urls" value="3" /> {lang.disable}</label>
 	</td>
 </tr>
-<tr>
-	<td>2. {lang.host}</td>
-	<td><input name="host" value="{data.host}" /></td>
-</tr>
-<tr>
-	<td>3. {lang.user}</td>
-	<td><input name="user" value="{data.user}" /></td>
-</tr>
-<tr>
-	<td>4. {lang.pass}</td>
-	<td><input type="password" name="pass" value="{data.pass}" /></td>
-</tr>
-<tr>
-	<td>5. {lang.name}<br /><small>{lang.allowed} <b>A-Z, a-z, 1-9, _, -</b>.</small></td>
-	<td><input name="db" value="{data.db}" /></td>
-</tr>
-<tr>
-	<td>6. {lang.file}</td>
-	<td><input name="file" value="{data.file}" /></td>
-</tr>
-<tr>
-	<td>7. {lang.pre}<br /><small>{lang.pre2}</small></td>
-	<td><input name="pre" value="{data.pre}" /></td>
-</tr>
-<tr>
-	<td>8. {lang.opt}</td>
-	<td>
-		<label><input type="radio" value="0" name="samp" /> {lang.manual}</label><br />
-		<label><input type="radio" value="1" name="samp" /> {lang.sample}</label>
-	</td>
-</tr>
+</tbody>
+
+<tbody>
 <tr>
 	<th colspan="2">{lang.data}</th>
 </tr>
 <tr>
-	<td>9. {lang.login}</td>
-	<td><input name="login" value="{data.login}" /></td>
+	<td align="right">{lang.login}</td>
+	<td><input name="login" value="{data.login}" size="30" /></td>
 </tr>
 <tr>
- <td>10. {lang.pass2}<br /><small>{lang.allowed} <b>A-Z, a-z, 1-9, _, -</b>.</small></td>
- <td><input type="password" name="uPass" /></td>
+	<td align="right">{lang.pass2}</td>
+	<td><input type="password" name="uPass" size="30" /></td>
 </tr>
 <tr>
-	<td>11. {lang.retype}</td>
-	<td><input type="password" name="uPass2" /></td>
+	<td align="right">{lang.retype}</td>
+	<td><input type="password" name="uPass2" size="30" /></td>
 </tr>
 <tr>
-	<td colspan="2">{lang.after}</td>
+	<th colspan="2" align="center">
+		<input type="hidden" name="stage" value="2" />
+		<input type="button" value="{lang.adv}" style="float: left" onclick="show(adv)" />
+		<input type="submit" value="{lang.next} &gt;&gt;" style="float: right" />
+	</th>
 </tr>
-<tr>
-	<th colspan="2" align="center"><input type="submit" value="OK" /></th>
-</tr>
+</tbody>
 </table>
 </form>
 
 <script type="text/javascript">
-//<![CDATA[
-f = document.forms[0].elements;
-def = f['file'].value;
-
-if(f['type'][0])
+f = document.forms[0]
+f[0].focus()
+adv = $('advanced')
+show(adv)
+onbeforeunload = function(e)
 {
-	f['type'][0].onclick = f['type'][1].onclick = Change;
-	my = f['type'][0]
+	if(e) e.returnValue = '{lang.F5}';
+	return '{lang.F5}'
 }
-else
+f.onsubmit = function()
 {
-	my = (f['type'].value == 'mysql') ? f['type'] : false
+	if(f.db && f.db.value == 0) { f.db.focus(); return false }
+	if(f.uPass.value == 0) { f.uPass.focus(); return false }
+	if(f.uPass.value != f.uPass2.value) { alert('{lang.e3}'); f.uPass2.focus(); return false }
+	window.onbeforeunload = null
 }
-
-function Change()
-{
-	var v = (my && my.checked) ? '' : 'disabled';
-	f['host'].disabled = v;
-	f['user'].disabled = v;
-	f['pass'].disabled = v;
-	f['db'].disabled = v;
-	f['file'].disabled = !v;
-	if(f['file'].value == '' && v) f['file'].value = def;
-	if(f['file'].value == def && !v) f['file'].value = '';
-	if(v) f['file'].focus(); else f['host'].focus()
-}
-Change();
-//]]>
+f.login.onblur = function() { if(this.value == 0 || /[&/?#=\\]/.test(this.value)) this.value = 'Admin' }
 </script>

@@ -5,7 +5,7 @@ if(iCMS!=1) exit;
 if(isset($URL[1]) && is_numeric($URL[1]))
 {
 	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$URL[1].
-	' AND (access=1'.((LOGD) ? ' OR access=3' : '').')')->fetch(2)) return;
+	' AND (access=1'.((UID) ? ' OR access=3' : '').')')->fetch(2)) return;
 }
 else return;
 

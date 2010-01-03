@@ -76,7 +76,7 @@ function comments($id, $type=5, $mayPost=true)
 	$content->data['parts'] =& $CP;
 
 	#Mo¿e komentowaæ?
-	if(LOGD==1 || isset($cfg['commGuest']))
+	if(UID || isset($cfg['commGuest']))
 	{
 		if(!isset($_SESSION['post']) OR $_SESSION['post'] < $_SERVER['REQUEST_TIME'])
 		{

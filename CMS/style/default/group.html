@@ -1,0 +1,39 @@
+<div class="cs">
+	<a href="{groups}">{lang.groups}</a>
+	<!-- IF edit -->
+	<a class="edit" href="{edit}">{lang.edit}</a>
+	<!-- END -->
+</div>
+
+<h2>{this.title}</h2>
+<div class="box">
+
+	<div style="float: right">
+		<div><a href="{join}">[*] Dolacz do grupy</a></div>
+		<div><a href="{leave}">[*] Wypisz sie</a></div>
+	</div>
+
+	<table cellspacing="5">
+	<!-- IF group.who -->
+	<tr>
+		<th>{lang.founder}</th>
+		<td>{group.who}</td>
+	</tr>
+	<!-- END -->
+	<tr>
+		<th>{lang.added}</th>
+		<td>{group.date}</td>
+	</tr>
+	</table>
+
+	{group.dsc}
+</div>
+
+<h2>-Nowi-</h2>
+<div class="box">
+
+<!-- START user -->
+<a href="{url}">{login}</a><br />
+<!-- STOP -->
+
+</div>

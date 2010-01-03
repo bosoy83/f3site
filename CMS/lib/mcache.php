@@ -1,7 +1,7 @@
 <?php #Generator plików menu
-function RenderMenu()
+function RenderMenu(PDO $db = null)
 {
-	global $db;
+	if(!$db) global $db;
 	if(!is_writable('cache')) throw new Exception('Chmod CACHE directory to 777');
 
 	#Odczyt bloków - ASSOC
@@ -31,14 +31,15 @@ function RenderMenu()
 					if(substr_count($got,'<?') > substr_count($got,'?>')) $got .= ' ?>';
 					$out[$page] .= $got;
 					break;
-				default: 
+				default:
 
 				$links = '';
 				foreach($items as &$i)
 				{
 					if($i[0] == $b['ID'])
 					{
-						$links .= '<li><a href="'.$i[2].'"'.(($i[3])?' target="_blank"':'').'>'.$i[1].'</a></li>';
+						$url = strpos($i[2], ':') || file_exists($i[2]) ? $i[2] : url($i[2]);
+						$links .= '<li><a href="'.$url.'"'.(($i[3])?' target="_blank"':'').'>'.$i[1].'</a></li>';
 					}
 				}
 				if($links) $out[$page].= '<ul>'.$links.'</ul>';

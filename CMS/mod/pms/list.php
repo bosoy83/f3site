@@ -76,7 +76,7 @@ $content->file[] = 'pms_list';
 #Do szablonu
 $content->data += array(
 	'pm'  => $pms,
-	'who' => ($id > 3) ? $lang['pm12'] : $lang['pm13'],
+	'who' => $id ? $lang['pm12'] : $lang['pm13'],
 	'url' => 'pms/del/'.$id,
 	'total' => $total,
 	'pages' => pages($page, $total, 30, '/pms/'.$id, 1)

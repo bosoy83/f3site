@@ -37,7 +37,7 @@ if(isset($_POST['act']) && $id)
 if(isset($URL[2]))
 {
 	#Go¶æ nie mo¿e pisaæ?
-	if(LOGD!=1 && !isset($cfg['commGuest'])) $error[] = $lang['c11'];
+	if(!UID && !isset($cfg['commGuest'])) $error[] = $lang['c11'];
 
 	#TYP JEST LICZB¡
 	$type = (int)$URL[2];
@@ -94,7 +94,7 @@ if($_POST)
 	#Autor i linki w tre¶ci
 	if($type)
 	{
-		if(LOGD==1)
+		if(UID)
 		{
 			$c['author'] = UID;
 		}
@@ -117,8 +117,15 @@ if($_POST)
 		$preview = nl2br(Emots($c['text']));
 		if(isset($cfg['bbcode']))
 		{
-			include './lib/bbcode.php';
-			$preview = BBCode($preview);
+			try
+			{
+				include './lib/bbcode.php';
+				$preview = BBCode($preview, 1);
+			}
+			catch(Exception $e)
+			{
+				$error[] = $lang['unclosed'];
+			}
 		}
 	} 
 
@@ -127,7 +134,7 @@ if($_POST)
 	{
 		if($type)
 		{
-			if(!LOGD && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
+			if(!UID && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
 			{
 				$error[] = $lang['c2'];
 			}
@@ -138,7 +145,7 @@ if($_POST)
 			#Moderowaæ? + IP
 			$c['access'] = !isset($cfg['moderate']) || LEVEL>1 || admit('CM') ? 1 : 0;
 			$c['ip'] = $_SERVER['REMOTE_ADDR'];
-			$c['guest'] = LOGD ? 0 : 1;
+			$c['guest'] = UID ? 0 : 1;
 		}
 
 		#START
@@ -192,7 +199,7 @@ else
 {
 	if($type)
 	{
-		$c = array('name'=>'', 'author'=>'', 'text'=>'', 'guest'=>(LOGD==1)?0:1);
+		$c = array('name'=>'', 'author'=>'', 'text'=>'', 'guest'=>(UID)?0:1);
 	}
 	else
 	{
@@ -206,8 +213,8 @@ if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 #Szablon
 $content->data = array(
 	'comment' => $c,
-	'code'    => $type && LOGD!=1 && isset($cfg['captcha']) ? true : false,
-	'author'  => $type && LOGD!=1 ? true : false,
+	'code'    => $type && !UID && isset($cfg['captcha']) ? true : false,
+	'author'  => $type && !UID ? true : false,
 	'preview' => $preview,
 	'url'     => url('comment/'.$id.($type ? '/'.$type : ''))
 );

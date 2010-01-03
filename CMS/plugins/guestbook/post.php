@@ -31,7 +31,7 @@ elseif(!$id)
 	{
 		$error[] = $lang['disabled'];
 	}
-	elseif(!LOGD && $cfg['gbPost']==2)
+	elseif(!UID && $cfg['gbPost']==2)
 	{
 		$error[] = $lang['mustLogin'];
 	}
@@ -54,7 +54,7 @@ if($_POST)
 	);
 
 	#Gdy goście nie mogą wstawiać linków
-	if(!LOGD && !isset($cfg['URLs']))
+	if(!UID && !isset($cfg['URLs']))
 	{
 		if(strpos($post['txt'],'://') OR strpos($post['txt'],'www.'))
 		{
@@ -96,7 +96,7 @@ if($_POST)
 		}
 
 		#Kod z obrazka
-		if(!LOGD && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
+		if(!UID && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
 		{
 			$error[] = $lang['badCode'];
 		}
@@ -120,7 +120,7 @@ if($_POST)
 					$post['lang'] = $nlang;
 					$post['date'] = $_SERVER['REQUEST_TIME'];
 					$post['ip']  =  $_SERVER['REMOTE_ADDR'];
-					$post['uid'] = (LOGD && $post['who'] === $user['login']) ? UID : 0;
+					$post['uid'] = (UID && $post['who'] === $user['login']) ? UID : 0;
 				}
 				$q->execute($post);
 
@@ -165,7 +165,7 @@ elseif($id)
 else
 {
 	$post = array(
-		'who'   => LOGD ? $user['login'] : '',
+		'who'   => UID ? $user['login'] : '',
 		'mail'  => '',
 		'www'   => 'http://',
 		'gg'    => '',
@@ -187,7 +187,7 @@ if($error)
 #Dane do szablonu
 $content->data = array(
 	'post'   => &$post,
-	'code'   => !LOGD && isset($cfg['captcha']),
+	'code'   => !UID && isset($cfg['captcha']),
 	'rules'  => $cfg['gbRules'],
 	'preview'=> $preview,
 	'bbcode' => isset($cfg['bbcode'])

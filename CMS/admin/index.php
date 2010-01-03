@@ -5,7 +5,7 @@ define('iCMSa',1);
 require 'kernel.php';
 
 #Niezalogowany?
-if(LOGD != 1)
+if(!UID)
 {
 	Header('Location: '.URL.'login.php?from=adm');
 	exit;
@@ -69,7 +69,7 @@ else
 	include './admin/summary.php';
 }
 
-
+#Wczytaj menu z cache lub wygeneruj
 if(isset($_SESSION['admenu']) && $_SESSION['admenu'] === $nlang)
 {
 	$menu = file_get_contents('./cache/adm'.UID.'.php');

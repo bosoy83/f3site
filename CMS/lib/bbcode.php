@@ -42,7 +42,7 @@ function BBCode($x, $exc=false)
 	#Znaczniki niedomkniête?
 	if($c1 != $c2)
 	{
-		if($exc) throw new Exception($lang['notClosed']); else return $x;
+		if($exc) throw new Exception(); else return $x;
 	}
 
 	#Kolor, e-mail
@@ -51,10 +51,12 @@ function BBCode($x, $exc=false)
 			'@\[color=([A-Za-z0-9#].*?)\](.*?)\[/color\]@si',
 			'#\[email\]([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)?[\w]+)\[/email\]#i',
 			'#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)?[\w]+)#i',
+			'#==(.*?)==([ ]*)<br />#i',
 		), array(
 			'<span style="color:\\1">\\2</span>',
 			'<a href="mailto:\\1@\\2">\\1@\\2</a>',
 			'\\1<a href="mailto:\\2@\\3">\\2@\\3</a>',
+			'<h3>\\1</h3>'
 		), $t);
 
 	#Linki

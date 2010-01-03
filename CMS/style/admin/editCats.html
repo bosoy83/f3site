@@ -4,8 +4,13 @@
 
 <!-- START cat -->
 <tr>
-	<th colspan="2"><a href=".?d={id}">{title}</a></th>
+	<th colspan="2"><a href="{url}">{title}</a></th>
 </tr>
+<!-- IF warn -->
+<tr>
+	<td colspan="2" style="padding: 7px; text-align: center"><a href="{edit}">{warn}</a></td>
+</tr>
+<!-- END -->
 <tr>
 	<td style="width: 250px"><b>{lang.content}:</b></td>
 	<td><select name="items[{id}]">

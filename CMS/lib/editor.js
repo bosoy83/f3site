@@ -1,31 +1,10 @@
-//Przyciski - pierwsze 6 są tekstem, zaś pozostałe grafiką .png
-var button = [
-	'<b style="margin: 0 3px">B</b>',
-	'<i style="margin: 0 4px">I</i>', //1
-	'<u style="margin: 0 3px">U</u>',
-	'BIG',
-	'<small>small</small>', //4
-  ' H ',
-  'sub',
-	'sup',
-	'center', //8
-	'right',
-	'quote',
-	'code',
-	'color', //12
-  'char',
-	'www',
-	'mail',
-	'img' //16
-],
-
 //Podwójne tablice powodują niewielki spadek wydajności w stosunku do pojedynczych,
 //ale ich przemierzanie w pętli FOR jest znacznie szybsze od przemierzania obiektów {},
 //gdyż nie trzeba używać konstrukcji `var i in tags`
 //Podwójne tablice zostały użyte w celu łatwiejszej edycji znaczników
 
 //Kolejność: BBCode, początek HTML, koniec HTML
-tags = [
+var tags = [
 	['b', '<b>', '</b>'],
 	['i', '<i>', '</i>'],
 	['u', '<u>', '</u>'],
@@ -37,10 +16,12 @@ tags = [
 	['center', '<div style="text-align: center">', '</div>'], //8
 	['right', '<div style="text-align: right">', '</div>'],
 	['quote', '<blockquote>', '</blockquote>'],
-	['code', '<pre>', '</pre>'] //11
+	['code', '<pre>', '</pre>']
 ],
 
 tagNum = 17, //Liczba wszystkich tagów - także spoza tablicy `tags`
+tagWidth = 22, //16px + 3px padding on both sides
+tagHeight = 22, //See above
 
 //Symbole: BBCode, HTML, po środku / po lewej, po prawej
 symbol = [
@@ -119,27 +100,24 @@ Editor.prototype.create = function()
 	var that = this,
 	out = document.createElement('div');
 	out.className = 'editor';
-
+	out.style.height = tagHeight + 'px';
+	out.style.width = (tagWidth * tagNum) + 'px';
+	out.style.backgroundImage = 'url(img/editor.png)';
+	out.onclick = 
+	/*
 	for(var i=0; i<tagNum; i++)
 	{
 		if(this.bbcode && tags[i] && !tags[i][0]) continue;
-		if(i > 5)
-		{
-			var b = document.createElement('img');
-			b.src = 'img/editor/'+button[i]+'.png'
-		}
-		else
-		{
-			var b = document.createElement('span');
-			b.innerHTML = button[i];
-			b.style.verticalAlign = 'middle'
-		}
+		var b = document.createElement('span');
+		b.style.backgroundImage = 'url(img/editor.png)';
+		b.style.backgroundPosition = 'center ' + button[i] + 'px';
+		b.style.backgroundRepeat = 'repeat-y';
+		b.style.padding = '3px 12px';
 		b.item = i;
 		b.title = tips[i];
-		b.width = 16;
 		b.onclick = function() { that.format(this.item); };
 		out.appendChild(b)
-	}
+	}*/
 	this.o.parentNode.insertBefore(out,this.o);
 
 	//Skróty klawiszowe

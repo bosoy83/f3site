@@ -2,7 +2,10 @@
 if(iCMS!=1) exit;
 
 #Tytu³ strony
-$content -> title = $lang['write'];
+$content->title = $lang['write'];
+
+#ID
+$id = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
 
 #Wys³ane dane
 if($_POST)

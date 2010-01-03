@@ -14,3 +14,10 @@
 	background-color: #fffcf0;
 	vertical-align: top;
 }
+.chatIn {
+	border: 1px solid #d2d3bc;
+	background: white;
+	width: 99.7%;
+	margin-top: 3px;
+	height: 5ex
+}

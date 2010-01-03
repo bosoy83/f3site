@@ -61,7 +61,7 @@ if($_POST)
 	{
 		$error[] = $lang['flood'];
 	}
-	if(!$id && !LOGD)
+	if(!$id && !UID)
 	{
 		if(isset($cfg['captcha']) && ($_POST['code']!=$_SESSION['code'] || empty($_POST['xb_c'])))
 		{
@@ -83,7 +83,7 @@ if($_POST)
 			}
 			else
 			{
-				if(LOGD)
+				if(UID)
 				{
 					$bug['UID'] = UID;
 					$bug['who'] = $user['login'];
@@ -160,7 +160,7 @@ $content->title = $id ? $lang['editBug'] : $lang['postBug'];
 $content->file = 'edit';
 $content->data = array(
 	'bug'  => &$bug,
-	'code' => !$id && isset($cfg['captcha']) && !LOGD,
-	'who'  => !$id && !LOGD,
+	'code' => !$id && isset($cfg['captcha']) && !UID,
+	'who'  => !$id && !UID,
 	'bbcode' => isset($cfg['bbcode'])
 );

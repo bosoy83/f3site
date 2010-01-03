@@ -25,7 +25,9 @@ $lang+=Array(
 'head2'=>'Optional, z.B. tags &lt;meta&gt;, &lt;link&gt;...',
 'urls'=>'Schöne URLs',
 'url1'=>'Ja - mod_rewrite',
+'url2'=>'Ja - PATH_INFO',
 'url3'=>'Nein',
+'warn'=>'Bist du dir sicher, dass es ist gestützt von Server?',
 
 'date'=>'Datum Einstellungen',
 'now1'=>'Jetzigedatumsformat',
@@ -134,6 +136,8 @@ $lang+=Array(
 'maxSize'=>'Max. Size',
 'width'=>'Weite',
 'height'=>'Höhe',
+
+'whoMay'=>'Wo kann Gruppen gründen?',
 
 /* CENZURA */
 'replace' =>'ersetzen für',

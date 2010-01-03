@@ -3,13 +3,35 @@ class Installer
 {
 	public
 		$sample = false,  //Przykłady
-		$db;
+		$title,           //Tytuł strony
+		$urls,            //Format URL
+		$lang;            //Język instalatora
+	static
+		$urlMode;
 	protected
-		$lang,
 		$catid = array(), //ID kategorii startowych
-		$groupID = 2;     //Język i grupa admina
+		$db;
 
-	function __construct($lang, &$data)
+	#Wybierz obsługiwany język
+	function __construct()
+	{
+		foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
+		{
+			if(isset($x[2]))
+			{
+				$x = $x[0].$x[1];
+			}
+			if(ctype_alnum($x) && file_exists('./install/lang/'.$x.'.php'))
+			{
+				$this->lang = $x;
+				return $x;
+			}
+		}
+		$this->lang = 'en';
+	}
+
+	#Rozpocznij transakcję
+	function connect(&$data)
 	{
 		if($data['type'] == 'sqlite')
 		{
@@ -25,13 +47,13 @@ class Installer
 		}
 		$this->db->setAttribute(3,2); //Exceptions
 		$this->db->beginTransaction();
-		$this->lang = $lang;
 	}
 
+	#Wczytaj plik SQL z pliku i wykonaj zapytania
 	function loadSQL($file)
 	{
 		#Schemat tabel
-		$sql = str_replace('{pre}', PRE, file_get_contents($file));
+		$sql = str_replace('f3_', PRE, file_get_contents($file));
 
 		#Znak nowej linii
 		if(strpos($sql, "\r\n"))
@@ -67,7 +89,7 @@ class Installer
 	#Instaluj dane dla języka $x
 	function setupLang($x)
 	{
-		static $c, $g, $m, $n, $i, $lft, $db;
+		static $c, $m, $n, $i, $lft, $db;
 		require './install/lang/'.$x.'.php';
 
 		#Przygotuj zapytania
@@ -75,7 +97,6 @@ class Installer
 		{
 			$lft = 0;
 			$db = $this->db;
-			$g = $db->prepare('INSERT INTO '.PRE.'groups (name,access,opened) VALUES (?,?,?)');
 			$m = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,value) VALUES (?,?,?,?,?,?)');
 			$n = $db->prepare('INSERT INTO '.PRE.'news (cat,name,txt,date,author,access) VALUES (?,?,?,?,?,?)');
 			$i = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,url,seq) VALUES (?,?,?,?)');
@@ -97,11 +118,6 @@ class Installer
 			$c->execute(array($lang[9], $x, 4, 0, 0, 15, ++$lft, ++$lft));
 		}
 
-		#Grupy
-		$g->execute(array($lang[1], $x, 1));
-		$g->execute(array($lang[2], $x, 0));
-		if($this->lang == $x) $this->groupID = $db->lastInsertId();
-
 		#Menu
 		$m->execute(array(1, 'Menu', $x, 1, 3, null));
 		$menuID = $db->lastInsertId();
@@ -122,26 +138,124 @@ class Installer
 		$i->execute(array($menuID, $lang[10], 'groups', 6));
 	}
 
+	#Instaluj dla wszystkich języków
+	function setupAllLang()
+	{
+		foreach(scandir('lang') as $dir)
+		{
+			if($dir[0]!='.' && file_exists('install/lang/'.$dir.'.php'))
+			{
+				$this->setupLang($dir);
+			}
+		}
+	}
+
 	#Dodaj admina
 	function admin($login, $pass)
 	{
-		$u = $this->db->prepare('REPLACE INTO '.PRE.'users (ID,login,pass,gid,lv,regt) VALUES (?,?,?,?,?,?)');
-		$u -> execute(array(1, $login, md5($pass), $this->groupID, 4, $_SERVER['REQUEST_TIME']));
+		$u = $this->db->prepare('REPLACE INTO '.PRE.'users (ID,login,pass,lv,regt) VALUES (?,?,?,?,?)');
+		$u->execute(array(1, $login, md5($pass), 4, $_SERVER['REQUEST_TIME']));
 	}
 
 	#Zapisz ID startowych kategorii i zakończ
-	function commit()
+	function commit(&$data)
 	{
 		$cfg = array();
-		require './cfg/content.php';
 
+		#Ustawienia zawartości - kategorie startowe
 		foreach($this->catid as $lang => $id)
 		{
 			$cfg['start'][$lang] = $id;
 		}
-
+		require './cfg/content.php';
 		$o = new Config('content');
-		$o -> save($cfg);
+		$o->save($cfg);
+
+		unset($cfg,$o);
+		require './cfg/main.php';
+
+		#Tytuł strony i format URL
+		$cfg['title'] = $this->title;
+		$cfg['niceURL'] = $this->urls;
+
+		$o = new Config('main');
+		$o->add('cfg', $cfg);
+		$o->save();
+
+		#Plik db.php
+		$this->buildConfig($data);
+
+		#Ankieta
+		if(file_exists('./mod/polls'))
+		{
+			include './mod/polls/poll.php';
+			RebuildPoll(null, $this->db);
+		}
+
+		#Sortuj kategorie
+		if(file_exists('./lib/categories.php'))
+		{
+			include './lib/categories.php';
+			RebuildTree($this->db);
+		}
+
+		#Zapisz menu do cache
+		Installer::$urlMode = $this->urls;
+		include './lib/mcache.php';
+		RenderMenu($this->db);
+
+		#Nareszcie koniec - akceptujemy zmiany w bazie :)
 		$this->db->commit();
+	}
+
+	#Utwórz plik konfiguracyjny
+	function buildConfig(&$data)
+	{
+		$f = new Config('./cfg/db.php');
+		$f->add('db_db', $data['type']);
+		$f->add('db_d', $data['file'] ? $data['file'] : $data['db']);
+		$f->addConst('PRE', PRE);
+		$f->addConst('PATH', PATH);
+		$f->addConst('URL', URL);
+
+		#Tylko dla MySQL
+		if($data['type'] == 'mysql')
+		{
+			$f->add('db_h', $data['host']);
+			$f->add('db_u', $data['user']);
+			$f->add('db_p', $data['pass']);
+		}
+		return $f->save();
+	}
+
+	#Znajdź skórki
+	function getSkins($selected)
+	{
+		$skins = '';
+		foreach(scandir('style') as $x)
+		{
+			if($x[0]!='.' && file_exists('./style/'.$x.'/body.html'))
+			{
+				$skins .= '<option'.($selected==$x ? ' selected' : '').'>'.$x.'</option>';
+			}
+		}
+		return $skins;
+	}
+
+	#Zbadaj CHMOD-y
+	function chmods()
+	{
+		return true;
+	}
+}
+
+#Zbuduj adres URL
+function url($x)
+{
+	switch(Installer::$urlMode)
+	{
+		case 1: return $x; break;
+		case 2: return 'index.php/' . $x; break;
+		default: return '?go=' . $x;
 	}
 }

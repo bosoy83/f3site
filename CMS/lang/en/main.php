@@ -76,7 +76,7 @@
 'toc'			=>'Table of content',
 'TOM'     =>'Tomorrow',
 'today'		=>'Today',
-'upanel'	=>'Personal details',
+'upanel'	=>'Your details',
 'user'		=>'User',
 'users'		=>'Users',
 'uwlogd'	=>'Welcome, %s!',

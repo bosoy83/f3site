@@ -21,6 +21,7 @@ $lang=Array(
 16=>'Konto jest nieaktywne.',
 17=>'Nie możesz rozpocząć nowego wyszukiwania tak szybko po poprzednim. Odczekaj chwilę i spróbuj ponownie.',
 18=>'Nic nie znaleziono.',
+19=>'Nastąpi aktualizacja adresów URL.',
 20=>'Wyszukiwanie zostało zakończone.',
 21=>'Zostałeś wyrzucony z tej witryny.',
 22=>'Błąd podczas wykonywania operacji w bazie danych.<br />Naciśnij F5, aby spróbować ponownie.',

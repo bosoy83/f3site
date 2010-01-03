@@ -2,11 +2,12 @@
 if(!$_POST || iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 require './lib/categories.php';
+require './cfg/content.php';
 
 #Usuñ
 if(isset($_POST['del']) && $x = GetID(1))
 {
-	$res = $db->query('SELECT ID,name,type,lft,rgt FROM '.PRE.'cats WHERE ID IN ('.$x.')');
+	$res = $db->query('SELECT ID,name,access,type,lft,rgt FROM '.PRE.'cats WHERE ID IN ('.$x.')');
 
 	#Wykonaj
 	if($_POST['del'] == 'OK')
@@ -50,17 +51,28 @@ if(isset($_POST['del']) && $x = GetID(1))
 		RebuildTree();
 		CountItems();
 		$db->commit();
-		header('Location: '.URL.url('cats', '', 'admin'));
+		header('Location: '.URL.url('cats'));
 	}
 	else
 	{
 		$cat = array();
 		foreach($res as $x)
 		{
+			if(in_array($x['ID'], $cfg['start']))
+			{
+				$warn = sprintf($lang['warnCat'], strtoupper($x['access']));
+			}
+			else
+			{
+				$warn = false;
+			}
 			$cat[] = array(
 				'id'    => $x['ID'],
 				'title' => $x['name'],
-				'cats'  => Slaves($x['type'],0,$x['ID'])
+				'url'   => url($x['ID']),
+				'cats'  => Slaves($x['type'],0,$x['ID']),
+				'warn'  => $warn,
+				'edit'  => $warn ? url('editCat/'.$x['ID'], '', 'admin') : false
 			);
 		}
 		$content->data = array('cat'=>$cat);

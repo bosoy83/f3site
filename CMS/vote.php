@@ -21,7 +21,7 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	$ref = isset($_SERVER['HTTP_REFERER']) ? clean($_SERVER['HTTP_REFERER']) : '';
 
 	#Zalogowany?
-	if(LOGD!=1 && !isset($cfg['grate'])) $content->message(9, $ref);
+	if(!UID && !isset($cfg['grate'])) $content->message(9, $ref);
 
 	#Czy oceniany ID istnieje i jest w³±czony
 	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))
@@ -71,10 +71,10 @@ if(isset($_POST['poll']))
 	$voted = isset($_COOKIE['voted']) ? explode('o', $_COOKIE['voted']) : array();
 
 	#ID u¿ytkownika lub adres IP
-	$u = ($poll['ison']==3 && LOGD==1) ? UID : $ip;
+	$u = ($poll['ison']==3 && UID) ? UID : $ip;
 
 	#Mo¿e g³osowaæ?
-	if(!in_array($poll['ID'],$voted) && $poll['ison']!=2 && (LOGD==1 || $poll['ison']==1))
+	if(!in_array($poll['ID'],$voted) && $poll['ison']!=2 && (UID || $poll['ison']==1))
 	{
 		#Je¿eli brak wpisu w bazie, ¿e g³osowa³...
 		if(dbCount('pollvotes WHERE ID='.$id.' AND user='.$u)==0)
