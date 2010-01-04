@@ -91,15 +91,15 @@ class Compiler
 			'{MAIN TITLE}', '{PAGE TITLE}', '{HEAD TAGS}', "\t", "\n\n");
 
 		$out = array(
-			'<?php $content->display(); ?>',
-			'<?php newnav(1); ?>',
-			'<?php newnav(2); ?>',
-			'<?= $nlang; ?>',
+			'<?php $content->display() ?>',
+			'<?php newnav(1) ?>',
+			'<?php newnav(2) ?>',
+			'<?= LANG ?>',
 			'<?= $menu ?>',
 			'<?= url(\'cats\') ?>',
-			'<?= $cfg[\'title\']; ?>',
-			'<?= $content->title; ?>',
-			'<?= $cfg[\'head\'].$content->head; ?>',
+			'<?= $cfg[\'title\'] ?>',
+			'<?= $content->title ?>',
+			'<?= $cfg[\'head\'].$content->head ?>',
 			'', "\n"
 		);
 		$this->data = str_ireplace($in, $out, $this->data);

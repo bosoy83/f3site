@@ -78,7 +78,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 	{
 		$opt = array();
 		$useOpt = isset($setup[$name]) ? 'o.del.' : 'o.add.';
-		$useOpt.= isset($data[$useOpt.$nlang]) ? $nlang : 'en';
+		$useOpt.= isset($data[$useOpt.LANG]) ? LANG : 'en';
 		if(isset($data[$useOpt]))
 		{
 			$i = 0;
@@ -118,7 +118,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 		$content->data = array(
 			'setup' => true,
 			'www'   => isset($data['www']) ? clean($data['www']) : null,
-			'name'  => isset($data[$nlang]) ? clean($data[$nlang]) : $name,
+			'name'  => isset($data[LANG]) ? clean($data[LANG]) : $name,
 			'ver'   => (float)$data['version'],
 			'menu'  => $langs,
 			'credits' => isset($data['credits']) ? clean($data['credits']) : 'N/A',
@@ -146,7 +146,7 @@ foreach(scandir('./plugins') as $plug)
 	$plugs[] = array(
 		'id'    => $plug,
 		'ready' => isset($setup[$plug]) OR empty($data['install']),
-		'name'  => isset($data[$nlang]) ? clean($data[$nlang]) : $plug,
+		'name'  => isset($data[LANG]) ? clean($data[LANG]) : $plug,
 		'url'   => isset($data['install']) ? url('plugins/'.$plug, '', 'admin') : false,
 		'config'=> isset($data['config']) ? url($plug, '', 'admin') : false
 	);

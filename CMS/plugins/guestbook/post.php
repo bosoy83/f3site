@@ -117,7 +117,7 @@ if($_POST)
 					$q = $db->prepare('INSERT INTO '.PRE.'guestbook
 					(who, UID, lang, date, gg, tlen, icq, skype, jabber, mail, www, ip, txt) VALUES
 					(:who, :uid, :lang, :date, :gg, :tlen, :icq, :skype, :jabber, :mail, :www, :ip, :txt)');
-					$post['lang'] = $nlang;
+					$post['lang'] = LANG;
 					$post['date'] = $_SERVER['REQUEST_TIME'];
 					$post['ip']  =  $_SERVER['REMOTE_ADDR'];
 					$post['uid'] = (UID && $post['who'] === $user['login']) ? UID : 0;

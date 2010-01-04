@@ -21,7 +21,7 @@ else $id = 0;
 
 #Odczyt
 $res = $db->query('SELECT ID,name,dsc,nums FROM '.PRE.'cats WHERE sc=0'.
-	($id ? ' AND type='.$id : '').' AND (access=1 OR access="'.$nlang.'") ORDER BY lft');
+	($id ? ' AND type='.$id : '').' AND (access=1 OR access="'.LANG.'") ORDER BY lft');
 
 $res->setFetchMode(3);
 $total = 0;

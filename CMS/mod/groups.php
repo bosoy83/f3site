@@ -5,7 +5,7 @@ if(iCMS!=1) exit;
 $content->title = $lang['groups'];
 
 #Pobierz
-$res = $db->query('SELECT ID,name,dsc,opened FROM '.PRE.'groups WHERE access=1 OR access="'.$nlang.'"');
+$res = $db->query('SELECT ID,name,dsc,opened FROM '.PRE.'groups WHERE access=1 OR access="'.LANG.'"');
 $res -> setFetchMode(3);
 $gro = array();
 $may = array();

@@ -28,7 +28,7 @@ else
 }
 
 #Ilość wpisów
-$total = dbCount('guestbook WHERE lang="'.$nlang.'"');
+$total = dbCount('guestbook WHERE lang="'.LANG.'"');
 $num = 0;
 $all = array();
 
@@ -36,7 +36,7 @@ $all = array();
 $query = $db->prepare('SELECT * FROM '.PRE.'guestbook WHERE lang=? ORDER BY ID DESC LIMIT ?,?');
 
 #Podepnij dane do zapytania bezpiecznie
-$query -> bindValue(1, $nlang);
+$query -> bindValue(1, LANG);
 $query -> bindValue(2, $st, 1);
 $query -> bindValue(3, $cfg['gbNum'], 1); //PDO::PARAM_INT
 $query -> execute();

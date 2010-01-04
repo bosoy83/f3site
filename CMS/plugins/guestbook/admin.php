@@ -5,9 +5,9 @@ if(iCMSa!=1 || !admit('GB')) exit;
 require './cfg/gb.php';
 
 #Język
-if(file_exists('./plugins/guestbook/lang/'.$nlang.'.php'))
+if(file_exists('./plugins/guestbook/lang/'.LANG.'.php'))
 {
-	require './plugins/guestbook/lang/'.$nlang.'.php';
+	require './plugins/guestbook/lang/'.LANG.'.php';
 }
 else
 {

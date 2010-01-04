@@ -2,9 +2,9 @@
 if(iCMSa!=1 || !admit('BUGADM')) exit;
 
 #Jêzyk
-if(file_exists('./plugins/bugs/lang/adm'.$nlang.'.php'))
+if(file_exists('./plugins/bugs/lang/adm'.LANG.'.php'))
 {
-	require './plugins/bugs/lang/adm'.$nlang.'.php';
+	require './plugins/bugs/lang/adm'.LANG.'.php';
 }
 else
 {

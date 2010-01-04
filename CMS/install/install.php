@@ -105,37 +105,37 @@ class Installer
 		}
 
 		#Strona główna
-		$c->execute(array($lang[0], $x, 5, 1, 1, 6, ++$lft, ++$lft));
+		$c->execute(array($lang['main'], $x, 5, 1, 1, 6, ++$lft, ++$lft));
 		$catID = $db->lastInsertId();
 		$this->catid[$x] = $catID;
 
 		#Przykładowe kategorie
 		if($this->sample)
 		{
-			$c->execute(array($lang[12], $x, 1, 0, 0, 15, ++$lft, ++$lft));
-			$c->execute(array($lang[13], $x, 2, 0, 0, 15, ++$lft, ++$lft));
-			$c->execute(array($lang[8], $x, 3, 0, 0, 15, ++$lft, ++$lft));
-			$c->execute(array($lang[9], $x, 4, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang['arts'], $x, 1, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang['files'], $x, 2, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang['gallery'], $x, 3, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang['links'], $x, 4, 0, 0, 15, ++$lft, ++$lft));
 		}
 
 		#Menu
 		$m->execute(array(1, 'Menu', $x, 1, 3, null));
 		$menuID = $db->lastInsertId();
-		$m->execute(array(2, $lang[3], $x, 2, 2, './mod/panels/user.php'));
-		$m->execute(array(3, $lang[4], $x, 2, 2, './mod/panels/poll.php'));
-		$m->execute(array(4, $lang[5], $x, 1, 2, './mod/panels/online.php'));
-		$m->execute(array(5, $lang[6], $x, 2, 2, './mod/panels/new.php'));
+		$m->execute(array(2, $lang['UA'], $x, 2, 2, './mod/panels/user.php'));
+		$m->execute(array(3, $lang['poll'], $x, 2, 2, './mod/panels/poll.php'));
+		$m->execute(array(4, $lang['stat'], $x, 1, 2, './mod/panels/online.php'));
+		$m->execute(array(5, $lang['new'], $x, 2, 2, './mod/panels/new.php'));
 
 		#Pierwszy NEWS
-		$n->execute(array($catID, $lang[11], $lang[14], gmdate('Y-m-d H:i:s'), 1, 1));
+		$n->execute(array($catID, $lang['1st'], $lang['NEWS'], gmdate('Y-m-d H:i:s'), 1, 1));
 
 		#Pozycje menu
-		$i->execute(array($menuID, $lang[0], '.', 1));
-		$i->execute(array($menuID, $lang[7], 'archive', 2));
-		$i->execute(array($menuID, $lang[8], 'cats/4', 3));
-		$i->execute(array($menuID, $lang[9], 'cats/3', 4));
-		$i->execute(array($menuID, $lang[1], 'users', 5));
-		$i->execute(array($menuID, $lang[10], 'groups', 6));
+		$i->execute(array($menuID, $lang['main'], '.', 1));
+		$i->execute(array($menuID, $lang['arch'], 'archive', 2));
+		$i->execute(array($menuID, $lang['links'], 'cats/4', 3));
+		$i->execute(array($menuID, $lang['foto'], 'cats/3', 4));
+		$i->execute(array($menuID, $lang['users'], 'users', 5));
+		$i->execute(array($menuID, $lang['group'], 'groups', 6));
 	}
 
 	#Instaluj dla wszystkich języków
@@ -240,6 +240,19 @@ class Installer
 			}
 		}
 		return $skins;
+	}
+
+	#Domyślny format URL
+	function urls()
+	{
+		if(function_exists('apache_get_modules') && file_exists('.htaccess'))
+		{
+			if(in_array('mod_rewrite', apache_get_modules()))
+			{
+				return 1;
+			}
+		}
+		return 3;
 	}
 
 	#Zbadaj CHMOD-y

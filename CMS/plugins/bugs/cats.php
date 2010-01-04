@@ -5,7 +5,7 @@ if(iCMS!=1) exit;
 if($cfg['bugsIntro']) $content->info($cfg['bugsIntro']);
 
 #Pobierz kategorie
-$res = $db->query('SELECT c.ID,c.name,c.dsc,c.post,c.num,c.last,s.title FROM '.PRE.'bugcats c LEFT JOIN '.PRE.'bugsect s ON c.sect = s.ID WHERE c.see=1 OR c.see="'.$nlang.'" ORDER BY s.seq,c.name');
+$res = $db->query('SELECT c.ID,c.name,c.dsc,c.post,c.num,c.last,s.title FROM '.PRE.'bugcats c LEFT JOIN '.PRE.'bugsect s ON c.sect = s.ID WHERE c.see=1 OR c.see="'.LANG.'" ORDER BY s.seq,c.name');
 
 $cat  = array();
 $sect = '';

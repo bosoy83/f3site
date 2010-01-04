@@ -13,7 +13,7 @@ if($_POST)
 		'name' => clean($_POST['name']),
 		'dsc'  => clean($_POST['dsc']),
 		'url'  => clean($_POST['url']),
-		'lang' => ctype_alnum($_POST['lang']) ? $_POST['lang'] : $nlang,
+		'lang' => ctype_alnum($_POST['lang']) ? $_POST['lang'] : LANG,
 		'auto' => isset($_POST['auto']),
 		'cat'  => (int)$_POST['cat'],
 		'num'  => (int)$_POST['num']
@@ -59,7 +59,7 @@ else
 		'auto' => 1,
 		'num'  => 20,
 		'cat'  => 0,
-		'lang' => $nlang,
+		'lang' => LANG,
 		'url'  => substr(URL, 0, -6),
 	);
 }

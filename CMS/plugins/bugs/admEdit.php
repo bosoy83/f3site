@@ -50,7 +50,7 @@ else
 		'sect' => 1,
 		'name' => '',
 		'dsc'  => '',
-		'see'  => $nlang,
+		'see'  => LANG,
 		'post' => 'ALL',
 		'rate' => 1,
 		'text' => '',

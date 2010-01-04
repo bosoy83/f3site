@@ -6,7 +6,7 @@ if(isset($URL[2]) && is_numeric($URL[2]))
 {
 	$id = $URL[2];
 	$q = $db->prepare('SELECT name,post,num,text FROM '.PRE.'bugcats WHERE (see=1 OR see=?) AND ID=?');
-	$q->execute(array($nlang, $URL[2]));
+	$q->execute(array(LANG, $URL[2]));
 	if(!$cat = $q->fetch(2)) return;
 }
 else return;

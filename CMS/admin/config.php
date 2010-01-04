@@ -9,7 +9,7 @@ require LANG_DIR.'admCfg.php';
 
 #Odczyt opcji wtyczek
 $items = array();
-$res = $db->query('SELECT ID,name,img FROM '.PRE.'confmenu WHERE lang=1 OR lang="'.$nlang.'"');
+$res = $db->query('SELECT ID,name,img FROM '.PRE.'confmenu WHERE lang=1 OR lang="'.LANG.'"');
 foreach($res as $x)
 {
 	$items[] = array(

@@ -42,7 +42,7 @@ switch($act)
 		break;
 	default:
 		if(!$data = parse_ini_file('./cfg/types.ini',1) OR !isset($data[$act])) return;
-		$type = $data[$act][$nlang];
+		$type = $data[$act][LANG];
 		$table = $data[$act]['table'];
 		$table2 = isset($data[$act]['table2']) ? $data[$act]['table2'] : false;
 		$href = isset($data[$act]['name']) ? url($data[$act]['name'].'/') : '';

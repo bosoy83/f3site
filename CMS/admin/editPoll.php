@@ -14,7 +14,7 @@ if($_POST)
 	'name'   => clean($_POST['name']),
 	'ison'   => (int)$_POST['ison'],
 	'type'   => (int)$_POST['type'],
-	'access' => ctype_alpha($_POST['access']) ? $_POST['access'] : $nlang
+	'access' => ctype_alpha($_POST['access']) ? $_POST['access'] : LANG
 	);
 
 	$num  = count($_POST['an']);
@@ -104,14 +104,14 @@ elseif($id)
 }
 else
 {
-	$poll = array('name'=>'', 'q'=>'', 'type'=>1, 'ison'=>1, 'access'=>$nlang);
+	$poll = array('name'=>'', 'q'=>'', 'type'=>1, 'ison'=>1, 'access'=>LANG);
 	$an = array( array(0, ''), array(0, ''), array(0, '') );
 }
 
 #Szablon
 $content->addScript('lib/forms.js');
 $content->data = array(
-	'langs'=> listBox('lang', 1, $id ? $poll['access'] : $nlang),
+	'langs'=> listBox('lang', 1, $id ? $poll['access'] : LANG),
 	'poll' => &$poll,
 	'item' => &$an
 );

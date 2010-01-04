@@ -49,7 +49,7 @@ if(isset($URL[2]))
 		{
 			case 10: $if = 'users WHERE lv>0 AND ID='.$id; break;
 			case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
-			case 15: $if = 'polls WHERE access="'.$nlang.'"'; break;
+			case 15: $if = 'polls WHERE access="'.LANG.'"'; break;
 			default: $data = parse_ini_file('./cfg/types.ini',1);
 				$if = isset($data[$type]['comm']) ? $data[$type]['table'].' i INNER JOIN '.
 				PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&2 AND i.ID='.$id : '';

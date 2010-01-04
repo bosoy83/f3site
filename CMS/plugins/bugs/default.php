@@ -5,9 +5,9 @@ if(iCMS!=1) exit;
 require './cfg/bugs.php';
 
 #Jêzyk
-if(file_exists('./plugins/bugs/lang/'.$nlang.'.php'))
+if(file_exists('./plugins/bugs/lang/'.LANG.'.php'))
 {
-	require './plugins/bugs/lang/'.$nlang.'.php';
+	require './plugins/bugs/lang/'.LANG.'.php';
 }
 else
 {

@@ -62,7 +62,7 @@ if(isset($_POST['poll']))
 {
 	#Dane
 	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE access="'
-		.$nlang.'" ORDER BY ID DESC LIMIT 1') -> fetch(2);
+		.LANG.'" ORDER BY ID DESC LIMIT 1') -> fetch(2);
 
 	#Istnieje? + ID
 	if($poll) { $id = $poll['ID']; } else { $content->message(22); exit; }
@@ -107,7 +107,7 @@ if(isset($_POST['poll']))
 
 				#Zapisz nowe dane do pliku
 				require './lib/config.php';
-				$file = new Config('./cache/poll_'.$nlang.'.php');
+				$file = new Config('./cache/poll_'.LANG.'.php');
 				$file->add('poll',$poll);
 				$file->add('option',$o);
 				$file->save();

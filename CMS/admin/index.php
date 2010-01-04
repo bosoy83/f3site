@@ -70,7 +70,7 @@ else
 }
 
 #Wczytaj menu z cache lub wygeneruj
-if(isset($_SESSION['admenu']) && $_SESSION['admenu'] === $nlang)
+if(isset($_SESSION['admenu']) && $_SESSION['admenu'] === LANG)
 {
 	$menu = file_get_contents('./cache/adm'.UID.'.php');
 }
@@ -116,7 +116,7 @@ else
 	#Zapisz uk³ad menu
 	if(file_put_contents('./cache/adm'.UID.'.php', $menu))
 	{
-		$_SESSION['admenu'] = $nlang;
+		$_SESSION['admenu'] = LANG;
 	}
 	unset($ex,$res,$x);
 }

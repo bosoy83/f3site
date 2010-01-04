@@ -11,11 +11,11 @@ if(isset($URL[1]))
 	#Ca³y rok / 1 miesi±c
 	if(isset($cfg['archYear']) && is_numeric($URL[1]))
 	{
-		$q = 'date BETWEEN \''.$URL[0].'-01-01\' AND \''.$URL[0].'-12-31\'';
+		$q = 'date BETWEEN \''.$URL[1].'-01-01\' AND \''.$URL[1].'-12-31\'';
 	}
 	elseif(is_numeric($URL[1]) && is_numeric($URL[2]))
 	{
-		if(!isset($URL[1][1])) $date[1] = '0'.$URL[2];
+		if(!isset($URL[2][1])) $URL[2] = '0'.$URL[2];
 		$q = 'date BETWEEN \''.$URL[1].'-'.$URL[2].'-01\' AND \''.$URL[1].'-'.$URL[2].'-31\'';
 	}
 	else return;
@@ -51,12 +51,12 @@ $date = $db->query('SELECT date FROM '.PRE.'news LIMIT 1') -> fetchColumn();
 if(!$date[0]) return;
 
 #Data 1. newsa
-$year = (int)$date[0].$date[1].$date[2].$date[3];
-$mon  = (int)$date[5].$date[6];
+$year = (int)($date[0].$date[1].$date[2].$date[3]);
+$mon  = (int)($date[5].$date[6]);
 
 #Bie¿±cy miesi±c i rok
-$m = date('n');
-$y = date('Y');
+$m = (int)date('n');
+$y = (int)date('Y');
 
 $dates = array();
 
@@ -87,7 +87,7 @@ elseif($mon)
 		}
 		else --$m;
 	}
-	while( $y>$year || $m>=$mon );
+	while( $y>$year || ($y==$year && $m>=$mon) );
 }
 unset($y,$m,$date);
 

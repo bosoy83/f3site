@@ -12,7 +12,7 @@ else
 }
 
 #Pobierz zg³oszenie - FETCH_ASSOC
-$bug = $db->query('SELECT b.*, c.name as catName, c.rate FROM '.PRE.'bugs b INNER JOIN '.PRE.'bugcats c ON b.cat = c.ID WHERE b.ID='.$id.' AND (c.see=1 OR c.see="'.$nlang.'")') -> fetch(2);
+$bug = $db->query('SELECT b.*, c.name as catName, c.rate FROM '.PRE.'bugs b INNER JOIN '.PRE.'bugcats c ON b.cat = c.ID WHERE b.ID='.$id.' AND (c.see=1 OR c.see="'.LANG.'")') -> fetch(2);
 
 #Brak
 if(!$bug) return;

@@ -1,5 +1,4 @@
 <?php
-define('INSTALL',1);
 header('Cache-Control: public');
 header('Content-type: text/html; charset=utf-8');
 header('X-Robots-Tag: noindex');
@@ -8,7 +7,7 @@ header('X-Robots-Tag: noindex');
 define('PATH', str_replace(array('//','install/'), array('/',''), dirname($_SERVER['PHP_SELF']).'/'));
 define('URL', 'http://'.$_SERVER['SERVER_NAME'].PATH);
 
-#Katalog roboczy + katalogi szablonów
+#Katalog roboczy + katalogi szablonow
 chdir('../');
 define('VIEW_DIR', './cache/install/');
 define('SKIN_DIR', './install/HTML/');
@@ -18,26 +17,29 @@ require './lib/content.php';
 require './lib/config.php';
 require './install/install.php';
 
-#Język
+#Jezyk
 $setup = new Installer;
 $error = array();
 
 #Plik językowy
 require './install/lang/'.$setup->lang.'.php';
 
-#System szablonów
+#Szablony
 $content = new Content;
 $content->title = $lang['installer'];
 
-#System zainstalowany
-if(file_exists('./cfg/db.php') && filesize('./cfg/db.php')>43) $content->message($lang['XX']);
+#Zainstalowany
+if(file_exists('./cfg/db.php') && filesize('./cfg/db.php')>43) $content->message($lang['ban']);
 
 #Sterowniki PDO
 $dr = PDO::getAvailableDrivers();
 $my = in_array('mysql', $dr);
 $li = in_array('sqlite',$dr);
 
-#Dostępna tylko 1 baza
+#Brak baz
+if(!$my && !$li) $content->message($lang['noDB']);
+
+#Tylko 1 baza
 $one = ($li xor $my) ? ($my ? 'mysql' : 'sqlite') : false;
 
 #Sprawdź CHMOD-y
@@ -53,10 +55,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 	#Operacje w bazie
 	case 2:
 
-	#Silnik SQL
 	$type = isset($_POST['file']) ? 'sqlite' : 'mysql';
-
-	#Dane POST
 	$data = array(
 		'type' => $type,
 		'host' => $type=='mysql' ? htmlspecialchars($_POST['host']) : '',
@@ -93,7 +92,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 
 	try
 	{
-		#Gdy są błędy
+		#Gdy sa bledy
 		if($error) throw new Exception('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 
 		#Operacje
@@ -106,7 +105,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		$setup->admin($data['login'], $_POST['uPass']);
 		$setup->commit($data);
 		$content->data = null;
-		$content->message($lang['done'], '..');
+		$content->message($lang['OK'], '..');
 	}
 	catch(Exception $e)
 	{
@@ -127,7 +126,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 	$data = array(
 		'host'  => $_SERVER['HTTP_HOST']=='localhost' ? 'localhost' : 'mysql.'.$_SERVER['HTTP_HOST'],
 		'title' => $lang['myPage'],
-		'urls'  => 3,
+		'urls'  => $setup->urls(),
 		'user'  => 'root',
 		'pass'  => '',
 		'db'    => '',
@@ -154,5 +153,5 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 	default: $content->file = 'start';
 }
 
-#Szablon główny
+#Szablon głowny
 include $content->path('body');

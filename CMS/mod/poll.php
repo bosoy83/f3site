@@ -6,9 +6,9 @@ if(isset($URL[1]) && is_numeric($URL[1]))
 {
 	if(!$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$URL[1]) -> fetch(2)) return;
 }
-elseif(file_exists('./cache/poll_'.$nlang))
+elseif(file_exists('./cache/poll_'.LANG))
 {
-	require('./cache/poll_'.$nlang);
+	require('./cache/poll_'.LANG);
 }
 else return;
 

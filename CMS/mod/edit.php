@@ -25,7 +25,7 @@ elseif(isset($_SESSION['lastCat'][$TYPE]))
 else
 {
 	require_once './cfg/content.php';
-	$lastCat = $cfg['start'][$nlang];
+	$lastCat = $cfg['start'][LANG];
 }
 
 #Akcja

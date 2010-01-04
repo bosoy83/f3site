@@ -128,7 +128,8 @@ elseif(isset($cfg['detectLang']))
 }
 
 #Katalog z plikami językowymi
-define('LANG_DIR', './lang/'.$nlang.'/');
+define('LANG', $nlang);
+define('LANG_DIR', './lang/'.LANG.'/');
 
 #Dołącz główny plik języka
 require LANG_DIR.'main.php';

@@ -40,7 +40,7 @@ foreach($data as $num => &$x)
 	$type[] = array(
 		'id' => $num,
 		'on' => isset($opt['newTypes'][$num]),
-		'title' => isset($x[$nlang]) ? $x[$nlang] : $x['en']
+		'title' => isset($x[LANG]) ? $x[LANG] : $x['en']
 	);
 }
 

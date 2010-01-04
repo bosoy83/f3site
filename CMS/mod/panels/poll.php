@@ -2,8 +2,8 @@
 if(iCMS!=1) exit;
 
 #Pobierz
-if(file_exists('./cache/poll_'.$GLOBALS['nlang'].'.php')):
-	include('./cache/poll_'.$GLOBALS['nlang'].'.php');
+if(file_exists('./cache/poll_'.LANG.'.php')):
+	include('./cache/poll_'.LANG.'.php');
 else:
 	echo '<div style="text-align: center">'.$lang['lack'].'</div>';
 	return;

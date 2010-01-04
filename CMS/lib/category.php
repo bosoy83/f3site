@@ -22,9 +22,9 @@ elseif(isset($_GET['d']))
 	$d = (int)$_GET['d'];
 }
 #Domy¶lna
-elseif(isset($cfg['start'][$nlang]))
+elseif(isset($cfg['start'][LANG]))
 {
-	$d = $cfg['start'][$nlang];
+	$d = $cfg['start'][LANG];
 }
 #Brak
 else
@@ -69,7 +69,7 @@ else
 if($cat['opt'] & 8)
 {
 	$res = $db->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
-		' AND (access=1 OR access="'.$nlang.'") ORDER BY name');
+		' AND (access=1 OR access="'.LANG.'") ORDER BY name');
 	$res->setFetchMode(3);
 
 	foreach($res as $c)

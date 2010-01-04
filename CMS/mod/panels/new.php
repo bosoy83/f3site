@@ -2,9 +2,9 @@
 if(iCMS!=1) exit;
 
 #Istnieje?
-if(file_exists('./cache/new-'.$GLOBALS['nlang'].'.php'))
+if(file_exists('./cache/new-'.LANG.'.php'))
 {
-	include './cache/new-'.$GLOBALS['nlang'].'.php';
+	include './cache/new-'.LANG.'.php';
 }
 else
 {

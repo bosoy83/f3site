@@ -4,7 +4,7 @@ if(iCMS!=1) exit;
 #Tytu³ strony
 $content->title = $lang['archive'];
 
-$res = $db->query('SELECT ID,name,num,date FROM '.PRE.'polls WHERE access="'.$nlang.'" ORDER BY ID DESC');
+$res = $db->query('SELECT ID,name,num,date FROM '.PRE.'polls WHERE access="'.LANG.'" ORDER BY ID DESC');
 $res->setFetchMode(3);
 
 #Tu zapisuj
