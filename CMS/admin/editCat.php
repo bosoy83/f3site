@@ -112,7 +112,16 @@ elseif($id)
 #Domyœlne dane
 else
 {
-	$cat = array('name'=>'','dsc'=>'','access'=>1,'type'=>5,'sc'=>0,'text'=>'','sort'=>2,'opt'=>15);
+	$cat = array(
+		'name' => '',
+		'dsc'  => '',
+		'type' => isset($_GET['type']) ? (int)$_GET['type'] : 5,
+		'sc'   => 0,
+		'text' => '',
+		'sort' => 2,
+		'opt'  => 15,
+		'access'=> 1
+	);
 }
 #Edytor JS, tytu³, dane
 $content->addScript(LANG_DIR.'edit.js');

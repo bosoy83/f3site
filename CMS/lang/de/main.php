@@ -29,7 +29,6 @@
 'in'=>'in %d Min.',
 'info'=>'Information',
 'itemList'=>'Blattliste',
-'join'=>'eintreten',
 'lack'=>'null',
 'lang'=>'Sprache',
 'links'=>'Links',

@@ -25,13 +25,20 @@ if($_POST)
 	#Nowy
 	else
 	{
-		$q = $db->prepare('INSERT INTO '.PRE.'groups (name,dsc,access,opened)
-			VALUES (:name,:dsc,:access,:opened)');
+		$group['who'] = UID;
+		$group['date'] = $_SERVER['REQUEST_TIME'];
+		$q = $db->prepare('INSERT INTO '.PRE.'groups (name,dsc,access,opened,who,date)
+			VALUES (:name,:dsc,:access,:opened,:who,:date)');
 	}
 	#OK?
 	try
 	{
-		$q->execute($group); $content->info($lang['saved']); return 1;
+		$q->execute($group);
+		$content->info($lang['saved'], array(
+			url('group/'.$id) => $group['name'],
+			url('editGroup/'.$id, '', 'admin') => $lang['editGroup'],
+			url('editGroup', '', 'admin') => $lang['addGroup']));
+		return 1;
 	}
 	catch(PDOException $e)
 	{

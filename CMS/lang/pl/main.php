@@ -29,7 +29,6 @@
 'in'=>'za %d min.',
 'info'=>'Informacja',
 'itemList'=>'Pokaż listę pozycji',
-'join'=>'dołącz',
 'lack'=>'brak',
 'lang'=>'Język',
 'links'=>'Linki',

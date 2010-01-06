@@ -242,8 +242,14 @@ small {font-size: 11px}
 .pages {padding: 8px !important; text-align: center}
 
 /* LINKI */
-a.edit, a.add {
+a.edit, a.add, a.del, a.user {
 	padding-left: 20px
+}
+a.del {
+	background: url(../../img/icon/del.png) no-repeat;
+}
+a.user {
+	background: url(../../img/icon/group.png) no-repeat;
 }
 a.edit {
 	background: url(../../img/icon/edit.png) no-repeat;

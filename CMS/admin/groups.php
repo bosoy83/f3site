@@ -5,13 +5,13 @@ require LANG_DIR.'admAll.php'; //Jêzyk
 #Usuñ
 if($_POST)
 {
-	unset($_POST['x'][1]); //Nie mo¿na usun¹æ domyœlnej grupy
 	$x = GetID(true);
-
 	if(isset($_POST['del']))
 	{
+		$db->beginTransaction();
 		$db->exec('DELETE FROM '.PRE.'groups WHERE ID IN ('.$x.')');
-		$db->exec('UPDATE '.PRE.'users SET gid=1 WHERE gid IN ('.$x.')');
+		$db->exec('DELETE FROM '.PRE.'groupuser WHERE g IN ('.$x.')');
+		$db->commit();
 	}
 }
 

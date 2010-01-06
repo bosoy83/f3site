@@ -29,7 +29,6 @@
 'in'			=>'in %d min',
 'info'		=>'Information',
 'itemList'=>'Item list',
-'join'		=>'join',
 'lack'		=>'lack',
 'lang'		=>'Lang',
 'links'		=>'Links',

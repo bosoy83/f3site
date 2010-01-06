@@ -10,6 +10,8 @@ $lang+=Array(
 'seeit'=>'Display this item',
 'saved'=>'The item has been saved.',
 'choose'=>'- - - select from list - - -',
+'noCats'=>'There is no category for this type objects.',
+'noCat' =>'You have selected NO category. This item will be unavailable. You can return here later and finish. Click OK to save it or Cancel to stay here.',
 
 'emo'=>'Emoticons',
 'br'=>'ENTER = line break',

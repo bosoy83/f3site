@@ -10,6 +10,8 @@ $lang+=Array(
 'seeit'=>'Item zeigen',
 'saved'=>'Item gespeichert.',
 'choose'=>'- - - wählen - - -',
+'noCats'=>'Es gibt keine Kategorie für diese Objekte',
+'noCat' =>'Du hast keine Kategorie ausgewählt. Dieser Artikel ist nicht verfügbar. Du kann es später beenden. Klick auf OK, um sie zu speichern, oder Abbrechen, um hier zu bleiben.',
 
 'emo'=>'Emoticons',
 'br'=>'ENTER = neue Linie',

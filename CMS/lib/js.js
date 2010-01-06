@@ -1,6 +1,9 @@
 //Plik przeznaczony do edycji
 //Skompresuj go: http://dean.edwards.name/packe0
 
+//If no Element object
+if(!window.Element) Element = {};
+
 //Otwórz okno na œrodku ekranu
 function okno(url, width, height)
 {

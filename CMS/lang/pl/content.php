@@ -10,6 +10,8 @@ $lang+=Array(
 'seeit'=>'Wyświetl pozycję',
 'saved'=>'Zapisano pozycję.',
 'choose'=>'- - - wybierz z listy - - -',
+'noCats'=>'Nie stworzyłeś jeszcze kategorii dla obiektu tego typu.',
+'noCat' =>'Nie wybrałeś kategorii. Obiekt będzie niedostępny. Możesz później powrócić do edycji. Naciśnij OK, aby go zapisać lub Anuluj, aby zostać na tej stronie.',
 
 'emo'=>'Emotikony',
 'br'=>'ENTER = nowa linia',

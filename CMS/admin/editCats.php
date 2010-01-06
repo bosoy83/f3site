@@ -51,7 +51,7 @@ if(isset($_POST['del']) && $x = GetID(1))
 		RebuildTree();
 		CountItems();
 		$db->commit();
-		header('Location: '.URL.url('cats'));
+		header('Location: '.URL.url('cats', '', 'admin'));
 	}
 	else
 	{

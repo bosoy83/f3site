@@ -43,9 +43,10 @@ if(isset($cfg['userFind']))
 	}
 }
 #ID Grupy
-if(isset($_GET['id']) && $_GET['id'])
+if($id)
 {
-	$id = $_GET['id'];  $param[] = 'gid='.$id;  $url[] = 'id='.$id;
+	$param[] = 'ID IN (SELECT u FROM '.PRE.'groupuser WHERE g='.$id.')';
+	$url[] = 'id='.$id;
 }
 
 #Licz

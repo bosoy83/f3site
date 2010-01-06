@@ -30,6 +30,7 @@ $res = $db->query('SELECT ID,name,access,type,num,lft,rgt FROM '.PRE.'cats'
 $types = array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
 $depth = 0;
 $last = 1;
+$cats = array();
 
 foreach($res as $cat)
 {

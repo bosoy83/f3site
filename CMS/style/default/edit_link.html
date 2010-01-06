@@ -2,7 +2,6 @@
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
   <td style="width: 31%"><b>1. {lang.cat}:</b></td>
   <td><select name="cat"><option value="0">{lang.choose}</option>{cats}</select></td>
@@ -38,13 +37,15 @@
 <tr>
   <td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
 </tr>
-</tbody>
 </table>
 </form>
 
 <script type="text/javascript">
-//<![CDATA[
-var f = document.forms['link'];
-if(f[0].value == 0) f[0].focus(); else f[1].focus();
-//]]>
+f = document.forms['link']
+f.onsubmit = function()
+{
+	if(f.name.value==0) { f.name.focus(); return false }
+	if(f.cat.value==0) return confirm('{lang.noCat}')
+}
+if(f[0].value == 0) f[0].focus(); else f[1].focus()
 </script>

@@ -108,11 +108,13 @@ CREATE TABLE IF NOT EXISTS `f3_groups` (
 `access` varchar(3) NOT NULL,
 `opened` tinyint(1) NOT NULL,
 `who` int(11) NOT NULL DEFAULT 0,
+`num` int(11) NOT NULL DEFAULT 0,
 `date` int(11)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_groupuser` (
 `u` int(11) NOT NULL,
 `g` int(11) NOT NULL,
+`date` int(11),
 PRIMARY KEY (u,g)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_imgs` (

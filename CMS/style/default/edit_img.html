@@ -81,8 +81,13 @@
 </table>
 </form>
 <script type="text/javascript">
-var f = document.forms['img'];
-var e = new Editor(f.dsc);
+f = document.forms['img'];
+f.onsubmit = function()
+{
+	if(f.name.value==0) { f.name.focus(); return false }
+	if(f.cat.value==0) return confirm('{lang.noCat}')
+}
+e = new Editor(f.dsc);
 e.protect();
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 include('lib/forms.js')

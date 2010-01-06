@@ -150,7 +150,7 @@ Editor.prototype.protect = function(text)
 		if(e) e.returnValue = text||lang.leave;
 		return text||lang.leave
 	};
-	addEvent('submit', function() { onbeforeunload=undefined }, this.o.form)
+	addEvent('submit', function() { onbeforeunload = null }, this.o.form)
 }
 
 //Emoty

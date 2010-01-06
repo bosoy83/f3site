@@ -55,29 +55,33 @@
 </form>
 
 <script type="text/javascript">
-var f = document.forms['news'];
-var l = f.elements;
-var e = new Editor(l.txt);
+f = document.forms['news'];
+f.onsubmit = function()
+{
+	if(f.name.value==0) { f.name.focus(); return false }
+	if(f.cat.value==0) return confirm('{lang.noCat}')
+}
+e = new Editor(f.txt);
 e.emots();
 e.protect();
-var done = l.fn.checked;
+var done = f.fn.checked;
 
-if(l[0].value == 0) l[0].focus(); else l[1].focus();
+if(f[0].value == 0) f[0].focus(); else f[1].focus();
 
 function FN(x)
 {
 	show('full');
 	if(done!=1 || x==1)
 	{
-		var e2 = new Editor(l.text);
+		var e2 = new Editor(f.text);
 		e2.emots();
 		done = 1;
 	}
 }
 function P()
 {
-	e.preview({NL: l.br.checked, EMOTS: l.emo.checked}, null,
-	(f.img.value && '<img src="'+f.img.value+'" class="newsimg" />')+l.txt.value+'<br /><br />'+l.text.value);
+	e.preview({NL: f.br.checked, EMOTS: f.emo.checked}, null,
+	(f.img.value && '<img src="'+f.img.value+'" class="newsimg" />')+f.txt.value+'<br /><br />'+f.text.value);
 }
 if(done==1) FN(1);
 include('lib/forms.js')
