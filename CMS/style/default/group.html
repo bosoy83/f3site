@@ -54,6 +54,16 @@
 
 	{group.dsc}
 </div>
+
+<!-- IF query -->
 <script type="text/javascript">
-/* AJAX */
+$('join').onclick = function()
+{
+	if(confirm('{query}'))
+	{
+		new Request(this.href, null, {scripts: 1}).send({yes: 1})
+	}
+	return false
+}
 </script>
+<!-- END -->

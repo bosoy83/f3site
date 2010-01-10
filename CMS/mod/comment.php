@@ -48,11 +48,11 @@ if(isset($URL[2]))
 		switch($type)
 		{
 			case 10: $if = 'users WHERE lv>0 AND ID='.$id; break;
+			case 11: $if = 'groups WHERE access!=1 AND ID='.$id; break;
 			case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
-			case 15: $if = 'polls WHERE access="'.LANG.'"'; break;
+			case 15: $if = 'polls WHERE access="'.LANG.'" AND ID='.$id; break;
 			default: $data = parse_ini_file('./cfg/types.ini',1);
-				$if = isset($data[$type]['comm']) ? $data[$type]['table'].' i INNER JOIN '.
-				PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&2 AND i.ID='.$id : '';
+				$if = isset($data[$type]['comm']) && ($data[$type]['comm']==1 || isset($cfg[$data[$type]['comm']])) ? $data[$type]['table'].' i INNER JOIN '. PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&2 AND i.ID='.$id : '';
 		}
 		if(!$if OR !dbCount($if))
 		{

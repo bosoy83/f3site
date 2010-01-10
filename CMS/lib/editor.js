@@ -3,25 +3,29 @@
 //gdyż nie trzeba używać konstrukcji `var i in tags`
 //Podwójne tablice zostały użyte w celu łatwiejszej edycji znaczników
 
-//Kolejność: BBCode, początek HTML, koniec HTML
+//Kolejność: Położenie ikony [px], BBCode, koniec BBCode, HTML, koniec HTML
 var tags = [
-	['b', '<b>', '</b>'],
-	['i', '<i>', '</i>'],
-	['u', '<u>', '</u>'],
-	['big', '<big>', '</big>'],
-	['small', '<small>', '</small>'], //4
-	['', '<h3>', '</h3>'],
-	['sub', '<sub>', '</sub>'],
-	['sup', '<sup>', '</sup>'],
-	['center', '<div style="text-align: center">', '</div>'], //8
-	['right', '<div style="text-align: right">', '</div>'],
-	['quote', '<blockquote>', '</blockquote>'],
-	['code', '<pre>', '</pre>']
+	[0, '[b]', '[/b]', '<b>', '</b>'],
+	[-22, '[i]', '[/i]', '<i>', '</i>'],
+	[-44, '[u]', '[/u]', '<u>', '</u>'],
+	[-66, '[big]', '[/big]', '<big>', '</big>'],
+	[-88, '[small]', '[/small]', '<small>', '</small>'],
+	[-110, '== ', ' ==', '<h3>', '</h3>'],
+	[-132, '[sub]', '[/sub]', '<sub>', '</sub>'],
+	[-154, '[sup]', '[/sup]', '<sup>', '</sup>'],
+	[-176, '[center]', '[/center]', '<div style="text-align: center">', '</div>'],
+	[-198, '[right]', '[/right]', '<div style="text-align: right">', '</div>'],
+	[-220, '[quote]', '[/quote]', '<blockquote>', '</blockquote>'],
+	[-242, '[code]', '[/code]', '<pre>', '</pre>'],
+	[-264],
+	[-286],
+	[-308],
+	[-330],
+	[-352],
+	[-374],
 ],
 
 tagNum = 17, //Liczba wszystkich tagów - także spoza tablicy `tags`
-tagWidth = 22, //16px + 3px padding on both sides
-tagHeight = 22, //See above
 
 //Symbole: BBCode, HTML, po środku / po lewej, po prawej
 symbol = [
@@ -50,74 +54,25 @@ function Editor(o, usebbcode)
 	this.create();
 }
 
-//Wstaw znacznik
-Editor.prototype.format = function(i)
-{
-	//Standardowe tagi
-	if(tags[i])
-	{
-		if(this.bbcode)
-			BBC(this.o, '['+tags[i][0]+']', '[/'+tags[i][0]+']');
-		else
-			BBC(this.o, tags[i][1], tags[i][2]);
-	}
-	//Nieopisane w tablicy `tags`
-	else
-	{
-		switch(i)
-		{
-			case 13:
-				if(!eChars) this.make(1);
-				eO = this.o;
-				hint(eChars, cx-60, cy, 1);
-				break;
-			case 12:
-				if(!eColors) this.make();
-				eO = this.o;
-				eCurBBC = this.bbcode;
-				hint(eColors, cx-90, cy, 1);
-				break;
-			case 14:
-				this.link();
-				break;
-			case 15:
-				this.mail();
-				break;
-			case 16:
-				var a = prompt(lang.img);
-				if(a)
-					if(this.bbcode)
-						BBC(this.o, '[url]', '[/url]\n', a);
-					else
-						BBC(this.o,'<img src="','" />');
-		}
-	}
-};
-
 //Utwórz edytor
 Editor.prototype.create = function()
 {
 	var that = this,
 	out = document.createElement('div');
 	out.className = 'editor';
-	out.style.height = tagHeight + 'px';
-	out.style.width = (tagWidth * tagNum) + 'px';
-	out.style.backgroundImage = 'url(img/editor.png)';
-	out.onclick = 
-	/*
+
 	for(var i=0; i<tagNum; i++)
 	{
-		if(this.bbcode && tags[i] && !tags[i][0]) continue;
-		var b = document.createElement('span');
-		b.style.backgroundImage = 'url(img/editor.png)';
-		b.style.backgroundPosition = 'center ' + button[i] + 'px';
-		b.style.backgroundRepeat = 'repeat-y';
+		if(this.bbcode && tags[i] && tags[i][1] === false) continue;
+		var b = document.createElement('div');
+		b.style.backgroundPosition = 'center ' + tags[i][0] + 'px';
 		b.style.padding = '3px 12px';
+		
 		b.item = i;
 		b.title = tips[i];
 		b.onclick = function() { that.format(this.item); };
 		out.appendChild(b)
-	}*/
+	}
 	this.o.parentNode.insertBefore(out,this.o);
 
 	//Skróty klawiszowe
@@ -153,6 +108,47 @@ Editor.prototype.protect = function(text)
 	addEvent('submit', function() { onbeforeunload = null }, this.o.form)
 }
 
+//Wstaw znacznik
+Editor.prototype.format = function(i)
+{
+	//Standardowe tagi
+	if(tags[i][1])
+	{
+		if(this.bbcode)
+			BBC(this.o, tags[i][1], tags[i][2]);
+		else
+			BBC(this.o, tags[i][3], tags[i][4]);
+	}
+	//Nieopisane w tablicy `tags`
+	else switch(i)
+	{
+		case 13:
+			if(!eChars) this.make(1);
+			eO = this.o;
+			hint(eChars, cx-60, cy, 1);
+			break;
+		case 12:
+			if(!eColors) this.make();
+			eO = this.o;
+			eCurBBC = this.bbcode;
+			hint(eColors, cx-90, cy, 1);
+			break;
+		case 14:
+			this.link();
+			break;
+		case 15:
+			this.mail();
+			break;
+		case 16:
+			var a = prompt(lang.img);
+			if(a)
+				if(this.bbcode)
+					BBC(this.o, '[url]', '[/url]\n', a);
+				else
+					BBC(this.o,'<img src="','" />');
+	}
+};
+
 //Emoty
 Editor.prototype.emots = function(x)
 {
@@ -183,7 +179,7 @@ Editor.prototype.emots = function(x)
 	for(var i=0; i<num; ++i)
 	{
 		var img = document.createElement('img');
-		img.src = './img/emo/'+emots[i][1];
+		img.src = 'img/emo/'+emots[i][1];
 		img.alt = emots[i][2];
 		img.width = 16;
 		img.title = emots[i][0];

@@ -18,7 +18,7 @@ switch($act)
 		break;
 	case 4:
 		$type = $lang['links'];
-		$href = 'go.php?link=';
+		$href = isset($cfg['linkFull']) ? url('link/') : 'go.php?link=';
 		$table = 'links';
 		$table2 = false;
 		break;

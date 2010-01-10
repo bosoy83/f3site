@@ -9,13 +9,15 @@ $res->setFetchMode(3);
 $total = 0;
 $links = array();
 $count = isset($cfg['lcnt']) ? 1 : 0;
+$url   = isset($cfg['linkFull']) ? url('link/') : false;
 
 #Lista
 foreach($res as $link)
 {
 	$links[] = array(
 		'title' => $link[1],
-		'url'   => $count ? 'go.php?link='.$link[0] : $link[3],
+		'url'   => $url ? $url.$link[0] : ($count ? 'go.php?link='.$link[0] : $link[3]),
+		'site'  => $link[3],
 		'views' => $count ? $link[4] : null,
 		'nw'    => $link[5],
 		'desc'  => $link[2],

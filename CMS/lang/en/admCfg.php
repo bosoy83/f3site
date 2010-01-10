@@ -92,6 +92,7 @@ $lang+=Array(
 
 'min'=>'Number of miniatures per 1 page',
 'countLinks'=>'Count links visits',
+'subpage'=>'Title of links will lead to separate page.',
 
 'defCat'=>'Start page',
 'forLang'=>'For language ',

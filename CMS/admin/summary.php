@@ -11,7 +11,7 @@ $content->data = array(
 #Katalog INSTALL
 if(LEVEL==4 && is_dir('install'))
 {
-	$content->info('<b style="color: red">'.$lang['INSTALL'].'</b>');
+	$content->info('<b>'.$lang['INSTALL'].'</b>', null, 'error');
 }
 
 #Kompiluj szablony

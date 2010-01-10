@@ -93,12 +93,16 @@ function BBC(o, left, right, inside)
 }
 
 //Ustaw cookie
-function setCookie(name, txt, expires)
+function setCookie(name, txt, expires, path)
 {
 	var date = new Date();
 	date.setTime(time = (expires*3600000) + date.getTime()); //expires = iloœæ godzin
-	var time = date.toGMTString();
-	document.cookie = name + '=' + escape(txt) + '; expires=' + time;
+	if(path == undefined)
+	{
+		path = document.getElementsByTagName('base')[0].href;
+		path = path.substr(path.indexOf('/', 8));
+	}
+	document.cookie = name + '=' + escape(txt) + ';path=' + path + ';expires=' + date.toGMTString();
 }
 
 //Poka¿ lub ukryj

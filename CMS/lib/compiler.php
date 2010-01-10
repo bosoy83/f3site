@@ -205,7 +205,8 @@ class Compiler
 		#Poprawno¶æ zmiennej
 		if(!ctype_alpha($var[0]) || !ctype_alnum($var))
 		{
-			throw new Exception(sprintf('Wrong variable name in START command in %s!', $this->file));
+			throw new Exception(sprintf('Wrong variable name %s in START command in %s on line %d!',
+			$var, $this->file, $pos));
 		}
 
 		#Klucz?
@@ -220,8 +221,21 @@ class Compiler
 		}
 		$frag = str_replace('{ITEM}', '<?=$i'.$lv.';?>', $frag);
 
+		#Gdy zmienna var jest kluczem tablicy
+		if($lv > 1)
+		{
+			$lv2 = 2;
+			$full = 'i1';
+			while($lv2 < $lv) $full .= '[$i'.++$lv2.']';
+			$full .= '[\''.$var.'\']';
+		}
+		else
+		{
+			$full = $var;
+		}
+
 		#Zamieñ definicjê pêtli
-		$frag = str_replace('<!-- START '.$var.' -->', '<?php foreach($'.$var.' as '.$key.$lv.'){?>', $frag);
+		$frag = str_replace('<!-- START '.$var.' -->', '<?php foreach($'.$full.' as '.$key.$lv.'){?>', $frag);
 
 		#Koniec pêtli
 		$frag = substr_replace($frag, '<?php } ?>', -13);

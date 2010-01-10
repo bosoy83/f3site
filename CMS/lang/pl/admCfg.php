@@ -92,6 +92,7 @@ $lang+=Array(
 
 'min'=>'Ilość miniatur na 1 stronie',
 'countLinks'=>'Pokaż ilość odsłon',
+'subpage'=>'Tytuły linków będą prowadzić na osobną stronę.',
 
 'defCat'=>'Strona startowa',
 'forLang'=>'Dla języka ',

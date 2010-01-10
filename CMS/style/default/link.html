@@ -1,0 +1,24 @@
+<div class="cs">
+
+	<!-- IF edit -->
+	<a href="{edit}" class="edit">{lang.edit}</a>
+	<!-- END -->
+
+	<a href="{cats}">{lang.links}</a> &raquo; {path}
+</div>
+
+<h2>{link.name}</h2>
+<div class="box">
+	{nl2br: link.dsc}
+	<div style="margin-top: 15px">
+		<b>{lang.disps}:</b> {link.count}<br />
+		<b>{lang.adr}:</b>
+		
+		<!-- IF link.nw -->
+		<a href="{link.adr}" target="_blank">{link.adr}</a>
+		<!-- ELSE -->
+		<a href="{link.adr}">{link.adr}</a>
+		<!-- END -->
+
+	</div>
+</div>

@@ -9,7 +9,7 @@ $lang+=Array(
 'emots'=>'Emoticons',
 'ua'=>'Benutzerkonten',
 
-/* OPCJE OGÓLNE */
+/* OPTIONEN */
 'defLang'=>'Standard Sprache',
 'styl'=>'Skin',
 'siteTitle'=>'Website Name',
@@ -71,7 +71,7 @@ $lang+=Array(
 'round'=>'Zahlen nach Komma im % runden',
 'round2'=>'Betrifft Resultate. 0 = ohne Komma.',
 
-/* OPCJE ZAWARTOŚCI */
+/* GEHALT */
 'itemNum' => 'Etliches per 1 Seite',
 'itemNum2'=> 'Betrifft: Schrifte, Filen...',
 'catStr'  => 'Kategorienhierarchie zeigen',
@@ -92,11 +92,12 @@ $lang+=Array(
 
 'min'=>'Miniaturen per 1 Seite',
 'countLinks'=>'Besuchen',
+'subpage'=>'Titel der Links führen zu separaten Seite.',
 
 'defCat'=>'Hauptseite',
 'forLang'=>'Für Sprache ',
 
-/* NAJNOWSZE POZYCJE */
+/* NEUE */
 'maxnum'=>'Menge der Neuesteitems',
 'auto'=>'Liste automatisch updaten',
 'each'=>'Für jeden Typ.',
@@ -116,7 +117,7 @@ $lang+=Array(
 'smtp'=>'Hostname',
 'mailn'=>'Nötig um zu eine Verbindung herstellen.',
 
-/* KONTA UŻYTKOWNIKÓW */
+/* BENUTZER */
 'reg'=>'Anmeldung anschalten',
 'nickban'=>'Verboten Logins',
 'nickex'=>'Jeder Login ohne * im separaten Linien.',
@@ -139,12 +140,12 @@ $lang+=Array(
 
 'whoMay'=>'Wo kann Gruppen gründen?',
 
-/* CENZURA */
+/* ZENSUR */
 'replace' =>'ersetzen für',
 'wordOff' =>'Wortzensur ist abgedreht. Man kann es im Grundoptionen anschalten.',
 'wordInfo'=>'Erklar Worte oder Texte, welche zensoren wollen.',
 
-/* EMOTIKONY */
+/* EMOTICONS */
 'emots'=>'Emoticons',
 'file' =>'File',
 'addemo'=>'Neues Emoticon',

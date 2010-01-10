@@ -19,8 +19,7 @@ class Content
 		#Informacja
 		if(isset($this->info))
 		{
-			$info  = $this->info;
-			$links = $this->links;
+			$info = $this->info;
 			include $this->path('info', 1);
 			if(!$this->data) return;
 		}
@@ -46,10 +45,9 @@ class Content
 	}
 
 	#Informacja
-	function info($text, $links=null)
+	function info($text, $links=array(), $class='info')
 	{
-		$this->info = $text;
-		$this->links = $links;
+		$this->info[] = array('text' => $text, 'links' => $links, 'class' => $class);
 	}
 
 	#Dodaj plik CSS

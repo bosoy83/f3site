@@ -241,6 +241,13 @@ small {font-size: 11px}
 }
 .pages {padding: 8px !important; text-align: center}
 
+/* INFO */
+.error {
+	background: #ffffb0 url(../../img/icon/error.png) no-repeat 6px 9px;
+	border: 1px solid #d9c866;
+	padding-left: 28px !important
+}
+
 /* LINKI */
 a.edit, a.add, a.del, a.user {
 	padding-left: 20px
@@ -322,13 +329,18 @@ a.add {
 }
 
 /*Edytor*/
-.editor {margin: 2px}
-.editor img, .editor span {
+.editor {margin: 2px; margin: auto}
+.editor div {
+	background: url(../../img/editor.png) no-repeat;
+	float: left;
+	height: 16px
+}
+.editor div, .editor img {
 	cursor: pointer;
 	border: 1px solid #F7F7F7;
-	padding: 3px
+	padding: 3px;
 }
-.editor img:hover, .editor span:hover {
+.editor img:hover, .editor div:hover {
 	background-color: #fffdd9;
 	border-color: #dedbc0
 }

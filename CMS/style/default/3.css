@@ -35,6 +35,7 @@ form {margin: 0}
 optgroup {font-style: normal}
 textarea {font: 13px Verdana,Helvetica}
 label {cursor: pointer}
+input:focus {background-color: #ffffca}
 
 /* Uk³ad strony */
 #top, #bar, #mid, #footer {border: 1px solid #728FA7}

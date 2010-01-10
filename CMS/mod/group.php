@@ -18,6 +18,8 @@ $url = url('group/'.$id);
 #Mo¿e do³±czyæ
 $mayJoin = UID && !$member && $group['opened']==1;
 $mayLeave = UID && $member;
+$askJoin = sprintf($lang['wantJoin'], $group['name']);
+$askLeave = sprintf($lang['wantLeave'], $group['name']);
 
 #Misje specjalne
 if(isset($URL[2]))
@@ -34,7 +36,9 @@ if(isset($URL[2]))
 				$q->execute(array(UID, $id, $_SERVER['REQUEST_TIME']));
 				$db->prepare('UPDATE '.PRE.'groups SET num=num+1 WHERE ID=?')->execute(array($id));
 				$db->commit();
-				$content->message($lang['joinOK'], $url);
+				$mayJoin = 0;
+				$member = $mayLeave = 1;
+				$group['num']++;
 			}
 			catch(Exception $e)
 			{
@@ -44,7 +48,7 @@ if(isset($URL[2]))
 		elseif(!$_POST)
 		{
 			$content->file = 'ask';
-			$content->data = array('url'=>'', 'query'=>sprintf($lang['wantJoin'], $group['name']));
+			$content->data = array('url'=>'', 'query'=>$askJoin);
 			return 1;
 		}
 	}
@@ -61,7 +65,9 @@ if(isset($URL[2]))
 				$q->execute(array(UID, $id));
 				$db->prepare('UPDATE '.PRE.'groups SET num=num-1 WHERE ID=?')->execute(array($id));
 				$db->commit();
-				$content->message($lang['leaveOK'], $url);
+				$group['num']--;
+				$mayLeave = $member = 0;
+				$mayJoin = 1;
 			}
 			catch(Exception $e)
 			{
@@ -71,7 +77,7 @@ if(isset($URL[2]))
 		elseif(!$_POST)
 		{
 			$content->file = 'ask';
-			$content->data = array('url'=>'', 'query'=>sprintf($lang['wantLeave'], $group['name']));
+			$content->data = array('url'=>'', 'query'=>$askLeave);
 			return 1;
 		}
 	}
@@ -102,6 +108,7 @@ $content->data = array(
 	'status' => $group['opened'] ? $lang['open'] : $lang['shut'],
 	'join'   => $mayJoin ? url($url.'/join') : false,
 	'leave'  => $mayLeave ? url($url.'/leave') : false,
+	'query'  => $mayJoin ? $askJoin : ($mayLeave ? $askLeave : false),
 	'all'    => $new ? url('users', 'id='.$id) : ''
 );
 
