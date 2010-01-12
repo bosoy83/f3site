@@ -6,9 +6,28 @@
 		<li><a href="http://compmaster.prv.pl">{lang.official}</a></li>
 		<li><a href="http://f3site.googlecode.com">{lang.SVN}</a></li>
 		<li><a href="admin/?compile=1">{lang.skinComp}</a></li>
-		<li><a href="{course}">{lang.course}</a></li>
 		<li><a href="http://www.famfamfam.com/lab/icons/silk">Silk Icons</a></li>
 	</ul>
 	<h3>System</h3>
-	<p>{system}<br />{server}</p>
+	<p style="margin: 5px 0">{server}, {system}</p>
 </div>
+
+<h2>{lang.notepad}</h2>
+<div class="box" id="nt" style="text-align: center">
+	<form action="" method="post">
+		<textarea name="notes" rows="5" cols="50" style="width: 99%">{notes}</textarea>
+		<input type="submit" value="{lang.save}" style="float: center" />
+	</form>
+</div>
+
+<script type="text/javascript">
+note = document.createElement('div')
+f = document.forms[0]
+show(f)
+note.innerHTML = (f[0].value == 0) ? '<div class="edit">{lang.edit}</div>' : f[0].value
+note.style.cursor = 'pointer'
+note.style.whiteSpace = 'pre-wrap';
+note.title = '{lang.edit}'
+note.onclick = function() { show(f); show(note) }
+$('nt').appendChild(note)
+</script>

@@ -1,16 +1,18 @@
 <form action="{url}" method="post">
 <h2>{this.title}</h2>
 
-<table cellspacing="1" class="tb">
-<tbody align="center">
+<table cellspacing="1" class="tb" id="cats">
+<thead>
 <tr>
 	<th>{lang.name}</th>
-	<th style="width: 30px">ID</th>
+	<th style="width: 30px" class="numeric">ID</th>
 	<th style="width: 50px">{lang.disp}</th>
 	<th>{lang.type}</th>
 	<th>{lang.opt}</th>
 	<th style="width: 20px"></th>
 </tr>
+</thead>
+<tbody align="center">
 
 <!-- START cat -->
 <tr>
@@ -27,3 +29,6 @@
 </table>
 <div class="end"><input type="submit" name="del" value="{lang.del}" /></div>
 </form>
+<script type="text/javascript">
+include('lib/sort.js', function() { new Sortable('cats') })
+</script>

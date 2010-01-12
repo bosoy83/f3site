@@ -1,6 +1,6 @@
 <?php $lang+=Array(
 'ipages'=>'Free pages',
-'polls'=>'Polls and surveys',
+'polls'=>'Polls',
 'rss'=>'RSS channels',
 
 'admins'=>'Administrators',
@@ -30,6 +30,7 @@
 'admIntro'=>'Welcome to %s admin panel. Select a module from left menu.',
 'skinComp'=>'Apply changes in current skin',
 'official'=>'Get help and extensions for F3Site 2009',
+'notepad' =>'I want to remember or discuss with other administrators:',
 'course'=>'HTML, xHTML, CSS course (PL)',
 'what'=>'What do you want to do?',
 'SVN' =>'Visit project home page at Google Code',

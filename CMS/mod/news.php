@@ -3,10 +3,10 @@ if(iCMS!=1) exit;
 require './cfg/content.php';
 
 #Pobierz dane
-if(isset($URL[1]) && is_numeric($URL[1]))
+if($id)
 {
 	$res = $db->query('SELECT n.*,c.opt as catOpt FROM '.PRE.'news n LEFT JOIN '.
-	PRE.'cats c ON n.cat=c.ID WHERE n.access=1 AND c.access!=3 AND n.ID='.$URL[1]);
+	PRE.'cats c ON n.cat=c.ID WHERE n.access=1 AND c.access!=3 AND n.ID='.$id);
 
 	#Do tablicy
 	if(!$news = $res->fetch(2)) return;

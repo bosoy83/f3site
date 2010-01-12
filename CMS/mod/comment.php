@@ -3,7 +3,7 @@ if(iCMS!=1) return;
 require LANG_DIR.'comm.php';
 
 #Brak ID
-if(isset($URL[1]) && is_numeric($URL[1])) $id = $URL[1]; else return;
+if(!$id) return;
 
 #B³êdy
 $error = array();

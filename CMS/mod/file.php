@@ -3,10 +3,10 @@ if(iCMS!=1) exit;
 require './cfg/content.php';
 
 #Pobierz dane
-if(isset($URL[1]) && is_numeric($URL[1]))
+if($id)
 {
 	$res = $db->query('SELECT f.*,c.opt FROM '.PRE.'files f INNER JOIN '.PRE.'cats c
-	ON f.cat=c.ID WHERE f.access=1 AND c.access!=3 AND f.ID='.$URL[1]);
+	ON f.cat=c.ID WHERE f.access=1 AND c.access!=3 AND f.ID='.$id);
 
 	#Do tablicy
 	if(!$file = $res->fetch(2)) return;

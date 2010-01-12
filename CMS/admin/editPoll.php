@@ -43,7 +43,7 @@ if($_POST)
 		#Edycja + usuñ zlikwidowane odpowiedzi
 		if($id)
 		{
-			$poll['ID'] = $id;
+			$poll['id'] = $id;
 			$q = $db->prepare('UPDATE '.PRE.'polls SET name=:name, q=:q, ison=:ison,
 				type=:type, access=:access WHERE ID=:id');
 			$db->exec('DELETE FROM '.PRE.'answers WHERE ID NOT IN ('.join(',',$keep).') AND IDP='.$id);
@@ -72,7 +72,7 @@ if($_POST)
 			{
 				$q1->execute( array($an[$i][1], $i, $an[$i][0], $id) );
 			}
-			else
+			elseif($an[$i][1])
 			{
 				$q2->execute( array($i, $id, $an[$i][1]) );
 			}

@@ -1,8 +1,3 @@
-//Podwójne tablice powodują niewielki spadek wydajności w stosunku do pojedynczych,
-//ale ich przemierzanie w pętli FOR jest znacznie szybsze od przemierzania obiektów {},
-//gdyż nie trzeba używać konstrukcji `var i in tags`
-//Podwójne tablice zostały użyte w celu łatwiejszej edycji znaczników
-
 //Kolejność: Położenie ikony [px], BBCode, koniec BBCode, HTML, koniec HTML
 var tags = [
 	[0, '[b]', '[/b]', '<b>', '</b>'],
@@ -57,17 +52,23 @@ function Editor(o, usebbcode)
 //Utwórz edytor
 Editor.prototype.create = function()
 {
-	var that = this,
+	var that = this, IE,
 	out = document.createElement('div');
 	out.className = 'editor';
+
+	//Detect IE 6,7
+	with(navigator.userAgent)
+	{
+		IE = (indexOf('MSIE') > 0 && charAt(indexOf('MSIE')+5) < 8)
+	}
 
 	for(var i=0; i<tagNum; i++)
 	{
 		if(this.bbcode && tags[i] && tags[i][1] === false) continue;
-		var b = document.createElement('div');
+		var b = document.createElement('span');
+		if(IE) { b.style.display = 'block'; b.style.styleFloat = 'left' }
 		b.style.backgroundPosition = 'center ' + tags[i][0] + 'px';
 		b.style.padding = '3px 12px';
-		
 		b.item = i;
 		b.title = tips[i];
 		b.onclick = function() { that.format(this.item); };
@@ -88,7 +89,7 @@ Editor.prototype.create = function()
 				case 85: that.format(2); break; //U
 				case 81: that.format(10); break; //Q
 				case 76: that.format(14); break; //L
-				case 72: if(!that.bbcode) BBC(this, '<h3>', '</h3>'); break; //H
+				case 72: that.format(5); break; //H
 				case 80: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
 				default: return true
 			}

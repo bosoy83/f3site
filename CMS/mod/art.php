@@ -3,11 +3,11 @@ if(iCMS!=1) exit;
 include './cfg/content.php';
 
 #Pobierz dane
-if(isset($URL[1]) && is_numeric($URL[1]))
+if($id)
 {
 	$res = $db->query('SELECT t.*,f.text,f.page,f.opt,c.opt as catOpt FROM '.PRE.'arts t
 	INNER JOIN '.PRE.'artstxt f ON t.ID=f.ID INNER JOIN '.PRE.'cats c ON t.cat=c.ID
-	WHERE t.ID='.$URL[1].' AND t.access=1 AND c.access!=3 AND f.page='.
+	WHERE t.ID='.$id.' AND t.access=1 AND c.access!=3 AND f.page='.
 	((isset($_GET['page'])) ? (int)$_GET['page'] : 1));
 
 	#Do tablicy
@@ -73,7 +73,7 @@ $content->data = array(
 	'art'  => &$art,
 	'pages'=> &$pages,
 	'path' => catPath($art['cat']),
-	'cats'  => url('cats/articles'),
+	'cats' => url('cats/articles'),
 	'rates'=> $rates
 );
 

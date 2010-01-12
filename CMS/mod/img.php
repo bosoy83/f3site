@@ -3,10 +3,10 @@ if(iCMS!=1) exit;
 require './cfg/content.php';
 
 #Pobierz dane
-if(isset($URL[1]) && is_numeric($URL[1]))
+if($id)
 {
 	$res = $db->query('SELECT i.*,c.opt FROM '.PRE.'imgs i LEFT JOIN '.PRE.
-	'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$URL[1]);
+	'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$id);
 
 	#Do tablicy
 	if(!$img = $res->fetch(2)) return;  $res = null;

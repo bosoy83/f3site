@@ -2,9 +2,9 @@
 if(iCMS!=1) exit;
 
 #Pobierz
-if(isset($URL[1]) && is_numeric($URL[1]))
+if($id)
 {
-	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$URL[1].
+	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id.
 	' AND (access=1'.((UID) ? ' OR access=3' : '').')')->fetch(2)) return;
 }
 else return;

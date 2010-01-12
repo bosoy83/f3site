@@ -1,4 +1,4 @@
-/*G³ówne*/
+/* MAIN */
 body {
 	font: 13px Verdana,Helvetica,Arial,Times;
 	background-color: #C7C5B8;
@@ -37,7 +37,7 @@ textarea {font: 13px Verdana,Helvetica}
 label {cursor: pointer}
 input:focus {background-color: #ffffca}
 
-/* Uk³ad strony */
+/* LAYOUT */
 #top, #bar, #mid, #footer {border: 1px solid #728FA7}
 #top {
 	height: 60px;
@@ -109,7 +109,7 @@ input:focus {background-color: #ffffca}
 	left: 200px; /* IE hack */
 }
 
-/* Listy */
+/* LISTS */
 ul,ol {margin: 9px; padding-left: 25px}
 ul.go {list-style-image: url(../../img/icon/go.png)}
 ul.gallery {list-style: none; padding: 0; margin: 0}
@@ -141,7 +141,7 @@ ul.cats li {
 .items a {font-weight: bold}
 .items h3 {margin: 0}
 
-/*Menu*/
+/* MENU */
 .menu {
 	background-color: #EFEEE6;
 	padding: 2px 3px;
@@ -161,7 +161,7 @@ ul.cats li {
 .menu ul a {display: block}
 #online {text-align: center; line-height: 22px}
 
-/*Bloki*/
+/* BLOCKS */
 th {
 	background-color: #E4E4D6;
 	font-weight: normal
@@ -196,7 +196,7 @@ th {
 .tb tbody {background-color: #EFEEE6}
 .tb td {padding: 3px}
 
-/* Struktura kategorii */
+/* CATEGORY PATH */
 .cs {
 	border: 1px solid #A9B4AA;
 	padding: 5px 3px 5px 28px;
@@ -204,7 +204,7 @@ th {
 	background: url(../../img/icon/cs.png) 3px 3px no-repeat #F5F5F5
 }
 
-/*Tekst i inne*/
+/* TEXT */
 .newsimg {
 	padding: 3px;
 	padding-right: 5px;
@@ -229,7 +229,7 @@ blockquote {
 big {font-size: 15px}
 small {font-size: 11px}
 
-/* Strony */
+/* PAGES */
 .pages .pageAct {
 	background-color: #D1E9DA;
 	border: 1px solid #C6D7D9;
@@ -244,7 +244,7 @@ small {font-size: 11px}
 }
 .pages {padding: 8px !important; text-align: center}
 
-/* LINKI */
+/* LINKS */
 a.edit, a.add, a.del, a.user {
 	padding-left: 20px
 }
@@ -319,8 +319,12 @@ a.add {
 	color: blue
 }
 
-/*Edytor*/
+/* EDITOR */
 .editor {margin-top: 2px}
+.editor span {
+	background: url(../../img/editor.png) no-repeat;
+	line-height: 20px
+}
 .editor img, .editor span {
 	cursor: pointer;
 	padding: 4px;

@@ -87,7 +87,7 @@ elseif(isset($_POST['next']))
 	$gr = Prepare($_POST['gr']);
 	if($lv && $gr)
 	{
-		$ile = dbCount('users WHERE mails=1 AND lv IN('.$lv.') AND gid IN('.$gr.')');
+		$ile = dbCount('users WHERE mails=1 AND lv IN('.$lv.') AND ID IN (SELECT u FROM '.PRE.'groupuser WHERE g IN('.$gr.'))');
 	}
 	if($ile==0) $content->info($lang['nousnd']);
 }

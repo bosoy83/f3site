@@ -2,9 +2,9 @@
 if(iCMS!=1) exit;
 
 #Pobierz
-if(isset($URL[1]) && is_numeric($URL[1]))
+if($id)
 {
-	if(!$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$URL[1]) -> fetch(2)) return;
+	if(!$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$id) -> fetch(2)) return;
 }
 elseif(file_exists('./cache/poll_'.LANG))
 {

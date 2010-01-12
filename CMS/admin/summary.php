@@ -1,11 +1,31 @@
 <?php if(iCMSa!=1) exit;
 
+#Aktualizuj notatnik
+if($_POST && isset($_POST['notes']))
+{
+	if(!file_exists('./cfg/notes.txt'))
+	{
+		touch('./cfg/notes.txt');
+		chmod('./cfg/notes.txt', 0600);
+	}
+	$notes = clean($_POST['notes'], 999, 1);
+	file_put_contents('./cfg/notes.txt', $notes, 2);
+}
+elseif(file_exists('./cfg/notes.txt'))
+{
+	$notes = file_get_contents('./cfg/notes.txt');
+}
+else
+{
+	$notes = '';
+}
+
 #Do szablonu
 $content->data = array(
 	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
 	'system' => isset($_ENV['OS']) ? $_ENV['OS'] : 'N/A',
-	'server' => $_SERVER['SERVER_SOFTWARE'],
-	'course' => LANG == 'pl' ? 'http://webmaster.helion.pl' : 'http://www.w3schools.com/html'
+	'notes'  => $notes,
+	'server' => $_SERVER['SERVER_SOFTWARE']
 );
 
 #Katalog INSTALL

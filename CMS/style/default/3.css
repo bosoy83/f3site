@@ -321,6 +321,10 @@ a.add {
 
 /*Edytor*/
 .editor {margin-top: 2px}
+.editor span {
+	background: url(../../img/editor.png) no-repeat;
+	line-height: 20px
+}
 .editor img, .editor span {
 	cursor: pointer;
 	padding: 4px;

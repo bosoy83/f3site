@@ -30,6 +30,7 @@
 'admIntro'=>'Willkommen bei %s Admin Panel. Wähl echten Modul an MenĂź.',
 'skinComp'=>'Änderungen übernehmen im jetzig Skin',
 'official'=>'Hol Hilfe oder download Add-ons für F3Site 2009',
+'notepad' =>'Was willst du tun oder diskutieren mit anderen Administratoren?',
 'course'=>'Kurs: HTML, xHTML, CSS...',
 'what'=>'Was willst du machen?',
 'SVN' =>'Besuch F3Site 2009 @ Google Code',
