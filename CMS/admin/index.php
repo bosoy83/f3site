@@ -7,7 +7,7 @@ require 'kernel.php';
 #Niezalogowany?
 if(!UID)
 {
-	Header('Location: '.URL.'login.php?from=adm');
+	Header('Location: '.URL.'login.php?from=admin');
 	exit;
 }
 elseif(LEVEL < 3)

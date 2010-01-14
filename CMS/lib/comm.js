@@ -21,7 +21,7 @@ function comment(o)
 					new Editor(f.text, 1).emots();
 					f.prev.onclick = function() { return http.sendForm(this) };
 					f.save.onclick = function() { return http.sendForm(this) };
-					f.name.focus();
+					if(f.name) f.name.focus(); else f.text.focus();
 					this.scripts = 0;
 				}
 			};

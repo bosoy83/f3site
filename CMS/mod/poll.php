@@ -19,7 +19,7 @@ $id = $poll['ID'];
 #Bez g³osów?
 if($poll['num'] == 0)
 {
-	$content->info($lang['novotes']);
+	$content->info($lang['novotes'], array(url('polls') => $lang['archive']));
 	return 1;
 }
 

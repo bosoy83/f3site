@@ -21,19 +21,28 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	$ref = isset($_SERVER['HTTP_REFERER']) ? clean($_SERVER['HTTP_REFERER']) : '';
 
 	#Zalogowany?
-	if(!UID && !isset($cfg['grate'])) $content->message(9, $ref);
+	if(!UID && !isset($cfg['grate']))
+	{
+		if(JS) exit($lang[9]); else $content->message(9, $ref);
+	}
+
+	#AJAX
+	if(JS) require LANG_DIR.'special.php';
 
 	#Czy oceniany ID istnieje i jest w³±czony
 	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))
 	{
-		$content->message(7, $ref);
+		if(JS) exit($lang[7]); else $content->message(7, $ref);
 	}
 
 	#Co ocenia³?
 	$rated = isset($_COOKIE['rated']) ? explode('o',$_COOKIE['rated']) : array();
 
 	#Gdy ocenia³ - zakoñcz
-	if(in_array($t.'.'.$id, $rated)) $content->message(6, $ref);
+	if(in_array($t.'.'.$id, $rated))
+	{
+		if(JS) exit($lang[6]); else $content->message(6, $ref);
+	}
 
 	#Je¿eli brak wpisu w bazie, ¿e ocenia³...
 	if(dbCount('rates WHERE type='.$t.' AND ID='.$id.' AND IP='.$ip) === 0)
@@ -48,13 +57,17 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 		$db->exec('UPDATE '.PRE.$data[$t]['table'].' SET rate='.$avg.' WHERE ID='.$id);
 		$db->commit();
 	}
+	else
+	{
+		$avg = $v;
+	}
 
 	#Zapisz cookie
 	$rated[] = $t.'.'.$id;
 	setcookie('rated', join('o',$rated), time()+7776000, $_SERVER['PHP_SELF']);
 
 	#OK
-	$content->message(5, $ref);
+	if(JS) echo $lang[5]; else $content->message(5, $ref);
 }
 
 #Ankieta
@@ -123,7 +136,7 @@ if(isset($_POST['poll']))
 	setcookie('voted', join('o',$voted), time()+7776000);
 	
 	#JS?
-	if(isset($_GET['js']))
+	if(JS)
 	{
 		$_GET['id'] = $id; include 'mod/panels/poll.php'; //Wy¶wietl ma³e wyniki
 	}

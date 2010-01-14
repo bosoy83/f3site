@@ -46,9 +46,9 @@ foreach($option as $o)
 }
 
 echo '</div><div style="text-align: center">
-	<input type="submit" value="OK" name="poll" />
-	<input type="button" value="'.$lang['results'].'" onclick="location=\'poll/'.$poll['ID'].'\'" />
-</div>
+	<input type="submit" value="OK" name="poll" />'.($poll['num'] ?
+	'<a href="'.url('poll/'.$poll['ID']).'"><input type="button" value="'.$lang['results'].'" onclick="location=this.parentNode.href; return false" /></a>' : '') .
+'</div>
 </form>';
 
 unset($poll,$option,$voted,$pollproc);

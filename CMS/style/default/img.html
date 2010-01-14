@@ -14,7 +14,7 @@
 	<!-- IF image -->
 
 		<!-- IF size -->
-		<a href="{img.file}">
+		<a href="{img.file}" onclick="okno(this.href, screen.availWidth, screen.availHeight); return false">
 			<img src="{img.file}" alt="{img.name}" width="{size.0}" height="{size.1}" />
 		</a>
 		<!-- ELSE -->
@@ -40,21 +40,22 @@
 		<a href="http://opera.com">HTML 5 <code>video</code></a>
 	</video>
 	<!-- END -->
-	
+
 	</div>
 	<div style="line-height: 20px">
 		<div style="float: left; width: 50%"><b>{lang.added}:</b> {img.date}</div>
 		<div style="float: right; width: 50%"><b>{lang.author}:</b> {img.author}</div>
-		
+
 		<!-- IF rates -->
 		<b>{lang.rate}:</b>
-		<form action="{rates}" method="post" class="rate avg{img.rate} by">
+		<form action="{rates}" method="post" class="rate avg{img.rate} by" id="rate">
 		<input type="submit" name="v" value="1" class="r1" />
 		<input type="submit" name="v" value="2" class="r2" />
 		<input type="submit" name="v" value="3" class="r3" />
 		<input type="submit" name="v" value="4" class="r4" />
 		<input type="submit" name="v" value="5" class="r5" />
 		</form>
+		<script type="text/javascript">rate(document.forms['rate'])</script>
 		<!-- END -->
   </div>
   {img.dsc}

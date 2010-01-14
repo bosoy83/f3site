@@ -187,6 +187,9 @@ function Request(url, box, opt)
 	//Gdy odpowiedŸ jest pobierana
 	this.loading = opt.loading || null;
 
+	//Interpretuj JSON
+	this.json = opt.json || true;
+
 	//Gdy ¿¹danie nie powiedzie siê
 	this.fail = opt.fail || function(x) { alert(x) };
 
@@ -318,6 +321,19 @@ function send(o,id,opt)
 {
 	new Request(o.form.action || o.form.baseURI, id, opt).sendForm(o);
 	return false;
+}
+
+//Przechwyæ kontrolê nad gwiazdkami
+function rate(o)
+{
+	for(var i=0; i<o.v.length; i++)
+	{
+		o.v[i].onclick = function()
+		{
+			send(this, '', {done: function(x) { alert(x) }});
+			return false
+		}
+	}
 }
 
 //Wyœlij formularz za pomoc¹ istniej¹cego obiektu Request

@@ -79,7 +79,7 @@ else
 	}
 	else
 	{
-		$news = array('cat'=>$lastCat,'name'=>'','txt'=>'','access'=>1,'img'=>'','opt'=>1);
+		$news = array('cat'=>$lastCat,'name'=>'','txt'=>'','access'=>1,'img'=>'','opt'=>3);
 		$full = '';
 	}
 }

@@ -52,6 +52,7 @@ if(isset($URL[2]))
 			case 59: $if = 'pages WHERE access=1 AND ID='.$id; break;
 			case 15: $if = 'polls WHERE access="'.LANG.'" AND ID='.$id; break;
 			default: $data = parse_ini_file('./cfg/types.ini',1);
+				include './cfg/content.php';
 				$if = isset($data[$type]['comm']) && ($data[$type]['comm']==1 || isset($cfg[$data[$type]['comm']])) ? $data[$type]['table'].' i INNER JOIN '. PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&2 AND i.ID='.$id : '';
 		}
 		if(!$if OR !dbCount($if))
@@ -77,7 +78,7 @@ if($_POST)
 {
 	#Dane
 	$c = array(
-		'name' => clean($_POST['name'], 30, 1),
+		'name' => empty($cfg['noTitle']) ? clean($_POST['name'], 30, 1) : '',
 		'text' => clean($_POST['text'], 0, 1)
 	);
 
@@ -216,6 +217,7 @@ $content->data = array(
 	'code'    => $type && !UID && isset($cfg['captcha']) ? true : false,
 	'author'  => $type && !UID ? true : false,
 	'preview' => $preview,
+	'title'   => empty($cfg['noTitle']),
 	'url'     => url('comment/'.$id.($type ? '/'.$type : ''))
 );
 

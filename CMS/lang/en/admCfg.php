@@ -64,6 +64,7 @@ $lang+=Array(
 'commSort'=>'Sorting of comments',
 'commSort1'=>'Descending',
 'commSort2'=>'Ascending',
+'hideTitle'=>'Hide field Title',
 'hasURL'=>'Let guests post links in comments',
 'spam'=>'By default guests cannot post URLs. It can prevent your site against spam bots.',
 

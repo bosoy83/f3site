@@ -60,6 +60,7 @@ $lang+=Array(
 'commSort'=>'Kommentare sortieren',
 'commSort1'=>'Absteigend',
 'commSort2'=>'Ansteigend',
+'hideTitle'=>'Hide Feld Titel',
 'moderate'=>'Kommentare Moderation',
 'moder2'=>'Kommentare müssen akzieptert werden.',
 'guestComm'=>'Gäste mögen kommentieren',
