@@ -86,6 +86,7 @@ if($cat['opt'] & 8)
 $content->file = array('cat');
 $content->data = array(
 	'cat'  => &$cat,
+	'edit' => admit('C') ? url('editCat/'.$d, 'ref', 'admin') : null,
 	'subcats' => isset($sc) ? $sc : null,
 	'options' => admit($d,'CAT'),
 	'add_url' => url('edit/'.$cat['type'], 'catid='.$d),

@@ -22,7 +22,7 @@ if(!$pm)
 }
 
 #BBCode
-if($pm['bbc']==1 && isset($cfg['bbcode']))
+if($pm['bbc'] && isset($cfg['bbcode']))
 {
 	require './lib/bbcode.php';
 	$pm['txt'] = BBCode($pm['txt']);
@@ -34,8 +34,10 @@ $pm['txt'] = nl2br(Emots($pm['txt']));
 #Przeczytana?
 if($pm['st']==1 && $pm['owner']==UID)
 {
+	$db->beginTransaction();
 	$db->exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$pm['ID']);
 	$db->exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
+	$db->commit();
 	-- $user['pms'];
 	$pm['st'] = 2;
 }
@@ -52,7 +54,7 @@ $content->file[] = 'pms_view';
 $content->data += array(
 	'pm'   => &$pm,
 	'id'   => $pm['ID'],
-	'edit' => $pm['st'] == 3 ? 'pms/edit/'.$pm['ID'] : null,
-	'reply'=> $pm['st'] == 2 ? 'pms/edit/'.$pm['ID'] : null,
-	'fwd'  => 'pms/edit/'.$pm['ID'].'?fwd'
+	'edit' => $pm['st'] == 3 ? url('pms/edit/'.$pm['ID']) : null,
+	'reply'=> $pm['st'] == 2 ? url('pms/edit/'.$pm['ID']) : null,
+	'fwd'  => url('pms/edit/'.$pm['ID'], 'fwd')
 );

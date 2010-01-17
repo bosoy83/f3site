@@ -68,7 +68,12 @@ if($_POST)
 			$db -> commit();
 
 			#Poka¿ listê PW
-			$id = ($o->status == 3) ? 3 : 1;
+			switch($o->status)
+			{
+				case 3: $URL[1] = 'drafts'; break;
+				default: $URL[1] = 'outbox';
+			}
+			unset($URL[2]);
 			include './mod/pms/list.php';
 			return 1;
 		}

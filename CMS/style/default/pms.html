@@ -1,25 +1,23 @@
 <h2>{lang.pm3}</h2>
 <table cellspacing="1" class="tb">
-<tbody class="bg">
 <tr>
 	<td>
 		<div style="float: right; text-align: center; width: 50%">
 			{new}<br /><br />
 			{lang.pm15} {size} / {limit}<br /><br />
-			<a href="pms/edit">
-				<button onclick="location=this.parentNode.href; return false;">{lang.write}</button>
+			<a href="{write}">
+				<button onclick="location=this.parentNode.href; return false">{lang.write}</button>
 			</a>
 		</div>
 		<div>
 			<b>{lang.fold}:</b>
 			<ul style="list-style-image: url(img/icon/folder.png); margin: 3px">
-				<li><a href="pms">{lang.inbox}</a></li>
-				<li><a href="pms/sent">{lang.sent}</a></li>
-				<li><a href="pms/outbox">{lang.await}</a></li>
-				<li><a href="pms/drafts">{lang.drafts}</a></li>
+				<li><a href="{inbox}">{lang.inbox}</a></li>
+				<li><a href="{sent}">{lang.sent}</a></li>
+				<li><a href="{outbox}">{lang.await}</a></li>
+				<li><a href="{drafts}">{lang.drafts}</a></li>
 			</ul>
 		</div>
 	</td>
 </tr>
-</tbody>
 </table>

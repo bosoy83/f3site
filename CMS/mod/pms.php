@@ -24,6 +24,11 @@ if(isset($cfg['pmOn']) && UID)
 	#Dane do szablonu
 	$content->data = array(
 		'new'   => $pm_new,
+		'write' => url('pms/edit'),
+		'inbox' => url('pms'),
+		'sent'  => url('pms/sent'),
+		'outbox'=> url('pms/outbox'),
+		'drafts'=> url('pms/drafts'),
 		'limit' => (int)$cfg['pmLimit'],
 		'size'  => (int)$db->query('SELECT COUNT(*) FROM '.PRE.'pms WHERE owner='.UID)->fetch(7)
 	);

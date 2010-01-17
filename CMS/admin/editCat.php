@@ -88,6 +88,11 @@ if($_POST)
 		#ZatwierdŸ i przebuduj strukturê kategorii
 		$db->commit();
 		UpdateCatPath($id);
+
+		#Przekieruj do kategorii
+		if(isset($_GET['ref'])) header('Location: '.URL.url($id));
+
+		#Info + linki
 		$content->info($lang['saved'].' ID: '.$id, array(
 			url('?d='.$id) => $lang['goCat'],
 			url('editCat', '', 'admin') => $lang['addCat'],

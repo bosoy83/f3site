@@ -2,9 +2,9 @@
 if(iCMS!=1) exit;
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+if(isset($URL[2]) && $URL[2] > 1 && is_numeric($URL[2]))
 {
-	$page = $_GET['page'];
+	$page = $URL[2];
 	$st = ($page-1)*30;
 }
 else
@@ -13,8 +13,11 @@ else
 	$st = 0;
 }
 
+#Nazwa folderu
+$id = isset($URL[1]) && ctype_alnum($URL[1]) ? $URL[1] : 'inbox';
+
 #Tytu³ strony + warunek do zapytania SQL
-switch((isset($URL[1]) ? $URL[1] : ''))
+switch($id)
 {
 	case 'sent':
 		$q = ' WHERE p.st=4 AND p.owner='.UID; #Wys³ane
@@ -30,7 +33,6 @@ switch((isset($URL[1]) ? $URL[1] : ''))
 		$content->title = $lang['drafts'];
 		break;
 	default:
-		$id = 2;
 		$q = ' WHERE (p.st=1 OR p.st=2) AND p.owner='.UID; #Odebrane
 		$content->title = $lang['inbox']; 
 }
@@ -47,13 +49,17 @@ if($total < 1)
 
 #Pobierz
 $res = $db->query('SELECT p.ID, p.topic, p.usr, p.owner, u.ID as uid, u.login'.
-	(($id==2)?', p.st':'').' FROM '.PRE.'pms p LEFT JOIN '.PRE.'users u ON p.'.
-	(($id==1)?'owner':'usr').'=u.ID'.$q.' ORDER BY p.ID DESC LIMIT '.$st.',20');
+	($id=='inbox' ? ', p.st' : '').' FROM '.PRE.'pms p LEFT JOIN '.PRE.'users u ON p.'.
+	($id=='outbox' ? 'owner' : 'usr').'=u.ID'.$q.' ORDER BY p.ID DESC LIMIT '.$st.',20');
 
 #Liczba PM
 $num = $st;
 $pms = array();
 $res->setFetchMode(3);
+
+#Adresy
+$userURL = url('user/');
+$url = url('pms/view/');
 
 #Lista
 foreach($res as $pm)
@@ -62,10 +68,10 @@ foreach($res as $pm)
 		'id'     => $pm[0],
 		'topic'  => $pm[1],
 		'num'    => ++$num,
-		'new'    => $id==2 && $pm[6]==1,
-		'url'    => url('pms/view/'.$pm[0]),
+		'new'    => $id=='inbox' && $pm[6]==1,
+		'url'    => $url.$pm[0],
 		'login'  => $pm[5],
-		'user_url' => 'user/'.$pm[4]
+		'user_url' => $userURL.urlencode($pm[5])
 	);
 }
 $res=null;
@@ -76,8 +82,8 @@ $content->file[] = 'pms_list';
 #Do szablonu
 $content->data += array(
 	'pm'  => $pms,
-	'who' => $id ? $lang['pm12'] : $lang['pm13'],
+	'who' => $id=='inbox' ? $lang['pm12'] : $lang['pm13'],
 	'url' => 'pms/del/'.$id,
 	'total' => $total,
-	'pages' => pages($page, $total, 30, '/pms/'.$id, 1)
+	'pages' => pages($page, $total, 30, url('pms/'.$id), 1, '/')
 );
