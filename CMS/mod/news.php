@@ -16,7 +16,7 @@ else return;
 #Pe³na treœæ
 if($news['opt']&4)
 {
-	$full = $db->query('SELECT text FROM '.PRE.'newstxt WHERE ID='.$news['ID'])->fetchColumn();
+	$full = $db->query('SELECT text FROM '.PRE.'newstxt WHERE ID='.$id)->fetchColumn();
 }
 else
 {
@@ -44,14 +44,12 @@ if($news['opt']&1)
 $news['date']  = genDate($news['date'], true);
 $news['wrote'] = autor($news['author']);
 
-#EditURL
-$news['edit'] = admit($news['cat'],'CAT') ? url('edit/5/'.$news['ID']) : false;
-
 #Do szablonu
 $content->data = array(
 	'news' => &$news,
 	'full' => &$full,
 	'path' => catPath($news['cat']),
+	'edit' => admit($news['cat'],'CAT') ? url('edit/5/'.$id,'ref') : false,
 	'cats' => url('cats/news')
 );
 
@@ -59,5 +57,5 @@ $content->data = array(
 if(isset($cfg['ncomm']) && $news['catOpt']&2)
 {
 	require './lib/comm.php';
-	comments($news['ID'], 5);
+	comments($id, 5);
 }

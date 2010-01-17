@@ -22,7 +22,7 @@ $remote = strpos($file['file'], ':');
 #Rozmiar i URL
 if($remote OR file_exists('./'.$file['file']))
 {
-	$file['url']  = isset($cfg['fgets']) ? 'go.php?file='.$file['ID'] : $file['file'];
+	$file['url']  = isset($cfg['fgets']) ? 'go.php?file='.$id : $file['file'];
 	if(!$file['size'] && !$remote)
 	{
 		$size = filesize($file['file']);
@@ -42,14 +42,11 @@ else
 	$file['url'] = '#';
 }
 
-#EditURL
-$file['edit'] = admit($file['cat'],'CAT') ? url('edit/2/'.$file['ID']) : false;
-
 #Ocena
 if(isset($cfg['frate']) AND $file['opt'] & 4)
 {
 	$content->addCSS(SKIN_DIR.'rate.css');
-	$rate = 'vote.php?type=2&amp;id='.$file['ID'];
+	$rate = 'vote.php?type=2&amp;id='.$id;
 }
 else
 {
@@ -65,12 +62,13 @@ $content->data = array(
 	'file' => &$file,
 	'path' => catPath($file['cat']),
 	'rates'=> $rate,
-	'cats' => url('cats/files')
+	'cats' => url('cats/files'),
+	'edit' => admit($file['cat'],'CAT') ? url('edit/2/'.$id, 'ref') : false
 );
 
 #Komentarze
 if(isset($cfg['fcomm']) && $file['opt']&2)
 {
 	require './lib/comm.php';
-	comments($file['ID'], 2);
+	comments($id, 2);
 }

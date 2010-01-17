@@ -42,12 +42,19 @@ if($_POST)
 		#Nowy ID
 		if(!$id) $id = $db->lastInsertId();
 
-		#OK?
+		#Zatwierd¼
 		$e->apply();
-		$content->info( $lang['saved'], array(
-			url('edit/3') => $lang['add3'],
-			url('list/3') => $lang['imgs'],
-			url('img/'.$id) => $img['name']));
+
+		#Przekieruj do obrazu
+		if(isset($_GET['ref'])) header('Location: '.URL.url('img/'.$id));
+
+		#Info + linki
+		$content->info($lang['saved'], array(
+			url('img/'.$id)  => sprintf($lang['see'], $img['name']),
+			url($img['cat']) => $lang['goCat'],
+			url('edit/3')    => $lang['add3'],
+			url('list/3')    => $lang['imgs'],
+			url('list/3/'.$img['cat']) => $lang['doCat']));
 		unset($e,$img);
 		return 1;
 	}

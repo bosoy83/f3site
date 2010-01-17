@@ -354,19 +354,19 @@ function listBox($dir,$co,$ch)
 }
 
 #Strony
-function pages($page,$ile,$max,$url='',$type=0)
+function pages($page,$ile,$max,$url='',$type=0,$p='')
 {
 	global $lang;
 	$all = ceil($ile / $max);
 	$out = '';
 
 	#URL
-	$url .= strpos($url, '?')===false ? '?page=' : '&amp;page=';
+	if(!$p) $p = strpos($url, '?')!==false ? '?page=' : '&amp;page=';
 
 	#Select
 	if($type)
 	{
-		$out = '<select onchange="location=\''.$url.'\'+(this.selectedIndex+1)">';
+		$out = '<select onchange="location=\''.$url.$p.'\'+(this.selectedIndex+1)">';
 		for($i=1; $i<=$all; ++$i)
 		{
 			$out.='<option'.(($page==$i)?' selected="selected"':'').'>'.$i.'</option>';
@@ -388,7 +388,7 @@ function pages($page,$ile,$max,$url='',$type=0)
 					$i = $all;
 				}
 			}
-			$out.='<a class="'.(($page==$i)?'pageAct':'').'" href="'.$url.$i.'">'.$i.'</a>';
+			$out.='<a class="'.($page==$i ? 'pageAct' : '').'" href="'.$url.($i>1 ? $p.$i : '').'">'.$i.'</a>';
 		}
 		return $out;
 	}

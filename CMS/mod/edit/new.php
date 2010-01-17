@@ -49,12 +49,19 @@ if($_POST)
 		#Aktualizuj RSS
 		RSS();
 
-		#OK
+		#ZatwierdŸ
 		$e->apply();
-		$content->info( $lang['saved'], array(
-			url('edit/5') => $lang['add5'],
-			url('list/5') => $lang['news'],
-			url('news/'.$id) => $lang['seeit']));
+
+		#Przekieruj do newsu
+		if(isset($_GET['ref'])) header('Location: '.URL.url('news/'.$id));
+
+		#Info + linki
+		$content->info($lang['saved'], array(
+			url('news/'. $id) => sprintf($lang['see'], $news['name']),
+			url($news['cat']) => $lang['goCat'],
+			url('edit/5')     => $lang['add5'],
+			url('list/5')     => $lang['news'],
+			url('list/5/'.$news['cat']) => $lang['doCat']));
 		unset($e,$news);
 		return 1;
 	}

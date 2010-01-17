@@ -21,11 +21,19 @@ if($_POST)
 	'access'  => isset($_POST['access']),
 	'priority'=> (int)$_POST['priority']);
 
-	#Strony
+	#Strony + wstaw encje do PRE i CODE
 	for($i=0; $i<$num; ++$i)
 	{
 		$full[] = array( $i+1, &$_POST['txt'][$i], (isset($_POST['br'][$i]) ? 1 : 0) +
 			(isset($_POST['emo'][$i]) ? 2 : 0) + (isset($_POST['code'][$i]) ? 4 : 0) );
+
+		if($full[$i][2] & 4)
+		{
+			$full[$i][1] = preg_replace(array(
+				'#<(pre)([^>]*)>(.*?)</pre>#sie',
+				'#<(code)([^>]*)>(.*?)</code>#sie'),
+				'"<\\1\\2>".htmlspecialchars("\\3",0)."</\\1>"', $full[$i][1]);
+		}
 	}
 
 	try
@@ -59,12 +67,23 @@ if($_POST)
 		#Usuñ inne
 		$db->exec('DELETE FROM '.PRE.'artstxt WHERE ID='.$id.' AND page>'.$num);
 
+		#Zatwierd¼
 		$e->apply();
 
-		$content->info( $lang['saved'], array(
-			'edit/1' => $lang['add1'],
-			'list/1' => $lang['arts'],
-			'art/'.$id  => $art['name']));
+		#Przekieruj do artyku³u
+		if(isset($_GET['ref']) && is_numeric($_GET['ref']))
+		{
+			$page = $_GET['ref']>1 && isset($full[$_GET['ref']-1]) ? '/'.$_GET['ref'] : '';
+			header('Location: '.URL.url('art/'.$id.$page));
+		}
+
+		#Info + linki
+		$content->info($lang['saved'], array(
+			url('art/'.$id)  => sprintf($lang['see'], $art['name']),
+			url($art['cat']) => $lang['goCat'],
+			url('edit/1')    => $lang['add1'],
+			url('list/1')    => $lang['arts'],
+			url('list/1/'.$art['cat']) => $lang['doCat']));
 		unset($e,$q,$art,$full);
 		return 1;
 	}
@@ -105,6 +124,13 @@ else
 foreach($full as $key=>&$val)
 {
 	$full[$key] += array('br' => $val[2]&1, 'emo' => $val[2]&2, 'code' => $val[2]&4);
+	if($full[$key]['code'])
+	{
+		$full[$key][1] = preg_replace(array(
+			'#<(pre)([^>]*)>(.*?)</pre>#sie',
+			'#<(code)([^>]*)>(.*?)</code>#sie'),
+			'"<\\1\\2>".htmlspecialchars_decode("\\3",0)."</\\1>"', $full[$key][1]);
+	}
 }
 
 #Skrypty JS

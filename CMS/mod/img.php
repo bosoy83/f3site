@@ -25,15 +25,12 @@ $img['author'] = autor($img['author']);
 if(isset($cfg['irate']) AND $img['opt'] & 4)
 {
 	$content->addCSS(SKIN_DIR.'rate.css');
-	$rates = 'vote.php?type=3&amp;id='.$img['ID'];
+	$rates = 'vote.php?type=3&amp;id='.$id;
 }
 else
 {
 	$rates = 0;
 }
-
-#Mo¿e edytowaæ?
-$img['edit'] = admit($img['cat'],'CAT') ? url('edit/3/'.$img['ID']) : false;
 
 #Tytu³
 $content->title = $img['name'];
@@ -47,6 +44,7 @@ $content->data = array(
 	'movie'=> $img['type'] === '3' ? true : false,
 	'video'=> $img['type'] === '4' ? true : false,
 	'path' => catPath($img['cat']),
+	'edit' => admit($img['cat'],'CAT') ? url('edit/3/'.$id,'ref') : false,
 	'cats' => url('cats/images'),
 	'rates'=> $rates
 );
@@ -55,5 +53,5 @@ $content->data = array(
 if(isset($cfg['icomm']) && $img['opt']&2)
 {
 	require 'lib/comm.php';
-	comments($img['ID'], 3);
+	comments($id, 3);
 }

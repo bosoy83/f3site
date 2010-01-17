@@ -35,14 +35,27 @@ if($_POST)
 				VALUES (:cat,:name,:dsc,:access,:adr,:priority,:nw)');
 		}
 		$q->execute($link);
+		if(!$id) $id = $db->lastInsertId();
 
 		#Zatwierd¼
 		$e->apply();
-		$content->info( $lang['saved'], array(
+
+		#Przekieruj do linku
+		if(isset($_GET['ref']) && isset($cfg['linkFull']))
+		{
+			header('Location: '.URL.url('link/'.$id));
+		}
+
+		#URL do linku
+		$url = isset($cfg['linkFull']) ? url('link/'.$id) : $link['adr'];
+
+		#Info + linki
+		$content->info($lang['saved'], array(
+			$url => sprintf($lang['see'], $link['name']),
+			url($link['cat']) => $lang['goCat'],
 			url('edit/4') => $lang['add4'],
 			url('list/4') => $lang['links'],
-			$link['adr'] => $link['name'])
-		);
+			url('list/4/'.$link['cat']) => $lang['doCat']));
 		unset($e,$link);
 		return 1;
 	}

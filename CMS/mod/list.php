@@ -149,7 +149,7 @@ $url = url('list/'.$act.'/'.$id);
 
 #Pobierz pozycje
 $res = $db->query('SELECT ID,name,access FROM '.PRE.$table.$param.
-	' ORDER BY ID DESC LIMIT '.$st.',25');
+	' ORDER BY ID DESC LIMIT '.$st.',30');
 
 $res -> setFetchMode(3);
 $items = array(); 

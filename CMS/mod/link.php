@@ -15,7 +15,7 @@ $content->title = $link['name'];
 #Do szablonu
 $content->data = array(
 	'link' => &$link,
-	'edit' => admit($link['cat'],'CAT') ? url('edit/4/'.$link['ID']) : false,
+	'edit' => admit($link['cat'],'CAT') ? url('edit/4/'.$id,'ref') : false,
 	'path' => catPath($link['cat']),
 	'cats' => url('cats/links')
 );

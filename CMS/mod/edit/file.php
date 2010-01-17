@@ -39,12 +39,19 @@ if($_POST)
 		$q->execute($file);
 		if(!$id) $id = $db->lastInsertId();
 
-		#OK?
+		#Zatwierd¼
 		$e->apply();
-		$content->info( $lang['saved'], array(
-			url('edit/2') => $lang['add2'],
-			url('list/2') => $lang['files'],
-			url('file/'.$id) => $file['name']));
+
+		#Przekieruj do pliku
+		if(isset($_GET['ref'])) header('Location: '.URL.url('file/'.$id));
+
+		#Informaja + linki
+		$content->info($lang['saved'], array(
+			url('file/'.$id)  => sprintf($lang['see'], $file['name']),
+			url($file['cat']) => $lang['goCat'],
+			url('edit/2')     => $lang['add2'],
+			url('list/2')     => $lang['files'],
+			url('list/2/'.$file['cat']) => $lang['doCat']));
 		unset($e,$file);
 		return 1;
 	}

@@ -1,17 +1,19 @@
 <?php
 $lang+=Array(
 'list'=>'Show me the list of:',
-'on'=>'Enabled?',
+'on'=>'Enabled',
 'nochg'=>'No changes',
 'published'=>'Published',
-'delc'=>'Are you sure to delete this item?',
-'nor'=>'You cannot do this operation due to restrictions.',
-'fail'=>'An error has occured while applying the data.',
-'seeit'=>'Display this item',
-'saved'=>'The item has been saved.',
 'choose'=>'- - - select from list - - -',
 'noCats'=>'There is no category for this type objects.',
 'noCat' =>'You have selected NO category. This item will be unavailable. You can return here later and finish. Click OK to save it or Cancel to stay here.',
+
+'see'=>'Display %s',
+'nor'=>'You cannot do this operation due to restrictions.',
+'fail'=>'An error has occured while applying the data.',
+'saved'=>'The item has been saved.',
+'goCat'=>'Go to its category',
+'doCat'=>'Manage other items in the category',
 
 'emo'=>'Emoticons',
 'br'=>'ENTER = line break',
