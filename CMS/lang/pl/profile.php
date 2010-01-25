@@ -85,6 +85,7 @@
 'badMail'=>'Adres e-mail jest nieprawidłowy.',
 'loginEx'=>'Wpisany login jest już zajęty.',
 'badCode'=>'Kod z obrazka został przepisany niepoprawnie.',
+'badPet'=>'Zaznacz poprawnie tylko zdjęcia kotów!',
 'tooLong'=>'Zawartość pola O SOBIE jest za długa.',
 'badPass'=>'Hasło wpisane niepoprawnie. Sprawdź, czy nie zawiera niedozwolonych znaków oraz czy jego długość jest poprawna.',
 'mustPass'=>'Musisz podać swoje aktualne hasło!',

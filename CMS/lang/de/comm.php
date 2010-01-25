@@ -1,7 +1,8 @@
 <?php
 $lang+=Array(
 'c1'=>'Kommentar ändern',
-'c2'=>'Code aus dem Bild ist unrichtig.',
+'badCode'=>'Code aus dem Bild ist unrichtig.',
+'badPet'=>'Wähle nur Katze!',
 'c3'=>'Man kann zweiten Kommentar so schnell nicht senden. Versuch wieder.',
 'c4'=>'Felder "Inhalt" und "Autor" mussen gefüllt werden!',
 'c5'=>'Text ist so lang!',

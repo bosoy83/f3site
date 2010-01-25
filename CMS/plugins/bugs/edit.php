@@ -2,7 +2,9 @@
 if(iCMS!=1) exit;
 
 $error = $cat = $bug = array();
+$right = admit('BUGS');
 $id = isset($URL[2]) ? (int)$URL[2] : 0;
+$content->title = $id ? $lang['editBug'] : $lang['postBug'];
 
 #Edytuj zg³oszenie
 if($id)
@@ -14,14 +16,14 @@ if($id)
 	$f = $bug['cat'];
 
 	#Prawa
-	if(!admit('BUGS') && ($bug['UID'] != UID || !isset($cfg['bugsEdit'])))
+	if(!$right && ($bug['UID'] != UID || !isset($cfg['bugsEdit'])))
 	{
 		$error[] = $lang['noRight'];
 	}
 }
+#Dodaj nowe - musi mieæ parametr f = ID kategorii
 else
 {
-	#Kategoria w URL
 	if(!isset($_GET['f']) OR !is_numeric($_GET['f']))
 	{
 		return;
@@ -36,6 +38,17 @@ $cat = $db->query('SELECT name,see,post,text FROM '.PRE.'bugcats WHERE ID='.$f)-
 if(!$cat[1] OR !BugRights($cat[2]))
 {
 	$error[] = $lang['noRight'];
+}
+
+#System CAPTCHA
+if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
+{
+	require './lib/spam.php';
+	$noSPAM = CAPTCHA();
+}
+else
+{
+	$noSPAM = false;
 }
 
 #Zapisz
@@ -61,12 +74,9 @@ if($_POST)
 	{
 		$error[] = $lang['flood'];
 	}
-	if(!$id && !UID)
+	if($noSPAM && !$noSPAM->verify())
 	{
-		if(isset($cfg['captcha']) && ($_POST['code']!=$_SESSION['code'] || empty($_POST['xb_c'])))
-		{
-			$error[] = $lang['badCode'];
-		}
+		$error[] = $lang['badCode'];
 	}
 
 	#Zapisz, gdy nie ma b³êdów
@@ -97,32 +107,32 @@ if($_POST)
 				$bug['ip'] = $_SERVER['REMOTE_ADDR'];
 				$bug['date'] = $_SERVER['REQUEST_TIME'];
 				$bug['cat']  = $f;
-				$bug['level'] = isset($cfg['bugsMod']) ? 5 : 4;
+				$bug['status'] = isset($cfg['bugsMod']) && !$right ? 5 : 4;
 
 				$i = $db->prepare('UPDATE '.PRE.'bugcats SET last=?, num=num+1 WHERE ID=?');
-				$q = $db->prepare('INSERT INTO '.PRE.'bugs (cat,name,date,level,env,UID,who,ip,text)
-				VALUES (:cat, :name, :date, :level, :env, :UID, :who, :ip, :text)');
+				$q = $db->prepare('INSERT INTO '.PRE.'bugs (cat,name,date,status,level,env,UID,who,ip,text)
+				VALUES (:cat, :name, :date, :status, :level, :env, :UID, :who, :ip, :text)');
 			}
 			$q->execute($bug);
 
 			#ID
-			$newID = $id ? $id : $db->lastInsertId();
+			if(!$id) $id = $db->lastInsertId();
 
 			#Zaktualizuj dane kategorii
-			if($i) $i->execute(array($bug['date'], $newID));
+			if($i) $i->execute(array($bug['date'], $f));
 
 			#ZatwierdŸ transakcjê
 			$db->commit();
 
 			#Gdy trzeba moderowaæ
-			if(!$id && isset($cfg['bugs_mod']))
+			if(!$id && isset($cfg['bugsMod']))
 			{
-				$content->message($lang['queued'], url('bugs/'.$newID));
+				$content->message($lang['queued'], url('bugs/'.$id));
 			}
 			else
 			{
-				header('Location: '.URL.url('bugs/'.$newID));
-				$content->message($lang['saved'], url('bugs/'.$newID));
+				header('Location: '.URL.url('bugs/'.$id));
+				$content->message($lang['saved'], url('bugs/'.$id));
 			}
 		}
 		catch(PDOException $e)
@@ -133,7 +143,7 @@ if($_POST)
 }
 elseif(!$id)
 {
-	$bug = array('name' => '', 'env' => '', 'level' => 3, 'text' => '');
+	$bug = array('name' => '', 'env' => '', 'level' => 3, 'text' => '', 'who' => '');
 }
 
 #Poka¿ b³êdy
@@ -156,11 +166,10 @@ if(isset($cfg['bbcode']))
 }
 
 #Szablon
-$content->title = $id ? $lang['editBug'] : $lang['postBug'];
 $content->file = 'edit';
 $content->data = array(
 	'bug'  => &$bug,
-	'code' => !$id && isset($cfg['captcha']) && !UID,
+	'code' => $noSPAM,
 	'who'  => !$id && !UID,
 	'bbcode' => isset($cfg['bbcode'])
 );

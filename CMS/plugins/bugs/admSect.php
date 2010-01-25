@@ -46,7 +46,7 @@ if($_POST)
 			foreach($add as $x) $q -> execute($x);
 		}
 		$db->commit();
-		header('Location: '.URL.url('bugs'));
+		header('Location: '.URL.url('bugs','','admin'));
 		return 1;
 	}
 	catch(PDOException $e)

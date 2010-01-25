@@ -1,7 +1,8 @@
 <?php
 $lang+=Array(
 'c1'=>'Edit comment',
-'c2'=>'Security code has been written up incorrectly.',
+'badCode'=>'Security code has been written up incorrectly.',
+'badPet'=>'Select only cats!',
 'c3'=>'You cannot send another comment quickly. Try again in a moment.',
 'c4'=>'Fields "content" and "author" must be filled up.',
 'c5'=>'Content is too long.',

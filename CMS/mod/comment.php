@@ -73,6 +73,17 @@ else
 #Tytu³ strony
 $content->title = $type ? $lang['addComm'] : $lang['c1'];
 
+#System CAPTCHA
+if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
+{
+	require './lib/spam.php';
+	$noSPAM = CAPTCHA();
+}
+else
+{
+	$noSPAM = false;
+}
+
 #Dane POST
 if($_POST)
 {
@@ -92,7 +103,7 @@ if($_POST)
 		$error[] = $lang['c4'];
 	}
 
-	#Autor i linki w tre¶ci
+	#Autor i linki w tre¶ci + z³y kod z obrazka
 	if($type)
 	{
 		if(UID)
@@ -107,6 +118,17 @@ if($_POST)
 				if(strpos($c['author'],'://') OR strpos($c['text'],'://') OR strpos($c['name'],'://'))
 				{
 					$error[] = $lang['c12'];
+				}
+			}
+			if($noSPAM)
+			{
+				if($noSPAM->verify())
+				{
+					$noSPAM = false;
+				}
+				else
+				{
+					$error[] = $lang[$noSPAM->errorId];
 				}
 			}
 		}
@@ -135,11 +157,6 @@ if($_POST)
 	{
 		if($type)
 		{
-			if(!UID && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
-			{
-				$error[] = $lang['c2'];
-			}
-
 			#Anty-flood
 			if(isset($_SESSION['post']) && $_SESSION['post']>time()) $error[] = $lang['c3'];
 
@@ -214,7 +231,7 @@ if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 #Szablon
 $content->data = array(
 	'comment' => $c,
-	'code'    => $type && !UID && isset($cfg['captcha']) ? true : false,
+	'code'    => $noSPAM,
 	'author'  => $type && !UID ? true : false,
 	'preview' => $preview,
 	'title'   => empty($cfg['noTitle']),

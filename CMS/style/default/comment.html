@@ -9,16 +9,6 @@
 <table cellspacing="1" class="tb">
 <tbody>
 
-<!-- IF code -->
-<tr>
-	<td><b>{lang.code}:</b><br /><small>{lang.imgcode}.</small></td>
-	<td>
-		<img src="code.php" alt="CODE" style="margin-bottom: 5px; border: 1px solid gray" />
-		<br /><input name="code" />
-	</td>
-</tr>
-<!-- END -->
-
 <!-- IF author -->
 <tr>
 	<td><b>{lang.author}:</b></td>
@@ -38,6 +28,16 @@
 		<textarea name="text" rows="12" cols="68">{comment.text}</textarea>
 	</td>
 </tr>
+
+<!-- IF code -->
+<tr>
+	<th colspan="2">{lang.imgcode}</th>
+</tr>
+<tr>
+	<td colspan="2" align="center">{code}</td>
+</tr>
+<!-- END -->
+
 <tr>
 	<td colspan="2" class="eth">
 		<input type="submit" value="{lang.preview}" name="prev" />
@@ -48,5 +48,5 @@
 </form>
 
 <script type="text/javascript">
-new Editor(document.forms['comm'].text, 1).emots()
+new Editor(document.forms['comm'].text,1).emots()
 </script>

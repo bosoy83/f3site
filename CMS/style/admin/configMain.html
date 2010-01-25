@@ -18,7 +18,7 @@
 <tr>
 	<td><b>{lang.robots}:</b></td>
 	<td><select name="robots" size="4">
-		<option value="all">{lang.indexAll} (all)</option>
+		<option value="all" style="display: block">{lang.indexAll} (all)</option>
 		<option value="index,nofollow">{lang.indexHome} (index, nofollow)</option>
 		<option value="noindex,follow">{lang.indexURL} (noindex, follow)</option>
 		<option value="none">{lang.noIndex} (none)</option>
@@ -73,7 +73,20 @@
 </tr>
 <tr>
 	<td><b>{lang.captcha}:</b><small>{lang.captcha2}</small></td>
-	<td><input type="checkbox" name="captcha" /></td>
+	<td><select name="captcha">
+		<option value="0">{lang.off}</option>
+		<option value="1">{lang.std}</option>
+		<option value="2">{lang.recap}</option>
+		<option value="3">{lang.asirra}</option>
+	</select></td>
+</tr>
+<tr id="RC">
+	<td><b>{lang.API}:</b><small>{lang.API2}</small></td>
+	<td>
+		<div style="float: right"><a href="http://recaptcha.net/api/getkey" target="_blank">{lang.getKey}</a></div>
+		<input name="pubKey" value="{cfg.pubKey}" size="30" title="Public Key" style="cursor: help" />
+		<input name="prvKey" value="{cfg.prvKey}" size="30" title="Private Key" style="cursor: help" />
+	</td>
 </tr>
 <tr>
 	<td><b>{lang.flood}:</b><small>{lang.0off}</small></td>
@@ -81,7 +94,7 @@
 </tr>
 <tr>
 	<td><b>{lang.urls}:</b></td>
-	<td><select name="niceURL" id="urls">
+	<td><select name="niceURL">
 		<option value="1">{lang.url1}</option>
 		<option value="2">{lang.url2}</option>
 		<option value="3">{lang.url3}</option>
@@ -171,11 +184,18 @@
 </form>
 
 <script type="text/javascript">
-urlbox = $('urls');
-urlbox.now = urlbox.selectedIndex;
+f = document.forms[0]
+urlbox = f.niceURL
+urlbox.now = urlbox.selectedIndex
 urlbox.onchange = function(e)
 {
 	if(this.selectedIndex < 2)
-	if(!confirm('{lang.warn}')) this.selectedIndex = this.now;
+	if(!confirm('{lang.warn}')) this.selectedIndex = this.now
 }
+function RCF()
+{
+	$('RC').style.display = (f.captcha.selectedIndex==2) ? '' : 'none'
+}
+f.captcha.onchange = RCF
+RCF()
 </script>

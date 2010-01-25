@@ -43,6 +43,12 @@ $lang+=Array(
 'BBCode2'=>'Lets users format text in comments / messages.',
 'captcha'=>'Enable CAPTCHA',
 'captcha2'=>'Concerns registering and commenting by guests.',
+'std'=>'Enter number from image',
+'asirra'=>'Microsoft Asirra - select all cats',
+'recap'=>'reCAPTCHA™ - type 2 words',
+'API'=>'Public and private key',
+'API2'=>'Concerns only reCAPTCHA™ system',
+'getKey'=>'Click to get API keys',
 'flood'=>'Allow to send new comment after',
 
 'userCom'=>'Comments in user\'s profile',

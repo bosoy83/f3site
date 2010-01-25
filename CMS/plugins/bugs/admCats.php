@@ -62,6 +62,7 @@ foreach($res as $x)
 		'id'   => $x['ID'],
 		'name' => $x['name'],
 		'num'  => $x['num'],
+		'url'  => url('bugs/edit/'.$x['ID'], '', 'admin'),
 		'access' => $a,
 		'section' => $show ? $sect : false
 	);
@@ -79,6 +80,13 @@ else
 	$sect = array();
 	$lng  = '';
 }
+
+#Info + linki
+$content->info($lang['bugsInfo'], array(
+	url('bugs/edit','','admin')     => $lang['addCat'],
+	url('bugs/sections','','admin') => $lang['manSect'],
+	url('bugs/config','','admin')   => $lang['opt']
+));
 
 #Dane do szablonu
 $content->file = 'adminCats';

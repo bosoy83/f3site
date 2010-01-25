@@ -13,15 +13,13 @@
 <table cellspacing="1" class="tb">
 <tr>
 	<th>{lang.title}</th>
-	<th style="width: 80px">{lang.level}</th>
 	<th style="width: 20px"></th>
 </tr>
 
 <!-- START issue -->
 
-<tr class="bug{status}">
+<tr class="bug{status} lv{lv}" title="{level}">
 	<td class="bug{class}"><b><a href="{url}">{title}</a></b> ({num})<div>{lang.sent} {date}</div></td>
-	<td title="{title}" class="lv{level}"></td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 

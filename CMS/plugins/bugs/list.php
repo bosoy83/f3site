@@ -15,17 +15,17 @@ else return;
 if($cat['text'] && isset($cfg['bugsUp'])) $content->info(nl2br($cat['text']));
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']>1)
+if(isset($URL[3]) && is_numeric($URL[3]) && $URL[3]>1)
 {
-	$page = $_GET['page'];
-	$st = ($page-1)*$cfg['bugsnum'];
+	$page = $URL[3];
+	$st = ($page-1)*$cfg['bugsNum'];
 }
 else
 {
 	$page = 1;
 	$st = 0;
 }
- 
+
 #Pobierz zg³oszenia
 $res = $db->prepare('SELECT ID,name,num,date,status,level FROM '.PRE.'bugs WHERE cat=?'.
 	(admit('BUGS') ? '' : ' AND status!=5').' ORDER BY ID DESC LIMIT ?,?');
@@ -43,12 +43,12 @@ foreach($res as $x)
 		'id'     => $x['ID'],
 		'title'  => $x['name'],
 		'status' => $x['status'],
-		'level'  => $x['level'],
+		'lv'     => $x['level'],
 		'num'    => $x['num'],
 		'url'    => url('bugs/'.$x['ID']),
 		'date'   => genDate($x['date'], 1),
 		'class'  => BugIsNew('', $x['date']) ? 'new' : 'old',
-		'levelText' => $lang['L'.$x['level']]
+		'level'  => $lang['L'.$x['level']]
 	);
 	++$num;
 }
@@ -60,7 +60,7 @@ if(!$num)
 }
 elseif($cat['num'] > $num)
 {
-	$pages = pages($page, $cat['num'], $cfg['bugsNum'], url('bugs/list/'.$id);
+	$pages = pages($page, $cat['num'], $cfg['bugsNum'], url('bugs/list/'.$id), 0, '/');
 }
 else
 {
@@ -71,5 +71,5 @@ else
 $content->title = $cat['name'];
 $content->data = array(
 	'issue'   => &$all,
-	'postURL' => BugRights($cat['post']) ? url('bugs/post', '?f='.$id) : false
+	'postURL' => BugRights($cat['post']) ? url('bugs/post', 'f='.$id) : false
 );

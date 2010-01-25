@@ -7,7 +7,7 @@ $lang+=Array(
 'wait'    => 'Czekaj...',
 'sent'    => 'Wysłany ',
 'legend'  => 'Legenda',
-'voted'   => 'Głosowałeś już - twoja ocena:',
+'voted'   => 'Głosowałeś już!',
 'logtov'  => 'Zaloguj się, aby móc głosować.',
 
 'level'=>'Poziom',

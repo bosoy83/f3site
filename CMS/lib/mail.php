@@ -68,7 +68,7 @@ class Mailer
 		#HTML
 		if($this->HTML)
 		{
-			$h.='Content-type: text/html; charset=iso-8859-2'."\r\n";
+			$h.='Content-type: text/html; charset=utf-8'."\r\n";
 			$this->text = nl2br($this->text);
 		}
 

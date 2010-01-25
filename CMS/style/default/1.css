@@ -314,7 +314,7 @@ small {font-size: 11px}
 	background-color: #a8dff4;
 	padding: 2px
 }
-.menulist, ul.hint {
+.menulist, .hint {
 	margin: 0;
 	padding: 0;
 	list-style-type: none

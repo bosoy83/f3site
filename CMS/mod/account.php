@@ -38,6 +38,17 @@ if(!isset($cfg['reg']) && !UID)
 	$content->info($lang['regoff']); return 1;
 }
 
+#System CAPTCHA
+if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
+{
+	require './lib/spam.php';
+	$noSPAM = CAPTCHA();
+}
+else
+{
+	$noSPAM = false;
+}
+
 #Zapis
 if($_POST)
 {
@@ -114,14 +125,17 @@ if($_POST)
 		}
 		
 		#Kod
-		if(isset($cfg['captcha']))
+		if($noSPAM)
 		{
-			if($_POST['code']!=$_SESSION['code'] || empty($_SESSION['code']))
+			if($noSPAM->verify())
 			{
-				$error[] = $lang['badCode'];
-				$bad[] = 'code';
+				$noSPAM = false;
 			}
-			$_SESSION['code'] = false;
+			else
+			{
+				$error[] = $lang[$noSPAM->errorId];
+				if($cfg['captcha']==1) $bad[] = 'code';
+			}
 		}
 	}
 
@@ -316,9 +330,10 @@ $content->data = array(
 	'size'  => $cfg['maxSize'],
 	'del'   => $photo,
 	'bad'   => $bad,
+	'code'  => $noSPAM,
+	'instr' => $noSPAM && $cfg['captcha']>2 ? $lang['badPet'] : $lang['imgcode'],
 	'bbcode'=> isset($cfg['bbcode']),
 	'hide'  => empty($_POST['pass']) || !isset($_POST['curPass']),
-	'code'  => isset($cfg['captcha']) && !UID,
 	'pass'  => isset($_POST['pass']) ? clean($_POST['pass']) : '',
 	'pass2' => isset($_POST['pass2']) ? clean($_POST['pass2']) : '',
 	'photo' => (UID && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false

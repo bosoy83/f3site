@@ -85,6 +85,7 @@
 'badMail'=>'E-Mail-Addresse ist inkorrekt.',
 'loginEx'=>'Login ist schon belegt.',
 'badCode'=>'Code aus dem Bild ist inkorrekt.',
+'badPet'=>'Wähle nur Fotos mit Katzen!',
 'tooLong'=>'öber den Benutzer Text ist zu lang.',
 'badPass'=>'Passwort ist inkorrekt. Möglicherweise es enthält verboten Zeichen oder ist zu kurz.',
 'mustPass'=>'Du musst dein aktuelle Passwort eingeben um es zu ändern!',

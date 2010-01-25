@@ -1,6 +1,6 @@
-<div class="hint menulist" id="chst">
+<div class="hint" id="chst">
 	<div class="title">{lang.status}:</div>
-	<ul>
+	<ul class="menulist">
 		<li onclick="St(1)">{lang.S1}</li>
 		<li onclick="St(2)">{lang.S2}</li>
 		<li onclick="St(3)">{lang.S3}</li>
@@ -12,17 +12,17 @@
 <div class="cs">
 
 	<!-- IF edit -->
-	<div style="float: right"><a class="edit" href="?co=bugs&amp;act=e&amp;id={bug.ID}">{lang.edit}</a></div>
+	<div style="float: right"><a class="edit" href="{edit}">{lang.edit}</a></div>
 	<!-- END -->
 
-	<a href="?co=bugs">{lang.TOC}</a> &raquo;
-	<a href="?co=bugs&amp;act=l&amp;id={bug.cat}">{bug.catName}</a>
+	<a href="{mainURL}">{lang.TOC}</a> &raquo;
+	<a href="{catURL}">{bug.catName}</a>
 </div>
 
 <h2>{bug.name}</h2>
 <table cellspacing="1" class="tb">
 <tr>
-	<th style="width: 25%" align="right">{lang.added}:</th>
+	<th style="width: 120px" align="right">{lang.added}:</th>
 	<td>{bug.date}</td>
 </tr>
 <tr>
@@ -34,7 +34,13 @@
 	<td><span id="st">{bug.status}</span>
 
 		<!-- IF editStatus -->
-		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',cx,cy,1)" style="cursor: pointer" />
+		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',133,132,1)" style="cursor: pointer" />
+		<script type="text/javascript">
+		function St(x)
+		{
+			new Request('request.php?go=bugs/status',$('st')).send({id:{bug.ID},s:x})
+		}
+		</script>
 		<!-- END -->
 
 	</td>
@@ -47,9 +53,9 @@
 <!-- IF hands -->
 <tr>
 	<th align="right">{lang.rate}:</th>
-	<td id="hands">
-		<span onclick="RateBug(1)"><img src="plugins/bugs/up.png" alt="YES" /> {bug.pos}</span>
-		<span onclick="RateBug(2)"><img src="plugins/bugs/down.png" alt="NO" /> {bug.neg}</span>
+	<td>
+		<span id="handUp">{bug.pos}</span>
+		<span id="handDown">{bug.neg}</span>
 	</td>
 </tr>
 <!-- END -->
@@ -58,14 +64,14 @@
 <tr>
 	<th align="right">{lang.rate}:</th>
 	<td>
-		<form action="?co=bugs&act=r" method="post" class="rate avg{bug.mark} by">
-			<input type="submit" name="v" value="1" class="r1" />
-			<input type="submit" name="v" value="2" class="r2" />
-			<input type="submit" name="v" value="3" class="r3" />
-			<input type="submit" name="v" value="4" class="r4" />
-			<input type="submit" name="v" value="5" class="r5" />
-		</form>
-		{lang.rates}: {bug.marks}
+		<div class="rate avg{bug.mark} by" id="BST">
+			<input type="submit" value="1" class="r1" />
+			<input type="submit" value="2" class="r2" />
+			<input type="submit" value="3" class="r3" />
+			<input type="submit" value="4" class="r4" />
+			<input type="submit" value="5" class="r5" />
+		</div>
+		{lang.rates}: <span id="MarkNum">{bug.marks}</span>
 	</td>
 </tr>
 <!-- END -->
@@ -78,3 +84,44 @@
 	<td colspan="2" class="txt">{bug.text}</td>
 </tr>
 </table>
+
+<!-- IF canVote -->
+<script type="text/javascript">
+function RateBug(x,o)
+{
+	if(BVoted) return;
+	new Request('request.php?go=bugs/vote','',{done:function(t)
+	{
+		if(t.indexOf(']')>0)
+		{
+			t = getJSON(t);
+			o.className = 'rate by avg'+t[0]
+			$('MarkNum').innerHTML = t[1]
+		}
+		else
+		{
+			if(t=='OK')
+			{
+				o.innerHTML = parseInt(o.innerHTML)+1
+			}
+			else alert(t)
+		}
+	}}).send({id:{bug.ID},v:x}); BVoted = 1
+}
+if($('handUp'))
+{
+	$('handUp').onclick = function() { RateBug(5,this) }
+	$('handDown').onclick = function() { RateBug(1,this) }
+}
+else if($('BST'))
+{
+	$('BST').onclick = function(e)
+	{
+		e = e || event
+		var o = e.srcElement || e.target
+		if(o.value) RateBug(o.value,this)
+	}
+}
+BVoted = 0;
+</script>
+<!-- END -->

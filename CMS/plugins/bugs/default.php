@@ -27,7 +27,7 @@ function BugRights($x)
 		if(UID)
 		{
 			$r = explode(' ', $x);
-			if(in_array('U:'.UID, $r) || in_array('G:'.GID, $r)) return true;
+			if(in_array('U:'.UID, $r) || in_array('LV:'.LEVEL, $r)) return true;
 		}
 	}
 	return false;
@@ -60,12 +60,8 @@ if(isset($URL[1]))
 	{
 		case 'post': require 'plugins/bugs/edit.php'; break;
 		case 'list': require 'plugins/bugs/list.php'; break;
-		default: return;
+		default: require 'plugins/bugs/view.php'; break;
 	}
-}
-elseif(isset($URL[2]))
-{
-	require 'plugins/bugs/view.php';
 }
 else
 {

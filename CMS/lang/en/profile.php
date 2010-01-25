@@ -86,6 +86,7 @@ $lang+=Array(
 'badMail'=>'E-mail address is incorrect.',
 'loginEx'=>'This login is already used.',
 'badCode'=>'Verification code is incorrect.',
+'badPet'=>'Select only CAT photos!',
 'tooLong'=>'Content of "about user" field is too long.',
 'badPass'=>'Password contains illegal characters or is too short / too long.',
 'mustPass'=>'You must type your current password in order to change it!',

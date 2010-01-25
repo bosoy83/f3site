@@ -37,6 +37,17 @@ elseif(!$id)
 	}
 }
 
+#System CAPTCHA
+if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
+{
+	require './lib/spam.php';
+	$noSPAM = CAPTCHA();
+}
+else
+{
+	$noSPAM = false;
+}
+
 #Zapisz
 if($_POST)
 {
@@ -53,12 +64,23 @@ if($_POST)
 		'txt'   => clean($_POST['txt'], 0, 1)
 	);
 
-	#Gdy goście nie mogą wstawiać linków
-	if(!UID && !isset($cfg['URLs']))
+	#Gdy goście nie mogą wstawiać linków + antyspam
+	if(!UID)
 	{
-		if(strpos($post['txt'],'://') OR strpos($post['txt'],'www.'))
+		if(!isset($cfg['URLs']) && (strpos($post['txt'],'://') OR strpos($post['txt'],'www.')))
 		{
 			$error[] = $lang['noURL'];
+		}
+		if($noSPAM)
+		{
+			if($noSPAM->verify())
+			{
+				$noSPAM = false;
+			}
+			else
+			{
+				$error[] = $lang[$noSPAM->errorId];
+			}
 		}
 	}
 
@@ -187,7 +209,7 @@ if($error)
 #Dane do szablonu
 $content->data = array(
 	'post'   => &$post,
-	'code'   => !UID && isset($cfg['captcha']),
+	'code'   => $noSPAM,
 	'rules'  => $cfg['gbRules'],
 	'preview'=> $preview,
 	'bbcode' => isset($cfg['bbcode'])

@@ -6,8 +6,8 @@ define('iCMS',1);
 require './kernel.php';
 
 #Adres IP
-$ip = $db->quote($_SERVER['REMOTE_ADDR'].' '.
-	(isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
+$ip = $db->quote($_SERVER['REMOTE_ADDR'].
+	(isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? ' '.$_SERVER['HTTP_X_FORWARDED_FOR'] : ''));
 	
 #Oceny
 if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POST['v'] < 6)

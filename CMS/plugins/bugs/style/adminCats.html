@@ -1,12 +1,3 @@
-<div class="box">
-	{lang.bugsInfo}
-	<ul class="go">
-		<li><a href="?a=bugs&amp;act=e">{lang.addCat}</a></li>
-		<li><a href="?a=bugs&amp;act=s">{lang.manSect}</a></li>
-		<li><a href="?a=bugs&amp;act=o">{lang.opt}</a></li>
-	</ul>
-</div>
-
 <h2>{lang.cats}</h2>
 <form action="" method="post">
 <table cellspacing="1" class="tb">
@@ -30,9 +21,7 @@
 	<td>{name} ({num})</td>
 	<td align="center">{id}</td>
 	<td align="center">{access}</td>
-	<td align="center">
-		<a href="?a=bugs&amp;act=e&amp;id={id}">{lang.edit}</a> &middot;
-		<a href="?a=bugs&amp;del={id}">{lang.del}</a></td>
+	<td align="center"><a href="{url}">{lang.edit}</a></td>
 	<td align="center"><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 

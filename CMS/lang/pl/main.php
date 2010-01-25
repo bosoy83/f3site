@@ -24,7 +24,7 @@
 'emoon'=>'Włącz emotikony',
 'files'=>'Pliki',
 'groups'=>'Grupy użytkowników',
-'imgcode'=>'Przepisz kod z obrazka',
+'imgcode'=>'Przepisz kod',
 'imgs'=>'Obrazy',
 'in'=>'za %d min.',
 'info'=>'Informacja',

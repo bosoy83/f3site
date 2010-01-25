@@ -12,17 +12,17 @@ function comment(o)
 			{
 				if(x.indexOf('<form') == -1)
 				{
+					http.scripts = 0;
 					$('comments').innerHTML = x;
 				}
 				else
 				{
 					$('com').innerHTML = x;
 					var f = document.forms['comm'];
-					new Editor(f.text, 1).emots();
 					f.prev.onclick = function() { return http.sendForm(this) };
 					f.save.onclick = function() { return http.sendForm(this) };
-					if(f.name) f.name.focus(); else f.text.focus();
-					this.scripts = 0;
+					if(f.name) f.name.focus(); else f.text.focus()
+					http.scripts = 1;
 				}
 			};
 			http.send();

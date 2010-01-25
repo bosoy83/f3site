@@ -1,13 +1,13 @@
 <?php
 define('iCMS',1);
 require 'kernel.php';
-if(!isset($cfg['captcha'])) exit;
+if(!isset($cfg['captcha']) || $cfg['captcha']!=1) exit;
 
 #Jako PNG
 header('Content-type: image/png');
 
 #Losujemy liczbê
-$_SESSION['code'] = $num = mt_rand(99,300).date('s');
+$_SESSION['code'] = $num = mt_rand(99,999).date('s');
 
 #Generuj obrazek
 $img = imagecreate(80,25);

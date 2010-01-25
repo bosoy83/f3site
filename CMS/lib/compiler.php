@@ -325,13 +325,13 @@ class Compiler
 
 				$in[]  = $tag[0];
 				$out[] = '<select name="'.$tag[1].'"'. $tag[2] .'>' . preg_replace( array(
-					'#<option value="([0-9].*?)">(.*?)</option>#i',
-					'#<option value="([^{}].*?)">(.*?)</option>#i',
+					'#<option value="([0-9]+)"(.*?)>(.*?)</option>#i',
+					'#<option value="([^{}\'"]+)"([^<]*)>(.*?)</option>#i',
 					'#<option>([^{}].*?)</option>#i'
 				), array(
-					'<option value="\\1"<?php if('.$var.'==\\1) echo \' selected="selected"\'?>>\\2</option>',
-					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\2</option>',
-					'<option value="\\1"<?php if('.$var.'==\'\\1\') echo \' selected="selected"\'?>>\\1</option>'
+					'<option value="\\1"<?php if('.$var.'==\\1)echo \' selected="selected"\'?>\\2>\\3</option>',
+					'<option value="\\1"<?php if('.$var.'==\'\\1\')echo \' selected="selected"\'?>\\2>\\3</option>',
+					'<option value="\\1"<?php if('.$var.'==\'\\1\')echo \' selected="selected"\'?>>\\1</option>'
 				), $tag[3]) . '</select>';
 			}
 			$this->data = substr_replace($this->data, str_replace($in, $out, $form), $pos, $end);

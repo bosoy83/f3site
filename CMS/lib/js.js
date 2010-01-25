@@ -47,11 +47,11 @@ function include(file, loaded)
 }
 
 //Dodaj zdarzenie - IE i W3
-function addEvent(type, f, o)
+function addEvent(type, f, o, capture)
 {
 	if(window.addEventListener)
 	{
-		(o||window).addEventListener(type, f, false)
+		(o||window).addEventListener(type, f, capture||false)
 	}
 	else if(window.attachEvent)
 	{
@@ -161,6 +161,12 @@ function hint(o, left, top, autoHide)
 	else o.style.visibility = 'hidden';
 }
 
+//JSON
+function getJSON(x)
+{
+	if(window.JSON) return JSON.parse(x); else return eval(x);
+}
+
 //
 // *** AJAX REQUESTS ***
 //
@@ -258,7 +264,13 @@ Request.prototype.send = function(list)
 							var script = self.o.getElementsByTagName('script');
 							for(var i=0; i<script.length; ++i)
 							{
-								eval(script[i].innerHTML);
+								if(script[i].src)
+								{
+									var d = document.createElement('script');
+									d.src = script[i].src;
+									script[i].appendChild(d)
+								}
+								else eval(script[i].innerHTML);
 							}
 						}
 					}

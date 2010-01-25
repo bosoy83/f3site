@@ -15,12 +15,16 @@ else
 $bug = $db->query('SELECT b.*, c.name as catName, c.rate FROM '.PRE.'bugs b INNER JOIN '.PRE.'bugcats c ON b.cat = c.ID WHERE b.ID='.$id.' AND (c.see=1 OR c.see="'.LANG.'")') -> fetch(2);
 
 #Brak
-if(!$bug) return;
+if(!$bug)
+{
+	$content->set404();
+	return;
+}
 
 #Niemoderowany?
-if($bug['status']==5 && $bug['author']!=UID && !$rights)
+if($bug['status']==5 && $bug['who']!=UID && !$rights)
 {
-	Header('Location: '.URL.'?co=bugs');
+	header('Location: '.URL.url('bugs'));
 	return;
 }
 
@@ -32,9 +36,9 @@ if(isset($cfg['bbcode']))
 }
 
 #Data, autor
-$bug['date'] = genDate($bug['date']);
+$bug['date'] = genDate($bug['date'],1);
 $bug['who']  = $bug['UID'] ? autor($bug['UID']) : $bug['who'];
-$bug['text'] = Emots(nl2br($bug['text']));
+$bug['text'] = nl2br(emots($bug['text']));
 $bug['level'] = $lang['L'.$bug['level']];
 $bug['status'] = $lang['S'.$bug['status']];
 
@@ -51,8 +55,11 @@ $content->title = $bug['name'];
 $content->file = 'view';
 $content->data = array(
 	'bug'   => &$bug,
-	'edit'  => $rights OR ($bug['poster']==UID && isset($cfg['bugsEdit'])),
+	'edit'  => $rights || ($bug['poster']==UID && isset($cfg['bugsEdit'])) ? url('bugs/post/'.$id) : false,
 	'hands' => $bug['rate'] == 1,
 	'stars' => $bug['rate'] == 2,
+	'catURL' => url('bugs/list/'.$bug['cat']),
+	'mainURL' => url('bugs'),
+	'canVote' => $bug['rate'] && (UID || isset($cfg['bugsVote'])),
 	'editStatus' => $rights
 );

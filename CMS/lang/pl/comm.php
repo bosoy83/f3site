@@ -1,7 +1,8 @@
 <?php
 $lang+=Array(
 'c1'=>'Edytuj komentarz',
-'c2'=>'Kod z obrazka został przepisany niepoprawnie.',
+'badCode'=>'Kod z obrazka został przepisany niepoprawnie.',
+'badPet'=>'Zaznacz tylko koty!',
 'c3'=>'Nie możesz wysłać drugiego komentarza tak szybko po poprzednim. Spróbuj ponownie za chwilę.',
 'c4'=>'Pola "treść" i "autor" muszą być uzupełnione.',
 'c5'=>'Treść jest zbyt długa.',

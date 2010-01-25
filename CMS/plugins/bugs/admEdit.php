@@ -32,7 +32,7 @@ if($_POST)
 		$q->execute($cat);
 
 		#Przekieruj do listy kategorii
-		header('Location: '.URL.url('bugs'));
+		header('Location: '.URL.url('bugs','','admin'));
 		$content->message($lang['saved'], url('bugs', '', 'admin'));
 	}
 	catch(PDOException $e)

@@ -1,5 +1,5 @@
 <?php
-if(iCMSa!=1 OR !admit('CFG')) exit;
+if(iCMSa!=1 || !admit('CFG')) exit;
 
 #Zapis
 if($_POST)
@@ -10,7 +10,7 @@ if($_POST)
 		include './lib/config.php';
 		$f = new Config('bugs');
 		$f -> save($_POST);
-		header('Location: '.URL.url('bugs'));
+		header('Location: '.URL.url('bugs', '', 'admin'));
 		$content->message($lang['saved'], url('bugs', '', 'admin'));
 	}
 	catch(Exception $e)

@@ -38,6 +38,13 @@ if($_POST)
 	$opt['commNum'] = (int)$opt['commNum'];
 	$opt['pollRound'] = (int)$opt['pollRound'];
 
+	#API keys
+	if($opt['captcha'] != 2)
+	{
+		if(empty($opt['pubKey'])) unset($opt['pubKey']);
+		if(empty($opt['prvKey'])) unset($opt['prvKey']);
+	}
+
 	require './lib/config.php';
 	$f = new Config('main');
 	$f ->add('cfg', $opt);
@@ -72,6 +79,10 @@ foreach(scandir('style') as $x)
 		$skin .= '<option'.($cfg['skin']==$x ? ' selected="selected"' : '').'>'.$x.'</option>';
 	}
 }
+
+#API keys
+if(empty($cfg['pubKey'])) $cfg['pubKey'] = '';
+if(empty($cfg['prvKey'])) $cfg['prvKey'] = '';
 
 $content->title = $lang['main'];
 $content->data = array(
