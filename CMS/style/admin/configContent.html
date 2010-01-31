@@ -99,6 +99,10 @@
 	<td><b>{lang.comms}</b>:<small>{lang.subpage}</small></td>
 	<td><input type="checkbox" name="linkFull" /></td>
 </tr>
+<tr>
+	<td><b>{lang.ratesOn}:</b></td>
+	<td><input type="checkbox" name="lrate" /></td>
+</tr>
 
 <tr>
 	<th colspan="2">{lang.defCat}</th>
@@ -122,7 +126,8 @@
 </form>
 
 <script type="text/javascript">
-//<![CDATA[
+f = document.forms[0]
 {js}
-//]]>
+f.lrate.disabled = !f.linkFull.checked
+f.linkFull.onchange = function() { f.lrate.disabled = !this.checked }
 </script>

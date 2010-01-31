@@ -11,6 +11,11 @@ $lang = array(
 'back' => 'Wstecz',
 
 'chmod' => 'Uprawnienia plików',
+'chmodInfo' => 'Następujące pliki i foldery mają nieprawidłowe uprawnienia odczytu lub zapisu (CHMOD). Popraw je za pomocą programu FTP lub aplikacji dostarczanej przez panel administracyjny: ',
+'place' => 'Pliki / foldery',
+'good' => 'Zmień na',
+'bad' => 'Błędne',
+'test' => 'Sprawdź ponownie',
 
 'MySQL'  => 'Najpopularniejszy silnik baz danych (zalecany)',
 'SQLite' => 'Baza danych w 1 pliku. Działa jako moduł PHP i nie wymaga dodatkowego serwera.',

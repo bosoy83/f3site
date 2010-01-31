@@ -150,6 +150,7 @@ CREATE TABLE IF NOT EXISTS `f3_links` (
 `adr` varchar(255) NOT NULL,
 `priority` tinyint(1) NOT NULL,
 `count` int(11) NOT NULL DEFAULT 0,
+`rate` tinyint(1),
 `nw` tinyint(1) NOT NULL);
 
 CREATE INDEX IF NOT EXISTS cat ON `f3_links` (cat);
@@ -257,6 +258,15 @@ CREATE TABLE IF NOT EXISTS `f3_rss` (
 `lang` varchar(3) NOT NULL DEFAULT 'en',
 `cat` int(11) NOT NULL DEFAULT 0,
 `num` int(11) NOT NULL DEFAULT 0);
+
+CREATE TABLE IF NOT EXISTS `f3_tags` (
+`tag` varchar(50) NOT NULL DEFAULT '',
+`TYPE` tinyint(3) NOT NULL DEFAULT 5,
+`ID` int(11) NOT NULL DEFAULT 0,
+`num` int(11) NOT NULL DEFAULT 0);
+
+CREATE INDEX IF NOT EXISTS `tag` ON `f3_tags` (`tag`);
+CREATE INDEX IF NOT EXISTS `itm` ON `f3_tags` (`TYPE`,`ID`);
 
 CREATE TABLE IF NOT EXISTS `f3_tmp` (
 `KEYID` varchar(50) NOT NULL PRIMARY KEY,

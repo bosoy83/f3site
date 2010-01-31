@@ -34,6 +34,11 @@ if($_POST)
 	try
 	{
 		$q->execute($group);
+		if(!$id) $id = $db->lastInsertId();
+
+		#Przekieruj do grupy
+		if(isset($_GET['ref'])) header('Location: '.URL.url('group/'.$id));
+
 		$content->info($lang['saved'], array(
 			url('group/'.$id) => $group['name'],
 			url('editGroup/'.$id, '', 'admin') => $lang['editGroup'],

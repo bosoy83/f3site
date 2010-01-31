@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `f3_links` (
 `adr` varchar(255) NOT NULL,
 `priority` tinyint(1) NOT NULL,
 `count` int(11) NOT NULL DEFAULT 0,
+`rate` tinyint(1),
 `nw` tinyint(1) NOT NULL,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
@@ -246,6 +247,12 @@ CREATE TABLE IF NOT EXISTS `f3_rss` (
 `cat` int(11) NOT NULL,
 `num` int(11) NOT NULL
 ) ENGINE=InnoDB CHARACTER SET='utf8';
+
+CREATE TABLE IF NOT EXISTS `f3_tags` (
+`tag` varchar(50) NOT NULL DEFAULT '',
+`TYPE` tinyint(3) NOT NULL DEFAULT 5,
+`ID` int(11) NOT NULL DEFAULT 0,
+`num` int(11) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_tmp` (
 `KEYID` varchar(50) NOT NULL PRIMARY KEY,

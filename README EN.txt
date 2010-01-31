@@ -28,20 +28,22 @@ Installation
 1. Load content of SYSTEM directory into server using FTP client or file manager. Delete useless languages and skins (except DEFAULT) before.
 
 2. Set privileges (CHMOD) to files:
-* folders: CFG, CACHE - 0777
-* all folders in above catalogs - 0777
-* all files in above directories - 0766
-* folders: FILES, IMG - 0777 (optional)
-* folders: IMG/USER - 0777 (required to let users upload photos)
+* folders: CFG, CACHE, RSS - 777
+* all folders in above catalogs - 777
+* all files in above directories - 666
+* folders: FILES, IMG - 777 (optional)
+* folders: IMG/USER - 777 (required to let users upload photos)
 
 3. Go to INSTALL directory in your web browser - e.g. http://your.site.pl/install/
 To finish the installation, database user must have full privileges.
 
-4. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
+4. If you see a blank page or 500 Internal Server Error, read the last section of this README file about .htaccess.
 
-5. After the installation DELETE INSTALL FOLDER!
+5. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
 
-6. Log in and customize the system in admin panel.
+6. After the installation DELETE INSTALL FOLDER!
+
+7. Log in and customize the system in admin panel.
 
 
 Updates and help
@@ -94,9 +96,9 @@ Only users who have Editor, Admin or Owner privilege may edit content. After you
 Changing PHP options
 ====================
 
-Default F3Site installation does NOT affect PHP configuration. If the installer notices there are options enabled that slow down performance or are insecure, it's recommended to DISABLE them. Read your hosting's documentation to find out, how to change PHP directives.
+F3Site package contains 3 .htaccess files to enable Nice URL feature and affect some PHP options. However, they may be unsupported depending on server's configuration.
 
-Most servers support the following commands in .htaccess file (place it in the main directory):
+The most important options:
 
 php_flag session.use_only_cookies 1
 php_flag session.use_trans_sid 0
@@ -104,3 +106,5 @@ php_flag register_globals 0
 php_flag magic_quotes_gpc 0
 
 If your server does NOT support php_flag command, an empty page or error 500 may be displayed. Some hostings can interpret SetEnv instruction. Check if your hosting's admin panel lets you change options.
+
+If you cannot get rid of the problem, delete all .htaccess files from the main directory, ADMIN and by necessity - from CFG folder. But only limited Nice URL feature will work!

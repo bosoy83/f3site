@@ -23,8 +23,11 @@
 'seeAll'=>'Pokaż wszystkich',
 'lastJoin'=>'Ostatnio dołączyli',
 'founder'=>'Moderator',
+'youMember'=>'Jesteś członkiem tej grupy',
 'wantJoin'=>'Czy chcesz dołączyć do grupy %s?',
 'wantLeave'=>'Czy chcesz opuścić grupę %s?',
+'noGroup'=>'Nie istnieje jeszcze żadna grupa',
+'addGroup'=>'Stwórz nową grupę',
 'joinOK'=>'Dołączyłeś do grupy.',
 'leaveOK'=>'Wystąpiłeś z grupy.',
 
@@ -51,6 +54,7 @@
 'maxHeight'=>'Maks. wysokość',
 'maxSize'=>'Maks. rozmiar',
 
+'mustLogin'=>'Zaloguj się, aby wyświetlić tę stronę!',
 'regoff'=>'Rejestracja nowych użytkowników została wyłączona.',
 'nousers'=>'Brak użytkowników',
 'group'=>'Grupa',

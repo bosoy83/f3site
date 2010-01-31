@@ -10,6 +10,11 @@
 'back' => 'Back',
 
 'chmod' => 'File privileges',
+'chmodInfo' => 'The following files and folders have incorrect read or write privileges (CHMOD). Fix them with any FTP program or application provided by your hosting\'s admin panel: ',
+'place' => 'Files / folders',
+'good' => 'Change to',
+'bad' => 'Wrong',
+'test' => 'Continue',
 
 'MySQL'  => 'The most popular database engine (recommended)',
 'SQLite' => 'Database in one file working as PHP module.',

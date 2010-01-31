@@ -14,6 +14,7 @@ $lang+=Array(
 'saved'=>'Zapisano obiekt.',
 'goCat'=>'Przejdź do kategorii',
 'doCat'=>'Zarządzaj innymi obiektami w kategorii',
+'asNew'=>'Zapisz jako nowy',
 
 'emo'=>'Emotikony',
 'br'=>'ENTER = nowa linia',
@@ -23,7 +24,7 @@ $lang+=Array(
 'viewarts'=>'Pokaż artykuły',
 'i1'=>'Kliknij nazwę artykułu, aby go wyświetlić.',
 'edit1'=>'Edytuj artykuł',
-'add1'=>'Dodaj artykuł',
+'add1'=>'Nowy artykuł',
 'addPage'=>'Dodaj stronę',
 
 'chopt'=>'Opcje zaznaczonych pozycji',
@@ -37,7 +38,7 @@ $lang+=Array(
 'dtoolong'=>'Opis jest za długi!',
 'artlong'=>'Opis (lub tekst) jest za długi!',
 
-'add2'=>'Dodaj plik',
+'add2'=>'Nowy plik',
 'edit2'=>'Edytuj plik',
 'file'=>'Plik',
 'i2'=>'Kliknij tytuł pliku, aby wyświetlić szczegóły o nim.',
@@ -47,7 +48,7 @@ $lang+=Array(
 'remote'=>'Zdalny',
 
 'i4'=>'Odnośniki do innych stron.',
-'add4'=>'Dodaj link',
+'add4'=>'Nowy link',
 'edit4'=>'Edytuj link',
 'newTab'=>'Otwórz stronę w nowej karcie',
 
@@ -58,7 +59,7 @@ $lang+=Array(
 'nvtit'=>'Zarządzanie nowościami',
 
 'img'=>'Obraz',
-'add3'=>'Dodaj obraz',
+'add3'=>'Nowy obraz',
 'edit3'=>'Edytuj obraz',
 'i3'=>'Kliknij tytuł obrazu, aby go wyświetlić.',
 'images'=>'Obrazy',

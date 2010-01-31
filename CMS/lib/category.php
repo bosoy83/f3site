@@ -42,9 +42,9 @@ if(!$cat) return;
 $content->title = $cat['name'];
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']>1)
+if(isset($URL[1]) && is_numeric($URL[1]) && $URL[1] > 1)
 {
-	$page = $_GET['page'];
+	$page = $URL[1];
 	$st = ($page-1) * $cfg['np'];
 }
 else

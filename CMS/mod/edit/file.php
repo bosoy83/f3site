@@ -1,6 +1,9 @@
 <?php
 if(EC!=1) exit;
 
+#Zapisz jako nowy
+if(isset($_POST['asNew'])) $id = 0;
+
 #Szablon i tytu³
 $content->file  = 'edit_file';
 $content->title = $id ? $lang['edit2'] : $lang['add2'];
@@ -89,6 +92,7 @@ $content->addScript('lib/editor.js');
 #Dane
 $content->data = array(
 	'file' => &$file,
+	'id'   => $id,
 	'cats' => Slaves(2,$file['cat']),
 	'fileman' => admit('FM') ? true : false
 );

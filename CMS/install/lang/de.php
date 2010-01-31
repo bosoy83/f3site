@@ -11,6 +11,11 @@ $lang = array(
 'back' => 'Zurück',
 
 'chmod' => 'Fileprivilegien',
+'chmodInfo' => 'Die folgenden Dateien und Ordner haben falsche Berechtigungen (CHMOD). Fix sie mit einem beliebigen FTP-Programm oder Admin-Panel Ihres Hosting: ',
+'place' => 'Dateien / Ordner',
+'good' => 'Richtig',
+'bad' => 'Falsch',
+'test' => 'Test erneut',
 
 'MySQL'  => 'Die populärste Datenbank-Engine (empfohlen)',
 'SQLite' => 'Die Datenbank in einem File.',

@@ -35,7 +35,12 @@
   <td><label><input type="checkbox" name="nw" /> {lang.newTab}</label></td>
 </tr>
 <tr>
-  <td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+  <td colspan="2" class="eth">
+		<input type="submit" value="{lang.save}" style="font-weight: bold" />
+		<!-- IF id -->
+		<input type="submit" name="asNew" value="{lang.asNew}" />
+		<!-- END -->
+	</td>
 </tr>
 </table>
 </form>

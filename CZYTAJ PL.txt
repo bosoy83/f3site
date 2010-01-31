@@ -28,20 +28,22 @@ Instalacja
 1. Załaduj zawartośc katalogu SYSTEM na serwer za pomocą klienta FTP lub menedżera plików. Usuń niepotrzebne języki i skórki (oprócz DEFAULT), których nie będziesz używał.
 
 2. Nadaj plikom i folderom uprawnienia (CHMOD):
-* katalogi: CFG, CACHE, RSS - 0777
-* wszystkie foldery w powyższych katalogach - 0777
-* wszystkie pliki w powyższych katalogach - 0766
-* katalogi: FILES, IMG - 0777 (nieobowiązkowo)
-* katalogi: IMG/USER - 0777 (wymagane, aby użytkownicy mogli wgrywać zdjęcia)
+* katalogi: CFG, CACHE, RSS - 777
+* wszystkie foldery w powyższych katalogach - 777
+* wszystkie pliki w powyższych katalogach - 766
+* katalogi: FILES, IMG - 777 (nieobowiązkowo)
+* katalogi: IMG/USER - 777 (wymagane, aby użytkownicy mogli wgrywać zdjęcia)
 
 3. Przejdź do katalogu INSTALL w przeglądarce internetowej, wpisując: http://adres.strony.pl/install/
 Aby instalacja przebiegła poprawnie, użytkownik bazy danych musi mieć do niej pełne prawa.
 
-4. Instalator wprowadzi rekordy do bazy danych dla WSZYSTKICH dostępnych na serwerze języków.
+4. Jeżeli widzisz tylko białą stronę lub błąd 500, przeczytaj ostatnią sekcję tego pliku dotyczącą .htaccess.
 
-5. Po instalacji USUŃ KATALOG INSTALL!
+5. Instalator wprowadzi rekordy do bazy danych dla WSZYSTKICH dostępnych na serwerze języków.
 
-6. Zaloguj się i dostosuj system w panelu administracyjnym.
+6. Po instalacji USUŃ KATALOG INSTALL!
+
+7. Zaloguj się i dostosuj system w panelu administracyjnym.
 
 
 Aktualizacje i pomoc techniczna
@@ -94,9 +96,9 @@ Tylko użytkownicy z rangą Redaktor, Administrator lub Właściciel mogą edyto
 Opcje konfiguracyjne serwera
 ============================
 
-Domyślna instalacja F3Site nie zmienia opcji konfiguracyjnych serwera PHP. Jeżeli instalator zaalarmuje, że są włączone ustawienia wpływające negatywnie na wydajność i bezpieczeństwo, zaleca się je wyłączyć. W tym celu przeczytaj dokumentację Twojego hostingu, aby dowiedzieć się, jak zmieniać opcje PHP.
+F3Site domyślnie zawiera 3 pliki .htaccess, aby uaktywnić przyjazne adresy URL i zmienić niektóre opcje PHP. Na niektórych serwerach ich zawartość lub obecność może powodować problemy.
 
-Na większości serwerów zadziałają następujące wpisy w pliku .htaccess w głównym katalogu:
+Najważniejsze opcje, które zwiększają bezpieczeństwo:
 
 php_flag session.use_only_cookies 1
 php_flag session.use_trans_sid 0
@@ -104,3 +106,5 @@ php_flag register_globals 0
 php_flag magic_quotes_gpc 0
 
 Jeżeli serwer nie obsługuje komendy php_flag, zostanie wyświetlona pusta strona lub błąd 500. Część hostingów interpretuje polecenie SetEnv. Sprawdź, czy panel administracyjny serwera umożliwia zmianę opcji.
+
+Zapoznaj się z dokumentacją serwera, aby poznać dozwolone komendy. Jeżeli w żaden sposób nie możesz pozbyć się problemów, usuń plik .htaccess z głównego folderu, ADMIN oraz w ostateczności CFG.

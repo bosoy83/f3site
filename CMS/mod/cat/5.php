@@ -59,7 +59,7 @@ foreach($res as $n)
 #Strony
 if(isset($cfg['newsPages']) && $cat['num'] > $num)
 {
-	$pages = pages($page, $cat['num'], $cfg['newsNum'], $d);
+	$pages = pages($page, $cat['num'], $cfg['newsNum'], $d, 0, '/');
 }
 else
 {

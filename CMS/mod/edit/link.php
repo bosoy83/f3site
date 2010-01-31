@@ -1,6 +1,9 @@
 <?php
 if(EC!=1) exit;
 
+#Zapisz jako nowy
+if(isset($_POST['asNew'])) $id = 0;
+
 #Tytu³ i szablon
 $content->title = $id ? $lang['edit4'] : $lang['add4'];
 $content->file  = 'edit_link';
@@ -87,5 +90,6 @@ else
 #Dane
 $content->data = array(
 	'link' => &$link,
+	'id'   => $id,
 	'cats' => Slaves(4,$link['cat'])
 );

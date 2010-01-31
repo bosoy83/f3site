@@ -2,6 +2,13 @@
 if(iCMS!=1) exit;
 require LANG_DIR.'profile.php';
 
+#Tylko dla zalogowanych
+if(isset($cfg['hideUser']) && !UID)
+{
+	$content->info($lang['mustLogin'], null, 'error');
+	return 1;
+}
+
 #User ID or login
 if(isset($URL[1]))
 {
@@ -27,7 +34,7 @@ define('NA',$lang['na']);
 $u['about'] = nl2br(emots($u['about']));
 
 #BBCode
-if(isset($cfg['bbcode']))
+if(isset($cfg['bbcode']) && $u['about'])
 {
 	include_once './lib/bbcode.php';
 	$u['about'] = BBCode($u['about']);
@@ -37,7 +44,7 @@ if(isset($cfg['bbcode']))
 $u['www'] = ($u['www'] && $u['www']!='http://') ? $u['www'] : null;
 
 #E-mail
-if($u['opt'] & 1)
+if($u['opt'] & 1 && (UID || empty($cfg['hideMail'])))
 {
 	$u['mail'] = str_replace('@', '&#64;', $u['mail']);
 	$u['mail'] = str_replace('.', '&#46;', $u['mail']);
@@ -54,9 +61,6 @@ switch($u['sex'])
 	case 2: $u['sex'] = $lang['female']; break;
 	default: $u['sex'] = false;
 }
-
-#PM
-$pm = isset($cfg['pmOn']) && UID ? 'pms/edit?to='.$u['ID'] : false;
 
 #URL linku EDYTUJ
 if(UID)
@@ -79,12 +83,27 @@ else
 	$may = false;
 }
 
-#Do szablonu
+#Grupy
+$g = array();
+$r = $db->query('SELECT g.ID,g.name,g.num FROM '.PRE.'groups g INNER JOIN '.
+	PRE.'groupuser u ON g.ID=u.g WHERE u.u='.$u['ID'].' ORDER BY g.num DESC');
+
+foreach($r as $x)
+{
+	$g[] = array(
+		'title' => $x['name'],
+		'num'   => $x['num'],
+		'url'   => url('group/'.$x['ID'])
+	);
+}
+
+#Szablon
 $content->title = $u['login'];
 $content->data  = array(
 	'u'  => &$u,
-	'pm' => $pm,
+	'pm' => isset($cfg['pmOn']) && UID ? url('pms/edit', 'to='.$u['ID']) : false,
 	'edit' => $may,
+	'group' => $g,
 	'users'  => url('users'),
 	'join_date' => genDate($u['regt'],1), //Data rejestracji
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],1) : NA

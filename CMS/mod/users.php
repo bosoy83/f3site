@@ -1,6 +1,13 @@
 <?php /* Lista u¿ytkowników */
 if(iCMS!=1) exit;
-require(LANG_DIR.'profile.php'); #Plik jêzyka
+require(LANG_DIR.'profile.php');
+
+#Tylko dla zalogowanych
+if(isset($cfg['hideUser']) && !UID)
+{
+	$content->info($lang['mustLogin'], null, 'error');
+	return 1;
+}
 
 #Tytu³ strony
 $content->title = $lang['users'];
@@ -46,11 +53,15 @@ if(isset($cfg['userFind']))
 if($id)
 {
 	$param[] = 'ID IN (SELECT u FROM '.PRE.'groupuser WHERE g='.$id.')';
-	$url[] = 'id='.$id;
+	$toURL = url('users/'.$id);
+}
+else
+{
+	$toURL = url('users');
 }
 
 #Licz
-$total = dbCount('users'.($url ? ' WHERE '.join(' AND ',$param) : ''));
+$total = dbCount('users'.($param ? ' WHERE '.join(' AND ',$param) : ''));
 
 #Brak?
 if($total < 1)
@@ -77,7 +88,7 @@ else
 }
 
 #Odczyt
-$res = $db->query('SELECT ID,login,lv,regt,city FROM '.PRE.'users'.(($url)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,lv,regt,city FROM '.PRE.'users'.(($param)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
 
 $res->setFetchMode(3);
 unset($param);
@@ -116,14 +127,14 @@ $content->data = array(
 	'total' => $total,
 	'id'    => $id,
 	'find'  => isset($cfg['userFind']),
-	'joined_url' => url('users', 'sort=2'.$url),
-	'login_url'  => url('users', 'sort=1'.$url),
-	'last_url'   => url('users', 'sort=3'.$url),
+	'joined_url' => url($toURL, 'sort=2'.$url),
+	'login_url'  => url($toURL, 'sort=1'.$url),
+	'last_url'   => url($toURL, 'sort=3'.$url),
 	'find_login' => !empty($sl) ? $sl : '',
 	'find_www'   => !empty($www) ? $www : '',
 	'find_place' => !empty($pl) ? $pl : '',
 	'find_gg'    => !empty($gg) ? $gg : '',
-	'pages'      => pages($page,$total,30,url('users',$sortURL.$url),1)
+	'pages'      => pages($page,$total,30,url($toURL,$sortURL.$url))
 );
 
 #Usuñ zbêdne dane

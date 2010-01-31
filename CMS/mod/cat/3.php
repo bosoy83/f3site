@@ -30,7 +30,7 @@ if($total === 0): $content->info($lang['noc']); return 1; endif;
 #Strony
 if($cat['num'] > $total)
 {
-	$pages = pages($page,$cat['num'],$cfg['inp'],$d);
+	$pages = pages($page,$cat['num'],$cfg['inp'],$d,0,'/');
 }
 else
 {

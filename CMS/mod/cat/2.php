@@ -25,7 +25,7 @@ foreach($res as $file)
 }
 
 #Strony
-$pages = $cat['num']>$total ? pages($page,$cat['num'],$cfg['np'],$d) : null;
+$pages = $cat['num']>$total ? pages($page,$cat['num'],$cfg['np'],$d,0,'/') : null;
 
 #Do szablonu
 $content->file[] = 'cat_files';

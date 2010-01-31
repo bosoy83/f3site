@@ -6,12 +6,14 @@ require LANG_DIR.'profile.php';
 #Usuñ + 2 triggers
 if(isset($_POST['del']) && !isset($_POST['x'][1]) && $x = GetID(true))
 {
-	$db->beginTransaction();
 	$res = $db->query('SELECT ID FROM '.PRE.'users WHERE ID IN('.$x.')'.(UID!=1 ? ' AND lv<'.LEVEL : ''));
 	if($all = join(',', $res->fetchAll(7))) //FETCH_COLUMN
 	{
+		$db->beginTransaction();
 		$db->exec('DELETE FROM '.PRE.'users WHERE ID IN ('.$all.')');
 		$db->exec('DELETE FROM '.PRE.'pollvotes WHERE user IN ('.$all.')');
+		$db->exec('DELETE FROM '.PRE.'groupuser WHERE u IN ('.$all.')');
+		$db->exec('UPDATE '.PRE.'groups SET num=(SELECT COUNT(*) FROM '.PRE.'groupuser WHERE g=ID)');
 		$db->exec('DELETE FROM '.PRE.'comms WHERE (guest!=1 AND author IN('.$all.'))
 		OR (type=10 AND CID IN('.$all.'))');
 		$db->commit();
@@ -19,7 +21,7 @@ if(isset($_POST['del']) && !isset($_POST['x'][1]) && $x = GetID(true))
 }
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
 	$st = ($page-1)*30;
@@ -78,5 +80,5 @@ $content->title = $lang['users'];
 $content->data = array(
 	'users' => &$users,
 	'search'=> $s,
-	'pages' => pages($page,$total,30,url('users','?s='.$s,'admin'),1)
+	'pages' => pages($page,$total,30,url('users','s='.$s,'admin'),1)
 );

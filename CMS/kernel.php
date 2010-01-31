@@ -92,9 +92,9 @@ session_start();
 $nlang = $cfg['lang'];
 
 #Język: zmiana
-if(isset($_GET['setlang']) && ctype_alnum($_GET['setlang']) && is_dir('./lang/'.$_GET['setlang']))
+if(isset($_GET['lang']) && ctype_alnum($_GET['lang']) && is_dir('./lang/'.$_GET['lang']))
 {
-	$nlang = $_SESSION['lang'] = $_GET['setlang'];
+	$nlang = $_SESSION['lang'] = $_GET['lang'];
 	setcookie('lang', $nlang, time()+23328000); //9 miesięcy
 }
 #Język: sesja
@@ -361,7 +361,7 @@ function pages($page,$ile,$max,$url='',$type=0,$p='')
 	$out = '';
 
 	#URL
-	if(!$p) $p = strpos($url, '?')!==false ? '?page=' : '&amp;page=';
+	if(!$p) $p = strpos($url, '?')===false ? '?page=' : '&amp;page=';
 
 	#Select
 	if($type)
@@ -388,7 +388,14 @@ function pages($page,$ile,$max,$url='',$type=0,$p='')
 					$i = $all;
 				}
 			}
-			$out.='<a class="'.($page==$i ? 'pageAct' : '').'" href="'.$url.($i>1 ? $p.$i : '').'">'.$i.'</a>';
+			if($page==$i)
+			{
+				$out.='<a class="pageAct">'.$i.'</a>';
+			}
+			else
+			{
+				$out.='<a href="'.$url.($i>1 ? $p.$i : '').'">'.$i.'</a>';
+			}
 		}
 		return $out;
 	}

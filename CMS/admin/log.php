@@ -8,7 +8,7 @@ if($_POST && $x = GetID(true))
 }
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
 	$st = ($page-1)*30;

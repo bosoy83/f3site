@@ -1,6 +1,9 @@
 <?php
 if(EC!=1) exit;
 
+#Zapisz jako nowy
+if(isset($_POST['asNew'])) $id = 0;
+
 #Szablon i tytu³
 $content->file = 'edit_img';
 $content->title = $id ? $lang['edit3'] : $lang['add3'];
@@ -91,6 +94,7 @@ $content->addScript('lib/editor.js');
 #Dane + rozmiar
 $content->data = array(
 	'img'  => &$img,
+	'id'   => $id,
 	'cats' => Slaves(3,$img['cat']),
 	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
 	'fileman' => admit('FM') ? true : false

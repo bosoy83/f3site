@@ -14,6 +14,7 @@ $lang+=Array(
 'saved'=>'The item has been saved.',
 'goCat'=>'Go to its category',
 'doCat'=>'Manage other items in the category',
+'asNew'=>'Save as new',
 
 'emo'=>'Emoticons',
 'br'=>'ENTER = line break',

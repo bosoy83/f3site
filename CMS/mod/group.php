@@ -32,7 +32,7 @@ if(isset($URL[2]))
 			try
 			{
 				$db->beginTransaction();
-				$q = $db->prepare('REPLACE INTO '.PRE.'groupuser (u,g,date) VALUES (?,?,?)');
+				$q = $db->prepare('INSERT INTO '.PRE.'groupuser (u,g,date) VALUES (?,?,?)');
 				$q->execute(array(UID, $id, $_SERVER['REQUEST_TIME']));
 				$db->prepare('UPDATE '.PRE.'groups SET num=num+1 WHERE ID=?')->execute(array($id));
 				$db->commit();
@@ -89,6 +89,8 @@ $group['date'] = genDate($group['date']);
 
 #Kto do³±czy³
 $new = array();
+
+if(UID || empty($cfg['hideUser'])):
 $res = $db->query('SELECT * FROM '.PRE.'users u INNER JOIN '.PRE.'groupuser g ON u.ID=g.u WHERE g.g='.$id);
 foreach($res as $x)
 {
@@ -98,18 +100,19 @@ foreach($res as $x)
 		'url'   => url('user/'.urlencode($x['login']))
 	);
 }
+endif;
 
 #Tytu³ i dane do szablonu
 $content->data = array(
 	'group'  => &$group,
 	'user'   => &$new,
-	'edit'   => admit('G') ? url('editGroup/'.$id, '', 'admin') : false,
+	'edit'   => admit('G') ? url('editGroup/'.$id, 'ref', 'admin') : false,
 	'groups' => url('groups'),
 	'status' => $group['opened'] ? $lang['open'] : $lang['shut'],
 	'join'   => $mayJoin ? url($url.'/join') : false,
 	'leave'  => $mayLeave ? url($url.'/leave') : false,
 	'query'  => $mayJoin ? $askJoin : ($mayLeave ? $askLeave : false),
-	'all'    => $new ? url('users', 'id='.$id) : ''
+	'all'    => url('users/'.$id)
 );
 
 #Komentarze

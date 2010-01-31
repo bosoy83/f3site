@@ -26,7 +26,7 @@ foreach($res as $art)
 if($total===0) { $content->info($lang['noc']); return 1; }
 
 #Strony
-$pages = $cat['num'] > $total ? pages($page,$cat['num'],$cfg['np'],$d) : null;
+$pages = $cat['num'] > $total ? pages($page,$cat['num'],$cfg['np'],$d,0,'/') : null;
 
 #Do szablonu
 $content->file[] = 'cat_arts';

@@ -12,9 +12,21 @@ if(!$link = $db->query('SELECT l.*,c.opt FROM '.PRE.'links l INNER JOIN '.PRE.'c
 #Tytu³ strony
 $content->title = $link['name'];
 
+#Ocena
+if(isset($cfg['lrate']) AND $link['opt'] & 4)
+{
+	$content->addCSS(SKIN_DIR.'rate.css');
+	$rate = 'vote.php?type=4&amp;id='.$id;
+}
+else
+{
+	$rate = 0;
+}
+
 #Do szablonu
 $content->data = array(
 	'link' => &$link,
+	'rates'=> &$rate,
 	'edit' => admit($link['cat'],'CAT') ? url('edit/4/'.$id,'ref') : false,
 	'path' => catPath($link['cat']),
 	'cats' => url('cats/links')

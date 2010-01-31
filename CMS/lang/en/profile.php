@@ -1,5 +1,4 @@
-<?php
-$lang+=Array(
+<?php $lang+=Array(
 'na'=>'N/A',
 'sex'=>'Gender',
 'male'=>'Male',
@@ -24,8 +23,11 @@ $lang+=Array(
 'seeAll'=>'Show all',
 'lastJoin'=>'Who is new?',
 'founder'=>'Moderator',
+'youMember'=>'You belong to this group.',
 'wantJoin'=>'Do you want to join %s?',
 'wantLeave'=>'Do you want to leave %s?',
+'noGroup'=>'There is no group yet.',
+'addGroup'=>'Create a group',
 'joinOK'=>'You have joined the group.',
 'leaveOK'=>'You have left the group.',
 
@@ -52,6 +54,7 @@ $lang+=Array(
 'maxHeight'=>'Max. height',
 'maxSize'=>'Max. size',
 
+'mustLogin'=>'Log in to view this page!',
 'regoff'=>'Registration of new users has been disabled.',
 'nousers'=>'No users',
 'group'=>'Group',

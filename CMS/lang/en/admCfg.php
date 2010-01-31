@@ -53,6 +53,10 @@ $lang+=Array(
 
 'userCom'=>'Comments in user\'s profile',
 'userCom2'=>'Allows to comment users. NOTE: Commented user may delete comments!',
+'hideMail'=>'Show E-Mails only to logged in',
+'hideMail2'=>'Displays E-Mail addresses only to logged in users to increase their security.',
+'hideUser'=>'Show profiles only to logged in',
+'hideUser2'=>'Hides user profiles and list from anonymous.',
 'pmOn'=>'Enable private messages',
 'pmMax'=>'Limit of private messages',
 'userFind'=>'Search users',

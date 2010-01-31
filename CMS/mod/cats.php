@@ -50,7 +50,7 @@ elseif($total === 1)
 	require './cfg/content.php';
 	if(isset($cfg['goCat']))
 	{
-		$URL[0] = $x[0];
+		$URL = array($x[0]);
 		unset($cat,$x,$total,$res);
 		require './lib/category.php';
 	}

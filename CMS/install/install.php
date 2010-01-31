@@ -10,6 +10,7 @@ class Installer
 		$urlMode;
 	protected
 		$catid = array(), //ID kategorii startowych
+		$need = array(),  //Wrong CHMOD
 		$db;
 
 	#Wybierz obsługiwany język
@@ -177,6 +178,7 @@ class Installer
 		#Tytuł strony i format URL
 		$cfg['title'] = $this->title;
 		$cfg['niceURL'] = $this->urls;
+		$cfg['captcha'] = extension_loaded('gd') ? 1 : 0;
 
 		$o = new Config('main');
 		$o->add('cfg', $cfg);
@@ -258,7 +260,63 @@ class Installer
 	#Zbadaj CHMOD-y
 	function chmods()
 	{
-		return true;
+		$table = array(
+			'cache',
+			'cfg',
+			'rss',
+			'img/user',
+		);
+		if(file_exists('cfg/db.db') && !is_writable('cfg/db.db'))
+		{
+			@chmod('cfg/db.db', 0600);
+		}
+		foreach($table as $folder)
+		{
+			if(!is_writable($folder) || !is_readable($folder))
+			{
+				@chmod($folder, 0777);
+				if(!is_writable($folder))
+				{
+					$this->need[] = array(
+						'file' => $folder,
+						'good' => '777',
+						'bad'  => substr(sprintf('%o', fileperms($folder)), -3)
+					);
+				}
+			}
+			foreach(scandir($folder) as $file)
+			{
+				$path = $folder.'/'.$file;
+				if($file[0] != '.' && (!is_writable($path) || !is_readable($path)))
+				{
+					if(is_dir($path))
+					{
+						@chmod($path, 0777);
+						$chmod = '777';
+					}
+					else
+					{
+						@chmod($path, 0666);
+						$chmod = '666';
+					}
+					if(!is_writable($path))
+					{
+						$this->need[] = array(
+							'file' => $path,
+							'good' => $chmod,
+							'bad'  => substr(sprintf('%o', fileperms($path)), -3)
+						);
+					}
+				}
+			}
+		}
+		return empty($this->need);
+	}
+
+	#Pobierz tablicę CHMOD-ów
+	function buildChmodTable()
+	{
+		return $this->need;
 	}
 }
 

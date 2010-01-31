@@ -1,6 +1,9 @@
 <?php
 if(EC!=1) exit;
 
+#Zapisz jako nowy
+if(isset($_POST['asNew'])) $id = 0;
+
 #Tytu³ i szablon
 $content->title = $id ? $lang['edit1'] : $lang['add1'];
 $content->file = 'edit_art';
@@ -141,6 +144,7 @@ $content->addScript('lib/editor.js');
 #Dane + URL + kategorie
 $content->data = array(
 	'art' => &$art,
+	'id'  => $id,
 	'full' => &$full,
 	'cats' => Slaves(1,$art['cat'])
 );
