@@ -32,10 +32,10 @@ if($_POST)
 
 		if($full[$i][2] & 4)
 		{
-			$full[$i][1] = preg_replace(array(
-				'#<(pre)([^>]*)>(.*?)</pre>#sie',
-				'#<(code)([^>]*)>(.*?)</code>#sie'),
-				'"<\\1\\2>".htmlspecialchars("\\3",0)."</\\1>"', $full[$i][1]);
+			$full[$i][1] = preg_replace_callback(array(
+			'#<(pre)([^>]*)>(.*?)</pre>#si',
+			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
+			'return "<$x[1]>".htmlspecialchars($x[3],0)."</$x[1]>";'), $full[$i][1]);
 		}
 	}
 
@@ -129,10 +129,10 @@ foreach($full as $key=>&$val)
 	$full[$key] += array('br' => $val[2]&1, 'emo' => $val[2]&2, 'code' => $val[2]&4);
 	if($full[$key]['code'])
 	{
-		$full[$key][1] = preg_replace(array(
-			'#<(pre)([^>]*)>(.*?)</pre>#sie',
-			'#<(code)([^>]*)>(.*?)</code>#sie'),
-			'"<\\1\\2>".htmlspecialchars_decode("\\3",0)."</\\1>"', $full[$key][1]);
+		$full[$key][1] = preg_replace_callback(array(
+			'#<(pre)([^>]*)>(.*?)</pre>#si',
+			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
+			'return "<$x[1]>".htmlspecialchars_decode($x[3],0)."</$x[1]>";'), $full[$key][1]);
 	}
 }
 

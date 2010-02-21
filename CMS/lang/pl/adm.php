@@ -13,7 +13,7 @@
 'ads'=>'Losowe reklamy',
 'plugs'=>'Rozszerzenia',
 
-'goto'=>'Zobacz treść',
+'goto'=>'Przejdź do %s',
 'ed2'=>'Edytuj ponownie',
 
 'admin'=>'Administrator',

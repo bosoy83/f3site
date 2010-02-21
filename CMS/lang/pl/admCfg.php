@@ -29,11 +29,11 @@ $lang+=Array(
 'url3'=>'Wyłączone',
 'warn'=>'Nieprawidłowe ustawienie tej opcji zdestabilizuje serwis! Czy jesteś pewny, że funkcja jest dostępna na serwerze?',
 
-'date'=>'Ustawienia daty',
+'date'=>'Data i czas',
 'now1'=>'Format aktualnej daty',
 'now2'=>'Patrz w podręczniku PHP:',
 'date1'=>'Format daty',
-'date2'=>'%d - dzień &nbsp;&nbsp;%m - mies. &nbsp;&nbsp;%Y - rok',
+'date2'=>'%d - dzień &nbsp;&nbsp;%m - miesiąc &nbsp;&nbsp;%Y - rok',
 'time1'=>'Format godziny',
 'time2'=>'%H - godzina &nbsp;&nbsp;%M - minuta &nbsp;&nbsp;%S - sekunda',
 'lastv'=>'Zapisuj datę ostatniej wizyty',
@@ -71,6 +71,7 @@ $lang+=Array(
 'commSort1'=>'Od najnowszego',
 'commSort2'=>'Od najstarszego',
 'hideTitle'=>'Ukryj pole Tytuł',
+'colorCode'=>'Koloruj kod w znaczniku [code]',
 'moderate'=>'Cenzura komentarzy',
 'moder2'=>'Komentarze będą widoczne dla wszystkich po ich zatwierdzeniu przez moderatorów.',
 'guestComm'=>'Pozwól gościom komentować',
@@ -79,6 +80,7 @@ $lang+=Array(
 'spam'=>'Domyślnie goście nie mogą publikować adresów URL w celu ochrony przed spamem.',
 
 'common'=>'Włącz komentarze',
+'sortPoll'=>'Sortuj wyniki wg ilości głosów',
 'round'=>'Zaokrąglij % do cyfr po przecinku',
 'round2'=>'Dotyczy wyników. 0 = bez cyfr po przecinku.',
 

@@ -13,7 +13,7 @@
 'ads'=>'Zufallsgehalt',
 'plugs'=>'Erweiterungen',
 
-'goto'=>'Gehalt sehen',
+'goto'=>'%s zeigen',
 'ed2'=>'Wieder Ändern',
 
 'admin'=>'Administrator',

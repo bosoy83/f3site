@@ -1,59 +1,66 @@
 //Create new CHATROOM
-function Chat(formID, out)
+function Chat(opt)
 {
-	//Form onsubmit action
 	var self = this;
-	this.form = document.forms[formID];
-	this.form.onsubmit = function() { self.post(); return false };
+	opt = opt || {};
 
 	//Input field
-	this.input = this.form.txt;
+	this.input = opt.inbox || $('chatIn');
 
 	//Output box - may be table or div
-	this.output = out || $('chatout');
+	this.output = opt.outbox || $('chatOut');
 
 	//Topic box
-	//this.topicBox = $('chatTopic');
+	this.topicBox = opt.topic || $('chatTopic');
 
 	//Scrolled chat box - div recommended
 	this.chatBox = this.output.parentNode;
 
+	//Check if boxes exist
+	if(!this.output) throw new Exception('Set "outbox" option as output element!');
+	if(!this.input)  throw new Exception('Set "inbox" option as <input> element!');
+
 	//Chatroom name
-	this.room = 'main';
+	this.room = opt.room || 'main';
 
 	//Disallow HTML
-	this.HTML = false;
+	this.HTML = opt.HTML || false;
 
 	//Your nickname
-	this.nick = 'testNICK';
+	this.nick = opt.nick || 'Guest';
 
 	//Default nickname - if not specified
 	this.anonym = '';
 
-	//Last date
+	//Last date and post ID
 	this.lastTime = '';
+	this.lastID = 0;
+
+	//Maximum message length
+	this.maxLength = opt.maxLength || 500;
+
+	//Get messages every...
+	this.timer = new Timer(function() { self.http.get() }, opt.interval || 8);
 
 	//Default tags
-	this.oneTag = 'tr';
-	this.timeTag = this.nickTag = this.msgTag = 'td';
+	this.oneTag = opt.itemTag || 'tr';
+	this.timeTag = opt.timeTag || 'td';
+	this.nickTag = opt.nickTag || 'td';
+	this.msgTag = opt.msgTag || 'td';
 
 	//Default classes
-	this.timeClass = 'chatTime';
-	this.nickClass = 'chatNick';
-	this.msgClass  = 'chatMsg';
+	this.timeClass = opt.timeClass || 'chatTime';
+	this.nickClass = opt.nickClass || 'chatNick';
+	this.msgClass  = opt.msgClass || 'chatMsg';
 
 	//AJAX request object
-	this.http = new Request('request.php?co=chat');
+	this.http = new Request(opt.url || 'request.php?go=chat');
 
 	//Response handler
 	this.http.done = function(x)
 	{
-		//TODO: native JSON parser in js.js
-		if(window.JSON) x = JSON.parse(x); else x = eval(x);
-		for(var i in x)
-		{
-			self.insert(x[i]);
-		}
+		x = getJSON(x);
+		for(var i in x) self.insert(x[i])
 	};
 
 	//If failed
@@ -63,22 +70,42 @@ function Chat(formID, out)
 	this.input.onkeydown = function(e)
 	{
 		if(e == undefined) e = event;
-		if(e.keyCode == 13 && !e.shiftKey) { this.form.onsubmit(); return false }
+		if(e.keyCode == 13 && !e.shiftKey)
+		{
+			if(e.preventDefault) e.preventDefault();
+			self.post();
+			return false
+		}
 	};
 
 	//Autofocus input
 	this.input.focus();
-
-	//Interval in seconds
-	this.interval = 5;
+	this.timer.start();
 }
 
 //Post a message
 Chat.prototype.post = function()
 {
+	//Msg may NOT be empty
 	if(this.input.value == '') return false;
-	this.http.send({msg: this.input.value});
-	this.insert({msg: this.purify(this.input.value), nick: this.nick})
+
+	//Reset the timer
+	this.timer.reset();
+
+	//Post message and last time
+	this.http.post({
+		msg:  this.input.value,
+		last: this.lastID
+	});
+
+	//Insert new post now
+	this.insert({
+		msg:  this.purify(this.input.value),
+		nick: this.nick
+	})
+
+	//Clear input text
+	this.input.value = '';
 };
 
 //Change nickname
@@ -123,7 +150,9 @@ Chat.prototype.insert = function(x)
 	one.appendChild(nick);
 	one.appendChild(msg);
 	this.output.appendChild(one);
-	this.input.value = '';
+
+	//Set last ID
+	this.lastID = x;
 
 	//Scroll down the output box
 	if(scroll) this.chatBox.scrollTop = this.chatBox.scrollHeight;
@@ -142,3 +171,29 @@ Chat.prototype.profile = function(nick, uid)
 {
 	return '<a href="user/' + encodeURI(nick) + '">' + nick + '</a>'
 };
+
+//Clear chat
+Chat.prototype.clear = function()
+{
+	this.output.innerHTML = ''
+}
+
+//Interval overloader
+function Timer(code, time)
+{
+	this.code = code;
+	this.time = time || 10;
+}
+Timer.prototype.start = function(time)
+{
+	this.id = setInterval(this.code, (time || this.time)*1000)
+};
+Timer.prototype.stop = function()
+{
+	clearInterval(this.id)
+};
+Timer.prototype.reset = function(time)
+{
+	this.stop();
+	this.start();
+}

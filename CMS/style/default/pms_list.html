@@ -1,20 +1,19 @@
-<form action="{url}" method="post">
+<form action="{url}" method="post" id="pms">
 <h2>{this.title}</h2>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<th>{lang.topic}</th>
-	<th>{who}</th>
-	<th><input type="checkbox" onclick="sAll(this)" /></th>
+	<th style="width: 160px">{who}</th>
+	<th style="width: 7px"><input type="checkbox" onclick="sAll(this)" /></th>
 </tr>
 
 <!-- START pm -->
 
 <tr>
-	<td>{num}. <a href="{url}"><!-- IF new --><b>{topic}</b><!-- ELSE -->{topic}<!-- END --></a></td>
-	<td align="center"><a href="{user_url}">{login}</a></td>
-	<td style="width: 7px"><input type="checkbox" name="x[{id}]" /></td>
+	<td><a href="{url}"><!-- IF new --><b>{topic}</b><!-- ELSE -->{topic}<!-- END --></a></td>
+	<td align="center"><a href="{userURL}">{login}</a></td>
+	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 
 <!-- STOP -->
@@ -27,16 +26,13 @@
 		{lang.page}: {pages}
 	</td>
 </tr>
-</tbody>
 </table>
 </form>
 
 <script type="text/javascript">
-//<![CDATA[
 function sAll(s)
 {
-	var x=document.getElementsByTagName('input');
-	for(var i=0;i<x.length;i++) { if(x[i].name.indexOf('x')==0) x[i].checked=s.checked }
+	var x = document.forms['pms'].elements;
+	for(var i=0;i<x.length;i++) { x[i].checked = s.checked }
 }
-//]]>
 </script>

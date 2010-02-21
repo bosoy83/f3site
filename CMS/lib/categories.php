@@ -168,7 +168,7 @@ function Slaves($type=0,$id=0,$o=null)
 	}
 
 	#Odczyt
-	$res = $GLOBALS['db']->query('SELECT ID,name,lft,rgt FROM '.PRE.'cats'.
+	$res = $GLOBALS['db']->query('SELECT ID,name,access,lft,rgt FROM '.PRE.'cats'.
 		(($where)?' WHERE '.join(' AND ',$where):'').' ORDER BY lft');
 	$depth = 0;
 	$last = 1;
@@ -188,8 +188,9 @@ function Slaves($type=0,$id=0,$o=null)
 
 		$last = $cat['rgt'];
 
-		$o.='<option value="'.$cat['ID'].'"'.(($id==$cat['ID'])? ' selected="selected"':'').
-			'" style="padding-left: '.$depth.'em">'.$cat['name'].'</option>';
+		$o.='<option value="'.$cat['ID'].'"'.($id==$cat['ID'] ? ' selected="selected"' : '').
+			'" style="padding-left: '.$depth.'em' . ($cat['access']=='3' ?
+			'; color: gray':'').'">'.$cat['name'].'</option>';
 	}
 	return $o;
 }

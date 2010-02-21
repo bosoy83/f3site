@@ -1,17 +1,17 @@
-<?php /* Pe³ny news */
+<?php
 if(iCMS!=1) exit;
 require './cfg/content.php';
 
-#Pobierz dane
-if($id)
-{
-	$res = $db->query('SELECT n.*,c.opt as catOpt FROM '.PRE.'news n LEFT JOIN '.
-	PRE.'cats c ON n.cat=c.ID WHERE n.access=1 AND c.access!=3 AND n.ID='.$id);
+#Get record
+if(!$news = $db->query('SELECT n.*,c.opt as catOpt FROM '.PRE.'news n LEFT JOIN '.
+PRE.'cats c ON n.cat=c.ID WHERE c.access!=3 AND n.ID='.$id) -> fetch(2)) return;
 
-	#Do tablicy
-	if(!$news = $res->fetch(2)) return;
+#Disabled
+if(!$news['access'])
+{
+	if(!admit($news['cat'],'CAT')) return;
+	$content->info(sprintf($lang['NVAL'], $news['name']), null, 'warning');
 }
-else return;
 
 #Pe³na treœæ
 if($news['opt']&4)

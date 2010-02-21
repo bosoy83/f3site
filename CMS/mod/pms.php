@@ -10,27 +10,20 @@ $content->title = $lang['pm3'];
 #Jest dostêp?
 if(isset($cfg['pmOn']) && UID)
 {
-	#Nowe PM
-	if($user['pms']==0)
-	{
-		$pm_new = $lang['zero'];
-	}
-	else
-	{
-		$pm_new = $user['pms']==1 ? $lang['new1'] :
-			str_replace('%', '<b>'.$user['pms'].'</b>', $lang['new2']);
-	}
+	#Razem PM
+	$size = $db->query('SELECT COUNT(*) FROM '.PRE.'pms WHERE owner='.UID)->fetch(7);
 
 	#Dane do szablonu
 	$content->data = array(
-		'new'   => $pm_new,
+		'new'   => $user['pms'],
 		'write' => url('pms/edit'),
 		'inbox' => url('pms'),
 		'sent'  => url('pms/sent'),
 		'outbox'=> url('pms/outbox'),
 		'drafts'=> url('pms/drafts'),
-		'limit' => (int)$cfg['pmLimit'],
-		'size'  => (int)$db->query('SELECT COUNT(*) FROM '.PRE.'pms WHERE owner='.UID)->fetch(7)
+		'limit' => $cfg['pmLimit'],
+		'size'  => $size,
+		'quota' => $cfg['pmLimit']>0 && $size>0 ? $size / $cfg['pmLimit'] * 100 : 0
 	);
 
 	#Akcja

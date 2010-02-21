@@ -71,6 +71,7 @@ $lang+=Array(
 'commSort1'=>'Absteigend',
 'commSort2'=>'Ansteigend',
 'hideTitle'=>'Hide Feld Titel',
+'colorCode'=>'Code in [code] highlighten',
 'moderate'=>'Kommentare Moderation',
 'moder2'=>'Kommentare müssen akzieptert werden.',
 'guestComm'=>'Gäste mögen kommentieren',
@@ -79,6 +80,7 @@ $lang+=Array(
 'spam'=>'Abschalt es wenn Roboter posten SPAM.',
 
 'common'=>'Kommentare anschalten',
+'sortPoll'=>'Nach Anzahl der Stimmen sortieren',
 'round'=>'Zahlen nach Komma im % runden',
 'round2'=>'Betrifft Resultate. 0 = ohne Komma.',
 

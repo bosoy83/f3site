@@ -1,0 +1,9 @@
+php_value session.use_only_cookies 1
+php_value session.use_trans_sid 0
+php_value register_globals 0
+php_value magic_quotes_gpc 0
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.+) index.php?go=$1 [L,QSA]

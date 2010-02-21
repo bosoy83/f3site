@@ -18,7 +18,7 @@ switch($act)
 		break;
 	case 4:
 		$type = $lang['links'];
-		$href = isset($cfg['linkFull']) ? url('link/') : 'go.php?link=';
+		$href = url('link/');
 		$table = 'links';
 		$table2 = false;
 		break;
@@ -139,7 +139,7 @@ $total = dbCount($table.$param);
 #Brak?
 if($total == 0)
 {
-	if($id) header('Location: '.URL.url('edit/'.$act, 'catid='.$id));
+	header('Location: '.URL.url('edit/'.$act, $id ? 'catid='.$id : null));
 	$content->info($lang['noc']);
 	return 1;
 }

@@ -13,7 +13,7 @@
 'ads'=>'Random ads',
 'plugs'=>'Extensions',
 
-'goto'=>'View item',
+'goto'=>'View %s',
 'ed2'=>'Edit again',
 
 'admin'=>'Administrator',

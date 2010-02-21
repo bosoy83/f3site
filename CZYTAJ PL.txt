@@ -10,7 +10,8 @@ Niniejszy program rozpowszechniany jest z nadzieją, iż będzie on użyteczny -
 Kopia Powszechnej Licencji Publicznej GNU powinna zostać ci dostarczona razem z tym programem. Jeżeli nie została dostarczona, odwiedź <http://www.gnu.org/licenses/>.
 
 System korzysta z komponentów:
-* ikony Silk i Flags - http://www.famfamfam.com
+* Ikony Silk i Flags - http://www.famfamfam.com
+* Google Code Prettify - http://google-code-prettify.googlecode.com
 
 
 Wymagania

@@ -1,13 +1,22 @@
 <?php
 if(iCMS!=1) exit;
 
-#Pobierz
-if($id)
+#Get record
+if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id)->fetch(2)) return;
+
+#Rights
+$edit = admit('P');
+
+#Unavailable (0) or for logged in (3)
+if($page['access'] != 1)
 {
-	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id.
-	' AND (access=1'.((UID) ? ' OR access=3' : '').')')->fetch(2)) return;
+	if(!$page['access'])
+	{
+		if(!$edit) return;
+		$content->info(sprintf($lang['NVAL'], $page['name']), null, 'warning');
+	}
+	elseif(!UID) return;
 }
-else return;
 
 #PHP - nale¿y wykonaæ go najpierw
 if($page['opt'] & 16)
@@ -34,12 +43,13 @@ $content->title = $page['name'];
 $content->data = array(
 	'page' => &$page,
 	'box'  => $page['opt'] & 4,
-	'edit' => admit('P') ? url('editPage/'.$page['ID'], '', 'admin') : false
+	'all'  => $edit ? url('pages','','admin') : false,
+	'edit' => $edit ? url('editPage/'.$id, 'ref', 'admin') : false
 );
 
 #Komentarze
 if($page['opt'] & 8)
 {
 	require './lib/comm.php';
-	comments($page['ID'], 59);
+	comments($id, 59);
 }

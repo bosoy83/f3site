@@ -1,0 +1,26 @@
+In EXTRA directory you can find improved .htaccess file with additional options. Use it to fix some security and performance issues. What do they change?
+
+# Store session ID only in cookies
+php_value session.use_only_cookies 1
+
+# Do not attach session ID to URLs
+php_value session.use_trans_sid 0
+
+# Disable register_globals - feature removed in PHP6
+php_value register_globals 0
+
+# Disable magic_quotes - feature removed in PHP6
+php_value magic_quotes_gpc 0
+
+If your server do not support php_value command, it may show INTERNAL SERVER ERROR (500). To disable risky PHP options which are enabled by default, visit your hosting's documentation.
+
+More additional resources are coming soon into EXTRA folder :)
+
+New private messaging system is developed. Main goals:
+1. Display messages as threads
+2. Share one copy of messages to save disk space
+3. No need for storing own copy in SENT folder
+4. Simple interface
+5. Development and changes will be progressive
+
+Have a feature request? Don't be shy and post it on forums.

@@ -1,4 +1,4 @@
-<?php if(JS!=1) exit;
+<?php if(!JS) exit;
 require './cfg/chat.php';
 
 #Ostatni pobrany ID
@@ -6,16 +6,17 @@ if(isset($_SESSION['chatLast']))
 {
 	$id = $_SESSION['chatLast'];
 }
-elseif(isset($_POST['lastid']) && is_numeric($_POST['lastid']))
+elseif(isset($_GET['last']) && is_numeric($_GET['last']))
 {
-	$id = $_SESSION['chatLast'] = $_POST['lastid'];
+	$id = $_SESSION['chatLast'] = $_GET['last'];
 }
 else
 {
-	$id = 0;
+	$id = time();
 }
 
 #Pobierz ostatnie rekordy
+$num = -1;
 $msg = array();
 $res = $db->prepare('SELECT * FROM '.PRE.'chat WHERE ID>? ORDER BY ID DESC LIMIT 20');
 $res -> bindValue(1, $id, 1);
@@ -29,7 +30,7 @@ foreach($res as $x)
 		'uid'  => $x['uid'],
 		'msg'  => $x['msg'],
 		'time' => $x['time']
-	));
+	)); ++$num;
 }
 
 #Return messages as JSON
@@ -40,28 +41,19 @@ if($_POST)
 {
 	if($_POST['msg'][0] == '/')
 	{
-		switch($x = substr($_POST['msg'], 1, strpos($_POST['msg'], ' ', 2)))
-		{
-			case 'nick':
-			
-				/* TODO: sprawd¼, czy nick istnieje */
-				$_SESSION['chatNick'] = clean($x, $cfg['chatNickLen'], 1);
-
-			break;
-			default: echo 'Wrong command';
-		}
+		/*coming soon */
 	}
 	else
 	{
 		$msg = array(
 			0 => $_SERVER['REQUEST_TIME'],
 			1 => UID,
-			2 => UID ? $user['login'] : clean($_POST['msg'], $cfg['chatNickLen']),
+			2 => UID ? $user['login'] : clean('Guest', $cfg['chatNickLen']),
 			3 => clean($_POST['msg'], $cfg['chatMsgLen'], 1)
 		);
 
 		#Czy mo¿e wstawiaæ linki
-		if(!isset($cfg['URLs']))
+		if(!UID && !isset($cfg['URLs']))
 		{
 			if(strpos($msg[3],'://') OR strpos($msg[3],'www.')!==false)
 			{
@@ -80,5 +72,5 @@ if($_POST)
 }
 elseif($msg)
 {
-	$_SESSION['chatLast'] = $msg['id'];
+	$_SESSION['chatLast'] = $msg[$num]['id'];
 }

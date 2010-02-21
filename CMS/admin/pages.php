@@ -12,6 +12,10 @@ if($_POST && $x = GetID(true))
 		$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE=59 AND CID IN('.$x.')');
 		$db->commit();
 	}
+	else
+	{
+		$db->exec('UPDATE '.PRE.'pages SET access='.(isset($_POST['show']) ? 1 : 0).' WHERE ID IN('.$x.')');
+	}
 }
 
 #Info
@@ -32,7 +36,7 @@ foreach($res as $page)
 		'url'   => url('page/'.$page[0]),
 		'edit'  => url('editPage/'.$page[0], '', 'admin'),
 		'title' => $page[1],
-		'access'=> $page[2]!=2 ? $lang['on2'] : $lang['off2']
+		'access'=> $page[2]==1 ? $lang['on2'] : ($page[2]==3 ? sprintf('%s *',$lang['on2']) : $lang['off2'])
 	);
 }
 

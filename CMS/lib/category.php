@@ -1,6 +1,6 @@
-<?php /* Instrumentacja kategorii i tre¶ci */
+<?php
 
-#Sortowanie
+#Sorting
 function CatSort($sort)
 {
 	if(isset($_GET['sort'])) $sort=(int)$_GET['sort'];
@@ -12,7 +12,10 @@ function CatSort($sort)
 	}
 }
 
-#Kategoria?
+#Config
+include './cfg/content.php';
+
+#Get category ID from URL or load default
 if(isset($URL[0]))
 {
 	$d = (int)$URL[0];
@@ -21,27 +24,25 @@ elseif(isset($_GET['d']))
 {
 	$d = (int)$_GET['d'];
 }
-#Domy¶lna
 elseif(isset($cfg['start'][LANG]))
 {
 	$d = $cfg['start'][LANG];
 }
-#Brak
 else
 {
 	require './mod/cats.php'; return 1;
 }
 
-#Pobierz, 2 = ASSOC
-$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$d.' AND access!=3') -> fetch(2);
+#Load category to ASSOC $cat
+if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE access!=3 AND ID='.$d)->fetch(2))
+{
+	return;
+}
 
-#Brak?
-if(!$cat) return;
-
-#Tytu³ strony
+#Set title
 $content->title = $cat['name'];
 
-#Strona
+#Page
 if(isset($URL[1]) && is_numeric($URL[1]) && $URL[1] > 1)
 {
 	$page = $URL[1];
@@ -53,7 +54,7 @@ else
 	$st = 0;
 }
 
-#Opcja: lista pozycji z wszystkich podkategorii
+#Option: items from all subcategories
 #TODO: SELECT * FROM items JOIN cats ON items.cat_id = cats.id
 if($cat['opt'] & 16)
 {
@@ -65,7 +66,7 @@ else
 	$cats = 'cat='.$d;
 }
 
-#Podkategorie, 3 = NUM
+#Subcategories
 if($cat['opt'] & 8)
 {
 	$res = $db->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
@@ -82,7 +83,7 @@ if($cat['opt'] & 8)
 	}
 }
 
-#Do szablonu
+#Assign to template
 $content->file = array('cat');
 $content->data = array(
 	'cat'  => &$cat,
@@ -93,7 +94,7 @@ $content->data = array(
 	'list_url'=> url('list/'.$cat['type'].'/'.$d)
 );
 
-#Struktura kategorii
+#Category path
 if($cat['opt'] & 1 && isset($cfg['catStr']))
 {
 	$content->data['path'] = catPath($d,$cat);
@@ -103,7 +104,7 @@ else
 	$content->data['path'] = null;
 }
 
-#Do³±cz generator listy pozycji
+#Load item list generator
 if($cat['num'])
 {
 	include './mod/cat/'.$cat['type'].'.php';

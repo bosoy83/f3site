@@ -43,6 +43,7 @@
 'noc'			=>'There is no content in this category.',
 'nocats'	=>'No categories.',
 'noex'		=>'Link which leads you to this page is out of date.',
+'NVAL'    =>'%s is NOT published! Click EDYTUJ to change settings.',
 'nonews'	=>'There are no news at present.',
 'loginComm'=>'You must login to be allowed to post comments.',
 'novotes'	=>'No votes.',

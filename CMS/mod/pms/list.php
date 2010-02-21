@@ -20,25 +20,26 @@ $id = isset($URL[1]) && ctype_alnum($URL[1]) ? $URL[1] : 'inbox';
 switch($id)
 {
 	case 'sent':
-		$q = ' WHERE p.st=4 AND p.owner='.UID; #Wys³ane
+		$q = 'p.st=4 AND p.owner='.UID; #Wys³ane
 		$content->title = $lang['sent'];
 		break;
 	case 'outbox':
-		$q = ' WHERE p.st=1 AND p.usr='.UID; #Oczekuj¹ce
+		$q = 'p.st=1 AND p.usr='.UID; #Oczekuj¹ce
 		$content->title = $lang['await'];
 		$content->info($lang['pm3i']);
 		break;
 	case 'drafts':
-		$q = ' WHERE p.st=3 AND p.owner='.UID; #Kopie robocze
+		$q = 'p.st=3 AND p.owner='.UID; #Kopie robocze
 		$content->title = $lang['drafts'];
 		break;
 	default:
-		$q = ' WHERE (p.st=1 OR p.st=2) AND p.owner='.UID; #Odebrane
-		$content->title = $lang['inbox']; 
+		$q = 'p.st<3 AND p.owner='.UID; #Odebrane
+		$content->title = $user['pms'] ? sprintf('%s (%d)',$lang['inbox'],$user['pms']) : $lang['inbox'];
+		$id = 'inbox';
 }
 
 #Licz
-$total = dbCount('pms p'.$q);
+$total = dbCount('pms p WHERE p.out!='.UID.' AND '.$q);
 
 #Brak?
 if($total < 1)
@@ -48,30 +49,26 @@ if($total < 1)
 }
 
 #Pobierz
-$res = $db->query('SELECT p.ID, p.topic, p.usr, p.owner, u.ID as uid, u.login'.
-	($id=='inbox' ? ', p.st' : '').' FROM '.PRE.'pms p LEFT JOIN '.PRE.'users u ON p.'.
-	($id=='outbox' ? 'owner' : 'usr').'=u.ID'.$q.' ORDER BY p.ID DESC LIMIT '.$st.',20');
-
-#Liczba PM
-$num = $st;
-$pms = array();
-$res->setFetchMode(3);
+$res = $db->query('SELECT p.ID, p.topic, p.st, u.ID as uid, u.login FROM '.
+	PRE.'pms p LEFT JOIN '.PRE.'users u ON p.usr=u.ID WHERE p.out!='.
+	UID.' AND '.$q.' ORDER BY p.st,p.ID DESC LIMIT '.$st.',20');
 
 #Adresy
 $userURL = url('user/');
+$yourURL = $userURL . urlencode($user['login']);
+$pms = array();
 $url = url('pms/view/');
 
 #Lista
-foreach($res as $pm)
+foreach($res as $x)
 {
 	$pms[] = array(
-		'id'     => $pm[0],
-		'topic'  => $pm[1],
-		'num'    => ++$num,
-		'new'    => $id=='inbox' && $pm[6]==1,
-		'url'    => $url.$pm[0],
-		'login'  => $pm[5],
-		'user_url' => $userURL.urlencode($pm[5])
+		'id'    => $x['ID'],
+		'topic' => $x['topic'],
+		'new'   => $id=='inbox' && $x['st']==1,
+		'url'   => $url.$x['ID'],
+		'login' => $x['login'],
+		'userURL' => $userURL.urlencode($x['login']),
 	);
 }
 $res=null;
@@ -83,7 +80,7 @@ $content->file[] = 'pms_list';
 $content->data += array(
 	'pm'  => $pms,
 	'who' => $id=='inbox' ? $lang['pm12'] : $lang['pm13'],
-	'url' => 'pms/del/'.$id,
+	'url' => url('pms/del/'.$id),
 	'total' => $total,
 	'pages' => pages($page, $total, 30, url('pms/'.$id), 1, '/')
 );

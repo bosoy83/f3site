@@ -4,8 +4,9 @@ if(iCMS!=1) exit;
 #Tytu³ strony
 $content->title = $lang['write'];
 
-#ID
+#ID i w±tek
 $id = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
+$th = isset($_GET['th']) && is_numeric($_GET['th']) ? $_GET['th'] : 0;
 
 #Wys³ane dane
 if($_POST)
@@ -14,7 +15,6 @@ if($_POST)
 	$pm = array(
 		'to'  => clean($_POST['to']),
 		'txt' => clean($_POST['txt'],0,1),
-		'bbc' => isset($cfg['bbcode']) && isset($_POST['bbc']) ? 1 : 0,
 		'topic' => empty($_POST['topic']) ? $lang['notopic'] : clean($_POST['topic'],50,1)
 	);
 
@@ -29,10 +29,10 @@ if($_POST)
 			#Obiekt API
 			$o = new PM;
 			$o -> exceptions = true;
-			$o -> bbcode = $pm['bbc'];
 			$o -> topic = $pm['topic'];
 			$o -> text = $pm['txt'];
 			$o -> to = $pm['to'];
+			$o -> thread = $th;
 
 			#Wy¶lij - je¶li do siebie, zapisz jako kopiê robocz±
 			if(isset($_POST['send']) && $o->to != $user['login'])
@@ -45,11 +45,9 @@ if($_POST)
 				else
 				{
 					$o -> send(); //Wy¶lij now± wiadomo¶æ
-				}
-				if(isset($_POST['sent']) && $cfg['pmLimit'] > $content->data['size'])
-				{
+					if(!$th) $th = $o->thread = $db->lastInsertId();
 					$o -> status = 4;
-					$o -> send(1); //Zapisz do wys³anych
+					$o -> send(1); //Kopia dla nadawcy
 				}
 			}
 			else
@@ -86,19 +84,19 @@ if($_POST)
 	else
 	{
 		#BBCode
-		if($pm['bbc'])
+		if(isset($cfg['bbcode']))
 		{
 			require './lib/bbcode.php';
-			$preview = Emots(BBCode($pm['txt']));
+			$preview = emots(BBCode($pm['txt']));
 		}
 		else
 		{
-			$preview = Emots($pm['txt']);
+			$preview = emots($pm['txt']);
 		}
 	}
 	#Zapis od wys³anych?
 	$saveSent = isset($_POST['sent']);
-	$url = 'pms/edit/'.$id;
+	$url = url('pms/edit/'.$id, 'th='.$th);
 }
 
 #Pobierz wiadomo¶æ
@@ -117,7 +115,7 @@ elseif($id)
 		{
 			$pm['topic'] = 'Fwd: '.$pm['topic'];
 		}
-		$url = 'pms/edit';
+		$url = url('pms/edit');
 	}
 	elseif($pm['st'] == 2)
 	{
@@ -126,11 +124,11 @@ elseif($id)
 			$pm['topic'] = $lang['re'].$pm['topic'];
 			$pm['txt'] = isset($cfg['bbcode']) ? '[quote]'.$pm['txt']."[/quote]\n" : '"'.$pm['txt']."\"\n";
 		}
-		$url = 'pms/edit';
+		$url = url('pms/edit', 'th='.$th);
 	}
 	else
 	{
-		$url = 'pms/edit/'.$id;
+		$url = url('pms/edit/'.$id);
 	}
 
 	#Zapis od wys³anych?
@@ -148,11 +146,10 @@ else
 	}
 	$pm = array(
 		'to'  => $to,
-		'bbc' => isset($cfg['bbcode']),
 		'txt' => '',
 		'topic' => '',
 	);
-	$url = 'pms/edit';
+	$url = url('pms/edit');
 	$saveSent = false;
 }
 

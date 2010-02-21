@@ -1,17 +1,17 @@
-<?php /* Wyœwietl szczegó³y o pliku */
+<?php
 if(iCMS!=1) exit;
 require './cfg/content.php';
 
-#Pobierz dane
-if($id)
-{
-	$res = $db->query('SELECT f.*,c.opt FROM '.PRE.'files f INNER JOIN '.PRE.'cats c
-	ON f.cat=c.ID WHERE f.access=1 AND c.access!=3 AND f.ID='.$id);
+#Get record to $file
+if(!$file = $db->query('SELECT f.*,c.opt FROM '.PRE.'files f INNER JOIN '.
+PRE.'cats c ON f.cat=c.ID WHERE c.access!=3 AND f.ID='.$id)->fetch(2)) return;
 
-	#Do tablicy
-	if(!$file = $res->fetch(2)) return;
+#Disabled
+if(!$file['access'])
+{
+	if(!admit($file['cat'],'CAT')) return;
+	$content->info(sprintf($lang['NVAL'], $file['name']), null, 'warning');
 }
-else return;
 
 #Tytu³ strony
 $content->title = $file['name'];

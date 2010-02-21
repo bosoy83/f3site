@@ -1,9 +1,6 @@
 //Plik przeznaczony do edycji
 //Skompresuj go: http://dean.edwards.name/packe0
 
-//If no Element object
-if(!window.Element) Element = {};
-
 //Otwórz okno na œrodku ekranu
 function okno(url, width, height)
 {
@@ -164,7 +161,14 @@ function hint(o, left, top, autoHide)
 //JSON
 function getJSON(x)
 {
-	if(window.JSON) return JSON.parse(x); else return eval(x);
+	if(window.JSON)
+	{
+		return JSON.parse(x);
+	}
+	else
+	{
+		return !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(x.replace(/"(\\.|[^"\\])*"/g, ''))) && eval('('+x+')');
+	}
 }
 
 //
@@ -181,20 +185,11 @@ function Request(url, box, opt)
 	//Adres docelowy
 	this.url = url;
 
-	//Metoda POST - domyœlnie GET
-	this.post = opt.post || false;
-
-	//Parametry POST
-	this.param = [];
-
 	//Wykonaj skrypty JS - domyœlnie NIE
 	this.scripts = opt.scripts || false;
 
 	//Gdy odpowiedŸ jest pobierana
 	this.loading = opt.loading || null;
-
-	//Interpretuj JSON
-	this.json = opt.json || true;
 
 	//Gdy ¿¹danie nie powiedzie siê
 	this.fail = opt.fail || function(x) { alert(x) };
@@ -206,8 +201,20 @@ function Request(url, box, opt)
 	this.timeout = opt.timeout || 50000;
 }
 
+//Wyœlij ¿¹danie metod¹ GET
+Request.prototype.get = function(list)
+{
+	this.send(list, false);
+}
+
+//Wyœlij ¿¹danie metod¹ POST
+Request.prototype.post = function(list)
+{
+	this.send(list, true);
+}
+
 //Wyœlij ¿¹danie
-Request.prototype.send = function(list)
+Request.prototype.send = function(list, post)
 {
 	if(!this.http)
 	{
@@ -230,21 +237,14 @@ Request.prototype.send = function(list)
 				}
 				catch(e)
 				{
-					this.fail('AJAX is not supported!');
-					return false;
+					throw new Exception('AJAX is not supported!')
 				}
 			}
 		}
-		if(!this.http) { this.fail('Cannot create AJAX object!'); return false }
+		if(!this.http) throw new Exception('Cannot create AJAX object!');
 
 		//Odnoœnik do THIS
 		var self = this;
-
-		//Gdy odpowiedŸ jest pobierana
-		if(self.loading) self.loading();
-
-		//Kursor
-		document.body.style.cursor = 'progress';
 
 		//Gdy zmienia siê status ¿¹dania...
 		this.http.onreadystatechange = function()
@@ -290,39 +290,34 @@ Request.prototype.send = function(list)
 	//Gdy nie zdefiniowano URL
 	if(this.url == '') return;
 
+	//Gdy odpowiedŸ jest pobierana
+	if(this.loading) this.loading();
+
+	//Kursor
+	document.body.style.cursor = 'progress';
+
 	//Otwórz po³¹czenie
-	this.http.open((this.post || list) ? 'POST' : 'GET', this.url, true);
+	this.http.open(post ? 'POST' : 'GET', this.url, true);
 
 	//Typ POST
-	if(this.post || list)
+	if(post)
 	{
-		if(typeof list == 'object')
-		{
-			for(var name in list) this.add(name,list[name]); //Dodaj parametry
-		}
-		var p = this.param.join('&');
 		this.http.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	}
+	this.http.setRequestHeader('X-Requested-With','XMLHttpRequest');
+
+	//Parametry
+	if(typeof list == 'object')
+	{
+		var name,param = [];
+		for(name in list) param.push(encodeURIComponent(name)+'='+encodeURIComponent(list[name]));
+		this.http.send(param.join('&'))
 	}
 	else
 	{
-		var p = null;
+		this.http.send();
 	}
-	this.http.setRequestHeader('X-Requested-With','XMLHttpRequest');
-	this.http.send(p);
-
-	//Usuñ zmienne POST
-	if(list) this.reset();
 };
-
-//Dodaj parametr POST
-Request.prototype.add = function(key, val)
-{
-	this.param.push(encodeURIComponent(key)+'='+encodeURIComponent(val));
-	this.post = true;
-};
-
-//Reset
-Request.prototype.reset = function() { this.param = [] };
 
 //
 // *** WYŒLIJ FORMULARZ ZA POMOC¥ AJAX ***
@@ -352,7 +347,7 @@ function rate(o)
 //Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
 Request.prototype.sendForm = function(o)
 {
-	var el = o.form.elements, x;
+	var el = o.form.elements, x, param = {};
 	for(var i=0; i<el.length; ++i)
 	{
 		x = el[i];
@@ -360,29 +355,28 @@ Request.prototype.sendForm = function(o)
 		{
 			case 'radio':
 			case 'checkbox':
-				if(x.checked) this.add(x.name, x.value || 1); //Radio + Checkbox
+				if(x.checked) param[x.name] = x.value || 1; //Radio + Checkbox
 				break;
 			case 'text':
 			case 'textarea':
 			case 'hidden':
 			case 'password':
-				this.add(x.name, x.value); //Text
+				param[x.name] = x.value; //Text
 				break;
 			case 'select':
 			case 'select-one':
 			case 'select-multiple':
 				for(var y=0; y<x.options.length; ++y)
 				{
-					if(x.options[y].selected) this.add(x.name, x.options[y].value) //Select
+					if(x.options[y].selected) param[x.name] = x.options[y].value //Select
 				}
 				break;
 		}
 	}
-	if(o.name) this.add(o.name, o.value);
-	this.send();
-	this.reset();
+	if(o.name) param[o.name] = o.value;
+	this.post(param);
 	o.disabled = 1;
-	return false;
+	return false
 };
 
 //
@@ -425,9 +419,9 @@ Dialog.prototype.hide = function()
 		document.body.removeChild(this.o);
 	}
 };
-Dialog.prototype.load = function(url, post)
+Dialog.prototype.load = function(url, data, post)
 {
-	new Request(url, this.body, {scripts:1}).send(post);
+	new Request(url, this.body, {scripts:1}).send(data,post);
 	this.show();
 }
 

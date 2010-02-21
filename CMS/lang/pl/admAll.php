@@ -6,6 +6,8 @@ $lang+=Array(
 'editPage' => 'Edytuj wolną stronę',
 'addPage'  => 'Dodaj wolną stronę',
 'inside'   => 'Umieść zawartość w ramce',
+'enable'   => 'włącz',
+'disable'  => 'wyłącz',
 
 /* KATEGORIE */
 'editCat'=> 'Edytuj kategorię',

@@ -26,7 +26,8 @@ if($poll['num'] == 0)
 #Odpowiedzi
 if($id)
 {
-	$option = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
+	$option = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id.
+	' ORDER BY '.(isset($cfg['pollSort']) ? 'num DESC,' : '').'seq')->fetchAll(3);
 }
 
 #Ile?

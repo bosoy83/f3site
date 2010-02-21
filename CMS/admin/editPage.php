@@ -49,8 +49,12 @@ if($_POST)
 		#ID strony
 		if(!$id) $id = $db->lastInsertId();
 
+		#Powrót
+		if(isset($_GET['ref'])) header('Location: '.URL.url('page/'.$id));
+
+		#Info
 		$content->info($lang['saved'], array(
-			url('page/'.$id) => $lang['goto'],
+			url('page/'.$id) => sprintf($lang['goto'], $page['name']),
 			url('editPage/'.$id, '', 'admin') => $lang['edit'],
 			url('editPage', '', 'admin') => $lang['addPage'] ));
 		return 1;

@@ -241,7 +241,7 @@ small {font-size: 11px}
 .pages {padding: 8px !important; text-align: center}
 
 /* INFO */
-.error {
+.error, .warning {
 	background: #ffffb0 url(../../img/icon/error.png) no-repeat 6px 9px;
 	border: 1px solid #d9c866;
 	padding-left: 28px !important
@@ -336,7 +336,7 @@ small {font-size: 11px}
 .editor span, .editor img {
 	cursor: pointer;
 	border: 1px solid #F7F7F7;
-	padding: 3px;
+	padding: 3px
 }
 .editor img:hover, .editor span:hover {
 	background-color: #fffdd9;

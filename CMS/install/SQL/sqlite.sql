@@ -218,14 +218,16 @@ CREATE TABLE IF NOT EXISTS `f3_plugins` (
 
 CREATE TABLE IF NOT EXISTS `f3_pms` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`th` int(11) NOT NULL,
 `topic` varchar(50) NOT NULL,
 `usr` int(11) NOT NULL,
 `owner` int(11) NOT NULL,
 `st` tinyint(1) NOT NULL,
+`out` int(11) NOT NULL,
 `date` int(11) NOT NULL,
-`bbc` tinyint(1) NOT NULL,
 `txt` text);
 
+CREATE INDEX IF NOT EXISTS th ON `f3_pms` (th);
 CREATE INDEX IF NOT EXISTS o ON `f3_pms` (owner);
 
 CREATE TABLE IF NOT EXISTS `f3_polls` (
@@ -236,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `f3_polls` (
 `type` tinyint(1) NOT NULL,
 `num` int(11) NOT NULL DEFAULT 0,
 `access` varchar(3) NOT NULL,
-`date` date);
+`date` datetime);
 
 CREATE TABLE IF NOT EXISTS `f3_pollvotes` (
 `user` varchar(40) NOT NULL,

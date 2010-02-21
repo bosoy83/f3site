@@ -1,284 +1,284 @@
 CREATE TABLE IF NOT EXISTS `f3_acl` (
-`UID` int(11) NOT NULL,
-`CatID`int(11) NOT NULL,
-`type` varchar(9) NOT NULL,
+`UID` INT NOT NULL,
+`CatID` INT NOT NULL,
+`type` VARCHAR(9) NOT NULL,
 PRIMARY KEY (UID,CatID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_admmenu` (
-`ID` varchar(9) PRIMARY KEY NOT NULL,
-`text` varchar(30) NOT NULL,
-`file` varchar(30) NOT NULL,
-`menu` tinyint(1) NOT NULL,
-`rights` tinyint(1) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`ID` VARCHAR(9) PRIMARY KEY NOT NULL,
+`text` VARCHAR(30) NOT NULL,
+`file` VARCHAR(30) NOT NULL,
+`menu` TINYINT NOT NULL,
+`rights` TINYINT NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_answers` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`IDP` int(10) NOT NULL,
-`seq` int(11),
-`a` varchar(200),
-`num` int(11) NOT NULL DEFAULT 0,
+`IDP` INT NOT NULL,
+`seq` TINYINT,
+`a` VARCHAR(50),
+`num` INT NOT NULL DEFAULT 0,
 KEY (IDP)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_arts` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text NOT NULL,
-`date` datetime,
-`author` varchar(50) NOT NULL,
-`rate` tinyint(1),
-`access` tinyint(4) NOT NULL,
-`priority` tinyint(1) NOT NULL,
-`pages` tinyint(2) NOT NULL,
-`ent` int(11) NOT NULL DEFAULT 0,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` VARCHAR(255),
+`date` DATETIME,
+`author` VARCHAR(50) NOT NULL,
+`rate` TINYINT,
+`access` TINYINT NOT NULL,
+`priority` TINYINT NOT NULL,
+`pages` TINYINT NOT NULL,
+`ent` INT NOT NULL DEFAULT 0,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_artstxt` (
-`ID` int(11) NOT NULL,
-`page` tinyint(4) NOT NULL,
-`cat` int(11) NOT NULL,
-`text` mediumtext,
-`opt` tinyint(2) NOT NULL,
+`ID` INT NOT NULL,
+`page` TINYINT NOT NULL,
+`cat` INT NOT NULL,
+`text` MEDIUMTEXT,
+`opt` TINYINT NOT NULL,
 PRIMARY KEY (ID,page)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_banners` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`gen` tinyint(2) NOT NULL,
-`name` varchar(50),
-`ison` tinyint(1),
+`gen` TINYINT NOT NULL,
+`name` VARCHAR(50),
+`ison` TINYINT,
 `code` text) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_cats` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`name` varchar(50) NOT NULL,
-`dsc` varchar(255),
-`access` varchar(9) NOT NULL,
-`type` tinyint(1) NOT NULL DEFAULT 5,
-`sc` int(11) NOT NULL DEFAULT 0,
-`sort` tinyint(1) NOT NULL DEFAULT 2,
-`text` text,
-`num` int(10) NOT NULL DEFAULT 0,
-`nums` int(10) NOT NULL DEFAULT 0,
-`opt` tinyint(2) NOT NULL,
-`lft` tinyint(4) NOT NULL,
-`rgt` tinyint(4) NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` VARCHAR(255),
+`access` VARCHAR(3) NOT NULL,
+`type` TINYINT NOT NULL DEFAULT 5,
+`sc` INT NOT NULL DEFAULT 0,
+`sort` TINYINT NOT NULL DEFAULT 2,
+`text` TEXT,
+`num` SMALLINT NOT NULL DEFAULT 0,
+`nums` SMALLINT NOT NULL DEFAULT 0,
+`opt` TINYINT NOT NULL,
+`lft` TINYINT NOT NULL,
+`rgt` TINYINT NOT NULL,
 KEY `sc` (sc),
 KEY `pos` (lft,rgt)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_comms` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`TYPE` tinyint(1) NOT NULL,
-`CID` int(11) NOT NULL,
-`access` tinyint(1) NOT NULL,
-`name` varchar(50) NOT NULL,
-`author` varchar(50) NOT NULL,
-`guest` tinyint(1) NOT NULL DEFAULT 1,
-`ip` varchar(20) NOT NULL,
-`date` int(11),
-`text` text,
+`TYPE` TINYINT NOT NULL,
+`CID` INT NOT NULL,
+`access` TINYINT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`author` VARCHAR(50) NOT NULL,
+`guest` TINYINT NOT NULL DEFAULT 1,
+`ip` VARCHAR(40) NOT NULL,
+`date` INT,
+`text` TEXT,
 KEY `th` (TYPE,CID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_confmenu` (
-`ID` varchar(50) NOT NULL,
-`name` varchar(50),
-`lang` varchar(5) NOT NULL,
-`img` varchar(230),
+`ID` VARCHAR(50) NOT NULL,
+`name` VARCHAR(50),
+`lang` VARCHAR(3) NOT NULL,
+`img` VARCHAR(230),
 KEY (ID)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_files` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`cat` int(11) NOT NULL,
-`name` varchar(50),
-`author` varchar(100),
-`date` datetime,
-`dsc` text,
-`file` varchar(200),
-`dls` int(11) NOT NULL DEFAULT 0,
-`access` tinyint(1) NOT NULL,
-`size` varchar(50),
-`priority` tinyint(1) NOT NULL,
-`rate` tinyint(1),
-`fulld` mediumtext,
+`cat` INT NOT NULL,
+`name` VARCHAR(50),
+`author` VARCHAR(50),
+`date` DATETIME,
+`dsc` VARCHAR(255),
+`file` VARCHAR(200),
+`dls` INT NOT NULL DEFAULT 0,
+`access` TINYINT NOT NULL,
+`size` VARCHAR(30),
+`priority` TINYINT NOT NULL,
+`rate` TINYINT,
+`fulld` MEDIUMTEXT,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_groups` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`name` varchar(50) NOT NULL,
-`dsc` text,
-`access` varchar(3) NOT NULL,
-`opened` tinyint(1) NOT NULL,
-`who` int(11) NOT NULL DEFAULT 0,
-`num` int(11) NOT NULL DEFAULT 0,
-`date` int(11)) ENGINE=InnoDB CHARACTER SET='utf8';
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT,
+`access` VARCHAR NOT NULL,
+`opened` TINYINT NOT NULL,
+`who` INT NOT NULL DEFAULT 0,
+`num` INT NOT NULL DEFAULT 0,
+`date` INT) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_groupuser` (
-`u` int(11) NOT NULL,
-`g` int(11) NOT NULL,
-`date` int(11),
+`u` INT NOT NULL,
+`g` INT NOT NULL,
+`date` INT,
 PRIMARY KEY (u,g)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_imgs` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text,
-`type` tinyint(1) NOT NULL,
-`date` datetime,
-`priority` tinyint(1) NOT NULL,
-`access` tinyint(1) NOT NULL,
-`rate` tinyint(1),
-`author` varchar(50) NOT NULL,
-`filem` varchar(255) NOT NULL,
-`file` varchar(255) NOT NULL,
-`size` varchar(9) NOT NULL,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT,
+`type` TINYINT NOT NULL,
+`date` DATETIME,
+`priority` TINYINT NOT NULL,
+`access` TINYINT NOT NULL,
+`rate` TINYINT,
+`author` VARCHAR(50) NOT NULL,
+`filem` VARCHAR(255) NOT NULL,
+`file` VARCHAR(255) NOT NULL,
+`size` VARCHAR(9) NOT NULL,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_links` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text,
-`access` tinyint(1) NOT NULL,
-`adr` varchar(255) NOT NULL,
-`priority` tinyint(1) NOT NULL,
-`count` int(11) NOT NULL DEFAULT 0,
-`rate` tinyint(1),
-`nw` tinyint(1) NOT NULL,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT,
+`access` TINYINT NOT NULL,
+`adr` VARCHAR(255) NOT NULL,
+`priority` TINYINT NOT NULL,
+`count` INT NOT NULL DEFAULT 0,
+`rate` TINYINT,
+`nw` TINYINT NOT NULL,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_log` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`name` varchar(50) NOT NULL,
+`name` VARCHAR(50) NOT NULL,
 `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
-`ip` varchar(40) NOT NULL,
-`user` int(11) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
+`ip` VARCHAR(40) NOT NULL,
+`user` INT NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_menu` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`seq` int(11) NOT NULL,
-`text` varchar(50) NOT NULL,
-`disp` varchar(3) NOT NULL,
-`menu` int(11) NOT NULL,
-`type` tinyint(1) NOT NULL,
-`img` varchar(200) NOT NULL,
+`seq` INT NOT NULL,
+`text` VARCHAR(50) NOT NULL,
+`disp` VARCHAR(3) NOT NULL,
+`menu` INT NOT NULL,
+`type` TINYINT NOT NULL,
+`img` VARCHAR(200) NOT NULL,
 `value` text) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_mitems` (
-`menu` int(11) NOT NULL,
-`text` varchar(50) NOT NULL,
-`url` varchar(255) NOT NULL,
-`nw` tinyint(1) NOT NULL DEFAULT 0,
-`seq` tinyint(2) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
+`menu` INT NOT NULL,
+`text` VARCHAR(50) NOT NULL,
+`url` VARCHAR(255) NOT NULL,
+`nw` TINYINT NOT NULL DEFAULT 0,
+`seq` TINYINT NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_news` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`txt` text,
-`date` datetime,
-`author` varchar(50) NOT NULL,
-`img` varchar(255) NOT NULL,
-`comm` int(11) NOT NULL DEFAULT 0,
-`access` tinyint(1) NOT NULL,
-`opt` tinyint(2) NOT NULL DEFAULT 3,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`txt` TEXT,
+`date` DATETIME,
+`author` VARCHAR(50) NOT NULL,
+`img` VARCHAR(255) NOT NULL,
+`comm` INT NOT NULL DEFAULT 0,
+`access` TINYINT NOT NULL,
+`opt` TINYINT NOT NULL DEFAULT 3,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_newstxt` (
-`ID` int(11) NOT NULL PRIMARY KEY,
-`cat` int(11) NOT NULL,
-`text` mediumtext) ENGINE=InnoDB CHARACTER SET='utf8';
+`ID` INT NOT NULL PRIMARY KEY,
+`cat` INT NOT NULL,
+`text` MEDIUMTEXT) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_online` (
-`IP` varchar(40) NOT NULL PRIMARY KEY,
-`user` int(11) NOT NULL,
-`name` varchar(50),
+`IP` VARCHAR(40) NOT NULL PRIMARY KEY,
+`user` INT NOT NULL,
+`name` VARCHAR(50),
 `time` timestamp NOT NULL default CURRENT_TIMESTAMP) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_pages` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`name` varchar(50) NOT NULL,
-`access` varchar(3) NOT NULL,
-`opt` tinyint(2) NOT NULL,
-`text` mediumtext) ENGINE=InnoDB CHARACTER SET='utf8';
+`name` VARCHAR(50) NOT NULL,
+`access` TINYINT NOT NULL,
+`opt` TINYINT NOT NULL,
+`text` MEDIUMTEXT) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_plugins` (
-`ID` varchar(30) NOT NULL,
-`name` varchar(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`ID` VARCHAR(30) NOT NULL,
+`name` VARCHAR(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_pms` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`topic` varchar(50) NOT NULL,
-`usr` int(11) NOT NULL,
-`owner` int(11) NOT NULL,
-`st` tinyint(1) NOT NULL,
-`date` int(11) NOT NULL,
-`bbc` tinyint(1) NOT NULL,
-`txt` text,
+`th` INT NOT NULL,
+`topic` VARCHAR(50) NOT NULL,
+`usr` INT NOT NULL,
+`owner` INT NOT NULL,
+`st` TINYINT NOT NULL,
+`out` INT NOT NULL,
+`date` INT NOT NULL,
+`txt` TEXT,
+KEY (th),
 KEY (owner)) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_polls` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`name` varchar(50) NOT NULL,
-`q` varchar(80) NOT NULL,
-`ison` tinyint(1) NOT NULL,
-`type` tinyint(1) NOT NULL,
-`num` int(11) NOT NULL DEFAULT 0,
-`access` varchar(3) NOT NULL,
-`date` date) ENGINE=InnoDB CHARACTER SET='utf8';
+`name` VARCHAR(50) NOT NULL,
+`q` VARCHAR(80) NOT NULL,
+`ison` TINYINT NOT NULL,
+`type` TINYINT NOT NULL,
+`num` INT NOT NULL DEFAULT 0,
+`access` VARCHAR(3) NOT NULL,
+`date` DATETIME) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_pollvotes` (
-`user` varchar(40) NOT NULL,
-`ID` int(11) NOT NULL,
+`user` VARCHAR(40) NOT NULL,
+`ID` INT NOT NULL,
 `date` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_rates` (
-`type` tinyint(2) NOT NULL,
-`ID` int(11) NOT NULL,
-`mark` tinyint(1) NOT NULL DEFAULT 5,
-`IP` varchar(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`type` TINYINT NOT NULL,
+`ID` INT NOT NULL,
+`mark` TINYINT NOT NULL DEFAULT 5,
+`IP` VARCHAR(50) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_rss` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`auto` tinyint(1) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` varchar(99) NOT NULL,
-`url` varchar(80) NOT NULL,
-`lang` varchar(3) NOT NULL,
-`cat` int(11) NOT NULL,
-`num` int(11) NOT NULL
-) ENGINE=InnoDB CHARACTER SET='utf8';
+`auto` TINYINT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` VARCHAR(99) NOT NULL,
+`url` VARCHAR(80) NOT NULL,
+`lang` VARCHAR(3) NOT NULL,
+`cat` INT NOT NULL,
+`num` INT NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_tags` (
-`tag` varchar(50) NOT NULL DEFAULT '',
-`TYPE` tinyint(3) NOT NULL DEFAULT 5,
-`ID` int(11) NOT NULL DEFAULT 0,
-`num` int(11) NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
+`tag` VARCHAR(50) NOT NULL DEFAULT '',
+`TYPE` TINYINT NOT NULL DEFAULT 5,
+`ID` INT NOT NULL DEFAULT 0,
+`num` INT NOT NULL DEFAULT 0) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_tmp` (
-`KEYID` varchar(50) NOT NULL PRIMARY KEY,
-`UID` int(11) NOT NULL,
-`type` varchar(9) NOT NULL
-) ENGINE=InnoDB CHARACTER SET='utf8';
+`KEYID` VARCHAR(50) NOT NULL PRIMARY KEY,
+`UID` INT NOT NULL,
+`type` VARCHAR(9) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
 
 CREATE TABLE IF NOT EXISTS `f3_users` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
-`login` varchar(50) UNIQUE NOT NULL,
+`login` VARCHAR(50) UNIQUE NOT NULL,
 `pass` char(32) NOT NULL,
-`mail` varchar(80) NOT NULL,
-`sex` tinyint(1) NOT NULL DEFAULT 0,
-`opt` tinyint(2) NOT NULL DEFAULT 2,
-`lv` tinyint(1) NOT NULL DEFAULT 1,
-`adm` text,
-`regt` int(11),
-`lvis` int(11),
-`pms` tinyint(4) NOT NULL DEFAULT 0,
-`about` text,
-`mails` tinyint(1) NOT NULL DEFAULT 0,
-`www` varchar(200) NOT NULL,
-`city` varchar(50) NOT NULL,
-`icq` varchar(15),
-`skype` varchar(50) NOT NULL,
-`jabber` varchar(60) NOT NULL,
-`tlen` varchar(50) NOT NULL,
-`gg` int(11),
-`photo` varchar(150) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';
+`mail` VARCHAR(80) NOT NULL,
+`sex` TINYINT NOT NULL DEFAULT 0,
+`opt` TINYINT NOT NULL DEFAULT 2,
+`lv` TINYINT NOT NULL DEFAULT 1,
+`adm` TEXT,
+`regt` INT,
+`lvis` INT,
+`pms` TINYINT NOT NULL DEFAULT 0,
+`about` TEXT,
+`mails` TINYINT NOT NULL DEFAULT 0,
+`www` VARCHAR(200) NOT NULL,
+`city` VARCHAR(50) NOT NULL,
+`icq` VARCHAR(15),
+`skype` VARCHAR(50) NOT NULL,
+`jabber` VARCHAR(60) NOT NULL,
+`tlen` VARCHAR(50) NOT NULL,
+`gg` INT,
+`photo` VARCHAR(150) NOT NULL) ENGINE=InnoDB CHARACTER SET='utf8';

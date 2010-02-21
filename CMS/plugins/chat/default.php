@@ -19,6 +19,7 @@ else
 }
 
 #Wypowiedzi
+$num = -1;
 $msg = array();
 $res = $db->prepare('SELECT * FROM '.PRE.'chat ORDER BY ID DESC LIMIT ?');
 $res -> bindValue(1, $cfg['chatLast'], 1);
@@ -34,9 +35,11 @@ foreach($res as $x)
 		'time' => date('H:i', $x['time']),
 		'user_url' => url('user/'.urlencode($x['nick'])),
 	));
+	++$num;
 }
 
 $content->data = array(
 	'message' => &$msg,
+	'lastID'  => $msg ? ($_SESSION['chatLast'] = $msg[$num]['id']) : 0,
 	'nick'    => UID ? $user['login'] : 'Guest'
 );

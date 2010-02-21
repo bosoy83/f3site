@@ -43,6 +43,7 @@
 'noc'=>'Die Kategorie ist leer.',
 'nocats'=>'Kategorienmangel.',
 'noex'=>'Der Link is nicht länger jeweilig.',
+'NVAL'=>'%s ist nicht publiziert! Klick ÄNDERN um Optionen zu korrigieren.',
 'nonews'=>'Keine Nachrichten vorerst.',
 'loginComm'=>'Bitte einloggen, um zu kommentieren!',
 'novotes'=>'Neinstimmen',

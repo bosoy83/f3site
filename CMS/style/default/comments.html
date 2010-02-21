@@ -74,7 +74,12 @@
 
 <!-- IF mustLogin -->
 <div class="box" style="text-align: center">{lang.loginComm}</div>
-<!-- END -->
+<!-- END --><p></p>
 
 </div>
-<script type="text/javascript">include('lib/comm.js')</script>
+<script type="text/javascript">
+include('lib/comm.js')
+<!-- IF color -->
+include('lib/prettify/prettify.js', function() { prettyPrint() })
+<!-- END -->
+</script>

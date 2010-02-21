@@ -19,7 +19,7 @@ if(isset($_GET['count']))
 #Informacja
 $content->info($lang['dinfo'], array(
 	url('editCat', '', 'admin') => $lang['addCat'],
-	url('cats/count','','admin') => $lang['count']
+	url('cats','count','admin') => $lang['count']
 ) );
 
 #Odczyt
@@ -48,9 +48,9 @@ foreach($res as $cat)
 	#Typ
 	switch($cat['access'])
 	{
-		case 1: $a = $lang['on2']; break;
-		case 2: $a = $lang['hidden2']; break;
-		case 3: $a = $lang['off2']; break;
+		case '1': $a = $lang['on2']; break;
+		case '2': $a = $lang['hidden2']; break;
+		case '3': $a = $lang['off2']; break;
 		default: $a = $cat['access'];
 	}
 

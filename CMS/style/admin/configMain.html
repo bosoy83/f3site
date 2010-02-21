@@ -43,7 +43,7 @@
 <tr>
 	<td>
 		<b>{lang.now1}:</b>
-		<small>{lang.now2} <a href="http://php.net/date">date()</a></small>
+		<small>{lang.now2} <a href="http://php.net/strftime">strftime()</a></small>
 	</td>
 	<td><input type="text" name="now" value="{htmlspecialchars: cfg.now}" style="font-family: monospace" /></td>
 </tr>
@@ -160,6 +160,10 @@
 	<td><input type="checkbox" name="noTitle" /></td>
 </tr>
 <tr>
+	<td><b>{lang.colorCode}:</b></td>
+	<td><input type="checkbox" name="colorCode" /></td>
+</tr>
+<tr>
 	<td><b>{lang.moderate}:</b><small>{lang.moder2}</small></td>
 	<td><input type="checkbox" name="moderate" /></td>
 </tr>
@@ -178,6 +182,10 @@
 <tr>
 	<td><b>{lang.common}:</b></td>
 	<td><input type="checkbox" name="pollComm" /></td>
+</tr>
+<tr>
+	<td><b>{lang.sortPoll}:</b></td>
+	<td><input type="checkbox" name="pollSort" /></td>
 </tr>
 <tr>
 	<td><b>{lang.round}:</b><small>{lang.round2}</small></td>

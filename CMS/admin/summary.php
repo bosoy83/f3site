@@ -23,7 +23,6 @@ else
 #Do szablonu
 $content->data = array(
 	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
-	'system' => isset($_ENV['OS']) ? $_ENV['OS'] : 'N/A',
 	'notes'  => $notes,
 	'server' => $_SERVER['SERVER_SOFTWARE']
 );

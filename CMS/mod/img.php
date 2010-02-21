@@ -2,16 +2,16 @@
 if(iCMS!=1) exit;
 require './cfg/content.php';
 
-#Pobierz dane
-if($id)
-{
-	$res = $db->query('SELECT i.*,c.opt FROM '.PRE.'imgs i LEFT JOIN '.PRE.
-	'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND i.ID='.$id);
+#Get data
+if(!$img = $db->query('SELECT i.*,c.opt FROM '.PRE.'imgs i INNER JOIN '.
+PRE.'cats c ON i.cat=c.ID WHERE c.access!=3 AND i.ID='.$id)->fetch(2)) return;
 
-	#Do tablicy
-	if(!$img = $res->fetch(2)) return;  $res = null;
+#Disabled
+if(!$img['access'])
+{
+	if(!admit($img['cat'],'CAT')) return;
+	$content->info(sprintf($lang['NVAL'], $img['name']), null, 'warning');
 }
-else return;
 
 #Rozm.
 $size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;

@@ -1,17 +1,62 @@
-<?php /* PM - wyœwietl wiadomoœæ */
+<?php /* PM - wyœwietl wiadomoœci */
 if(iCMS!=1) exit;
 
 #Odczyt
 if(isset($URL[2]) && is_numeric($URL[2]))
 {
-	$q = $db->prepare('SELECT * FROM '.PRE.'pms WHERE (owner=? OR (usr=? AND st=1)) AND ID=?');
-	$q->execute(array(UID, UID, $URL[2]));
-	$pm = $q->fetch(2); //ASSOC
-	$q = null;
+	$q = $db->prepare('SELECT p.*,u.login,u.photo FROM '.PRE.'pms p LEFT JOIN '.PRE.
+	'users u ON p.usr=u.ID WHERE p.owner=? AND (p.ID=? OR p.th=?) ORDER BY p.date');
+	$q->execute(array(UID, $URL[2], $URL[2]));
+	$pm = array();
 }
 else
 {
-	$pm = false;
+	$content->set404();
+	return;
+}
+
+#BBCode
+if(isset($cfg['bbcode']))
+{
+	include './lib/bbcode.php';
+}
+
+#Oznaczymy jako przeczytane
+$read = array();
+$th = 0;
+
+#Przygotuj posty
+foreach($q as $x)
+{
+	if($x['th']=='0')
+	{
+		$th = $x['ID'];
+	}
+
+	$pm[] = array(
+		'topic' => $x['topic'],
+		'date'  => genDate($x['date'], true),
+		'txt'   => nl2br(emots(isset($cfg['bbcode']) ? BBCode($x['txt']) : $x['txt'])),
+		'fwd'   => url('pms/edit/'.$x['ID'], 'fwd'),
+		'edit'  => $x['st'] == 3 ? url('pms/edit/'.$x['ID']) : false,
+		'reply' => $x['st'] < 3 ? url('pms/edit/'.$x['ID'], 'th='.$th) : false,
+		'read'  => $x['st'] == 2,
+		'photo' => $x['photo'],
+		'who'   => $x['login'],
+		'url'   => $x['login'] ? url('user/'.urlencode($x['login'])) : ''
+	);
+
+	#Dodaj do oznaczenia jako przeczytane
+	if($x['st'] == 1 && $x['owner'] == UID)
+	{
+		$read[] = $x['ID'];
+	}
+
+	#Tytu³ strony
+	if($x['ID'] == $URL[2])
+	{
+		$content->title = $x['topic'];
+	}
 }
 
 #Brak?
@@ -21,40 +66,17 @@ if(!$pm)
 	return 1;
 }
 
-#BBCode
-if($pm['bbc'] && isset($cfg['bbcode']))
-{
-	require './lib/bbcode.php';
-	$pm['txt'] = BBCode($pm['txt']);
-}
-
-#Treœæ - emoty
-$pm['txt'] = nl2br(Emots($pm['txt']));
-
 #Przeczytana?
-if($pm['st']==1 && $pm['owner']==UID)
+if($read)
 {
+	$num = count($read);
 	$db->beginTransaction();
-	$db->exec('UPDATE '.PRE.'pms SET st=2 WHERE ID='.$pm['ID']);
-	$db->exec('UPDATE '.PRE.'users SET pms=pms-1 WHERE ID='.$pm['owner']);
+	$db->exec('UPDATE '.PRE.'users SET pms=pms-'.$num.' WHERE ID='.UID);
+	$db->exec('UPDATE '.PRE.'pms SET st=2 WHERE ID IN('.join(',', $read).')');
 	$db->commit();
-	-- $user['pms'];
-	$pm['st'] = 2;
+	$user['pms'] -= $num;
 }
 
-#Data, autor
-$pm['date'] = genDate($pm['date'], true);
-$pm['usr'] = autor($pm['usr']);
-
-#Tytu³ strony i plik
-$content->title = $pm['topic'];
+#Szablon i dane
 $content->file[] = 'pms_view';
-
-#Do szablonu
-$content->data += array(
-	'pm'   => &$pm,
-	'id'   => $pm['ID'],
-	'edit' => $pm['st'] == 3 ? url('pms/edit/'.$pm['ID']) : null,
-	'reply'=> $pm['st'] == 2 ? url('pms/edit/'.$pm['ID']) : null,
-	'fwd'  => url('pms/edit/'.$pm['ID'], 'fwd')
-);
+$content->data += array('pm' => &$pm);

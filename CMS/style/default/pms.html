@@ -3,8 +3,10 @@
 <tr>
 	<td>
 		<div style="float: right; text-align: center; width: 50%">
-			{new}<br /><br />
-			{lang.pm15} {size} / {limit}<br /><br />
+			{lang.pm15}{size} / {limit}
+			<div style="width: 200px; border: 1px solid #CCCCCC; margin: 9px auto">
+				<div class="pollstrip" style="width: {quota}%"></div>
+			</div>
 			<a href="{write}">
 				<button onclick="location=this.parentNode.href; return false">{lang.write}</button>
 			</a>

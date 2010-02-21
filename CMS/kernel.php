@@ -63,9 +63,9 @@ if(isset($_GET['id']) && is_numeric($_GET['id']))
 {
 	$id = $_GET['id'];
 }
-elseif(isset($URL[1]) && is_numeric($URL[1]))
+elseif(isset($URL[1]))
 {
-	$id = $URL[1];
+	$id = (int)$URL[1];
 }
 else
 {
@@ -189,13 +189,7 @@ if(isset($_SESSION['uid']))
 #Użytkownik - pamiętanie
 elseif(isset($_COOKIE[PRE.'login']))
 {
-	$usrc = $_COOKIE[PRE.'login'];
-	if($pos = strpos($usrc,':'))
-	{
-		$xuid = substr($usrc,0,$pos);
-		$xpass = substr($usrc,++$pos);
-	}
-	unset($usrc,$pos);
+	list($xuid,$xpass) = explode(':',$_COOKIE[PRE.'login']);
 }
 
 #Dane poprawne?

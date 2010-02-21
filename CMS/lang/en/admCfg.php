@@ -29,7 +29,7 @@ $lang+=Array(
 'url3'=>'Disabled',
 'warn'=>'Setting unsupported option may cause unpredictable results. Are you sure?',
 
-'date'=>'Date and time settings',
+'date'=>'Date and time',
 'now1'=>'Current date format',
 'now2'=>'Look up in PHP manual:',
 'date1'=>'Date format',
@@ -45,9 +45,9 @@ $lang+=Array(
 'captcha2'=>'Concerns registering and commenting by guests.',
 'std'=>'Enter number from image',
 'asirra'=>'Microsoft Asirra - select all cats',
-'recap'=>'reCAPTCHAâ„¢ - type 2 words',
+'recap'=>'reCAPTCHA™ - type 2 words',
 'API'=>'Public and private key',
-'API2'=>'Concerns only reCAPTCHAâ„¢ system',
+'API2'=>'Concerns only reCAPTCHA™ system',
 'getKey'=>'Click to get API keys',
 'flood'=>'Allow to send new comment after',
 
@@ -69,6 +69,7 @@ $lang+=Array(
 'commNum2'=>'To display them all, type: 0.',
 'guestComm'=>'Let guests posting comments',
 'guest2'=>'It allows unregistered users posting comments.',
+'colorCode'=>'Highlight code in [code] tag',
 'moderate'=>'Moderate comments',
 'moder2'=>'Comments will be visible for everyone after approving them by moderators.',
 'commSort'=>'Sorting of comments',
@@ -79,6 +80,7 @@ $lang+=Array(
 'spam'=>'By default guests cannot post URLs. It can prevent your site against spam bots.',
 
 'common'=>'Enable comments',
+'sortPoll'=>'Sort results by number of votes',
 'round'=>'Round % to X digits after comma',
 'round2'=>'It concerns results. 0 = no digits after comma.',
 

@@ -1,6 +1,6 @@
 <?php
 header('Cache-Control: public');
-header('Content-type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 header('X-Robots-Tag: noindex');
 
 #Pełny adres URL
@@ -124,7 +124,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 	case 1:
 
 	$data = array(
-		'host'  => $_SERVER['HTTP_HOST']=='localhost' ? 'localhost' : 'mysql.'.$_SERVER['HTTP_HOST'],
+		'host'  => 'localhost',
 		'title' => $lang['myPage'],
 		'urls'  => $setup->urls(),
 		'user'  => 'root',

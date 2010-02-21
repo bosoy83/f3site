@@ -25,17 +25,19 @@
 </table>
 
 <div class="end">
-	<input type="submit" name="del" value="{lang.del}" onclick="return de(this)" />
+	<input type="submit" name="show" value="{lang.enable}" />
+	<input type="submit" name="hide" value="{lang.disable}" />
+	<input type="submit" name="del" value="{lang.del}" id="del" />
 </div>
 </form>
 
 <script type="text/javascript">
-function de(o)
+$('del').onclick = function()
 {
 	if(confirm('{lang.delc}'))
 	{
 		send(o);
-		o.value = '...';
+		o.disabled = 1
 	}
 	return false;
 }

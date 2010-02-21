@@ -1,11 +1,11 @@
 <?php /* API prywatnych wiadomo¶ci - pamiêtaj o objêciu operacji transakcj± bazy danych */
 class PM
 {
-	public //Version 1
+	public
 		$to,
 		$text,
 		$topic,
-		$bbcode = 0,
+		$thread = 0,
 		$sender = UID, //Tylko ID
 		$status = 1,
 		$exceptions;
@@ -62,15 +62,15 @@ class PM
 		if(!$force && $this->errors()) return false;
 
 		#Zapytanie
-		$q = $db->prepare('INSERT INTO '.PRE.'pms (topic,usr,owner,st,date,bbc,txt)
-			VALUES (:topic,:usr,:owner,:st,:date,:bbc,:txt)');
+		$q = $db->prepare('INSERT INTO '.PRE.'pms (th,topic,usr,owner,st,date,txt)
+		VALUES (:th,:topic,:usr,:owner,:st,:date,:txt)');
 
 		$q->execute( array(
 			'owner' => $this->status > 2 ? $this->sender : $this->to,
 			'usr'   => $this->status < 3 ? $this->sender : $this->to,
 			'topic' => $this->topic,
 			'txt'   => $this->text,
-			'bbc'   => $this->bbcode,
+			'th'    => $this->thread,
 			'st'    => $this->status,
 			'date'  => $_SERVER['REQUEST_TIME']
 		));
@@ -87,17 +87,17 @@ class PM
 		#Odbiorca
 		if(!is_numeric($this->to)) $this->to = userID($this->to);
 
-		$q = $db->prepare('UPDATE '.PRE.'pms SET topic=:topic, usr=:usr, owner=:owner,
-			st=:st, date=:date, bbc=:bbc, txt=:txt WHERE owner=:you AND st=3 AND ID=:id');
+		$q = $db->prepare('UPDATE '.PRE.'pms SET th=:th, topic=:topic, usr=:usr,
+		owner=:owner, st=:st, date=:date, txt=:txt WHERE owner=:you AND st=3 AND ID=:id');
 
 		$q->execute( array(
 			'you'   => UID,
 			'id'    => $id,
+			'th'    => $this->thread,
 			'owner' => $this->status > 2 ? $this->sender : $this->to,
 			'usr'   => $this->status < 3 ? $this->sender : $this->to,
 			'topic' => $this->topic,
 			'txt'   => $this->text,
-			'bbc'   => $this->bbcode,
 			'st'    => $this->status,
 			'date'  => $_SERVER['REQUEST_TIME']
 		));
@@ -145,5 +145,4 @@ function userID($login)
 	{
 		throw new Exception($GLOBALS['lang']['pm20']);
 	}
-} // Use "search" function in your editor if you wish you found a function. :)
- // Or use kED if you would like to know this function finishes here - it's free!
+}

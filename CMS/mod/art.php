@@ -5,17 +5,19 @@ include './cfg/content.php';
 #Strona
 $page = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 1;
 
-#Pobierz dane
-if($id)
-{
-	$res = $db->query('SELECT t.*,f.text,f.opt,c.opt as catOpt FROM '.PRE.'arts t
-	INNER JOIN '.PRE.'artstxt f ON t.ID=f.ID INNER JOIN '.PRE.'cats c ON t.cat=c.ID
-	WHERE t.ID='.$id.' AND t.access=1 AND c.access!=3 AND f.page='.((isset($URL[2])) ? (int)$URL[2] : 1));
+#Get record
+$art = $db->query('SELECT t.*,f.text,f.opt,c.opt as catOpt FROM '.PRE.'arts t
+INNER JOIN '.PRE.'artstxt f ON t.ID=f.ID INNER JOIN '.PRE.'cats c ON t.cat=c.ID
+WHERE t.ID='.$id.' AND c.access!=3 AND f.page='.$page)->fetch(2);
 
-	#Do tablicy
-	if(!$art = $res->fetch(2)) return;
+if(!$art) return;
+
+#Disabled
+if(!$art['access'])
+{
+	if(!admit($art['cat'],'CAT')) return;
+	$content->info(sprintf($lang['NVAL'], $art['name']), null, 'warning');
 }
-else return;
 
 #Tytu³ strony
 $content->title = $art['name'];
@@ -67,6 +69,12 @@ else
 	$pages = false;
 }
 
+#Kolorowanie sk³adni
+if($art['opt'] & 4)
+{
+	$content->addCSS('lib/prettify/prettify.css');
+}
+
 #Do szablonu
 $content->data = array(
 	'art'  => &$art,
@@ -74,6 +82,7 @@ $content->data = array(
 	'path' => catPath($art['cat']),
 	'cats' => url('cats/articles'),
 	'edit' => admit($art['cat'],'CAT') ? url('edit/1/'.$id, 'ref='.$page) : false,
+	'color'=> $art['opt'] & 4,
 	'rates'=> $rates
 );
 

@@ -14,6 +14,7 @@ function comment(o)
 				{
 					http.scripts = 0;
 					$('comments').innerHTML = x;
+					if(window.prettyPrint) prettyPrint();
 				}
 				else
 				{

@@ -25,7 +25,7 @@ class Installer
 			if(ctype_alnum($x) && file_exists('./install/lang/'.$x.'.php'))
 			{
 				$this->lang = $x;
-				return $x;
+				return true;
 			}
 		}
 		$this->lang = 'en';
@@ -115,7 +115,7 @@ class Installer
 		{
 			$c->execute(array($lang['arts'], $x, 1, 0, 0, 15, ++$lft, ++$lft));
 			$c->execute(array($lang['files'], $x, 2, 0, 0, 15, ++$lft, ++$lft));
-			$c->execute(array($lang['gallery'], $x, 3, 0, 0, 15, ++$lft, ++$lft));
+			$c->execute(array($lang['foto'], $x, 3, 0, 0, 15, ++$lft, ++$lft));
 			$c->execute(array($lang['links'], $x, 4, 0, 0, 15, ++$lft, ++$lft));
 		}
 

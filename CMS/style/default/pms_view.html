@@ -1,16 +1,20 @@
-<h2>{pm.topic}</h2>
+<!-- START pm -->
+<h2>{topic}</h2>
 <table cellspacing="1" class="tb">
-<tbody class="bg">
+<tbody>
 <tr>
-	<th scope="row" align="right" style="width: 25%">{lang.author}:&nbsp;</td>
-	<td>{pm.usr}</td>
-</tr>
-<tr>
-	<th scope="row" align="right">{lang.sent}:&nbsp;</td>
-	<td>{pm.date}</td>
-</tr>
-<tr>
-	<td colspan="2">{pm.txt}</td>
+	<th style="width: 130px" valign="top">
+
+		<a href="{url}">{who}</a>
+
+		<!-- IF photo -->
+		<div style="margin: 3px; overflow: hidden">
+			<img src="{photo}" alt="{who}" />
+		</div>
+		<!-- END -->
+
+	</th>
+	<td valign="top">{txt}</td>
 </tr>
 <tr>
 	<td class="eth" colspan="2" id="pm_foot">
@@ -25,3 +29,4 @@
 </tr>
 </tbody>
 </table>
+<!-- STOP -->

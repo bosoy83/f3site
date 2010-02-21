@@ -21,6 +21,6 @@ foreach($item as &$o)
 </tbody>
 </table>
 <div align="center" style="padding: 2px">
-	<a href="<?=url('poll/'.$poll['ID'])?>"><input type="button" value="<?=$lang['results']?>" onclick="location='location=this.parentNode.href; return false" /></a>
-	<a href="<?=url('polls')?>"><input type="button" value="<?=$lang['archive']?>" onclick="location='location=this.parentNode.href; return false" /></a>
+	<a href="<?=url('poll/'.$poll['ID'])?>"><input type="button" value="<?=$lang['results']?>" onclick="location=this.parentNode.href; return false" /></a>
+	<a href="<?=url('polls')?>"><input type="button" value="<?=$lang['archive']?>" onclick="location=this.parentNode.href; return false" /></a>
 </div>

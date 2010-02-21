@@ -1,16 +1,16 @@
-<?php //F3Site 3.0 - (C) 2009 COMPMaster - license in: LICENSE.TXT
+<?php //F3Site 3.1 - (C) 2010 COMPMaster
 
-#J±dro
+#Basic kernel
 define('iCMS',1);
 require './kernel.php';
 
-#£aduj modu³ - gdy nie istnieje lub u¿yto return, wy¶wietl stronê 404
+#Load module or display 404 page
 if(isset($URL[0]) && !is_numeric($URL[0]) && strpos($URL[0],'/')===false && !isset($URL[0][30]))
 {
-	#Szablon
+	#Default template
 	$content->file = array($URL[0]);
 
-	#Kolejno¶æ: modu³ wbudowany, rozszerzenie, 404
+	#Sequence: built-in module, extension, 404
 	if(file_exists('./mod/'.$URL[0].'.php'))
 	{
 		(include './mod/'.$URL[0].'.php') OR $content->set404();
@@ -25,21 +25,20 @@ if(isset($URL[0]) && !is_numeric($URL[0]) && strpos($URL[0],'/')===false && !iss
 	}
 }
 
-#Kategoria
+#Category
 else
 {
-	include './cfg/content.php';
-	(include './lib/category.php') OR $content->set404();
+	include './lib/category.php';
 }
 
-#Gdy ¿±danie AJAX
+#AJAX
 if(JS)
 {
 	$content->display();
 }
 else
 {
-	#Kod HEAD
+	#Head tag
 	if($cfg['head']) $content->head .= $cfg['head'];
 
 	#Menu
@@ -50,6 +49,6 @@ else
 	}
 	require './cache/menu'.LANG.'.php';
 
-	#Skórka
+	#Main template
 	include $content->path('body');
 }
