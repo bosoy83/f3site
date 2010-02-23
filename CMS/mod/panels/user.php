@@ -24,13 +24,13 @@ if(UID)
 ?><form action="login.php" method="post"><div style="text-align: center">
 	Login:
 	<input name="u" style="height: 15px; width: 93%" />
-	<?= $lang['pass'] ?>:
+	<?php echo $lang['pass'] ?>:
 	<input name="p" type="password" style="height: 15px; width: 93%" />
 
 	<div style="margin: 5px 0px">
-	<input type="checkbox" name="auto" /> <?= $lang['remlog'] ?>
+	<input type="checkbox" name="auto" /> <?php echo $lang['remlog'] ?>
 	</div>
 
-	<input type="submit" value="<?= $lang['logme'] ?>" />
-	<input type="submit" value="<?= $lang['regme'] ?>" name="reg" />
+	<input type="submit" value="<?php echo $lang['logme'] ?>" />
+	<input type="submit" value="<?php echo $lang['regme'] ?>" name="reg" />
 </div></form>

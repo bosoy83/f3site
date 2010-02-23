@@ -76,4 +76,7 @@ foreach($res as $m)
 }
 
 #Do szablonu
-$content->data['blocks'] = $blocks;
+$content->data = array(
+	'blocks' => $blocks,
+	'newURL' => url('editMenu', '', 'admin')
+);

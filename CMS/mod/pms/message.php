@@ -79,4 +79,4 @@ if($read)
 
 #Szablon i dane
 $content->file[] = 'pms_view';
-$content->data += array('pm' => &$pm);
+$content->data += array('pm' => &$pm, 'color' => isset($cfg['colorCode']));

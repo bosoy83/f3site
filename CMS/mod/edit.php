@@ -58,7 +58,12 @@ if(admit('CM') && $c = $db->query('SELECT name,date,text FROM '.PRE.'comms ORDER
 		require_once './lib/bbcode.php';
 		$c[2] = BBCode($c[2]);
 	}
-	$content->data = array('title'=>$c[0], 'last'=>genDate($c[1],1), 'text'=>emots($c[2]));
+	$content->data = array(
+		'title' => $c[0],
+		'last'  => genDate($c[1],1),
+		'text'  => emots($c[2]),
+		'color' => isset($cfg['colorCode'])
+	);
 }
 else
 {

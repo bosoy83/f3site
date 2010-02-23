@@ -47,6 +47,12 @@ e = new Editor(f.txt, 1)
 e.emots()
 e.protect()
 if(f[0].value) f[1].focus(); else f[0].focus()
+
+<!-- IF color -->
+include('lib/prettify/prettify.css')
+include('lib/prettify/prettify.js', function() { prettyPrint() })
+<!-- END -->
+
 </script>
 
 <!-- ELSE -->

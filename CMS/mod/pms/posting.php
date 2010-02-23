@@ -3,6 +3,7 @@ if(iCMS!=1) exit;
 
 #Tytu³ strony
 $content->title = $lang['write'];
+$preview = null;
 
 #ID i w±tek
 $id = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
@@ -166,9 +167,10 @@ $content->file[] = 'pms_posting';
 
 #Do szablonu
 $content->data += array(
-	'pm'  => &$pm,
-	'url'  => $url,
-	'sent'  => $saveSent,
+	'pm' => &$pm,
+	'url' => $url,
+	'sent' => $saveSent,
+	'color' => $preview && isset($cfg['colorCode']),
 	'bbcode' => isset($cfg['bbcode']),
 	'preview' => isset($preview) ? $preview : null
 );

@@ -76,15 +76,7 @@ function comments($id, $type=5, $mayPost=true)
 	$content->data['parts'] =& $CP;
 
 	#Koloruj kod
-	if(isset($cfg['colorCode']))
-	{
-		$content->addCSS('lib/prettify/prettify.css');
-		$content->data['color'] = 1;
-	}
-	else
-	{
-		$content->data['color'] = 0;
-	}
+	$content->data['color'] = isset($cfg['colorCode']);
 
 	#Mo¿e komentowaæ?
 	if(UID || isset($cfg['commGuest']))

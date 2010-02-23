@@ -94,12 +94,12 @@ class Compiler
 			'<?php $content->display() ?>',
 			'<?php newnav(1) ?>',
 			'<?php newnav(2) ?>',
-			'<?= LANG ?>',
-			'<?= $menu ?>',
-			'<?= url(\'cats\') ?>',
-			'<?= $cfg[\'title\'] ?>',
-			'<?= $content->title ?>',
-			'<?= $cfg[\'head\'].$content->head ?>',
+			'<?php echo LANG ?>',
+			'<?php echo $menu ?>',
+			'<?php echo url(\'cats\') ?>',
+			'<?php echo $cfg[\'title\'] ?>',
+			'<?php echo $content->title ?>',
+			'<?php echo $cfg[\'head\'].$content->head ?>',
 			'', "\n"
 		);
 		$this->data = str_ireplace($in, $out, $this->data);
@@ -121,15 +121,15 @@ class Compiler
 			'/<!-- INCLUDE ([A-Za-z0-9_.]+) -->/');
 
 		$out = array(
-			'<?=banner(\\1);?>',
-			'<?=$this->\\1;?>',
-			'<?=$\\1[\\2];?>',
-			'<?=$\\1[\'\\2\'];?>',
-			'<?=\\1($\\2[\'\\3\']);?>',
-			'<?=$\\1->\\2;?>',
-			'<?=\\1;?>',
-			'<?=$\\1;?>',
-			'<?=\\1($\\2);?>',
+			'<?php echo banner(\\1);?>',
+			'<?php echo $this->\\1;?>',
+			'<?php echo $\\1[\\2];?>',
+			'<?php echo $\\1[\'\\2\'];?>',
+			'<?php echo \\1($\\2[\'\\3\']);?>',
+			'<?php echo $\\1->\\2;?>',
+			'<?php echo \\1;?>',
+			'<?php echo $\\1;?>',
+			'<?php echo \\1($\\2);?>',
 			'<?php include $this->path(\'\\1.html\')?>');
 
 		$this->data = preg_replace($in, $out, $this->data);
@@ -147,7 +147,7 @@ class Compiler
 		if($c1 != $c2 OR $c3 > $c1) { throw new Exception('IF condition is not closed in '.$this->file); }
 
 		#Optymalizacja otwaræ PHP
-		$this->data = str_replace( array('?><?php', '?><?=', "?>\n<?php"), array('','echo ',''), $this->data);
+		$this->data = str_replace( array('?><?php', "?>\n<?php"), array('',''), $this->data);
 
 		#Wyrzuæ komentarze HTML
 		$this->data = preg_replace('#\<!--(.|\s)*?--\>#', '', $this->data);
@@ -212,14 +212,14 @@ class Compiler
 		#Klucz?
 		if(strpos($frag, '{KEY}'))
 		{
-			$frag = str_replace('{KEY}', '<?=$key;?>', $frag);
+			$frag = str_replace('{KEY}', '<?php echo $key;?>', $frag);
 			$key  = '$key=>&$i';
 		}
 		else
 		{
 			$key = '&$i';
 		}
-		$frag = str_replace('{ITEM}', '<?=$i'.$lv.';?>', $frag);
+		$frag = str_replace('{ITEM}', '<?php echo $i'.$lv.';?>', $frag);
 
 		#Gdy zmienna var jest kluczem tablicy
 		if($lv > 1)
@@ -247,8 +247,8 @@ class Compiler
 				'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\}/',
 				'/\<!-- IF ([A-Za-z0-9_])(.+) --\>/'),
 			array(
-				'<?=$i'.$lv.'[\'\\1\'];?>',
-				'<?=\\1($i'.$lv.'[\'\\2\']);?>',
+				'<?php echo $i'.$lv.'[\'\\1\'];?>',
+				'<?php echo \\1($i'.$lv.'[\'\\2\']);?>',
 				'<!-- IF i'.$lv.'.\\1\\2 -->'),
 			$frag);
 

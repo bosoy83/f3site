@@ -69,12 +69,6 @@ else
 	$pages = false;
 }
 
-#Kolorowanie sk³adni
-if($art['opt'] & 4)
-{
-	$content->addCSS('lib/prettify/prettify.css');
-}
-
 #Do szablonu
 $content->data = array(
 	'art'  => &$art,

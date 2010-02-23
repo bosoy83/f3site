@@ -46,8 +46,8 @@
 <tr>
 	<td colspan="6" class="eth">
 		<input type="submit" value="{lang.save}" />
-		<a href="?a=editMenu">
-			<input type="button" value="{lang.addBox}" onclick="location='?a=editMenu';return false" />
+		<a href="{newURL}">
+			<input type="button" value="{lang.addBox}" onclick="location=this.parentNode.href;return false" />
 		</a>
 	</td>
 </tr>

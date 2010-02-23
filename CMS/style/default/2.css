@@ -118,6 +118,7 @@ ul.gallery li {
 	width: 30%;
 	padding: 5px;
 	text-align: center;
+	vertical-align: top;
 }
 ul.cats {
 	list-style-image: url(../../img/icon/folder.png);

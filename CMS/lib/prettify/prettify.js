@@ -1,3 +1,17 @@
+// Copyright (C) 2006 Google Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 window.PR_SHOULD_USE_CONTINUATION=true,window.PR_TAB_WIDTH=8,window.PR_normalizedHtml=window.PR=window.prettyPrintOne=window.prettyPrint=void
 0,window._pr_isIE6=function(){var a=navigator&&navigator.userAgent&&navigator.userAgent.match(/\bMSIE ([678])\./);return a=a?+a[1]:false,window._pr_isIE6=function(){return a},a},(function(){var
 a=true,b=null,c='break continue do else for if return while auto case char const default double enum extern float goto int long register short signed sizeof static struct switch typedef union unsigned void volatile catch class delete false import new operator private protected public this throw true try typeof ',d=c+'alignof align_union asm axiom bool '+'concept concept_map const_cast constexpr decltype '+'dynamic_cast explicit export friend inline late_check '+'mutable namespace nullptr reinterpret_cast static_assert static_cast '+'template typeid typename using virtual wchar_t where ',e=c+'abstract boolean byte extends final finally implements import '+'instanceof null native package strictfp super synchronized throws '+'transient ',f=e+'as base by checked decimal delegate descending event '+'fixed foreach from group implicit in interface internal into is lock '+'object out override orderby params partial readonly ref sbyte sealed '+'stackalloc string select uint ulong unchecked unsafe ushort var ',g=c+'debugger eval export function get null set undefined var with '+'Infinity NaN ',h='caller delete die do dump elsif eval exit foreach for goto if import last local my next no our print package redo require sub undef unless until use wantarray while BEGIN END ',i='break continue do else for if return while and as assert class def del elif except exec finally from global import in is lambda nonlocal not or pass print raise try with yield False True None ',j='break continue do else for if return while alias and begin case class def defined elsif end ensure false in module next nil not or redo rescue retry self super then true undef unless until when yield BEGIN END ',k='break continue do else for if return while case done elif esac eval fi function in local set then until ',l=d+f+g+h+i+j+k,m=(function(){var

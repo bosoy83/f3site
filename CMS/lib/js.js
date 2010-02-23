@@ -21,9 +21,19 @@ function CSS(x)
 //Do³¹cz plik JS - loaded opcjonalny
 function include(file, loaded)
 {
-	var js = document.createElement('script');
-	js.type = 'text/javascript';
-	js.src = file;
+	if(file.indexOf('.css') > 0)
+	{
+		var js = document.createElement('link');
+		js.type = 'text/css';
+		js.rel = 'stylesheet';
+		js.href = file;
+	}
+	else
+	{
+		var js = document.createElement('script');
+		js.type = 'text/javascript';
+		js.src = file;
+	}
 
 	//Wywo³aj funkcjê, gdy plik zostanie za³adowany
 	if(loaded)

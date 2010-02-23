@@ -20,7 +20,7 @@ function BBCode($x, $exc=false)
 		);
 		$bbc[2] = array(
 			'<b>', '<i>', '<u>', '<sup>', '<sub>',
-			'<pre>',
+			'<code>',
 			'<blockquote>',
 			'<big>',
 			'<small>',
@@ -29,7 +29,7 @@ function BBCode($x, $exc=false)
 		);
 		$bbc[3] = array(
 			'</b>', '</i>', '</u>', '</sup>', '</sub>',
-			'</pre>', '</blockquote>',
+			'</code>', '</blockquote>',
 			'</big>', '</small>',
 			'</center>', '</div>'
 		);
