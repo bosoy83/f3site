@@ -22,7 +22,7 @@ var tags = [
 
 tagNum = 17, //Liczba wszystkich tagów - także spoza tablicy `tags`
 
-//Symbole: BBCode, HTML, po środku / po lewej, po prawej
+//Znaki specjalne
 symbol = [
 	'°', '§', '¤', '÷', '×', '&frac12;',
 	'Ä', 'Ö', 'Ü', 'ä', 'ö', 'ü',
@@ -101,10 +101,14 @@ Editor.prototype.create = function()
 //Chroń przed wyjściem
 Editor.prototype.protect = function(text)
 {
+	var self = this;
 	onbeforeunload = function()
 	{
-		if(e) e.returnValue = text||lang.leave;
-		return text||lang.leave
+		if(self.o.value != 0)
+		{
+			if(e) e.returnValue = text||lang.leave;
+			return text||lang.leave;
+		}
 	};
 	addEvent('submit', function() { onbeforeunload = null }, this.o.form)
 }

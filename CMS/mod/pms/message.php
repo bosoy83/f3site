@@ -5,8 +5,8 @@ if(iCMS!=1) exit;
 if(isset($URL[2]) && is_numeric($URL[2]))
 {
 	$q = $db->prepare('SELECT p.*,u.login,u.photo FROM '.PRE.'pms p LEFT JOIN '.PRE.
-	'users u ON p.usr=u.ID WHERE p.owner=? AND (p.ID=? OR p.th=?) ORDER BY p.date');
-	$q->execute(array(UID, $URL[2], $URL[2]));
+	'users u ON p.usr=u.ID WHERE (p.owner=? OR p.usr=?) AND (p.ID=? OR p.th=?) ORDER BY p.date');
+	$q->execute(array(UID, UID, $URL[2], $URL[2]));
 	$pm = array();
 }
 else
@@ -42,6 +42,7 @@ foreach($q as $x)
 		'reply' => $x['st'] < 3 ? url('pms/edit/'.$x['ID'], 'th='.$th) : false,
 		'read'  => $x['st'] == 2,
 		'photo' => $x['photo'],
+		'id'    => $x['ID'],
 		'who'   => $x['login'],
 		'url'   => $x['login'] ? url('user/'.urlencode($x['login'])) : ''
 	);

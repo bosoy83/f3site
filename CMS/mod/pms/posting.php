@@ -47,8 +47,6 @@ if($_POST)
 				{
 					$o -> send(); //Wy¶lij now± wiadomo¶æ
 					if(!$th) $th = $o->thread = $db->lastInsertId();
-					$o -> status = 4;
-					$o -> send(1); //Kopia dla nadawcy
 				}
 			}
 			else
@@ -66,14 +64,8 @@ if($_POST)
 			}
 			$db -> commit();
 
-			#Poka¿ listê PW
-			switch($o->status)
-			{
-				case 3: $URL[1] = 'drafts'; break;
-				default: $URL[1] = 'outbox';
-			}
-			unset($URL[2]);
-			include './mod/pms/list.php';
+			#Przekieruj do w±tku
+			header('Location: '.URL.url('pms/'.($th?$th:$id)));
 			return 1;
 		}
 		catch(Exception $e)

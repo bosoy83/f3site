@@ -16,6 +16,7 @@ $lang += Array(
 'inbox'=>'Odebrane',
 'await'=>'Oczekujące',
 'drafts'=>'Kopie robocze',
+'topics'=>'Moje wątki',
 
 'new1'=>'Masz 1 nową wiadomość.',
 'new2'=>'Masz % nowych wiadomości.',
@@ -39,5 +40,4 @@ $lang += Array(
 'pm21'=>'Skrzynka odbiorcy jest pełna.',
 
 'pm26'=>'Czy na pewno chcesz usunąć te wiadomości?',
-'pm3i'=>'Poniższe wiadomości nie zostały jeszcze odebrane przez adresatów. Możesz je przeczytać lub usunąć.',
 );

@@ -398,10 +398,12 @@ function Dialog(title, txt, width, height)
 	this.o.className = 'dialog';
 	this.bg = document.createElement('div'); //Overlay
 	this.bg.className = 'overlay';
-	this.title = this.o.appendChild(document.createElement('h3')); //Dialog's title
+	this.title = this.o.appendChild(document.createElement('h3'));
 	this.title.ref = this;
 	this.title.innerHTML = '<div class="exit" onclick="parentNode.ref.hide()">x</div>' + title;
-	this.body = this.o.appendChild(document.createElement('div')); //Dialog's body
+	this.body = this.o.appendChild(document.createElement('div'));
+	this.body.style.height = height - 20 + 'px'
+	this.body.style.overflow = 'auto';
 
 	//Width and height
 	if(width) this.o.style.width = width + 'px';

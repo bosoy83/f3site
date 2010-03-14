@@ -49,6 +49,13 @@ $content->data = array(
 	'rates'=> $rates
 );
 
+#Tagi
+if(isset($cfg['tags']))
+{
+	include './lib/tags.php';
+	tags($id, 3);
+}
+
 #Komentarze
 if(isset($cfg['icomm']) && $img['opt']&2)
 {

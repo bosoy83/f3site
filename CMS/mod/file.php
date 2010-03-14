@@ -43,7 +43,7 @@ else
 }
 
 #Ocena
-if(isset($cfg['frate']) AND $file['opt'] & 4)
+if(isset($cfg['frate']) && $file['opt'] & 4)
 {
 	$content->addCSS(SKIN_DIR.'rate.css');
 	$rate = 'vote.php?type=2&amp;id='.$id;
@@ -65,6 +65,13 @@ $content->data = array(
 	'cats' => url('cats/files'),
 	'edit' => admit($file['cat'],'CAT') ? url('edit/2/'.$id, 'ref') : false
 );
+
+#Tagi
+if(isset($cfg['tags']))
+{
+	include './lib/tags.php';
+	tags($id, 2);
+}
 
 #Komentarze
 if(isset($cfg['fcomm']) && $file['opt']&2)

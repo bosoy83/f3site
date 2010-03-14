@@ -16,6 +16,7 @@ $lang += Array(
 'inbox'=>'Inbox',
 'await'=>'Outbox',
 'drafts'=>'Drafts',
+'topics'=>'My topics',
 
 'new1'=>'You have 1 new message.',
 'new2'=>'You have % new messages.',
@@ -39,5 +40,4 @@ $lang += Array(
 'pm21'=>'Recipient\'s inbox is full.',
 
 'pm26'=>'Are you sure to delete selected messages?',
-'pm3i'=>'The following messages has not been read by recipients yet. You may view of delete them.',
 );

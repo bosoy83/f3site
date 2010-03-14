@@ -1,0 +1,27 @@
+<!-- IF item -->
+
+<div class="cs"><a href="{tags}">{lang.tags}</a> &raquo; {this.title}</div>
+
+<h2>{this.title}</h2>
+<div class="box">
+<ol>
+
+	<!-- START item -->
+	<li><h3><a href="{url}">{title}</a></h3>{desc}</li>
+	<!-- STOP -->
+
+</ol>
+</div>
+
+<!-- ELSE -->
+
+<h2>{lang.tags}</h2>
+<div class="box" id="tagcloud">
+
+	<!-- START tag -->
+	<a href="{url}" style="font-size: {size}px">{title}</a>
+	<!-- STOP -->
+
+</div>
+
+<!-- END -->

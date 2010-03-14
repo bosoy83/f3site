@@ -253,32 +253,25 @@ small {font-size: 11px}
 }
 
 /* LINKS */
-a.edit, a.add, a.del, a.user {
-	padding-left: 20px
+.edit, .add, .del, .user, .cat, .tags {
+	padding-left: 20px;
+	background-repeat: no-repeat
 }
-a.del {
-	background: url(../../img/icon/del.png) no-repeat;
-}
-a.user {
-	background: url(../../img/icon/group.png) no-repeat;
-}
-a.edit {
-	background: url(../../img/icon/edit.png) no-repeat;
-	display: block;
-	float: right;
-}
-a.add {
-	background: url(../../img/icon/add.png) no-repeat;
-}
+.del {background-image: url(../../img/icon/del.png)}
+.user {background-image: url(../../img/icon/group.png)}
+.edit {background-image: url(../../img/icon/edit.png); display: block; float: right}
+.add {background-image: url(../../img/icon/add.png)}
+.cat {background-image: url(../../img/icon/folder.png); background-position: 0 -1px}
+.tags {background-image: url(../../img/icon/tag.png); background-position: 2px}
 
 /* DIALOG */
 .dialog {
-	position: absolute;
+	position: fixed;
 	z-index: 99;
 	padding: 5px;
 	background-color: #EFEBE7;
-	border: 1px solid #B1A598;
-	overflow: auto;
+	border: 1px solid #7F9B97;
+	overflow: hidden;
 }
 .dialog h3 {
 	margin: -5px -5px 5px -5px;

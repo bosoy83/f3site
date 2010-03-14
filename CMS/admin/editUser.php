@@ -27,6 +27,7 @@ if($_POST)
 		'city' => clean($_POST['city']),
 		'tlen' => clean($_POST['tlen'],30),
 		'www'  => clean($_POST['www']),
+		'sex'  => (int)$_POST['sex'],
 		'icq' => (is_numeric($_POST['icq'])) ? $_POST['icq'] : null,
 		'gg'  => (is_numeric($_POST['gg'])) ? $_POST['gg'] : null);
 
@@ -70,11 +71,11 @@ if($_POST)
 	{
 		try
 		{
-			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail, about=:about,
-			www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen, jabber=:jabber,
-			gg=:gg, photo=:photo WHERE ID='.$id) -> execute($u);
+			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail, sex=:sex,
+			about=:about, www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen,
+			jabber=:jabber, gg=:gg, photo=:photo WHERE ID='.$id) -> execute($u);
 
-			$content->info($lang['upd'], array(url('user/'.$id) => $u['login']));
+			$content->info($lang['upd'], array(url('user/'.urlencode($u['login'])) => $u['login']));
 			return 1;
 		}
 		catch(PDOException $e)
@@ -97,5 +98,6 @@ require './lib/user.php';
 $content->data = array(
 	'u' => &$u,
 	'url' => url('editUser/'.$id, '', 'admin'),
+	'bbcode' => isset($cfg['bbcode']),
 	'fileman'=> admit('FM')
 );

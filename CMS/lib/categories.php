@@ -1,4 +1,4 @@
-<?php /* Funkcje kategorii */
+<?php
 
 #Nazwa tabeli
 function typeOf($x)
@@ -11,7 +11,7 @@ function typeOf($x)
 		case 3: return 'imgs'; break;
 		case 4: return 'links'; break;
 		case 5: return 'news'; break;
-		default: if(!$data) $data = parse_ini_file('./cfg/types.ini',1); return $data[$x]['table'];
+		default: if(!$data) $data = parse_ini_file('cfg/types.ini',1); return $data[$x]['table'];
 	}
 }
 
@@ -36,7 +36,7 @@ function Latest($lang=array())
 	}
 
 	#Typy kategorii
-	$data = parse_ini_file('./cfg/types.ini',1);
+	$data = parse_ini_file('cfg/types.ini',1);
 	
 	#Dla każdego języka
 	foreach($lang as $l)
@@ -60,7 +60,7 @@ function Latest($lang=array())
 			}
 			if($got) $out .= '<h3>'.(isset($cur[$l]) ? $cur[$l] : $cur['en']).'</h3><ul class="latest">'.$got.'</ul>';
 		}
-		if($out) file_put_contents('./cache/new-'.$l.'.php', $out, 2);
+		if($out) file_put_contents('cache/new-'.$l.'.php', $out, 2);
 	}
 }
 
@@ -99,6 +99,72 @@ function RSS($id = null, $cat = null)
 	}
 }
 
+#Aktualizuj tagi
+function UpdateTags($id, $type, $in=null, $t=null)
+{
+	global $db;
+	if(!admit('TAG')) return;
+
+	#Tagi obiektu
+	$res = $db->prepare('SELECT tag,num FROM '.PRE.'tags WHERE ID=? AND TYPE=? GROUP BY tag ORDER BY tag');
+	$res -> execute(array($id, $type));
+	$num = $res->fetchAll(12);
+	$tag = array_keys($num);
+	$new = array();
+
+	#Wszystkie tagi
+	$res = $db->query('SELECT tag,num FROM '.PRE.'tags GROUP BY tag ORDER BY num DESC,tag');
+	$all = $res->fetchAll(12);
+
+	#Aktualizuj tagi
+	if(isset($in))
+	{
+		if($t) $db->beginTransaction();
+		foreach($in as $x)
+		{
+			if(preg_match('/^[0-9\pL _.-]{1,50}$/u', $x))
+			{
+				$new[] = trim($x);
+			}
+		}
+
+		#Zapytania
+		$d = $db->prepare('DELETE FROM '.PRE.'tags WHERE ID=? AND TYPE=? AND tag=?');
+		$i = $db->prepare('REPLACE INTO '.PRE.'tags (tag,ID,TYPE,num) VALUES (?,?,?,?)');
+		$u = $db->prepare('UPDATE '.PRE.'tags SET num=? WHERE tag=?');
+
+		#Usuń stare
+		foreach(array_diff($tag,$new) as $x)
+		{
+			$d->execute(array($id, $type, $x));
+			if($num[$x]>1) $u->execute(array($num[$x]-1, $x));
+		}
+
+		#Dodaj nowe
+		foreach(array_diff($new,$tag) as $x)
+		{
+			$i->execute(array($x, $id, $type, isset($all[$x]) ? $all[$x] : 1));
+			if(isset($all[$x])) $u->execute(array($all[$x]+1, $x));
+		}
+		if($t) $db->commit();
+
+		#Pokaż po aktualizacji
+		return $new;
+	}
+
+	foreach($all as $x=>$y)
+	{
+		$new[] = array($x, isset($num[$x]), $y);
+	}
+	return $new;
+}
+
+#Tagi - AJAX
+function ajaxTags($id, $type)
+{
+	echo json_encode(UpdateTags($id, $type, $_SERVER['REQUEST_METHOD']=='POST' ? $_POST : null));
+}
+
 #Struktura kategorii
 function UpdateCatPath($cat)
 {
@@ -126,7 +192,7 @@ function UpdateCatPath($cat)
 	$out.= '<a href="'.url($cat['ID']).'">'.$cat['name'].'</a>';
 
 	#Zapisz
-	file_put_contents('./cache/cat'.$cat['ID'].'.php', $out, 2);
+	file_put_contents('cache/cat'.$cat['ID'].'.php', $out, 2);
 	return $out;
 }
 

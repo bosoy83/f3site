@@ -47,6 +47,13 @@ $content->data = array(
 	'edit' => $edit ? url('editPage/'.$id, 'ref', 'admin') : false
 );
 
+#S³owa kluczowe
+if(isset($cfg['tags']))
+{
+	include './lib/tags.php';
+	tags($id, 59);
+}
+
 #Komentarze
 if($page['opt'] & 8)
 {

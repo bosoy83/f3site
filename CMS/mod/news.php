@@ -53,6 +53,13 @@ $content->data = array(
 	'cats' => url('cats/news')
 );
 
+#Tagi
+if(isset($cfg['tags']))
+{
+	include './lib/tags.php';
+	tags($id, 5);
+}
+
 #Komentarze
 if(isset($cfg['ncomm']) && $news['catOpt']&2)
 {

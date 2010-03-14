@@ -39,6 +39,13 @@ $content->data = array(
 	'cats' => url('cats/links')
 );
 
+#Tagi
+if(isset($cfg['tags']))
+{
+	include './lib/tags.php';
+	tags($id, 4);
+}
+
 #Komentarze
 if($link['opt'] & 2)
 {

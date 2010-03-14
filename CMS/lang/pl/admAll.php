@@ -69,6 +69,7 @@ $lang+=Array(
 'left'  => 'lewa',
 'right' => 'prawa',
 'mod'   => 'Moduł',
+'fp'    => 'Wolna strona',
 'merged'  => 'plik scalony',
 'editBox' => 'Edycja bloku',
 'addBox'  => 'Nowy blok',

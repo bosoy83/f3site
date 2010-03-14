@@ -12,6 +12,10 @@
 	<td><input name="mail" value="{u.mail}" maxlength="50" /></td>
 </tr>
 <tr>
+	<td><b>{lang.from}:</b></td>
+	<td><input name="city" maxlength="50" value="{u.city}" /></td>
+</tr>
+<tr>
 	<td><b>Gadu-Gadu:</b></td>
 	<td><input name="gg" maxlength="15" value="{u.gg}" /></td>
 </tr>
@@ -33,24 +37,30 @@
 </tr>
 <tr>
 	<td><b>{lang.wwwp}:</b></td>
-	<td><input name="www" maxlength="120" value="{u.www}" /></td>
-</tr>
-<tr>
-	<td><b>{lang.from}:</b></td>
-	<td><input name="city" maxlength="50" value="{u.city}" /></td>
+	<td><input name="www" maxlength="120" value="{u.www}" size="40" /></td>
 </tr>
 <tr>
 	<td><b>{lang.curPhoto}:</b></td>
 	<td>
-		<input name="photo" maxlength="150" value="{u.photo}" />
+		<input name="photo" maxlength="150" value="{u.photo}" size="40" />
 		<!-- IF fileman -->
 		<input type="button" value="{lang.files} &raquo;" onclick="fileman('img',this.form.photo)" />
 		<!-- END -->
 	</td>
 </tr>
 <tr>
+	<td><b>{lang.sex}:</b></td>
+	<td>
+		<select name="sex" f3:var="u.sex">
+			<option value="0"></option>
+			<option value="1">{lang.male}</option>
+			<option value="2">{lang.female}</option>
+		</select>
+	</td>
+</tr>
+<tr>
 	<td><b>{lang.abouty}:</b></td>
-	<td><textarea name="about" cols="50" rows="6">{u.about}</textarea></td>
+	<td><textarea name="about" cols="50" rows="8" style="width: 99%">{u.about}</textarea></td>
 </tr>
 <tr>
 	<td class="eth" colspan="2">
@@ -61,3 +71,13 @@
 </tbody>
 </table>
 </form>
+
+<!-- IF bbcode -->
+<script type="text/javascript">
+include('lang/' + document.documentElement.lang + '/edit.js')
+include('lib/editor.js')
+include('cache/emots.js')
+document.forms[0].about.onfocus = function() { new Editor(this,1).emots(); this.onfocus = null }
+document.forms[0][0].focus()
+</script>
+<!-- END -->

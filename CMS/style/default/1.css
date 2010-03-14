@@ -248,23 +248,16 @@ small {font-size: 11px}
 }
 
 /* LINKI */
-.edit, .add, .del, .user {
-	padding-left: 20px
+.edit, .add, .del, .user, .cat, .tags {
+	padding-left: 20px;
+	background-repeat: no-repeat
 }
-.del {
-	background: url(../../img/icon/del.png) no-repeat;
-}
-.user {
-	background: url(../../img/icon/group.png) no-repeat;
-}
-.edit {
-	background: url(../../img/icon/edit.png) no-repeat;
-	display: block;
-	float: right;
-}
-.add {
-	background: url(../../img/icon/add.png) no-repeat;
-}
+.del {background-image: url(../../img/icon/del.png)}
+.user {background-image: url(../../img/icon/group.png)}
+.edit {background-image: url(../../img/icon/edit.png); display: block; float: right}
+.add {background-image: url(../../img/icon/add.png)}
+.cat {background-image: url(../../img/icon/folder.png); background-position: 0 -1px}
+.tags {background-image: url(../../img/icon/tag.png); background-position: 2px}
 
 /* DIALOG */
 .dialog {

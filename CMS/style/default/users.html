@@ -1,34 +1,26 @@
 <h2>{lang.users} ({total})</h2>
-<table cellspacing="1" class="tb">
-<tbody>
-<tr>
-	<th style="min-width: 150px"><a href="{login_url}">{lang.login}</a></th>
-	<th><a href="{last_url}">{lang.from}</a></th>
-	<th><a href="{joined_url}">{lang.joined}</a></th>
-	<th>{lang.range}</th>
-</tr>
+<div class="box"><ul class="gallery">
 
 <!-- START users -->
 
+<li>
+	<a href="{url}"><img src="img/user/0.jpg" alt="{login}" style="margin-bottom: 3px" />
+	<div><a href="{url}">{login}</a></div>
+	<div>{city}</div>
+</li>
+
+<!--
 <tr>
 	<td>{num}. <a href="{url}">{login}</a></td>
 	<td align="center">{city}</td>
 	<td align="center">{date}</td>
 	<td align="center">{level}</td>
 </tr>
+-->
 
 <!-- STOP -->
 
-<tr class="eth">
-	<td style="font-weight: normal">
-		<!-- IF find -->
-		<a href="#" onclick="return showFind()">{lang.search} &raquo;</a>
-		<!-- END -->
-	</td>
-	<td colspan="3" class="pages">{lang.page}: {pages}</td>
-</tr>
-</tbody>
-</table>
+</ul></div>
 
 <!-- IF find -->
 

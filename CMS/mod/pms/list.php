@@ -20,13 +20,12 @@ $id = isset($URL[1]) && ctype_alnum($URL[1]) ? $URL[1] : 'inbox';
 switch($id)
 {
 	case 'sent':
-		$q = 'p.st=4 AND p.owner='.UID; #Wys³ane
+		$q = 'p.st<3 AND p.usr='.UID; #Wys³ane
 		$content->title = $lang['sent'];
 		break;
-	case 'outbox':
-		$q = 'p.st=1 AND p.usr='.UID; #Oczekuj¹ce
-		$content->title = $lang['await'];
-		$content->info($lang['pm3i']);
+	case 'topics':
+		$q = 'p.th=0 AND (p.owner='.UID.' OR p.usr='.UID.')'; #W¹tki
+		$content->title = $lang['topics'];
 		break;
 	case 'drafts':
 		$q = 'p.st=3 AND p.owner='.UID; #Kopie robocze
@@ -49,7 +48,7 @@ if($total < 1)
 }
 
 #Pobierz
-$res = $db->query('SELECT p.ID, p.topic, p.st, u.ID as uid, u.login FROM '.
+$res = $db->query('SELECT p.ID, p.th, p.topic, p.st, u.ID as uid, u.login FROM '.
 	PRE.'pms p LEFT JOIN '.PRE.'users u ON p.usr=u.ID WHERE p.out!='.
 	UID.' AND '.$q.' ORDER BY p.st,p.ID DESC LIMIT '.$st.',20');
 
@@ -65,8 +64,8 @@ foreach($res as $x)
 	$pms[] = array(
 		'id'    => $x['ID'],
 		'topic' => $x['topic'],
-		'new'   => $id=='inbox' && $x['st']==1,
-		'url'   => $url.$x['ID'],
+		'new'   => $x['st']=='1',
+		'url'   => $url.$x['th'],
 		'login' => $x['login'],
 		'userURL' => $userURL.urlencode($x['login']),
 	);
@@ -79,7 +78,7 @@ $content->file[] = 'pms_list';
 #Do szablonu
 $content->data += array(
 	'pm'  => $pms,
-	'who' => $id=='inbox' ? $lang['pm12'] : $lang['pm13'],
+	'who' => $id=='drafts' ? $lang['pm13'] : $lang['pm12'],
 	'url' => url('pms/del/'.$id),
 	'total' => $total,
 	'pages' => pages($page, $total, 30, url('pms/'.$id), 1, '/')

@@ -103,5 +103,6 @@ $content->data = array(
 	'total'   => $total,
 	'url'     => url('moderate'),
 	'nourl'   => url('moderate/hidden'),
+	'color'   => isset($cfg['colorCode']),
 	'pages'   => pages($page,$total,20,'moderate',1)
 );

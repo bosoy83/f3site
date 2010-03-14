@@ -80,6 +80,13 @@ $content->data = array(
 	'rates'=> $rates
 );
 
+#Tagi
+if(isset($cfg['tags']))
+{
+	include './lib/tags.php';
+	tags($id, 1);
+}
+
 #Komentarze
 if(isset($cfg['acomm']) && $art['catOpt']&2)
 {

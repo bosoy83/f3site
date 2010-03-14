@@ -18,11 +18,13 @@ var tips=[
 'Wstaw obraz'];
 
 var lang={
+add:'dodaj',
+edit:'edytuj',
+tags:'Wybierz słowa kluczowe',
 adr:'Wpisz adres strony:',
 adr2:'Wpisz tekst widoczny jako link do strony:',
 mail:'E-mail',
 img:'Wpisz lub skopiuj adres obrazka:',
-saving:'Trwa wysyłanie danych...',
 leave:'Formularz nie został jeszcze wysłany.',
 sure:'Na pewno chcesz wykonać tę akcję?',
 wait:'Czekaj...',

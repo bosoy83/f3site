@@ -175,6 +175,7 @@ CREATE TABLE IF NOT EXISTS `f3_menu` (
 CREATE TABLE IF NOT EXISTS `f3_mitems` (
 `menu` int(11) NOT NULL,
 `text` varchar(50) NOT NULL,
+`type` tinyint(1) NOT NULL DEFAULT 5,
 `url` varchar(255) NOT NULL,
 `nw` tinyint(1) NOT NULL DEFAULT 0,
 `seq` tinyint(2) NOT NULL DEFAULT 0);
@@ -267,8 +268,7 @@ CREATE TABLE IF NOT EXISTS `f3_tags` (
 `ID` int(11) NOT NULL DEFAULT 0,
 `num` int(11) NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS `tag` ON `f3_tags` (`tag`);
-CREATE INDEX IF NOT EXISTS `itm` ON `f3_tags` (`TYPE`,`ID`);
+CREATE INDEX IF NOT EXISTS `tag` ON `f3_tags` (`tag`,`TYPE`,`ID`);
 
 CREATE TABLE IF NOT EXISTS `f3_tmp` (
 `KEYID` varchar(50) NOT NULL PRIMARY KEY,

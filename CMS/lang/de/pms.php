@@ -16,6 +16,7 @@ $lang += Array(
 'inbox'=>'Posteingang',
 'await'=>'Postausgang',
 'drafts'=>'Arbeitskopien',
+'topics'=>'Meine Themen',
 
 'new1'=>'Du hast 1 neue Nachricht.',
 'new2'=>'Du hast % neue Nachrichte.',
@@ -39,5 +40,4 @@ $lang += Array(
 'pm21'=>'Posteingang des Adressat ist voll.',
 
 'pm26'=>'Willst du diese Nachrichte löschen?',
-'pm3i'=>'Die folgende Nachrichte haben nicht aufnehmen worden. Du kannst sie reden oder löschen.',
 );

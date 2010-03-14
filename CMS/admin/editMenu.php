@@ -15,7 +15,7 @@ if($_POST)
 		'img'  => clean($_POST['img']),
 		'menu' => (int)$_POST['menu'],
 		'type' => (int)$_POST['type'],
-		'value'=> &$_POST['value']
+		'value'=> $_POST['value']
 	);
 
 	#Opcje menu
@@ -24,18 +24,20 @@ if($_POST)
 	for($i=0;$i<$ile;++$i)
 	{
 		$o[] = array(
-			0 => &$_POST['txt'][$i],
-			1 => clean($_POST['adr'][$i]),
-			2 => isset($_POST['nw'][$i]),
-			3 => $i
+			0 => $_POST['txt'][$i],
+			1 => (int)$_POST['t'][$i],
+			2 => clean($_POST['adr'][$i]),
+			3 => isset($_POST['nw'][$i]),
+			4 => $i,
+			5 => $id
 		);
 	}
 
 	#START
 	try
 	{
-		$db->beginTransaction(); 
-	
+		$db->beginTransaction();
+
 		#Edytuj
 		if($id && !isset($_POST['savenew']))
 		{
@@ -58,7 +60,7 @@ if($_POST)
 		if($m['type']==3)
 		{
 			#Dodaj pozycje menu
-			$q = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,url,nw,seq) VALUES ('.$id.',?,?,?,?)');
+			$q = $db->prepare('INSERT INTO '.PRE.'mitems (text,type,url,nw,seq,menu) VALUES (?,?,?,?,?,?)');
 			foreach($o as &$i)
 			{
 				$q->execute($i);
@@ -88,14 +90,14 @@ elseif($id)
 
 	if($m['type'] == 3)
 	{
-		$o = $db->query('SELECT text,url,nw FROM '.PRE.'mitems WHERE menu='.$id.' ORDER BY seq') -> fetchAll(3);
+		$o = $db->query('SELECT text,type,url,nw FROM '.PRE.'mitems WHERE menu='.$id.' ORDER BY seq')->fetchAll(3);
 	}
 	else $o = array();
 }
 else
 {
 	$m = array('text'=>'', 'disp'=>'', 'img'=>'0', 'menu'=>1, 'type'=>3, 'value'=>'');
-	$o = array(array('', '', 0));
+	$o = array(array('', 0, '', 0));
 }
 
 $content->addScript('lib/forms.js');

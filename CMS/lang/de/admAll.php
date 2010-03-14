@@ -67,6 +67,7 @@ $lang+=Array(
 'left'  => 'links',
 'right' => 'rechts',
 'mod'   => 'Modul',
+'fp'    => 'Freie Seite',
 'merged'  => 'fusioniert',
 'editBox' => 'Block ändern',
 'addBox'  => 'Neuer Block',

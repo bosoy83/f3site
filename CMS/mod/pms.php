@@ -19,7 +19,7 @@ if(isset($cfg['pmOn']) && UID)
 		'write' => url('pms/edit'),
 		'inbox' => url('pms'),
 		'sent'  => url('pms/sent'),
-		'outbox'=> url('pms/outbox'),
+		'topics'=> url('pms/topics'),
 		'drafts'=> url('pms/drafts'),
 		'limit' => $cfg['pmLimit'],
 		'size'  => $size,

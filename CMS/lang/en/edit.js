@@ -18,11 +18,13 @@ var tips=[
 'Insert image'];
 
 var lang={
+add:'add',
+edit:'edit',
+tags:'Select tags',
 adr:'Type the address of page:',
 adr2:'Type text visible as a link to the page:',
 mail:'E-mail',
 img:'Type or copy URL address of the image:',
-saving:'Sending data...',
 leave:'Data has not been sent yet.',
 sure:'Are you sure to commit this action?',
 wait:'Wait...',

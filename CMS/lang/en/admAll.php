@@ -67,6 +67,7 @@ $lang+=Array(
 'left'		=> 'left',
 'right'		=> 'right',
 'mod'     => 'Module',
+'fp'      => 'Free page',
 'merged'	=> 'merged file',
 'editBox'	=> 'Edit block',
 'addBox'	=> 'Add block',
