@@ -7,8 +7,12 @@
 'global'=>'Globale Einstellungen',
 'allCat'=>'UWAGA! Po włączeniu tej opcji użytkownik będzie mógł zarządzać treścią w całym serwisie!',
 'ldb'=>'Einstellungen und SQL',
-'privs'=>'Privilegen',
+'privs'=>'privilegen',
 'profile'=>'profil',
 'manComm'=>'Kommentare ändern und löschen',
-'range2'=>'Inaktiv - kann nicht einloggen<br />Administrator - Adminpanel zugriff<br />Redakteur - Redakteurpanel zugriff<br />Besitzer - alle Sonderrechte',
+
+'commoner'=>'Benutzer',
+'admin2'=>'Administrator - Adminpanel zugriff',
+'editor2'=>'Redakteur - Redakteurpanel zugriff',
+'owner2'=>'Besitzer - alle Sonderrechte',
 );

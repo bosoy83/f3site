@@ -8,23 +8,24 @@ if(!$id || $id < 1 || ($id == UID && LEVEL != 4)) return;
 
 #Uprawnienia
 $set = array(
-	'C',	//Kategorie
-	'P',	//Wolne strony
-	'Q',	//Ankiety
-	'R',	//RSS
-	'U',	//U¿ytkownicy
-	'G',	//Grupy
-	'L',	//Indeks zdarzeñ
-	'M',	//Masowe listy
-	'CFG',	//Opcje
-	'DB',	//Kopia bazy danych
-	'N',	//Menu
-	'B',	//Bannery
-	'E',	//PI
-	'CM',	//Komentarze
-	'FM',	//Mened¿er plików
-	'UP',	//Upload
-	'+' 	//Globalny redaktor
+	'C',  //Kategorie
+	'P',  //Wolne strony
+	'Q',  //Ankiety
+	'R',  //RSS
+	'U',  //U¿ytkownicy
+	'G',  //Grupy
+	'L',  //Indeks zdarzeñ
+	'M',  //Masowe listy
+	'CFG',//Opcje
+	'DB', //Kopia bazy danych
+	'N',  //Menu
+	'B',  //Bannery
+	'E',  //PI
+	'CM', //Komentarze
+	'TAG',//S³owa kluczowe
+	'FM', //Mened¿er plików
+	'UP', //Upload
+	'+'   //Globalny redaktor
 );
 
 #Pobierz u¿ytkownika - FETCH_NUM
@@ -85,6 +86,7 @@ if($_POST)
 		#Koniec
 		$db->commit();
 		$content->info($lang['saved']);
+		header('Location: '.URL.url('admins','','admin'));
 	}
 	catch(PDOException $e)
 	{

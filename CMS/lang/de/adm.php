@@ -27,13 +27,13 @@
 
 'mainPage'=>'Hauptseite',
 'summary' =>'Übersicht',
-'admIntro'=>'Willkommen bei %s Admin Panel. Wähl echten Modul an MenĂź.',
+'admIntro'=>'Willkommen bei %s Admin Panel. Wähl echten Modul an Menü.',
 'skinComp'=>'Änderungen übernehmen im jetzig Skin',
-'official'=>'Hol Hilfe oder download Add-ons für F3Site 2009',
+'official'=>'Hol Hilfe oder download Add-ons für F3Site 2010',
 'notepad' =>'Was willst du tun oder diskutieren mit anderen Administratoren?',
 'course'=>'Kurs: HTML, xHTML, CSS...',
 'what'=>'Was willst du machen?',
-'SVN' =>'Besuch F3Site 2009 @ Google Code',
+'SVN' =>'Besuch F3Site @ Google Code',
 
 'delc'=> 'Ach wirklich löschen?',
 'disp'=> 'Zugriff',

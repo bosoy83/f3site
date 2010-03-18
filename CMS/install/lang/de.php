@@ -1,6 +1,6 @@
 <?php
 $lang = array(
-'installer' => 'F3Site 2009 Installation',
+'installer' => 'F3Site 2010 Installation',
 'info' => 'Anzeige',
 'ban'  => 'F3Site wird schon installiert.',
 'noDB' => 'Der Server hat keine <b>MySQL</b> oder <b>SQLite</b>.',
@@ -20,7 +20,7 @@ $lang = array(
 'MySQL'  => 'Die populärste Datenbank-Engine (empfohlen)',
 'SQLite' => 'Die Datenbank in einem File.',
 'engine' => 'Wähl Datenbank-Engine',
-'intro'  => 'Willkommen bei F3Site 2009 Installations-Assistenten. Bevor Sie beginnen, lies die Packungsbeilage README.txt, um das Paket integriert.',
+'intro'  => 'Willkommen bei F3Site 2010 Installations-Assistenten. Bevor Sie beginnen, lies die Packungsbeilage README.txt, um das Paket integriert.',
 
 'sure' => 'Wenn du nicht Datenbank-Einstellungen wissen, sieh Hilfe: ',
 'dba'  => 'Datenbank-Zugriff Einstellungen',
@@ -62,6 +62,7 @@ $lang = array(
 'links' => 'Links',
 'arts'  => 'Artikel',
 'files' => 'Herunterladen',
+'cats'  => 'Kategorien',
 'UA'    => 'Dein Konto',
 '1st'   => 'Die erste Nachricht',
 'arch'  => 'Archiv',

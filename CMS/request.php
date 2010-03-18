@@ -24,7 +24,6 @@ switch($URL[0])
 
 	#Edytuj tagi
 	case 'tags':
-		if(empty($cfg['tags'])) exit;
 		include './lib/categories.php';
 		ajaxTags($id, (int)$_GET['type']);
 		break;

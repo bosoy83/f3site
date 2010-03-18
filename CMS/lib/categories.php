@@ -102,8 +102,8 @@ function RSS($id = null, $cat = null)
 #Aktualizuj tagi
 function UpdateTags($id, $type, $in=null, $t=null)
 {
-	global $db;
-	if(!admit('TAG')) return;
+	global $db,$cfg;
+	if(empty($cfg['tags']) || !admit('TAG')) return;
 
 	#Tagi obiektu
 	$res = $db->prepare('SELECT tag,num FROM '.PRE.'tags WHERE ID=? AND TYPE=? GROUP BY tag ORDER BY tag');
@@ -162,7 +162,7 @@ function UpdateTags($id, $type, $in=null, $t=null)
 #Tagi - AJAX
 function ajaxTags($id, $type)
 {
-	echo json_encode(UpdateTags($id, $type, $_SERVER['REQUEST_METHOD']=='POST' ? $_POST : null));
+	echo json_encode(UpdateTags($id, $type, $_SERVER['REQUEST_METHOD']=='POST' ? $_POST : null), 1);
 }
 
 #Struktura kategorii

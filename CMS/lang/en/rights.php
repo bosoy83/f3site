@@ -11,4 +11,9 @@
 'profile'=>'profile',
 'manComm'=>'Editing and deleting comments',
 'range2'=>'Inactive - deactivates account<br />Administrator - access to admin panel<br />Editor - access to editors center<br />Owner - all privileges',
+
+'commoner'=>'Commoner',
+'admin2'=>'Administrator - access to admin panel',
+'editor2'=>'Editor - may edit content',
+'owner2'=>'Owner - all privileges',
 );

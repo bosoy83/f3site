@@ -126,6 +126,7 @@ class Installer
 		$m->execute(array(3, $lang['poll'], $x, 2, 2, './mod/panels/poll.php'));
 		$m->execute(array(4, $lang['stat'], $x, 1, 2, './mod/panels/online.php'));
 		$m->execute(array(5, $lang['new'], $x, 2, 2, './mod/panels/new.php'));
+		$m->execute(array(6, $lang['cats'], $x, 1, 2, './mod/panels/cats.php'));
 
 		#Pierwszy NEWS
 		$n->execute(array($catID, $lang['1st'], $lang['NEWS'], gmdate('Y-m-d H:i:s'), 1, 1));
@@ -172,7 +173,7 @@ class Installer
 		$o = new Config('content');
 		$o->save($cfg);
 
-		unset($cfg,$o);
+		$cfg = array();
 		require './cfg/main.php';
 
 		#Tytuł strony i format URL

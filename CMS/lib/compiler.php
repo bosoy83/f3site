@@ -86,7 +86,7 @@ class Compiler
 		if(($pos = strpos($this->data, '<form')) !== false) $this->forms($pos);
 
 		#Sta³e predefiniowane i niepotrzebne znaki
-		$in  = array(
+		$in = array(
 			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}', '{CATS URL}',
 			'{MAIN TITLE}', '{PAGE TITLE}', '{HEAD TAGS}', "\t", "\n\n");
 
@@ -99,9 +99,15 @@ class Compiler
 			'<?php echo url(\'cats\') ?>',
 			'<?php echo $cfg[\'title\'] ?>',
 			'<?php echo $content->title ?>',
-			'<?php echo $cfg[\'head\'].$content->head ?>',
-			'', "\n"
+			'', '', "\n"
 		);
+
+		#Automatycznie wstaw dodatkowe tagi do HEAD
+		if($file == 'body.html' || $file == 'admin.html')
+		{
+			$in[] = '</head>';
+			$out[] = '<?php echo $cfg[\'head\'].$content->head ?></head>';
+		}
 		$this->data = str_ireplace($in, $out, $this->data);
 
 		#Pêtle

@@ -29,7 +29,7 @@
 'summary' =>'Podsumowanie',
 'admIntro'=>'Witaj w panelu administracyjnym %s. Wybierz odpowiedni moduł z menu.',
 'skinComp'=>'Zatwierdź zmiany w bieżącej skórce',
-'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2009',
+'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2010',
 'notepad' =>'Co chcesz zapamiętać lub przekazać innym administratorom?',
 'course'=>'Kurs HTML, xHTML, CSS...',
 'what'=>'Co chcesz zrobić?',

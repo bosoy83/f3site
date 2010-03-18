@@ -20,7 +20,7 @@ $lang = array(
 'MySQL'  => 'Najpopularniejszy silnik baz danych (zalecany)',
 'SQLite' => 'Baza danych w 1 pliku. Działa jako moduł PHP i nie wymaga dodatkowego serwera.',
 'engine' => 'Wybierz silnik bazy danych',
-'intro'  => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2009. Zanim przejdziesz dalej, zapoznaj się z dołączoną ulotką - CZYTAJ PL.txt.',
+'intro'  => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2010. Zanim przejdziesz dalej, zapoznaj się z dołączoną ulotką - CZYTAJ PL.txt.',
 
 'sure' => 'Jeśli nie wiesz, co wpisać w poniższe pola, zajrzyj do FAQ lub działu pomocy: ',
 'dba'  => 'Dane dostępowe do bazy danych',
@@ -63,6 +63,7 @@ $lang = array(
 'arts'  => 'Artykuły',
 'files' => 'Pobierz pliki',
 'UA'    => 'Twoje konto',
+'cats'  => 'Kategorie',
 '1st'   => 'Pierwszy news',
 'arch'  => 'Archiwum',
 'foto'  => 'Galeria zdjęć',

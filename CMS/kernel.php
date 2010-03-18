@@ -92,23 +92,20 @@ session_start();
 $nlang = $cfg['lang'];
 
 #Język: zmiana
-if(isset($_GET['lang']) && ctype_alnum($_GET['lang']) && is_dir('./lang/'.$_GET['lang']))
+if(isset($_GET['lang'][1]) && ctype_alnum($_GET['lang']) && is_dir('lang/'.$_GET['lang']))
 {
 	$nlang = $_SESSION['lang'] = $_GET['lang'];
 	setcookie('lang', $nlang, time()+23328000); //9 miesięcy
 }
 #Język: sesja
-elseif(isset($_SESSION['lang']))
+elseif(!empty($_SESSION['lang']))
 {
 	$nlang = $_SESSION['lang'];
 }
 #Język: cookies
-elseif(isset($_COOKIE['lang']))
+elseif(!empty($_COOKIE['lang']) && ctype_alnum($_COOKIE['lang']) && is_dir('lang/'.$_COOKIE['lang']))
 {
-	if(ctype_alnum($_COOKIE['lang']) && is_dir('./lang/'.$_COOKIE['lang']))
-	{
-		$nlang = $_SESSION['lang'] = $_COOKIE['lang'];
-	}
+	$nlang = $_SESSION['lang'] = $_COOKIE['lang'];
 }
 #Autowykrywanie języka
 elseif(isset($cfg['detectLang']))
@@ -119,7 +116,7 @@ elseif(isset($cfg['detectLang']))
 		{
 			$x = $x[0].$x[1];
 		}
-		if(ctype_alnum($x) && is_dir('./lang/'.$x))
+		if(ctype_alnum($x) && file_exists('lang/'.$x.'/main.php'))
 		{
 			$nlang = $_SESSION['lang'] = $x; break;
 		}

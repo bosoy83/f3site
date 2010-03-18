@@ -13,7 +13,7 @@ if(isset($_SESSION['renew']))
 		RSS();
 		if(function_exists('glob') && $glob = glob('cache/cat*.php'))
 		{
-			foreach($glob as $x) unlink($x); #Wyczy¶æ cache kategorii
+			foreach($glob as $x) unlink($x);
 		}
 		unset($_SESSION['renew'],$glob,$x);
 		include './admin/config.php';
@@ -25,18 +25,17 @@ if(isset($_SESSION['renew']))
 	}
 }
 
-#Dostêpne opcje
-if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
-
 #Zapisz
 if($_POST)
 {
+	$opt =& $_POST;
 	$opt['title'] = clean($opt['title'],50);
 	$opt['metaDesc'] = clean($opt['metaDesc']);
 	$opt['antyFlood'] = (int)$opt['antyFlood'];
 	$opt['pmLimit'] = (int)$opt['pmLimit'];
 	$opt['commNum'] = (int)$opt['commNum'];
 	$opt['pollRound'] = (int)$opt['pollRound'];
+	if(isset($cfg['tags'])) $opt['tags'] = 1;
 
 	#API keys
 	if($opt['captcha'] != 2)
@@ -46,10 +45,10 @@ if($_POST)
 	}
 
 	require './lib/config.php';
-	$f = new Config('main');
-	$f ->add('cfg', $opt);
 	try
 	{
+		$f = new Config('main');
+		$f->add('cfg', $opt);
 		$f->save();
 		if($cfg['niceURL'] != $opt['niceURL'])
 		{
@@ -66,6 +65,10 @@ if($_POST)
 	{
 		$content->info($e);
 	}
+}
+else
+{
+	$opt =& $cfg;
 }
 
 include LANG_DIR.'admCfg.php';
@@ -88,5 +91,5 @@ $content->title = $lang['main'];
 $content->data = array(
 	'cfg' => &$opt,
 	'skinlist' => &$skin,
-	'langlist' => listBox('lang', 1, $opt['lang']),
+	'langlist' => listBox('lang',1,$opt['lang']),
 );

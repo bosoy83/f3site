@@ -68,8 +68,9 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 		{
 			$db->exec('DELETE FROM '.PRE.$table.' WHERE ID IN ('.$ids.')'.$q);
 			if($table2) $db->exec('DELETE FROM '.PRE.$table2.' WHERE ID IN ('.$ids.')'.$q);
+			foreach($_POST['x'] as $x=>$n) UpdateTags((int)$x, $act, array());
 
-			#Usuñ stare komentarze - TRIGGER
+			#Usuñ stare komentarze
 			$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$act.' AND CID NOT IN (
 				SELECT ID FROM '.PRE.$table.')');
 		}

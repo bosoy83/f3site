@@ -37,3 +37,29 @@ include('lib/prettify/prettify.css')
 include('lib/prettify/prettify.js', function() { prettyPrint() })
 </script>
 <!-- END -->
+
+<!--
+<form action="{form}" method="post" id="quickreply">
+<h2>{lang.reply}</h2>
+<div class="box" style="text-align: center">
+	<textarea name="txt" cols="50" rows="3" style="width: 99%"></textarea>
+	<input type="submit" value="{lang.send}" />
+	<input type="hidden" name="to" value="{lang.send}" />
+</div>
+</form>
+
+
+<script type="text/javascript">
+include('lib/editor.js')
+include('cache/emots.js')
+include('lang/'+document.documentElement.lang+'/edit.js')
+document.forms['quickreply'].txt.onfocus = function()
+{
+	this.rows = 12
+	this.onfocus = null
+	var d = new Editor(this, 1)
+	d.emots()
+	d.protect()
+}
+</script>
+-->

@@ -1,16 +1,30 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Dostêpne opcje
-if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
-
 #Zapisz
 if($_POST)
 {
+	$opt =& $_POST;
 	require './lib/config.php';
-	$f = new Config('content');
 	try
 	{
+		#Tagi
+		if(isset($_POST['tags']))
+		{
+			$cfg['tags'] = 1;
+			$f = new Config('main');
+			$f->var = 'cfg';
+			$f->save($cfg);
+			unset($opt['tags']);
+		}
+		elseif(isset($cfg['tags']))
+		{
+			unset($cfg['tags']);
+			$f = new Config('main');
+			$f->var = 'cfg';
+			$f->save($cfg);
+		}
+		$f = new Config('content');
 		$f->save($opt);
 		$content->info($lang['saved']);
 		include './admin/config.php';
@@ -20,7 +34,11 @@ if($_POST)
 	{
 		$content->info($lang['error'].$e);
 	}
-	$f = null;
+	unset($f);
+}
+else
+{
+	$opt =& $cfg;
 }
 
 require LANG_DIR.'admCfg.php';

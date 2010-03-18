@@ -1,1 +1,1 @@
-<?php $cfg+=array('np'=>20,'catStr'=>1,'goCat'=>1,'arate'=>1,'acomm'=>1,'frate'=>1,'fcomm'=>1,'fgets'=>1,'ncomm'=>1,'newsPages'=>1,'newsNum'=>8,'irate'=>1,'icomm'=>1,'inext'=>1,'inp'=>15,'linkFull'=>1,'lrate'=>1,'start'=>array('de'=>1,'en'=>6,'pl'=>11,),'tags'=>1);
+<?php $cfg+=array('start'=>array('de'=>1,'en'=>6,'pl'=>11,),'np'=>20,'catStr'=>1,'goCat'=>1,'arate'=>1,'acomm'=>1,'frate'=>1,'fcomm'=>1,'fgets'=>1,'ncomm'=>1,'newsPages'=>1,'newsNum'=>8,'irate'=>1,'icomm'=>1,'inp'=>15,'linkFull'=>1,'lrate'=>1,);

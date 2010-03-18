@@ -65,7 +65,7 @@ foreach($res as $x)
 		'id'    => $x['ID'],
 		'topic' => $x['topic'],
 		'new'   => $x['st']=='1',
-		'url'   => $url.$x['th'],
+		'url'   => $url.($x['th'] ? $x['th'] : $x['ID']),
 		'login' => $x['login'],
 		'userURL' => $userURL.urlencode($x['login']),
 	);

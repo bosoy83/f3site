@@ -19,7 +19,7 @@
 'MySQL'  => 'The most popular database engine (recommended)',
 'SQLite' => 'Database in one file working as PHP module.',
 'engine' => 'Select database engine',
-'intro'  => 'Welcome to F3Site 2009 installation wizard. Before you start, read the leaflet README.txt embedded to the package.',
+'intro'  => 'Welcome to F3Site 2010 installation wizard. Before you start, read the leaflet README.txt embedded to the package.',
 
 'sure' => 'If you do not know database settings, look up FAQ or help topics: ',
 'dba'  => 'Database access settings',
@@ -60,6 +60,7 @@
 'stat'  => 'Statistics',
 'links' => 'Links',
 'arts'  => 'Articles',
+'cats'  => 'Categories',
 'files' => 'Files download',
 'UA'    => 'Your account',
 '1st'   => 'The first news',

@@ -88,7 +88,7 @@ else
 }
 
 #Odczyt
-$res = $db->query('SELECT ID,login,lv,regt,city FROM '.PRE.'users'.(($param)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,lv,regt,city,photo FROM '.PRE.'users'.(($param)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
 
 $res->setFetchMode(3);
 unset($param);
@@ -112,6 +112,7 @@ foreach($res as $u)
 		'city'  => $u[4],
 		'date'  => genDate($u[3]),
 		'url'   => url('user/'.urlencode($u[1])),
+		'photo' => $u[5] ? $u[5] : 'img/user/0.jpg',
 		'level' => $lv,
 		'num'   => ++$st
 	);

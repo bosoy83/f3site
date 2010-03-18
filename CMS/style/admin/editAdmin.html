@@ -4,22 +4,21 @@
 <table cellspacing="1" class="tb">
 <tbody>
 <tr valign="top">
-	<td style="padding: 4px" style="overflow: scroll; width: 50%; max-height: 600px">
-		<div style="overflow-y: auto; max-height: 500px">
+	<td style="padding: 4px" style="width: 50%">
 		<fieldset>
 		<legend>{lang.range}</legend>
 		<select name="lv" f3:var="lv">
 			<option value="0">{lang.locked}</option>
-			<option value="1">{lang.user}</option>
-			<option value="2">{lang.editor}</option>
-			<option value="3">{lang.admin}</option>
-			<!-- IF owner --><option value="4">{lang.owner}</option><!-- END -->
+			<option value="1">{lang.commoner}</option>
+			<option value="2">{lang.editor2}</option>
+			<option value="3">{lang.admin2}</option>
+			<!-- IF owner --><option value="4">{lang.owner2}</option><!-- END -->
 		</select>
-		<br />{lang.range2}
 		</fieldset>
 		<fieldset>
 		<legend>{lang.global}</legend>
 			<label><input type="checkbox" name="CM" /> {lang.manComm}</label><br />
+			<label><input type="checkbox" name="TAG" /> {lang.manTag}</label><br />
 			<label><input type="checkbox" name="FM" /> {lang.fileMan}</label><br />
 			<label><input type="checkbox" name="UP" /> {lang.fileMan2}</label><br /><br />
 			<label><input type="checkbox" name="C" /> {lang.cats}</label><br />
@@ -42,9 +41,9 @@
 		<legend>{lang.plugs}</legend>
 		{plugins}
 		</fieldset>
-		<!-- END --></div>
+		<!-- END -->
 	</td>
-	<td style="overflow: auto; max-height: 700px; width: 50%">
+	<td style="width: 50%">
 		<fieldset>
 			<legend>{lang.cats}</legend>
 			<label><input type="checkbox" name="+" /> {lang.global}</label>
