@@ -80,6 +80,7 @@
 'noMail'=>'<b>P:</b> Haven\'t you received the message within 10 minutes?<br /><b>O:</b> Check if the message isn\'t in SPAM folder.',
 
 'photoEx' => 'You can only upload photos in formats: PNG, JPG, GIF, BMP.',
+'photoKB' => 'Photo exceeds limit of %d KB!',
 'photoBig'=> 'The photo is too big. Scale it down using a graphic program.',
 'photoErr'=> 'Cannot upload new photo.',
 

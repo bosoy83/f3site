@@ -23,10 +23,17 @@ if($_POST)
 	$ile = isset($_POST['adr']) ? count($_POST['adr']) : 0;
 	for($i=0;$i<$ile;++$i)
 	{
+		switch($_POST['t'][$i][0])
+		{
+			case 'c': $type = 5; $val = (int)substr($_POST['t'][$i], 1); break;
+			case 'p': $type = 6; $val = (int)substr($_POST['t'][$i], 1); break;
+			case '1': $type = 1; $val = '.'; break;
+			default: $type = (int)$_POST['t'][$i]; $val = clean($_POST['adr'][$i]);
+		}
 		$o[] = array(
 			0 => $_POST['txt'][$i],
-			1 => (int)$_POST['t'][$i],
-			2 => clean($_POST['adr'][$i]),
+			1 => $type,
+			2 => $val,
 			3 => isset($_POST['nw'][$i]),
 			4 => $i,
 			5 => $id
@@ -100,10 +107,16 @@ else
 	$o = array(array('', 0, '', 0));
 }
 
+#Kategorie i wolne strony
+$cats = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE access!=3 ORDER BY name')->fetchAll(12);
+$free = $db->query('SELECT ID,name FROM '.PRE.'pages WHERE access!=0 ORDER BY name')->fetchAll(12);
+
 $content->addScript('lib/forms.js');
 $content->data = array(
 	'menu' => &$m,
 	'item' => &$o,
-	'fileman'  => admit('FM'),
+	'cats' => json_encode($cats),
+	'pages' => json_encode($free),
+	'fileman' => admit('FM'),
 	'langlist' => listBox('lang', 1, $m['disp'])
 );

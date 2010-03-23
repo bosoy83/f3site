@@ -80,6 +80,7 @@
 'noMail'=>'<b>P:</b> Brak wiadomości w ciągu kilku minut?<br /><b>O:</b> Sprawdź, czy nie znajduje się w folderze SPAM.',
 
 'photoEx' => 'Dozwolone są tylko zdjęcia w formatach: PNG, JPG, GIF, BMP.',
+'photoKB' => 'Rozmiar pliku nie może przekraczać %d KB!',
 'photoBig'=> 'Wymiary zdjęcia są za duże. Zmniejsz je w programie graficznym.',
 'photoErr'=> 'Nie udało się załadować zdjęcia.',
 

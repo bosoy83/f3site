@@ -43,14 +43,26 @@ class Compiler
 		if(!strpos($file, '.html')) $file .= '.html';
 
 		#Katalog cache nie istnieje?
-		if(!file_exists($cache))
+		if(!is_dir($cache))
 		{
+			if(ini_get('safe_mode'))
+			{
+				throw new Exception('SAFE MODE: Create folder %s via FTP and chmod to 777!', $cache);
+			}
 			if(!@mkdir($cache, 0777, 1))
 			{
-				$dir = substr($cache, strpos($cache, '/', 3) + 1, -1);
-				throw new Exception(sprintf('ERROR: Cannot create cache directory for %s templates!', $dir));
+				throw new Exception(sprintf('ERROR: Cannot create %s folder!', $cache));
 			}
-			$this->examine();
+		}
+
+		#Prawa zapisu
+		if(!is_writable($cache))
+		{
+			throw new Exception(sprintf('ERROR: You must CHMOD folder %s to 777 via FTP', $cache));
+		}
+		if(file_exists($cache.$file) && !is_writable($cache.$file))
+		{
+			throw new Exception(sprintf('ERROR: You must CHMOD all files inside %s to 666', $cache));
 		}
 
 		#Debug
@@ -67,7 +79,7 @@ class Compiler
 		}
 		else
 		{
-			throw new Exception('ERROR: Template '.$file.' does not exist.');
+			throw new Exception('ERROR: Template '.$file.' does not exist!');
 		}
 
 		#Nazwa pliku
@@ -161,17 +173,16 @@ class Compiler
 		#Zapisz
 		if($this->byteCode && extension_loaded('bcompiler'))
 		{
-			$tmp = tmpfile();
-			if(file_put_contents($cache.'.temp.php', $this->data) !== false)
+			if(file_put_contents($cache.'-temp.php', $this->data) !== false)
 			{
 				$f = fopen($cache.$file, 'w');
 				bcompiler_write_header($f);
-				bcompiler_write_file($f, $cache.'.temp.php');
+				bcompiler_write_file($f, $cache.'-temp.php');
 				bcompiler_write_footer($f);
 				fclose($f);
-				unlink($cache.'.temp.php');
+				unlink($cache.'-temp.php');
 
-				if($this->debug) echo 'Done.<br />';
+				if($this->debug) echo 'Saved as bytecode.<br />';
 				return true;
 			}
 		}
@@ -184,7 +195,7 @@ class Compiler
 			}
 		}
 
-		throw new Exception('Cannot save template: '.$file);
+		throw new Exception('ERROR: Cannot save template: '.$file);
 	}
 
 	#Pêtle
@@ -321,7 +332,8 @@ class Compiler
 				if(strpos($tag[3], '<option') == false) continue;
 				if(strpos($tag[2], 'f3:var'))
 				{
-					$var = f3var(preg_replace('/f3:var="([A-Za-z0-9_.].*?)"/i', '\\1', $tag[2]));
+					preg_match('/f3:var="([A-Za-z0-9_.].*?)"/i', $tag[2], $var);
+					if(isset($var[1])) $var = f3var($var[1]); else continue;;
 				}
 				elseif($array)
 				{

@@ -100,7 +100,7 @@ class Installer
 			$db = $this->db;
 			$m = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,value) VALUES (?,?,?,?,?,?)');
 			$n = $db->prepare('INSERT INTO '.PRE.'news (cat,name,txt,date,author,access) VALUES (?,?,?,?,?,?)');
-			$i = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,url,seq) VALUES (?,?,?,?)');
+			$i = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,type,url,seq) VALUES (?,?,?,?,?)');
 			$c = $db->prepare('INSERT INTO '.PRE.'cats (name,access,type,num,nums,opt,lft,rgt)
 			VALUES (?,?,?,?,?,?,?,?)');
 		}
@@ -132,12 +132,12 @@ class Installer
 		$n->execute(array($catID, $lang['1st'], $lang['NEWS'], gmdate('Y-m-d H:i:s'), 1, 1));
 
 		#Pozycje menu
-		$i->execute(array($menuID, $lang['main'], '.', 1));
-		$i->execute(array($menuID, $lang['arch'], 'archive', 2));
-		$i->execute(array($menuID, $lang['links'], 'cats/4', 3));
-		$i->execute(array($menuID, $lang['foto'], 'cats/3', 4));
-		$i->execute(array($menuID, $lang['users'], 'users', 5));
-		$i->execute(array($menuID, $lang['group'], 'groups', 6));
+		$i->execute(array($menuID, $lang['main'], 1, '.', 1));
+		$i->execute(array($menuID, $lang['arch'], 2, 'archive', 2));
+		$i->execute(array($menuID, $lang['links'], 2, 'cats/4', 3));
+		$i->execute(array($menuID, $lang['foto'], 2, 'cats/3', 4));
+		$i->execute(array($menuID, $lang['users'], 2, 'users', 5));
+		$i->execute(array($menuID, $lang['group'], 2, 'groups', 6));
 	}
 
 	#Instaluj dla wszystkich języków

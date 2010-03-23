@@ -298,7 +298,7 @@ Request.prototype.send = function(list, post)
 		};
 	}
 	//Gdy nie zdefiniowano URL
-	if(this.url == '') return;
+	if(this.url == '') this.url = location.href;
 
 	//Gdy odpowiedŸ jest pobierana
 	if(this.loading) this.loading();
@@ -336,7 +336,7 @@ Request.prototype.send = function(list, post)
 //Utwórz tymczasowy obiekt Request i wyœlij formularz
 function send(o,id,opt)
 {
-	new Request(o.form.action || o.form.baseURI, id, opt).sendForm(o);
+	new Request(o.form.action, id, opt).sendForm(o);
 	return false;
 }
 

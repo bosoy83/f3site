@@ -87,8 +87,6 @@ if($_POST)
 			$preview = emots($pm['txt']);
 		}
 	}
-	#Zapis od wys³anych?
-	$saveSent = isset($_POST['sent']);
 	$url = url('pms/edit/'.$id, 'th='.$th);
 }
 
@@ -123,9 +121,6 @@ elseif($id)
 	{
 		$url = url('pms/edit/'.$id);
 	}
-
-	#Zapis od wys³anych?
-	$saveSent = isset($_POST['sent']);
 }
 else
 {
@@ -143,7 +138,6 @@ else
 		'topic' => '',
 	);
 	$url = url('pms/edit');
-	$saveSent = false;
 }
 
 #Edytor JS
@@ -161,7 +155,6 @@ $content->file[] = 'pms_posting';
 $content->data += array(
 	'pm' => &$pm,
 	'url' => $url,
-	'sent' => $saveSent,
 	'color' => $preview && isset($cfg['colorCode']),
 	'bbcode' => isset($cfg['bbcode']),
 	'preview' => isset($preview) ? $preview : null

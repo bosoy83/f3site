@@ -80,6 +80,7 @@
 'noMail'=>'<b>P:</b> Kein E-Mail in ein paar Minuten?<br /><b>O:</b> Möglicherweise es ist im SPAM Folder.',
 
 'photoEx' => 'Erlaubte Bildformate: PNG, JPG, GIF, BMP.',
+'photoKB' => 'Die maximale Dateigröße beträgt %d KB.',
 'photoBig'=> 'Abmessungen des Foto sind zu groü. Verkleiner es mit dem Zeichenprogramm.',
 'photoErr'=> 'Das Foto könntet hochgeladen worden.',
 

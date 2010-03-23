@@ -36,7 +36,7 @@ foreach($res as $page)
 		'url'   => url('page/'.$page[0]),
 		'edit'  => url('editPage/'.$page[0], '', 'admin'),
 		'title' => $page[1],
-		'access'=> $page[2]==1 ? $lang['on2'] : ($page[2]==3 ? sprintf('%s *',$lang['on2']) : $lang['off2'])
+		'access'=> $page[2]=='1' ? $lang['on2'] : ($page[2]=='3' ? sprintf('%s *',$lang['on2']) : $lang['off2'])
 	);
 }
 

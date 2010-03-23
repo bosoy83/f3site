@@ -36,8 +36,7 @@ $('del').onclick = function()
 {
 	if(confirm('{lang.delc}'))
 	{
-		send(o);
-		o.disabled = 1
+		send(this)
 	}
 	return false;
 }

@@ -12,6 +12,8 @@ Kopia Powszechnej Licencji Publicznej GNU powinna zostać ci dostarczona razem z
 System korzysta z komponentów:
 * Ikony Silk i Flags - http://www.famfamfam.com
 * Google Code Prettify - http://google-code-prettify.googlecode.com
+* reCAPTCHA - http://recaptcha.net
+* Microsoft Asirra
 
 
 Wymagania

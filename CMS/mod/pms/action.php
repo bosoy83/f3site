@@ -44,7 +44,8 @@ if(isset($q))
 		$db->exec('UPDATE '.PRE.'users SET pms=pms-'.$x.' WHERE ID='.$u);
   }
   unset($u,$x,$users);
-	$db->exec('DELETE FROM '.PRE.'pms WHERE (owner='.UID.' OR (usr='.UID.' AND st=1)) AND '.$q);
+	$db->exec('UPDATE '.PRE.'pms SET out='.UID.' WHERE st<3 AND (owner='.UID.' OR usr='.UID.') AND '.$q);
+	$db->exec('DELETE FROM '.PRE.'pms WHERE out NOT IN(0,'.UID.') AND (owner='.UID.' OR usr='.UID.') AND '.$q);
 }
 $db->commit();
 

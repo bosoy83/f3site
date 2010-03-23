@@ -92,20 +92,20 @@ session_start();
 $nlang = $cfg['lang'];
 
 #Język: zmiana
-if(isset($_GET['lang'][1]) && ctype_alnum($_GET['lang']) && is_dir('lang/'.$_GET['lang']))
+if(isset($_GET['lang']) && ctype_alnum($_GET['lang']) && file_exists('lang/'.$_GET['lang'].'/main.php'))
 {
-	$nlang = $_SESSION['lang'] = $_GET['lang'];
+	$nlang = $_SESSION['LANG'] = $_GET['lang'];
 	setcookie('lang', $nlang, time()+23328000); //9 miesięcy
 }
 #Język: sesja
-elseif(!empty($_SESSION['lang']))
+elseif(isset($_SESSION['LANG']))
 {
-	$nlang = $_SESSION['lang'];
+	$nlang = $_SESSION['LANG'];
 }
 #Język: cookies
-elseif(!empty($_COOKIE['lang']) && ctype_alnum($_COOKIE['lang']) && is_dir('lang/'.$_COOKIE['lang']))
+elseif(isset($_COOKIE['lang']) && ctype_alnum($_COOKIE['lang']) && is_dir('lang/'.$_COOKIE['lang']))
 {
-	$nlang = $_SESSION['lang'] = $_COOKIE['lang'];
+	$nlang = $_SESSION['LANG'] = $_COOKIE['lang'];
 }
 #Autowykrywanie języka
 elseif(isset($cfg['detectLang']))
@@ -118,7 +118,7 @@ elseif(isset($cfg['detectLang']))
 		}
 		if(ctype_alnum($x) && file_exists('lang/'.$x.'/main.php'))
 		{
-			$nlang = $_SESSION['lang'] = $x; break;
+			$nlang = $_SESSION['LANG'] = $x; break;
 		}
 	}
 	unset($x);
@@ -144,6 +144,10 @@ else
 {
 	define('CSS', '1');
 }
+
+#Typ,kodowanie
+header('Cache-Control: public');
+header('Content-type: text/html; charset=utf-8');
 
 #Połącz z bazą danych
 try
@@ -236,10 +240,6 @@ else
 
 #Dzisiaj
 define('TODAY', strftime($cfg['now']));
-
-#Typ,kodowanie
-Header('Cache-Control: public');
-Header('Content-type: text/html; charset=utf-8');
 
 #FUNKCJE
 

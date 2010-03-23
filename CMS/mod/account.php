@@ -1,10 +1,11 @@
 <?php /* Edytuj konto */
 if(iCMS!=1) exit;
-require LANG_DIR.'profile.php'; #Język
-require 'cfg/account.php'; #Opcje
+require LANG_DIR.'profile.php';
+require 'cfg/account.php';
 
 $error = $bad = array();
 $photo = '';
+$auto = 0;
 
 #Tytuł strony
 $content->title = $lang['account'];
@@ -80,7 +81,7 @@ if($_POST)
 	'about' => clean($_POST['about'],9999,1)
 	);
 
-	#O sobie - za długi?
+	#O sobie
 	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
 	#Niezalogowani
@@ -152,10 +153,17 @@ if($_POST)
 	}
 
 	#Zmiana hasła lub E-mail
-	if(UID && $_POST['pass'] && $_POST['curPass'] != $user['pass'])
+	if(UID && $_POST['pass'])
 	{
-		$error[] = $lang['mustPass'];
-		$bad[] = 'curPass';
+		if(md5($_POST['curPass']) === $user['pass'])
+		{
+			if(isset($_COOKIE[PRE.'login'])) $auto = 1;
+		}
+		else
+		{
+			$error[] = $lang['mustPass'];
+			$bad[] = 'curPass';
+		}
 	}
 
 	#Hasło
@@ -211,7 +219,7 @@ if($_POST)
 	{
 		$content->info(join('<br /><br />',$error));
 		if(UID && !$photo)
-		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID) -> fetchColumn();
+		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID)->fetchColumn();
 	}
 
 	#Zapis
@@ -219,17 +227,15 @@ if($_POST)
 	{
 		try
 		{
-			#Edytuj
 			if(UID)
 			{
 				$q = $db->prepare('UPDATE '.PRE.'users SET pass=:pass, mail=:mail, sex=:sex,
 				opt=:opt, about=:about, mails=:mails, www=:www, city=:city, icq=:icq,
 				skype=:skype, jabber=:jabber, tlen=:tlen, gg=:gg WHERE ID='.UID);
 			}
-			#Nowy
 			else
 			{
-				#Konto aktywne?
+				#Konto aktywne
 				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
 				$u['regt'] = $_SERVER['REQUEST_TIME'];
 
@@ -251,7 +257,7 @@ if($_POST)
 				$m->text = file_get_contents(LANG_DIR.'mailReg.php');
 				$m->text = str_replace('%link%', URL.url('account/key/'.$key), $m->text);
 
-				#Wyślij i zapisz użytkownika
+				#Wyślij i zapisz klucz
 				if($m->sendTo($u['login'],$u['mail']))
 				{
 					$q->execute($u);
@@ -265,7 +271,6 @@ if($_POST)
 				}
 				unset($m,$key);
 			}
-			#Inne
 			elseif(UID)
 			{
 				$q->execute($u);
@@ -279,6 +284,12 @@ if($_POST)
 			{
 				$q->execute($u); $content->info($lang['auto'].$u['login']);
 			}
+			#Przeloguj
+			if($auto)
+			{
+				$user['pass'] = $u['pass'];
+				setcookie(PRE.'login', UID.':'.$u['pass'], time()+31104000, PATH, null, 0, 1);
+			}
 			return 1;
 		}
 		catch(Exception $e)
@@ -289,33 +300,30 @@ if($_POST)
 }
 
 #Form
+elseif(UID)
+{
+	$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.UID) -> fetch(2);
+	$photo = $u['photo'];
+}
 else
 {
-	if(UID)
-	{
-		$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.UID) -> fetch(2);
-		$photo = $u['photo'];
-	}
-	else
-	{
-		$u = array(
-		'login' => isset($_GET['u']) ? clean($_GET['u'],30) : '',
-		'mail'  => '',
-		'city'  => '',
-		'opt'   => 2,
-		'sex'   => 1,
-		'mails' => 1,
-		'gg'    => null,
-		'icq'   => null,
-		'tlen'  => '',
-		'www'   => 'http://',
-		'about' => '',
-		'skype' => '',
-		'jabber'=> '');
-	}
+	$u = array(
+	'login' => isset($_GET['u']) ? clean($_GET['u'],30) : '',
+	'mail'  => '',
+	'city'  => '',
+	'opt'   => 2,
+	'sex'   => 1,
+	'mails' => 1,
+	'gg'    => null,
+	'icq'   => null,
+	'tlen'  => '',
+	'www'   => 'http://',
+	'about' => '',
+	'skype' => '',
+	'jabber'=> '');
 }
 
-#Czas formularza
+#Czas form
 $_SESSION['formTime'] = $_SERVER['REQUEST_TIME'] + 5;
 
 #Opcje

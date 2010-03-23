@@ -147,6 +147,7 @@ $lang+=Array(
 
 'photo'=>'Photos and avatars',
 'upload'=>'Uploading photos on server',
+'resize'=>'Resize automatically',
 'maxSize'=>'Max. size',
 'width'=>'Width:',
 'height'=>'Height:',

@@ -51,7 +51,7 @@ elseif(!UID && !empty($_POST['u']) && !empty($_POST['p']))
 		#Pamiêtanie
 		if(isset($_POST['auto']))
 		{
-			setcookie(PRE.'login',$u['ID'].':'.$md5,time()+31104000) or exit('Cookies problem!');
+			setcookie(PRE.'login',$u['ID'].':'.$md5,time()+31104000,PATH,null,0,1);
 		}
 		else
 		{

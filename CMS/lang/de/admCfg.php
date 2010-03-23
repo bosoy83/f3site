@@ -147,6 +147,7 @@ $lang+=Array(
 
 'photo'=>'Avatars und Fotos',
 'upload'=>'Fotos Upload',
+'resize'=>'Auto Größe ändern',
 'maxSize'=>'Max. Size',
 'width'=>'Weite',
 'height'=>'Höhe',

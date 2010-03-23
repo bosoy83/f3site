@@ -24,7 +24,7 @@ switch($id)
 		$content->title = $lang['sent'];
 		break;
 	case 'topics':
-		$q = 'p.th=0 AND (p.owner='.UID.' OR p.usr='.UID.')'; #W¹tki
+		$q = 'p.th=0 AND st<3 AND (p.owner='.UID.' OR p.usr='.UID.')'; #W¹tki
 		$content->title = $lang['topics'];
 		break;
 	case 'drafts':

@@ -147,6 +147,7 @@ $lang+=Array(
 
 'photo'=>'Zdjęcia i awatary',
 'upload'=>'Wysyłanie zdjęć na serwer',
+'resize'=>'Automatycznie pomniejszaj',
 'maxSize'=>'Maksymalny rozmiar',
 'width'=>'Szer.',
 'height'=>'Wys.',
