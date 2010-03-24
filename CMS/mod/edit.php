@@ -12,16 +12,16 @@ $id   = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
 #Klasa zapisu + ostatnia kategoria
 if($_POST)
 {
-	if(isset($_POST['cat'])) $_SESSION['lastCat'][$TYPE] = (int)$_POST['cat'];
+	if(isset($_POST['cat'])) $_SESSION['LASTCAT'][$TYPE] = (int)$_POST['cat'];
 	require './mod/edit/saver.class.php';
 }
 if(isset($_GET['catid']))
 {
 	$lastCat = (int)$_GET['catid'];
 }
-elseif(isset($_SESSION['lastCat'][$TYPE]))
+elseif(isset($_SESSION['LASTCAT'][$TYPE]))
 {
-	$lastCat = $_SESSION['lastCat'][$TYPE];
+	$lastCat = $_SESSION['LASTCAT'][$TYPE];
 }
 else
 {

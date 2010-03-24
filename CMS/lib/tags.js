@@ -3,7 +3,7 @@ var oTag  = $('tags'), oWin, oHttp, inputs = [], allTags = {},
 //Add floating DIV element
 oEdit = document.createElement('div');
 oEdit.className = 'tags';
-oEdit.style.cssFloat = 'right';
+oEdit.style.cssFloat = oEdit.style.styleFloat = 'right';
 oEdit.style.cursor = 'pointer';
 oEdit.innerHTML = oTag.innerHTML == 0 ? lang.add : lang.edit;
 

@@ -267,20 +267,17 @@ function admit($id,$type=null)
 				return false;
 			}
 		}
-		else
+		if(!isset($all[$type]))
 		{
-			if(!isset($all[$type]))
-			{
-				$q = $db->prepare('SELECT CatID,1 FROM '.PRE.'acl WHERE type=? AND UID=?');
-				$q -> execute(array($type, UID));
-				$all[$type] = $q->fetchAll(12); //KEY_PAIR
-			}
-			return isset($all[$type][$id]);
+			$q = $db->prepare('SELECT CatID,1 FROM '.PRE.'acl WHERE type=? AND UID=?');
+			$q -> execute(array($type, UID));
+			$all[$type] = $q->fetchAll(12); //KEY_PAIR
 		}
+		return isset($all[$type][$id]);
 	}
 	else
 	{
-		if(!isset($global)) $global = explode('|',$user['adm']);
+		if(empty($global)) $global = explode('|',$user['adm']);
 		return in_array($id,$global);
 	}
 }
