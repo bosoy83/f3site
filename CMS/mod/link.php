@@ -34,6 +34,8 @@ else
 $content->data = array(
 	'link' => &$link,
 	'rates'=> &$rate,
+	'count'=> isset($cfg['lcnt']),
+	'href' => isset($cfg['lcnt']) ? 'go.php?link='.$id : $link['adr'],
 	'edit' => admit($link['cat'],'CAT') ? url('edit/4/'.$id,'ref') : false,
 	'path' => catPath($link['cat']),
 	'cats' => url('cats/links')

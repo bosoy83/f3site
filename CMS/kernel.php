@@ -41,7 +41,7 @@ if(!empty($cfg['ban']))
 	}
 }
 
-#Czy to żądanie AJAX?
+#Czy to żądanie AJAX
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 define('NICEURL', $cfg['niceURL']);
 
@@ -193,7 +193,7 @@ elseif(isset($_COOKIE[PRE.'login']))
 	list($xuid,$xpass) = explode(':',$_COOKIE[PRE.'login']);
 }
 
-#Dane poprawne?
+#Dane poprawne
 if(is_numeric($xuid))
 {
 	if(isset($_SESSION['userdata']))
@@ -228,7 +228,7 @@ if(defined('UID'))
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
 	{
 		$db->exec('UPDATE '.PRE.'users SET lvis='.$_SERVER['REQUEST_TIME'].' WHERE ID='.UID);
-		$_SESSION['recent'] = (int) $user['lvis'];
+		$_SESSION['recent'] = (int)$user['lvis'];
 	}
 }
 else
@@ -241,16 +241,17 @@ else
 #Dzisiaj
 define('TODAY', strftime($cfg['now']));
 
-#FUNKCJE
+#RSS
+$channel = empty($cfg['RSS'][LANG]) ? array() : $cfg['RSS'][LANG];
 
-#Prawa - wpuścić użytkownika?
+#Prawa - wpusc uzytkownika
 function admit($id,$type=null)
 {
-	if(!UID) return false; //Gość
+	if(!UID) return false;
 	global $user, $db;
 	static $global, $all;
 
-	#Właściciel?
+	#Wlasciciel
 	if(LEVEL==4) return true;
 
 	#Kategoria

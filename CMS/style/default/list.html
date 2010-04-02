@@ -55,7 +55,7 @@
 	</select></td>
 </tr>
 <tr>
-	<td><b>2. {lang.published}?</b></td>
+	<td><b>2. {lang.publish}:</b></td>
 	<td>
 		<label><input type="radio" name="pub" value="N" checked="checked" /> {lang.nochg}</label>
 		<label><input type="radio" name="pub" value="1" /> {lang.yes}</label>
@@ -78,6 +78,6 @@
 function S()
 {
 	var a = prompt("{lang.searp}")
-	if(a) location = location.pathname + "?find=" + a
+	if(a !== null) location = location.pathname + "?find=" + a
 }
 </script>

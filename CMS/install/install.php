@@ -2,15 +2,16 @@
 class Installer
 {
 	public
-		$sample = false,  //Przykłady
-		$title,           //Tytuł strony
-		$urls,            //Format URL
-		$lang;            //Język instalatora
+		$sample, //Przykłady
+		$title,  //Tytuł strony
+		$urls,   //Format URL
+		$lang;   //Język instalatora
 	static
 		$urlMode;
 	protected
 		$catid = array(), //ID kategorii startowych
 		$need = array(),  //Wrong CHMOD
+		$rss = array(),   //Kanały RSS
 		$db;
 
 	#Wybierz obsługiwany język
@@ -50,7 +51,7 @@ class Installer
 		$this->db->beginTransaction();
 	}
 
-	#Wczytaj plik SQL z pliku i wykonaj zapytania
+	#Wczytaj plik SQL z pliku
 	function loadSQL($file)
 	{
 		#Schemat tabel
@@ -70,7 +71,6 @@ class Installer
 			$sql = explode(";\n\n", $sql); //Unix
 		}
 
-		#Zapytania
 		try
 		{
 			foreach($sql as $q)
@@ -90,7 +90,7 @@ class Installer
 	#Instaluj dane dla języka $x
 	function setupLang($x)
 	{
-		static $c, $m, $n, $i, $lft, $db;
+		static $c, $m, $n, $i, $r, $lft, $db;
 		require './install/lang/'.$x.'.php';
 
 		#Przygotuj zapytania
@@ -101,6 +101,7 @@ class Installer
 			$m = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,value) VALUES (?,?,?,?,?,?)');
 			$n = $db->prepare('INSERT INTO '.PRE.'news (cat,name,txt,date,author,access) VALUES (?,?,?,?,?,?)');
 			$i = $db->prepare('INSERT INTO '.PRE.'mitems (menu,text,type,url,seq) VALUES (?,?,?,?,?)');
+			$r = $db->prepare('INSERT INTO '.PRE.'rss (name,url,lang) VALUES (?,?,?)');
 			$c = $db->prepare('INSERT INTO '.PRE.'cats (name,access,type,num,nums,opt,lft,rgt)
 			VALUES (?,?,?,?,?,?,?,?)');
 		}
@@ -117,6 +118,8 @@ class Installer
 			$c->execute(array($lang['files'], $x, 2, 0, 0, 15, ++$lft, ++$lft));
 			$c->execute(array($lang['foto'], $x, 3, 0, 0, 15, ++$lft, ++$lft));
 			$c->execute(array($lang['links'], $x, 4, 0, 0, 15, ++$lft, ++$lft));
+			$r->execute(array($lang['rss'], URL, $x));
+			$this->rss[$x] = array($db->lastInsertId() => $lang['rss']);
 		}
 
 		#Menu
@@ -124,9 +127,10 @@ class Installer
 		$menuID = $db->lastInsertId();
 		$m->execute(array(2, $lang['UA'], $x, 2, 2, './mod/panels/user.php'));
 		$m->execute(array(3, $lang['poll'], $x, 2, 2, './mod/panels/poll.php'));
-		$m->execute(array(4, $lang['stat'], $x, 1, 2, './mod/panels/online.php'));
-		$m->execute(array(5, $lang['new'], $x, 2, 2, './mod/panels/new.php'));
-		$m->execute(array(6, $lang['cats'], $x, 1, 2, './mod/panels/cats.php'));
+		$m->execute(array(4, $lang['cats'], $x, 1, 2, './mod/panels/cats.php'));
+		$m->execute(array(5, $lang['pages'], 0, 1, 2, './mod/panels/pages.php'));
+		$m->execute(array(6, $lang['stat'], $x, 1, 2, './mod/panels/online.php'));
+		$m->execute(array(7, $lang['new'], $x, 2, 2, './mod/panels/new.php'));
 
 		#Pierwszy NEWS
 		$n->execute(array($catID, $lang['1st'], $lang['NEWS'], gmdate('Y-m-d H:i:s'), 1, 1));
@@ -163,8 +167,9 @@ class Installer
 	function commit(&$data)
 	{
 		$cfg = array();
+		Installer::$urlMode = $this->urls;
 
-		#Ustawienia zawartości - kategorie startowe
+		#Opcje zawartości - kategorie startowe
 		foreach($this->catid as $lang => $id)
 		{
 			$cfg['start'][$lang] = $id;
@@ -180,6 +185,7 @@ class Installer
 		$cfg['title'] = $this->title;
 		$cfg['niceURL'] = $this->urls;
 		$cfg['captcha'] = extension_loaded('gd') ? 1 : 0;
+		$cfg['RSS'] = $this->rss;
 
 		$o = new Config('main');
 		$o->add('cfg', $cfg);
@@ -196,18 +202,15 @@ class Installer
 		}
 
 		#Sortuj kategorie
-		if(file_exists('./lib/categories.php'))
-		{
-			include './lib/categories.php';
-			RebuildTree($this->db);
-		}
+		include './lib/categories.php';
+		RebuildTree($this->db);
+		RSS(null, $this->db);
 
 		#Zapisz menu do cache
-		Installer::$urlMode = $this->urls;
 		include './lib/mcache.php';
 		RenderMenu($this->db);
 
-		#Nareszcie koniec - akceptujemy zmiany w bazie :)
+		#Nareszcie koniec - akceptujemy zmiany :)
 		$this->db->commit();
 	}
 
@@ -258,7 +261,7 @@ class Installer
 		return 3;
 	}
 
-	#Zbadaj CHMOD-y
+	#Zbadaj CHMOD
 	function chmods()
 	{
 		$table = array(

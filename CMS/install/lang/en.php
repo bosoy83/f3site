@@ -61,6 +61,8 @@
 'links' => 'Links',
 'arts'  => 'Articles',
 'cats'  => 'Categories',
+'pages' => 'Free pages',
+'rss'   => 'News',
 'files' => 'Files download',
 'UA'    => 'Your account',
 '1st'   => 'The first news',

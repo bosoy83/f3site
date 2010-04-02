@@ -254,13 +254,13 @@ CREATE TABLE IF NOT EXISTS `f3_rates` (
 
 CREATE TABLE IF NOT EXISTS `f3_rss` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`auto` tinyint(1) NOT NULL DEFAULT 0,
+`auto` tinyint(1) NOT NULL DEFAULT 1,
 `name` varchar(50) NOT NULL DEFAULT '',
 `dsc` varchar(99) NOT NULL DEFAULT '',
 `url` varchar(80) NOT NULL DEFAULT '',
 `lang` varchar(3) NOT NULL DEFAULT 'en',
 `cat` int(11) NOT NULL DEFAULT 0,
-`num` int(11) NOT NULL DEFAULT 0);
+`num` int(11) NOT NULL DEFAULT 10);
 
 CREATE TABLE IF NOT EXISTS `f3_tags` (
 `tag` varchar(50) NOT NULL DEFAULT '',

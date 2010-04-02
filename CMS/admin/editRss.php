@@ -36,7 +36,7 @@ if($_POST)
 
 		#Odbuduj RSS
 		RSS($id);
-		$content->info($lang['saved'], array('rss/'.$id.'.xml' => $rss['name']));
+		header('Location: '.URL.url('rss/update', '', 'admin'));
 		return 1;
 	}
 	catch(Exception $e)
@@ -60,7 +60,7 @@ else
 		'num'  => 20,
 		'cat'  => 0,
 		'lang' => LANG,
-		'url'  => substr(URL, 0, -6),
+		'url'  => URL,
 	);
 }
 

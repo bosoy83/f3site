@@ -136,6 +136,7 @@ class Compiler
 			'/\{([A-Z0-9_]+)\}/', //Sta³e
 			'/\{([A-Za-z0-9_]+)\}/',
 			'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\}/',
+			'#"url\(([\S]+)\)"#',
 			'/<!-- INCLUDE ([A-Za-z0-9_.]+) -->/');
 
 		$out = array(
@@ -148,6 +149,7 @@ class Compiler
 			'<?php echo \\1;?>',
 			'<?php echo $\\1;?>',
 			'<?php echo \\1($\\2);?>',
+			'"<?php echo url(\'$1\');?>"',
 			'<?php include $this->path(\'\\1.html\')?>');
 
 		$this->data = preg_replace($in, $out, $this->data);

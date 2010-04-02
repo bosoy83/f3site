@@ -2,20 +2,17 @@
 if(iCMSa!=1 || !admit('R')) exit;
 require LANG_DIR.'admAll.php';
 
-#Aktualizuj lub usuń kanały
-if($_POST && $x = GetID(true))
+#Aktualizuj lub usun
+if($_POST && isset($_POST['del']) && $x = GetID(true))
 {
-	if(isset($_POST['del']))
-	{
-		$db->exec('DELETE FROM '.PRE.'rss WHERE ID IN ('.$x.')');
-	}
+	$db->exec('DELETE FROM '.PRE.'rss WHERE ID IN ('.$x.')');
 }
 
-#Info i linki
+#Info
 $content->info($lang['infoRss'], array(url('editRss','','admin') => $lang['addRss']));
 
 #Pobierz kanały RSS
-$res = $db->query('SELECT ID,auto,name FROM '.PRE.'rss ORDER BY name');
+$res = $db->query('SELECT ID,auto,name,lang FROM '.PRE.'rss ORDER BY lang,name');
 $all = array();
 
 foreach($res as $x)
@@ -23,6 +20,7 @@ foreach($res as $x)
 	$all[] = array(
 		'id'    => $x['ID'],
 		'title' => $x['name'],
+		'land'  => $x['lang'],
 		'auto'  => $x['auto'] ? $lang['yes'] : $lang['no'],
 		'edit'  => url('editRss/'.$x['ID'], '', 'admin'),
 		'file'  => file_exists('rss/'.$x['ID'].'.xml') ? 'rss/'.$x['ID'].'.xml' : null,
@@ -31,3 +29,17 @@ foreach($res as $x)
 
 #Szablon
 $content->data = array('channel' => &$all);
+
+#Zapisz tytuly w opcjach
+if($_POST || isset($URL[1]))
+{
+	$cfg['RSS'] = array();
+	foreach($all as $x)
+	{
+		if($x['auto']) $cfg['RSS'][$x['land']][$x['id']] = $x['title'];
+	}
+	include_once './lib/config.php';
+	$o = new Config('main');
+	$o->add('cfg', $cfg);
+	$o->save();
+}

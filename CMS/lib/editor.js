@@ -20,7 +20,7 @@ var tags = [
 	[-374],
 ],
 
-tagNum = 17, //Liczba wszystkich tagów - także spoza tablicy `tags`
+tagNum = 17, //Liczba wszystkich tagów
 
 //Znaki specjalne
 symbol = [
@@ -90,6 +90,7 @@ Editor.prototype.create = function()
 				case 81: that.format(10); break; //Q
 				case 76: that.format(14); break; //L
 				case 72: that.format(5); break; //H
+				case 13: BBC(this, document.documentElement.baseURI ? '<br />\n' : '<br>\n', ''); break; //BR
 				case 80: if(!that.bbcode) BBC(this, '<p>', '</p>'); break; //P
 				default: return true
 			}
@@ -326,21 +327,14 @@ Editor.prototype.preview = function(opt,where,text)
 	if(text == undefined) text = this.o.value;
 
 	//DIV
-	if(this.box == undefined)
+	if(this.box == undefined && !where)
 	{
-		if(where)
-		{
-			this.box = where.getElementsByTagName('div')[0];
-		}
-		else
-		{
-			this.box = document.createElement('div');
-			this.box.className = 'box';
-			this.o.form.parentNode.insertBefore(this.box, this.o.form)
-		}
+		this.box = document.createElement('div');
+		this.box.className = 'box';
+		this.o.form.parentNode.insertBefore(this.box, this.o.form)
 	}
 
-	//Brak opcji?
+	//Brak opcji
 	if(opt == undefined) opt = {NL:1};
 
 	//Nowe linie
@@ -351,7 +345,7 @@ Editor.prototype.preview = function(opt,where,text)
 	{
 		text = text.replace(/&/g, '&amp;');
 		text = text.replace(/</g, '&lt;');
-		text = text.replace(/>/g, '&gt;');
+		text = text.replace(/>/g, '&gt;')
 	}
 
 	//Emotikony

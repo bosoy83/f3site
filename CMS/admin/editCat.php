@@ -94,7 +94,7 @@ if($_POST)
 
 		#Info + linki
 		$content->info($lang['saved'].' ID: '.$id, array(
-			url('?d='.$id) => $lang['goCat'],
+			url($id) => $lang['goCat'],
 			url('editCat', '', 'admin') => $lang['addCat'],
 			url('editCat/'.$id, '', 'admin') => $lang['editCat'],
 			url('list/'.$id) => $lang['mantxt'],

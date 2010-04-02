@@ -7,21 +7,21 @@
 	<a href="{cats}">{lang.links}</a> &raquo; {path}
 </div>
 
-<h2>{link.name}</h2>
+<h1>{link.name}</h1>
 <div class="box">
 	{nl2br: link.dsc}
 	<div style="margin-top: 15px">
 
-		<!-- IF link.count -->
+		<!-- IF count -->
 		<b>{lang.disps}:</b> {link.count}<br />
 		<!-- END -->
 
 		<b>{lang.adr}:</b>
 		
 		<!-- IF link.nw -->
-		<a href="{link.adr}" target="_blank">{link.adr}</a>
+		<a href="{href}" target="_blank">{link.adr}</a>
 		<!-- ELSE -->
-		<a href="{link.adr}">{link.adr}</a>
+		<a href="{href}">{link.adr}</a>
 		<!-- END -->
 
 		<!-- IF rates -->

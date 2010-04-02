@@ -49,7 +49,7 @@ switch($act)
 		unset($data);
 }
 
-#Tytu³
+#Tytul
 $content->title = $type;
 
 #Masowe zmiany
@@ -70,7 +70,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 			if($table2) $db->exec('DELETE FROM '.PRE.$table2.' WHERE ID IN ('.$ids.')'.$q);
 			foreach($_POST['x'] as $x=>$n) UpdateTags((int)$x, $act, array());
 
-			#Usuñ stare komentarze
+			#Usun stare komentarze
 			$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$act.' AND CID NOT IN (
 				SELECT ID FROM '.PRE.$table.')');
 		}
@@ -94,7 +94,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 	unset($q,$ids,$ch,$x);
 }
 
-#Parametry - ID kategorii lub typ
+#Parametry: ID kategorii
 if($id)
 {
 	$param = array('cat='.$id);
@@ -116,7 +116,7 @@ else
 }
 
 #Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
 	$st = ($page-1)*30;
@@ -128,24 +128,24 @@ else
 }
 
 #Szukaj
-$find = isset($_GET['find']) ? clean($_GET['find'],30) : '';
+$find = empty($_GET['find']) ? '' : clean($_GET['find'],30);
 if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 
 #Parametry -> string
 $param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
-#Ilo¶æ wszystkich
+#Ilosc wszystkich
 $total = dbCount($table.$param);
 
-#Brak?
-if($total == 0)
+#Brak
+if($total == 0 && !$find)
 {
 	header('Location: '.URL.url('edit/'.$act, $id ? 'catid='.$id : null));
 	$content->info($lang['noc']);
 	return 1;
 }
 
-#Czê¶æ URL
+#Czesc URL
 $url = url('list/'.$act.'/'.$id);
 
 #Pobierz pozycje
@@ -160,10 +160,9 @@ foreach($res as $i)
 {
 	switch($i[2])
 	{
-		case 1: $a = $lang['yes']; break;
+		case '1': $a = $lang['yes']; break;
 		default: $a = $lang['no'];
 	}
-
 	$items[] = array(
 		'num'  => ++$st,
 		'title'=> $i[1],
@@ -182,7 +181,7 @@ $content->data = array(
 	'intro' => $lang['i'.$act],
 	'type'  => $type,
 	'cats'  => Slaves($act),
-	'pages' => pages($page,$total,30,$url.'&amp;find='.$find,1),
-	'addURL' => url('edit/'.$act.($id ? '?catid='.$id : '')),
-	'catsURL'=> admit('C') ? url('cats', 'co='.$act, 'admin') : false,
+	'pages' => pages($page,$total,30,$url.'&find='.$find,1),
+	'addURL' => url('edit/'.$act, $id ? 'catid='.$id : null),
+	'catsURL'=> admit('C') ? url('cats/'.$act, null, 'admin') : false,
 );

@@ -53,11 +53,11 @@ if(isset($cfg['userFind']))
 if($id)
 {
 	$param[] = 'ID IN (SELECT u FROM '.PRE.'groupuser WHERE g='.$id.')';
-	$toURL = url('users/'.$id);
+	$toURL = 'users/'.$id;
 }
 else
 {
-	$toURL = url('users');
+	$toURL = 'users';
 }
 
 #Licz
@@ -88,7 +88,7 @@ else
 }
 
 #Odczyt
-$res = $db->query('SELECT ID,login,lv,regt,city,photo FROM '.PRE.'users'.(($param)?' WHERE '.join(' AND ',$param):'').' ORDER BY '.$sort.' LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,sex,lv,regt,city,photo FROM '.PRE.'users'.($param ? ' WHERE '.join(' AND ',$param) : '').' ORDER BY '.$sort.' LIMIT '.$st.',30');
 
 $res->setFetchMode(3);
 unset($param);
@@ -100,20 +100,30 @@ $users = array();
 foreach($res as $u)
 {
 	#Poziom
-	switch($u[2]) {
-		case 2: $lv = $lang['editor']; break;
-		case 3: $lv = $lang['admin']; break;
-		case 4: $lv = $lang['owner']; break;
+	switch($u[3])
+	{
+		case '2': $lv = $lang['editor']; break;
+		case '3': $lv = $lang['admin']; break;
+		case '4': $lv = $lang['owner']; break;
 		default: $lv = $lang['user'];
+	}
+
+	#Plec
+	switch($u[2])
+	{
+		case '1': $sex = 'male'; break;
+		case '2': $sex = 'female'; break;
+		default: $sex = '';
 	}
 
 	$users[] = array(
 		'login' => $u[1],
-		'city'  => $u[4],
-		'date'  => genDate($u[3]),
+		'city'  => $u[5],
+		'date'  => genDate($u[4]),
 		'url'   => url('user/'.urlencode($u[1])),
-		'photo' => $u[5] ? $u[5] : 'img/user/0.jpg',
+		'photo' => $u[6] ? $u[6] : 'img/user/0.jpg',
 		'level' => $lv,
+		'sex'   => $sex,
 		'num'   => ++$st
 	);
 }

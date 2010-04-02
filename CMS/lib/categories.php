@@ -65,9 +65,9 @@ function Latest($lang=array())
 }
 
 #Zbuduj RSS
-function RSS($id = null, $cat = null)
+function RSS($id = null, PDO $db = null)
 {
-	global $db;
+	if(!$db) global $db;
 	$q = is_numeric($id) ? 'ID='.$id : 'auto=1';
 	$all = $db->query('SELECT ID,name,dsc,url,lang,num FROM '.PRE.'rss WHERE '.$q)->fetchAll(3);
 	foreach($all as $x)

@@ -21,7 +21,7 @@ h3 {
 	font-size: 13px;
 	margin: 3px 0
 }
-h2, .tb caption {
+h1, h2, .tb caption {
 	margin: 0;
 	font: bold 13px Verdana;
 	border: 1px solid #9EAA97;
@@ -253,7 +253,7 @@ small {font-size: 11px}
 }
 
 /* LINKS */
-.edit, .add, .del, .user, .cat, .tags {
+.edit, .add, .del, .user, .cat, .tags, .quote {
 	padding-left: 20px;
 	background-repeat: no-repeat
 }
@@ -263,6 +263,7 @@ small {font-size: 11px}
 .add {background-image: url(../../img/icon/add.png)}
 .cat {background-image: url(../../img/icon/folder.png); background-position: 0 -1px}
 .tags {background-image: url(../../img/icon/tag.png); background-position: 2px}
+.quote {background-image: url(../../img/icon/quote.png)}
 
 /* DIALOG */
 .dialog {

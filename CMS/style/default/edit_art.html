@@ -11,10 +11,8 @@
 	<td><input maxlength="50" size="40" name="name" value="{art.name}" /></td>
 </tr>
 <tr>
-	<td><b>3. {lang.published}?</b></td>
-	<td>
-		<input type="checkbox" name="access" />
-	</td>
+	<td><b>3. {lang.publish}:</b></td>
+	<td><input type="checkbox" name="access" /></td>
 </tr>
 <tr>
   <td><b>4. {lang.priot}:</b></td>
@@ -128,7 +126,15 @@ function B(x)
 B(1);
 function P()
 {
-	e.preview({EMOTS:f.elements['emo[]'].checked, NL:f.elements['br[]'].checked})
+	var txt = e.o.value.replace(/<(pre)([^>]*)>((.|\n)*)<\/pre>/img, C);
+	txt = txt.replace(/<(code)([^>]*)>((.|\n)*)<\/code>/img, C);
+	e.preview({EMOTS:f['emo[]'].checked, NL:f['br[]'].checked}, false, txt)
+}
+function C(a,b,c,d)
+{
+	d = d.replace(/&/g, '&amp;');
+	d = d.replace(/</g, '&lt;');
+	return '<'+b+c+'>'+d.replace(/>/g, '&gt;')+'</'+b+'>';
 }
 if(f[0].value == 0) f[0].focus(); else f[1].focus();
 </script>

@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Aktualizuj cache menu
+#Aktualizuj linki
 if(isset($_SESSION['renew']))
 {
 	try
@@ -25,7 +25,6 @@ if(isset($_SESSION['renew']))
 	}
 }
 
-#Zapisz
 if($_POST)
 {
 	$opt =& $_POST;
@@ -35,6 +34,7 @@ if($_POST)
 	$opt['pmLimit'] = (int)$opt['pmLimit'];
 	$opt['commNum'] = (int)$opt['commNum'];
 	$opt['pollRound'] = (int)$opt['pollRound'];
+	$opt['RSS'] = empty($cfg['RSS']) ? array() : $cfg['RSS'];
 	if(isset($cfg['tags'])) $opt['tags'] = 1;
 
 	#API keys
@@ -73,7 +73,7 @@ else
 
 include LANG_DIR.'admCfg.php';
 
-#Skórki
+#Skorki
 $skin = '';
 foreach(scandir('style') as $x)
 {

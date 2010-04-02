@@ -1,41 +1,32 @@
-<h2>{this.title}</h2>
-<div class="box" style="overflow: hidden; line-height: 20px">
-	<fieldset style="float: left; width: 205px">
-		<legend>{lang.add}</legend>
-		<ul style="list-style-image: url(img/icon/add.png)">
-		<li><a href="edit/1">{lang.arts}</a></li>
-		<li><a href="edit/2">{lang.files}</a></li>
-		<li><a href="edit/3">{lang.imgs}</a></li>
-		<li><a href="edit/4">{lang.links}</a></li>
-		<li><a href="edit/5">{lang.news}</a></li>
-		</ul>
-	</fieldset>
-	<fieldset style="float: right; width: 205px">
-		<legend>{lang.list}</legend>
-		<ul style="list-style-image: url(img/icon/edit.png)">
-		<li><a href="list/1">{lang.arts}</a></li>
-		<li><a href="list/2">{lang.files}</a></li>
-		<li><a href="list/3">{lang.imgs}</a></li>
-		<li><a href="list/4">{lang.links}</a></li>
-		<li><a href="list/5">{lang.news}</a></li>
-		</ul>
-	</fieldset>
+<div class="box" style="overflow: hidden; padding: 5px 9px; line-height: 22px">
+	<div style="float: left; width: 50%">
+		<div><b>{lang.add}</b></div>
+		<a href="url(edit/5)" class="add">{lang.news}</a><br />
+		<a href="url(edit/1)" class="add">{lang.arts}</a><br />
+		<a href="url(edit/3)" class="add">{lang.imgs}</a><br />
+		<a href="url(edit/2)" class="add">{lang.files}</a><br />
+		<a href="url(edit/4)" class="add">{lang.links}</a>
+	</div>
+	<div style="float: right; width: 50%">
+		<div><b>{lang.list}</b></div>
+		<a href="url(list/5)" class="del">{lang.news}</a><br />
+		<a href="url(list/1)" class="del">{lang.arts}</a><br />
+		<a href="url(list/3)" class="del">{lang.imgs}</a><br />
+		<a href="url(list/2)" class="del">{lang.files}</a><br />
+		<a href="url(list/4)" class="del">{lang.links}</a>
+	</div>
 
 	<!-- IF last -->
-	<fieldset style="width: 205px; float: left">
-		<legend>{lang.comms}</legend>
-		<ul style="list-style-image: url(img/editor/quote.png)">
-		<li><a href="moderate">{lang.moderate}</a></li>
-		<li><a href="moderate/hidden">{lang.approve}</a></li>
-		</ul>
-	</fieldset>
-	<fieldset style="width: 205px; float: right">
-		<legend>{lang.lastComm}</legend>
-		<ul style="list-style-image: url(img/editor/quote.png)">
-		<li>{title}</li>
-		<li>{last}</li>
-		</ul>
-	</fieldset>
+	<div style="float: left; width: 50%">
+		<div style="margin-top: 7px"><b>{lang.comms}</b></div>
+		<a href="url(moderate)" class="quote">{lang.moderate}</a><br />
+		<a href="url(moderate/hidden)" class="quote">{lang.approve}</a>
+	</div>
+	<div style="float: right; width: 50%">
+		<div style="margin-top: 7px"><b>{lang.lastComm}</b></div>
+		<span class="quote">{last}</span><br />
+		<span class="quote">{title}</span>
+	</div>
 	<!-- END -->
 </div>
 

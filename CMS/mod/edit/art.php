@@ -35,7 +35,7 @@ if($_POST)
 			$full[$i][1] = preg_replace_callback(array(
 			'#<(pre)([^>]*)>(.*?)</pre>#si',
 			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
-			'return "<$x[1]>".htmlspecialchars($x[3],0)."</$x[1]>";'), $full[$i][1]);
+			'return "<$x[1]$x[2]>".htmlspecialchars($x[3],0)."</$x[1]>";'), $full[$i][1]);
 		}
 	}
 
@@ -132,7 +132,7 @@ foreach($full as $key=>&$val)
 		$full[$key][1] = preg_replace_callback(array(
 			'#<(pre)([^>]*)>(.*?)</pre>#si',
 			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
-			'return "<$x[1]>".htmlspecialchars_decode($x[3],0)."</$x[1]>";'), $full[$key][1]);
+			'return "<$x[1]$x[2]>".htmlspecialchars_decode($x[3],0)."</$x[1]>";'), $full[$key][1]);
 	}
 }
 
