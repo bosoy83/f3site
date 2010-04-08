@@ -29,7 +29,7 @@ foreach($res as $x)
 		'num'    => $x['num'],
 		'title'  => $x['name'],
 		'desc'   => $x['dsc'],
-		'class'  => BugIsNew('', $x['last']) ? 'catNew' : 'cat',
+		'class'  => BugIsNew('', $x['last']) ? 'bugCatNew' : 'bugCat',
 		'section'=> $show ? $sect : false
 	);
 	++$num;

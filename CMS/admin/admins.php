@@ -7,22 +7,21 @@ $res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users WHERE lv>1');
 $res->setFetchMode(3); //NUM
 
 #Info
-$content->info($lang['iadms']);
+$content->info($lang['iadms'], array(url('editUser','','admin')=>$lang['addUser']));
 
 $num  = 0;
 $adms = array();
 
 foreach($res as $adm)
 {
-	#Kim jest
 	switch($adm[2])
 	{
-		case 0: $lv = $lang['locked']; break;
-		case 1: $lv = $lang['user']; break;
-		case 2: $lv = $lang['editor']; break;
-		case 3: $lv = $lang['admin']; break;
-		case 4: $lv = $lang['owner']; break;
-		default: $lv = 'ERR!';
+		case '0': $lv = $lang['locked']; break;
+		case '1': $lv = $lang['user']; break;
+		case '2': $lv = $lang['editor']; break;
+		case '3': $lv = $lang['admin']; break;
+		case '4': $lv = $lang['owner']; break;
+		default: $lv = '!?';
 	}
 	$adms[] = array(
 		'url'   => url('user/'.urlencode($adm[1])),

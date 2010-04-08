@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `f3_pms` (
 `usr` INT NOT NULL,
 `owner` INT NOT NULL,
 `st` TINYINT NOT NULL,
-`out` INT NOT NULL,
+`del` INT NOT NULL,
 `date` INT NOT NULL,
 `txt` TEXT,
 KEY (th),

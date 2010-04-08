@@ -6,10 +6,11 @@
 'fileMan2'=>'Dateimanager - Änderungen',
 'global'=>'Globale Einstellungen',
 'allCat'=>'UWAGA! Po włączeniu tej opcji użytkownik będzie mógł zarządzać treścią w całym serwisie!',
-'ldb'=>'Einstellungen und SQL',
 'privs'=>'privilegen',
 'profile'=>'profil',
+'manTag'=>'Tags managen',
 'manComm'=>'Kommentare ändern und löschen',
+'addUser'=>'Neu Benutzer addieren',
 
 'commoner'=>'Benutzer',
 'admin2'=>'Administrator - Adminpanel zugriff',

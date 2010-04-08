@@ -109,8 +109,8 @@ $content->data = array(
 	'edit'   => admit('G') ? url('editGroup/'.$id, 'ref', 'admin') : false,
 	'groups' => url('groups'),
 	'status' => $group['opened'] ? $lang['open'] : $lang['shut'],
-	'join'   => $mayJoin ? url($url.'/join') : false,
-	'leave'  => $mayLeave ? url($url.'/leave') : false,
+	'join'   => $mayJoin ? $url.'/join' : false,
+	'leave'  => $mayLeave ? $url.'/leave' : false,
 	'query'  => $mayJoin ? $askJoin : ($mayLeave ? $askLeave : false),
 	'all'    => url('users/'.$id)
 );

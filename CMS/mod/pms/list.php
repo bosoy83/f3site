@@ -38,7 +38,7 @@ switch($id)
 }
 
 #Licz
-$total = dbCount('pms p WHERE p.out!='.UID.' AND '.$q);
+$total = dbCount('pms p WHERE p.del!='.UID.' AND '.$q);
 
 #Brak?
 if($total < 1)
@@ -49,7 +49,7 @@ if($total < 1)
 
 #Pobierz
 $res = $db->query('SELECT p.ID, p.th, p.topic, p.st, u.ID as uid, u.login FROM '.
-	PRE.'pms p LEFT JOIN '.PRE.'users u ON p.usr=u.ID WHERE p.out!='.
+	PRE.'pms p LEFT JOIN '.PRE.'users u ON p.usr=u.ID WHERE p.del!='.
 	UID.' AND '.$q.' ORDER BY p.st,p.ID DESC LIMIT '.$st.',20');
 
 #Adresy

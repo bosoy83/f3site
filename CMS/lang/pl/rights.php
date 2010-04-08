@@ -10,6 +10,7 @@
 'profile'=>'profil',
 'manComm'=>'Usuwanie i edycja komentarzy',
 'manTag'=>'Edycja słów kluczowych - tagów',
+'addUser'=>'Dodaj użytkownika',
 
 'commoner'=>'Zwykły użytkownik',
 'admin2'=>'Administrator - dostęp do panelu admina',

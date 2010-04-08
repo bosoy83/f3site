@@ -61,7 +61,7 @@ $('join').onclick = function()
 {
 	if(confirm('{query}'))
 	{
-		new Request(this.href, null, {scripts: 1}).send({yes: 1})
+		new Request(this.href, null, {scripts: 1}).post({yes: 1})
 	}
 	return false
 }

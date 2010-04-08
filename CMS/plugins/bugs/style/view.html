@@ -38,7 +38,7 @@
 		<script type="text/javascript">
 		function St(x)
 		{
-			new Request('request.php?go=bugs/status',$('st')).send({id:{bug.ID},s:x})
+			new Request('request.php?go=bugs/status',$('st')).post({id:{bug.ID},s:x})
 		}
 		</script>
 		<!-- END -->
@@ -106,7 +106,7 @@ function RateBug(x,o)
 			}
 			else alert(t)
 		}
-	}}).send({id:{bug.ID},v:x}); BVoted = 1
+	}}).post({id:{bug.ID},v:x}); BVoted = 1
 }
 if($('handUp'))
 {

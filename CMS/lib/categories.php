@@ -20,7 +20,7 @@ function Latest($lang=array())
 {
 	global $db,$cfg;
 	include './cfg/latest.php';
-	if(!isset($cfg['newOn']) OR !isset($cfg['newTypes'])) return;
+	if(empty($cfg['newOn']) OR empty($cfg['newTypes'])) return;
 
 	#Języki
 	if($lang)
@@ -91,7 +91,7 @@ function RSS($id = null, PDO $db = null)
 				'title' => $item['name'],
 				'text'  => $item['opt'] & 1 ? nl2br($item['txt']) : $item['txt'],
 				'cat'   => $item['cat'],
-				'date'  => $item['date'],
+				'date'  => date('r', strtotime($item['date'].' UTC')),
 				'url'   => URL . url('news/' . $item['ID'])
 			));
 		}

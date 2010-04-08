@@ -47,7 +47,7 @@ foreach($res as $x)
 		'num'    => $x['num'],
 		'url'    => url('bugs/'.$x['ID']),
 		'date'   => genDate($x['date'], 1),
-		'class'  => BugIsNew('', $x['date']) ? 'new' : 'old',
+		'class'  => BugIsNew('', $x['date']) ? 'New' : 'Old',
 		'level'  => $lang['L'.$x['level']]
 	);
 	++$num;

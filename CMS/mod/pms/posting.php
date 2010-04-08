@@ -46,7 +46,6 @@ if($_POST)
 				else
 				{
 					$o -> send(); //Wy¶lij now± wiadomo¶æ
-					if(!$th) $th = $o->thread = $db->lastInsertId();
 				}
 			}
 			else
@@ -65,7 +64,7 @@ if($_POST)
 			$db -> commit();
 
 			#Przekieruj do w±tku
-			header('Location: '.URL.url('pms/'.($th?$th:$id)));
+			header('Location: '.URL.url('pms/view/'.($th?$th:$db->lastInsertId())));
 			return 1;
 		}
 		catch(Exception $e)

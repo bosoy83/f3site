@@ -32,16 +32,16 @@ else
 	$st = 0;
 }
 
-#Grupa
-$w = '';
-
 #Szukaj
 if(isset($_REQUEST['s']) && $_REQUEST['s'])
 {
 	$s = str_replace(array('"','\'','%'), '', clean($_REQUEST['s'],30));
-	$w.= (($w=='')?' WHERE ':' AND ').'login LIKE "'.str_replace('*', '%', $s).'"';
+	$w = ' WHERE login LIKE "'.str_replace('*', '%', $s).'%"';
 }
-else { $s=''; }
+else
+{
+	$s = $w = '';
+}
 
 #Wszystkich
 $total = dbCount('users'.$w);
@@ -56,12 +56,12 @@ foreach($res as $u)
 	#Kim jest
 	switch($u[2])
 	{
-		case 0: $lv = $lang['locked']; break;
-		case 1: $lv = $lang['user']; break;
-		case 2: $lv = $lang['editor']; break;
-		case 3: $lv = $lang['admin']; break;
-		case 4: $lv = $lang['owner']; break;
-		default: $lv = 'ERR!';
+		case '0': $lv = $lang['locked']; break;
+		case '1': $lv = $lang['user']; break;
+		case '2': $lv = $lang['editor']; break;
+		case '3': $lv = $lang['admin']; break;
+		case '4': $lv = $lang['owner']; break;
+		default: $lv = '!?';
 	}
 
 	$users[] = array(

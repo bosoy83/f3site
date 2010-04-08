@@ -20,7 +20,7 @@
 
 <tr>
 	<td class="eth">
-		<input type="submit" value="{lang.delch}" onclick="return confirm('{lang.pm26}')" />
+		<input type="submit" value="{lang.delch}" id="del" />
 	</td>
 	<td colspan="2" class="eth">
 		{lang.page}: {pages}
@@ -34,5 +34,13 @@ function sAll(s)
 {
 	var x = document.forms['pms'].elements;
 	for(var i=0;i<x.length;i++) { x[i].checked = s.checked }
+}
+$('del').onclick = function()
+{
+	if(confirm('{lang.pm26}'))
+	{
+		send(this)
+	}
+	return false
 }
 </script>

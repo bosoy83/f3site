@@ -65,7 +65,7 @@ else
 	#Nowy
 	else
 	{
-		$group = array('name'=>'','access'=>1,'opened'=>0,'dsc'=>'');
+		$group = array('name'=>'','access'=>1,'opened'=>1,'dsc'=>'');
 	}
 }
 

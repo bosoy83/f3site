@@ -56,7 +56,7 @@ var e,f = document.forms['bug'],p=$('BPrev');
 f.prev.onclick = function()
 {
 	show('BPrev',1)
-	new Request('request.php?go=preview',p).send({text:f.text.value, BBCODE:1, EMOTS:1, NL:1})
+	new Request('request.php?go=preview',p).post({text:f.text.value, BBCODE:1, EMOTS:1, NL:1})
 	p.scrollIntoView()
 }
 f.onsubmit = function()

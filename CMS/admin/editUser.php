@@ -5,10 +5,9 @@ require './cfg/account.php';
 
 #Tytu³ i JS
 $content->title = $lang['account'];
-$content->addScript('lib/forms.js');
 
 #User ID
-if(!$id || ($id==1 && UID!=1)) return;
+if($id==1 && UID!=1) return;
 
 #B³êdy
 $error = array();
@@ -34,11 +33,11 @@ if($_POST)
 	#Login
 	if(isset($u['login'][21]) || !isset($u['login'][2]))
 	{
-		$error[] = $lang['eplerr'];
+		$error[] = $lang['badLogin'];
 	}
 	if(dbCount('users WHERE login="'.$u['login'].'" AND ID!='.$id)!==0)
 	{
-		$error[] = $lang['eploginex'];
+		$error[] = $lang['loginEx'];
 	}
 	switch($cfg['logins'])
 	{
@@ -56,7 +55,13 @@ if($_POST)
 	{
 		$error[] = $lang['badMail'];
 	}
-	
+
+	#Haslo
+	if(!$id && empty($_POST['pass']))
+	{
+		$error[] = $lang['badPass'];
+	}
+
 	#WWW
 	$u['www'] = str_replace('javascript:', 'java_script', $u['www']);
 	$u['www'] = str_replace('vbscript:', 'vb_script', $u['www']);
@@ -71,10 +76,21 @@ if($_POST)
 	{
 		try
 		{
-			$db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail, sex=:sex,
-			about=:about, www=:www, city=:city, icq=:icq, skype=:skype, tlen=:tlen,
-			jabber=:jabber, gg=:gg, photo=:photo WHERE ID='.$id) -> execute($u);
-
+			if($id)
+			{
+				$q = $db->prepare('UPDATE '.PRE.'users SET login=:login, mail=:mail,
+				sex=:sex, about=:about, www=:www, city=:city, icq=:icq, skype=:skype,
+				tlen=:tlen, jabber=:jabber, gg=:gg, photo=:photo WHERE ID='.$id);
+			}
+			else
+			{
+				$u['pass'] = md5($_POST['pass']);
+				$u['regt'] = $_SERVER['REQUEST_TIME'];
+				$q = $db->prepare('INSERT INTO '.PRE.'users
+				(login,pass,mail,sex,regt,about,www,city,icq,skype,tlen,jabber,gg,photo) VALUES
+				(:login,:pass,:mail,:sex,:regt,:about,:www,:city,:icq,:skype,:tlen,:jabber,:gg,:photo)');
+			}
+			$q->execute($u);
 			$content->info($lang['upd'], array(url('user/'.urlencode($u['login'])) => $u['login']));
 			return 1;
 		}
@@ -86,18 +102,35 @@ if($_POST)
 }
 
 #Pobierz dane
-elseif(!$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2))
+elseif($id && !$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2))
 {
 	$content->info($lang['noex']); return;
 }
 
-#Funkcje
-require './lib/user.php';
+#Nowy user
+else
+{
+	$u = array(
+		'login' => '',
+		'mail'  => '@',
+		'sex'   => 1,
+		'about' => '',
+		'www'   => 'http://',
+		'city'  => '',
+		'icq'   => '',
+		'skype' => '',
+		'tlen'  => '',
+		'jabber'=> '',
+		'gg'    => '',
+		'photo' => ''
+	);
+}
 
 #Do szablonu
 $content->data = array(
 	'u' => &$u,
 	'url' => url('editUser/'.$id, '', 'admin'),
+	'pass' => !$id,
 	'bbcode' => isset($cfg['bbcode']),
 	'fileman'=> admit('FM')
 );

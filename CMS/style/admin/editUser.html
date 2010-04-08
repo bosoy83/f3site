@@ -5,8 +5,14 @@
 <tbody>
 <tr>
 	<td><b>{lang.login}:</b><br /><small>{lang.logind}</small></td>
-	<td width="65%"><input name="login" maxlength="30" value="{u.login}" /></td>
+	<td width="70%"><input name="login" maxlength="30" value="{u.login}" /></td>
 </tr>
+<!-- IF pass -->
+<tr>
+	<td><b>{lang.pass}:</b></td>
+	<td><input name="pass" maxlength="50" /></td>
+</tr>
+<!-- END -->
 <tr>
 	<td><b>{lang.mail}:</b></td>
 	<td><input name="mail" value="{u.mail}" maxlength="50" /></td>
@@ -77,6 +83,7 @@
 include('lang/' + document.documentElement.lang + '/edit.js')
 include('lib/editor.js')
 include('cache/emots.js')
+include('lib/forms.js')
 document.forms[0].about.onfocus = function() { new Editor(this,1).emots(); this.onfocus = null }
 document.forms[0][0].focus()
 </script>

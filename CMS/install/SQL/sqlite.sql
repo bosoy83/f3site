@@ -1,299 +1,299 @@
 CREATE TABLE IF NOT EXISTS `f3_acl` (
-`UID` KEY int(11) NOT NULL,
-`CatID` KEY int(11) NOT NULL,
-`type` varchar(9) NOT NULL);
+`UID` KEY INT NOT NULL,
+`CatID` KEY INT NOT NULL,
+`type` VARCHAR(9) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS ID ON `f3_acl` (UID,CatID);
+CREATE INDEX IF NOT EXISTS ID ON f3_acl (UID,CatID);
 
 CREATE TABLE IF NOT EXISTS `f3_admmenu` (
-`ID` varchar(9) PRIMARY KEY NOT NULL,
-`text` varchar(30) NOT NULL,
-`file` varchar(30) NOT NULL,
-`menu` tinyint(1) NOT NULL,
-`rights` tinyint(1) NOT NULL);
+`ID` VARCHAR(9) PRIMARY KEY NOT NULL,
+`text` VARCHAR(30) NOT NULL,
+`file` VARCHAR(30) NOT NULL,
+`menu` TINYINT NOT NULL,
+`rights` TINYINT NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `f3_answers` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`IDP` int(10) NOT NULL,
-`seq` int(11) NOT NULL DEFAULT 0,
-`a` varchar(200),
-`num` int(11) NOT NULL DEFAULT 0);
+`IDP` INT NOT NULL,
+`seq` INT NOT NULL DEFAULT 0,
+`a` VARCHAR(200),
+`num` INT NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS p ON `f3_answers` (IDP);
+CREATE INDEX IF NOT EXISTS p ON f3_answers (IDP);
 
 CREATE TABLE IF NOT EXISTS `f3_arts` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text NOT NULL,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT NOT NULL,
 `date` datetime,
-`author` varchar(50) NOT NULL,
-`rate` tinyint(1),
-`access` tinyint(4) NOT NULL,
-`priority` tinyint(1) NOT NULL,
-`pages` tinyint(2) NOT NULL,
-`ent` int(11) NOT NULL DEFAULT 0);
+`author` VARCHAR(50) NOT NULL,
+`rate` TINYINT,
+`access` TINYINT NOT NULL,
+`priority` TINYINT NOT NULL,
+`pages` TINYINT NOT NULL,
+`ent` INT NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS cat ON `f3_arts` (cat);
+CREATE INDEX IF NOT EXISTS cat ON f3_arts (cat);
 
 CREATE TABLE IF NOT EXISTS `f3_artstxt` (
-`ID` int(11) NOT NULL,
-`page` tinyint(4) NOT NULL,
-`cat` int(11) NOT NULL,
-`text` mediumtext,
-`opt` tinyint(2) NOT NULL,
+`ID` INT NOT NULL,
+`page` TINYINT NOT NULL,
+`cat` INT NOT NULL,
+`text` MEDIUMTEXT,
+`opt` TINYINT NOT NULL,
 PRIMARY KEY (ID,page));
 
 CREATE TABLE IF NOT EXISTS `f3_banners` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`gen` tinyint(2) NOT NULL,
-`name` varchar(50),
-`ison` tinyint(1),
-`code` text);
+`gen` TINYINT NOT NULL,
+`name` VARCHAR(50),
+`ison` TINYINT,
+`code` TEXT);
 
 CREATE TABLE IF NOT EXISTS `f3_cats` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` varchar(255),
-`access` varchar(9) NOT NULL,
-`type` tinyint(1) NOT NULL DEFAULT 5,
-`sc` int(11) NOT NULL DEFAULT 0,
-`sort` tinyint(1) NOT NULL DEFAULT 2,
-`text` text,
-`num` int(10) NOT NULL DEFAULT 0,
-`nums` int(10) NOT NULL DEFAULT 0,
-`opt` tinyint(2) NOT NULL,
-`lft` tinyint(4) NOT NULL,
-`rgt` tinyint(4) NOT NULL);
+`name` VARCHAR(50) NOT NULL,
+`dsc` VARCHAR(255),
+`access` VARCHAR(9) NOT NULL,
+`type` TINYINT NOT NULL DEFAULT 5,
+`sc` INT NOT NULL DEFAULT 0,
+`sort` TINYINT NOT NULL DEFAULT 2,
+`text` TEXT,
+`num` INT NOT NULL DEFAULT 0,
+`nums` INT NOT NULL DEFAULT 0,
+`opt` TINYINT NOT NULL,
+`lft` TINYINT NOT NULL,
+`rgt` TINYINT NOT NULL);
 
-CREATE INDEX IF NOT EXISTS sc ON `f3_cats` (sc);
-CREATE INDEX IF NOT EXISTS pos ON `f3_cats` (lft,rgt);
+CREATE INDEX IF NOT EXISTS sc ON f3_cats (sc);
+CREATE INDEX IF NOT EXISTS pos ON f3_cats (lft,rgt);
 
 CREATE TABLE IF NOT EXISTS `f3_comms` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`TYPE` tinyint(1) NOT NULL,
-`CID` int(11) NOT NULL,
-`access` tinyint(1) NOT NULL,
-`name` varchar(50) NOT NULL,
-`author` varchar(50) NOT NULL,
-`guest` tinyint(1) NOT NULL DEFAULT 1,
-`ip` varchar(20) NOT NULL,
-`date` int(11),
-`text` text);
+`TYPE` TINYINT NOT NULL,
+`CID` INT NOT NULL,
+`access` TINYINT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`author` VARCHAR(50) NOT NULL,
+`guest` TINYINT NOT NULL DEFAULT 1,
+`ip` VARCHAR(20) NOT NULL,
+`date` INT,
+`text` TEXT);
 
-CREATE INDEX IF NOT EXISTS th ON `f3_comms` (TYPE,CID);
+CREATE INDEX IF NOT EXISTS th ON f3_comms (TYPE,CID);
 
 CREATE TABLE IF NOT EXISTS `f3_confmenu` (
-`ID` varchar(50) NOT NULL,
-`name` varchar(50),
-`lang` varchar(5) NOT NULL,
-`img` varchar(230));
+`ID` VARCHAR(50) NOT NULL,
+`name` VARCHAR(50),
+`lang` VARCHAR(5) NOT NULL,
+`img` VARCHAR(230));
 
-CREATE INDEX IF NOT EXISTS ID ON `f3_confmenu` (ID);
+CREATE INDEX IF NOT EXISTS ID ON f3_confmenu (ID);
 
 CREATE TABLE IF NOT EXISTS `f3_files` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`cat` int(11) NOT NULL,
-`name` varchar(50),
-`author` varchar(100),
+`cat` INT NOT NULL,
+`name` VARCHAR(50),
+`author` VARCHAR(100),
 `date` datetime,
-`dsc` text,
-`file` varchar(200),
-`dls` int(11) NOT NULL DEFAULT 0,
-`access` tinyint(1) NOT NULL,
-`size` varchar(50),
-`priority` tinyint(1) NOT NULL,
-`rate` tinyint(1),
-`fulld` mediumtext);
+`dsc` TEXT,
+`file` VARCHAR(200),
+`dls` INT NOT NULL DEFAULT 0,
+`access` TINYINT NOT NULL,
+`size` VARCHAR(50),
+`priority` TINYINT NOT NULL,
+`rate` TINYINT,
+`fulld` MEDIUMTEXT);
 
-CREATE INDEX IF NOT EXISTS cat ON `f3_files` (cat);
+CREATE INDEX IF NOT EXISTS cat ON f3_files (cat);
 
 CREATE TABLE IF NOT EXISTS `f3_groups` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text,
-`access` varchar(3) NOT NULL,
-`opened` tinyint(1) NOT NULL,
-`who` int(11) NOT NULL DEFAULT 0,
-`num` int(11) NOT NULL DEFAULT 0,
-`date` int(11));
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT,
+`access` VARCHAR(3) NOT NULL,
+`opened` TINYINT NOT NULL,
+`who` INT NOT NULL DEFAULT 0,
+`num` INT NOT NULL DEFAULT 0,
+`date` INT);
 
 CREATE TABLE IF NOT EXISTS `f3_groupuser` (
-`u` int(11) NOT NULL,
-`g` int(11) NOT NULL,
-`date` int(11),
+`u` INT NOT NULL,
+`g` INT NOT NULL,
+`date` INT,
 PRIMARY KEY (u,g));
 
 CREATE TABLE IF NOT EXISTS `f3_imgs` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text,
-`type` tinyint(1) NOT NULL,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT,
+`type` TINYINT NOT NULL,
 `date` datetime,
-`priority` tinyint(1) NOT NULL,
-`access` tinyint(1) NOT NULL,
-`rate` tinyint(1),
-`author` varchar(50) NOT NULL,
-`filem` varchar(255) NOT NULL,
-`file` varchar(255) NOT NULL,
-`size` varchar(9) NOT NULL);
+`priority` TINYINT NOT NULL,
+`access` TINYINT NOT NULL,
+`rate` TINYINT,
+`author` VARCHAR(50) NOT NULL,
+`filem` VARCHAR(255) NOT NULL,
+`file` VARCHAR(255) NOT NULL,
+`size` VARCHAR(9) NOT NULL);
 
-CREATE INDEX IF NOT EXISTS cat ON `f3_imgs` (cat);
+CREATE INDEX IF NOT EXISTS cat ON f3_imgs (cat);
 
 CREATE TABLE IF NOT EXISTS `f3_links` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`dsc` text,
-`access` tinyint(1) NOT NULL,
-`adr` varchar(255) NOT NULL,
-`priority` tinyint(1) NOT NULL,
-`count` int(11) NOT NULL DEFAULT 0,
-`rate` tinyint(1),
-`nw` tinyint(1) NOT NULL);
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`dsc` TEXT,
+`access` TINYINT NOT NULL,
+`adr` VARCHAR(255) NOT NULL,
+`priority` TINYINT NOT NULL,
+`count` INT NOT NULL DEFAULT 0,
+`rate` TINYINT,
+`nw` TINYINT NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS cat ON `f3_links` (cat);
+CREATE INDEX IF NOT EXISTS cat ON f3_links (cat);
 
 CREATE TABLE IF NOT EXISTS `f3_log` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`name` varchar(50) NOT NULL,
+`name` VARCHAR(50) NOT NULL,
 `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
-`ip` varchar(40),
-`user` int(11) NOT NULL DEFAULT 0);
+`ip` VARCHAR(40),
+`user` INT NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `f3_menu` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`seq` int(11) NOT NULL,
-`text` varchar(50) NOT NULL,
-`disp` varchar(3) NOT NULL,
-`menu` int(11) NOT NULL,
-`type` tinyint(1) NOT NULL,
-`img` varchar(200),
-`value` text);
+`seq` INT NOT NULL,
+`text` VARCHAR(50) NOT NULL,
+`disp` VARCHAR(3) NOT NULL,
+`menu` INT NOT NULL,
+`type` TINYINT NOT NULL,
+`img` VARCHAR(200),
+`value` TEXT);
 
 CREATE TABLE IF NOT EXISTS `f3_mitems` (
-`menu` int(11) NOT NULL,
-`text` varchar(50) NOT NULL,
-`type` tinyint(1) NOT NULL DEFAULT 5,
-`url` varchar(255) NOT NULL,
-`nw` tinyint(1) NOT NULL DEFAULT 0,
-`seq` tinyint(2) NOT NULL DEFAULT 0);
+`menu` INT NOT NULL,
+`text` VARCHAR(50) NOT NULL,
+`type` TINYINT NOT NULL DEFAULT 5,
+`url` VARCHAR(255) NOT NULL,
+`nw` TINYINT NOT NULL DEFAULT 0,
+`seq` TINYINT NOT NULL DEFAULT 0);
 
 CREATE TABLE IF NOT EXISTS `f3_news` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`cat` int(11) NOT NULL,
-`name` varchar(50) NOT NULL,
-`txt` text,
+`cat` INT NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`txt` TEXT,
 `date` datetime,
-`author` varchar(50) NOT NULL,
-`img` varchar(255) NOT NULL DEFAULT '',
-`comm` int(11) NOT NULL DEFAULT 0,
-`access` tinyint(1) NOT NULL,
-`opt` tinyint(2) NOT NULL DEFAULT 3);
+`author` VARCHAR(50) NOT NULL,
+`img` VARCHAR(255) NOT NULL DEFAULT '',
+`comm` INT NOT NULL DEFAULT 0,
+`access` TINYINT NOT NULL,
+`opt` TINYINT NOT NULL DEFAULT 3);
 
 CREATE INDEX IF NOT EXISTS cat ON `f3_news` (cat);
 
 CREATE TABLE IF NOT EXISTS `f3_newstxt` (
-`ID` int(11) NOT NULL,
-`cat` int(11) NOT NULL,
-`text` mediumtext,
+`ID` INT NOT NULL,
+`cat` INT NOT NULL,
+`text` MEDIUMTEXT,
 PRIMARY KEY (ID));
 
 CREATE TABLE IF NOT EXISTS `f3_online` (
-`IP` varchar(40) PRIMARY KEY NOT NULL,
-`user` int(11) NOT NULL,
-`name` varchar(50),
+`IP` VARCHAR(40) PRIMARY KEY NOT NULL,
+`user` INT NOT NULL,
+`name` VARCHAR(50),
 `time` timestamp NOT NULL default CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS `f3_pages` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`name` varchar(50) NOT NULL,
-`access` varchar(3) NOT NULL,
-`opt` tinyint(2) NOT NULL,
-`text` mediumtext);
+`name` VARCHAR(50) NOT NULL,
+`access` VARCHAR(3) NOT NULL,
+`opt` TINYINT NOT NULL,
+`text` MEDIUMTEXT);
 
 CREATE TABLE IF NOT EXISTS `f3_plugins` (
-`ID` varchar(30) NOT NULL,
-`name` varchar(50) NOT NULL);
+`ID` VARCHAR(30) NOT NULL,
+`name` VARCHAR(50) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `f3_pms` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`th` int(11) NOT NULL,
-`topic` varchar(50) NOT NULL,
-`usr` int(11) NOT NULL,
-`owner` int(11) NOT NULL,
-`st` tinyint(1) NOT NULL,
-`out` int(11) NOT NULL,
-`date` int(11) NOT NULL,
-`txt` text);
+`th` INT NOT NULL,
+`topic` VARCHAR(50) NOT NULL,
+`usr` INT NOT NULL,
+`owner` INT NOT NULL,
+`st` TINYINT NOT NULL,
+`del` INT NOT NULL DEFAULT 0,
+`date` INT NOT NULL,
+`txt` TEXT);
 
-CREATE INDEX IF NOT EXISTS th ON `f3_pms` (th);
-CREATE INDEX IF NOT EXISTS o ON `f3_pms` (owner);
+CREATE INDEX IF NOT EXISTS th ON f3_pms (th);
+CREATE INDEX IF NOT EXISTS o ON f3_pms (owner);
 
 CREATE TABLE IF NOT EXISTS `f3_polls` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`name` varchar(50) NOT NULL,
-`q` varchar(80) NOT NULL,
-`ison` tinyint(1) NOT NULL,
-`type` tinyint(1) NOT NULL,
-`num` int(11) NOT NULL DEFAULT 0,
-`access` varchar(3) NOT NULL,
+`name` VARCHAR(50) NOT NULL,
+`q` VARCHAR(80) NOT NULL,
+`ison` TINYINT NOT NULL,
+`type` TINYINT NOT NULL,
+`num` INT NOT NULL DEFAULT 0,
+`access` VARCHAR(3) NOT NULL,
 `date` datetime);
 
 CREATE TABLE IF NOT EXISTS `f3_pollvotes` (
-`user` varchar(40) NOT NULL,
-`ID` int(11) NOT NULL,
+`user` VARCHAR(40) NOT NULL,
+`ID` INT NOT NULL,
 `date` date NOT NULL DEFAULT CURRENT_DATE);
 
 CREATE TABLE IF NOT EXISTS `f3_rates` (
-`type` tinyint(2) NOT NULL,
-`ID` int(11) NOT NULL,
-`mark` tinyint(1) NOT NULL DEFAULT 5,
-`IP` varchar(50) NOT NULL);
+`type` TINYINT NOT NULL,
+`ID` INT NOT NULL,
+`mark` TINYINT NOT NULL DEFAULT 5,
+`IP` VARCHAR(50) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `f3_rss` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`auto` tinyint(1) NOT NULL DEFAULT 1,
-`name` varchar(50) NOT NULL DEFAULT '',
-`dsc` varchar(99) NOT NULL DEFAULT '',
-`url` varchar(80) NOT NULL DEFAULT '',
-`lang` varchar(3) NOT NULL DEFAULT 'en',
-`cat` int(11) NOT NULL DEFAULT 0,
-`num` int(11) NOT NULL DEFAULT 10);
+`auto` TINYINT NOT NULL DEFAULT 1,
+`name` VARCHAR(50) NOT NULL DEFAULT '',
+`dsc` VARCHAR(99) NOT NULL DEFAULT '',
+`url` VARCHAR(80) NOT NULL DEFAULT '',
+`lang` VARCHAR(3) NOT NULL DEFAULT 'en',
+`cat` INT NOT NULL DEFAULT 0,
+`num` INT NOT NULL DEFAULT 10);
 
 CREATE TABLE IF NOT EXISTS `f3_tags` (
-`tag` varchar(50) NOT NULL DEFAULT '',
-`TYPE` tinyint(3) NOT NULL DEFAULT 5,
-`ID` int(11) NOT NULL DEFAULT 0,
-`num` int(11) NOT NULL DEFAULT 0);
+`tag` VARCHAR(50) NOT NULL DEFAULT '',
+`TYPE` TINYINT NOT NULL DEFAULT 5,
+`ID` INT NOT NULL DEFAULT 0,
+`num` INT NOT NULL DEFAULT 0);
 
-CREATE INDEX IF NOT EXISTS `tag` ON `f3_tags` (`tag`,`TYPE`,`ID`);
+CREATE INDEX IF NOT EXISTS tag ON f3_tags (tag,TYPE,ID);
 
 CREATE TABLE IF NOT EXISTS `f3_tmp` (
-`KEYID` varchar(50) NOT NULL PRIMARY KEY,
-`UID` int(11) NOT NULL,
-`type` varchar(9) NOT NULL);
+`KEYID` VARCHAR(50) NOT NULL PRIMARY KEY,
+`UID` INT NOT NULL,
+`type` VARCHAR(9) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS `f3_users` (
 `ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-`login` varchar(50) UNIQUE NOT NULL,
-`pass` char(32) NOT NULL,
-`mail` varchar(80),
-`sex` tinyint(1) NOT NULL DEFAULT 0,
-`opt` tinyint(2) NOT NULL DEFAULT 2,
-`lv` tinyint(1) NOT NULL DEFAULT 1,
-`adm` text,
-`regt` int(11),
-`lvis` int(11),
-`pms` tinyint(4) NOT NULL DEFAULT 0,
-`about` text,
-`mails` tinyint(1) NOT NULL DEFAULT 0,
-`www` varchar(200) NOT NULL DEFAULT '',
-`city` varchar(50) NOT NULL DEFAULT '',
-`icq` varchar(15),
-`skype` varchar(50),
-`jabber` varchar(60),
-`tlen` varchar(50),
-`gg` int(11),
-`photo` varchar(150));
+`login` VARCHAR(50) UNIQUE NOT NULL,
+`pass` CHAR(32) NOT NULL,
+`mail` VARCHAR(80),
+`sex` TINYINT NOT NULL DEFAULT 0,
+`opt` TINYINT NOT NULL DEFAULT 2,
+`lv` TINYINT NOT NULL DEFAULT 1,
+`adm` TEXT,
+`regt` INT,
+`lvis` INT,
+`pms` TINYINT NOT NULL DEFAULT 0,
+`about` TEXT,
+`mails` TINYINT NOT NULL DEFAULT 0,
+`www` VARCHAR(200) NOT NULL DEFAULT '',
+`city` VARCHAR(50) NOT NULL DEFAULT '',
+`icq` VARCHAR(15),
+`skype` VARCHAR(50),
+`jabber` VARCHAR(60),
+`tlen` VARCHAR(50),
+`gg` INT,
+`photo` VARCHAR(150));
