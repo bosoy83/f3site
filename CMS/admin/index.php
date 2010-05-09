@@ -44,6 +44,12 @@ function MI($title,$url,$r,$c='plug')
 	if(admit($r)) return '<li class="a_'.$c.'"><a href="'.url($url,'','admin').'">'.$title.'</a></li>';
 }
 
+#Tryb konserwacji
+if(isset($cfg['MA']))
+{
+	$content->info($lang['siteOff'], null, 'warning');
+}
+
 #Modu³
 if(isset($URL[0]))
 {

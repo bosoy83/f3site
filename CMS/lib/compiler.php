@@ -100,7 +100,7 @@ class Compiler
 		#Sta³e predefiniowane i niepotrzebne znaki
 		$in = array(
 			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}', '{CATS URL}',
-			'{MAIN TITLE}', '{PAGE TITLE}', '{HEAD TAGS}', "\t", "\n\n");
+			'{MAIN TITLE}', '{PAGE TITLE}', '{DESCRIPTION}', '{HEAD TAGS}', "\t", "\n\n");
 
 		$out = array(
 			'<?php $content->display() ?>',
@@ -111,6 +111,7 @@ class Compiler
 			'<?php echo url(\'cats\') ?>',
 			'<?php echo $cfg[\'title\'] ?>',
 			'<?php echo $content->title ?>',
+			'<?php echo $content->desc ?>',
 			'', '', "\n"
 		);
 

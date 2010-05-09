@@ -66,17 +66,14 @@ if($_POST)
 }
 
 #FORM
+elseif($id)
+{
+	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id)->fetch(2))
+	return;
+}
 else
 {
-	if($id)
-	{
-		if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id)->fetch(2))
-		return;
-	}
-	else
-	{
-		$page = array('name'=>'','access'=>1,'text'=>'','opt'=>13);
-	}
+	$page = array('name'=>'','access'=>1,'text'=>'','opt'=>13);
 }
 
 #Biblioteki JS, tytu³, dane

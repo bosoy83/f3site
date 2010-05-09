@@ -1,7 +1,7 @@
 <?php
 $lang=Array(
 1=>'Willkommen!',
-2=>'Irriger Benutzername oder Passwort.<br /><br />Sorge für Setzkasten.',
+2=>'Irriger Benutzername oder Passwort.<br><br>Sorge für Setzkasten.',
 3=>'&laquo; Zurück',
 4=>'Ausgeloggt.',
 5=>'Stimme akzeptiert.',
@@ -16,6 +16,7 @@ $lang=Array(
 7=>'Man kann nicht voten.',
 8=>'Fehler! Sorge, ob alle Felder füllen werden.',
 9=>'Man muss anmelden um zu voten.',
+10=>'Die Website wird gepflegt. Besuch uns bald wieder in mehrere Stunden.',
 13=>'Die Umfrage ist nicht vorhanden.',
 14=>'FEHLER! Jedes Wort muss min. 3 Zeichen haben.',
 16=>'Dein Konto ist inaktiv.',

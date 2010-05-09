@@ -2,18 +2,12 @@
 <div class="cs">
 
 	<!-- IF options -->
-	<div style="float: right; position: relative">
-
-		<a href="javascript:hint('catmenu',0,0,1)">{lang.opt}<img src="img/icon/d.png" alt="v" /></a>
-
-		<ul class="hint" style="width: 150px; right: -4px" id="catmenu">
-			<li onclick="location='{add_url}'">{lang.addItem}</li>
-			<li onclick="location='{list_url}'">{lang.itemList}</li>
-			<!-- IF edit -->
-			<li onclick="location='{edit}'">{lang.edit}</li>
-			<!-- END -->
-		</ul>
-
+	<div style="float: right">
+		<a href="{add_url}" title="{lang.addItem}"><img src="img/icon/add.png" alt="N"></a>
+		<a href="{list_url}" title="{lang.itemList}"><img src="img/icon/del.png" alt="E"></a>
+		<!-- IF edit -->
+		<a href="{edit}" title="{lang.edit}"><img src="img/icon/cog.png" alt="O"></a>
+		<!-- END -->
 	</div>
 	<!-- END -->
 

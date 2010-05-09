@@ -1,14 +1,21 @@
 <?php //F3Site 3.1 - (C) 2010 COMPMaster
-
-#Basic kernel
 define('iCMS',1);
 require './kernel.php';
+
+#Maintenance mode
+if(isset($cfg['MA']) && LEVEL < 2)
+{
+	header('HTTP/1.1 503 Service Unavailable');
+	header('Retry-After: 7200');
+	$content->message(10, UID ? null : 'login.php');
+}
 
 #Load module or display 404 page
 if(isset($URL[0]) && !is_numeric($URL[0]) && strpos($URL[0],'/')===false && !isset($URL[0][30]))
 {
-	#Default template
+	#Default template and desciption
 	$content->file = array($URL[0]);
+	$content->desc = $cfg['metaDesc'];
 
 	#Sequence: built-in module, extension, 404
 	if(file_exists('./mod/'.$URL[0].'.php'))

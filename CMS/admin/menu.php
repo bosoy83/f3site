@@ -55,9 +55,9 @@ $blocks = array();
 
 foreach($res as $m)
 {
-	if($m[3] != $prev)
+	if($m[3] != $prev && $m[3] != '3' && $m[3] != '2')
 	{
-		$lng = $prev = ($m[3] === '2') ? $lang['off'] : $m[3];
+		$lng = $prev = $m[3];
 	}
 	else
 	{

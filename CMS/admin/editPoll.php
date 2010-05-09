@@ -1,6 +1,6 @@
 <?php
 if(iCMSa!=1) exit;
-require LANG_DIR.'admAll.php'; //Jêzyk
+require LANG_DIR.'admAll.php';
 
 #Tytu³ strony i ID
 $content->title = $id ? $lang['editPoll'] : $lang['addPoll'];
@@ -99,8 +99,11 @@ if($_POST)
 #Form
 elseif($id)
 {
-	$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$id)->fetch(2); //ASSOC
-	$an = $db->query('SELECT ID,a FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq') -> fetchAll(3);
+	if(!$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$id)->fetch(2))
+	{
+		return;
+	}
+	$an = $db->query('SELECT ID,a FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
 }
 else
 {

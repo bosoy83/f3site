@@ -1,8 +1,9 @@
 body {
 	font: 13px Verdana,Helvetica,Arial,Times;
 	background-color: #9CBCC0;
-	margin: auto;
-	width: 950px;
+	margin: 0.5% auto;
+	width: 99%;
+	max-width: 1024px;
 }
 a {
 	text-decoration: none;
@@ -36,7 +37,10 @@ label {cursor: pointer}
 input:focus {background-color: #ffffca}
 
 /* LAYOUT */
-#top, #bar, #mid, #footer {border: 1px solid #ACACA4}
+#top, #bar, #mid, #footer {
+	border: 1px solid #ACACA4;
+	overflow: hidden
+}
 #top {
 	height: 60px;
 	padding-left: 220px;
@@ -55,14 +59,16 @@ input:focus {background-color: #ffffca}
 #flags {
 	float: right;
 	width: 300px;
+	font-size: 12px;
+	letter-spacing: 5px
 }
 #today {
 	float: right;
 }
 #mid {
+	min-width: 400px;
 	padding-left: 200px;
 	padding-right: 218px;
-	overflow: hidden;
 	position: relative;
 	background-color: #E8E8E6 /* main color */
 }
@@ -247,7 +253,7 @@ small {font-size: 11px}
 }
 
 /* LINKI */
-.edit, .add, .del, .user, .cat, .tags, .cite {
+.edit, .add, .del, .user, .cat, .tags, .quote {
 	padding-left: 20px;
 	background-repeat: no-repeat
 }

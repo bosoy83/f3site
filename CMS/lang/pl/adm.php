@@ -24,6 +24,7 @@
 'deldone'=>'-- usunięto --',
 'error'=>'Błąd podczas wykonywania operacji: ',
 '0off'=>'Wpisz 0, by wyłączyć.',
+'siteOff'=>'Uaktywniono tryb konserwacji. Serwis jest dostępny tylko dla redaktorów i administratorów!',
 
 'mainPage'=>'Strona główna',
 'summary' =>'Podsumowanie',
@@ -31,6 +32,7 @@
 'skinComp'=>'Zatwierdź zmiany w bieżącej skórce',
 'official'=>'Uzyskaj pomoc lub pobierz dodatki dla systemu F3Site 2010',
 'notepad' =>'Co chcesz zapamiętać lub przekazać innym administratorom?',
+'setTitle'=>'Zmień tytuł strony, skórkę, format daty i adresów URL...',
 'course'=>'Kurs HTML, xHTML, CSS...',
 'what'=>'Co chcesz zrobić?',
 'SVN' =>'Odwiedź stronę projektu w Google Code',

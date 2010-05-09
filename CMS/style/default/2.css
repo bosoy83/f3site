@@ -38,7 +38,10 @@ label {cursor: pointer}
 input:focus {background-color: #ffffca}
 
 /* LAYOUT */
-#top, #bar, #mid, #footer {border: 1px solid #728FA7}
+#top, #bar, #mid, #footer {
+	border: 1px solid #728FA7;
+	overflow: hidden
+}
 #top {
 	height: 60px;
 	padding-left: 220px;
@@ -57,14 +60,16 @@ input:focus {background-color: #ffffca}
 #flags {
 	float: right;
 	width: 300px;
+	font-size: 12px;
+	letter-spacing: 5px
 }
 #today {
 	float: right;
 }
 #mid {
+	min-width: 400px;
 	padding-left: 200px;
 	padding-right: 218px;
-	overflow: hidden;
 	position: relative;
 	background-color: #B3C4D7 /* main color */
 }

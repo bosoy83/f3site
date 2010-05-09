@@ -1,7 +1,7 @@
 <?php
 $lang=Array(
 1=>'You are now logged in.',
-2=>'Bad login or password.<br /><br />Check letters\' size.',
+2=>'Bad login or password. Check letter case.',
 3=>'&laquo; Comeback',
 4=>'You are now logged out.',
 5=>'Vote has been casted.',
@@ -16,6 +16,7 @@ $lang=Array(
 7=>'Cannot rate this element.',
 8=>'Error! Check whether you filled all fields.',
 9=>'You must be logged in to rate items.',
+10=>'The website is being maintained. Visit us again in several hours.',
 13=>'The poll does not exist or is out of date.',
 14=>'Error! All words must contain min. 3 characters.',
 16=>'The account is not active.',
@@ -24,6 +25,6 @@ $lang=Array(
 19=>'Click OK to update links.',
 20=>'The search has been finished.',
 21=>'Sorry, you have been banned!',
-22=>'Database caused an error.<br />Click F5 to try again.',
-23=>'Cannot connect to database. Try again in a while.<br /><br />Perhaps maintenance is in progress.',
+22=>'Database caused an error.<br>Click F5 to try again.',
+23=>'Cannot connect to database. Try again in a while. Perhaps maintenance is in progress.',
 );

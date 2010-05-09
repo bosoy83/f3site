@@ -131,7 +131,8 @@
 
 <script type="text/javascript">
 f = document.forms[0]
-{js}
 f.lrate.disabled = !f.linkFull.checked
 f.linkFull.onchange = function() { f.lrate.disabled = !this.checked }
+def = {def};
+for(i in def) { f['start['+i+']'].value = def[i] }
 </script>

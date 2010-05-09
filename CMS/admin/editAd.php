@@ -33,17 +33,14 @@ if($_POST)
 		$content->info($lang['error'].$e->errorInfo[0]);
 	}
 }
+elseif($id)
+{
+	if(!$ad = $db->query('SELECT * FROM '.PRE.'banners WHERE ID='.$id)->fetch(2))
+	return;
+}
 else
 {
-	if($id)
-	{
-		if(!$ad = $db->query('SELECT * FROM '.PRE.'banners WHERE ID='.$id)->fetch(2))
-		return;
-	}
-	else
-	{
-		$ad = array('gen'=>1,'name'=>'','ison'=>1,'code'=>'');
-	}
+	$ad = array('gen'=>1,'name'=>'','ison'=>1,'code'=>'');
 }
 
 #Jêzyk

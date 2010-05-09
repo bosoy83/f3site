@@ -1,7 +1,7 @@
 /*G³ówne*/
 body {
 	font: 13px Verdana,Helvetica,Arial,Times;
-	background-color: #728FA7;
+	background-color: #B9B7C0;
 	margin: auto;
 	width: 100%;
 	max-width: 1024px;
@@ -24,12 +24,13 @@ h3 {
 h1, h2, .tb caption {
 	margin: 0;
 	font: bold 13px Verdana;
-	border: 1px solid #9EAA97;
+	background-color: white;
+	background-image: -moz-linear-gradient(top, #DDDDDD, white);
+	-moz-border-radius: 7px 7px 0 0;
+	border: 1px solid #888888;
 	border-bottom: 0;
-	background: #CBD5BF url(2/th.png) repeat-x;
 	text-align: center;
-	color: #396F79;
-	padding: 1px;
+	padding: 3px;
 }
 form {margin: 0}
 optgroup {font-style: normal}
@@ -38,15 +39,15 @@ label {cursor: pointer}
 input:focus {background-color: #ffffca}
 
 /* Uk³ad strony */
-#top, #bar, #mid, #footer {border: 1px solid #728FA7}
 #top {
-	height: 60px;
+	height: 80px;
+	overflow: hidden;
 	padding-left: 220px;
 	text-align: center;
-	background: #B3C4D7 url(2/logo.png) no-repeat;
+	background: #005cc4;
 }
 #bar {
-	background-color: #f8df9c;
+	background-color: #ffeea8;
 	padding: 3px 8px 3px 8px;
 	border-width: 0 1px;
 }
@@ -57,16 +58,18 @@ input:focus {background-color: #ffffca}
 #flags {
 	float: right;
 	width: 300px;
+	font-size: 12px;
+	letter-spacing: 5px
 }
 #today {
 	float: right;
 }
 #mid {
+	margin: 4px;
 	padding-left: 200px;
 	padding-right: 218px;
-	overflow: hidden;
 	position: relative;
-	background-color: #B3C4D7 /* main color */
+	overflow: hidden;
 }
 #left {
 	width: 182px; /* width - padding */
@@ -79,9 +82,6 @@ input:focus {background-color: #ffffca}
 }
 #main {
 	width: 100%;
-	background-color: #C4D0DF;
-	border: 1px solid #728FA7;
-	border-width: 0 1px;
 }
 #left, #right, #main {
 	padding: 8px 8px 10000px;
@@ -91,7 +91,6 @@ input:focus {background-color: #ffffca}
 }
 #footer {
 	clear: both;
-	background-color: #B3C4D7;
 	padding: 2px;
 	border-top: 0;
 	text-align: center
@@ -143,49 +142,54 @@ ul.cats li {
 
 /*Menu*/
 .menu {
-	background-color: #EFEEE6;
+	background-color: white;
 	padding: 2px 3px;
 	margin-bottom: 7px;
-	border: 1px solid #416298
+	border: 1px solid #888888;
+	border-top: 0;
+	-moz-border-radius: 0 0 7px 7px
 }
 .mh {
-	padding: 1px;
-	color: white;
+	padding: 3px 0;
 	font-weight: bold;
-	background: #456CC9 url(2/m.png);
 	text-align: center;
-	border: 1px solid #416298;
+	background-color: white;
+	border: 1px solid #888888;
 	border-bottom: 0;
+	background-image: -moz-linear-gradient(top, #DDDDDD, white);
+	-moz-border-radius: 7px 7px 0 0
 }
-.menu ul {margin: 0; padding-left: 14px}
+.menu ul {margin: 0; padding-left: 14px; list-style-type: square}
 .menu ul a {display: block}
 #online {text-align: center; line-height: 22px}
 
 /*Bloki*/
 th {
-	background-color: #E4E4D6;
+	background-color: #FFEEA8;
 	font-weight: normal
 }
 .tb {
-	background-color: #9EAA97;
+	background-color: #AAAAAA;
 	width: 100%;
 	margin-bottom: 8px
 }
 .eth, .end {
-	color: #236978;
-	background-color: #DCE0CD;
+	background-color: white;
+	background-image: -moz-linear-gradient(top, white, #DDDDDD);
+	-moz-border-radius: 0 0 7px 7px;
 	text-align: center;
-	padding: 1px;
+	padding: 3px;
 }
 .end {
-	border: 1px solid #9EAA97;
+	border: 1px solid #888888;
 	border-top: 0;
-	margin: -8px 0 8px 0;
+	margin: -9px 0 8px 0;
 }
 .box {
 	overflow: hidden;
-	background-color: #F5F5F5;
-	border: 1px solid #9EAA97;
+	background-color: white;
+	border: 1px solid #888888;
+	border-top: 0;
 	padding: 3px;
 	margin-bottom: 8px;
 	line-height: 18px;
@@ -193,15 +197,15 @@ th {
 	word-wrap: break-word
 }
 .eth td,th,pre,blockquote {padding: 2px}
-.tb tbody {background-color: #EFEEE6}
+.tb tbody {background-color: white}
 .tb td {padding: 3px}
 
 /* Struktura kategorii */
 .cs {
-	border: 1px solid #A9B4AA;
+	border: 1px solid #888888;
 	padding: 5px 3px 5px 28px;
 	margin-bottom: 8px;
-	background: url(../../img/icon/cs.png) 3px 3px no-repeat #F5F5F5
+	background: url(../../img/icon/cs.png) 3px 3px no-repeat white
 }
 
 /*Tekst i inne*/
@@ -244,6 +248,12 @@ small {font-size: 11px}
 }
 .pages {padding: 8px !important; text-align: center}
 
+/* INFO */
+.error, .warning {
+	background: white url(../../img/icon/error.png) no-repeat 6px 9px;
+	padding-left: 28px !important
+}
+
 /* LINKI */
 .edit, .add, .del, .user, .cat, .tags, .quote {
 	padding-left: 20px;
@@ -259,12 +269,12 @@ small {font-size: 11px}
 
 /* DIALOG */
 .dialog {
-	position: absolute;
+	position: fixed;
 	z-index: 99;
 	padding: 5px;
-	background-color: #EFEBE7;
-	border: 1px solid #B1A598;
-	overflow: auto;
+	background-color: white;
+	border: 1px solid #7F9B97;
+	overflow: hidden;
 }
 .dialog h3 {
 	margin: -5px -5px 5px -5px;
@@ -287,8 +297,6 @@ small {font-size: 11px}
 	height: 100%;
 	background-color: black;
 }
-
-/*DHTML*/
 .hint {
 	border: 1px solid #89a5a9;
 	background-color: white;
@@ -299,6 +307,11 @@ small {font-size: 11px}
 .hint .win {
 	padding: 8px;
 	overflow: auto;
+}
+.hint .title {
+	text-align: center;
+	background-color: #a8dff4;
+	padding: 2px
 }
 .menulist, ul.hint {
 	margin: 0;
@@ -326,8 +339,5 @@ small {font-size: 11px}
 	border: 1px solid transparent;
 }
 .editor img:hover, .editor span:hover {
-	border: 1px outset #ece9d8;
-}
-.editor img:active, .editor span:active {
-	border: 1px inset #ece9d8;
+	background-color: #fff4aa;
 }

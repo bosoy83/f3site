@@ -18,7 +18,11 @@ function RenderMenu(PDO $db = null)
 
 		foreach($block as &$b)
 		{
-			if($b['disp']!=1 && $b['disp']!=$dir) continue;
+			if($b['disp']=='3')
+			{
+				$out[$page] .= '<?php if(LEVEL>2){?>';
+			}
+			elseif($b['disp']!='1' && $b['disp']!=$dir) continue;
 			$page = $b['menu'];
 			$out[$page] .= '<div class="mh"'.($b['img'] ? ' style="background: url('.$b['img'].') no-repeat bottom right"':'').'>'.$b['text'].'</div><div class="menu">';
 
@@ -51,7 +55,7 @@ function RenderMenu(PDO $db = null)
 				}
 				if($links) $out[$page].= '<ul>'.$links.'</ul>';
 			}
-			$out[$page].='</div>';
+			$out[$page].='</div>' . ($b['disp']==3 ? '<?php } ?>' : '');
 		}
 
 		#Ca³oœæ

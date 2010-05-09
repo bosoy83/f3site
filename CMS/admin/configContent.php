@@ -59,8 +59,7 @@ $res=null;
 
 #Dla ka¿dego jêzyka
 $i = 0;
-$js = '';
-$cats = array();
+$cats = $js = array();
 
 foreach(scandir('./lang') as $dir)
 {
@@ -68,9 +67,9 @@ foreach(scandir('./lang') as $dir)
 	{
 		if(isset($cfg['start'][$dir]))
 		{
-			$js .= '$("df'.++$i.'").value="'.(float)$cfg['start'][$dir].'";';
+			$js[$dir] = $cfg['start'][$dir];
 		}
-		$cats[strtoupper($dir)] = '<select name="start['.$dir.']" id="df'.$i.'">'.$out.'</select>';
+		$cats[strtoupper($dir)] = '<select name="start['.$dir.']">'.$out.'</select>';
 	}
 }
 
@@ -80,6 +79,6 @@ $content->title = $lang['content'];
 #Do szablonu
 $content->data = array(
 	'cfg' => &$opt,
-	'js'  => &$js,
-	'cats'=> &$cats
+	'cats'=> &$cats,
+	'def' => json_encode($js)
 );

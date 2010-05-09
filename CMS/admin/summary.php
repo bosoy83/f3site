@@ -24,7 +24,8 @@ else
 $content->data = array(
 	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
 	'notes'  => $notes,
-	'server' => $_SERVER['SERVER_SOFTWARE']
+	'server' => $_SERVER['SERVER_SOFTWARE'],
+	'config' => url('configMain', '', 'admin')
 );
 
 #Katalog INSTALL

@@ -5,6 +5,7 @@ class Content
 		$file,
 		$title,
 		$head,
+		$desc,
 		$data = array(),
 		$check = true,
 		$cache = VIEW_DIR,

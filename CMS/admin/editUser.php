@@ -102,9 +102,9 @@ if($_POST)
 }
 
 #Pobierz dane
-elseif($id && !$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2))
+elseif($id)
 {
-	$content->info($lang['noex']); return;
+	if(!$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2)) return;
 }
 
 #Nowy user

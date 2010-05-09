@@ -344,5 +344,5 @@ $content->data = array(
 	'hide'  => empty($_POST['pass']) || !isset($_POST['curPass']),
 	'pass'  => isset($_POST['pass']) ? clean($_POST['pass']) : '',
 	'pass2' => isset($_POST['pass2']) ? clean($_POST['pass2']) : '',
-	'photo' => (UID && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.jpg') : false
+	'photo' => (UID && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.png') : false
 );

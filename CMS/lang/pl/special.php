@@ -1,7 +1,7 @@
 <?php
 $lang=Array(
 1=>'Zostałeś zalogowany.',
-2=>'Błędny login lub hasło.<br /><br />Uwzględnij wielkość liter.',
+2=>'Błędny login lub hasło.<br><br>Uwzględnij wielkość liter.',
 3=>'&laquo; Powrót',
 4=>'Zostałeś wylogowany.',
 5=>'Głos został oddany.',
@@ -16,6 +16,7 @@ $lang=Array(
 7=>'Nie można oddać głosu.',
 8=>'Błąd! Sprawdź, czy wypełniłeś wszystkie pola.',
 9=>'Musisz zalogować się, aby móc głosować.',
+10=>'W serwisie trwają prace konserwacyjne. Spróbuj wejść ponownie za kilka godzin.',
 13=>'Sonda nie istnieje lub jest już nieaktualna.',
 14=>'BŁĄD! Każde słowo musi zawierać min. 3 znaki.',
 16=>'Konto jest nieaktywne.',
@@ -24,6 +25,6 @@ $lang=Array(
 19=>'Nastąpi aktualizacja adresów URL.',
 20=>'Wyszukiwanie zostało zakończone.',
 21=>'Zostałeś wyrzucony z tej witryny.',
-22=>'Błąd podczas wykonywania operacji w bazie danych.<br />Naciśnij F5, aby spróbować ponownie.',
-23=>'Nie można połączyć się z bazą danych. Spróbuj wejść ponownie za chwilę.<br /><br />Być może trwają prace administracyjne.',
+22=>'Błąd podczas wykonywania operacji w bazie danych. Naciśnij F5, aby spróbować ponownie.',
+23=>'Nie można połączyć się z bazą danych. Spróbuj wejść ponownie za chwilę.<br><br>Być może trwają prace administracyjne.',
 );

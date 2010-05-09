@@ -51,22 +51,15 @@ if($_POST)
 	}
 }
 
-#Odczyt
+#Edytuj
+elseif($id)
+{
+	if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE ID='.$id)->fetch(2))
+	return;
+}
 else
 {
-	#Edycja
-	if($id)
-	{
-		if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE ID='.$id)->fetch(2))
-		{
-			return;
-		}
-	}
-	#Nowy
-	else
-	{
-		$group = array('name'=>'','access'=>1,'opened'=>1,'dsc'=>'');
-	}
+	$group = array('name'=>'','access'=>1,'opened'=>1,'dsc'=>'');
 }
 
 #Edytor JS, tytu³

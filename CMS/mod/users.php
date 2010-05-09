@@ -121,7 +121,7 @@ foreach($res as $u)
 		'city'  => $u[5],
 		'date'  => genDate($u[4]),
 		'url'   => url('user/'.urlencode($u[1])),
-		'photo' => $u[6] ? $u[6] : 'img/user/0.jpg',
+		'photo' => $u[6] ? $u[6] : 'img/user/0.png',
 		'level' => $lv,
 		'sex'   => $sex,
 		'num'   => ++$st
