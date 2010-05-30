@@ -1,4 +1,4 @@
-<?php /* Wy¶wietlanie artyku³u */
+<?php /* Show article */
 if(iCMS!=1) exit;
 include './cfg/content.php';
 
@@ -19,10 +19,13 @@ if(!$art['access'])
 	$content->info(sprintf($lang['NVAL'], $art['name']), null, 'warning');
 }
 
-#Tytu³ strony
+#Art title
 $content->title = $art['name'];
 
-#Emoty
+#Art description
+if($art['dsc']) $content->desc = $art['dsc'];
+
+#Emots
 if($art['opt']&2)
 {
 	$art['text'] = emots($art['text']);
@@ -33,7 +36,7 @@ if($art['opt']&1)
 	$art['text'] = nl2br($art['text']);
 }
 
-#Data,autor
+#Date, author
 $art['date'] = genDate($art['date'], true);
 $art['author'] = autor($art['author']);
 
@@ -48,7 +51,7 @@ else
 	$rates = 0;
 }
 
-#Zwiêksz ilo¶æ wy¶wietleñ
+#Count popularity
 if(isset($cfg['adisp']))
 {
 	register_shutdown_function(array($db,'exec'),'UPDATE '.PRE.'arts SET ent=ent+1 WHERE ID='.$id);
@@ -59,7 +62,7 @@ else
 	$art['ent'] = 0;
 }
 
-#Strony
+#Pages
 if($art['pages'] > 1)
 {
 	$pages = pages($page,$art['pages'],1,url('art/'.$id),0,'/');
@@ -69,25 +72,26 @@ else
 	$pages = false;
 }
 
-#Do szablonu
+#Template
 $content->data = array(
-	'art'  => &$art,
-	'pages'=> &$pages,
-	'path' => catPath($art['cat']),
-	'cats' => url('cats/articles'),
-	'edit' => admit($art['cat'],'CAT') ? url('edit/1/'.$id, 'ref='.$page) : false,
-	'color'=> $art['opt'] & 4,
-	'rates'=> $rates
+	'art'   => &$art,
+	'pages' => &$pages,
+	'path'  => catPath($art['cat']),
+	'edit'  => admit($art['cat'],'CAT') ? url('edit/1/'.$id, 'ref='.$page) : false,
+	'color' => $art['opt'] & 4,
+	'rates' => $rates,
+	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['arts'],
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/articles')
 );
 
-#Tagi
+#Tags
 if(isset($cfg['tags']))
 {
 	include './lib/tags.php';
 	tags($id, 1);
 }
 
-#Komentarze
+#Comments
 if(isset($cfg['acomm']) && $art['catOpt']&2)
 {
 	require './lib/comm.php';

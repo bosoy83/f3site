@@ -13,7 +13,7 @@ if(!$img['access'])
 	$content->info(sprintf($lang['NVAL'], $img['name']), null, 'warning');
 }
 
-#Rozm.
+#Dimensions
 $size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;
 
 #Opis, data, autor
@@ -32,31 +32,33 @@ else
 	$rates = 0;
 }
 
-#Tytu³
+#Tag title and meta description
 $content->title = $img['name'];
+$content->desc  = $img['dsc'] ? substr($img['dsc'], 0, 150) : $cfg['metaDesc'];
 
-#Do szablonu
+#Template
 $content->data = array(
-	'img'  => &$img,
-	'size' => &$size,
-	'image'=> $img['type'] === '1' ? true : false,
-	'flash'=> $img['type'] === '2' ? true : false,
-	'movie'=> $img['type'] === '3' ? true : false,
-	'video'=> $img['type'] === '4' ? true : false,
-	'path' => catPath($img['cat']),
-	'edit' => admit($img['cat'],'CAT') ? url('edit/3/'.$id,'ref') : false,
-	'cats' => url('cats/images'),
-	'rates'=> $rates
+	'img'   => &$img,
+	'size'  => &$size,
+	'rates' => $rates,
+	'image' => $img['type'] === '1' ? true : false,
+	'flash' => $img['type'] === '2' ? true : false,
+	'movie' => $img['type'] === '3' ? true : false,
+	'video' => $img['type'] === '4' ? true : false,
+	'path'  => catPath($img['cat']),
+	'edit'  => admit($img['cat'],'CAT') ? url('edit/3/'.$id,'ref') : false,
+	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['imgs'],
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/images')
 );
 
-#Tagi
+#Tags
 if(isset($cfg['tags']))
 {
 	include './lib/tags.php';
 	tags($id, 3);
 }
 
-#Komentarze
+#Comments
 if(isset($cfg['icomm']) && $img['opt']&2)
 {
 	require 'lib/comm.php';

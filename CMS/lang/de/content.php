@@ -21,7 +21,6 @@ $lang+=Array(
 'hl'=>'Code highlighten',
 'descPreview' => 'Art Vorschau',
 
-'viewarts'=>'Schriften zeigen',
 'i1'=>'Klick Titel der Schrifte um sie zu zeigen.',
 'edit1'=>'Schrift ändern',
 'add1'=>'Neue Schrift',
@@ -68,6 +67,7 @@ $lang+=Array(
 'isize'=>'Format',
 'isized'=>'Nötig für Flash und QuickTime.',
 
+'freePage'=>'Freie Seite',
 'lastComm'=>'Neuester Kommentar',
 'moderate'=>'Kommentare leiten',
 'approve'=>'nicht akzeptiert',

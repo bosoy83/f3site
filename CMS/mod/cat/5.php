@@ -16,8 +16,8 @@ $comm = ($cat['opt']&2 && isset($cfg['ncomm'])) ? true : false;
 
 #URL
 $userURL = url('user/');
-$editURL = url('edit/5/');
 $fullURL = url('news/');
+$editURL = url('edit/5/');
 
 #Tu zapisuj:
 $news = array();
@@ -33,14 +33,14 @@ foreach($res as $n)
 		'comm'  => $n['comm'],
 		'img'   => $n['img'],
 
+		#Komentarze URL
+		'comm_url' => $comm ? $fullURL.$n['ID'] : false,
+
 		#Pe³ny URL
 		'full_url' => $n['opt']&4 ? $fullURL.$n['ID'] : false,
 
 		#Edytuj URL
 		'edit_url' => $rights ? $editURL.$n['ID'] : false,
-
-		#Komentarze URL
-		'comm_url' => $comm ? $fullURL.$n['ID'] : false,
 
 		#Autor URL
 		'wrote_url' => $userURL.urlencode($n['login'])
@@ -59,7 +59,7 @@ foreach($res as $n)
 #Strony
 if(isset($cfg['newsPages']) && $cat['num'] > $num)
 {
-	$pages = pages($page, $cat['num'], $cfg['newsNum'], $d, 0, '/');
+	$pages = pages($page, $cat['num'], $cfg['newsNum'], url($d), 0, '/');
 }
 else
 {
@@ -69,10 +69,10 @@ else
 #Do szablonu
 $content->file[] = 'cat_news';
 $content->data += array(
-	'news' => &$news,
+	'news'  => &$news,
 	'pages' => &$pages,
-	'add_url' => $rights ? url('edit/5') : null,
-	'cats_url'=> url('cats/news'),
-	'cat_type'=> $lang['news']
+	'add'   => $rights ? url('edit/5') : null,
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/news'),
+	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['news']
 );
 unset($res,$comm,$rights,$n);

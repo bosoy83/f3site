@@ -23,9 +23,11 @@ $lang+=Array(
 'dis2'		=> 'Enable comments',
 'dis3'		=> 'Enable ratings',
 'disd'		=> 'Default settings for all categories you can edit in content options.',
-'sort1'		=> 'newest on the bottom',
-'sort2'		=> 'newest on the top',
+'sort1'		=> 'newest on bottom',
+'sort2'		=> 'newest on top',
 'sort3'		=> 'alphabetically',
+'sort4'   => 'most popular on top',
+'sort5'   => 'best rated on top',
 
 /* CATEGORY REMOVAL */
 'delCat'	=> 'Delete categories',

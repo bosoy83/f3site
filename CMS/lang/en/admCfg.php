@@ -90,6 +90,7 @@ $lang+=Array(
 'itemNum'=>'Number of items per 1 page',
 'itemNum2'=>'Visible articles, files and links on one page.',
 'catStr'=>'Display category hierarchy',
+'allCat'=> 'Link to all category types',
 'grate' =>'Rating items by unregistered users',
 'grate2'=>'Unregistered users will be able to rate content.',
 'goCat' =>'Jump to 1st category',

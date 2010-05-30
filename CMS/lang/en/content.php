@@ -21,7 +21,6 @@ $lang+=Array(
 'hl'=>'Highlight code',
 'descPreview' => 'Description preview',
 
-'viewarts'=>'Show articles',
 'i1'=>'Click article\'s name to show it.',
 'edit1'=>'Edit article',
 'add1'=>'Add article',
@@ -68,6 +67,7 @@ $lang+=Array(
 'isize'=>'Dimentions',
 'isized'=>'Required for Flash and QuickTime.',
 
+'freePage'=>'Free page',
 'lastComm'=>'Last comment',
 'moderate'=>'Moderate comments',
 'approve'=>'View unapproved',

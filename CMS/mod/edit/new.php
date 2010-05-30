@@ -56,11 +56,21 @@ if($_POST)
 		$e->apply();
 
 		#Przekieruj do newsu
-		if(isset($_GET['ref'])) header('Location: '.URL.url('news/'.$id));
+		if(isset($_GET['ref']))
+		{
+			if(empty($_GET['ref']))
+			{
+				header('Location: '.URL.url('news/'.$id));
+			}
+			elseif(is_numeric($_GET['ref']))
+			{
+				header('Location: '.URL.($news['cat']==$cfg['start'][LANG] ? '' : url($_GET['ref'])));
+			}
+		}
 
 		#Info + linki
 		$content->info($lang['saved'], array(
-			url('news/'. $id) => sprintf($lang['see'], $news['name']),
+			url('news/'.$id)  => sprintf($lang['see'], $news['name']),
 			url($news['cat']) => $lang['goCat'],
 			url('edit/5')     => $lang['add5'],
 			url('list/5')     => $lang['news'],

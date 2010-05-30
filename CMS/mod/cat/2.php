@@ -1,13 +1,24 @@
-<?php /* Lista plików */
+<?php
 if(iCMS!=1) exit;
 
+#Sortowanie
+switch($cat['sort'])
+{
+	case '1': $sort = 'ID'; break;
+	case '3': $sort = 'name'; break;
+	case '4': $sort = 'dls DESC, ID DESC'; break;
+	case '5': $sort = 'rate DESC, ID DESC'; break;
+	default: $sort = 'ID DESC';
+}
+
 #Odczyt
-$res = $db->query('SELECT ID,name,date,dsc,file,size FROM '.PRE.'files WHERE '.$cats.'
-	AND access=1 ORDER BY priority,'.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['np']);
+$res = $db->query('SELECT ID,name,date,dsc,file,size FROM '.PRE.'files WHERE '.
+	$cats.' AND access=1 ORDER BY priority,'.$sort.' LIMIT '.$st.','.$cfg['np']);
 
 $res->setFetchMode(3);
 $total = 0;
 $files = array();
+$url = url('file/');
 
 #Lista
 foreach($res as $file)
@@ -16,24 +27,31 @@ foreach($res as $file)
 		'title' => $file[1],
 		'desc'  => $file[3],
 		'size'  => $file[5],
+		'url'   => $url.$file[0],
 		'num'   => ++$st,
 		'date'  => genDate($file[2]),
-		'url'   => url('file/'.$file[0]),
 		'file_url' => isset($cfg['fcdl']) ? 'go.php?file='.$file[0] : $file[4]
 	);
 	++$total;
 }
 
 #Strony
-$pages = $cat['num']>$total ? pages($page,$cat['num'],$cfg['np'],$d,0,'/') : null;
+if($cat['num'] > $total)
+{
+	$pages = pages($page, $cat['num'], $cfg['np'], url($d), 0, '/');
+}
+else
+{
+	$pages = null;
+}
 
 #Do szablonu
 $content->file[] = 'cat_files';
 $content->data += array(
 	'files' => &$files,
 	'pages' => &$pages,
-	'add_url' => admit($d,'CAT') ? url('edit/2') : null,
-	'cats_url'=> url('cats/files'),
-	'cat_type'=> $lang['files']
+	'add'   => admit($d,'CAT') ? url('edit/2') : null,
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/files'),
+	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['files']
 );
 unset($res,$total,$file);

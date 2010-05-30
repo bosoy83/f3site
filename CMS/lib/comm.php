@@ -1,12 +1,12 @@
-<?php /* Wyœwietl komentarze */
-function comments($id, $type=5, $mayPost=true)
+<?php /* Show comments */
+function comments($id, $type=5, $mayPost=true, $url='')
 {
 	global $db,$cfg,$content;
 
-	#Podzia³ na strony?
+	#Page division
 	if($cfg['commNum'])
 	{
-		#Strona
+		#Select page
 		if(isset($_GET['page']) && $_GET['page']>1)
 		{
 			$page = $_GET['page'];
@@ -17,8 +17,12 @@ function comments($id, $type=5, $mayPost=true)
 			$page = 1;
 			$st = 0;
 		}
+		if(!$url)
+		{
+			$url = url($GLOBALS['URL'][0].'/'.$id);
+		}
 		$total = dbCount('comms WHERE TYPE='.$type.' AND CID='.$id);
-		$CP = ($total > $cfg['commNum']) ? pages($page,$total,$cfg['commNum']) : null;
+		$CP = ($total > $cfg['commNum']) ? pages($page,$total,$cfg['commNum'],$url) : null;
 	}
 	else
 	{
@@ -28,17 +32,16 @@ function comments($id, $type=5, $mayPost=true)
 
 	$comm = array();
 
-	#Prawa do edycji i usuwania
+	#May edit or delete
 	$mayEdit = admit('CM');
 	$mayDel  = $mayEdit || ($type == 10 && $id == UID);
 	$comURL  = url('comment/');
 	$modURL  = url('moderate/');
 	$userURL = url('user/');
 
-	#Pobierz
+	#Get from database
 	if($total !== 0)
 	{
-		#SQL
 		$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.text,u.login,u.photo
 			FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.author=u.ID AND c.guest!=1
 			WHERE c.TYPE='.$type.' AND c.CID='.$id.
@@ -48,7 +51,7 @@ function comments($id, $type=5, $mayPost=true)
 
 		$res->setFetchMode(3);
 
-		#BBCode?
+		#BBCode
 		if(isset($cfg['bbcode'])) include_once './lib/bbcode.php';
 
 		foreach($res as $x)
@@ -70,18 +73,18 @@ function comments($id, $type=5, $mayPost=true)
 		$res = null;
 	}
 
-	#Szablon
+	#Template
 	$content->file[] = 'comments';
 	$content->data['comment'] =& $comm;
 	$content->data['parts'] =& $CP;
 
-	#Koloruj kod
+	#Highlight code
 	$content->data['color'] = isset($cfg['colorCode']);
 
-	#Mo¿e komentowaæ?
+	#May comment
 	if(UID || isset($cfg['commGuest']))
 	{
-		if(!isset($_SESSION['post']) OR $_SESSION['post'] < $_SERVER['REQUEST_TIME'])
+		if(empty($_SESSION['post']) OR $_SESSION['post'] < $_SERVER['REQUEST_TIME'])
 		{
 			$content->data['url'] = $comURL.$id.'/'.$type;
 			$_SESSION['CV'][$type][$id] = true;

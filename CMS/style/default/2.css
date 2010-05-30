@@ -55,6 +55,7 @@ input:focus {background-color: #ffffca}
 }
 #bar a {
 	color: #2872AE;
+	margin: 0 5px;
 	font-weight: bold
 }
 #flags {

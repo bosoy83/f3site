@@ -1,4 +1,3 @@
-/*G³ówne*/
 body {
 	font: 13px Verdana,Helvetica,Arial,Times;
 	background-color: #B9B7C0;
@@ -53,6 +52,7 @@ input:focus {background-color: #ffffca}
 }
 #bar a {
 	color: #2872AE;
+	margin: 0 5px;
 	font-weight: bold
 }
 #flags {

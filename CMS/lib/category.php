@@ -1,17 +1,5 @@
 <?php
 
-#Sorting
-function CatSort($sort)
-{
-	if(isset($_GET['sort'])) $sort=(int)$_GET['sort'];
-	switch($sort)
-	{
-		case 1: return 'ID'; break;
-		case 3: return 'name'; break;
-		default: return 'ID DESC';
-	}
-}
-
 #Config
 include './cfg/content.php';
 
@@ -42,6 +30,9 @@ if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE access!=3 AND ID='.$d)->f
 #Set title
 $content->title = $cat['name'];
 
+#Set description
+if($cat['dsc']) $content->desc = $cat['dsc'];
+
 #Page
 if(isset($URL[1]) && is_numeric($URL[1]) && $URL[1] > 1)
 {
@@ -69,7 +60,7 @@ else
 #Subcategories
 if($cat['opt'] & 8)
 {
-	$res = $db->query('SELECT ID,name,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
+	$res = $db->query('SELECT ID,name,dsc,nums FROM '.PRE.'cats WHERE sc='.$cat['ID'].
 		' AND (access=1 OR access="'.LANG.'") ORDER BY name');
 	$res->setFetchMode(3);
 
@@ -78,7 +69,8 @@ if($cat['opt'] & 8)
 		$sc[] = array(
 			'url'  => url($c[0]),
 			'name' => $c[1],
-			'num'  => $c[2]
+			'desc' => $c[2],
+			'num'  => $c[3]
 		);
 	}
 }
@@ -88,10 +80,10 @@ $content->file = array('cat');
 $content->data = array(
 	'cat'  => &$cat,
 	'edit' => admit('C') ? url('editCat/'.$d, 'ref', 'admin') : null,
+	'add'  => url('edit/'.$cat['type'], 'catid='.$d),
+	'list' => url('list/'.$cat['type'].'/'.$d),
 	'subcats' => isset($sc) ? $sc : null,
-	'options' => admit($d,'CAT'),
-	'add_url' => url('edit/'.$cat['type'], 'catid='.$d),
-	'list_url'=> url('list/'.$cat['type'].'/'.$d)
+	'options' => admit($d,'CAT')
 );
 
 #Category path
@@ -111,6 +103,6 @@ if($cat['num'])
 }
 else
 {
-	$content->data['cat_type'] = $lang['cats'];
-	$content->data['cats_url'] = url('cats');
+	$content->data['type'] = $lang['cats'];
+	$content->data['cats'] = url('cats');
 }

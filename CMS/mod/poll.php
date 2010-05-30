@@ -14,6 +14,7 @@ else return;
 
 #Tytu³ strony
 $content->title = $poll['name'];
+$content->desc  = $poll['q'];
 $id = $poll['ID'];
 
 #Bez g³osów?

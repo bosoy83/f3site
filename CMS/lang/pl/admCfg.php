@@ -90,6 +90,7 @@ $lang+=Array(
 'itemNum' => 'Ile na stronie',
 'itemNum2'=> 'Ilość wyświetlanych artykułów, plików i linków na 1 stronie.',
 'catStr'  => 'Wyświetlać strukturę kategorii',
+'allCat'  => 'Link do kategorii wszystkich typów',
 'grate'	  => 'Ocenianie przez niezalogowanych',
 'grate2'  => 'Jeśli opcja jest włączona, niezalogowani użytkownicy będą mogli oceniać zawartość.',
 'goCat'	  => 'Przekieruj do kategorii',

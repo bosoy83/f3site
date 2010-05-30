@@ -27,7 +27,7 @@
   <td><b>5. {lang.img}:</b></td>
   <td>
 		<input name="file" id="file" maxlength="200" value="{img.file}" />
-		<input type="button" value="{lang.preview}" onclick="okno(file.value,500,400,100,100)" />
+		<input type="button" value="{lang.preview}" onclick="prev('file')" />
 		<!-- IF fileman -->
 		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.file)" />
 		<!-- END -->
@@ -37,7 +37,7 @@
   <td><b>6. {lang.minimg}:</b><br /><small>{lang.minimgd}</small></td>
   <td>
 		<input name="fm" maxlength="50" value="{img.filem}" />
-		<input type="button" value="{lang.preview}" onclick="okno(fm.value,500,400,100,100)" />
+		<input type="button" value="{lang.preview}" onclick="prev('fm')" />
 		<!-- IF fileman -->
 		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.fm)" />
 		<!-- END -->
@@ -53,7 +53,7 @@
 		<label><input type="radio" name="type" value="1" /> {lang.img}</label>&nbsp;
 		<label><input type="radio" name="type" value="2" /> Flash</label>&nbsp;
 		<label><input type="radio" name="type" value="3" /> QuickTime</label>&nbsp;
-		<label><input type="radio" name="type" value="4" /> OGG (HTML 5)</label>
+		<label><input type="radio" name="type" value="4" /> Video</label>
 	</td>
 </tr>
 <tr>
@@ -89,6 +89,17 @@ f.onsubmit = function()
 {
 	if(f.name.value==0) { f.name.focus(); return false }
 	if(f.cat.value==0) return confirm('{lang.noCat}')
+}
+function prev(x)
+{
+	if(f[x].value != 0 && f[x].value != 'img/') 
+	{
+		okno(f[x].value,600,450)
+	}
+	else
+	{
+		f[x].focus()
+	}
 }
 e = new Editor(f.dsc);
 e.protect();

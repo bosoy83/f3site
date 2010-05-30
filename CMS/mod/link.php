@@ -1,4 +1,4 @@
-<?php /* Wy¶wietl szczegó³y o pliku */
+<?php /* Show link details */
 if(iCMS!=1) exit;
 require './cfg/content.php';
 
@@ -16,8 +16,9 @@ if(!$link['access'])
 	$content->info(sprintf($lang['NVAL'], $link['name']), null, 'warning');
 }
 
-#Tytu³ strony
+#Tag title and meta description
 $content->title = $link['name'];
+$content->desc  = $link['dsc'] ? $link['dsc'] : $cfg['metaDesc'];
 
 #Ocena
 if(isset($cfg['lrate']) AND $link['opt'] & 4)
@@ -30,25 +31,26 @@ else
 	$rate = 0;
 }
 
-#Do szablonu
+#Template
 $content->data = array(
-	'link' => &$link,
-	'rates'=> &$rate,
-	'count'=> isset($cfg['lcnt']),
-	'href' => isset($cfg['lcnt']) ? 'go.php?link='.$id : $link['adr'],
-	'edit' => admit($link['cat'],'CAT') ? url('edit/4/'.$id,'ref') : false,
-	'path' => catPath($link['cat']),
-	'cats' => url('cats/links')
+	'link'  => &$link,
+	'rates' => &$rate,
+	'count' => isset($cfg['lcnt']),
+	'href'  => isset($cfg['lcnt']) ? 'go.php?link='.$id : $link['adr'],
+	'edit'  => admit($link['cat'],'CAT') ? url('edit/4/'.$id,'ref') : false,
+	'path'  => catPath($link['cat']),
+	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['links'],
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/links')
 );
 
-#Tagi
+#Tags
 if(isset($cfg['tags']))
 {
 	include './lib/tags.php';
 	tags($id, 4);
 }
 
-#Komentarze
+#Comments
 if($link['opt'] & 2)
 {
 	require './lib/comm.php';

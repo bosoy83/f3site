@@ -4,7 +4,7 @@
 	<title>{PAGE TITLE} - {MAIN TITLE}</title>
 	<base href="{URL}">
 	<meta name="description" content="{DESCRIPTION}">
-	<meta name="robots" content="{cfg.robots}">
+	<meta name="robots" content="{ROBOTS}">
 	<link rel="stylesheet" type="text/css" href="style/default/{CSS}.css">
 	<script type="text/javascript" src="lib/js.js"></script>
 	<!-- START channel -->
@@ -17,14 +17,14 @@
 <div id="bar">
 	<div id="today">{TODAY}</div>
 	<div id="flags">
-		<a href="?lang=pl"><img src="img/pl.png" alt="PL"></a>
-		<a href="?lang=en"><img src="img/en.png" alt="EN"></a>
-		<a href="?lang=de"><img src="img/de.png" alt="DE"></a>
+		<a href="url(pl)"><img src="img/pl.png" alt="PL"></a>
+		<a href="url(en)"><img src="img/en.png" alt="EN"></a>
+		<a href="url(de)"><img src="img/de.png" alt="DE"></a>
 	</div>
-	<a href=".">{lang.news}</a> &nbsp;
-	<a href="{CATS URL}">{lang.cats}</a> &nbsp;
-	<a href="javascript:CSS(1)">{lang.skin}</a> &nbsp;
-	<a href="javascript:CSS(2)">XP</a> &nbsp;
+	<a href=".">{lang.news}</a>
+	<a href="{CATS URL}">{lang.cats}</a>
+	<a href="javascript:CSS(1)">{lang.skin}</a>
+	<a href="javascript:CSS(2)">XP</a>
 	<a href="javascript:CSS(3)">New</a>
 </div>
 <div id="mid">
@@ -32,7 +32,7 @@
 	<div id="left">{LEFT MENU}</div>
 	<div id="right">{RIGHT MENU}</div>
 </div>
-<div id="footer">{cfg.footer}</div>
+<div id="footer">{FOOTER}</div>
 
 </body>
 </html>

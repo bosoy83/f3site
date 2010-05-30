@@ -1,11 +1,11 @@
-<?php /* Zarz±dzanie tre¶ci± - dla zalogowanych */
+<?php
 if(iCMS!=1 || LEVEL<2) return;
 define('EC',1);
 require LANG_DIR.'content.php';
 require './lib/categories.php';
 require './cfg/content.php';
 
-#Typ kategorii i ID elementu
+#Typ kategorii i ID obiektu
 $TYPE = isset($URL[1]) && ctype_alnum($URL[1]) ? $URL[1] : 0;
 $id   = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
 
@@ -46,7 +46,7 @@ if($TYPE)
 	unset($_POST); return 1;
 }
 
-#Tytu³
+#Tytul
 $content->title = $lang['mantxt'];
 $content->file  = 'content';
 
@@ -62,10 +62,15 @@ if(admit('CM') && $c = $db->query('SELECT name,date,text FROM '.PRE.'comms ORDER
 		'title' => $c[0],
 		'last'  => genDate($c[1],1),
 		'text'  => emots($c[2]),
-		'color' => isset($cfg['colorCode'])
+		'color' => isset($cfg['colorCode']),
 	);
 }
 else
 {
-	$content->data['last'] = null;
+	$content->data = array('last' => null);
 }
+
+#Wolne strony
+$content->data += array(
+'page' => admit('P') ? url('editPage','','admin') : null,
+'pages' => admit('P') ? url('pages','','admin') : null);

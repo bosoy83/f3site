@@ -90,6 +90,7 @@ $lang+=Array(
 'itemNum' => 'Etliches per 1 Seite',
 'itemNum2'=> 'Betrifft: Schrifte, Filen...',
 'catStr'  => 'Kategorienhierarchie zeigen',
+'allCat'  => 'Link zu allen Kategorietypen',
 'grate'	  => 'Gäste mögen raten',
 'grate2'  => 'Jeśli opcja jest włączona, niezalogowani użytkownicy będą mogli oceniać zawartość.',
 'goCat'	  => 'Nach Kategorie umlenken',

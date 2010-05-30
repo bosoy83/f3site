@@ -112,7 +112,7 @@ $content->data = array(
 	'join'   => $mayJoin ? $url.'/join' : false,
 	'leave'  => $mayLeave ? $url.'/leave' : false,
 	'query'  => $mayJoin ? $askJoin : ($mayLeave ? $askLeave : false),
-	'all'    => url('users/'.$id)
+	'all'    => $new ? url('users/'.$id) : false
 );
 
 #Komentarze

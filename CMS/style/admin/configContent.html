@@ -12,6 +12,10 @@
 	<td><input type="checkbox" name="catStr" /></td>
 </tr>
 <tr>
+	<td><b>{lang.allCat}:</b></td>
+	<td><input type="checkbox" name="allCat" /></td>
+</tr>
+<tr>
 	<td><b>{lang.grate}:</b><small>{lang.grate2}</small></td>
 	<td><input type="checkbox" name="grate" /></td>
 </tr>
@@ -133,6 +137,8 @@
 f = document.forms[0]
 f.lrate.disabled = !f.linkFull.checked
 f.linkFull.onchange = function() { f.lrate.disabled = !this.checked }
+f.allCat.disabled = !f.catStr.checked
+f.catStr.onchange = function() { f.allCat.disabled = !this.checked }
 def = {def};
 for(i in def) { f['start['+i+']'].value = def[i] }
 </script>

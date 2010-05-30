@@ -1,20 +1,20 @@
-<?php /* Jądro systemu */
+<?php /* F3Site Kernel */
 if(iCMS!=1) exit;
 
-#Ochrona przed CSRF
+#Filter against CSRF
 if($_POST && isset($_SERVER['HTTP_REFERER']))
 {
 	$pos = strpos($_SERVER['HTTP_REFERER'],$_SERVER['SERVER_NAME']);
 	if($pos < 3 OR $pos > 8) exit;
 }
 
-#Register globals: usuń zmienne
+#Register globals: kill vars
 if(ini_get('register_globals'))
 {
 	foreach(array_keys($_REQUEST) as $x) unset($$x);
 }
 
-#Magic quotes: usuń ukośniki
+#Magic quotes: kill slashes
 if(ini_get('magic_quotes_gpc'))
 {
 	$gpc = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
@@ -22,16 +22,16 @@ if(ini_get('magic_quotes_gpc'))
 	array_walk_recursive($gpc, 'xxx');
 }
 
-#Utwórz krytyczne tablice
+#Main arrays
 $lang = array();
 $cfg  = array();
 $user = null;
 
-#Opcje
+#Settings
 require './cfg/main.php';
 require './cfg/db.php';
 
-#Bany
+#Bans
 if(!empty($cfg['ban']))
 {
 	$ban = explode("\n", $cfg['ban']);
@@ -41,24 +41,25 @@ if(!empty($cfg['ban']))
 	}
 }
 
-#Czy to żądanie AJAX
+#AJAX request
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 define('NICEURL', $cfg['niceURL']);
+define('SEO', isset($cfg['SEO']));
 
-#Ścieżka do podstrony z PATH_INFO
+#Path based on PATH_INFO
 if(isset($_SERVER['PATH_INFO']))
 {
 	$_GET['go'] = substr($_SERVER['PATH_INFO'], 1);
 }
 
-#Adres URL - ścieżka do aktualnej podstrony
+#Adres URL - path to current page
 $URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
 
-#Katalog skórki
+#Skin paths
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 
-#ID do zmienej: $id zawsze istnieje
+#Extract ID: $id always exist
 if(isset($_GET['id']) && is_numeric($_GET['id']))
 {
 	$id = $_GET['id'];
@@ -72,42 +73,43 @@ else
 	$id = 0;
 }
 
-#Nr strony
+#Page number
 if(isset($_GET['page']) && !is_numeric($_GET['page']))
 {
 	$_GET['page'] = 1;
 }
 
-#Przekieruj stare URL na nowe
+#Redirect old URL to new
 if(isset($_GET['co']) && ctype_alnum($_GET['co']))
 {
 	header('HTTP/1.1 301 Moved Permanently');
 	header('Location: ' . URL . url($_GET['co'] . ($id ? '/'.$id : '')));
 }
 
-#Sesja
+#Session
 session_start();
 
-#Domyślny język
+#Default language
 $nlang = $cfg['lang'];
 
-#Język: zmiana
-if(isset($_GET['lang']) && ctype_alnum($_GET['lang']) && file_exists('lang/'.$_GET['lang'].'/main.php'))
+#Lang: set
+if(isset($URL[0][1]) && empty($URL[0][2]) && file_exists('lang/'.$URL[0].'/main.php'))
 {
-	$nlang = $_SESSION['LANG'] = $_GET['lang'];
-	setcookie('lang', $nlang, time()+23328000); //9 miesięcy
+	$nlang = $_SESSION['LANG'] = $URL[0];
+	setcookie('lang', $nlang, time()+23328000); //9 months
+	array_shift($URL);
 }
-#Język: sesja
+#Lang: session
 elseif(isset($_SESSION['LANG']))
 {
 	$nlang = $_SESSION['LANG'];
 }
-#Język: cookies
+#Lang: cookies
 elseif(isset($_COOKIE['lang']) && ctype_alnum($_COOKIE['lang']) && is_dir('lang/'.$_COOKIE['lang']))
 {
 	$nlang = $_SESSION['LANG'] = $_COOKIE['lang'];
 }
-#Autowykrywanie języka
+#Lang: detect
 elseif(isset($cfg['detectLang']))
 {
 	foreach(explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
@@ -124,19 +126,19 @@ elseif(isset($cfg['detectLang']))
 	unset($x);
 }
 
-#Katalog z plikami językowymi
+#Lang: paths
 define('LANG', $nlang);
 define('LANG_DIR', './lang/'.LANG.'/');
 
-#Dołącz główny plik języka
+#Include main lang file
 require LANG_DIR.'main.php';
 
-#Dołącz klasę skórek i utwórz obiekt
+#Include skin class and create object
 require './lib/content.php';
 $content = new Content;
 
-#Arkusz CSS
-if(isset($_COOKIE['CSS']) && is_numeric($_COOKIE['CSS']))
+#Stylesheet
+if(isset($_COOKIE['CSS']) && ctype_alnum($_COOKIE['CSS']))
 {
 	define('CSS', $_COOKIE['CSS']);
 }
@@ -145,11 +147,11 @@ else
 	define('CSS', '1');
 }
 
-#Typ,kodowanie
+#Cache, charset
 header('Cache-Control: public');
 header('Content-type: text/html; charset=utf-8');
 
-#Połącz z bazą danych
+#Connect to database
 try
 {
 	#SQLite
@@ -173,7 +175,7 @@ catch(PDOException $e)
 
 $xuid=false;
 
-#Użytkownik - sesja
+#User: temporary
 if(isset($_SESSION['uid']))
 {
 	if($_SERVER['REMOTE_ADDR']===$_SESSION['IP'])
@@ -187,13 +189,13 @@ if(isset($_SESSION['uid']))
 	}
 }
 
-#Użytkownik - pamiętanie
+#User: permanent
 elseif(isset($_COOKIE[PRE.'login']))
 {
 	list($xuid,$xpass) = explode(':',$_COOKIE[PRE.'login']);
 }
 
-#Dane poprawne
+#Check user data
 if(is_numeric($xuid))
 {
 	if(isset($_SESSION['userdata']))
@@ -206,7 +208,7 @@ if(is_numeric($xuid))
 		FROM '.PRE.'users WHERE lv>0 AND ID='.$xuid) -> fetch(2); //ASSOC
 	}
 
-	#Test
+	#Check password
 	if(isset($user))
 	{
 		if($xpass===$user['pass'])
@@ -222,7 +224,7 @@ if(is_numeric($xuid))
 }
 unset($xuid,$xpass);
 
-#Data wejścia na stronę, RECENT w sesji = data ostatniej wizyty
+#Last visit date
 if(defined('UID'))
 {
 	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
@@ -233,28 +235,25 @@ if(defined('UID'))
 }
 else
 {
-	#Nie usuwaj!
+	#DO NOT DELETE!
 	define('UID',0);
 	define('LEVEL',0);
 }
 
-#Dzisiaj
+#Today
 define('TODAY', strftime($cfg['now']));
 
-#RSS
-$channel = empty($cfg['RSS'][LANG]) ? array() : $cfg['RSS'][LANG];
-
-#Prawa - wpusc uzytkownika
+#Prawa - admit user
 function admit($id,$type=null)
 {
 	if(!UID) return false;
 	global $user, $db;
 	static $global, $all;
 
-	#Wlasciciel
+	#Owner may access everything
 	if(LEVEL==4) return true;
 
-	#Kategoria
+	#Category
 	if($type)
 	{
 		if($type=='CAT')
@@ -296,7 +295,7 @@ function url($x, $query=null, $path=null)
 	}
 }
 
-#Struktura kategorii
+#Category path
 function catPath($id, &$cat=null)
 {
 	if(file_exists('./cache/cat'.$id.'.php'))
@@ -310,13 +309,13 @@ function catPath($id, &$cat=null)
 	}
 }
 
-#Skanowanie katalogu
+#Scan folder
 function listBox($dir,$co,$ch)
 {
 	if(!is_dir($dir)) return '';
 	$out = '';
 
-	#Katalogi
+	#Folders
 	if($co == 1)
 	{
 		foreach(scandir($dir) as $x)
@@ -327,7 +326,7 @@ function listBox($dir,$co,$ch)
 			}
 		}
 	}
-	#Pliki
+	#Files
 	else
 	{
 		foreach(scandir($dir) as $x)
@@ -342,7 +341,7 @@ function listBox($dir,$co,$ch)
 	return $out;
 }
 
-#Strony
+#Pages
 function pages($page,$ile,$max,$url='',$type=0,$p='')
 {
 	global $lang;
@@ -398,7 +397,7 @@ function banner($gid)
 		-> fetchColumn();
 }
 
-#Emoty
+#Emoticons
 function emots($txt)
 {
 	static $emodata;
@@ -410,30 +409,30 @@ function emots($txt)
 	return $txt;
 }
 
-#Data
+#Date
 function genDate($x, $time=false)
 {
 	static $now,$yda,$tom;
 	global $cfg,$lang;
 
 	if(!$x) return $x;
-	if($x[4] === '-') $x = strtotime($x.' GMT'); //Zamień DATETIME na znacznik czasu
+	if($x[4] === '-') $x = strtotime($x.' GMT'); //Convert DATETIME to timestamp
 
-	#Różnica czasu
+	#Time difference
 	$diff = $_SERVER['REQUEST_TIME'] - $x;
 
-	#X minut temu (do 99)
+	#X min temu (do 99)
 	if($diff < 5941 && $diff >= 0)
 	{
 		return sprintf($lang['ago'], ceil($diff/60));
 	}
-	#Za X minut
+	#Za X min
 	elseif($diff > -5941 && $diff < 0)
 	{
 		return sprintf($lang['in'], ceil(-$diff/60));
 	}
 
-	#Formatuj datę
+	#Format date
 	$date = strftime($cfg['date'], $x);
 	
 	#Dzisiaj, wczoraj, jutro
@@ -465,7 +464,7 @@ function genDate($x, $time=false)
 	}
 }
 
-#Autorzy
+#Authors
 function autor($x)
 {
 	global $db,$user;
@@ -493,7 +492,7 @@ function autor($x)
 	else return $x;
 }
 
-#Znaki specjalne, cenzura
+#Protect against HTML, censorship
 function clean($val,$max=0,$wr=0)
 {
 	if($max) $val = substr($val,0,$max);
@@ -501,12 +500,12 @@ function clean($val,$max=0,$wr=0)
 	{
 		static $words1,$words2;
 		include_once './cfg/words.php';
-		$val = str_replace($words1,$words2,$val); //Zamiana słów
+		$val = str_replace($words1,$words2,$val);
 	}
 	return trim(htmlspecialchars($val, 2, 'UTF-8'));
 }
 
-#Licz w bazie
+#Count in database
 function dbCount($table)
 {
 	return (int)$GLOBALS['db']->query('SELECT COUNT(*) FROM '.PRE.$table)->fetchColumn();

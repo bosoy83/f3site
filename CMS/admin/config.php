@@ -24,11 +24,11 @@ $content->file = 'config';
 $content->addCSS('style/admin/config.css');
 $content->data = array(
 	'plugins' => &$items,
-	'censor' => url('censor', '', 'admin'),
-	'latest' => url('configNew', '', 'admin'),
-	'emots' => url('emots', '', 'admin'),
-	'items' => url('configContent', '', 'admin'),
-	'main'  => url('configMain', '', 'admin'),
-	'email' => url('configEmail', '', 'admin'),
-	'users' => url('configUsers', '', 'admin'),
+	'censor' => url('censor', null, 'admin'),
+	'latest' => url('configNew', null, 'admin'),
+	'emots' => url('emots', null, 'admin'),
+	'items' => url('configContent', null, 'admin'),
+	'main'  => url('configMain', null, 'admin'),
+	'email' => url('configEmail', null, 'admin'),
+	'users' => url('configUsers', null, 'admin')
 );

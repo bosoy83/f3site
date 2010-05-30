@@ -26,6 +26,8 @@ $lang+=Array(
 'sort1' => 'zeitlicher Verlauf',
 'sort2' => 'absteigende zeitlicher Verlauf',
 'sort3' => 'alphabetische Reihenfolge',
+'sort4' => 'beliebteste oben',
+'sort5' => 'am besten oben',
 
 /* KATEGORIEN ÄNDERN */
 'delCat' => 'Kategorie löschen',

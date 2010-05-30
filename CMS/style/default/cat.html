@@ -3,15 +3,15 @@
 
 	<!-- IF options -->
 	<div style="float: right">
-		<a href="{add_url}" title="{lang.addItem}"><img src="img/icon/add.png" alt="N"></a>
-		<a href="{list_url}" title="{lang.itemList}"><img src="img/icon/del.png" alt="E"></a>
+		<a href="{add}" title="{lang.addItem}"><img src="img/icon/add.png" alt="N"></a>
+		<a href="{list}" title="{lang.itemList}"><img src="img/icon/del.png" alt="E"></a>
 		<!-- IF edit -->
 		<a href="{edit}" title="{lang.edit}"><img src="img/icon/cog.png" alt="O"></a>
 		<!-- END -->
 	</div>
 	<!-- END -->
 
-	<a href="{cats_url}">{cat_type}</a> &raquo; {path}
+	<a href="{cats}">{type}</a> &raquo; {path}
 
 </div>
 <!-- END -->
@@ -27,7 +27,7 @@
 	<!-- IF subcats -->
 	<ul class="cats">
 		<!-- START subcats -->
-		<li><a href="{url}">{name}</a> ({num})</li>
+		<li><a href="{url}" title="{desc}">{name}</a> ({num})</li>
 		<!-- STOP -->
 	</ul>
 	<!-- END -->

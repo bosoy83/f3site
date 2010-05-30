@@ -45,7 +45,7 @@ input:focus {background-color: #ffffca}
 	height: 60px;
 	padding-left: 220px;
 	text-align: center;
-	background: #E8E8E6 url(logo.png) no-repeat;
+	background: #E8E8E6 url(1/logo.png) no-repeat;
 }
 #bar {
 	background-color: #F0F0EE;
@@ -54,6 +54,7 @@ input:focus {background-color: #ffffca}
 }
 #bar a {
 	color: #2872AE;
+	margin: 0 5px;
 	font-weight: bold
 }
 #flags {
@@ -191,7 +192,9 @@ th {
 	border: 1px solid #C6CDC2;
 	padding: 3px;
 	margin-bottom: 8px;
-	line-height: 18px
+	line-height: 18px;
+	text-align: justify;
+	word-wrap: break-word
 }
 .eth td,th,pre,blockquote {padding: 2px}
 .box,.tb tbody {background-color: #F7F7F7}

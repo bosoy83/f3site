@@ -21,7 +21,6 @@ $lang+=Array(
 'hl'=>'Koloruj kod',
 'descPreview' => 'Podgląd opisu',
 
-'viewarts'=>'Pokaż artykuły',
 'i1'=>'Kliknij nazwę artykułu, aby go wyświetlić.',
 'edit1'=>'Edytuj artykuł',
 'add1'=>'Nowy artykuł',
@@ -30,8 +29,8 @@ $lang+=Array(
 'chopt'=>'Opcje zaznaczonych pozycji',
 'chdel'=>'Usuń zaznaczone pozycje',
 'searp'=>'Wpisz tytuł lub jego początek:',
-'priot'=>'Priorytet',
-'high'=>'Wysoki',
+'priot'=>'Status',
+'high'=>'Ważny',
 'normal'=>'Normalny',
 'low'=>'Niski',
 'nameid'=>'Jeżeli autor ma konto, wpisz jego login lub ID.',
@@ -68,6 +67,7 @@ $lang+=Array(
 'isize'=>'Wymiary',
 'isized'=>'Wymagane dla Flash i QuickTime.',
 
+'freePage'=>'Wolne strony',
 'lastComm'=>'Ostatni komentarz',
 'moderate'=>'Moderuj komentarze',
 'approve'=>'Niezaakceptowane',

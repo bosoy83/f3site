@@ -66,8 +66,9 @@ class Content
 	#404
 	function set404()
 	{
-		$this->title = $GLOBALS['lang']['404'];
+		$this->title = 'Not Found';
 		$this->file = '404';
+		header('Gone', true, 410);
 	}
 
 	#Komunikat lub b³±d

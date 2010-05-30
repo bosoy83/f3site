@@ -50,7 +50,8 @@ $content->data = array(
 	'full' => &$full,
 	'path' => catPath($news['cat']),
 	'edit' => admit($news['cat'],'CAT') ? url('edit/5/'.$id,'ref') : false,
-	'cats' => url('cats/news')
+	'root' => isset($cfg['allCat']) ? $lang['cats'] : $lang['news'],
+	'cats' => url(isset($cfg['allCat']) ? 'cats' : 'cats/news')
 );
 
 #Tagi

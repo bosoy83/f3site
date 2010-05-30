@@ -2,7 +2,7 @@
 $lang+=Array(
 
 /* WOLNE STRONY */
-'pageTip'  => 'Wolne strony nie są przypisywane do kategorii. Mogą zawierać kod HTML, JavaScript i PHP.',
+'pageTip'  => 'Wolne strony nie są przypisywane do kategorii. Mogą zawierać kod PHP.',
 'editPage' => 'Edytuj wolną stronę',
 'addPage'  => 'Dodaj wolną stronę',
 'inside'   => 'Umieść zawartość w ramce',
@@ -15,7 +15,7 @@ $lang+=Array(
 'goCat' => 'Przejdź do kategorii',
 'count' => 'Przelicz zawartość w kategoriach',
 'intro' => 'Tekst powitalny - wyświetlany nad zawartością kategorii',
-'dinfo' => 'Zawartość jest przechowywana w kategoriach. Kliknij tytuł kategorii, aby wyświetlić listę pozycji.',
+'dinfo' => 'Treść jest przechowywana w kategoriach. Kliknij tytuł kategorii, aby wyświetlić listę obiektów.',
 'basic' => 'Brak - podstawowa kategoria',
 'upcat' => 'Nadkategoria',
 'nnews' => 'Nie dotyczy typu: nowości.',
@@ -28,6 +28,8 @@ $lang+=Array(
 'sort1' => 'najnowsze na końcu',
 'sort2' => 'najnowsze na początku',
 'sort3' => 'alfabetycznie',
+'sort4' => 'najpopularniejsze na górze',
+'sort5' => 'najlepiej ocenione na górze',
 
 /* USUWANIE KATEGORII */
 'delCat' => 'Usuwanie kategorii',
@@ -77,7 +79,7 @@ $lang+=Array(
 'addLink' => 'Dodaj element',
 'items'   => 'Linki (nie dotyczy typów: tekst i plik)',
 'txtfile' => 'Tekst / adres do pliku:',
-'noLinks' => 'Nie dotyczy typu: linki.<br />Pliki menu są w katalogu mod/panels.',
+'noLinks' => 'Nie dotyczy typu: linki.<br>Pliki menu są w katalogu mod/panels.',
 'openNew' => 'otwórz w nowej karcie (niezalecane)',
 'saveNew' => 'Zapisz jako nowy blok',
 
@@ -88,7 +90,7 @@ $lang+=Array(
 'genID'  => 'ID generatora',
 'HTML'   => 'Kod HTML',
 
-/* UŻYTKOWNICY I GRUPY */
+/* UZYTKOWNICY */
 'priv' => 'prawa',
 'open' => 'Otwarta',
 'profile' => 'profil',
@@ -100,7 +102,7 @@ $lang+=Array(
 /* KOPIA BAZY */
 'all' => 'Zaznacz wszystkie',
 'gz'  => 'Skompresuj plik za pomocą GZIP',
-'dbInfo' => 'Tutaj możesz pobrać zawartość bazy danych na swój komputer w formacie .SQL. Operacja chwilę potrwa, jeżeli jej rozmiar jest duży. Aby zaznaczyć kilka tabel, przytrzymaj klawisz CTRL podczas wyboru.',
+'dbInfo' => 'Tutaj możesz pobrać zawartość bazy danych na swój komputer w formacie .SQL. Aby zaznaczyć kilka tabel, przytrzymaj klawisz CTRL podczas wyboru.',
 'dbCreate'=>'Dodaj polecenie utworzenia tabel.',
 'dbSelect'=>'Wybierz tabele',
 'dbDelete'=>'Usuwanie tabel, gdy istnieją',

@@ -1,9 +1,19 @@
 <?php
 if(iCMS!=1) exit;
 
+#Sortowanie
+switch($cat['sort'])
+{
+	case '1': $sort = 'ID'; break;
+	case '3': $sort = 'name'; break;
+	case '4': $sort = 'count DESC, ID DESC'; break;
+	case '5': $sort = 'rate DESC, ID DESC'; break;
+	default: $sort = 'ID DESC';
+}
+
 #Odczyt
 $res = $db->query('SELECT ID,name,dsc,adr,count,nw FROM '.PRE.'links WHERE '.$cats.
-	' AND access=1 ORDER BY priority, '.CatSort($cat['sort']).' LIMIT '.$st.','.$cfg['np']);
+	' AND access=1 ORDER BY priority,'.$sort.' LIMIT '.$st.','.$cfg['np']);
 
 $res->setFetchMode(3);
 $total = 0;
@@ -26,11 +36,15 @@ foreach($res as $link)
 	++$total;
 }
 
-#Brak?
-if($total === 0): $content->info($lang['noc']); return 1; endif;
-
 #Strony
-$pages = $cat['num'] > $total ? pages($page,$cat['num'],$cfg['np'],$d,0,'/') : null;
+if($cat['num'] > $total)
+{
+	$pages = pages($page, $cat['num'], $cfg['np'], url($d), 0, '/');
+}
+else
+{
+	$pages = null;
+}
 
 #Do szablonu
 $content->file[] = 'cat_links';
@@ -38,8 +52,8 @@ $content->data += array(
 	'pages' => &$pages,
 	'links' => &$links,
 	'count' => $count,
-	'add_url' => admit($d,'CAT') ? url('edit/4') : null,
-	'cats_url'=> url('cats/links'),
-	'cat_type'=> $lang['links']
+	'add'   => admit($d,'CAT') ? url('edit/4') : null,
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/links'),
+	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['links']
 );
 unset($res,$link,$total);

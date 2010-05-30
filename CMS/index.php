@@ -56,6 +56,9 @@ else
 	}
 	require './cache/menu'.LANG.'.php';
 
+	#RSS
+	$channel = empty($cfg['RSS'][LANG]) ? array() : $cfg['RSS'][LANG];
+
 	#Main template
 	include $content->path('body');
 }
