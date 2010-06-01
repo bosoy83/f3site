@@ -76,8 +76,8 @@ if(isset($_GET['sort']) && ctype_alnum($_GET['sort']))
 	$sortURL = 'sort='.$_GET['sort'];
 	switch($_GET['sort'])
 	{
-		case 1: $sort = 'login'; break;
-		case 3: $sort = 'lvis DESC'; break;
+		case '1': $sort = 'login'; break;
+		case '3': $sort = 'lvis DESC'; break;
 		default: $sort = 'ID DESC';
 	}
 }

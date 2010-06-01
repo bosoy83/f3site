@@ -3,56 +3,56 @@ header('Cache-Control: public');
 header('Content-Type: text/html; charset=utf-8');
 header('X-Robots-Tag: noindex');
 
-#Pełny adres URL
+#Full URL
 define('PATH', str_replace(array('//','install/'), array('/',''), dirname($_SERVER['PHP_SELF']).'/'));
 define('URL', 'http://'.$_SERVER['SERVER_NAME'].PATH);
 
-#Katalog roboczy + katalogi szablonow
+#Working folder
 chdir('../');
 define('VIEW_DIR', './cache/install/');
 define('SKIN_DIR', './install/HTML/');
 
-#Klasy
+#Classes
 require './lib/content.php';
 require './lib/config.php';
 require './install/install.php';
 
-#Jezyk
+#Lang
 $setup = new Installer;
 $error = array();
 
-#Plik językowy
+#Lang file
 require './install/lang/'.$setup->lang.'.php';
 
-#Szablony
+#Templates
 $content = new Content;
 $content->title = $lang['installer'];
 
-#Zainstalowany
+#Already done
 if(file_exists('./cfg/db.php') && filesize('./cfg/db.php')>43) $content->message($lang['ban']);
 
-#Sterowniki PDO
+#PDO drivers
 $dr = PDO::getAvailableDrivers();
 $my = in_array('mysql', $dr);
 $li = in_array('sqlite',$dr);
 
-#Brak baz
+#No driver
 if(!$my && !$li) $content->message($lang['noDB']);
 
-#Tylko 1 baza
+#Only one
 $one = ($li xor $my) ? ($my ? 'mysql' : 'sqlite') : false;
 
-#Sprawdź CHMOD-y
+#Check CHMODs
 if(!$setup->chmods())
 {
 	$content->file = 'chmod';
 	$content->data = array('chmod' => $setup->buildChmodTable());
 }
 
-#Etap instalacji
+#Installer level
 else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 {
-	#Operacje w bazie
+	#Install
 	case 2:
 
 	$type = isset($_POST['file']) ? 'sqlite' : 'mysql';
@@ -67,6 +67,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'title'=> htmlspecialchars($lang['myPage']),
 		'pre'  => htmlspecialchars($_POST['pre']),
 		'login'=> htmlspecialchars($_POST['login']),
+		'mail' => filter_input(INPUT_POST, 'mail', 274),
 		'samp' => isset($_POST['samp']),
 		'urls' => (int)$_POST['urls'],
 		'url'  => htmlspecialchars($_POST['url']),
@@ -80,7 +81,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		$error[] = $lang['e1'];
 	}
 
-	#Hasło admina za krótkie lub nie pasuje
+	#Wrong password
 	if(!isset($_POST['uPass'][4]))
 	{
 		$error[] = $lang['e2'];
@@ -90,12 +91,18 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		$error[] = $lang['e3'];
 	}
 
+	#Bad mail
+	if(empty($data['mail']))
+	{
+		$error[] = $lang['e4'];
+	}
+
 	try
 	{
-		#Gdy sa bledy
+		#Errors
 		if($error) throw new Exception('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 
-		#Operacje
+		#Begin
 		$setup->connect($data);
 		$setup->sample = $data['samp'];
 		$setup->title = $data['title'];
@@ -120,7 +127,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 	}
 	break;
 	
-	#Formularz
+	#Form
 	case 1:
 
 	$data = array(
@@ -132,6 +139,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'db'    => '',
 		'pre'   => 'f3_',
 		'login' => 'Admin',
+		'mail'  => '@',
 		'skin'  => 'default',
 		'file'  => is_writable('..') ? '../db.db' : 'cfg/db.db',
 		'samp'  => true,
@@ -149,9 +157,9 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 
 	break;
 
-	#Wybór bazy
+	#Select database
 	default: $content->file = 'start';
 }
 
-#Szablon głowny
+#Main template
 include $content->path('body');

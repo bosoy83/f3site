@@ -69,7 +69,7 @@
 'save'=>'Zapisz',
 'search'=>'Szukaj',
 'size'=>'Rozmiar',
-'skin'=>'Wygląd',
+'skin'=>'Skórka',
 'tags'=>'Słowa kluczowe',
 'text'=>'Treść',
 'title'=>'Tytuł',

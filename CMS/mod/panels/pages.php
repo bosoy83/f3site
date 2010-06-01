@@ -4,11 +4,16 @@ $res = $db->query('SELECT ID,name FROM '.PRE.'pages WHERE access=1'.(UID ? ' OR 
 $url = url('page/');
 $res->setFetchMode(3);
 
-echo '<ul>';
+echo '<ul style="white-space: no-wrap">';
 
 foreach($res as $x)
 {
 	echo '<li><a href="'.$url.$x[0].'">'.$x[1].'</a></li>';
+}
+
+if(admit('P'))
+{
+	echo '<li><a href="'.url('editPage', '', 'admin').'">'.$lang['add'].'...</a></li>';
 }
 
 ?></ul>

@@ -27,6 +27,7 @@ $lang = array(
 'host' => 'Adres serwera MySQL',
 'user' => 'Nazwa użytkownika',
 'pass' => 'Hasło',
+'mail' => 'E-mail',
 'name' => 'Nazwa bazy danych',
 'file' => 'Ścieżka do pliku bazy danych SQLite',
 'file2'=> 'Plik zostanie stworzony automatycznie. Powinien być w bezpiecznym miejscu!',
@@ -77,6 +78,7 @@ $lang = array(
 'e1' => 'Prefix zawiera niedozwolone znaki.',
 'e2' => 'Hasło do Twojego profilu zawiera niedozwolone znaki lub jest za krótkie.',
 'e3' => 'Wpisane hasła nie są identyczne.',
+'e4' => 'Adres e-mail jest nieprawidłowy.',
 'ok' => 'Przejdź do serwisu',
 'OK' => 'F3Site 2010 został zainstalowany. W celu bezpieczeństwa katalog <b>INSTALL</b>!<br />Po zalogowaniu przejdź do <b>panelu administracyjnego</b>, aby skonfigurować system.',
 );

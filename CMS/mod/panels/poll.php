@@ -5,7 +5,8 @@ if(iCMS!=1) exit;
 if(file_exists('./cache/poll_'.LANG.'.php')):
 	include('./cache/poll_'.LANG.'.php');
 else:
-	echo '<div style="text-align: center">'.$lang['lack'].'</div>';
+	echo '<div style="text-align: center; margin: 5px 0">'.(admit('Q') ?
+	'<a href="'.url('editPoll','ref','admin').'" class="add">'.$lang['add'].'</a>' : $lang['lack']).'</div>';
 	return;
 endif;
 
