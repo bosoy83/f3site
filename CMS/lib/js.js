@@ -50,7 +50,7 @@ function include(file, loaded)
 		}
 		else js.onload = loaded;
 	}
-	document.getElementsByTagName('head')[0].appendChild(js);
+	document.getElementsByTagName('head')[0].appendChild(js)
 }
 
 //Dodaj zdarzenie - IE i W3
@@ -71,7 +71,7 @@ function addEvent(type, f, o, capture)
 }
 
 //Szybki dostêp do elementów po ID
-function $(x) { return document.getElementById(x) }
+function $(x) { return x.nodeType ? x : document.getElementById(x) }
 
 //Wstaw kod
 function BBC(o, left, right, inside)
@@ -88,7 +88,7 @@ function BBC(o, left, right, inside)
 		o.value = before + left + inside + right + after;
 		o.selectionEnd = o.selectionStart = before.length + left.length + inside.length;
 		o.scrollTop = scroll;
-		o.focus();
+		o.focus()
 	}
 	else if(document.selection)
 	{
@@ -141,10 +141,10 @@ document.onmousedown = function(e)
 };
 document.onclick = function()
 {
-	for(var i in toHide)
+	for(var i=0; i<toHide.length; i++)
 	{
 		toHide[i].style.visibility = 'hidden';
-		toHide.pop(toHide[i]);
+		toHide.pop(toHide[i])
 	}
 };
 
@@ -153,7 +153,7 @@ function hint(o, left, top, autoHide)
 {
 	if(typeof o == 'string')
 	{
-		o = $(o);
+		o = $(o)
 	}
 	if(o.style.visibility != 'visible')
 	{
@@ -173,11 +173,11 @@ function getJSON(x)
 {
 	if(window.JSON)
 	{
-		return JSON.parse(x);
+		return JSON.parse(x)
 	}
 	else
 	{
-		return !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(x.replace(/"(\\.|[^"\\])*"/g, ''))) && eval('('+x+')');
+		return !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(x.replace(/"(\\.|[^"\\])*"/g, ''))) && eval('('+x+')')
 	}
 }
 
@@ -205,7 +205,7 @@ function Request(url, box, opt)
 	this.fail = opt.fail || function(x) { alert(x) };
 
 	//Gdy ¿¹danie zakoñczone sukcesem
-	this.done = opt.done || function(x) { this.o.innerHTML = x }
+	this.done = opt.done || function(x) { this.o.innerHTML = x };
 
 	//Czas oczekiwania na odpowiedŸ
 	this.timeout = opt.timeout || 50000;
@@ -215,13 +215,13 @@ function Request(url, box, opt)
 Request.prototype.get = function(list)
 {
 	this.send(list, false);
-}
+};
 
 //Wyœlij ¿¹danie metod¹ POST
 Request.prototype.post = function(list)
 {
 	this.send(list, true);
-}
+};
 
 //Wyœlij ¿¹danie
 Request.prototype.send = function(list, post)
@@ -286,14 +286,14 @@ Request.prototype.send = function(list, post)
 					}
 					else
 					{
-						self.fail('Server is busy.');
+						self.fail('Server is busy.')
 					}
 				}
 				catch(e)
 				{
-					self.fail(e);
+					self.fail(e)
 				}
-				document.body.style.cursor = '';
+				document.body.style.cursor = ''
 			}
 		};
 	}
@@ -325,7 +325,7 @@ Request.prototype.send = function(list, post)
 	}
 	else
 	{
-		this.http.send();
+		this.http.send()
 	}
 };
 
@@ -337,7 +337,7 @@ Request.prototype.send = function(list, post)
 function send(o,id,opt)
 {
 	new Request(o.form.action, id, opt).sendForm(o);
-	return false;
+	return false
 }
 
 //Przechwyæ kontrolê nad gwiazdkami
@@ -402,7 +402,7 @@ function Dialog(title, txt, width, height)
 	this.title.ref = this;
 	this.title.innerHTML = '<div class="exit" onclick="parentNode.ref.hide()">x</div>' + title;
 	this.body = this.o.appendChild(document.createElement('div'));
-	this.body.style.height = height - 20 + 'px'
+	this.body.style.height = height - 20 + 'px';
 	this.body.style.overflow = 'auto';
 
 	//Width and height
@@ -419,22 +419,22 @@ Dialog.prototype.show = function()
 		document.body.appendChild(this.bg);
 		document.body.appendChild(this.o);
 		this.o.style.left = (document.documentElement.clientWidth - this.o.clientWidth) / 2 + 'px';
-		this.o.style.top = (document.documentElement.clientHeight - this.o.clientHeight) / 2 + 'px';
+		this.o.style.top = (document.documentElement.clientHeight - this.o.clientHeight) / 2 + 'px'
 	}
-	curDialog = this;
+	curDialog = this
 };
 Dialog.prototype.hide = function()
 {
 	if(this.o.parentNode == document.body)
 	{
 		document.body.removeChild(this.bg);
-		document.body.removeChild(this.o);
+		document.body.removeChild(this.o)
 	}
 };
 Dialog.prototype.load = function(url, data, post)
 {
 	new Request(url, this.body, {scripts:1}).send(data,post);
-	this.show();
+	this.show()
 }
 
 //this instanceof arguments.callee ? 'object instance' : 'function call'

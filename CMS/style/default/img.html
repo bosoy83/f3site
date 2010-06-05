@@ -12,15 +12,20 @@
 	<div style="margin: 3px; text-align: center">
 
 	<!-- IF image -->
+	<a href="{img.file}" title="{img.name}">
 
 		<!-- IF size -->
-		<a href="{img.file}" onclick="okno(this.href, screen.availWidth, screen.availHeight); return false">
-			<img src="{img.file}" alt="{img.name}" width="{size.0}" height="{size.1}" />
-		</a>
+		<img src="{img.file}" alt="{img.name}" width="{size.0}" height="{size.1}" />
 		<!-- ELSE -->
 		<img src="{img.file}" alt="{img.name}" style="overflow: hidden; max-width: 100%" />
 		<!-- END -->
 
+	</a>
+	<script type="text/javascript">
+	include('lib/slimbox/slimbox2.css')
+	include('http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js',function(){
+	include('lib/slimbox/slimbox2.js'); jQuery.noConflict() })
+	</script>
 	<!-- END -->
 
 	<!-- IF flash -->

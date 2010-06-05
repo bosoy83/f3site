@@ -49,7 +49,7 @@ function coma(act,o)
 			}
 			else alert(x);
 		} }
-		).send({act:act});
+		).post({act:act});
 	}
 	return false;
 }

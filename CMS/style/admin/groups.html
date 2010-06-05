@@ -1,22 +1,24 @@
 <form action="" method="post">
 <h2>{lang.groups}</h2>
 
-<table cellspacing="1" class="tb">
-<tbody>
+<table cellspacing="1" class="tb" id="groups">
+<thead>
 <tr>
 	<th>{lang.name}</th>
-	<th>ID</th>
+	<th class="numeric">ID</th>
 	<th>{lang.open}?</th>
 	<th>{lang.opt}</th>
 	<th style="width: 20px"></th>
 </tr>
+</thead>
+<tbody align="center">
 
 <!-- START group -->
 <tr>
-	<td>{num}. <a href="{url}">{title}</a></td>
-	<td align="center">{id}</td>
-	<td align="center">{opened}</td>
-	<td align="center"><a href="{edit}">{lang.edit}</a></td>
+	<td align="left"><a href="{url}">{title}</a></td>
+	<td>{id}</td>
+	<td>{opened}</td>
+	<td><a href="{edit}">{lang.edit}</a></td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->
@@ -28,3 +30,12 @@
 	<input type="submit" name="del" value="{lang.del}" />
 </div>
 </form>
+
+<script type="text/javascript">
+document.forms[0].del.onclick = function()
+{
+	if(confirm('{lang.delc}')) send(this);
+	return false
+}
+include('lib/sort.js', function() { new Sortable('groups') })
+</script>

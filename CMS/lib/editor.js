@@ -112,7 +112,7 @@ Editor.prototype.protect = function(text)
 		}
 	};
 	addEvent('submit', function() { onbeforeunload = null }, this.o.form)
-}
+};
 
 //Wstaw znacznik
 Editor.prototype.format = function(i)

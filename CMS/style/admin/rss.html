@@ -30,3 +30,11 @@
 </tr>
 </table>
 </form>
+
+<script type="text/javascript">
+document.forms[0].del.onclick = function()
+{
+	if(confirm('{lang.delc}')) send(this);
+	return false
+}
+</script>

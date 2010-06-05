@@ -162,7 +162,7 @@ function UpdateTags($id, $type, $in=null, $t=null)
 #Tagi - AJAX
 function ajaxTags($id, $type)
 {
-	echo json_encode(UpdateTags($id, $type, $_SERVER['REQUEST_METHOD']=='POST' ? $_POST : null), 1);
+	echo json_encode(UpdateTags($id, $type, $_SERVER['REQUEST_METHOD']=='POST' ? $_POST : null, 1));
 }
 
 #Struktura kategorii

@@ -33,6 +33,7 @@ if($_POST)
 			$db->exec('DELETE FROM '.PRE.'mitems WHERE menu NOT IN (SELECT ID FROM '.PRE.'menu)');
 		}
 		$db->commit();
+		$content->info($lang['saved']);
 		unset($q,$seq,$_POST);
 
 		#Odbuduj menu

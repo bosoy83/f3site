@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'rights.php';
 
 #Odczyt
-$res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users WHERE lv>1 OR adm NOT NULL');
+$res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users WHERE lv>1 OR adm!=""');
 $res->setFetchMode(3); //NUM
 
 #Info

@@ -12,6 +12,7 @@ You should have received a copy of the GNU General Public License along with thi
 F3Site uses the following components:
 * Silk icons - http://www.famfamfam.com/lab/icons/silk
 * Google Code Prettify - http://google-code-prettify.googlecode.com
+* Slimbox 2 - http://www.digitalia.be/software/slimbox2
 * reCAPTCHA - http://recaptcha.net
 * Microsoft Asirra
 
