@@ -4,7 +4,7 @@ require LANG_DIR.'rights.php';
 require LANG_DIR.'profile.php';
 
 #Brak uprawnieñ
-if(!$id || $id < 1 || ($id == UID && LEVEL != 4)) return;
+if(!$id || $id < 1 || ($id == UID && !IS_OWNER)) return;
 
 #Uprawnienia
 $set = array(
@@ -30,10 +30,10 @@ $set = array(
 
 #Pobierz u¿ytkownika - FETCH_NUM
 $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
-	((LEVEL!=4) ? ' && lv!=4' : '')) -> fetch(3);
+	(!IS_OWNER ? ' && lv!=4' : '')) -> fetch(3);
 
 #Brak uprawnieñ
-if(!$adm OR (LEVEL != 4 && $adm[1] >= LEVEL)) return;
+if(!$adm OR (!IS_OWNER && $adm[1] >= LEVEL)) return;
 
 #Pobierz wtyczki - FETCH_NUM
 $plug1 = $db->query('SELECT ID,text FROM '.PRE.'admmenu WHERE rights=1')->fetchAll(3);
@@ -52,7 +52,7 @@ if($_POST)
 	$lv = (int)$_POST['lv'];
 
 	#Mo¿e zmieniæ w³a¶ciciela?
-	if(LEVEL!=4 && ($lv>3 OR $lv<0)) return;
+	if(!IS_OWNER && ($lv>3 OR $lv<0)) return;
 
 	#Globalne i nowe uprawnienia
 	$glo = array();
@@ -136,7 +136,7 @@ foreach($cats1 as &$x)
 if($cats!='') $cats.='</fieldset>';
 
 $content->data = array(
-	'owner' => LEVEL==4,
+	'owner' => IS_OWNER,
 	'lv'    => $lv,
 	'cats'  => &$cats,
 	'plugins' => &$plugins,

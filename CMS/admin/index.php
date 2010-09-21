@@ -7,12 +7,12 @@ require 'kernel.php';
 #Niezalogowany?
 if(!UID)
 {
-	Header('Location: '.URL.'login.php?from=admin');
+	header('Location: '.URL.'login.php?from=admin');
 	exit;
 }
-elseif(LEVEL < 3)
+elseif(!IS_ADMIN)
 {
-	Header('Location: '.URL); //Przekieruj na stronê g³ówn±
+	header('Location: '.URL); //Przekieruj na stronê g³ówn±
 	exit;
 }
 require LANG_DIR.'adm.php';

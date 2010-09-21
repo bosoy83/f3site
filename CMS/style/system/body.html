@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{LANG}">
+<head>
+	<title>{PAGE TITLE} - {MAIN TITLE}</title>
+	<base href="{URL}">
+	<meta name="description" content="{DESCRIPTION}" />
+	<meta name="robots" content="{ROBOTS}" />
+	<link rel="stylesheet" href="style/system/styles.css" type="text/css">
+	<script type="text/javascript" src="lib/js.js"></script>
+	<!-- START channel -->
+	<link rel="alternate" type="application/rss+xml" href="rss/{KEY}.xml" title="{ITEM}" />
+	<!-- STOP -->
+</head>
+<body>
+	<div id="top">
+		<a href="" class="logoTop"><img src="style/system/img/top.jpg" alt="{MAIN TITLE}"></a>
+
+		<!-- IF UID -->
+		<div id="userOptions">
+			<b><a href="url(user)">{user.login}</a></b>
+
+			<!-- IF user.pms -->
+			<b><a href="url(pms)" class="mail">{lang.pms} <blink>({user.pms})</blink></a></b>
+			<!-- ELSE -->
+			<a href="url(pms)" class="mail">{lang.pms}</a>
+			<!-- END -->
+
+			<!-- IF IS_ADMIN -->
+			<a href="admin" class="cpanel">{lang.cpanel}</a>
+			<!-- END -->
+
+			<a href="url(account)" class="settings">{lang.upanel}</a>
+			<a href="login.php?logout" class="off">{lang.logout}</a>
+		</div>
+		<!-- ELSE -->
+		<div id="loginTopForm">
+			<form action="login.php" method="post">
+				<label>Login: <input name="u" class="text" /></label>
+				<label>{lang.pass}: <input name="p" class="text" /></label>
+				<div id="formOptions">
+					<div id="rememberMe">
+						<label><input type="checkbox" class="choice" name="auto" /> {lang.remlog}</label>
+					</div>
+					<input type="submit" value="{lang.logme}" class="buttonBlue" />
+					<input type="submit" name="reg" value="{lang.regme}" class="buttonOrange" />
+				</div>
+			</form>
+		</div>
+		<!-- END -->
+	</div>
+	<div id="mainMenu">
+		<div id="lang">
+			{lang.lang}:
+			<a href="url(en)"><img src="style/system/img/ico/gb.jpg" alt="gb" /></a>
+			<a href="url(pl)"><img src="style/system/img/ico/pl.jpg" alt="pl" /></a>
+		</div><a href="" class="active">Strona główna</a>
+		<a href="">{lang.news}</a>
+		<a href="url(cats)">{lang.cats}</a>
+		<a href="url(users)">{lang.users}</a>
+	</div>
+	<div id="all">
+		<div id="main">{CONTENT}</div>
+		<div id="left">{LEFT MENU}</div>
+		<div id="right">{RIGHT MENU}</div>
+	</div>
+</div>
+<div id="foot">
+	<div class="links">
+		<a href="url(archive)">{lang.archive}</a> | 
+		<a href="url(groups)">{lang.groups}</a>
+	</div>
+	<div class="copyright">{FOOTER}</div>
+</div>
+</body>
+</html>

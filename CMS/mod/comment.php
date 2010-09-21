@@ -36,7 +36,7 @@ if(isset($_POST['act']) && $id)
 #Je¶li jest typ w URL, dodaj nowy komentarz
 if(isset($URL[2]))
 {
-	#Go¶æ nie mo¿e pisaæ?
+	#Go¶æ nie mo¿e pisaæ lub ma blokadê
 	if(!UID && !isset($cfg['commGuest'])) $error[] = $lang['c11'];
 
 	#TYP JEST LICZB¡
@@ -161,7 +161,7 @@ if($_POST)
 			if(isset($_SESSION['post']) && $_SESSION['post']>time()) $error[] = $lang['c3'];
 
 			#Moderowaæ? + IP
-			$c['access'] = !isset($cfg['moderate']) || LEVEL>1 || admit('CM') ? 1 : 0;
+			$c['access'] = !isset($cfg['moderate']) || IS_EDITOR || admit('CM') ? 1 : 0;
 			$c['ip'] = $_SERVER['REMOTE_ADDR'];
 			$c['guest'] = UID ? 0 : 1;
 		}

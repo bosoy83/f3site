@@ -22,7 +22,7 @@ function comment(o)
 					var f = document.forms['comm'];
 					f.prev.onclick = function() { return http.sendForm(this) };
 					f.save.onclick = function() { return http.sendForm(this) };
-					if(f.name) f.name.focus(); else f.text.focus()
+					if(f.name) f.name.focus(); else f.text.focus();
 					http.scripts = 1;
 				}
 			};

@@ -21,6 +21,12 @@ if($_POST)
 		include './lib/config.php';
 		$f = new Config('latest');
 		$f -> save($_POST);
+
+		#Aktualizuj liste
+		include './lib/categories.php';
+		Latest();
+
+		#Powrot do menu opcji
 		include './admin/config.php';
 		return 1;
 	}

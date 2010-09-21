@@ -16,8 +16,7 @@ if(!$img['access'])
 #Dimensions
 $size = strpos($img['size'], '|') ? explode('|', $img['size']) : null;
 
-#Opis, data, autor
-$img['dsc'] = nl2br($img['dsc']);
+#Data, autor
 $img['date'] = genDate($img['date'], true);
 $img['author'] = autor($img['author']);
 
@@ -32,9 +31,12 @@ else
 	$rates = 0;
 }
 
-#Tag title and meta description
+#Tag title and meta description - clean temporary
 $content->title = $img['name'];
-$content->desc  = $img['dsc'] ? substr($img['dsc'], 0, 150) : $cfg['metaDesc'];
+$content->desc  = $img['dsc'] ? clean(substr($img['dsc'], 0, 150)) : $cfg['metaDesc'];
+
+#Description
+$img['dsc'] = nl2br($img['dsc']);
 
 #Template
 $content->data = array(
@@ -48,7 +50,8 @@ $content->data = array(
 	'path'  => catPath($img['cat']),
 	'edit'  => admit($img['cat'],'CAT') ? url('edit/3/'.$id,'ref') : false,
 	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['imgs'],
-	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/images')
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/images'),
+	'lightbox' => isset($cfg['lightbox'])
 );
 
 #Tags

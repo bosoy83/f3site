@@ -17,7 +17,7 @@ $voted = isset($_COOKIE['voted']) ? explode('o',$_COOKIE['voted']) : array();
 if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && !UID))
 {
 	#Brak g³osów?
-	if($poll['num']==0) { echo '<center>'.$lang['novotes'].'</center>'; return; }
+	if($poll['num']==0) { echo '<div class="pollQuestion">'.$lang['novotes'].'</div>'; return; }
 
 	#Procenty
 	$item = array();
@@ -38,7 +38,7 @@ if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && !UID
 
 #Formularz do g³osowania
 echo '<form action="vote.php" id="poll" method="post">
-<div style="text-align: center">'.$poll['q'].'</div><div style="margin: 5px 0px">';
+<div class="pollQuestion">'.$poll['q'].'</div><div class="pollOptions">';
 
 $i=0;
 foreach($option as $o)
@@ -46,9 +46,9 @@ foreach($option as $o)
 	echo '<label><input id="o_'.++$i.'" name="vote'.(($poll['type']==2)?'['.$o[0].']" type="checkbox" ':'" value="'.$o[0].'" type="radio"').' /> '.$o[1].'</label><br />';
 }
 
-echo '</div><div style="text-align: center">
-	<input type="submit" value="OK" name="poll" />'.($poll['num'] ?
-	'<a href="'.url('poll/'.$poll['ID']).'"><input type="button" value="'.$lang['results'].'" onclick="location=this.parentNode.href; return false" /></a>' : '') .
+echo '</div><div class="pollSubmit">
+	<input type="submit" value="OK" name="poll" class="pollVote" />'.($poll['num'] ?
+	'<a href="'.url('poll/'.$poll['ID']).'" class="pollView">'.$lang['results'].'</a>' : '') .
 '</div>
 </form>';
 

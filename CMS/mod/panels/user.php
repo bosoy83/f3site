@@ -7,13 +7,13 @@ if(UID)
 	echo
 	sprintf($lang['uwlogd'],'<a href="'.url('user').'">'.$user['login'].'</a>').'<ul>'.
 
-	((LEVEL > 1) ?
+	(IS_EDITOR ?
 	'<li><a href="'.url('edit').'">'.$lang['mantxt'].'</a></li>' : '').
 
-	((LEVEL > 2) ?
+	(IS_ADMIN ?
 	'<li><a href="admin">'.$lang['cpanel'].'</a></li>':'').
 
-	((isset($cfg['pmOn']))?
+	(isset($cfg['pmOn'])?
 	'<li><a href="'.url('pms').'"'.(($user['pms']>0)?' class="newpms"><b>'.$lang['pms'].' ('.$user['pms'].')</b>':'>'.$lang['pms']).'</a></li>':'').
 
 	'<li><a href="'.url('account').'">'.$lang['upanel'].'</a></li><li><a href="login.php?logout">'.$lang['logout'].'</a></li></ul>';

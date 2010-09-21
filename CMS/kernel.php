@@ -82,7 +82,7 @@ if(isset($_GET['page']) && !is_numeric($_GET['page']))
 #Redirect old URL to new
 if(isset($_GET['co']) && ctype_alnum($_GET['co']))
 {
-	header('HTTP/1.1 301 Moved Permanently');
+	header('Moved Permanently', true, 301);
 	header('Location: ' . URL . url($_GET['co'] . ($id ? '/'.$id : '')));
 }
 
@@ -215,6 +215,9 @@ if(is_numeric($xuid))
 		{
 			define('UID', $xuid);
 			define('LEVEL', $user['lv']);
+			define('IS_EDITOR', LEVEL > 1);
+			define('IS_ADMIN', LEVEL > 2);
+			define('IS_OWNER', LEVEL > 3);
 		}
 		else
 		{
@@ -237,11 +240,11 @@ else
 {
 	#DO NOT DELETE!
 	define('UID',0);
-	define('LEVEL',0);
+	define('LEVEL',1);
+	define('IS_ADMIN',0);
+	define('IS_EDITOR',0);
+	define('IS_OWNER',0);
 }
-
-#Today
-define('TODAY', strftime($cfg['now']));
 
 #Prawa - admit user
 function admit($id,$type=null)
@@ -251,18 +254,18 @@ function admit($id,$type=null)
 	static $global, $all;
 
 	#Owner may access everything
-	if(LEVEL==4) return true;
+	if(IS_OWNER) return true;
 
 	#Category
 	if($type)
 	{
 		if($type=='CAT')
 		{
-			if(LEVEL>1 && admit('+'))
+			if(IS_EDITOR)
 			{
-				return true;
+				if(admit('+')) return true;
 			}
-			elseif(LEVEL<2)
+			else
 			{
 				return false;
 			}
@@ -378,7 +381,7 @@ function pages($page,$ile,$max,$url='',$type=0,$p='')
 			}
 			if($page==$i)
 			{
-				$out.='<a class="pageAct">'.$i.'</a>';
+				$out.='<a class="active">'.$i.'</a>';
 			}
 			else
 			{

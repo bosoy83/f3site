@@ -1,8 +1,7 @@
 <form action="" method="post">
-<h2>{lang.users}</h2>
+<h1>{lang.users}</h1>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<th>{lang.login}</th>
 	<th style="width: 50px">ID</th>
@@ -12,11 +11,11 @@
 </tr>
 
 <!-- START users -->
-<tr align="center">
-	<td align="left">{num}. <a href="{url}">{login}</a></td>
-	<td>{id}</td>
-	<td>{level}</td>
-	<td>
+<tr>
+	<td>{num}. <a href="{url}">{login}</a></td>
+	<td align="center">{id}</td>
+	<td align="center">{level}</td>
+	<td align="center">
 		<!-- IF edit -->
 		<a href="{edit}">{lang.profile}</a>
 		<!-- END -->
@@ -24,7 +23,7 @@
 		&middot; <a href="{priv}">{lang.priv}</a>
 		<!-- END -->
 	</td>
-	<td><input type="checkbox" name="x[{id}]" /></td>
+	<td align="center"><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->
 
@@ -33,7 +32,6 @@
 	<td colspan="2">{lang.page}: {pages}</td>
 	<td colspan="2" align="right"><input type="submit" name="del" value="{lang.del}" /></td>
 </tr>
-</tbody>
 </table>
 
 <script type="text/javascript">

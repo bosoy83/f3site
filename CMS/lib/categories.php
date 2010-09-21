@@ -224,7 +224,7 @@ function Slaves($type=0,$id=0,$o=null)
 	if(is_numeric($o)) $where[]='ID!='.$o;
 
 	#Prawa i typ
-	if(LEVEL!=4 && !$where && !admit('+'))
+	if(!IS_OWNER && !$where && !admit('+'))
 	{
 		$where[] = 'ID IN (SELECT CatID FROM '.PRE.'acl WHERE UID='.UID.')';
 	}

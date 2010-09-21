@@ -1,5 +1,5 @@
 <form action="" method="post" f3:array="rss">
-<h2>{this.title}</h2>
+<h1>{this.title}</h1>
 
 <table cellspacing="1" class="tb">
 <tr>
@@ -20,11 +20,11 @@
 </tr>
 <tr>
 	<td><b>{lang.adr}:</b><br /><small>{lang.pageRss}</small></td>
-	<td><input name="url" value="{rss.url}" size="40" maxlength="80" /></td>
+	<td><input type="url" name="url" value="{rss.url}" size="40" maxlength="80" /></td>
 </tr>
 <tr>
 	<td><b>{lang.itemNum}:</b></td>
-	<td><input name="num" value="{rss.num}" size="5" type="number" maxlength="3" /></td>
+	<td><input type="number" min="1" max="99" name="num" value="{rss.num}" size="5" type="number" /></td>
 </tr>
 <tr>
 	<td><b>{lang.opt}:</b></td>

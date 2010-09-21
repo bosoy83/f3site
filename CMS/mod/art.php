@@ -22,8 +22,8 @@ if(!$art['access'])
 #Art title
 $content->title = $art['name'];
 
-#Art description
-if($art['dsc']) $content->desc = $art['dsc'];
+#Art description - clean [temporary]
+if($art['dsc']) $content->desc = clean($art['dsc']);
 
 #Emots
 if($art['opt']&2)
@@ -81,7 +81,8 @@ $content->data = array(
 	'color' => $art['opt'] & 4,
 	'rates' => $rates,
 	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['arts'],
-	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/articles')
+	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/articles'),
+	'lightbox' => isset($cfg['lightbox'])
 );
 
 #Tags

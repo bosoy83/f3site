@@ -1,0 +1,139 @@
+<form action="" id="art" method="post" f3:array="art">
+<h1>{this.title}</h1>
+
+<table cellspacing="1" class="tb" id="at">
+<tr>
+	<td style="width: 30%"><b>1. {lang.cat}:</b></td>
+	<td><select name="cat"><option value="0">{lang.choose}</option>{cats}</select></td>
+</tr>
+<tr>
+	<td><b>2. {lang.title}:</b></td>
+	<td><input maxlength="50" size="40" name="name" value="{art.name}" /></td>
+</tr>
+<tr>
+	<td><b>3. {lang.publish}:</b></td>
+	<td><input type="checkbox" name="access" /></td>
+</tr>
+<tr>
+  <td><b>4. {lang.priot}:</b></td>
+  <td><select name="priority">
+		<option value="1">{lang.high}</option>
+		<option value="2">{lang.normal}</option>
+		<option value="3">{lang.low}</option>
+	</select></td>
+</tr>
+<tr>
+	<td><b>5. {lang.desc}:</b></td>
+	<td><textarea name="dsc" cols="40" rows="2">{art.dsc}</textarea></td>
+</tr>
+<tr>
+	<td><b>6. {lang.author}:</b><br /><small>{lang.nameid}</small></td>
+	<td><input name="author" value="{art.author}" maxlength="30" /></td>
+</tr>
+
+<tr>
+	<th colspan="2">{lang.text}</th>
+</tr>
+<tr>
+	<td align="center" colspan="2" id="they">
+
+	<!-- START full -->
+	<div id="p{0}">
+	<textarea name="txt[]" style="width: 100%" cols="50" rows="25">{clean: 1}</textarea>
+	<fieldset>
+		<legend>{lang.opt}</legend>
+		<label><input type="checkbox" name="emo[]" f3:var="i1.emo" /> {lang.emo}</label>
+		<label><input type="checkbox" name="br[]" f3:var="i1.br" /> {lang.br}</label>
+		<label><input type="checkbox" name="code[]" f3:var="i1.code" /> {lang.hl}</label>
+	</fieldset>
+	</div>
+	<!-- STOP -->
+
+	</td>
+</tr>
+<tr>
+	<td class="eth" colspan="2">
+		<input type="button" value="{lang.preview}" onclick="P()" />
+		<input type="submit" value="{lang.save}" style="font-weight: bold" />
+		<!-- IF id -->
+		<input type="submit" name="asNew" value="{lang.asNew}" />
+		<!-- END -->
+	</td>
+</tr>
+</table>
+</form>
+
+<script type="text/javascript">
+var f = document.forms['art'],
+they = $('they'),
+area = they.getElementsByTagName('textarea'),
+butt = '{lang.page}: <span id="b">',
+num = area.length,
+cur = 1,
+e = new Editor(f[6]);
+f.onsubmit = function()
+{
+	if(f.name.value==0) { f.name.focus(); return false }
+	if(f.cat.value==0) return confirm('{lang.noCat}')
+}
+e.protect()
+
+for(i=1;i<=area.length;++i)
+{
+	if(i!=area.length) show(area[i].parentNode)
+	butt += '<input type="button" value="'+i+'" onclick="CP(this)" />';
+}
+
+b = document.createElement('div');
+b.innerHTML = butt + '</span> <input type="button" value="{lang.add}" onclick="CP(0)" />';
+they.insertBefore(b,they.firstChild);
+
+function CP(o)
+{
+	var c = $('p'+cur);
+	if(o==0)
+	{
+		var x = c.cloneNode(1);
+		var n = x.getElementsByTagName('textarea')[0];
+		num++;
+		x.id = 'p'+num;
+		n.value = '';
+		n.focus();
+		show(c);
+		they.appendChild(x);
+		$('b').innerHTML += '<input type="button" value="'+num+'" onclick="CP(this)" />';
+		B(num);
+		cur = num;
+		e.o = n;
+	}
+	else if(o.value != cur)
+	{
+		show(c);
+		B(o.value);
+		cur = o.value;
+		x = $('p'+cur);
+		show(x);
+		e.o = x.getElementsByTagName('textarea')[0];
+	}
+}
+function B(x)
+{
+	var o = $('they').getElementsByTagName('input');
+	o[cur-1].style.fontWeight = 'normal';
+	o[x-1].style.fontWeight = 'bold';
+}
+B(1);
+function P()
+{
+	var txt = e.o.value.replace(/<(pre)([^>]*)>((.|\n)*)<\/pre>/img, C);
+	txt = txt.replace(/<(code)([^>]*)>((.|\n)*)<\/code>/img, C);
+	e.preview({EMOTS:f['emo[]'].checked, NL:f['br[]'].checked}, false, txt)
+}
+function C(a,b,c,d)
+{
+	d = d.replace(/&/g, '&amp;');
+	d = d.replace(/</g, '&lt;');
+	return '<'+b+c+'>'+d.replace(/>/g, '&gt;')+'</'+b+'>';
+}
+if(f[0].value == 0) f[0].focus(); else f[1].focus();
+</script>

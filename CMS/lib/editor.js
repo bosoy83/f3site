@@ -330,7 +330,7 @@ Editor.prototype.preview = function(opt,where,text)
 	if(this.box == undefined && !where)
 	{
 		this.box = document.createElement('div');
-		this.box.className = 'box';
+		this.box.className = 'preview';
 		this.o.form.parentNode.insertBefore(this.box, this.o.form)
 	}
 

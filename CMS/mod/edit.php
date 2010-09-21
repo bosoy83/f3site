@@ -1,5 +1,5 @@
 <?php
-if(iCMS!=1 || LEVEL<2) return;
+if(iCMS!=1 || !IS_EDITOR) return;
 define('EC',1);
 require LANG_DIR.'content.php';
 require './lib/categories.php';

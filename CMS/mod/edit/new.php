@@ -110,9 +110,16 @@ $news['emo'] = $news['opt'] & 2;
 $news['fn']  = $news['opt'] & 4;
 
 #Edytor JS
-$content->addScript(LANG_DIR.'edit.js');
-$content->addScript('cache/emots.js');
-$content->addScript('lib/editor.js');
+if(isset($cfg['wysiwyg']) OR admit('$'))
+{
+	$content->addScript('plugins/'.$cfg['wysiwyg'].'/loader.js');
+}
+else
+{
+	$content->addScript(LANG_DIR.'edit.js');
+	$content->addScript('cache/emots.js');
+	$content->addScript('lib/editor.js');
+}
 
 #Dane
 $content->data = array(

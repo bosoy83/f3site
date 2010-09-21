@@ -34,7 +34,7 @@ $content->data = array(
 );
 
 #Katalog INSTALL
-if(LEVEL==4 && is_dir('install'))
+if(IS_OWNER && is_dir('install'))
 {
 	$content->info('<b>'.$lang['INSTALL'].'</b>', null, 'error');
 }

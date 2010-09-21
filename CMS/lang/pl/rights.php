@@ -12,6 +12,9 @@
 'manTag'=>'Edycja słów kluczowych - tagów',
 'addUser'=>'Dodaj użytkownika',
 
+'banCM'=>'Wyłącz pisanie komentarzy',
+'banPM'=>'Wyłącz prywatne wiadomości',
+
 'commoner'=>'Zwykły użytkownik',
 'admin2'=>'Administrator - dostęp do panelu admina',
 'editor2'=>'Redaktor - może edytować treść',

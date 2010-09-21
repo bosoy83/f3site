@@ -1,4 +1,4 @@
-<?php #Generator plików menu
+<?php #Sidebars generator
 function RenderMenu(PDO $db = null)
 {
 	if(!$db) global $db;
@@ -21,7 +21,7 @@ function RenderMenu(PDO $db = null)
 			$page = $b['menu'];
 			if($b['disp']=='3')
 			{
-				$out[$page] .= '<?php if(LEVEL>2){?>';
+				$out[$page] .= '<?php if(IS_ADMIN){?>';
 			}
 			elseif($b['disp']!='1' && $b['disp']!=$dir) continue;
 			$out[$page] .= '<div class="mh"'.($b['img'] ? ' style="background: url('.$b['img'].') no-repeat bottom right"':'').'>'.$b['text'].'</div><div class="menu">';

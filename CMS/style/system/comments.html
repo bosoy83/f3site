@@ -1,0 +1,85 @@
+<div id="comments">
+
+<!-- IF comment -->
+
+<table cellspacing="1" class="tb" style="line-height: 18px">
+<caption>{lang.comms}</caption>
+<colgroup>
+	<col style="width: 130px" />
+	<col />
+</colgroup>
+<tbody>
+
+<!-- START comment -->
+<tr>
+	<td align="center" valign="top">
+		<div><b>
+		
+		<!-- IF profile -->
+		<a href="{profile}">{user}</a>
+		<!-- ELSE -->
+		{user}
+		<!-- END -->
+
+		</b></div>
+
+		<!-- IF ip -->
+		<div><a href="{findIP}">{ip}</a></div>
+		<!-- END -->
+
+		<!-- IF photo -->
+		<div style="text-align: center; margin: 2px; overflow: hidden">
+			<img src="{photo}" alt="{user}" />
+		</div>
+		<!-- END -->
+
+		<!-- IF del -->
+		<a href="{del}" onclick="return coma('del',this)"><img src="img/icon/del.png" alt="-" /></a>
+		<!-- END -->
+
+		<!-- IF edit -->
+		<a href="{edit}"><img src="img/icon/edit.png" alt="E" /></a>
+		<!-- END -->
+
+		<!-- IF accept -->
+		<a href="{accept}" onclick="return coma('ok',this)"><img src="img/icon/accept.png" alt="+" /></a>
+		<!-- END -->
+
+	</td>
+	<td valign="top" style="max-width: 406px; word-wrap: break-word">
+		<h3>{title}</h3>{text}
+	</td>
+</tr>
+<!-- STOP -->
+
+<!-- IF parts -->
+<tr>
+	<td colspan="2" class="pages">{parts}</td>
+</tr>
+<!-- END -->
+
+</tbody>
+</table>
+
+<!-- END -->
+
+<!-- IF url -->
+<div id="com">
+<div class="addComment" style="width: 150px; margin: auto; text-align: center">
+	<a href="{url}" onclick="return comment(this)" class="add">{lang.addComm}</a>
+</div>
+</div>
+<!-- END -->
+
+<!-- IF mustLogin -->
+<div class="box" style="text-align: center">{lang.loginComm}</div>
+<!-- END -->
+
+</div>
+<script type="text/javascript">
+include('lib/comm.js')
+<!-- IF color -->
+include('lib/prettify/prettify.css')
+include('lib/prettify/prettify.js', function() { prettyPrint() })
+<!-- END -->
+</script>

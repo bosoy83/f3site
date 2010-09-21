@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Może zobaczyć IP?
-$right = (LEVEL > 2 && admit('GB'));
+$right = (IS_ADMIN && admit('GB'));
 
 #Usuń wpisy
 if(isset($_POST['del']) && $right && isset($_POST['x']))

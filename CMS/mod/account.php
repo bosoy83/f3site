@@ -217,7 +217,7 @@ if($_POST)
 	#Błędy?
 	if($error)
 	{
-		$content->info(join('<br /><br />',$error));
+		$content->info(join('<br/><br/>',$error), null, 'error');
 		if(UID && !$photo)
 		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID)->fetchColumn();
 	}
@@ -267,7 +267,7 @@ if($_POST)
 				}
 				else
 				{
-					$content->info($lang['mailFail']);
+					$content->info($lang['mailFail'], 'error');
 				}
 				unset($m,$key);
 			}
@@ -294,7 +294,7 @@ if($_POST)
 		}
 		catch(Exception $e)
 		{
-			$content->info($lang['error'].$e->getMessage());
+			$content->info($lang['error'].$e->getMessage(), 'error');
 		}
 	}
 }

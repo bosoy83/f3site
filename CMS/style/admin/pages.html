@@ -1,8 +1,7 @@
 <form action="" method="post">
-<h2>{lang.ipages}</h2>
+<h1>{lang.ipages}</h1>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<th>{lang.name}</th>
 	<th style="width: 50px">ID</th>
@@ -21,14 +20,14 @@
 </tr>
 <!-- STOP -->
 
-</tbody>
+<tr>
+	<td class="eth" colspan="5">
+		<input type="submit" name="show" value="{lang.enable}" />
+		<input type="submit" name="hide" value="{lang.disable}" />
+		<input type="submit" name="del" value="{lang.del}" id="del" />
+	</td>
+</tr>
 </table>
-
-<div class="end">
-	<input type="submit" name="show" value="{lang.enable}" />
-	<input type="submit" name="hide" value="{lang.disable}" />
-	<input type="submit" name="del" value="{lang.del}" id="del" />
-</div>
 </form>
 
 <script type="text/javascript">

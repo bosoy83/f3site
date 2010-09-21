@@ -1,8 +1,7 @@
 <form action="" method="post" f3:array="page">
-<h2>{this.title}</h2>
+<h1>{this.title}</h1>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<td style="width: 35%"><b>1. {lang.name}:</b></td>
 	<td><input name="name" value="{page.name}" maxlength="50" size="50" /></td>
@@ -25,12 +24,10 @@
 		<label><input type="checkbox" name="o5" f3:var="o5" /> PHP</label>
 	</td>
 </tr>
-</tbody>
 </table>
 
-<h2>{lang.text}</h2>
+<h1>{lang.text}</h1>
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<td colspan="2" align="center">
 		<textarea name="txt" cols="60" rows="20" style="width: 98%">{clean: page.text}</textarea>
@@ -42,7 +39,6 @@
 		<input type="submit" value="{lang.save}" name="sav" />
 	</td>
 </tr>
-</tbody>
 </table>
 </form>
 

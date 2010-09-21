@@ -1,5 +1,5 @@
 <form action="" method="post" f3:array="cfg" f3:mode="isset">
-<h2>{lang.main}</h2>
+<h1>{lang.main}</h1>
 
 <table cellspacing="1" class="tb">
 <tbody class="bg">
@@ -17,8 +17,8 @@
 </tr>
 <tr>
 	<td><b>{lang.robots}:</b></td>
-	<td><select name="robots" size="4">
-		<option value="all" style="display: block">{lang.indexAll} (all)</option>
+	<td><select name="robots" size="4" style="overflow: hidden">
+		<option value="all">{lang.indexAll} (all)</option>
 		<option value="index,nofollow">{lang.indexHome} (index, nofollow)</option>
 		<option value="noindex,follow">{lang.indexURL} (noindex, follow)</option>
 		<option value="none">{lang.noIndex} (none)</option>
@@ -94,7 +94,7 @@
 </tr>
 <tr>
 	<td><b>{lang.flood}:</b><small>{lang.0off}</small></td>
-	<td><input name="antyFlood" size="5" value="{cfg.antyFlood}" /> sec.</td>
+	<td><input type="number" name="antyFlood" size="5" value="{cfg.antyFlood}" /> sec.</td>
 </tr>
 <tr>
 	<td><b>{lang.urls}:</b></td>
@@ -126,7 +126,7 @@
 </tr>
 <tr>
 	<td><b>{lang.pmMax}:</b></td>
-	<td><input name="pmLimit" size="5" value="{cfg.pmLimit}" /></td>
+	<td><input type="number" min="1" name="pmLimit" size="5" value="{cfg.pmLimit}" /></td>
 </tr>
 <tr>
 	<td><b>{lang.userFind}:</b></td>
@@ -146,7 +146,7 @@
 </tr>
 <tr>
 	<td><b>{lang.commNum}:</b><small>{lang.commNum2}</small></td>
-	<td><input name="commNum" size="5" value="{cfg.commNum}" /></td>
+	<td><input type="number" min="0" name="commNum" size="5" value="{cfg.commNum}" /></td>
 </tr>
 <tr>
 	<td><b>{lang.commSort}:</b></td>
@@ -193,7 +193,7 @@
 </tr>
 <tr>
 	<td><b>{lang.round}:</b><small>{lang.round2}</small></td>
-	<td><input name="pollRound" size="5" value="{cfg.pollRound}" /></td>
+	<td><input type="number" min="0" max="5" name="pollRound" size="5" value="{cfg.pollRound}" /></td>
 </tr>
 
 <tr>

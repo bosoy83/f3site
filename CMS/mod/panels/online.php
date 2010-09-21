@@ -48,23 +48,23 @@ if($online < ($_SERVER['REQUEST_TIME']-600))
 #Lista osób online
 $res = $db->query('SELECT user,name FROM '.PRE.'online');
 $res->setFetchMode(3);
-$list = '';
+$list = array();
 $num = 0;
 
 foreach($res as $x)
 {
 	if($x[0])
 	{
-		$list .= '<br /><a href="'.url('user/'.urlencode($x[1])).'">'.$x[1].'</a>';
+		$list[] = '<a href="'.url('user/'.urlencode($x[1])).'">'.$x[1].'</a>';
 	}
 	elseif($x[1])
 	{
-		$list .= '<br />'.$x[1];
+		$list[] = $x[1];
 	}
 	++$num;
 }
 echo
-	$lang['visits'].'<br /><b>'.$licznik.'</b><br />'.
-	$lang['online'].'<br /><b>'.$num.'</b>'.$list;
-unset($online);
+	$lang['visits'].': <b>'.$licznik.'</b><br />'.
+	$lang['online'].': <b>'.$num.'</b><br />'.join(', ', $list);
+unset($online,$list);
 ?></div>

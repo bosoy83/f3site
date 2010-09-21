@@ -1,9 +1,8 @@
 <!-- IF setup -->
 
 <form action="" method="post">
-<h2>{name}</h2>
+<h1>{name}</h1>
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<th style="width: 99px">{lang.author}:</th>
 	<td><!-- IF www --><a href="{www}">{credits}</a><!-- ELSE -->{credits}<!-- END --></td>
@@ -35,15 +34,13 @@
 	<td class="eth" colspan="2"><input type="submit" name="setup" value="OK" /></td>
 </tr>
 
-</tbody>
 </table>
 </form>
 
 <!-- ELSE -->
 
-<h2>{lang.plugs}</h2>
+<h1>{lang.plugs}</h1>
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<th>{lang.name}</th>
 	<th>Folder</th>
@@ -69,7 +66,6 @@
 <!-- END -->
 <!-- STOP -->
 
-</tbody>
 </table>
 
 <!-- END -->

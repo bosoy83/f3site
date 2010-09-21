@@ -1,8 +1,7 @@
 <form action="" method="post" f3:array="cat">
-<h2>{this.title}</h2>
+<h1>{this.title}</h1>
 
 <table cellspacing="1" class="tb">
-<tbody>
 <tr>
 	<td style="width: 200px"><b>{lang.title}:</b></td>
 	<td><input name="name" value="{cat.name}" maxlength="50" size="50" /></td>
@@ -75,14 +74,13 @@
 	</td>
 </tr>
 
-<tr class="eth">
-	<td colspan="2">
+<tr>
+	<td colspan="2" class="eth">
 		<input type="submit" value="{lang.save}" />
 		<input type="button" value="{lang.preview}" onclick="e.preview()" />
 		<input type="reset" value="{lang.reset}" onclick="return confirm(this.value)" />
 	</td>
 </tr>
-</tbody>
 </table>
 </form>
 

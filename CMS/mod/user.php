@@ -69,7 +69,7 @@ if(UID)
 	{
 		$may = url('account');
 	}
-	elseif(LEVEL > 2 && admit('U'))
+	elseif(IS_ADMIN && admit('U'))
 	{
 		$may = url('editUser/'.$u['ID'], '', 'admin');
 	}

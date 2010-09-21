@@ -1,5 +1,5 @@
 <form action="" method="post" f3:array="cfg" f3:mode="isset">
-<h2>{lang.latest}</h2>
+<h1>{lang.latest}</h1>
 
 <table cellspacing="1" class="tb">
 <tbody>
@@ -9,7 +9,7 @@
 </tr>
 <tr>
 	<td><b>{lang.maxnum}:</b><small>{lang.each}</small></td>
-	<td><input name="newNum" value="{cfg.newNum}" size="5" /></td>
+	<td><input type="number" min="1" name="newNum" value="{cfg.newNum}" size="5" /></td>
 </tr>
 <tr>
 	<td><b>{lang.types}:</b></td>

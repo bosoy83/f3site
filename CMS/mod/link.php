@@ -3,7 +3,7 @@ if(iCMS!=1) exit;
 require './cfg/content.php';
 
 #Full view is disabled
-if(!isset($cfg['linkFull']) && LEVEL<2) return;
+if(!isset($cfg['linkFull']) && !IS_EDITOR) return;
 
 #Get record
 if(!$link = $db->query('SELECT l.*,c.opt FROM '.PRE.'links l INNER JOIN '.

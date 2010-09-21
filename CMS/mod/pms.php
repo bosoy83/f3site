@@ -16,11 +16,6 @@ if(isset($cfg['pmOn']) && UID)
 	#Dane do szablonu
 	$content->data = array(
 		'new'   => $user['pms'],
-		'write' => url('pms/edit'),
-		'inbox' => url('pms'),
-		'sent'  => url('pms/sent'),
-		'topics'=> url('pms/topics'),
-		'drafts'=> url('pms/drafts'),
 		'limit' => $cfg['pmLimit'],
 		'size'  => $size,
 		'quota' => $cfg['pmLimit']>0 && $size>0 ? $size / $cfg['pmLimit'] * 100 : 0

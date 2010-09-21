@@ -1,5 +1,5 @@
 <?php /* Lista pozycji */
-if(iCMS!=1 OR LEVEL<2) return;
+if(iCMS!=1 OR !IS_EDITOR) return;
 require LANG_DIR.'content.php';
 require './lib/categories.php';
 
