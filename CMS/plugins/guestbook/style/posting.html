@@ -1,17 +1,17 @@
 <!-- IF rules -->
-<div class="box" style="white-space: pre-wrap">{rules}</div>
+<div class="info" style="white-space: pre-wrap">{rules}</div>
 <!-- END -->
 
 <!-- IF preview -->
-<h2>{lang.preview}</h2>
+<h1>{lang.preview}</h1>
 <div class="box">{preview}</div>
 <!-- END -->
 
-<h2>{this.title}</h2>
+<h1>{this.title}</h1>
 <form action="" method="post" id="post">
 <table cellspacing="1" class="tb">
 <tr>
-	<td style="width: 25%"><b>{lang.user}: </b></td>
+	<td style="width: 25%"><b>{lang.user}:</b></td>
 	<td><input name="who" value="{post.who}" maxlength="25" /></td>
 </tr>
 <tr>
@@ -69,7 +69,7 @@
 </form>
 
 <script type="text/javascript">
-var f = document.forms['post'];
+f = document.forms['post'];
 f[0].focus();
-<!-- IF bbcode -->new Editor(f['txt'],1)<!-- END -->
+<!-- IF bbcode -->e = new Editor(f['txt'],1); e.emots(); e.protect()<!-- END -->
 </script>

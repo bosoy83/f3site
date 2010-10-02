@@ -85,9 +85,16 @@ else
 	}
 }
 
-#Skrypty JS
-$content->addScript(LANG_DIR.'edit.js');
-$content->addScript('lib/editor.js');
+#Edytor JS
+if(isset($cfg['editor']) || admit('$') and is_dir('plugins/editor'))
+{
+	$content->addScript('plugins/editor/loader.js');
+}
+else
+{
+	$content->addScript(LANG_DIR.'edit.js');
+	$content->addScript('lib/editor.js');
+}
 
 #Dane
 $content->data = array(

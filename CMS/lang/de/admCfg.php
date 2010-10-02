@@ -41,6 +41,8 @@ $lang+=Array(
 'security'=>'Sicherheit und Anlagen',
 'BBCode'=>'BBCode anschalten',
 'BBCode2'=>'Es lässt den Benutzer Text formatieren.',
+'wysiwyg'=>'Echtzeit-Editor stets verwenden',
+'wysiwyg2'=>'Falls verfügbar. Betrifft alle Benutzer.',
 'MA'=>'Wartungsarbeitenmode',
 'MA2'=>'Deaktiviert die Website. Schalt diese Option deaktivieren, nachdem du fertig!',
 'captcha'=>'Anti-Spam System',
@@ -49,7 +51,6 @@ $lang+=Array(
 'asirra'=>'Microsoft Asirra - alle Katzen finden',
 'recap'=>'reCAPTCHA™ - 2 Worte tippen',
 'API'=>'Public-Key und Private-Key',
-'API2'=>'Gilt nur für reCAPTCHA™',
 'getKey'=>'Klicken um Keys zu erhalten',
 'flood'=>'Nächster Kommentar nach',
 

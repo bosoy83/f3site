@@ -41,6 +41,8 @@ $lang+=Array(
 'security'=>'Bezpieczeństwo i funkcje',
 'BBCode'=>'Włącz obsługę języka BBCode',
 'BBCode2'=>'Umożliwia użytkownikom formatowanie tekstu.',
+'wysiwyg'=>'Zawsze używaj edytora WYSIWYG',
+'wysiwyg2'=>'Jeżeli dostępny. Wpływa na wszystkich użytkowników.',
 'MA'=>'Tryb konserwacji',
 'MA2'=>'Wyłącza cały serwis i wyświetla komunikat. Odznacz opcję po zakończeniu prac!',
 'captcha'=>'Zabezpieczenie przed spamem',
@@ -49,7 +51,6 @@ $lang+=Array(
 'asirra'=>'Microsoft Asirra - zaznacz wszystkie koty',
 'recap'=>'reCAPTCHA™ - przepisz 2 słowa',
 'API'=>'Klucz publiczny i prywatny',
-'API2'=>'Dotyczy tylko systemu reCAPTCHA™',
 'getKey'=>'Kliknij, aby zdobyć klucze',
 'flood'=>'Pozwól wysłać kolejny komentarz po',
 

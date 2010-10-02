@@ -129,8 +129,15 @@ else
 	);
 }
 #Edytor JS, tytu³, dane
-$content->addScript(LANG_DIR.'edit.js');
-$content->addScript('lib/editor.js');
+if(isset($cfg['editor']) || admit('$') and is_dir('plugins/editor'))
+{
+	$content->addScript('plugins/editor/loader.js');
+}
+else
+{
+	$content->addScript(LANG_DIR.'edit.js');
+	$content->addScript('lib/editor.js');
+}
 $content->title = $id ? $lang['editCat'] : $lang['addCat'];
 $content->data = array(
 	'cat'  => &$cat,

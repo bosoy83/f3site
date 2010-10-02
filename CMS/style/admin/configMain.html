@@ -72,11 +72,15 @@
 	<td><input type="checkbox" name="bbcode" /></td>
 </tr>
 <tr>
+	<td><b>{lang.wysiwyg}:</b><small>{lang.wysiwyg2}</small></td>
+	<td><input type="checkbox" name="wysiwyg" /></td>
+</tr>
+<tr>
 	<td><b>{lang.MA}:</b><small>{lang.MA2}</small></td>
 	<td><input type="checkbox" name="MA" /></td>
 </tr>
 <tr>
-	<td><b>{lang.captcha}:</b><small>{lang.captcha2}</small></td>
+	<td><b>{lang.captcha}:</b><small>{lang.wysiwyg2}</small></td>
 	<td><select name="captcha">
 		<option value="0">{lang.off}</option>
 		<option value="1">{lang.std}</option>
@@ -85,7 +89,7 @@
 	</select></td>
 </tr>
 <tr id="RC">
-	<td><b>{lang.API}:</b><small>{lang.API2}</small></td>
+	<td><b>{lang.API}:</b></td>
 	<td>
 		<div style="float: right"><a href="http://recaptcha.net/api/getkey" target="_blank">{lang.getKey}</a></div>
 		<input name="pubKey" value="{cfg.pubKey}" size="30" title="Public Key" style="cursor: help" />

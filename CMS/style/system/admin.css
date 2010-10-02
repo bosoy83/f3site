@@ -1,17 +1,8 @@
-#all {
-	padding-right: 10px !important
-}
-ul.adm  {
-	background: #F7F7F7;
-	border: 1px solid #C6CDC2;
-	padding: 3px;
-	margin: 0;
-	margin-bottom: 8px;
-	list-style-type: none;
-	line-height: 20px;
-}
-ul.adm li {background-repeat: no-repeat; background-position: 0; padding-left: 22px}
-ul.adm li a {display: block} /*color: #0d4439*/
+#all {padding-right: 10px !important}
+.menu ul {margin-bottom: 9px}
+.adm li {background-repeat: no-repeat; background-position: 5px 3px}
+.adm li a {background: none; padding-left: 30px}
+.adm li a:hover {background: none; color: red}
 
 .a_rss {background: url(../../img/icon/rss.png)}
 .a_cat {background: url(../../img/icon/folder.png)}

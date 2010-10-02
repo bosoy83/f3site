@@ -76,10 +76,19 @@ else
 	$page = array('name'=>'','access'=>1,'text'=>'','opt'=>13);
 }
 
-#Biblioteki JS, tytu³, dane
-$content->addScript(LANG_DIR.'edit.js');
-$content->addScript('cache/emots.js');
-$content->addScript('lib/editor.js');
+#Edytor JS
+if(isset($cfg['editor']) || admit('$') and is_dir('plugins/editor'))
+{
+	$content->addScript('plugins/editor/loader.js');
+}
+else
+{
+	$content->addScript(LANG_DIR.'edit.js');
+	$content->addScript('cache/emots.js');
+	$content->addScript('lib/editor.js');
+}
+
+#Tytu³, dane
 $content->data = array(
 	'page' => &$page,
 	'o1'   => $page['opt']&1,

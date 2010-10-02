@@ -4,6 +4,7 @@
 'editAdm'=>'Edit rights',
 'fileMan'=>'File Manager - exploring',
 'fileMan2'=>'File Manager - upload',
+'wysiwyg'=>'Real-time content editor',
 'global'=>'Global privileges',
 'allCat'=>'WARNING! Turning on this option will let user manage content in all categories!',
 'privs'=>'rights',

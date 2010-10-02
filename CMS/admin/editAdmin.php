@@ -25,6 +25,7 @@ $set = array(
 	'TAG',//S³owa kluczowe
 	'FM', //Mened¿er plików
 	'UP', //Upload
+	'$',  //WYSIWYG
 	'+'   //Globalny redaktor
 );
 

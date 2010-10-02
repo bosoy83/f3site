@@ -136,10 +136,10 @@ foreach($full as $key=>&$val)
 	}
 }
 
-#Skrypty JS
-if(isset($cfg['wysiwyg']) OR admit('$'))
+#Edytor JS
+if(isset($cfg['editor']) || admit('$') and is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/'.$cfg['wysiwyg'].'/loader.js');
+	$content->addScript('plugins/editor/loader.js');
 }
 else
 {

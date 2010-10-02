@@ -4,6 +4,7 @@
 'editAdm'=>'Edytuj uprawnienia',
 'fileMan'=>'Menadżer plików - przeglądanie',
 'fileMan2'=>'Menedżer plików - zarządzanie',
+'wysiwyg'=>'Edytor treści w czasie rzeczywistym',
 'global'=>'Globalne uprawnienia',
 'allCat'=>'UWAGA! Po włączeniu tej opcji użytkownik będzie mógł zarządzać treścią w całym serwisie!',
 'privs'=>'prawa',

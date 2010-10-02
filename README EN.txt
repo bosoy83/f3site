@@ -14,7 +14,8 @@ F3Site uses the following components:
 * Google Code Prettify - http://google-code-prettify.googlecode.com
 * Slimbox 2 - http://www.digitalia.be/software/slimbox2
 * reCAPTCHA - http://recaptcha.net
-* Microsoft Asirra
+* Microsoft Asirra - http://research.microsoft.com/asirra
+* TinyMCE - http://tinymce.moxiecode.com
 
 
 Requirements

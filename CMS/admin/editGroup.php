@@ -62,12 +62,20 @@ else
 	$group = array('name'=>'','access'=>1,'opened'=>1,'dsc'=>'');
 }
 
-#Edytor JS, tytu³
-$content->addScript(LANG_DIR.'edit.js');
-$content->addScript('lib/editor.js');
+#Edytor JS
+if(isset($cfg['editor']) || admit('$') and is_dir('plugins/editor'))
+{
+	$content->addScript('plugins/editor/loader.js');
+}
+else
+{
+	$content->addScript(LANG_DIR.'edit.js');
+	$content->addScript('cache/emots.js');
+	$content->addScript('lib/editor.js');
+}
 
 #Dane
 $content->data = array(
 	'group' => &$group,
-	'langs' => listBox('lang', 1, ($id ? $group['access'] : null))
+	'langs' => listBox('lang', 1, $id ? $group['access'] : null)
 );

@@ -4,6 +4,7 @@
 'editAdm'=>'Sonderrechte ändern',
 'fileMan'=>'Dateimanager - Zugriff',
 'fileMan2'=>'Dateimanager - Änderungen',
+'wysiwyg'=>'Echtzeit-Editor',
 'global'=>'Globale Einstellungen',
 'allCat'=>'UWAGA! Po włączeniu tej opcji użytkownik będzie mógł zarządzać treścią w całym serwisie!',
 'privs'=>'privilegen',
