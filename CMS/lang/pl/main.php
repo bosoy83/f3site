@@ -46,6 +46,7 @@
 'NVAL'=>'%s nie jest opublikowany! Kliknij EDYTUJ, aby zmienić ustawienia.',
 'nonews'=>'Aktualnie brak nowości.',
 'loginComm'=>'Zaloguj się, aby móc wysłać komentarz.',
+'mainPage'=>'Strona główna',
 'novotes'=>'Brak głosów.',
 'numofd'=>'Pobrano',
 'of'=>'z ',

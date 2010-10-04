@@ -508,6 +508,27 @@ function clean($val,$max=0,$wr=0)
 	return trim(htmlspecialchars($val, 2, 'UTF-8'));
 }
 
+#Write log entry
+function event($type, $u = UID, $force = false)
+{
+	static $cfg;
+	global $db;
+
+	#Load config
+	if(!isset($cfg)) include './cfg/log.php';
+
+	#Record to database - no errors
+	if($force || isset($cfg[$type]))
+	{
+		try
+		{
+			$q = $db->prepare('INSERT INTO '.PRE.'log (name,ip,user) VALUES (?,?,?)');
+			$q->execute($type, $_SERVER['REMOTE_ADDR'], $u);
+		}
+		catch(Exception $e) {}
+	}
+}
+
 #Count in database
 function dbCount($table)
 {

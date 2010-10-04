@@ -26,7 +26,6 @@
 '0off'=>'deaktiviert = 0',
 'siteOff'=>'Wartungsarbeitenmode ist bereit. Nur Redakteure und Admins dürfen die Website zugreifen!',
 
-'mainPage'=>'Hauptseite',
 'summary' =>'Übersicht',
 'admIntro'=>'Willkommen bei %s Admin Panel. Wähl echten Modul an Menü.',
 'skinComp'=>'Änderungen übernehmen im jetzig Skin',

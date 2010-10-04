@@ -26,7 +26,6 @@
 '0off'=>'Type 0 to disable it.',
 'siteOff'=>'Maintenance mode is enabled. Only editors and administrators may access the website!',
 
-'mainPage'=>'Main page',
 'summary' =>'Summary',
 'admIntro'=>'Welcome to %s admin panel. Select a module from left menu.',
 'skinComp'=>'Apply changes in current skin',

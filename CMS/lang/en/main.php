@@ -46,6 +46,7 @@
 'NVAL'    =>'%s is NOT published! Click EDYTUJ to change settings.',
 'nonews'	=>'There are no news at present.',
 'loginComm'=>'You must login to be allowed to post comments.',
+'mainPage'=>'Main page',
 'novotes'	=>'No votes.',
 'numofd'	=>'Downloads',
 'of'			=>'of ',

@@ -385,16 +385,14 @@ ul.gallery li {
 	margin-bottom: 10px;
 	border: 1px solid #BFBFBF;
 	border-top: 0;
-	/*background-color: #BFBFBF;*/
 	border-spacing: 1px
 }
 .tb tbody {background-color: #EAEAEA; overflow: hidden}
 .tb caption {padding: 0}
 .tb th {padding: 5px; background:url(img/boxBg.jpg) repeat-x #fff}
-.tb td, .tb th {padding: 5px; background-color: #FFF; /*border-bottom: 1px solid #BFBFBF*/}
-.eth {text-align: center; background-color: black !important}
-/*.tb tbody:last-child tr:last-child td {border: 0 !important; background-color: transparent !important}*/
-.tb tr:nth-child(even) td {background-color: #F8F8F8}
+.tb td, .tb th {padding: 5px; background-color: #FFF !important}
+.eth {text-align: center; background-color: #F8F8F8 !important}
+.tb tr:nth-child(even) td {background-color: #F8F8F8 !important}
 
 /* buttons */ 
 .orange, .blue, .brown, .pollView {

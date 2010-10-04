@@ -46,6 +46,7 @@
 'NVAL'=>'%s ist nicht publiziert! Klick ÄNDERN um Optionen zu korrigieren.',
 'nonews'=>'Keine Nachrichten vorerst.',
 'loginComm'=>'Bitte einloggen, um zu kommentieren!',
+'mainPage'=>'Hauptseite',
 'novotes'=>'Neinstimmen',
 'numofd'=>'Nachgeladen',
 'of'=>'von ',

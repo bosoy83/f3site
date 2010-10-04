@@ -30,10 +30,10 @@ function Editor(O, bbcode)
 			theme_advanced_blockformats: 'p,div,h3,h4,blockquote,dt,dd,code,samp',
 
 			//Plugins
-			plugins: 'inlinepopups,safari,table,fullscreen,media,emotions,contextmenu,searchreplace,autoresize',
+			plugins: 'inlinepopups,safari,table,media,emotions,contextmenu,searchreplace,autoresize',
 
 			//Buttons
-			theme_advanced_buttons1: 'formatselect,fontselect,fontsizeselect,table,image,media,charmap,emotions,|,replace,|,fullscreen,code,help,|,undo,redo',
+			theme_advanced_buttons1: 'formatselect,fontselect,fontsizeselect,table,image,media,charmap,emotions,|,replace,|,code,help,|,undo,redo',
 
 			theme_advanced_buttons2: 'cut,copy,paste,removeformat,|,bold,italic,underline,strikethrough,|,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,|,numlist,bullist,|,blockquote,link,|,forecolor,backcolor',
 

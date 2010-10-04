@@ -26,7 +26,6 @@
 '0off'=>'Wpisz 0, by wyłączyć.',
 'siteOff'=>'Uaktywniono tryb konserwacji. Serwis jest dostępny tylko dla redaktorów i administratorów!',
 
-'mainPage'=>'Strona główna',
 'summary' =>'Podsumowanie',
 'admIntro'=>'Witaj w panelu administracyjnym %s. Wybierz odpowiedni moduł z menu.',
 'skinComp'=>'Zatwierdź zmiany w bieżącej skórce',

@@ -22,10 +22,10 @@ class Mailer
 		$bcc = array(),
 		$header = array(),
 		$method = 0,
-		$debug = 0, #Aby wy¶wietlaæ komendy, ustaw $debug wy¿ej na 1
+		$debug = 0, #To display commands, set $debug to 1
 		$o;
 
-	#Komenda
+	#Send command
 	private function cmd($c)
 	{
 		if(!$this->o) return 0;
@@ -39,29 +39,29 @@ class Mailer
 		return $reply;
 	}
 
-	#Nadawca
+	#Sender
 	function setSender($name,$mail=false)
 	{
 		$this->from = sanitize($name);
 		if($mail) $this->mailFrom = sanitize($mail);
 	}
 
-	#Dodaj nag³ówek
+	#Add header
 	function addHeader($h)
 	{
 		$this->header[] = $h."\r\n";
 	}
 
-	#Dodaj BCC
+	#Add BCC
 	function addBlindCopy($adr)
 	{
 		$this->bcc[] = sanitize($adr);
 	}
 
-	#Wy¶lij
+	#Send E-mail
 	function sendTo($name,$adr)
 	{
-		#Z³±cz nag³ówki
+		#Join headers
 		$h = $this->header ? join("\r\n", $this->header) . "\r\n" : '';
 		$h.= 'From: ' . $this->from . '<'.$this->mailFrom . ">\r\n";
 
@@ -75,51 +75,51 @@ class Mailer
 		#BBC
 		if(count($this->bcc)>0) $h.='Bcc: '.join(',', $this->bcc)."\r\n";
 
-		#Odbiorca
+		#Recipient
 		$adr  = sanitize($adr);
 		$name = sanitize($name);
 
-		#Podmianki
+		#Replacements
 		$this->text = str_replace(
 			array('%to%', '%to.email%', '%siteurl%', '%from%'),
 			array($name, $adr, '<a href="'.$this->url.'">'.$this->siteTitle.'</a>', $this->from),
 			$this->text);
 		
-		#Dla SMTP
+		#Via SMTP
 		if($this->method == 'SMTP')
 		{
-			#Od
+			#From
 			$this->cmd('MAIL FROM:<'.$this->mailFrom.'>');
 
-			#Do
+			#To
 			$this->cmd('RCPT TO:<'.$adr.'>');
 			foreach($this->bcc as $m) $this->cmd('RCPT TO:<'.$m.'>');
 
-			#Dane
+			#Data
 			$this->cmd('DATA');
 
-			#Nag³ówki i tekst
+			#Headers and text
 			$this->cmd('Subject: '.sanitize($this->topic)."\r\n" . 'To: '.$name."\r\n" . $h."\r\n" . $this->text);
 
-			#Dane
+			#Data
 			$this->cmd('data');
 
-			#Wy¶lij (250 = powodzenie)
+			#Send (250 = success)
 			$ok = strpos( $this->cmd('.'), '250' ) !== false ? true : false;
 
 			#Reset
 			$this->cmd('RSET'); return $ok;
 		}
 
-		#Mail()
+		#Via mail()
 		elseif($this->method=='MAIL')
 		{
-			#Wy¶lij
+			#Send
 			return mail($name.' <'.$adr.'>', $this->topic, $this->text, $h);
 		}
 	}
 
-	#Reset BCC i nag³.
+	#Reset BCC and headers
 	function reset()
 	{
 		$this->bcc = array();
@@ -133,25 +133,25 @@ class Mailer
 		$this->url = $cfg['adr'];
 		$this->siteTitle = $cfg['title'];
 
-		#Po³±czenie SMTP
+		#Connect to SMTP
 		if($cfg['mailh']==2 && isset($cfg['mailon']))
 		{
 			$this->method='SMTP';
 			$i=0;
 
-			#Po³±cz (próbuj 3 razy)
+			#Try 3 times
 			while($i<3 && !$this->o)
 			{
 				$this->o = fsockopen($cfg['smtp'],$cfg['mailport'],$no,$str,20);
 				++$i;
-				usleep(500000); #Odczekaj pó³ sekundy
+				usleep(500000); #Wait half second
 			}
 			if(!$this->o) throw new Exception('Cannot send e-mail. Response: '.$str.' ('.$no.')');
 
 			#Hello
 			$this->cmd('EHLO '.$cfg['smtp']);
 
-			#Has³o?
+			#Password
 			$this->cmd('AUTH LOGIN');
 			$this->cmd(base64_encode($cfg['smtpl']));
 			$this->cmd(base64_encode($cfg['smtph']));
@@ -160,11 +160,11 @@ class Mailer
 		#Mail()
 		elseif(isset($cfg['mailon'])) $this->method='MAIL';
 
-		#Domy¶lny nadawca
+		#Default sender
 		$this->setSender($cfg['title'], $cfg['mail']);
 	}
 
-	#Roz³±cz
+	#Disconnect
 	function __destruct()
 	{
 		if($this->o) { $this->cmd('QUIT'); fclose($this->o); }
