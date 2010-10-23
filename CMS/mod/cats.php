@@ -57,5 +57,6 @@ elseif($total === 1)
 }
 else
 {
+	$content->file = 'cats';
 	$content->data = array('cat' => &$cat);
 }

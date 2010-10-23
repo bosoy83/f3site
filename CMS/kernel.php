@@ -511,14 +511,11 @@ function clean($val,$max=0,$wr=0)
 #Write log entry
 function event($type, $u = UID, $force = false)
 {
-	static $cfg;
-	global $db;
-
-	#Load config
-	if(!isset($cfg)) include './cfg/log.php';
+	#static $cfg;
+	global $db,$cfg;
 
 	#Record to database - no errors
-	if($force || isset($cfg[$type]))
+	if($force || isset($cfg['log']) && isset($cfg['log'][$type]))
 	{
 		try
 		{

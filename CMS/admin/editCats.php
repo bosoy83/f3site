@@ -1,15 +1,16 @@
 <?php
-if(!$_POST || iCMSa!=1 || !admit('C')) exit;
+if(iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 require './cfg/content.php';
+try {
 
-#Usuñ
+#Delete cats
 if(isset($_POST['del']) && $x = GetID(1))
 {
 	$res = $db->query('SELECT ID,name,access,type,lft,rgt FROM '.PRE.'cats WHERE ID IN ('.$x.')');
 
-	#Wykonaj
+	#Do the job
 	if($_POST['del'] == 'OK')
 	{
 		$type = parse_ini_file('cfg/types.ini',1);
@@ -18,38 +19,56 @@ if(isset($_POST['del']) && $x = GetID(1))
 		foreach($res as $cat)
 		{
 			$id  = $cat['ID'];
+			$t   = $type[$cat['type']]['table'];
+			$t2  = isset($type[$cat['type']]['table2']) ? $type[$cat['type']]['table2'] : false;
 			$sub = (int)$_POST['x'][$id];
-			$c   = (int)$_POST['items'][$id];
+			$new = (int)$_POST['items'][$id];
 			$del = 'ID='.$id;
 
-			if($c > 0) //Przenieœ zawartoœæ
+			#CONTENT
+			if($new > 0) //Move
 			{
-				$db->exec('UPDATE '.PRE.$type[$cat['type']]['table'].' SET cat='.$c.' WHERE cat='.$id);
+				$db->exec('UPDATE '.PRE.$t.' SET cat='.$new.' WHERE cat='.$id);
 			}
-			elseif($c < 0) //Usuñ
+			elseif($new < 0) //Delete
 			{
-				$db->exec('DELETE FROM '.PRE.$type[$cat['type']]['table'].' WHERE cat='.$c);
+				$db->exec('DELETE FROM '.PRE.$t.' WHERE cat='.$id);
+				if($t2) $db->exec('DELETE FROM '.PRE.$t.' WHERE cat='.$id);
+				$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$cat['type'].
+				' AND CID NOT IN (SELECT ID FROM '.PRE.$t.')');
 			}
+
+			#SUBCATEGORIES
 			if($cat['rgt'] > $cat['lft'] + 1)
 			{
-				if($sub > 0) //Przenieœ podkategorie
+				if($sub > 0) //Move
 				{
 					$db->exec('UPDATE '.PRE.'cats SET sc='.$sub.' WHERE sc='.$id);
 				}
-				elseif($sub == -1) //Usuñ
+				elseif($sub == -1) //Delete
 				{
 					$del = 'lft BETWEEN '.$cat['lft'].' AND '.$cat['rgt'];
 				}
-				else //Uczyñ kategoriami g³ównymi
+				else //Set as primary
 				{
 					$db->exec('UPDATE '.PRE.'cats SET sc=0 WHERE sc='.$id);
 				}
 				UpdateCatPath();
 			}
-			$db->exec('DELETE FROM '.PRE.'cats WHERE '.$del); //Usuñ kategoriê
+			$db->exec('DELETE FROM '.PRE.'cats WHERE '.$del); //Delete category
 		}
 		RebuildTree();
 		CountItems();
+		Latest();
+
+		//Delete links from menu
+		if($db->exec('DELETE FROM '.PRE.'mitems WHERE type=5 AND url IN('.$x.')'))
+		{
+			include './lib/mcache.php';
+			RenderMenu();
+		}
+
+		//Finish and redirect
 		$db->commit();
 		header('Location: '.URL.url('cats', '', 'admin'));
 	}
@@ -82,6 +101,9 @@ if(isset($_POST['del']) && $x = GetID(1))
 
 else
 {
-	header('Location: '.URL.url('cats'));
+	header('Location: '.URL.url('cats','','admin'));
 	$content->info($lang['nocats']);
 }
+
+}
+catch(PDOException $e) { $content->info($e); }

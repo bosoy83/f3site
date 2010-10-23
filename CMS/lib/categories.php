@@ -313,7 +313,7 @@ function RTR($parent,$left,$db)
 	$all = $db->query('SELECT ID FROM '.PRE.'cats WHERE sc='.$parent)->fetchAll(3);
 	foreach($all as $row)
 	{
-		$right = RTR($row[0], $right);
+		$right = RTR($row[0], $right, $db);
 	}
 	$db->exec('UPDATE '.PRE.'cats SET lft='.$left.', rgt='.$right.' WHERE ID='.$parent);
 	return $right+1;

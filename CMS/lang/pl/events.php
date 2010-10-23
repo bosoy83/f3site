@@ -8,4 +8,6 @@ $events = array(
 'SEARCH'  => 'Strona zosta³a zindeksowana przez %s.',
 'ERROR'   => 'Wyst¹pi³ b³¹d w systemie.',
 'DBERROR' => 'Wyst¹pi³ b³¹d bazy danych.',
+'INST'    => 'Zainstalowa³ rozszerzenie %s.',
+'UNINST'  => 'Odinstalowa³ rozszerzenie %s.',
 );

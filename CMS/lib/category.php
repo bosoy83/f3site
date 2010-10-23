@@ -24,7 +24,7 @@ else
 #Load category to ASSOC $cat
 if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE access!=3 AND ID='.$d)->fetch(2))
 {
-	return;
+	$content->set404(); return;
 }
 
 #Set title
