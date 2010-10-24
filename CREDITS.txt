@@ -1,6 +1,7 @@
 Tu będą informacje o autorach.
 
 Betatesterzy i osoby zasłużone:
+* Kamil811 (strony.el-dar.pl)
 * PanYeti (CyfroGraf)
 * skygod
 * jareQ

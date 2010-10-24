@@ -21,10 +21,9 @@ if($_POST && $x = GetID(true))
 #Info
 $content->info($lang['pageTip'], array(url('editPage','','admin')=>$lang['addPage']));
 
-#Odczyt
+#Odczyt - FETCH_NUM
 $res = $db->query('SELECT ID,name,access FROM '.PRE.'pages ORDER BY ID DESC');
-$res->setFetchMode(3); //NUM
-
+$res->setFetchMode(3);
 $total = 0;
 $pages = array();
 
@@ -38,6 +37,13 @@ foreach($res as $page)
 		'title' => $page[1],
 		'access'=> $page[2]=='1' ? $lang['on2'] : ($page[2]=='3' ? sprintf('%s *',$lang['on2']) : $lang['off2'])
 	);
+}
+
+#Przekieruj, gdy nie ma nic
+if(empty($pages) && !JS)
+{
+	header('Location: '.URL.url('editPage','','admin'));
+	exit;
 }
 
 $res = null;

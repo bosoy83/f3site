@@ -103,14 +103,15 @@
 <script type="text/javascript">
 F = document.forms[0]
 f = new Fragment('items',{depth:1,html:$('tpl')})
-t = F['t[]']
+t = F['t[]']||{};
+t = t.type ? [t] : t;
 F[0].focus()
 
 cats = {cats};
 pages = {pages};
-catgroup = document.createElement('optgroup');
+catgroup = document.createElement('optgroup')
 catgroup.label = "{lang.cats}"
-pagegroup = document.createElement('optgroup');
+pagegroup = document.createElement('optgroup')
 pagegroup.label = "{lang.ipages}"
 
 for(i in cats)

@@ -36,8 +36,7 @@ if($_POST)
 			2 => $val,
 			3 => isset($_POST['nw'][$i]),
 			4 => $i,
-			5 => $id
-		);
+			5 => $id);
 	}
 
 	#START
@@ -70,6 +69,7 @@ if($_POST)
 			$q = $db->prepare('INSERT INTO '.PRE.'mitems (text,type,url,nw,seq,menu) VALUES (?,?,?,?,?,?)');
 			foreach($o as &$i)
 			{
+				$i[5] = $id;
 				$q->execute($i);
 			}
 		}
@@ -104,7 +104,7 @@ elseif($id)
 else
 {
 	$m = array('text'=>'', 'disp'=>'', 'img'=>'0', 'menu'=>1, 'type'=>3, 'value'=>'');
-	$o = array(array('', 0, '', 0));
+	$o = array(array('', 4, '', 0));
 }
 
 #Kategorie i wolne strony

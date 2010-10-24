@@ -63,7 +63,7 @@ else
 }
 
 #Edytor JS
-if(isset($cfg['editor']) || admit('$') and is_dir('plugins/editor'))
+if(isset($cfg['editor']) && is_dir('plugins/editor'))
 {
 	$content->addScript('plugins/editor/loader.js');
 }

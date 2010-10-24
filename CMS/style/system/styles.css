@@ -391,7 +391,7 @@ ul.gallery li {
 .tb caption {padding: 0}
 .tb th {padding: 5px; background:url(img/boxBg.jpg) repeat-x #fff}
 .tb td, .tb th {padding: 5px; background-color: #FFF !important}
-.eth {text-align: center; background-color: #F8F8F8 !important}
+.tb .eth {text-align: center; background-color: #F8F8F8 !important}
 .tb tr:nth-child(even) td {background-color: #F8F8F8 !important}
 
 /* buttons */ 

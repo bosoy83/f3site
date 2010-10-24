@@ -34,5 +34,12 @@ foreach($res as $x)
 	);
 }
 
+#Przekieruj, gdy nie ma nic
+if(empty($polls))
+{
+	header('Location: '.URL.url('editPoll','','admin'));
+	exit;
+}
+
 $res = null;
 $content->data['polls'] = $polls;

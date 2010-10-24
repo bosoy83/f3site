@@ -3,9 +3,9 @@ if(iCMSa!=1 || !admit('B')) exit;
 require LANG_DIR.'admAll.php';
 
 #Usuñ
-if($_POST && $x = GetID(true))
+if($_POST and $x = GetID(true) and isset($_POST['del']))
 {
-	if(isset($_POST['del'])) $db->exec('DELETE FROM '.PRE.'banners WHERE ID IN ('.$x.')');
+	$db->exec('DELETE FROM '.PRE.'banners WHERE ID IN ('.$x.')');
 }
 
 #Info
@@ -29,5 +29,13 @@ foreach($res as $x)
 	);
 }
 
-#Do szablonu
-$content->data['ad'] =& $ad;
+#Przekieruj, gdy nie ma nic
+if(empty($ad))
+{
+	header('Location: '.URL.url('editAd','','admin'));
+	exit;
+}
+else
+{
+	$content->data['ad'] =& $ad;
+}

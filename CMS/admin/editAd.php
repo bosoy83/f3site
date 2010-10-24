@@ -26,7 +26,10 @@ if($_POST)
 	#Zapis
 	try
 	{
-		$q->execute($ad); $content->info($lang['saved']); return 1;
+		$q->execute($ad);
+		$content->info($lang['saved']);
+		header('Location: '.URL.url('ads','','admin'));
+		return 1;
 	}
 	catch(PDOException $e)
 	{
