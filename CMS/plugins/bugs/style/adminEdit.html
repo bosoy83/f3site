@@ -1,5 +1,5 @@
 <form action="" method="post" f3:array="cat">
-<h2>{title}</h2>
+<h1>{title}</h1>
 <table cellspacing="1" class="tb">
 <tr>
 	<td style="width: 25%"><b>{lang.title}</b></td>
@@ -37,30 +37,32 @@
 	<td>
 		<label><input type="radio" name="rate" value="1" />
 		<img src="plugins/bugs/up.png" alt="UP" />
-		<img src="plugins/bugs/down.png" alt="DOWN" /></label>
-		<br />
-		<label><input type="radio" name="rate" value="2" /> 1 - 5</label>
-		<br />
+		<img src="plugins/bugs/down.png" alt="DOWN" /></label><br />
+		<label><input type="radio" name="rate" value="2" /> 1 - 5</label><br />
 		<label><input type="radio" name="rate" value="0" /> {lang.off}</label>
 	</td>
 </tr>
 <tr>
 	<td><b>{lang.bugsWho}</b></td>
-	<td><input name="post" maxlength="100" size="50" value="{cat.post}" /><small>{lang.bugsWho2}</small></td>
+	<td><input name="post" size="50" value="{cat.post}" /><small>{lang.bugsWho2}</small></td>
 </tr>
 <tr>
 	<td><b>{lang.info}:</b></td>
 	<td>
-		<textarea name="text" cols="50" rows="7" style="width: 99%">{htmlspecialchars: cat.text}</textarea>
+		<textarea name="text" cols="50" rows="7" style="width: 99%">{clean: cat.text}</textarea>
 	</td>
 </tr>
 <tr>
-	<td colspan="2" class="eth"><input type="submit" value="OK" /></td>
+	<td colspan="2" class="eth">
+		<input type="button" value="{lang.preview}" onclick="if(e)e.preview()" />
+		<input type="submit" value="OK" />
+	</td>
 </tr>
 </table>
 </form>
 <script type="text/javascript">
-f = document.forms[0];
+var e;
+var f = document.forms[0];
 f[0].focus()
 f['text'].onfocus = function() { e = new Editor(this); this.rows=15; this.onfocus = undefined }
 include('lang/' + document.documentElement.lang + '/edit.js')

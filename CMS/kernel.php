@@ -230,7 +230,7 @@ unset($xuid,$xpass);
 #Last visit date
 if(defined('UID'))
 {
-	if(isset($cfg['lastVisit']) && !isset($_SESSION['recent']))
+	if(!isset($_SESSION['recent']))
 	{
 		$db->exec('UPDATE '.PRE.'users SET lvis='.$_SERVER['REQUEST_TIME'].' WHERE ID='.UID);
 		$_SESSION['recent'] = (int)$user['lvis'];
@@ -499,7 +499,7 @@ function autor($x)
 function clean($val,$max=0,$wr=0)
 {
 	if($max) $val = substr($val,0,$max);
-	if($wr && isset($GLOBALS['cfg']['censor']))
+	if($wr)
 	{
 		static $words1,$words2;
 		include_once './cfg/words.php';

@@ -21,8 +21,6 @@ $lang+=Array(
 'footer'=>'Fußnote',
 'siteDesc'=>'Beschreibung',
 'indexed'=>'Indiziert von Suchmaschinen.',
-'head'=>'Zusätzlich Kode in ',
-'head2'=>'Optional, z.B. tags &lt;meta&gt;, &lt;link&gt;...',
 'urls'=>'Schöne URLs',
 'url1'=>'Ja - mod_rewrite',
 'url2'=>'Ja - PATH_INFO',
@@ -36,7 +34,6 @@ $lang+=Array(
 'date2'=>'%d - Tag &nbsp;&nbsp;%m - Monat &nbsp;&nbsp;%Y - Jahr',
 'time1'=>'Zeitformat',
 'time2'=>'%H - Stunde &nbsp;&nbsp;%M - Minut &nbsp;&nbsp;%S - Sekunde',
-'lastv'=>'Letzter Besuch Datum speichern',
 
 'security'=>'Sicherheit und Anlagen',
 'BBCode'=>'BBCode anschalten',

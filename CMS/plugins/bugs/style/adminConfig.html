@@ -1,5 +1,5 @@
 <form action="" method="post" f3:array="cfg" f3:mode="isset">
-<h2>{lang.opt}</h2>
+<h1>{lang.opt}</h1>
 <table cellspacing="1" class="tb">
 <tr>
 	<td style="width: 40%"><b>{lang.bugsOn}:</b></td>
@@ -7,7 +7,7 @@
 </tr>
 <tr>
 	<td><b>{lang.bugsNum}:</b></td>
-	<td><input name="bugsNum" value="{cfg.bugsNum}" size="5" /></td>
+	<td><input name="bugsNum" value="{cfg.bugsNum}" size="5" type="number" min="1" /></td>
 </tr>
 <tr>
 	<td><b>{lang.bugsEdit}:</b><small>{lang.bugsEdit2}</small></td>

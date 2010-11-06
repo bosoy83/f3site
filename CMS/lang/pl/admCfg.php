@@ -21,8 +21,6 @@ $lang+=Array(
 'footer'=>'Stopka',
 'siteDesc'=>'Opis serwisu',
 'indexed'=>'Indeksowany przez wyszukiwarki.',
-'head'=>'Dodatkowy kod w sekcji',
-'head2'=>'Nieobowiązkowy, np. znaczniki &lt;meta&gt;, &lt;link&gt;...',
 'urls'=>'Przyjazne adresy URL',
 'url1'=>'Włączone - z modułem mod_rewrite',
 'url2'=>'Włączone - bez mod_rewrite',
@@ -36,7 +34,6 @@ $lang+=Array(
 'date2'=>'%d - dzień &nbsp;&nbsp;%m - miesiąc &nbsp;&nbsp;%Y - rok',
 'time1'=>'Format godziny',
 'time2'=>'%H - godzina &nbsp;&nbsp;%M - minuta &nbsp;&nbsp;%S - sekunda',
-'lastv'=>'Zapisuj datę ostatniej wizyty',
 
 'security'=>'Bezpieczeństwo i funkcje',
 'BBCode'=>'Włącz obsługę języka BBCode',

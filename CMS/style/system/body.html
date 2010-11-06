@@ -22,15 +22,19 @@
 			<!-- IF user.pms -->
 			<b><a href="url(pms)" class="mail">{lang.pms} <blink>({user.pms})</blink></a></b>
 			<!-- ELSE -->
-			<a href="url(pms)" class="mail">{lang.pms}</a>
+			<a href="url(pms)">{lang.pms}</a>
+			<!-- END -->
+
+			<!-- IF IS_EDITOR -->
+			<a href="url(edit)">{lang.mantxt}</a>
 			<!-- END -->
 
 			<!-- IF IS_ADMIN -->
-			<a href="admin" class="cpanel">{lang.cpanel}</a>
+			<a href="admin">{lang.cpanel}</a>
 			<!-- END -->
 
-			<a href="url(account)" class="settings">{lang.upanel}</a>
-			<a href="login.php?logout" class="off">{lang.logout}</a>
+			<a href="url(account)">{lang.upanel}</a>
+			<a href="login.php?logout">{lang.logout}</a>
 		</div>
 		<!-- ELSE -->
 		<div id="loginTopForm">

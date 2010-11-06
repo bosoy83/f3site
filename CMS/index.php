@@ -47,9 +47,6 @@ if(JS)
 }
 else
 {
-	#Head tag
-	if($cfg['head']) $content->head .= $cfg['head'];
-
 	#Menu
 	if(!file_exists('./cache/menu'.LANG.'.php'))
 	{

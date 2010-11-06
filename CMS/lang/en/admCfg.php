@@ -21,8 +21,6 @@ $lang+=Array(
 'footer'=>'Footer',
 'siteDesc'=>'Site description',
 'indexed'=>'Indexed by search engines.',
-'head'=>'Additional code inside',
-'head2'=>'Not required, e.g. &lt;meta&gt; or &lt;link&gt; tags.',
 'urls'=>'Fancy URLs',
 'url1'=>'Enabled - required mod_rewrite',
 'url2'=>'Enabled - required PATH_INFO',
@@ -36,7 +34,6 @@ $lang+=Array(
 'date2'=>'%d - day &nbsp;&nbsp;%m - month &nbsp;&nbsp;%y - year',
 'time1'=>'Time format',
 'time2'=>'%h - hour &nbsp;&nbsp;%i - minute &nbsp;&nbsp;%s - second',
-'lastv'=>'Save date of user last visit',
 
 'security'=>'Security and features',
 'BBCode'=>'Enable BBCode',
