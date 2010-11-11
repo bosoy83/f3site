@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{LANG}">
+<head>
+	<title>{PAGE TITLE} @ {MAIN TITLE}</title>
+	<meta name="robots" content="noindex">
+	<base href="{URL}">
+	<link rel="stylesheet" type="text/css" href="style/old/{CSS}.css">
+	<link rel="stylesheet" type="text/css" href="style/old/admin.css">
+	<script type="text/javascript" src="lib/js.js"></script>
+</head>
+<body>
+
+<div id="top"></div>
+<div id="bar">
+	<div id="today">{TODAY}</div>
+	<a href=".">{lang.mainPage}</a>
+	<a href="admin">{lang.summary}</a>
+	<a href="url(edit)">{lang.mantxt}</a>
+</div>
+<div id="mid">
+	<div id="main" class="admin">{CONTENT}</div>
+	<div id="left">{menu}</div>
+</div>
+
+<div id="footer"><a href="login.php?logout">{lang.logout}</a></div>
+
+</body>
+</html>

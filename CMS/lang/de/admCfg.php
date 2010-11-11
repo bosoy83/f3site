@@ -62,6 +62,8 @@ $lang+=Array(
 'userFind'=>'Benutzer suchen',
 'detect'=>'Native Sprache entdecken',
 'detect2'=>'Sonst standarde Sprache wird benutzt.',
+'userTop'=>'Login Form',
+'userTop2'=>'Login Form oder Links für Anwender in der Kopfzeile.',
 'bans'=>'Verbannte IP',
 'bans2'=>'Jeder IP im separaten Linie.',
 

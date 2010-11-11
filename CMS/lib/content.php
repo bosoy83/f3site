@@ -94,8 +94,13 @@ class Content
 		}
 		elseif(file_exists(SKIN_DIR . $file . '.html'))
 		{
-			$path = SKIN_DIR;
+			$path  = SKIN_DIR;
 			$cache = VIEW_DIR;
+		}
+		elseif(file_exists('style/system/' . $file . '.html'))
+		{
+			$path  = './style/system/';
+			$cache = './cache/system/';
 		}
 		else
 		{
@@ -120,7 +125,6 @@ class Content
 				exit($e->getMessage());
 			}
 		}
-
 		return $cache . $file . '.html';
 	}
 }

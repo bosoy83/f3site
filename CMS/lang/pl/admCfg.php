@@ -62,6 +62,8 @@ $lang+=Array(
 'userFind'=>'Szukanie użytkowników',
 'detect'=>'Wykryj język użytkownika',
 'detect2'=>'Jeśli żaden z ustawionych w przeglądarce języków nie będzie dostępny, zostanie użyty domyślny.',
+'userTop'=>'Formularz logowania',
+'userTop2'=>'Formularz logowania lub łącza dla zalogowanych w nagłówku.',
 'bans'=>'Zablokowane adresy IP',
 'bans2'=>'Umieść każdy adres IP w osobnej linii. Dostęp na stronę dla tych użytkowników będzie niemożliwy!',
 

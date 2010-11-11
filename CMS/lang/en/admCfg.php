@@ -62,6 +62,8 @@ $lang+=Array(
 'userFind'=>'Search users',
 'detect'=>'Detect browser language',
 'detect2'=>'If no language set in browser is available, default will be used.',
+'userTop'=>'Login form',
+'userTop2'=>'Login form or links for users in header.',
 'bans'=>'Banned IP addresses',
 'bans2'=>'Type each IP in seperate line. These users will not be able to visit this site.',
 

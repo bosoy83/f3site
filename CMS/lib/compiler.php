@@ -101,28 +101,30 @@ class Compiler
 		$in = array(
 			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}',
 			'{CATS URL}', '{MAIN TITLE}', '{PAGE TITLE}', '{DESCRIPTION}',
-			'{ROBOTS}', '{FOOTER}', '{HEAD TAGS}', "\t", "\n\n");
+			'{ROBOTS}', '{FOOTER}', '{TODAY}', '{USER PANEL}', "\t", "\n\n");
 
 		$out = array(
-			'<?php $content->display() ?>',
-			'<?php newnav(1) ?>',
-			'<?php newnav(2) ?>',
-			'<?php echo LANG ?>',
-			'<?php echo $menu ?>',
-			'<?php echo url(\'cats\') ?>',
-			'<?php echo $cfg[\'title\'] ?>',
-			'<?php echo $content->title ?>',
-			'<?php echo $content->desc ?>',
-			'<?php echo $cfg[\'robots\'] ?>',
-			'<?php echo $cfg[\'footer\'] ?>',
-			'', '', "\n"
+			'<?php $content->display();?>',
+			'<?php newnav(1);?>',
+			'<?php newnav(2);?>',
+			'<?php echo LANG;?>',
+			'<?php echo $menu;?>',
+			'<?php echo url(\'cats\');?>',
+			'<?php echo $cfg[\'title\'];?>',
+			'<?php echo $content->title;?>',
+			'<?php echo $content->desc;?>',
+			'<?php echo $cfg[\'robots\'];?>',
+			'<?php echo $cfg[\'footer\'];?>',
+			'<?php echo strftime($cfg[\'now\']);?>',
+			'<?php if(isset($cfg[\'userPanel\'])) include $content->path(\'top\',1);?>',
+			'', "\n"
 		);
 
 		#Automatycznie wstaw dodatkowe tagi do HEAD
 		if($file == 'body.html' || $file == 'admin.html')
 		{
 			$in[] = '</head>';
-			$out[] = '<?php echo $cfg[\'head\'].$content->head ?></head>';
+			$out[] = '<?php echo $content->head ?></head>';
 		}
 		$this->data = str_ireplace($in, $out, $this->data);
 

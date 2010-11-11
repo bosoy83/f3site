@@ -14,43 +14,7 @@
 <body>
 	<div id="top">
 		<a href="" class="logoTop"><img src="style/system/img/top.jpg" alt="{MAIN TITLE}"></a>
-
-		<!-- IF UID -->
-		<div id="userOptions">
-			<b><a href="url(user)">{user.login}</a></b>
-
-			<!-- IF user.pms -->
-			<b><a href="url(pms)" class="mail">{lang.pms} <blink>({user.pms})</blink></a></b>
-			<!-- ELSE -->
-			<a href="url(pms)">{lang.pms}</a>
-			<!-- END -->
-
-			<!-- IF IS_EDITOR -->
-			<a href="url(edit)">{lang.mantxt}</a>
-			<!-- END -->
-
-			<!-- IF IS_ADMIN -->
-			<a href="admin">{lang.cpanel}</a>
-			<!-- END -->
-
-			<a href="url(account)">{lang.upanel}</a>
-			<a href="login.php?logout">{lang.logout}</a>
-		</div>
-		<!-- ELSE -->
-		<div id="loginTopForm">
-			<form action="login.php" method="post">
-				<label>Login: <input name="u" class="text" /></label>
-				<label>{lang.pass}: <input name="p" class="text" /></label>
-				<div id="formOptions">
-					<div id="rememberMe">
-						<label><input type="checkbox" class="choice" name="auto" /> {lang.remlog}</label>
-					</div>
-					<input type="submit" value="{lang.logme}" class="buttonBlue" />
-					<input type="submit" name="reg" value="{lang.regme}" class="buttonOrange" />
-				</div>
-			</form>
-		</div>
-		<!-- END -->
+		{USER PANEL}
 	</div>
 	<div id="mainMenu">
 		<div id="lang">
