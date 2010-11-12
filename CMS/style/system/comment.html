@@ -1,5 +1,5 @@
 <!-- IF preview -->
-<h2>{lang.preview}</h2>
+<h1 class="headerOrange">{lang.preview}</h1>
 <div class="box">{preview}</div>
 <!-- END -->
 
@@ -48,5 +48,7 @@
 </form>
 
 <script type="text/javascript">
-new Editor(document.forms['comm'].text,1).emots()
+e = new Editor(document.forms['comm'].text,1)
+e.emots()
+e.protect()
 </script>

@@ -1,7 +1,7 @@
 Distribution and license
 ========================
 
-F3Site 3.1 - (C) 2005-2010 COMPMaster - compmaster.prv.pl
+F3Site 3.2 - (C) 2005-2011 COMPMaster - compmaster.prv.pl
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License or any later version.
 
@@ -23,7 +23,7 @@ Requirements
 
 * PHP 5.2 or newer with enabled PDO extension
 * Database: MySQL 5.0.2+ or SQLite 3+
-* PHP sessions support
+* PHP sessions
 * mod_rewrite support if you want nice URLs
 
 
@@ -54,9 +54,9 @@ To finish the installation, database user must have full privileges.
 Updates and help
 ================
 
-Official F3Site website: compmaster.prv.pl (vortal COMPMaster). You can get support at forum. WARNING! Websites with illegal or sexual contents will NOT get support.
+Visit compmaster.prv.pl to get help and find updates. WARNING! Websites with illegal or sexual contents will NOT get support.
 
-Current development version of F3Site with SVN repository, issue system and Wiki you can find at Google Code service: f3site.googlecode.com
+Current development version of F3Site with SVN repository, issue system and Wiki at Google Code service: f3site.googlecode.com
 
 
 Extensions & skins
@@ -72,7 +72,7 @@ Security
 
 2. Set 444 privilege to cfg/db.php (read only) after installation.
 
-3. KEEP YOUR PASSWORD STRICTLY PRIVATE! IF YOU GO ONLINE ON PUBLIC COMPUTERS, ALWAYS LOG OFF AFTER YOU HAVE FINISHED YOUR WORK!
+3. KEEP YOUR PASSWORD STRICTLY PRIVATE! IF YOU GO ONLINE ON PUBLIC COMPUTERS, ALWAYS LOG OFF AFTER YOU HAVE FINISHED YOUR WORK! USE PRIVATE MODE IN A WEB BROWSER IF POSSIBLE.
 
 4. Protect your computer with a good ANTIVIRUS SOFTWARE. A dangerous trojan horse is active in the Internet which steals passwords from FTP clients and injects hidden <iframe>s leading to unsafe websites and JavaScript code into your files on the server! If you notice ANY symptom of such activity, CHANGE your passwords to all FTP servers, scan your computer and upload again clean files.
 
@@ -103,7 +103,7 @@ Changing PHP options
 
 F3Site package contains 3 .htaccess files to enable Nice URL feature and affect some PHP options. However, they may be unsupported depending on server's configuration.
 
-The most important options:
+To improve security, add the following options manually into .htaccess
 
 php_flag session.use_only_cookies 1
 php_flag session.use_trans_sid 0

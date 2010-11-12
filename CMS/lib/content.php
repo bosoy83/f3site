@@ -54,6 +54,10 @@ class Content
 	#Dodaj plik CSS
 	function addCSS($file)
 	{
+		if(!strpos($file, '/'))
+		{
+			$file = SKIN_DIR.$file;
+		}
 		$this->head .= '<link rel="stylesheet" type="text/css" href="'.$file.'" />';
 	}
 

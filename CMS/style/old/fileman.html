@@ -3,13 +3,13 @@
 <head>
 	<title>File Manager</title>
 	<meta name="robots" content="noindex">
-	<link rel="stylesheet" type="text/css" href="style/system/styles.css">
+	<link rel="stylesheet" type="text/css" href="style/old/{CSS}.css">
 	<script type="text/javascript" src="lib/fileman.js"></script>
 	<style type="text/css">
-	body {width: 100%; margin: 0}
+	body {width: 100%}
 	td a {margin-left: 25px}
-	.f {background: url(img/icon/file.png) no-repeat 6px center !important}
-	.d {background: url(img/icon/folder.png) no-repeat 6px center !important}
+	tr {background: url(img/icon/file.png) no-repeat 6px center}
+	.f {background: url(img/icon/folder.png) no-repeat 6px center}
 	.tb {margin-bottom: 0}
 	</style>
 </head>
@@ -24,19 +24,19 @@
 </tr>
 
 <!-- IF parent -->
-<tr><td class="d"><a href="{parent}">{lang.parent}</a></td><td></td></tr>
+<tr class="f"><td><a href="{parent}">{lang.parent}</a></td><td></td></tr>
 <!-- END -->
 
 <!-- START folder -->
-<tr>
-	<td class="d"><a href="{url}">{name}</a></td>
+<tr class="f">
+	<td><a href="{url}">{name}</a></td>
 	<td><a href="#" onclick="return put(this)">{lang.put} &rArr;</a></td>
 </tr>
 <!-- STOP -->
 
 <!-- START file -->
 <tr>
-	<td class="f"><a href="{url}">{name}</a></td>
+	<td><a href="{url}">{name}</a></td>
 	<td><a href="#" onclick="return put(this)">{lang.put} &rArr;</a></td>
 </tr>
 <!-- STOP -->

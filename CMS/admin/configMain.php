@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Aktualizuj linki
+#Update links
 if(isset($_SESSION['renew']))
 {
 	try
@@ -73,11 +73,11 @@ else
 
 include LANG_DIR.'admCfg.php';
 
-#Skorki
+#Style
 $skin = '';
 foreach(scandir('style') as $x)
 {
-	if($x[0] != '.' && is_dir('style/'.$x) && file_exists('style/'.$x.'/1.css'))
+	if($x[0]!='.' && is_dir('style/'.$x) && file_exists('style/'.$x.'/body.html'))
 	{
 		$skin .= '<option'.($cfg['skin']==$x ? ' selected="selected"' : '').'>'.$x.'</option>';
 	}
