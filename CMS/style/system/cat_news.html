@@ -2,7 +2,7 @@
 <div class="box">
 
 <!-- START news -->
-<h2>{title}</h2>
+<h2><a href="{url}">{title}</a></h2>
 
 	<div class="newsBar">
 		<div class="date">{date}</div>
@@ -18,7 +18,7 @@
 	<div class="newsButtons">
 		<!-- IF edit_url --><a href="{edit_url}" class="blue">{lang.edit}</a><!-- END -->
 		<!-- IF full_url --><a href="{full_url}" class="orange">{lang.more}</a><!-- END -->
-		<a href="{comm_url}" class="brown"><span class="comments">{comm}</span></a>
+		<!-- IF comm_url --><a href="{comm_url}" class="brown"><span class="comments">{comm}</span></a><!-- END -->
 	</div>
 
 <!-- STOP -->

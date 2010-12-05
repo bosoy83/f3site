@@ -125,12 +125,12 @@ class Installer
 		#Menu
 		$m->execute(array(1, 'Menu', $x, 1, 3, null));
 		$menuID = $db->lastInsertId();
-		$m->execute(array(2, $lang['UA'], $x, 2, 2, './mod/panels/user.php'));
-		$m->execute(array(3, $lang['poll'], $x, 2, 2, './mod/panels/poll.php'));
-		$m->execute(array(4, $lang['cats'], $x, 1, 2, './mod/panels/cats.php'));
-		$m->execute(array(5, $lang['pages'], 0, 1, 2, './mod/panels/pages.php'));
-		$m->execute(array(6, $lang['stat'], $x, 1, 2, './mod/panels/online.php'));
-		$m->execute(array(7, $lang['new'], $x, 2, 2, './mod/panels/new.php'));
+		#$m->execute(array(2, $lang['UA'], $x, 2, 2, './mod/panels/user.php'));
+		$m->execute(array(3, $lang['cats'], $x, 1, 2, './mod/panels/cats.php'));
+		$m->execute(array(4, $lang['pages'], 2, 1, 2, './mod/panels/pages.php'));
+		$m->execute(array(5, $lang['new'], $x, 2, 2, './mod/panels/new.php'));
+		$m->execute(array(6, $lang['poll'], $x, 2, 2, './mod/panels/poll.php'));
+		$m->execute(array(7, $lang['stat'], $x, 2, 2, './mod/panels/online.php'));
 
 		#Pierwszy NEWS
 		$n->execute(array($catID, $lang['1st'], $lang['NEWS'], gmdate('Y-m-d H:i:s'), 1, 1));
@@ -291,7 +291,7 @@ class Installer
 			foreach(scandir($folder) as $file)
 			{
 				$path = $folder.'/'.$file;
-				if($file[0] != '.' && (!is_writable($path) || !is_readable($path)))
+				if($file[0]!='.' && $file[0]!='0' && (!is_writable($path) || !is_readable($path)))
 				{
 					if(is_dir($path))
 					{

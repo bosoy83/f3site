@@ -3,15 +3,16 @@
 
 <div id="tags">
 
+	<!-- IF editTags -->
+	<a class="tags" style="float: right; cursor: help" onclick="TAGS.manage({urls},this)">{lang.edit}</a>
+	<script type="text/javascript">
+	include('lang/' + document.documentElement.lang + '/edit.js')
+	include('lib/tags.js')
+	</script>
+	<!-- END -->
+
 	<!-- START tag -->
 	<a href="{url}" class="tags">{tag}</a> [{num}]
 	<!-- STOP -->
 
 </div>
-
-<!-- IF editTags -->
-<script type="text/javascript">
-URLS = ['{editTags}','{tags}/'];
-include('lang/' + document.documentElement.lang + '/edit.js', function() { include('lib/tags.js') })
-</script>
-<!-- END -->

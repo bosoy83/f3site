@@ -1,10 +1,9 @@
-<?php
-$lang = array(
-'installer' => 'F3Site 2010 Installation',
+<?php $lang = array(
+'installer' => 'F3Site 2011 Installation',
 'info' => 'Anzeige',
 'ban'  => 'F3Site wird schon installiert.',
 'noDB' => 'Der Server hat keine <b>MySQL</b> oder <b>SQLite</b>.',
-'F5'   => 'F3Site 2010 is not installed. Are you sure to terminate installation?',
+'F5'   => 'F3Site 2011 is not installed. Are you sure to terminate installation?',
 'js'   => 'Schalt JavaScript ein um der Installation abhelfen.',
 'adv'  => 'Fortgeschritten',
 'next' => 'Weiter',
@@ -20,7 +19,7 @@ $lang = array(
 'MySQL'  => 'Die populärste Datenbank-Engine (empfohlen)',
 'SQLite' => 'Die Datenbank in einem File.',
 'engine' => 'Wähl Datenbank-Engine',
-'intro'  => 'Willkommen bei F3Site 2010 Installations-Assistenten. Bevor Sie beginnen, lies die Packungsbeilage README.txt, um das Paket integriert.',
+'intro'  => 'Willkommen bei F3Site 2011 Installations-Assistenten. Bevor Sie beginnen, lies die Packungsbeilage README.txt, um das Paket integriert.',
 
 'sure' => 'Wenn du nicht Datenbank-Einstellungen wissen, sieh Hilfe: ',
 'dba'  => 'Datenbank-Zugriff Einstellungen',
@@ -80,5 +79,5 @@ Wir wünchen Euch schöne Erlebnisse mit dem System. :)',
 'e3' => 'Eingegebenen Passwörter deines Kontos sind nicht identisch!',
 'e4' => 'E-Mail-Adresse ist falsch!',
 'ok' => 'Zu Deiner Website gehen',
-'OK' => 'F3Site 2010 ist startbereit! Löschen <b>INSTALL</b> Ordner für mehr Sicherheit!<br />Nach der Anmeldung geh zur <b>Admin-Panel</b> um das System zu konfigurieren.',
+'OK' => 'F3Site 2011 ist startbereit! Löschen <b>INSTALL</b> Ordner für mehr Sicherheit!<br />Nach der Anmeldung geh zur <b>Admin-Panel</b> um das System zu konfigurieren.',
 );

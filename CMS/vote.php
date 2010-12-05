@@ -20,14 +20,14 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	#Referer
 	$ref = isset($_SERVER['HTTP_REFERER']) ? clean($_SERVER['HTTP_REFERER']) : '';
 
+	#AJAX
+	if(JS) require LANG_DIR.'special.php';
+
 	#Zalogowany?
 	if(!UID && !isset($cfg['grate']))
 	{
 		if(JS) exit($lang[9]); else $content->message(9, $ref);
 	}
-
-	#AJAX
-	if(JS) require LANG_DIR.'special.php';
 
 	#Czy oceniany ID istnieje i jest w³±czony
 	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))

@@ -21,6 +21,7 @@ var lang={
 add:'neu',
 edit:'ändern',
 tags:'Tags auswählen',
+addtag:'Neue Tag (nur Buchstaben, Ziffern oder Leerschlag)',
 adr:'Schreib die Addresse der Website:',
 adr2:'Schreib den Name der Website:',
 mail:'E-mail',

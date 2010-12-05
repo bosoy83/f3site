@@ -21,6 +21,7 @@ var lang={
 add:'add',
 edit:'edit',
 tags:'Select tags',
+addtag:'Enter new tag (only letters, digits or space)',
 adr:'Type the address of page:',
 adr2:'Type text visible as a link to the page:',
 mail:'E-mail',

@@ -33,6 +33,9 @@ foreach($res as $n)
 		'comm'  => $n['comm'],
 		'img'   => $n['img'],
 
+		#Glowny URL
+		'url' => $fullURL.$n['ID'],
+
 		#Komentarze URL
 		'comm_url' => $comm ? $fullURL.$n['ID'] : false,
 

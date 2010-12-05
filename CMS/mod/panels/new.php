@@ -2,11 +2,11 @@
 if(iCMS!=1) exit;
 
 #Istnieje?
-if(file_exists('./cache/new-'.LANG.'.php'))
+if(file_exists('cache/new-'.LANG.'.php') && $x = file_get_contents('cache/new-'.LANG.'.php'))
 {
-	include './cache/new-'.LANG.'.php';
+	echo $x; unset($x);
 }
 else
 {
-	echo '<div style="text-align: center">'.$lang['lack'].'</div>';
+	echo '<div style="text-align: center; margin: 5px 0">'.$lang['lack'].'</div>';
 }

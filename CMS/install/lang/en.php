@@ -1,9 +1,9 @@
 <?php $lang = array(
-'installer' => 'F3Site 2010 installer',
+'installer' => 'F3Site 2011 installer',
 'info' => 'Message',
-'ban'  => 'F3Site 2010 has been already installed.',
+'ban'  => 'F3Site 2011 has been already installed.',
 'noDB' => 'Serwer does NOT support <b>MySQL</b> or <b>SQLite</b> databases. Installation terminated.',
-'F5'   => 'F3Site 2010 is not installed. Are you sure to terminate installation?',
+'F5'   => 'F3Site 2011 is not installed. Are you sure to terminate installation?',
 'js'   => 'Enable JavaScript in your browser to make the installation easier.',
 'adv'  => 'Advanced',
 'next' => 'Next',
@@ -19,7 +19,7 @@
 'MySQL'  => 'The most popular database engine (recommended)',
 'SQLite' => 'Database in one file working as PHP module.',
 'engine' => 'Select database engine',
-'intro'  => 'Welcome to F3Site 2010 installation wizard. Before you start, read the leaflet README.txt embedded to the package.',
+'intro'  => 'Welcome to F3Site 2011 installation wizard. Before you start, read the leaflet README.txt embedded to the package.',
 
 'sure' => 'If you do not know database settings, look up FAQ or help topics: ',
 'dba'  => 'Database access settings',
@@ -79,5 +79,5 @@ We wish you pleasant work with this vortal system :)',
 'e3' => 'Entered passwords to Your account do NOT pass!',
 'e4' => 'E-mail address is wrong!',
 'ok' => 'Go to the website',
-'OK' => 'F3Site 2010 has been installed! Delete <b>INSTALL</b> folder for better security!<br />After you have logged in, go to <b>admin panel</b> to configure the system.',
+'OK' => 'F3Site 2011 has been installed! Delete <b>INSTALL</b> folder for better security!<br />After you have logged in, go to <b>admin panel</b> to configure the system.',
 );

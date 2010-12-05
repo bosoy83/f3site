@@ -21,6 +21,7 @@ var lang={
 add:'dodaj',
 edit:'edytuj',
 tags:'Wybierz słowa kluczowe',
+addtag:'Wpisz nazwę tagu (tylko litery, cyfry lub spacja)',
 adr:'Wpisz adres strony:',
 adr2:'Wpisz tekst widoczny jako link do strony:',
 mail:'E-mail',

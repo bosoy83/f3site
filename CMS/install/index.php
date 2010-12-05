@@ -140,7 +140,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'pre'   => 'f3_',
 		'login' => 'Admin',
 		'mail'  => '@',
-		'skin'  => 'default',
+		'skin'  => 'system',
 		'file'  => is_writable('..') ? '../db.db' : 'cfg/db.db',
 		'samp'  => true,
 		'url'   => URL,

@@ -23,8 +23,8 @@ function tags($id, $type, $mayTag=false)
 
 	$content->file[] = 'tag';
 	$content->data['tag'] = $tag;
-	$content->data['tags'] = url('tags');
-	$content->data['editTags'] = $may ? 'request.php?go=tags&type='.$type.'&id='.$id : false;
+	$content->data['editTags'] = $may;
+	$content->data['urls'] = "['$url','request.php?go=tags&type=$type&id=$id']";
 
 	endif;
 }

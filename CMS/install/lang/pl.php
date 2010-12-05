@@ -1,10 +1,9 @@
-<?php
-$lang = array(
-'installer' => 'Instalator F3Site 2010',
+<?php $lang = array(
+'installer' => 'Instalator F3Site 2011',
 'info' => 'Komunikat',
-'ban'  => 'F3Site 2010 został już zainstalowany.',
+'ban'  => 'F3Site 2011 został już zainstalowany.',
 'noDB' => 'Serwer nie obsługuje baz danych <b>MySQL</b> ani <b>SQLite</b>. Instalacja jest niemożliwa.',
-'F5'   => 'F3Site 2010 nie został jeszcze zainstalowany. Czy na pewno zakończyć działanie kreatora?',
+'F5'   => 'F3Site 2011 nie został jeszcze zainstalowany. Czy na pewno zakończyć działanie kreatora?',
 'js'   => 'Włącz obsługę skryptów JavaScript, aby ułatwić proces instalacji.',
 'adv'  => 'Zaawansowane',
 'next' => 'Dalej',
@@ -20,7 +19,7 @@ $lang = array(
 'MySQL'  => 'Najpopularniejszy silnik baz danych (zalecany)',
 'SQLite' => 'Baza danych w 1 pliku. Działa jako moduł PHP i nie wymaga dodatkowego serwera.',
 'engine' => 'Wybierz silnik bazy danych',
-'intro'  => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2010. Zanim przejdziesz dalej, zapoznaj się z dołączoną ulotką - CZYTAJ PL.txt.',
+'intro'  => 'Witamy w kreatorze instalacji polskiego systemu wortalowego F3Site 2011. Zanim przejdziesz dalej, zapoznaj się z dołączoną ulotką - CZYTAJ PL.txt.',
 
 'sure' => 'Jeśli nie wiesz, co wpisać w poniższe pola, zajrzyj do FAQ lub działu pomocy: ',
 'dba'  => 'Dane dostępowe do bazy danych',
@@ -80,5 +79,5 @@ $lang = array(
 'e3' => 'Wpisane hasła nie są identyczne.',
 'e4' => 'Adres e-mail jest nieprawidłowy.',
 'ok' => 'Przejdź do serwisu',
-'OK' => 'F3Site 2010 został zainstalowany. W celu bezpieczeństwa katalog <b>INSTALL</b>!<br />Po zalogowaniu przejdź do <b>panelu administracyjnego</b>, aby skonfigurować system.',
+'OK' => 'F3Site 2011 został zainstalowany. W celu bezpieczeństwa usuń katalog <b>INSTALL</b>!<br />Po zalogowaniu przejdź do <b>panelu administracyjnego</b>, aby skonfigurować system.',
 );

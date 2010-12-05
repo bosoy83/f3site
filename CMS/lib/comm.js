@@ -7,12 +7,13 @@ function comment(o)
 		{
 			var http = new Request(o.href, $('com'));
 
-			//Przejmij kontrolê nad formularzem
+			//Przejmij kontrole nad formularzem
 			http.done = function(x)
 			{
 				if(x.indexOf('<form') == -1)
 				{
 					http.scripts = 0;
+					onbeforeunload = null;
 					$('comments').innerHTML = x;
 					if(window.prettyPrint) prettyPrint();
 				}
@@ -30,7 +31,7 @@ function comment(o)
 		})
 	});
 
-	//Zast±p link tekstem: czekaj
+	//Zastap link tekstem: czekaj
 	o.parentNode.innerHTML = lang.wait;
 	return false;
 }
@@ -55,4 +56,4 @@ function coma(act,o)
 }
 
 //Wczytaj plik jêzyka
-if(!window.lang) include('lang/' + document.documentElement.lang + '/edit.js');
+include('lang/' + document.documentElement.lang + '/edit.js');

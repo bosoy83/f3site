@@ -1,84 +1,80 @@
-var oTag  = $('tags'), oWin, oHttp, inputs = [], allTags = {},
+TAGS={
 
-//Add floating DIV element
-oEdit = document.createElement('div');
-oEdit.className = 'tags';
-oEdit.style.cssFloat = oEdit.style.styleFloat = 'right';
-oEdit.style.cursor = 'pointer';
-oEdit.innerHTML = oTag.innerHTML == 0 ? lang.add : lang.edit;
+all: {},
+inputs: [],
+box: $('tags'),
+win: null,
 
 //Show dialog window if user clicks DIV
-oEdit.onclick = function()
+manage: function(url,edit)
 {
-	if(!oWin)
+	if(!this.win)
 	{
-		oWin = new Dialog(lang.tags, '', 420, 380);
-		oHttp = new Request(URLS[0], oWin.body, {done: function(tags)
+		this.win = new Dialog(lang.tags, '', 420, 380);
+		this.http = new Request(url[1], this.win.body, {done: function(tags)
 		{
 			//Parse JSON code
 			tags = getJSON(tags);
 
 			//Change AJAX behavior
-			oHttp.done = function(x)
+			TAGS.http.done = function(x)
 			{
 				x = getJSON(x);
-				oTag.innerHTML = '';
-				oTag.insertBefore(oEdit, oTag.firstChild);
+				TAGS.box.removeChild(TAGS.edit);
+				TAGS.box.innerHTML = '';
 
 				//Build tags from scratch
 				for(var i in x)
 				{
 					var a = document.createElement('a');
-					a.href = URLS[1] + x[i];
+					a.href = url[0] + x[i];
 					a.className = 'tags';
-					a.innerHTML = x[i] + ' ['+(allTags[x[i]] ? allTags[x[i]] : '1')+'] ';
-					oTag.appendChild(a)
+					a.innerHTML = x[i] + ' ['+(TAGS.all[x[i]] ? TAGS.all[x[i]] : '1')+'] ';
+					TAGS.box.appendChild(a)
 				}
+				TAGS.box.appendChild(TAGS.edit);
 			};
 
 			//Build checkboxes
 			for(var i=0, len=tags.length; i<len; i++)
 			{
-				allTags[tags[i][0]] = tags[i][2];
-				createTag(tags[i][0], tags[i][1], tags[i][2], 1)
+				TAGS.all[tags[i][0]] = tags[i][2];
+				TAGS.create(tags[i][0], tags[i][1], tags[i][2], 1)
 			}
 
 			//New tag
-			var newTag = createTag(lang.add + '...', 0);
+			var newTag = TAGS.create(lang.add + '...', 0);
 			newTag.onclick = function()
 			{
-				var txt = prompt(lang.add);
-				if(txt) createTag(txt, 1, 1, 1, this.parentNode.parentNode);
+				var txt = prompt(lang.addtag);
+				if(txt!=0) TAGS.create(txt.substr(0,30), 1, 1, 1, this.parentNode.parentNode);
 				this.checked = 0
 			};
 
 			//Build ADD button
-			input = document.createElement('button');
+			var input = document.createElement('button');
 			input.style.display = 'block';
 			input.style.margin = '15px auto';
 			input.innerHTML = '<b>OK</b>';
 			input.onclick = function()
 			{
-				var i, post = [];
-				for(var i=0, len=inputs.length; i<len; i++)
+				for(var i=0, len=TAGS.inputs.length, post=[]; i<len; i++)
 				{
-					if(inputs[i].checked) post.push(inputs[i].name)
+					if(TAGS.inputs[i].checked) post.push(TAGS.inputs[i].name)
 				}
-				oWin.hide();
-				oHttp.post(post)
+				TAGS.win.hide();
+				TAGS.http.post(post)
 			};
-			oWin.body.appendChild(input);
+			TAGS.win.body.appendChild(input)
 		}});
-		oHttp.get()
+		TAGS.http.get();
+		TAGS.edit = edit;
 	}
-	oWin.show()
-};
-
-//Insert in the beginning of parent DIV
-oTag.insertBefore(oEdit, oTag.firstChild);
+	TAGS.win.show()
+},
 
 //Add tag
-function createTag(name, checked, num, toIndex, before)
+create: function(name, checked, num, toIndex, before)
 {
 	var div = document.createElement('div'),
 	label = document.createElement('label'),
@@ -92,7 +88,8 @@ function createTag(name, checked, num, toIndex, before)
 	div.style.width = '50%';
 	div.appendChild(label);
 
-	if(toIndex) inputs.push(input);
-	if(before) oWin.body.insertBefore(div, before); else oWin.body.appendChild(div);
+	if(toIndex) this.inputs.push(input);
+	if(before) this.win.body.insertBefore(div, before); else this.win.body.appendChild(div);
 	return input;
+}
 }

@@ -63,7 +63,7 @@
 'rate'=>'Ocena',
 'ratedo'=>'oceń',
 'rates'=>'ocen',
-'regme'=>'Załóż konto',
+'regme'=>'Dołącz',
 'remlog'=>'Zapamiętaj mnie',
 'reset'=>'Cofnij zmiany',
 'results'=>'Wyniki',

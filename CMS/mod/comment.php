@@ -226,7 +226,7 @@ else
 }
 
 #B³±d?
-if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
+if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>',null,'error');
 
 #Szablon
 $content->data = array(
