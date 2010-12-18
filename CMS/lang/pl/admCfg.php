@@ -76,6 +76,7 @@ $lang+=Array(
 'colorCode'=>'Koloruj kod w znaczniku [code]',
 'moderate'=>'Cenzura komentarzy',
 'moder2'=>'Komentarze będą widoczne dla wszystkich po ich zatwierdzeniu przez moderatorów.',
+'maxlen'=>'Limit znaków',
 'guestComm'=>'Pozwól gościom komentować',
 'guest2'=>'Czy niezarejestrowani mogą pisać komentarze?',
 'hasURL'=>'Zezwól gościom umieszczać linki',

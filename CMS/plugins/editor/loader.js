@@ -1,55 +1,77 @@
 function Editor(O, bbcode)
 {
-	var that = this;
-	if(!Editor.loaded)
-	{
-		include('plugins/editor/tiny_mce.js');
-		Editor.loaded = true;
-	}
-	var init = function()
+	try
 	{
 		if(!O.id) O.id = O.name;
-		that.o = tinymce.add(new tinymce.Editor(O.id, {
-
-			//Global settings
-			dialog_type: 'modal',
-			gecko_spellcheck: true,
-			document_base_url: document.baseURI,
-
-			//Entities - UTF-8 needs only critical characters
-			entities: '160,nbsp,38,amp,60,lt,62,gt',
-
-			//Theme
-			theme: 'advanced',
-			theme_advanced_resizing: true,
-			theme_advanced_toolbar_location: 'top',
-			theme_advanced_toolbar_align: 'left',
-			theme_advanced_statusbar_location: 'bottom',
-
-			//Formats
-			theme_advanced_blockformats: 'p,div,h3,h4,blockquote,dt,dd,code,samp',
-
-			//Plugins
-			plugins: 'inlinepopups,safari,table,media,emotions,contextmenu,searchreplace,autoresize',
-
-			//Buttons
-			theme_advanced_buttons1: 'formatselect,fontselect,fontsizeselect,table,image,media,charmap,emotions,|,replace,|,code,help,|,undo,redo',
-
-			theme_advanced_buttons2: 'cut,copy,paste,removeformat,|,bold,italic,underline,strikethrough,|,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,|,numlist,bullist,|,blockquote,link,|,forecolor,backcolor',
-
-			theme_advanced_buttons3: ''
-		}));
-		that.o.render();
-	};
-
-	//If DOM ready, load editor, else add event
-	if(Editor.DOM) setTimeout(init,500);
-	else addEvent('load', function() { init(); Editor.DOM = true })
+		if(window.tinyMCE)
+		{
+			//this.o = tinyMCE.add(new tinymce.Editor(O.id));
+			//this.o.render()
+			tinyMCE.execCommand('mceAddControl', false, O.id);
+		}
+		else
+		{
+			Editor.list.push(O.id);
+			Editor.got || this.load()
+		}
+	}
+	catch(e)
+	{
+		if(confirm('Cannot load TinyMCE editor. Show error?')) alert(e)
+	}
 }
 
-Editor.loaded = Editor.DOM = false;
+//ID list and unused functions
+Editor.got = false;
+Editor.list = [];
 Editor.prototype.emots = function() {};
 Editor.prototype.protect = function() {};
+
+//Init TinyMCE
+Editor.prototype.load = function()
+{
+	Editor.got = true;
+	include('plugins/editor/tiny_mce.js', function() { tinyMCE.init({
+
+		//Global settings
+		mode: 'exact',
+		elements: Editor.list.join(),
+		dialog_type: 'modal',
+		language: document.documentElement.lang || 'en',
+		gecko_spellcheck: true,
+		strict_loading_mode: true,
+		content_css: document.styleSheets[0].href,
+		document_base_url: document.baseURI,
+
+		//Entities - UTF-8 needs only critical characters
+		entities: '160,nbsp,38,amp,60,lt,62,gt',
+
+		//Theme
+		theme: 'advanced',
+		theme_advanced_resizing: true,
+		theme_advanced_toolbar_location: 'top',
+		theme_advanced_toolbar_align: 'left',
+		theme_advanced_statusbar_location: 'bottom',
+
+		//Formats
+		theme_advanced_blockformats: 'p,div,h3,h4,blockquote,dt,dd,code,samp',
+
+		//No horizontal resizing
+		theme_advanced_resize_horizontal : false,
+
+		//Plugins
+		plugins: 'inlinepopups,safari,table,media,emotions,contextmenu,searchreplace',
+
+		//Buttons
+		theme_advanced_buttons1: 'formatselect,fontselect,fontsizeselect,table,image,media,charmap,emotions,replace,code,help,undo,redo',
+
+		theme_advanced_buttons2: 'cut,copy,paste,removeformat,|,bold,italic,underline,strikethrough,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,numlist,bullist,blockquote,link,forecolor,backcolor',
+
+		theme_advanced_buttons3: ''
+	})});
+}
+
+//Custom preview method
 Editor.prototype.preview = function(opt,where,text) {
 	if(this.box == undefined && !where)
 	{

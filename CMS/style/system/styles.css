@@ -1,7 +1,3 @@
-html {
-background: url(img/headerBg.jpg) repeat-x #fff
-}
-
 body {
 	margin: 0 auto;
 	padding: 0;
@@ -37,7 +33,7 @@ form {margin: 0}
 	height: 157px;
 	display: block;
 	overflow: hidden;
-	/*background: url(img/headerBg.jpg) repeat-x #fff*/
+	background: url(img/headerBg.jpg) repeat-x #fff
 }
 a.logoTop {
 	float: left;
@@ -348,7 +344,7 @@ ul.cats li {
 .tb th {padding: 5px; background: url(img/boxBg.jpg) repeat-x #FFF}
 .tb td {padding: 5px} /*bg color + important */
 .tb .eth {text-align: center; background-color: #F8F8F8 !important}
-.tb tr:nth-child(even) td {background-color: #F8F8F8 !important}
+.tb tr:nth-child(even)>td {background-color: #F8F8F8 !important}
 
 /* BUTTONS */ 
 .orange, .blue, .brown, .pollView {

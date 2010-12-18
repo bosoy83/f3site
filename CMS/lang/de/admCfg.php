@@ -76,6 +76,7 @@ $lang+=Array(
 'colorCode'=>'Code in [code] highlighten',
 'moderate'=>'Kommentare Moderation',
 'moder2'=>'Kommentare müssen akzieptert werden.',
+'maxlen'=>'Maximale Anzahl der Zeichen',
 'guestComm'=>'Gäste mögen kommentieren',
 'guest2'=>'Betrifft unregistriert Besucher.',
 'hasURL'=>'Gäste mögen Links posten',

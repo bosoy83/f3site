@@ -74,6 +74,7 @@ $lang+=Array(
 'colorCode'=>'Highlight code in [code] tag',
 'moderate'=>'Moderate comments',
 'moder2'=>'Comments will be visible for everyone after approving them by moderators.',
+'maxlen'=>'Maximum comment length',
 'commSort'=>'Sorting of comments',
 'commSort1'=>'Descending',
 'commSort2'=>'Ascending',

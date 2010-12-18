@@ -93,8 +93,11 @@ if($_POST)
 		'text' => clean($_POST['text'], 0, 1)
 	);
 
-	#D³ugo¶æ
-	if(isset($c['name'][51]) || isset($c['text'][1999]))
+	#Max text length
+	$max = empty($cfg['maxlen']) ? 1999 : (int)$cfg['maxlen'];
+
+	#Check length
+	if(isset($c['text'][$max]))
 	{
 		$error[] = $lang['c5'];
 	}

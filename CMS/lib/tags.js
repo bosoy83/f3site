@@ -47,11 +47,11 @@ manage: function(url,edit)
 			newTag.onclick = function()
 			{
 				var txt = prompt(lang.addtag);
-				if(txt!=0) TAGS.create(txt.substr(0,30), 1, 1, 1, this.parentNode.parentNode);
+				if(txt!=null && txt!=0) TAGS.create(txt.substr(0,30), 1, 1, 1, this.parentNode.parentNode);
 				this.checked = 0
 			};
 
-			//Build ADD button
+			//Build OK button
 			var input = document.createElement('button');
 			input.style.display = 'block';
 			input.style.margin = '15px auto';
@@ -65,12 +65,14 @@ manage: function(url,edit)
 				TAGS.win.hide();
 				TAGS.http.post(post)
 			};
-			TAGS.win.body.appendChild(input)
+			TAGS.win.body.appendChild(input);
+			TAGS.inputs[0].focus()
 		}});
-		TAGS.http.get();
-		TAGS.edit = edit;
+		this.http.get();
+		this.edit = edit;
+		addEvent('keydown', function(x) { if(x.keyCode==27) TAGS.win.hide() }, document)
 	}
-	TAGS.win.show()
+	this.win.show()
 },
 
 //Add tag
