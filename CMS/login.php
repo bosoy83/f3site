@@ -4,6 +4,8 @@ require 'kernel.php';
 
 #Gdzie przekierowaæ
 $from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : '';
+$ref = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+$to = empty($from) && strpos($ref,URL)===0 ? $_SERVER['HTTP_REFERER'] : URL;
 
 #Wyloguj
 if(isset($_GET['logout']) && UID)
@@ -11,7 +13,7 @@ if(isset($_GET['logout']) && UID)
 	session_destroy();
 	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-31104000);
 	header('Location: '.URL);
-	$content->message(4, '.');
+	$content->message(4, URL);
 	exit;
 }
 
@@ -64,8 +66,8 @@ elseif(!UID && !empty($_POST['u']) && !empty($_POST['p']))
 		{
 			unset($_SESSION['online']);
 		}
-		header('Location: '.URL.$from);
-		$content->message(1, $from ? $from : '.');
+		header('Location: '.$to.$from);
+		$content->message(1, $from ? $from : $to);
 	}
 	else
 	{

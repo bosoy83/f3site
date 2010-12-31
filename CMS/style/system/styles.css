@@ -180,7 +180,7 @@ a.logoTop {
 	border-bottom: 1px solid #eaeaea;
 	text-decoration: none;
 	color: #4d4d4d;
-	background: url(img/ico/arrow_r.png) 11px 9px no-repeat
+	background: url(img/arrow_r.png) 11px 9px no-repeat
 }
 .menu ul a:hover {background-color: #ededed}
 
@@ -303,12 +303,12 @@ ul.cats li {
 	float: left;
 	padding-left: 18px;
 	margin-right: 10px;
-	background: url(img/ico/date.png) no-repeat
+	background: url(img/date.png) no-repeat
 }
 .newsBar .author {
 	float: left;
 	padding-left: 18px;
-	background: url(img/ico/user.png) no-repeat
+	background: url(img/user.png) no-repeat
 }
 .newsimg {
 	float:left;
@@ -316,7 +316,7 @@ ul.cats li {
 }
 .comments {
 	padding-left: 22px;
-	background: url(img/ico/comments.png) no-repeat
+	background: url(img/comments.png) no-repeat
 }
 .newsButtons {
 	margin: 9px 0;

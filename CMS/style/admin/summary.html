@@ -10,23 +10,21 @@
 	<h3>System</h3>
 	<p style="margin: 8px">F3Site {version} + {engine}</p>
 	<p style="margin: 8px">{PHP_OS}, {server}</p>
+	<h3>{lang.notepad}</h3>
+	<p style="margin: 8px" id="nt">
+		<form action="" method="post">
+			<textarea name="notes" rows="5" cols="50" style="width: 99%">{notes}</textarea>
+			<input type="submit" value="{lang.save}" style="float: center" />
+		</form>
+	</p>
 </div>
-
-<h1>{lang.notepad}</h1>
-<div class="box" id="nt" style="text-align: center">
-	<form action="" method="post">
-		<textarea name="notes" rows="5" cols="50" style="width: 99%">{notes}</textarea>
-		<input type="submit" value="{lang.save}" style="float: center" />
-	</form>
-</div>
-
 <script type="text/javascript">
 note = document.createElement('div')
 f = document.forms[0]
 show(f)
 note.innerHTML = (f[0].value == 0) ? '<div class="edit">{lang.edit}</div>' : f[0].value
 note.style.cursor = 'pointer'
-note.style.whiteSpace = 'pre-wrap';
+note.style.whiteSpace = 'pre-wrap'
 note.title = '{lang.edit}'
 note.onclick = function() { show(f); show(note) }
 $('nt').appendChild(note)

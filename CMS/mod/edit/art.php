@@ -4,19 +4,33 @@ if(EC!=1) exit;
 #Zapisz jako nowy
 if(isset($_POST['asNew'])) $id = 0;
 
-#Tytu³ i szablon
+#Tytul i szablon
 $content->title = $id ? $lang['edit1'] : $lang['add1'];
 $content->file = 'edit_art';
 
 if($_POST)
 {
-	#Ilo¶æ stron
 	$num = count($_POST['txt']);
 	$full = array();
 
+	#Strony + encje do PRE i CODE
+	for($i=0; $i<$num; ++$i)
+	{
+		if(empty($_POST['txt'][$i])) continue;
+		if(isset($_POST['code'][$i]))
+		{
+			$_POST['txt'][$i] = preg_replace_callback(array(
+			'#<(pre)([^>]*)>(.*?)</pre>#si',
+			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
+			'return "<$x[1]$x[2]>".htmlspecialchars($x[3],0)."</$x[1]>";'), $_POST['txt'][$i]);
+		}
+		$full[] = array($i+1, &$_POST['txt'][$i], isset($_POST['br'][$i]) +
+			(isset($_POST['emo'][$i]) ? 2 : 0) + (isset($_POST['code'][$i]) ? 4 : 0));
+	}
+
 	#Nowe dane
 	$art = array(
-	'pages' => $num,
+	'pages' => count($full),
 	'cat'   => (int)$_POST['cat'],
 	'dsc'   => clean($_POST['dsc']),
 	'name'  => clean($_POST['name']),
@@ -24,24 +38,8 @@ if($_POST)
 	'access'  => isset($_POST['access']),
 	'priority'=> (int)$_POST['priority']);
 
-	#Strony + wstaw encje do PRE i CODE
-	for($i=0; $i<$num; ++$i)
-	{
-		$full[] = array( $i+1, &$_POST['txt'][$i], (isset($_POST['br'][$i]) ? 1 : 0) +
-			(isset($_POST['emo'][$i]) ? 2 : 0) + (isset($_POST['code'][$i]) ? 4 : 0) );
-
-		if($full[$i][2] & 4)
-		{
-			$full[$i][1] = preg_replace_callback(array(
-			'#<(pre)([^>]*)>(.*?)</pre>#si',
-			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
-			'return "<$x[1]$x[2]>".htmlspecialchars($x[3],0)."</$x[1]>";'), $full[$i][1]);
-		}
-	}
-
 	try
 	{
-		#Klasa
 		$e = new Saver($art,$id,'arts');
 
 		#Zapytanie
@@ -60,20 +58,20 @@ if($_POST)
 		#Nowe ID
 		if(!$id) $id = $db->lastInsertId();
 
-		#Pe³na tre¶æ
+		#Pelna tresc
 		$q = $db->prepare('REPLACE INTO '.PRE.'artstxt (id,page,cat,text,opt)
 			VALUES ('.$id.',?,'.$art['cat'].',?,?)');
 
-		#Tre¶æ
-		for($i=0; $i<$num; ++$i) $q->execute($full[$i]);
+		#Tresc
+		foreach($full as &$x) $q->execute($x);
 
-		#Usuñ inne
-		$db->exec('DELETE FROM '.PRE.'artstxt WHERE ID='.$id.' AND page>'.$num);
+		#Usun inne
+		$db->exec('DELETE FROM '.PRE.'artstxt WHERE ID='.$id.' AND page>'.count($full));
 
-		#Zatwierd¼
+		#Zatwierdz
 		$e->apply();
 
-		#Przekieruj do artyku³u
+		#Przekieruj do artykulu
 		if(isset($_GET['ref']) && is_numeric($_GET['ref']))
 		{
 			$page = $_GET['ref']>1 && isset($full[$_GET['ref']-1]) ? '/'.$_GET['ref'] : '';
@@ -95,8 +93,6 @@ if($_POST)
 		$content->info($e->getMessage());
 	}
 }
-
-#FORM - Odczyt
 else
 {
 	if($id)
@@ -108,9 +104,9 @@ else
 		#Prawa
 		if(!$art || !admit($art['cat'],'CAT',$art['author'])) return;
 
-		#Pobierz tre¶æ
+		#Pobierz tresc
 		$res = $db->query('SELECT page,text,opt FROM '.PRE.'artstxt WHERE ID='.$id.' ORDER BY page');
-		$full = $res->fetchAll(3); //NUM
+		$full = $res->fetchAll(3);
 		$res = null;
 		if(!$full) $full = array(array(1,'',1));
 	}
@@ -126,13 +122,13 @@ else
 #Pola checkbox
 foreach($full as $key=>&$val)
 {
-	$full[$key] += array('br' => $val[2]&1, 'emo' => $val[2]&2, 'code' => $val[2]&4);
+	$full[$key] = array('page'=>$val[0], 'txt'=>$val[1], 'br'=>$val[2]&1, 'emo'=>$val[2]&2, 'code'=>$val[2]&4);
 	if($full[$key]['code'])
 	{
-		$full[$key][1] = preg_replace_callback(array(
+		$full[$key]['txt'] = preg_replace_callback(array(
 			'#<(pre)([^>]*)>(.*?)</pre>#si',
 			'#<(code)([^>]*)>(.*?)</code>#si'), create_function('$x',
-			'return "<$x[1]$x[2]>".htmlspecialchars_decode($x[3],0)."</$x[1]>";'), $full[$key][1]);
+			'return "<$x[1]$x[2]>".htmlspecialchars_decode($x[3],0)."</$x[1]>";'), $full[$key]['txt']);
 	}
 }
 

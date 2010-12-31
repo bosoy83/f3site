@@ -32,7 +32,7 @@
 			<img src="{photo}" alt="{user}" />
 		</div>
 		<!-- END -->
-
+		
 		<!-- IF del -->
 		<a href="{del}" onclick="return coma('del',this)"><img src="img/icon/del.png" alt="-" /></a>
 		<!-- END -->
@@ -40,14 +40,15 @@
 		<!-- IF edit -->
 		<a href="{edit}"><img src="img/icon/edit.png" alt="E" /></a>
 		<!-- END -->
-
+		
 		<!-- IF accept -->
 		<a href="{accept}" onclick="return coma('ok',this)"><img src="img/icon/accept.png" alt="+" /></a>
 		<!-- END -->
 
 	</td>
 	<td valign="top" style="max-width: 406px; word-wrap: break-word">
-		<h3>{title}</h3>{text}
+		<small style="float: right">{date}</small>
+		<h3 style="clear: left">{title}</h3>{text}
 	</td>
 </tr>
 <!-- STOP -->
