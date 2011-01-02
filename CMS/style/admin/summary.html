@@ -22,7 +22,7 @@
 note = document.createElement('div')
 f = document.forms[0]
 show(f)
-note.innerHTML = (f[0].value == 0) ? '<div class="edit">{lang.edit}</div>' : f[0].value
+note.innerHTML = (f[0].value == 0) ? '<div class="edit">{lang.edit}</div>' : f[0].innerHTML
 note.style.cursor = 'pointer'
 note.style.whiteSpace = 'pre-wrap'
 note.title = '{lang.edit}'

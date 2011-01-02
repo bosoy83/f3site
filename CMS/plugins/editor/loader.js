@@ -2,18 +2,19 @@ function Editor(O, bbcode)
 {
 	try
 	{
-		if(!O.id) O.id = O.name;
+		if(!O.id) O.id = 'tiny' + Editor.num++;
 		if(window.tinyMCE)
 		{
 			//this.o = tinyMCE.add(new tinymce.Editor(O.id));
 			//this.o.render()
-			tinyMCE.execCommand('mceAddControl', false, O.id);
+			tinyMCE.execCommand('mceAddControl', false, O.id)
 		}
 		else
 		{
 			Editor.list.push(O.id);
 			Editor.got || this.load()
 		}
+		this.id = O.id
 	}
 	catch(e)
 	{
@@ -23,6 +24,7 @@ function Editor(O, bbcode)
 
 //ID list and unused functions
 Editor.got = false;
+Editor.num = 1;
 Editor.list = [];
 Editor.prototype.emots = function() {};
 Editor.prototype.protect = function() {};
@@ -73,12 +75,13 @@ Editor.prototype.load = function()
 
 //Custom preview method
 Editor.prototype.preview = function(opt,where,text) {
+	var e = tinyMCE.editors[this.id];
 	if(this.box == undefined && !where)
 	{
 		this.box = document.createElement('div');
 		this.box.className = 'preview';
-		this.o.getElement().form.parentNode.insertBefore(this.box, this.o.getElement().form)
+		e.getElement().form.parentNode.insertBefore(this.box, e.getElement().form)
 	}
-	this.box.innerHTML = this.o.getContent();
+	this.box.innerHTML = e.getContent();
 	this.box.scrollIntoView()
 };

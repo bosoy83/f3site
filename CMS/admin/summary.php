@@ -8,7 +8,7 @@ if($_POST && isset($_POST['notes']))
 		touch('./cfg/notes.txt');
 		chmod('./cfg/notes.txt', 0600);
 	}
-	$notes = clean($_POST['notes'], 999, 1);
+	$notes = clean($_POST['notes'], 9999, 1);
 	file_put_contents('./cfg/notes.txt', $notes, 2);
 }
 elseif(file_exists('./cfg/notes.txt'))

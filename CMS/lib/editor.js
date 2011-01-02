@@ -103,7 +103,7 @@ Editor.prototype.create = function()
 Editor.prototype.protect = function(text)
 {
 	var self = this;
-	onbeforeunload = function()
+	onbeforeunload = function(e)
 	{
 		if(self.o.value != 0)
 		{
@@ -149,7 +149,7 @@ Editor.prototype.format = function(i)
 			var a = prompt(lang.img);
 			if(a)
 				if(this.bbcode)
-					BBC(this.o, '[url]', '[/url]\n', a);
+					BBC(this.o, '[img]', '[/img]\n', a);
 				else
 					BBC(this.o,'<img src="','" />');
 	}

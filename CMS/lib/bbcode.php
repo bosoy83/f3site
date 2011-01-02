@@ -68,8 +68,27 @@ function BBCode($x, $exc=false)
 			'#[\n ]+(http+s?://[a-z0-9\-]+\.[a-z0-9\-.\~,\?!%\*_\#:;~\\&$@\/=\+]*)#i',
 		), 'bburl', $t);
 
+	#Obrazy i wideo
+	$t = preg_replace_callback(array(
+		'#\[(video)\](https?://[^\s<>"].*?)\[/video\]#i',
+		'#\[(img)\](https?://[^\s<>"].*?)\[/img\]#i'), 'bbimg', $t);
+
 	#Usuñ JS i zwróæ gotowy tekst
 	return preg_replace_callback('#\<a(.*?)\>#si', 'bbcode_js', $t);
+}
+
+#Zabezpiecz obrazy
+function bbimg($t)
+{
+	if(stripos($t[2],URL)===false && strpos($t[2],'.php')===false)
+	{
+		if($t[1] == 'video')
+		{
+			return '<video controls src="'.$t[2].'"><a href="'.$t[2].'">video</a></video>';
+		}
+		return '<img src="'.$t[2].'" alt="" style="max-width: 100%" />';
+	}
+	return 'bad '.$t[1];
 }
 
 #Zabezpiecz URL i skróæ link

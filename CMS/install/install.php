@@ -51,7 +51,7 @@ class Installer
 		$this->db->beginTransaction();
 	}
 
-	#Wczytaj plik SQL z pliku
+	#Wczytaj plik SQL
 	function loadSQL($file)
 	{
 		#Schemat tabel
@@ -291,7 +291,7 @@ class Installer
 			foreach(scandir($folder) as $file)
 			{
 				$path = $folder.'/'.$file;
-				if($file[0]!='.' && $file[0]!='0' && (!is_writable($path) || !is_readable($path)))
+				if($file[0]!='.' && $file[0]!='0' && $file!='index.htm' && (!is_writable($path) || !is_readable($path)))
 				{
 					if(is_dir($path))
 					{
