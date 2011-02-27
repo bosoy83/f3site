@@ -32,29 +32,38 @@
 		<label><input type="checkbox" name="fn" id="fn" onclick="FN()" /> {lang.ftxt}</label>
 	</td>
 </tr>
+<tr>
+	<td colspan="2" style="text-align: center">
+		<textarea name="txt" rows="18" style="width: 100%">{clean: news.txt}</textarea>
+	</td>
+</tr>
 </tbody>
-</table>
 
-<!-- TRE¦Æ -->
-<h1>{lang.text}</h1>
-<div class="box" style="text-align: center; padding: 0">
-	<textarea name="txt" rows="18" style="width: 100%">{clean: news.txt}</textarea>
-	<div style="margin-top: 7px">
+<!-- Pe³na tre¶æ -->
+<tbody id="full" style="display: none">
+<tr>
+	<th colspan="2">{lang.ftxt}</th>
+</tr>
+<tr>
+	<td colspan="2" style="text-align: center">
+		<textarea name="text" rows="20" style="width: 100%">{clean: full}</textarea>
+	</td>
+</tr>
+</tbody>
+
+<!-- Przyciski -->
+<tfoot>
+<tr>
+	<td class="eth" colspan="2">
 		<input type="button" value="{lang.preview}" onclick="P()" />
 		<input type="submit" value="{lang.save}" style="font-weight: bold" />
 		<!-- IF id -->
 		<input type="submit" name="asNew" value="{lang.asNew}" />
 		<!-- END -->
-	</div>
-</div>
-
-<!-- Pe³na tre¶æ -->
-<div id="full" style="display: none">
-<h1>{lang.ftxt}</h1>
-<div class="box" style="text-align: center; padding: 0">
-	<textarea name="text" rows="20" style="width: 100%">{clean: full}</textarea>
-</div>
-</div>
+	</td>
+</tr>
+</tfoot>
+</table>
 </form>
 
 <script type="text/javascript">

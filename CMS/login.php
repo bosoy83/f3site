@@ -5,7 +5,10 @@ require 'kernel.php';
 #Gdzie przekierowaæ
 $from = isset($_GET['from']) && ctype_alnum($_GET['from']) ? $_GET['from'] : '';
 $ref = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-$to = empty($from) && strpos($ref,URL)===0 ? $_SERVER['HTTP_REFERER'] : URL;
+$to = empty($from) && $ref && strpos($ref,'login.php')===false ? $ref : URL;
+
+#Inny referer
+if($ref && strpos($ref,URL)!==0) { header('Location: '.URL); exit; }
 
 #Wyloguj
 if(isset($_GET['logout']) && UID)

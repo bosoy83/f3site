@@ -25,6 +25,7 @@
 <!-- Login form -->
 <!-- ELSE -->
 
+<!--
 <div id="loginTopForm">
 	<form action="login.php" method="post">
 		<label>Login: <input name="u" class="text" /></label>
@@ -38,4 +39,16 @@
 		</div>
 	</form>
 </div>
+-->
+
+<div id="loginTopForm">
+	<form action="login.php" method="post">
+		<input name="u" class="text" value="Login" onfocus="value=''" onblur="if(value=='')value='Login'" />
+		<input name="p" class="text" type="password" placeholder="{lang.pass}" />
+		<input type="checkbox" class="choice" name="auto" title="{lang.remlog}" />
+		<input type="submit" value="{lang.logme}" class="buttonBlue" />
+		<input type="submit" name="reg" value="{lang.regme}" class="buttonOrange" />
+	</form>
+</div>
+
 <!-- END -->

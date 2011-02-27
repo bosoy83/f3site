@@ -42,9 +42,9 @@ a.logoTop {
 }
 #loginTopForm {
 	float: right;
-	width: 290px;
+	width: 370px; /* 290 */
 	color: #cdcdcd;
-	padding-top: 30px
+	padding-top: 12px /*30*/
 }
 #loginTopForm input.text{
 	border: 1px solid #979494;
@@ -53,10 +53,12 @@ a.logoTop {
 	width: 90px
 }
 #loginTopForm input.choice{
-	float: left;
-	margin: 0 2px 0 0
+	/*float: left;
+	margin: 0 2px 0 0*/
+	vertical-align: top;
+	cursor: help; /**/
 }
-#formOptions {
+/*#formOptions {
 	float: left;
 	width: 380px;
 	padding: 10px 0 0 24px
@@ -65,7 +67,7 @@ a.logoTop {
 	float: left;
 	font-size: 11px;
 	padding: 3px 5px 0 0
-}
+}*/
 #userOptions {
 	float: right;
 	padding: 9px 9px 0 0
@@ -78,7 +80,7 @@ a.logoTop {
 	float: right;
 	clear: right;
 	margin: 9px 15px;
-	height: 80px;
+	max-height: 80px;
 	overflow: hidden
 }
 

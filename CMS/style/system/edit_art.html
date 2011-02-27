@@ -133,7 +133,6 @@ f.N.onclick = function()
 	s.appendChild(l2);
 	s.appendChild(l3);
 	d.appendChild(a);
-	q = new Editor(a); o1.checked && q.emots();
 	d.appendChild(s);
 	R.appendChild(d);
 	r.appendChild(h); 
@@ -141,8 +140,8 @@ f.N.onclick = function()
 	t.appendChild(R);
 	tab.insertBefore(t, tab.tFoot);
 	area[num++] = a;
+	e.push(q = new Editor(a)); o1.checked && q.emots();
 	o1.onclick = function() { q.emots(this.checked) };
-	e.push(q);
 	a.focus()
 };
 for(var i=0; i<num; i++)

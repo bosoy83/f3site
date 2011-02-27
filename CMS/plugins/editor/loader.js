@@ -5,8 +5,6 @@ function Editor(O, bbcode)
 		if(!O.id) O.id = 'tiny' + Editor.num++;
 		if(window.tinyMCE)
 		{
-			//this.o = tinyMCE.add(new tinymce.Editor(O.id));
-			//this.o.render()
 			tinyMCE.execCommand('mceAddControl', false, O.id)
 		}
 		else
@@ -62,12 +60,12 @@ Editor.prototype.load = function()
 		theme_advanced_resize_horizontal : false,
 
 		//Plugins
-		plugins: 'inlinepopups,safari,table,media,emotions,contextmenu,searchreplace',
+		plugins: 'inlinepopups,safari,table,media,emotions,contextmenu',
 
 		//Buttons
-		theme_advanced_buttons1: 'formatselect,fontselect,fontsizeselect,table,image,media,charmap,emotions,replace,code,help,undo,redo',
+		theme_advanced_buttons1: 'formatselect,fontselect,fontsizeselect,table,image,media,charmap,emotions,code,help,undo,redo',
 
-		theme_advanced_buttons2: 'cut,copy,paste,removeformat,|,bold,italic,underline,strikethrough,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull,numlist,bullist,blockquote,link,forecolor,backcolor',
+		theme_advanced_buttons2: 'cut,copy,paste,removeformat,bold,italic,underline,strikethrough,sub,sup,justifyleft,justifycenter,justifyright,justifyfull,numlist,bullist,blockquote,link,forecolor,backcolor',
 
 		theme_advanced_buttons3: ''
 	})});
