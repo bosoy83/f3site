@@ -11,6 +11,7 @@ Kopia Powszechnej Licencji Publicznej GNU powinna zostać ci dostarczona razem z
 
 System korzysta z komponentów:
 * Ikony Silk i Flags - http://www.famfamfam.com
+* Ikony Function - http://www.wefunction.com
 * Google Code Prettify - http://google-code-prettify.googlecode.com
 * Slimbox 2 - http://www.digitalia.be/software/slimbox2
 * reCAPTCHA - http://recaptcha.net

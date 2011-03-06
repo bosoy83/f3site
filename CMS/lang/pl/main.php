@@ -32,7 +32,7 @@
 'lack'=>'brak',
 'lang'=>'Język',
 'links'=>'Linki',
-'login'=>'Login',
+'login'=>'Nazwa użytkownika',
 'logme'=>'Zaloguj',
 'logout'=>'Wyloguj',
 'more'=>'Więcej &raquo;',

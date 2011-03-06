@@ -58,6 +58,7 @@ if($_POST)
 		}
 		$cfg = &$opt;
 		$content->info($lang['saved']);
+		event('CONFIG');
 		include './admin/config.php';
 		return 1;
 	}

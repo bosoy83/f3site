@@ -142,6 +142,7 @@ class Compiler
 			'/\{([A-Z0-9_]+)\}/', //Sta³e
 			'/\{([A-Za-z0-9_]+)\}/',
 			'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\}/',
+			'#"url\(([\S]+):([\S]+)\)"#',
 			'#"url\(([\S]+)\)"#',
 			'/<!-- INCLUDE ([A-Za-z0-9_.]+) -->/');
 
@@ -155,6 +156,7 @@ class Compiler
 			'<?php echo \\1;?>',
 			'<?php echo $\\1;?>',
 			'<?php echo \\1($\\2);?>',
+			'"<?php echo url(\'$2\',\'\',\'$1\');?>"',
 			'"<?php echo url(\'$1\');?>"',
 			'<?php include $this->path(\'\\1.html\')?>');
 

@@ -1,0 +1,113 @@
+/* MAIN */
+body {
+	font: 13px Verdana,Helvetica,Arial,Times;
+	margin: 8px;
+}
+a {
+	text-decoration: none;
+	color: #000097
+}
+a:hover {
+	color: red
+}
+img {
+	vertical-align: text-bottom;
+	border: 0
+}
+h3 {
+	font-size: 13px;
+	margin: 3px 0
+}
+h1, h2 {
+	margin: 0;
+	font: bold 13px Verdana;
+	border: 1px solid #9EAA97;
+	border-bottom: 0;
+	background: #CBD5BF url(2/th.png) repeat-x;
+	text-align: center;
+	color: #396F79;
+	padding: 1px;
+}
+form {margin: 0}
+optgroup {font-style: normal}
+textarea {font: 13px Verdana,Helvetica}
+label {cursor: pointer}
+input:focus {background-color: #ffffca}
+
+/* LISTS */
+ul,ol {margin: 9px; padding-left: 25px}
+ul.go {list-style-image: url(../../img/icon/go.png)}
+ul.gallery {list-style: none; padding: 0; margin: 0}
+ul.gallery li {
+	display: inline-block;
+	width: 30%;
+	padding: 5px;
+	text-align: center;
+	vertical-align: top;
+}
+ul.cats {
+	list-style-image: url(../../img/icon/folder.png);
+	overflow: hidden
+}
+ul.cats li {
+	width: 50%;
+	float: left
+}
+.files div {
+	background: url(../../img/icon/file.png) no-repeat 6px 6px;
+	padding: 3px 0 5px 32px;
+	min-height: 32px;
+}
+.items td {
+	height: 40px;
+	padding-left: 40px !important;
+}
+.art td { background: url(../../img/icon/art.png) no-repeat 5px 50% }
+.link td { background: url(../../img/icon/link.png) no-repeat 3px 50% }
+.items a {font-weight: bold}
+.items h3 {margin: 0}
+
+.box {
+	overflow: hidden;
+	background-color: #F5F5F5;
+	border: 1px solid #9EAA97;
+	padding: 3px;
+	margin-bottom: 8px;
+	line-height: 18px;
+	text-align: justify;
+	word-wrap: break-word
+}
+pre,blockquote {padding: 2px}
+pre {
+	background-color: #EFEFE7;
+	border: 1px solid #DBDBCA;
+	overflow: auto;
+	margin: 0;
+}
+blockquote {
+	background-color: #E7EFEF;
+	border: 1px solid #ACC8C8;
+	margin: 0
+}
+big {font-size: 15px}
+small {font-size: 11px}
+
+/* INFO */
+.error, .warning {
+	background: #ffffb0 url(../../img/icon/error.png) no-repeat 6px 9px;
+	border: 1px solid #d9c866;
+	padding-left: 28px !important
+}
+
+/* LINKS */
+.edit, .add, .del, .user, .cat, .tags, .quote {
+	padding-left: 20px;
+	background-repeat: no-repeat
+}
+.del {background-image: url(../../img/icon/del.png)}
+.user {background-image: url(../../img/icon/group.png)}
+.edit {background-image: url(../../img/icon/edit.png); display: block; float: right}
+.add {background-image: url(../../img/icon/add.png)}
+.cat {background-image: url(../../img/icon/folder.png); background-position: 0 -1px}
+.tags {background-image: url(../../img/icon/tag.png); background-position: 2px}
+.quote {background-image: url(../../img/icon/quote.png)}

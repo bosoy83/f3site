@@ -1,6 +1,13 @@
 <h1>{lang.admin}</h1>
 <div class="box">
 	<p style="margin-top: 0">{intro}</p>
+	<h3>{lang.notepad}</h3>
+	<p style="margin: 8px" id="nt">
+		<form action="" method="post">
+			<textarea name="notes" rows="5" cols="50" style="width: 99%">{notes}</textarea>
+			<input type="submit" value="{lang.save}" style="float: center" />
+		</form>
+	</p>
 	<h3>{lang.what}</h3>
 	<ul class="go">
 		<li><a href="http://dhost.info/compmaster">{lang.official}</a></li>
@@ -10,19 +17,12 @@
 	<h3>System</h3>
 	<p style="margin: 8px">F3Site {version} + {engine}</p>
 	<p style="margin: 8px">{PHP_OS}, {server}</p>
-	<h3>{lang.notepad}</h3>
-	<p style="margin: 8px" id="nt">
-		<form action="" method="post">
-			<textarea name="notes" rows="5" cols="50" style="width: 99%">{notes}</textarea>
-			<input type="submit" value="{lang.save}" style="float: center" />
-		</form>
-	</p>
 </div>
 <script type="text/javascript">
 note = document.createElement('div')
 f = document.forms[0]
 show(f)
-note.innerHTML = (f[0].value == 0) ? '<div class="edit">{lang.edit}</div>' : f[0].innerHTML
+note.innerHTML = (f[0].value == 0) ? '<div class="edit" style="float:none">{lang.edit}</div>' : f[0].innerHTML
 note.style.cursor = 'pointer'
 note.style.whiteSpace = 'pre-wrap'
 note.title = '{lang.edit}'

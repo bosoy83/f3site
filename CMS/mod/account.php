@@ -1,4 +1,4 @@
-<?php /* Edytuj konto */
+<?php /* Register or edit account */
 if(iCMS!=1) exit;
 require LANG_DIR.'profile.php';
 require 'cfg/account.php';
@@ -7,10 +7,10 @@ $error = $bad = array();
 $photo = '';
 $auto = 0;
 
-#Tytuł strony
+#Page title
 $content->title = $lang['account'];
 
-#Aktywacja
+#Activation
 if(isset($URL[2]) && $URL[1] == 'key')
 {
 	if(strlen($URL[2])==16 && ctype_alnum($URL[2]))
@@ -33,7 +33,7 @@ if(isset($URL[2]) && $URL[1] == 'key')
 	return 1;
 }
 
-#Rejestracja wyłączona?
+#Registration off
 if(!isset($cfg['reg']) && !UID)
 {
 	$content->info($lang['regoff']); return 1;
@@ -50,10 +50,10 @@ else
 	$noSPAM = false;
 }
 
-#Zapis
+#Save
 if($_POST)
 {
-	#Za krótki interwał
+	#Too short interval
 	if(!isset($_SESSION['formTime']) || $_SESSION['formTime'] > $_SERVER['REQUEST_TIME'])
 	{
 		$error[] = $lang['isBot'];
@@ -65,7 +65,7 @@ if($_POST)
 	$www = str_replace('vbscript:','vb_script',$www);
 	if($www==='http://') $www='';
 
-	#Dane + opcje - 1: pokazuj mail, 2: pozwól komentować
+	#Data, options: 1 show mail, 2 allow comments
 	$u = array(
 	'gg'  => is_numeric($_POST['gg']) ? $_POST['gg'] : null,
 	'icq' => is_numeric($_POST['icq']) ? $_POST['icq'] : null,
@@ -81,10 +81,10 @@ if($_POST)
 	'about' => clean($_POST['about'],9999,1)
 	);
 
-	#O sobie
+	#About me - too long
 	if(isset($u['about'][999])) $error[] = $lang['tooLong'];
 
-	#Niezalogowani
+	#New user
 	if(!UID)
 	{
 		#Login
@@ -106,7 +106,7 @@ if($_POST)
 			$bad[] = 'login';
 		}
 
-		#Login istnieje w bazie?
+		#Login already exists
 		$res = $db->query('SELECT COUNT(login) FROM '.PRE.'users WHERE login='.$db->quote($u['login']));
 		if($res->fetchColumn() > 0)
 		{
@@ -115,7 +115,7 @@ if($_POST)
 		}
 		$res=null;
 
-		#Zabronione loginy
+		#Banned logins
 		if($cfg['nickban'])
 		{
 			foreach($cfg['nickban'] as $x)
@@ -125,7 +125,7 @@ if($_POST)
 			unset($x,$nicks);
 		}
 		
-		#Kod
+		#Antispam code
 		if($noSPAM)
 		{
 			if($noSPAM->verify())
@@ -140,7 +140,7 @@ if($_POST)
 		}
 	}
 
-	#Awatar
+	#Avatar
 	elseif(isset($cfg['upload']) && $_FILES['photo']['name'])
 	{
 		require './lib/avatar.php';
@@ -152,7 +152,7 @@ if($_POST)
 		$photo = RemoveAvatar($error);
 	}
 
-	#Zmiana hasła lub E-mail
+	#Change E-mail or password
 	if(UID && $_POST['pass'])
 	{
 		if(md5($_POST['curPass']) === $user['pass'])
@@ -166,7 +166,7 @@ if($_POST)
 		}
 	}
 
-	#Hasło
+	#Password
 	if(UID && empty($_POST['pass']))
 	{
 		$u['pass'] = $user['pass'];
@@ -174,24 +174,23 @@ if($_POST)
 	else
 	{
 		$u['pass'] = $_POST['pass'];
-		if(!preg_match('/^[a-zA-Z0-9_-]{5,20}$/', $u['pass']))
+		if(!isset($u['pass']) < 3 || strlen($u['pass']) > 50)
 		{
 			$error[] = $lang['badPass'];
 			$bad[] = 'pass';
 		}
-		#Hasła równe?
-		elseif($u['pass']!=$_POST['pass2'])
+		#Passwords different
+		if($u['pass']!=$_POST['pass2'])
 		{
 			$error[] = $lang['pass2'];
 			$bad[] = 'pass2';
 		}
-		$u['pass'] = md5($u['pass']);
 	}
 
 	#E-mail
 	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
 	{
-		#E-mail istnieje w bazie?
+		#E-mail already exists
 		if(dbCount('users WHERE mail="'.$u['mail'].'"'.(UID?' AND ID!='.UID:'')))
 		{
 			$error[] = $lang['mailEx'];
@@ -205,7 +204,7 @@ if($_POST)
 		$bad[] = 'mail';
 	}
 
-	#Zabrioniony e-mail?
+	#Banned E-mail
 	if($cfg['mailban'])
 	{
 		foreach($cfg['mailban'] as $x)
@@ -214,15 +213,13 @@ if($_POST)
 		}
 	}
 
-	#Błędy?
+	#Errors
 	if($error)
 	{
 		$content->info(join('<br/><br/>',$error), null, 'error');
 		if(UID && !$photo)
 		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID)->fetchColumn();
 	}
-
-	#Zapis
 	else
 	{
 		try
@@ -235,7 +232,7 @@ if($_POST)
 			}
 			else
 			{
-				#Konto aktywne
+				#Account active if set to AUTO
 				$u['lv'] = $cfg['actmeth']==1 ? 1 : 0;
 				$u['regt'] = $_SERVER['REQUEST_TIME'];
 
@@ -244,20 +241,20 @@ if($_POST)
 				:sex,:opt,:lv,:regt,:about,:mails,:www,:city,:icq,:skype,:jabber,:tlen,:gg)');
 			}
 
-			#Aktywacja e-mail
+			#Activation link
 			if(!UID && $cfg['actmeth']==2)
 			{
-				#Klucz
+				#Generate key
 				$key = uniqid(mt_rand(100,999));
 
-				#Przygotuj e-mail
+				#Prepare E-Mail
 				include './lib/mail.php';
 				$m = new Mailer;
 				$m->topic = $lang['mail1'].$u['login'];
 				$m->text = file_get_contents(LANG_DIR.'mailReg.php');
 				$m->text = str_replace('%link%', URL.url('account/key/'.$key), $m->text);
 
-				#Wyślij i zapisz klucz
+				#Send e-mail and save the key
 				if($m->sendTo($u['login'],$u['mail']))
 				{
 					$q->execute($u);
@@ -284,7 +281,7 @@ if($_POST)
 			{
 				$q->execute($u); $content->info($lang['auto'].$u['login']);
 			}
-			#Przeloguj
+			#Update user cookie
 			if($auto)
 			{
 				$user['pass'] = $u['pass'];
@@ -323,14 +320,14 @@ else
 	'jabber'=> '');
 }
 
-#Czas form
+#Save interval time
 $_SESSION['formTime'] = $_SERVER['REQUEST_TIME'] + 5;
 
 #Opcje
 $u['mvis'] = $u['opt'] & 1;
 $u['comm'] = $u['opt'] & 2;
 
-#Dane
+#Template data
 $content->data = array(
 	'u'     => &$u,
 	'width' => $cfg['maxDim1'],

@@ -3,15 +3,14 @@
 
 <table cellspacing="1" class="tb">
 <tr>
-	<th>{lang.title}</th>
 	<th>{lang.added}</th>
 	<th>{lang.user}</th>
+	<th>{lang.title}</th>
 	<th style="width: 30px"><input type="checkbox" onclick="x=document.getElementsByTagName('input'); for(i in x) { if(x[i].type=='checkbox') { if(this.checked) { x[i].checked=true } else { x[i].checked=false } } }" /></th>
 </tr>
 
 <!-- START event -->
 <tr>
-	<td>{text}</td>
 	<td align="center">{date}</td>
 	<td align="center">
 		<!-- IF user -->
@@ -20,6 +19,7 @@
 		{ip}
 		<!-- END -->
 	</td>
+	<td>{text}</td>
 	<td align="center"><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->

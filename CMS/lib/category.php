@@ -75,6 +75,12 @@ if($cat['opt'] & 8)
 	}
 }
 
+#If empty and have privileges
+if($cat['num'] == '0' && empty($sc) && admit($d,'CAT'))
+{
+	header('Location: '.URL.url('edit/'.$cat['type']));
+}
+
 #Assign to template
 $content->file = array('cat');
 $content->data = array(

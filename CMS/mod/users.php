@@ -78,6 +78,7 @@ if(isset($_GET['sort']) && ctype_alnum($_GET['sort']))
 	{
 		case '1': $sort = 'login'; break;
 		case '3': $sort = 'lvis DESC'; break;
+		case '4': $sort = 'lv DESC,login'; break;
 		default: $sort = 'ID DESC';
 	}
 }
@@ -113,7 +114,7 @@ foreach($res as $u)
 	{
 		case '1': $sex = 'male'; break;
 		case '2': $sex = 'female'; break;
-		default: $sex = '';
+		default: $sex = 'group';
 	}
 
 	$users[] = array(
@@ -140,12 +141,13 @@ $content->data = array(
 	'find'  => isset($cfg['userFind']),
 	'joined_url' => url($toURL, 'sort=2'.$url),
 	'login_url'  => url($toURL, 'sort=1'.$url),
+	'level_url'  => url($toURL, 'sort=4'.$url),
 	'last_url'   => url($toURL, 'sort=3'.$url),
 	'find_login' => !empty($sl) ? $sl : '',
 	'find_www'   => !empty($www) ? $www : '',
 	'find_place' => !empty($pl) ? $pl : '',
 	'find_gg'    => !empty($gg) ? $gg : '',
-	'pages'      => pages($page,$total,30,url($toURL,$sortURL.$url))
+	'pages'      => $total > 30 ? pages($page,$total,30,url($toURL,$sortURL.$url)) : false
 );
 
 #Usuñ zbêdne dane

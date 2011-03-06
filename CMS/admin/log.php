@@ -1,10 +1,11 @@
 <?php
 if(iCMSa!=1 || !admit('L')) exit;
 
-#Usuñ?
+#Usun
 if($_POST && $x = GetID(true))
 {
 	$db->exec('DELETE FROM '.PRE.'log WHERE ID IN ('.$x.')');
+	event('ERASE');
 }
 
 #Strona
@@ -28,7 +29,6 @@ $res = $db->query('SELECT l.*,u.login FROM '.PRE.'log l LEFT JOIN '.PRE.'users u
 	ON l.user=u.ID AND l.user!=0 LIMIT '.$st.',30');
 $res->setFetchMode(3); //Assoc
 
-#Plik jêzykowy
 require LANG_DIR.'events.php';
 
 #Lista

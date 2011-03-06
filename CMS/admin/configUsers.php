@@ -16,6 +16,7 @@ if($_POST)
 		$f = new Config('account');
 		$f->save($opt);
 		$content->info($lang['saved']);
+		event('CONFIG');
 		include './admin/config.php';
 		return 1;
 	}

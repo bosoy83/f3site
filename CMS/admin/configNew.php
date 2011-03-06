@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Dostêpne opcje
+#Dostepne opcje
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 
 #Typy kategorii
@@ -11,7 +11,7 @@ $data = parse_ini_file('./cfg/types.ini', 1);
 #Zapis
 if($_POST)
 {
-	#Typy danych musz¹ byæ numeryczne
+	#Typy danych musza byc numeryczne
 	if(isset($_POST['newTypes']))
 	{
 		foreach($_POST['newTypes'] as &$x) $x = (int)$x;
@@ -25,6 +25,7 @@ if($_POST)
 		#Aktualizuj liste
 		include './lib/categories.php';
 		Latest();
+		event('CONFIG');
 
 		#Powrot do menu opcji
 		include './admin/config.php';

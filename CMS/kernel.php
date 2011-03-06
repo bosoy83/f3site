@@ -509,18 +509,19 @@ function clean($val,$max=0,$wr=0)
 }
 
 #Write log entry
-function event($type, $u = UID, $force = false)
+function event($type, $u = UID, $force = TRUE)
 {
 	#static $cfg;
 	global $db,$cfg;
 
 	#Record to database - no errors
+	#Force always TRUE - event options not implemented yet
 	if($force || isset($cfg['log']) && isset($cfg['log'][$type]))
 	{
 		try
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'log (name,ip,user) VALUES (?,?,?)');
-			$q->execute($type, $_SERVER['REMOTE_ADDR'], $u);
+			$q->execute(array($type, $_SERVER['REMOTE_ADDR'], $u));
 		}
 		catch(Exception $e) {}
 	}

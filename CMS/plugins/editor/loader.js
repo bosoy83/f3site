@@ -31,7 +31,7 @@ Editor.prototype.protect = function() {};
 Editor.prototype.load = function()
 {
 	Editor.got = true;
-	include('plugins/editor/tiny_mce.js', function() { tinyMCE.init({
+	include('plugins/editor/tiny_mce.js', function() { var C = document.styleSheets[0].href; tinyMCE.init({
 
 		//Global settings
 		mode: 'exact',
@@ -40,7 +40,7 @@ Editor.prototype.load = function()
 		language: document.documentElement.lang || 'en',
 		gecko_spellcheck: true,
 		strict_loading_mode: true,
-		content_css: document.styleSheets[0].href,
+		content_css: C.substring(0,C.lastIndexOf('/')) + '/tiny.css',
 		document_base_url: document.baseURI,
 
 		//Entities - UTF-8 needs only critical characters

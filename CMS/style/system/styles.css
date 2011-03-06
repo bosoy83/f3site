@@ -1,7 +1,7 @@
 body {
 	margin: 0 auto;
 	padding: 0;
-	max-width: 1366px; /* max site width */
+	max-width: 1600px; /* max site width - 1366 optimal */
 	font-family: Tahoma,sans-serif;
 	font-size: 12px;
 	color: #313131
@@ -42,9 +42,9 @@ a.logoTop {
 }
 #loginTopForm {
 	float: right;
-	width: 370px; /* 290 */
+	width: 370px;
 	color: #cdcdcd;
-	padding-top: 12px /*30*/
+	padding-top: 12px
 }
 #loginTopForm input.text{
 	border: 1px solid #979494;
@@ -53,21 +53,9 @@ a.logoTop {
 	width: 90px
 }
 #loginTopForm input.choice{
-	/*float: left;
-	margin: 0 2px 0 0*/
 	vertical-align: top;
-	cursor: help; /**/
+	cursor: help;
 }
-/*#formOptions {
-	float: left;
-	width: 380px;
-	padding: 10px 0 0 24px
-}
-#rememberMe {
-	float: left;
-	font-size: 11px;
-	padding: 3px 5px 0 0
-}*/
 #userOptions {
 	float: right;
 	padding: 9px 9px 0 0
@@ -215,7 +203,7 @@ a.logoTop {
 }
 
 /* Both round */
-#path, #tags, .info, .error, .warning, .preview, .dialog, pre, blockquote {
+#path, #tags, .info, .error, .warning, .preview, .dialog, pre, blockquote, .pages a {
 	padding: 5px;
 	overflow: hidden;
 	border-radius: 5px;
@@ -275,7 +263,7 @@ ul.cats li {
 	padding-left: 40px !important
 }
 .art td {background: url(../../img/icon/art.png) no-repeat 5px 50%}
-.link td {background: url(../../img/icon/link.png) no-repeat 3px 50%}
+.link td {background: url(../../img/icon/www.png) no-repeat 9px 50%}
 .items a {font-weight: bold}
 .items h3 {margin: 0}
 

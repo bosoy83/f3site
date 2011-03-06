@@ -168,6 +168,7 @@ ul.cats li {
 .menu ul a {display: block}
 .pollOptions {margin: 5px 0}
 .pollQuestion, .pollSubmit {text-align: center; margin: 2px 0}
+.addComment {padding: 7px}
 #online {line-height: 22px}
 #tags {min-height: 18px}
 
@@ -178,6 +179,7 @@ th {
 }
 .tb {
 	background-color: #9EAA97;
+	border-spacing: 1px;
 	width: 100%;
 	margin-bottom: 8px
 }
@@ -207,7 +209,7 @@ th {
 .tb td {padding: 3px}
 
 /* CATEGORY PATH */
-.cs {
+#path {
 	border: 1px solid #A9B4AA;
 	padding: 5px 3px 5px 28px;
 	margin-bottom: 8px;
