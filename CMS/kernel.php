@@ -44,25 +44,25 @@ if(!empty($cfg['ban']))
 #AJAX request
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 define('NICEURL', $cfg['niceURL']);
-define('SEO', isset($cfg['SEO']));
 
-#Path based on PATH_INFO
-if(isset($_SERVER['PATH_INFO']))
+#Path based on PATH_INFO or GET param
+if(isset($_SERVER['PATH_INFO'][1]))
 {
-	$_GET['go'] = substr($_SERVER['PATH_INFO'], 1);
+	$URL = explode('/', substr($_SERVER['PATH_INFO'],1));
 }
-
-#Adres URL - path to current page
-$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
+else
+{
+	$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
+}
 
 #Skin paths
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 
 #Extract ID: $id always exist
-if(isset($_GET['id']) && is_numeric($_GET['id']))
+if(isset($_GET['id']))
 {
-	$id = $_GET['id'];
+	$id = (int)$_GET['id'];
 }
 elseif(isset($URL[1]))
 {
@@ -71,12 +71,6 @@ elseif(isset($URL[1]))
 else
 {
 	$id = 0;
-}
-
-#Page number
-if(isset($_GET['page']) && !is_numeric($_GET['page']))
-{
-	$_GET['page'] = 1;
 }
 
 #Redirect old URL to new
@@ -301,9 +295,9 @@ function url($x, $query=null, $path=null)
 #Category path
 function catPath($id, &$cat=null)
 {
-	if(file_exists('./cache/cat'.$id.'.php'))
+	if(file_exists('cache/cat'.$id.'.php'))
 	{
-		return file_get_contents('./cache/cat'.$id.'.php');
+		return file_get_contents('cache/cat'.$id.'.php');
 	}
 	else
 	{
@@ -392,14 +386,6 @@ function pages($page,$ile,$max,$url='',$type=0,$p='')
 	}
 }
 
-#Banner
-function banner($gid)
-{
-	return $GLOBALS['db']->query('SELECT code FROM '.PRE.'banners WHERE gen='.(int)$gid.
-		' AND ison=1 ORDER BY RAND'.(($GLOBALS['db_db']=='sqlite') ? 'OM' : '').'() LIMIT 1')
-		-> fetchColumn();
-}
-
 #Emoticons
 function emots($txt)
 {
@@ -424,12 +410,12 @@ function genDate($x, $time=false)
 	#Time difference
 	$diff = $_SERVER['REQUEST_TIME'] - $x;
 
-	#X min temu (do 99)
+	#X min ago (to 99)
 	if($diff < 5941 && $diff >= 0)
 	{
 		return sprintf($lang['ago'], ceil($diff/60));
 	}
-	#Za X min
+	#In X min
 	elseif($diff > -5941 && $diff < 0)
 	{
 		return sprintf($lang['in'], ceil(-$diff/60));
@@ -438,7 +424,7 @@ function genDate($x, $time=false)
 	#Format date
 	$date = strftime($cfg['date'], $x);
 	
-	#Dzisiaj, wczoraj, jutro
+	#Today, yesterday, tomorrow
 	if(!$now)
 	{
 		$now = strftime($cfg['date'], $_SERVER['REQUEST_TIME']);

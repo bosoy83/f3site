@@ -18,7 +18,7 @@ if($page['access'] != 1)
 	elseif(!UID) return;
 }
 
-#PHP - nale¿y wykonaæ go najpierw
+#Evaluate PHP first
 if($page['opt'] & 16)
 {
 	ob_start();
@@ -26,35 +26,35 @@ if($page['opt'] & 16)
 	$page['text'] = ob_get_clean();
 }
 
-#Emotikony
+#Emoticons
 if($page['opt'] & 2)
 {
 	$page['text'] = emots($page['text']);
 }
 
-#BR
+#Line breaks
 if($page['opt'] & 1)
 {
 	$page['text'] = nl2br($page['text']);
 }
 
-#Szablon
+#Page title, template
 $content->title = $page['name'];
-$content->data = array(
+$content->add('page', array(
 	'page' => &$page,
 	'box'  => $page['opt'] & 4,
 	'all'  => $edit ? url('pages','','admin') : false,
 	'edit' => $edit ? url('editPage/'.$id, 'ref', 'admin') : false
-);
+));
 
-#S³owa kluczowe
+#Keywords
 if(isset($cfg['tags']))
 {
 	include './lib/tags.php';
 	tags($id, 59);
 }
 
-#Komentarze
+#Comments
 if($page['opt'] & 8)
 {
 	require './lib/comm.php';

@@ -2,10 +2,10 @@
 if(iCMS!=1 OR !admit('CM')) exit;
 require LANG_DIR.'comm.php';
 
-#Tytu³ strony
+#Page title
 $content->title = $lang['comms'];
 
-#Akcje
+#Commit action
 if(isset($_POST['a']))
 {
 	$del = $ok = $no = array();
@@ -30,8 +30,8 @@ if(isset($_POST['a']))
 	}
 }
 
-#Strona
-if(isset($_GET['page']) && $_GET['page']!=1)
+#Page number
+if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = (int)$_GET['page'];
 	$st = ($page-1)*20;
@@ -42,7 +42,7 @@ else
 	$st = 0;
 }
 
-#Filtr - IP / tylko ukryte
+#Filter: IP / hidden
 if(isset($URL[1]))
 {
 	if($URL[1] == 'hidden')
@@ -59,18 +59,18 @@ else
 	$q = '';
 }
 
-#Razem
+#Count all comments
 $total = dbCount('comms'.$q);
 $com   = array();
 
-#Pobierz ostatnie komentarze
+#Get comments from database
 $res = $db->query('SELECT c.*,u.login FROM '.PRE.'comms c LEFT JOIN '.PRE.
 	'users u ON c.author=u.ID AND c.guest!=1'.$q.' ORDER BY c.ID DESC LIMIT '.$st.',20');
 
-#BBCode?
+#BBCode support
 if(isset($cfg['bbcode'])) include_once('./lib/bbcode.php');
 
-#Typy kategorii
+#Get category types
 $type = parse_ini_file('cfg/types.ini',1);
 
 foreach($res as $x)
@@ -98,11 +98,12 @@ foreach($res as $x)
 	);
 }
 
-$content->data = array(
+#Prepare template
+$content->add('moderate', array(
 	'comment' => $com,
 	'total'   => $total,
 	'url'     => url('moderate'),
 	'nourl'   => url('moderate/hidden'),
 	'color'   => isset($cfg['colorCode']),
-	'pages'   => pages($page,$total,20,'moderate',1)
-);
+	'pages'   => pages($page,$total,20,url('moderate'),1)
+));

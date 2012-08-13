@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1) exit;
 
-#Zapisz masowe zmiany
+#Action: save mass changes
 if($_POST && $x = GetID(true))
 {
 	if(isset($_POST['del']))
@@ -29,7 +29,7 @@ if($_POST && $x = GetID(true))
 	unset($_POST,$s,$b);
 }
 
-#Pobierz kategorie
+#Get categories
 $res = $db->query('SELECT c.ID,c.name,c.see,c.num,s.title FROM '.PRE.'bugcats c LEFT JOIN '.PRE.'bugsect s ON c.sect = s.ID ORDER BY s.seq,c.name');
 
 $cat  = array();
@@ -39,7 +39,7 @@ $num  = 0;
 
 foreach($res as $x)
 {
-	#Sekcja
+	#Section
 	if($x['title'] != $sect)
 	{
 		$sect = $x['title'];
@@ -50,7 +50,7 @@ foreach($res as $x)
 		$show = 0;
 	}
 
-	#Dostêp
+	#Access
 	switch($x['see'])
 	{
 		case 1: $a = $lang['yes']; break;
@@ -69,7 +69,7 @@ foreach($res as $x)
 	++$num;
 }
 
-#Sekcje i jêzyki
+#Sections and languages
 if($num > 0)
 {
 	$sect = $db->query('SELECT ID,title FROM '.PRE.'bugsect ORDER BY seq')->fetchAll(2);
@@ -81,17 +81,16 @@ else
 	$lng  = '';
 }
 
-#Info + linki
+#Info + links
 $content->info($lang['bugsInfo'], array(
 	url('bugs/edit','','admin')     => $lang['addCat'],
 	url('bugs/sections','','admin') => $lang['manSect'],
 	url('bugs/config','','admin')   => $lang['opt']
 ));
 
-#Dane do szablonu
-$content->file = 'adminCats';
-$content->data = array(
+#Template
+$content->add('adminCats', array(
 	'cat' => &$cat,
 	'langs' => &$lng,
 	'section' => &$sect
-);
+));

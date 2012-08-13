@@ -2,13 +2,12 @@
 if(iCMSa!=1 || !admit('G')) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony i ID
+#Page title
 $content->title = $id ? $lang['editGroup'] : $lang['addGroup'];
 
-#Zapis
+#Action: save
 if($_POST)
 {
-	#Dane
 	$group = array(
 		'name' => clean($_POST['name']),
 		'dsc'  => $_POST['dsc'],
@@ -16,13 +15,13 @@ if($_POST)
 		'opened' => isset($_POST['opened'])
 	);
 
-	#Edycja
+	#Update existing
 	if($id)
 	{
 		$q = $db->prepare('UPDATE '.PRE.'groups SET name=:name, dsc=:dsc,
 			access=:access, opened=:opened WHERE ID='.$id);
 	}
-	#Nowy
+	#Insert new
 	else
 	{
 		$group['who'] = UID;
@@ -30,13 +29,12 @@ if($_POST)
 		$q = $db->prepare('INSERT INTO '.PRE.'groups (name,dsc,access,opened,who,date)
 			VALUES (:name,:dsc,:access,:opened,:who,:date)');
 	}
-	#OK?
 	try
 	{
 		$q->execute($group);
 		if(!$id) $id = $db->lastInsertId();
 
-		#Przekieruj do grupy
+		#Redirect
 		if(isset($_GET['ref'])) header('Location: '.URL.url('group/'.$id));
 
 		$content->info($lang['saved'], array(
@@ -47,11 +45,11 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e);
+		$content->info($lang['error'].$e->getMessage());
 	}
 }
 
-#Edytuj
+#Action: edit
 elseif($id)
 {
 	if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE ID='.$id)->fetch(2))
@@ -62,20 +60,20 @@ else
 	$group = array('name'=>'','access'=>1,'opened'=>1,'dsc'=>'');
 }
 
-#Edytor JS
+#Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }
 
-#Dane
-$content->data = array(
+#Template
+$content->add('editGroup', array(
 	'group' => &$group,
 	'langs' => listBox('lang', 1, $id ? $group['access'] : null)
-);
+));

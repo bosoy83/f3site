@@ -2,13 +2,12 @@
 if(iCMSa!=1) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony i ID
+#Page title
 $content->title = $id ? $lang['editPoll'] : $lang['addPoll'];
 
-#Zapis
+#Save poll
 if($_POST)
 {
-	#Dane
 	$poll = array(
 	'q'      => clean($_POST['q']),
 	'name'   => clean($_POST['name']),
@@ -21,7 +20,7 @@ if($_POST)
 	$keep = array();
 	$an = array();
 
-	#Odpowiedzi
+	#Answers
 	for($i=0; $i<$num; ++$i)
 	{
 		if(!$id || empty($_POST['id'][$i]))
@@ -34,13 +33,11 @@ if($_POST)
 			$keep[] = (int)$_POST['id'][$i];
 		}
 	}
-
-	#START
 	try
 	{
 		$db->beginTransaction();
 
-		#Edycja + usuñ zlikwidowane odpowiedzi
+		#Edit poll and delete unlinked answers
 		if($id)
 		{
 			$poll['id'] = $id;
@@ -48,7 +45,7 @@ if($_POST)
 				type=:type, access=:access WHERE ID=:id');
 			$db->exec('DELETE FROM '.PRE.'answers WHERE ID NOT IN ('.join(',',$keep).') AND IDP='.$id);
 		}
-		#Nowy
+		#New poll
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'polls (name,q,ison,type,num,access,date)
@@ -56,13 +53,13 @@ if($_POST)
 		}
 		$q->execute($poll);
 
-		#Nowy ID
+		#Get ID
 		if(!$id)
 		{
 			$id = $db->lastInsertId();
 		}
 
-		#Odpowiedzi
+		#Insert answers
 		$q1 = $db->prepare('UPDATE '.PRE.'answers SET a=?, seq=? WHERE ID=? AND IDP=?');
 		$q2 = $db->prepare('INSERT INTO '.PRE.'answers (seq,IDP,a) VALUES (?,?,?)');
 
@@ -78,11 +75,11 @@ if($_POST)
 			}
 		}
 
-		#Aktualizuj cache najnowszych sond
+		#Update cache of latest polls
 		include './mod/polls/poll.php';
 		RebuildPoll();
 
-		#ZatwierdŸ
+		#Apply changes
 		$db->commit();
 		$content->info($lang['saved'], array(
 			url('editPoll', '', 'admin') => $lang['addPoll'],
@@ -96,7 +93,7 @@ if($_POST)
 	}
 }
 
-#Form
+#Edit poll
 elseif($id)
 {
 	if(!$poll = $db->query('SELECT * FROM '.PRE.'polls WHERE ID='.$id)->fetch(2))
@@ -105,16 +102,18 @@ elseif($id)
 	}
 	$an = $db->query('SELECT ID,a FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
 }
+
+#New poll
 else
 {
 	$poll = array('name'=>'', 'q'=>'', 'type'=>1, 'ison'=>1, 'access'=>LANG);
 	$an = array( array(0, ''), array(0, ''), array(0, '') );
 }
 
-#Szablon
-$content->addScript('lib/forms.js');
-$content->data = array(
-	'langs'=> listBox('lang', 1, $id ? $poll['access'] : LANG),
-	'poll' => &$poll,
-	'item' => &$an
-);
+#Prepare template
+$content->script('lib/forms.js');
+$content->add('editPoll', array(
+	'langs' => listBox('lang', 1, $id ? $poll['access'] : LANG),
+	'poll'  => &$poll,
+	'item'  => &$an
+));

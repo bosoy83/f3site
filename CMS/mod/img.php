@@ -23,7 +23,7 @@ $img['author'] = autor($img['author']);
 #Ocena
 if(isset($cfg['irate']) AND $img['opt'] & 4)
 {
-	$content->addCSS(SKIN_DIR.'rate.css');
+	$content->css(SKIN_DIR.'rate.css');
 	$rates = 'vote.php?type=3&amp;id='.$id;
 }
 else
@@ -39,7 +39,7 @@ $content->desc  = $img['dsc'] ? clean(substr($img['dsc'], 0, 150)) : $cfg['metaD
 $img['dsc'] = nl2br($img['dsc']);
 
 #Template
-$content->data = array(
+$content->add('img', array(
 	'img'   => &$img,
 	'size'  => &$size,
 	'rates' => $rates,
@@ -52,7 +52,7 @@ $content->data = array(
 	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['imgs'],
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/images'),
 	'lightbox' => isset($cfg['lightbox'])
-);
+));
 
 #Tags
 if(isset($cfg['tags']))

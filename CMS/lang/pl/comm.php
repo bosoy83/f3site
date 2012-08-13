@@ -18,5 +18,5 @@ $lang+=Array(
 'unclosed'=>'Znaczniki BBCode są niedomknięte. Sprawdź poprawność tekstu.',
 'show'=>'Pokaż',
 'all'=>'wszystkie',
-'un'=>'oczekujące na akceptację',
+'un'=>'oczekujące na akceptację'
 );

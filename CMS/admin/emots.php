@@ -3,15 +3,13 @@ if(iCMSa!=1 || !admit('CFG')) exit;
 require LANG_DIR.'admCfg.php';
 $emodata = array();
 
-#Zapis
+#Save emoticons
 if($_POST)
 {
 	for($i=0, $num = count($_POST['txt']); $i<$num; ++$i)
 	{
 		$emodata[] = array(clean($_POST['dsc'][$i],20), clean($_POST['file'][$i],80), clean($_POST['txt'][$i],8));
 	}
-
-	#Klasa zapisu
 	require './lib/config.php';
 	try {
 		$f = new Config('emots');
@@ -28,16 +26,16 @@ if($_POST)
 	}
 }
 
-#Pliki
+#Scan files
 $files = '';
 foreach(scandir('./img/emo') as $file)
 {
 	if($file[0] != '.') $files .= '<option>'.$file.'</option>';
 }
 
-#Ustawienia emotikon
+#Emoticon settings
 if(!$_POST) include_once 'cfg/emots.php';
 
-#Do szablonu
-$content->addScript('lib/forms.js');
-$content->data = array('emo' => &$emodata, 'files' => &$files);
+#Prepare template
+$content->script('lib/forms.js');
+$content->add('emots', array('emo' => &$emodata, 'files' => &$files));

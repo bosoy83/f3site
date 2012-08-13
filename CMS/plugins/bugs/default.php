@@ -44,7 +44,7 @@ function BugIsNew($d1,$d2)
 #Katalog szablonów
 $content->dir = './plugins/bugs/style/';
 $content->cache = './cache/bugs/';
-$content->addCSS('plugins/bugs/style/bugs.css');
+$content->css('plugins/bugs/style/bugs.css');
 
 #Modu³
 if(!isset($cfg['bugsOn']))

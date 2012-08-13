@@ -1,7 +1,12 @@
-<form method="post" action="">
+<div id="actions">
+	<a href="url(admin:editMenu)" class="edit">{lang.addBox}</a>
+	<a href="url(admin:help#menu)" class="help">{lang.help}</a>
+</div>
+
+<form method="post">
 <h1>{lang.nav}</h1>
 
-<table cellspacing="1" class="tb">
+<table class="tb">
 <tr>
 	<th>{lang.title}</th>
 	<th style="width: 30px">{lang.seq}</th>
@@ -17,8 +22,8 @@
 	<th colspan="6" style="text-transform: uppercase">{group}</th>
 </tr>
 <!-- END -->
-<tr align="center">
-	<td align="left">{title}</td>
+<tr style="text-align: center">
+	<td style="text-align: left">{title}</td>
 	<td>
 		<input name="seq[{id}]" onblur="if(value=='') value=0" size="1" value="{seq}" />
 	</td>
@@ -46,9 +51,6 @@
 <tr>
 	<td colspan="6" class="eth">
 		<input type="submit" value="{lang.save}" />
-		<a href="{newURL}">
-			<input type="button" value="{lang.addBox}" onclick="location=this.parentNode.href;return false" />
-		</a>
 	</td>
 </tr>
 </table>

@@ -2,28 +2,28 @@
 if(iCMSa!=1 || !admit('P')) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony
+#Page title
 $content->title = $id ? $lang['editPage'] : $lang['addPage'];
 
-#Zapis
+#Action: save
 if($_POST)
 {
-	#Dziel linie
+	#Break lines
 	$o = isset($_POST['o1']);
 
-	#Emoty
+	#Emoticons
 	isset($_POST['o2']) && $o |= 2;
 
-	#Na warstwie
+	#On layer
 	isset($_POST['o3']) && $o |= 4;
 
-	#Komentarze
+	#Comments
 	isset($_POST['o4']) && $o |= 8;
 
 	#PHP
 	isset($_POST['o5']) && $o |= 16;
 
-	#Dane
+	#Data
 	$page = array(
 	'text'	=> &$_POST['txt'],
 	'access'=> clean($_POST['access']),
@@ -33,26 +33,26 @@ if($_POST)
 
 	try
 	{
-		#Edycja
+		#Update existing
 		if($id)
 		{
 			$q=$db->prepare('UPDATE '.PRE.'pages SET name=:name,access=:access,opt=:opt,text=:text WHERE ID=:id');
 			$page['id'] = $id;
 		}
-		#Nowa strona
+		#New page
 		else
 		{
 			$q=$db->prepare('INSERT INTO '.PRE.'pages (name,access,opt,text) VALUES (:name,:access,:opt,:text)');
 		}
 		$q->execute($page);
 
-		#ID strony
+		#Get ID
 		if(!$id) $id = $db->lastInsertId();
 
-		#Powrót
+		#Redirect
 		if(isset($_GET['ref'])) header('Location: '.URL.url('page/'.$id));
 
-		#Info
+		#Show info
 		$content->info($lang['saved'], array(
 			url('page/'.$id) => sprintf($lang['goto'], $page['name']),
 			url('editPage/'.$id, '', 'admin') => $lang['edit'],
@@ -65,7 +65,7 @@ if($_POST)
 	}
 }
 
-#FORM
+#Form
 elseif($id)
 {
 	if(!$page = $db->query('SELECT * FROM '.PRE.'pages WHERE ID='.$id)->fetch(2))
@@ -76,24 +76,24 @@ else
 	$page = array('name'=>'','access'=>1,'text'=>'','opt'=>13);
 }
 
-#Edytor JS
+#Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }
 
-#Tytu³, dane
-$content->data = array(
+#Template
+$content->add('editPage', array(
 	'page' => &$page,
 	'o1'   => $page['opt']&1,
 	'o2'   => $page['opt']&2,
 	'o3'   => $page['opt']&4,
 	'o4'   => $page['opt']&8,
 	'o5'   => $page['opt']&16
-);
+));

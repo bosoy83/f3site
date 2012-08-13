@@ -9,6 +9,17 @@ if(!$id) return;
 $error = array();
 $preview = null;
 
+#Czarna lista
+if(isset($cfg['blacklist']))
+{
+	require_once './lib/spam.php';
+	if(blacklist($_SERVER['REMOTE_ADDR']))
+	{
+		echo $content->info($lang['c11']);
+		return 1;
+	}
+}
+
 #Akceptuj, usuñ
 if(isset($_POST['act']) && $id)
 {
@@ -76,7 +87,7 @@ $content->title = $type ? $lang['addComm'] : $lang['c1'];
 #System CAPTCHA
 if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
 {
-	require './lib/spam.php';
+	require_once './lib/spam.php';
 	$noSPAM = CAPTCHA();
 }
 else
@@ -197,7 +208,6 @@ if($_POST)
 				#Info lub komentarze (AJAX)
 				if(JS)
 				{
-					$content->file = array();
 					include './lib/comm.php';
 					comments($id, $type);
 					return 1;
@@ -232,19 +242,19 @@ else
 if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>',null,'error');
 
 #Szablon
-$content->data = array(
+$content->add('comment', array(
 	'comment' => $c,
 	'code'    => $noSPAM,
 	'author'  => $type && !UID ? true : false,
 	'preview' => $preview,
 	'title'   => empty($cfg['noTitle']),
 	'url'     => url('comment/'.$id.($type ? '/'.$type : ''))
-);
+));
 
 #JS
 if(isset($cfg['bbcode']))
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }

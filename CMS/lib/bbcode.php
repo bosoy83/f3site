@@ -1,4 +1,32 @@
 <?php #Zamieñ BBCode na HTML
+class BBCode
+{
+	private static
+		$bb1 = array(
+			'[b]','[i]','[u]','[sup]','[sub]',
+			'[code]','[quote]',
+			'[big]','[small]',
+			'[center]','[right]'),
+		$bb2 = array(
+			'[/b]','[/i]','[/u]','[/sup]','[/sub]',
+			'[/code]','[/quote]',
+			'[/big]','[/small]',
+			'[/center]','[/right]'),
+		$html1 = array(
+			'<b>', '<i>', '<u>', '<sup>', '<sub>',
+			'<code>',
+			'<blockquote>',
+			'<big>',
+			'<small>',
+			'<center>',
+			'<div align="right">'),
+		$html2 = array(
+			'</b>', '</i>', '</u>', '</sup>', '</sub>',
+			'</code>', '</blockquote>',
+			'</big>', '</small>',
+			'</center>', '</div>');
+}
+
 function BBCode($x, $exc=false)
 {
 	global $lang,$cfg;

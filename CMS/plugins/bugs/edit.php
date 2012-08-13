@@ -6,7 +6,7 @@ $right = admit('BUGS');
 $id = isset($URL[2]) ? (int)$URL[2] : 0;
 $content->title = $id ? $lang['editBug'] : $lang['postBug'];
 
-#Edytuj zg³oszenie
+#Edit issue
 if($id)
 {
 	if(!$bug = $db->query('SELECT cat,name,env,level,who,text FROM '.PRE.'bugs WHERE ID='.$id)->fetch(2))
@@ -15,13 +15,13 @@ if($id)
 	}
 	$f = $bug['cat'];
 
-	#Prawa
+	#Check rights
 	if(!$right && ($bug['UID'] != UID || !isset($cfg['bugsEdit'])))
 	{
 		$error[] = $lang['noRight'];
 	}
 }
-#Dodaj nowe - musi mieæ parametr f = ID kategorii
+#Add new - must have f = category ID
 else
 {
 	if(!isset($_GET['f']) OR !is_numeric($_GET['f']))
@@ -31,16 +31,16 @@ else
 	$f = $_GET['f'];
 }
 
-#Kategoria
+#Get category
 $cat = $db->query('SELECT name,see,post,text FROM '.PRE.'bugcats WHERE ID='.$f)->fetch(3);
 
-#Mo¿e pisaæ?
+#Check posting rights
 if(!$cat[1] OR !BugRights($cat[2]))
 {
 	$error[] = $lang['noRight'];
 }
 
-#System CAPTCHA
+#CAPTCHA
 if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
 {
 	require './lib/spam.php';
@@ -51,7 +51,7 @@ else
 	$noSPAM = false;
 }
 
-#Zapisz
+#Action: save
 if($_POST)
 {
 	$bug = array(
@@ -61,7 +61,7 @@ if($_POST)
 		'level'=> (int)$_POST['level']
 	);
 
-	#Tekst za d³ugi
+	#Too long text
 	if(empty($bug['text']) || empty($bug['name']))
 	{
 		$error[] = $lang['bugsFill'];
@@ -79,7 +79,7 @@ if($_POST)
 		$error[] = $lang['badCode'];
 	}
 
-	#Zapisz, gdy nie ma b³êdów
+	#Save if no errors
 	if(!$error)
 	{
 		try
@@ -115,16 +115,16 @@ if($_POST)
 			}
 			$q->execute($bug);
 
-			#ID
+			#Get new ID
 			if(!$id) $id = $db->lastInsertId();
 
-			#Zaktualizuj dane kategorii
+			#Update category data
 			if($i) $i->execute(array($bug['date'], $f));
 
-			#ZatwierdŸ transakcjê
+			#Apply transaction
 			$db->commit();
 
-			#Gdy trzeba moderowaæ
+			#Need approving or not
 			if(!$id && isset($cfg['bugsMod']))
 			{
 				$content->message($lang['queued'], url('bugs/'.$id));
@@ -146,7 +146,7 @@ elseif(!$id)
 	$bug = array('name' => '', 'env' => '', 'level' => 3, 'text' => '', 'who' => '');
 }
 
-#Poka¿ b³êdy
+#Show errors
 if($error)
 {
 	$content->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
@@ -160,16 +160,15 @@ elseif(isset($cfg['bugsWhile']) && $cat[3])
 #BBCode
 if(isset($cfg['bbcode']))
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }
 
-#Szablon
-$content->file = 'edit';
-$content->data = array(
-	'bug'  => &$bug,
-	'code' => $noSPAM,
-	'who'  => !$id && !UID,
+#Template
+$content->add('edit', array(
+	'bug'    => &$bug,
+	'code'   => $noSPAM,
+	'who'    => !$id && !UID,
 	'bbcode' => isset($cfg['bbcode'])
-);
+));

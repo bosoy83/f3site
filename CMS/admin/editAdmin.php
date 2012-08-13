@@ -3,59 +3,59 @@ if(iCMSa!=1 || !admit('U')) return;
 require LANG_DIR.'rights.php';
 require LANG_DIR.'profile.php';
 
-#Brak uprawnieñ
+#Cannot edit own privileges
 if(!$id || $id < 1 || ($id == UID && !IS_OWNER)) return;
 
-#Uprawnienia
+#Privileges
 $set = array(
-	'C',  //Kategorie
-	'P',  //Wolne strony
-	'Q',  //Ankiety
+	'C',  //Categories
+	'P',  //Free pages
+	'Q',  //Polls
 	'R',  //RSS
-	'U',  //U¿ytkownicy
-	'G',  //Grupy
-	'L',  //Indeks zdarzeñ
-	'M',  //Masowe listy
-	'CFG',//Opcje
-	'DB', //Kopia bazy danych
+	'U',  //Users
+	'G',  //Groups
+	'L',  //Event log
+	'M',  //Mail merge
+	'CFG',//Options
+	'DB', //Database copy
 	'N',  //Menu
-	'B',  //Bannery
-	'E',  //PI
-	'CM', //Komentarze
-	'TAG',//S³owa kluczowe
-	'FM', //Mened¿er plików
-	'UP', //Upload
+	'B',  //Banners
+	'E',  //Addons
+	'CM', //Comments
+	'TAG',//Keywords
+	'FM', //File manager
+	'UP', //Uploading files
 	'$',  //WYSIWYG
-	'+'   //Globalny redaktor
+	'+'   //Global editor
 );
 
-#Pobierz u¿ytkownika - FETCH_NUM
+#Get user - FETCH_NUM
 $adm = $db->query('SELECT login,lv,adm FROM '.PRE.'users WHERE ID='.$id.
 	(!IS_OWNER ? ' && lv!=4' : '')) -> fetch(3);
 
-#Brak uprawnieñ
+#Cannot edit higher or equal level
 if(!$adm OR (!IS_OWNER && $adm[1] >= LEVEL)) return;
 
-#Pobierz wtyczki - FETCH_NUM
+#Get addons - FETCH_NUM
 $plug1 = $db->query('SELECT ID,text FROM '.PRE.'admmenu WHERE rights=1')->fetchAll(3);
 
-#Pobierz kategorie
+#Get categories
 $cats1 = $db->query('SELECT ID,name,c.type,CatID FROM '.PRE.'cats c LEFT JOIN '.PRE.'acl a
 	ON c.ID=a.CatID AND a.type="CAT" AND a.UID='.$id.' ORDER BY c.type') -> fetchAll(3);
 
-#Tytu³ strony
+#Page title
 $content->title = sprintf('%s - %s', $lang['editAdm'], $adm[0]);
 
-#Zapis
+#Action: save
 if($_POST)
 {
-	#Poziom
+	#Level
 	$lv = (int)$_POST['lv'];
 
-	#Mo¿e zmieniæ w³a¶ciciela?
+	#Cannot edit owner
 	if(!IS_OWNER && ($lv>3 OR $lv<0)) return;
 
-	#Globalne i nowe uprawnienia
+	#Global and new privileges
 	$glo = array();
 	$new = array();
 	foreach($set as $x)
@@ -66,14 +66,14 @@ if($_POST)
 	{
 		if(isset($_POST[$x[0]])) $glo[] = $x[0];
 	}
-	$checked = isset($_POST['c']) ? join(',', array_map('intval',$_POST['c'])) : ''; //Wybrane
+	$checked = isset($_POST['c']) ? join(',', array_map('intval',$_POST['c'])) : ''; //Selected
 	try
 	{
 		$db->beginTransaction();
 		if($checked)
 		$db->exec('DELETE FROM '.PRE.'acl WHERE UID='.$id.' AND type="CAT" AND CatID NOT IN('.$checked.')');
 
-		#Zapytanie - ACL
+		#Update ACL privileges
 		$q = $db->prepare('REPLACE INTO '.PRE.'acl (UID,CatID,type) VALUES (?,?,"CAT")');
 		foreach($cats1 as $x)
 		{
@@ -81,10 +81,10 @@ if($_POST)
 		}
 		$q = null;
 
-		#Globalne prawa i poziom
+		#Update global rights and level
 		$db->exec('UPDATE '.PRE.'users SET adm="'.join('|',$glo).'", lv='.$lv.' WHERE ID='.$id);
 
-		#Koniec
+		#Apply changes
 		$db->commit();
 		$content->info($lang['saved']);
 		header('Location: '.URL.url('admins','','admin'));
@@ -98,21 +98,21 @@ if($_POST)
 
 /* FORM */
 
-#Funkcje
+#Functions
 require './lib/user.php';
 require './lib/categories.php';
 
-$prv = explode('|', $adm[2]); //Prawa
-$lv  = $adm[1]; //Poziom
+$prv = explode('|', $adm[2]); //Rights
+$lv  = $adm[1]; //Level
 
-#Prawa
+#Rights
 $rights = array();
 foreach($set as $x)
 {
 	if(in_array($x,$prv)) $rights[$x] = true;
 }
 
-#Wtyczki
+#Addons
 $plugins = '';
 foreach($plug1 as &$x)
 {
@@ -120,12 +120,12 @@ foreach($plug1 as &$x)
 		' checked="checked"' : '').' /> '.$x[1].'</label><br />';
 }
 
-#Prawa do kategorii
+#Categories
 $cats = '';
 $type = 0;
 foreach($cats1 as &$x)
 {
-	if($x[2] > $type) //Inny typ
+	if($x[2] > $type) //Type change
 	{
 		if($type!=0) $cats .= '</fieldset>';
 		$cats .= '<fieldset><legend>'.$lang['cats'].': '.$lang[ typeOf($x[2]) ].'</legend>';
@@ -136,10 +136,11 @@ foreach($cats1 as &$x)
 }
 if($cats!='') $cats.='</fieldset>';
 
-$content->data = array(
-	'owner' => IS_OWNER,
-	'lv'    => $lv,
-	'cats'  => &$cats,
+#Template
+$content->add('editAdmin', array(
+	'owner'   => IS_OWNER,
+	'lv'      => $lv,
+	'cats'    => &$cats,
 	'plugins' => &$plugins,
 	'rights'  => &$rights
-);
+));

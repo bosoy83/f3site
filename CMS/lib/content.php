@@ -1,23 +1,32 @@
-<?php /* Klasa szablonów */
+<?php /* Template system */
 class Content
 {
 	public
-		$file,
 		$title,
-		$head,
 		$desc,
-		$data = array(),
+		$nav,
 		$check = true,
 		$cache = VIEW_DIR,
 		$dir = SKIN_DIR;
+	private
+		$head,
+		$file,
+		$data = array();
 
-	#Wy¶wietl szablony
+	#Add template and assign variables
+	function add($file, $data=array())
+	{
+		$this->file[] = $file;
+		$this->data += $data;
+	}
+	
+	#Display templates
 	function display()
 	{
-		#Udostêpnij jêzyk
+		#Share language
 		global $lang;
 
-		#Informacja
+		#Info texts
 		if(isset($this->info))
 		{
 			$info = $this->info;
@@ -25,14 +34,14 @@ class Content
 			if(!$this->data) return;
 		}
 
-		#Utwórz referencje, aby omin±æ $this w szablonach
+		#Create references to omit $this in templates
 		foreach(array_keys($this->data) as $key)
 		{
 			$$key = &$this->data[$key];
 		}
 
-		#Kompiluj i wy¶wietl
-		if(is_array($this->file))
+		#Compile and output
+		if($this->file)
 		{
 			foreach($this->file as $f)
 			{
@@ -41,18 +50,35 @@ class Content
 		}
 		else
 		{
-			include $this->path($this->file);
+			include $this->path('404');
 		}
 	}
 
-	#Informacja
+	#Display main template
+	function front($file = 'body', $data = null)
+	{
+		global $lang,$cfg,$user;
+
+		#Additional data
+		if($data) extract($data);
+
+		#Set 410 Gone header if page does not exist
+		if(empty($this->file))
+		{
+			$this->title = $lang['404'];
+			header('Gone', true, 410);
+		}
+		include $this->path($file,1);
+	}
+
+	#Add information
 	function info($text, $links=array(), $class='info')
 	{
 		$this->info[] = array('text' => $text, 'links' => $links, 'class' => $class);
 	}
 
-	#Dodaj plik CSS
-	function addCSS($file)
+	#Add stylesheet
+	function css($file)
 	{
 		if(!strpos($file, '/'))
 		{
@@ -61,21 +87,26 @@ class Content
 		$this->head .= '<link rel="stylesheet" type="text/css" href="'.$file.'" />';
 	}
 
-	#Dodaj skrypt
-	function addScript($file, $type='text/javascript')
+	#Add JavaScript file
+	function script($file, $type='text/javascript')
 	{
 		$this->head .= '<script type="'.$type.'" src="'.$file.'"></script>';
 	}
 
-	#404
-	function set404()
+	#Add RSS channel
+	function rss($file, $title=null)
 	{
-		$this->title = 'Not Found';
-		$this->file = '404';
-		header('Gone', true, 410);
+		if(!is_array($file))
+		{
+			$file = array($file => $title);
+		}
+		foreach($file as $f=>$t)
+		{
+			$this->head .= '<link rel="alternate" type="application/rss+xml" href="'.$f.'" title="'.$t.'" />';
+		}
 	}
 
-	#Komunikat lub b³±d
+	#Show message or error
 	function message($info, $link=null)
 	{
 		if($info === (int)$info)
@@ -88,7 +119,7 @@ class Content
 		exit;
 	}
 
-	#Kompiluj szablon
+	#Compile template
 	function path($file, $sys=null)
 	{
 		if(!$sys && file_exists($this->dir . $file . '.html'))
@@ -111,7 +142,7 @@ class Content
 			exit('Cannot find template: '.$file.'.html');
 		}
 
-		#Sprawd¼ datê modyfikacji
+		#Check modification date
 		if($this->check && filemtime($path . $file . '.html') > @filemtime($cache. $file . '.html'))
 		{
 			static $compiler;

@@ -21,10 +21,11 @@ function tags($id, $type, $mayTag=false)
 
 	if($tag || $may):
 
-	$content->file[] = 'tag';
-	$content->data['tag'] = $tag;
-	$content->data['editTags'] = $may;
-	$content->data['urls'] = "['$url','request.php?go=tags&type=$type&id=$id']";
+	$content->add('tag', array(
+		'tag'      => $tag,
+		'editTags' => $may,
+		'urls'     => "['$url','request.php?go=tags&type=$type&id=$id']"
+	));
 
 	endif;
 }

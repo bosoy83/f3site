@@ -24,6 +24,7 @@
 'emoon'=>'Grafische Emoticons',
 'files'=>'Files',
 'groups'=>'Benutzergruppen',
+'help'=>'Hilfe',
 'imgcode'=>'Code aus dem Bild',
 'imgs'=>'Bilder',
 'in'=>'in %d Min.',

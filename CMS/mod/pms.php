@@ -14,12 +14,12 @@ if(isset($cfg['pmOn']) && UID)
 	$size = $db->query('SELECT COUNT(*) FROM '.PRE.'pms WHERE owner='.UID)->fetch(7);
 
 	#Dane do szablonu
-	$content->data = array(
+	$content->add('pms', array(
 		'new'   => $user['pms'],
 		'limit' => $cfg['pmLimit'],
 		'size'  => $size,
 		'quota' => $cfg['pmLimit']>0 && $size>0 ? $size / $cfg['pmLimit'] * 100 : 0
-	);
+	));
 
 	#Akcja
 	if(isset($URL[1]))

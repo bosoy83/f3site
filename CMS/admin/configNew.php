@@ -1,17 +1,16 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Dostepne opcje
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 
-#Typy kategorii
+#Category types
 $type = array();
 $data = parse_ini_file('./cfg/types.ini', 1);
 
-#Zapis
+#Save
 if($_POST)
 {
-	#Typy danych musza byc numeryczne
+	#Types must be numbers
 	if(isset($_POST['newTypes']))
 	{
 		foreach($_POST['newTypes'] as &$x) $x = (int)$x;
@@ -22,12 +21,12 @@ if($_POST)
 		$f = new Config('latest');
 		$f -> save($_POST);
 
-		#Aktualizuj liste
+		#Update newest
 		include './lib/categories.php';
 		Latest();
 		event('CONFIG');
 
-		#Powrot do menu opcji
+		#Return to menu
 		include './admin/config.php';
 		return 1;
 	}
@@ -51,5 +50,6 @@ foreach($data as $num => &$x)
 	);
 }
 
+#Template
 $content->title = $lang['latest'];
-$content->data = array('cfg'=>$opt, 'type'=>$type);
+$content->add('configNew', array('cfg'=>$opt, 'type'=>$type));

@@ -1,7 +1,7 @@
 <?php
 if(iCMS!=1) exit;
 
-#Pobierz kategoriê
+#Get category
 if(isset($URL[2]) && is_numeric($URL[2]))
 {
 	$id = $URL[2];
@@ -11,10 +11,13 @@ if(isset($URL[2]) && is_numeric($URL[2]))
 }
 else return;
 
-#Komunikat
+#Page title
+$content->title = $cat['name'];
+
+#Category text
 if($cat['text'] && isset($cfg['bugsUp'])) $content->info(nl2br($cat['text']));
 
-#Strona
+#Page number
 if(isset($URL[3]) && is_numeric($URL[3]) && $URL[3]>1)
 {
 	$page = $URL[3];
@@ -26,7 +29,7 @@ else
 	$st = 0;
 }
 
-#Pobierz zg³oszenia
+#Get issues
 $res = $db->prepare('SELECT ID,name,num,date,status,level FROM '.PRE.'bugs WHERE cat=?'.
 	(admit('BUGS') ? '' : ' AND status!=5').' ORDER BY ID DESC LIMIT ?,?');
 $res -> bindValue(1, $id, 1);
@@ -53,7 +56,7 @@ foreach($res as $x)
 	++$num;
 }
 
-#Strony
+#Pages
 if(!$num)
 {
 	$content->info($lang['noc']);
@@ -67,9 +70,8 @@ else
 	$pages = '';
 }
 
-#Szablony
-$content->title = $cat['name'];
-$content->data = array(
+#template
+$content->add('bugs', array(
 	'issue'   => &$all,
 	'postURL' => BugRights($cat['post']) ? url('bugs/post', 'f='.$id) : false
-);
+));

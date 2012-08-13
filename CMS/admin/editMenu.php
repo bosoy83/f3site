@@ -2,13 +2,12 @@
 if(iCMSa!=1 || !admit('N')) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony
+#Page title
 $content->title = $id ? $lang['editBox'] : $lang['addBox'];
 
-#Zapis
+#Action: save
 if($_POST)
 {
-	#Dane
 	$m = array(
 		'text' => clean($_POST['text']),
 		'disp' => clean($_POST['disp']),
@@ -18,7 +17,7 @@ if($_POST)
 		'value'=> $_POST['value']
 	);
 
-	#Opcje menu
+	#Menu options
 	$o = array();
 	$ile = isset($_POST['adr']) ? count($_POST['adr']) : 0;
 	for($i=0;$i<$ile;++$i)
@@ -39,19 +38,19 @@ if($_POST)
 			5 => $id);
 	}
 
-	#START
+	#Start transaction
 	try
 	{
 		$db->beginTransaction();
 
-		#Edytuj
+		#Edit existing
 		if($id && !isset($_POST['savenew']))
 		{
 			$q = $db->prepare('UPDATE '.PRE.'menu SET text=:text, disp=:disp, menu=:menu,
 				type=:type, img=:img, value=:value WHERE ID='.$id);
 			$db->exec('DELETE FROM '.PRE.'mitems WHERE menu='.$id);
 		}
-		#Nowy
+		#New or save as new
 		else
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'menu (seq,text,disp,menu,type,img,value)
@@ -59,13 +58,13 @@ if($_POST)
 		}
 		$q->execute($m);
 
-		#ID
+		#Get ID
 		if(!$id OR isset($_POST['savenew'])) $id = $db->lastInsertId();
 
-		#Linki
+		#Menu items
 		if($m['type']==3)
 		{
-			#Dodaj pozycje menu
+			#Add menu items
 			$q = $db->prepare('INSERT INTO '.PRE.'mitems (text,type,url,nw,seq,menu) VALUES (?,?,?,?,?,?)');
 			foreach($o as &$i)
 			{
@@ -75,11 +74,11 @@ if($_POST)
 		}
 		$db->commit();
 
-		#Generuj menu
+		#Update menu cache
 		include './lib/mcache.php';
 		RenderMenu();
 
-		#Lista
+		#Redirect
 		header('Location: '.URL.url('menu', '', 'admin'));
 		$content->message($lang['saved'], url('menu', '', 'admin'));
 	}
@@ -89,7 +88,7 @@ if($_POST)
 	}
 }
 
-#Odczyt (ASSOC)
+#Edit (ASSOC)
 elseif($id)
 {
 	if(!$m = $db->query('SELECT * FROM '.PRE.'menu WHERE ID='.$id) -> fetch(2))
@@ -107,16 +106,16 @@ else
 	$o = array(array('', 4, '', 0));
 }
 
-#Kategorie i wolne strony
+#Categories and free pages
 $cats = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE access!=3 ORDER BY name')->fetchAll(12);
 $free = $db->query('SELECT ID,name FROM '.PRE.'pages WHERE access!=0 ORDER BY name')->fetchAll(12);
 
-$content->addScript('lib/forms.js');
-$content->data = array(
+$content->script('lib/forms.js');
+$content->add('editMenu', array(
 	'menu' => &$m,
 	'item' => &$o,
 	'cats' => json_encode($cats),
 	'pages' => json_encode($free),
 	'fileman' => admit('FM'),
 	'langlist' => listBox('lang', 1, $m['disp'])
-);
+));

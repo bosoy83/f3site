@@ -2,10 +2,10 @@
 if(iCMSa!=1 || !admit('N')) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony
+#Page title
 $content->title = $lang['nav'];
 
-#Zapis i usuwanie bloków
+#Save and delete menu blocks
 if($_POST)
 {
 	try
@@ -26,7 +26,7 @@ if($_POST)
 			}
 		}
 
-		#Usuñ menu i niepowi¹zane linki
+		#Delete menu block and unlinked items
 		if($del)
 		{
 			$db->exec('DELETE FROM '.PRE.'menu WHERE ID IN ('.join(',', $del).')');
@@ -36,7 +36,7 @@ if($_POST)
 		$content->info($lang['saved']);
 		unset($q,$seq,$_POST);
 
-		#Odbuduj menu
+		#Rebuild menu cache
 		require './lib/mcache.php';
 		RenderMenu();
 	}
@@ -46,7 +46,7 @@ if($_POST)
 	}
 }
 
-#Pobierz bloki
+#Get menu blocks
 $res = $db->query('SELECT ID,seq,text,disp,menu,type FROM '.PRE.'menu ORDER BY disp,menu,seq');
 $res->setFetchMode(3); //Num
 $num = 0;
@@ -77,7 +77,7 @@ foreach($res as $m)
 }
 
 #Do szablonu
-$content->data = array(
+$content->add('menu', array(
 	'blocks' => $blocks,
 	'newURL' => url('editMenu', '', 'admin')
-);
+));

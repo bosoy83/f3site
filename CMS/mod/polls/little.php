@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 echo '<center>'.$poll['q'].'</center>';
 ?>
-<table align="center" cellspacing="0" cellpadding="0" style="padding: 3px 1px; width: 100%">
+<table align="center" cellspacing="0" cellpadding="0" style="padding: 5px 1px; width: 100%">
 <tbody>
 <?php
 #Generowanie
@@ -21,6 +21,6 @@ foreach($item as &$o)
 </tbody>
 </table>
 <div align="center" style="padding: 2px">
-	<a href="<?php echo url('poll/'.$poll['ID'])?>"><input type="button" value="<?php echo $lang['results']?>" onclick="location=this.parentNode.href; return false" /></a>
-	<a href="<?php echo url('polls')?>"><input type="button" value="<?php echo $lang['archive']?>" onclick="location=this.parentNode.href; return false" /></a>
+	<a href="<?php echo url('poll/'.$poll['ID'])?>" class="pollMore"><?php echo $lang['results'] ?></a>
+	<a href="<?php echo url('polls')?>" class="pollArchive"><?php echo $lang['archive'] ?></a>
 </div>

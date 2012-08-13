@@ -1,7 +1,12 @@
-<form action="" method="post">
+<div id="actions">
+	<a href="url(admin:editPoll)" class="edit">{lang.addPoll}</a>
+	<a href="url(admin:help#poll)" class="help">{lang.help}</a>
+</div>
+
+<form method="post">
 <h1>{lang.polls}</h1>
 
-<table cellspacing="1" class="tb" id="polls">
+<table class="tb" id="polls">
 <thead>
 <tr>
 	<th>{lang.name}</th>
@@ -11,15 +16,15 @@
 	<th style="width: 30px"></th>
 </tr>
 </thead>
-<tbody>
+<tbody style="text-align: center">
 
 <!-- START polls -->
 <tr>
-	<td>{num}. <a href="{url}">{title}</a></td>
-	<td align="center">{votes}</td>
-	<td align="center">{access}</td>
-	<td align="center"><a href="{edit}">{lang.edit}</a></td>
-	<td align="center"><input type="checkbox" name="x[{id}]" /></td>
+	<td style="text-align: left">{num}. <a href="{url}">{title}</a></td>
+	<td>{votes}</td>
+	<td>{access}</td>
+	<td><a href="{edit}">{lang.edit}</a></td>
+	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->
 

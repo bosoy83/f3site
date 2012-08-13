@@ -45,6 +45,7 @@
 'vismail'=>'E-Mail im deim Profil zeigen',
 'getmails'=>'E-Mails von Administrator überbringen',
 'allowComm'=>'Kommentare im deim Profil',
+'timezone'=>'Zeitzone',
 
 'avatar'=>'Avatar oder Foto',
 'curPhoto'=>'Aktuell Foto',

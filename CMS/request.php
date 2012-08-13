@@ -35,4 +35,4 @@ switch($URL[0])
 }
 
 #Wy¶wietl szablon
-if($content->file) $content->display();
+#if($content->file) $content->display();

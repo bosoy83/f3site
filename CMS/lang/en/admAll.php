@@ -11,7 +11,7 @@ $lang+=Array(
 'addCat'	=> 'Add categories',
 'editCat'	=> 'Edit category',
 'goCat'		=> 'Go to the category',
-'count'		=> 'Recount items in categories',
+'count'		=> 'recount items',
 'intro'		=> 'Welcome text - displayed above item list',
 'dinfo'		=> 'Content is stored in categories. Click category name to display item list.',
 'basic'		=> 'None - main category',
@@ -92,6 +92,8 @@ $lang+=Array(
 'priv'	=> 'rights',
 'open'	=> 'Opened',
 'profile'	=> 'profile',
+'privs' => 'Privileges',
+'addUser' => 'Add user',
 'addGroup'	=> 'Add group',
 'editGroup'	=> 'Edit group',
 'userDel2'	=> 'Do you want to delete all user activity, e.g. comments?',
@@ -104,4 +106,18 @@ $lang+=Array(
 'dbSelect' => 'Select tables',
 'dbDelete' => 'Deleting tables if exist',
 'dbInfo'   => 'You can download content of database on your computer as .SQL file. This operation may take some time if database size is big. To select more tables, hold CTRL key during selection.',
+
+/* PLUGINS */
+'warn'=>'WARNING: Addons coming from untrusted source may damage or steal data. If you are sure this addon is safe, click OK. Otherwise return to previous page.',
+'warn2'=>'WARNING: All data created by this addon will be removed during uninstallation.',
+'uninst'=>'uninstall',
+'inst'=>'install',
+'conf'=>'configure',
+'menuItem'=>'Add links to menu',
+'noinst'=>'This addon works wihout installation.',
+'pos'=>'Pos',
+'ver'=>'Version',
+'store'=>'Get more addons',
+'ready'=>'Ready addons',
+'unready'=>'Addons you can install'
 );

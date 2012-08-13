@@ -1,10 +1,13 @@
 <?php
 if(iCMS!=1) exit;
 
-#Powitanie
+#Welcome text
 if($cfg['bugsIntro']) $content->info($cfg['bugsIntro']);
 
-#Pobierz kategorie
+#Page title
+$content->title = $lang['BUGS'];
+
+#Get categories
 $res = $db->query('SELECT c.ID,c.name,c.dsc,c.post,c.num,c.last,s.title FROM '.PRE.'bugcats c LEFT JOIN '.PRE.'bugsect s ON c.sect = s.ID WHERE c.see=1 OR c.see="'.LANG.'" ORDER BY s.seq,c.name');
 
 $cat  = array();
@@ -14,7 +17,7 @@ $num  = 0;
 
 foreach($res as $x)
 {
-	#Sekcja
+	#Section
 	if($x['title'] != $sect)
 	{
 		$sect = $x['title'];
@@ -35,15 +38,13 @@ foreach($res as $x)
 	++$num;
 }
 
-#Brak kategorii
+#No category
 if(!$num)
 {
 	$content->info($lang['nocats']);
 }
 else
 {
-	$content->file = 'cats';
-	$content->addCSS('plugins/bugs/style/bugs.css');
-	$content->title = $lang['BUGS'];
-	$content->data = array('cat' => &$cat);
+	$content->css('plugins/bugs/style/bugs.css');
+	$content->add('cats', array('cat' => &$cat));
 }

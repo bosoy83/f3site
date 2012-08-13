@@ -45,6 +45,7 @@
 'vismail'=>'Wyświetl adres e-mail w profilu',
 'getmails'=>'Dostarczaj listy od administratora',
 'allowComm'=>'Włącz komentarze w moim profilu',
+'timezone'=>'Strefa czasowa',
 
 'avatar'=>'Zmień awatar lub zdjęcie',
 'curPhoto'=>'Aktualne zdjęcie',

@@ -3,28 +3,31 @@ if(iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
-#Zapis
+#Page title
+$content->title = $id ? $lang['editCat'] : $lang['addCat'];
+
+#Action: save
 if($_POST)
 {
-	#Wy¿sza kat.
+	#Parent category
 	$up = (int)$_POST['sc'];
 
-	#Struktura kategorii: 1
+	#Category structure: 1
 	$o = isset($_POST['o1']);
 
-	#Komentarze: 2
+	#Comments: 2
 	isset($_POST['o2']) AND $o |= 2;
 
-	#Oceny: 4
+	#Rating: 4
 	isset($_POST['o3']) AND $o |= 4;
 
-	#Lista kategorii
+	#Category list: 8
 	isset($_POST['o4']) AND $o |= 8;
 
-	#Zawartoœæ z podkategorii
+	#Content of all subcategories: 16
 	isset($_POST['o5']) AND $o |= 16;
 
-	#Dane
+	#Data
 	$cat = array(
 	'sc'    => $up,
 	'opt'   => $o,
@@ -40,7 +43,7 @@ if($_POST)
 	{
 		$db->beginTransaction();
 
-		#Edytuj
+		#Update existing
 		if($id)
 		{
 			$q = $db->prepare('UPDATE '.PRE.'cats SET name=:name,dsc=:dsc,access=:access,
@@ -48,18 +51,17 @@ if($_POST)
 			$old = $db->query('SELECT ID,access,sc,lft,rgt FROM '.PRE.'cats WHERE ID='.$id)->fetch(3);
 			$cat['id'] = $id;
 		}
-		#Nowa
+		#Insert new
 		else
 		{
-			#Zapis
 			$q = $db->prepare('INSERT INTO '.PRE.'cats (name,dsc,access,type,sc,sort,text,opt,lft,rgt)
 				VALUES (:name,:dsc,:access,:type,:sc,:sort,:text,:opt,:lft,:rgt)');
 
-			#Pobierz prawy indeks ostatniej kategorii
+			#Get right key of last category
 			$cat['lft'] = (int) $db->query('SELECT rgt FROM '.PRE.'cats WHERE'.(($up) ?
 				' ID='.$up : ' sc=0 ORDER BY lft DESC LIMIT 1')) -> fetchColumn();
 
-			#Przesuñ kategorie
+			#Shift categories
 			if($up)
 			{
 				$db->exec('UPDATE '.PRE.'cats SET lft=lft+2 WHERE lft>='.$cat['lft']);
@@ -71,11 +73,9 @@ if($_POST)
 			}
 			$cat['rgt'] = $cat['lft']+1;
 		}
-
-		#ZatwierdŸ
 		$q->execute($cat);
 
-		#Pobierz ID lub dokonaj zmian LFT i RGT
+		#Get ID or rebuild the whole tree
 		if(!$id)
 		{
 			$id = $db->lastInsertId();
@@ -85,14 +85,14 @@ if($_POST)
 			RebuildTree();
 		}
 
-		#ZatwierdŸ i przebuduj strukturê kategorii
+		#Apply changes and rebuild category structure cache
 		$db->commit();
 		UpdateCatPath($id);
 
-		#Przekieruj do kategorii
+		#Redirect
 		if(isset($_GET['ref'])) header('Location: '.URL.url($id));
 
-		#Info + linki
+		#Info + links
 		$content->info($lang['saved'].' ID: '.$id, array(
 			url($id) => $lang['goCat'],
 			url('editCat', '', 'admin') => $lang['addCat'],
@@ -104,17 +104,16 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e); //B³¹d
+		$content->info($e->getMessage()); //Errors
 	}
 }
 
-#FORMULARZ: Odczyt
+#Action: FORM
 elseif($id)
 {
 	if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE ID='.$id) -> fetch(2)) //ASSOC
 	return;
 }
-#Domyœlne dane
 else
 {
 	$cat = array(
@@ -128,18 +127,19 @@ else
 		'access'=> 1
 	);
 }
-#Edytor JS, tytu³, dane
+#Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('lib/editor.js');
 }
-$content->title = $id ? $lang['editCat'] : $lang['addCat'];
-$content->data = array(
+
+#Prepare template
+$content->add('editCat', array(
 	'cat'  => &$cat,
 	'o1'   => $cat['opt'] & 1,
 	'o2'   => $cat['opt'] & 2,
@@ -148,4 +148,4 @@ $content->data = array(
 	'o5'   => $cat['opt'] & 16,
 	'cats' => Slaves(0,$cat['sc'],$id),
 	'langs'=> listBox('lang',1,$cat['access'])
-);
+));

@@ -24,6 +24,7 @@
 'emoon'		=>'Enable emoticons.',
 'files'		=>'Files',
 'groups'	=>'User groups',
+'help'		=>'Help',
 'imgcode'	=>'Confirm the code',
 'imgs'		=>'Images',
 'in'			=>'in %d min',

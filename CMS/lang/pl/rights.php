@@ -11,7 +11,6 @@
 'profile'=>'profil',
 'manComm'=>'Usuwanie i edycja komentarzy',
 'manTag'=>'Edycja słów kluczowych - tagów',
-'addUser'=>'Dodaj użytkownika',
 
 'banCM'=>'Wyłącz pisanie komentarzy',
 'banPM'=>'Wyłącz prywatne wiadomości',

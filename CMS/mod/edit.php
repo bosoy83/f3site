@@ -48,7 +48,6 @@ if($TYPE)
 
 #Tytul
 $content->title = $lang['mantxt'];
-$content->file  = 'content';
 
 #Ostatni komentarz
 if(admit('CM') && $c = $db->query('SELECT name,date,text FROM '.PRE.'comms ORDER BY ID DESC LIMIT 1')->fetch(3))
@@ -58,19 +57,20 @@ if(admit('CM') && $c = $db->query('SELECT name,date,text FROM '.PRE.'comms ORDER
 		require_once './lib/bbcode.php';
 		$c[2] = BBCode($c[2]);
 	}
-	$content->data = array(
+	$last = array(
 		'title' => $c[0],
-		'last'  => genDate($c[1],1),
+		'date'  => genDate($c[1],1),
 		'text'  => emots($c[2]),
 		'color' => isset($cfg['colorCode']),
 	);
 }
 else
 {
-	$content->data = array('last' => null);
+	$last = array();
 }
 
 #Wolne strony
-$content->data += array(
-'page' => admit('P') ? url('editPage','','admin') : null,
-'pages' => admit('P') ? url('pages','','admin') : null);
+$content->add('content', array(
+	'comment' => &$last,
+	'page'    => admit('P') ? url('editPage','','admin') : null,
+	'pages'   => admit('P') ? url('pages','','admin') : null));

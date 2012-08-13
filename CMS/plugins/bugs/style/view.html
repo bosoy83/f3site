@@ -9,7 +9,7 @@
 	</ul>
 </div>
 
-<div class="cs">
+<div id="path">
 
 	<!-- IF edit -->
 	<div style="float: right"><a class="edit" href="{edit}">{lang.edit}</a></div>
@@ -19,22 +19,22 @@
 	<a href="{catURL}">{bug.catName}</a>
 </div>
 
-<h2>{bug.name}</h2>
-<table cellspacing="1" class="tb">
+<h1>{bug.name}</h1>
+<table class="tb">
 <tr>
-	<th style="width: 120px" align="right">{lang.added}:</th>
+	<th style="width: 120px; text-align: right">{lang.added}:</th>
 	<td>{bug.date}</td>
 </tr>
 <tr>
-	<th align="right">{lang.wrote}:</th>
+	<th style="text-align: right">{lang.wrote}:</th>
 	<td>{bug.who}</td>
 </tr>
 <tr>
-	<th align="right">{lang.status}:</th>
+	<th style="text-align: right">{lang.status}:</th>
 	<td><span id="st">{bug.status}</span>
 
 		<!-- IF editStatus -->
-		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',133,132,1)" style="cursor: pointer" />
+		<img src="plugins/bugs/d.png" alt="+" onclick="hint('chst',133,132,1)" style="cursor: pointer">
 		<script type="text/javascript">
 		function St(x)
 		{
@@ -46,7 +46,7 @@
 	</td>
 </tr>
 <tr>
-	<th align="right">{lang.level}:</th>
+	<th style="text-align: right">{lang.level}:</th>
 	<td>{bug.level}</td>
 </tr>
 
@@ -62,14 +62,14 @@
 
 <!-- IF stars -->
 <tr>
-	<th align="right">{lang.rate}:</th>
+	<th style="text-align: right">{lang.rate}:</th>
 	<td>
 		<div class="rate avg{bug.mark} by" id="BST">
-			<input type="submit" value="1" class="r1" />
-			<input type="submit" value="2" class="r2" />
-			<input type="submit" value="3" class="r3" />
-			<input type="submit" value="4" class="r4" />
-			<input type="submit" value="5" class="r5" />
+			<input type="submit" value="1" class="r1">
+			<input type="submit" value="2" class="r2">
+			<input type="submit" value="3" class="r3">
+			<input type="submit" value="4" class="r4">
+			<input type="submit" value="5" class="r5">
 		</div>
 		{lang.rates}: <span id="MarkNum">{bug.marks}</span>
 	</td>
@@ -77,7 +77,7 @@
 <!-- END -->
 
 <tr>
-	<th align="right">{lang.bugsEnv}:</th>
+	<th style="text-align: right">{lang.bugsEnv}:</th>
 	<td>{bug.env}</td>
 </tr>
 <tr>

@@ -1,5 +1,5 @@
 <?php
-header('Cache-Control: public');
+header('Cache-Control: private');
 header('Content-Type: text/html; charset=utf-8');
 header('X-Robots-Tag: noindex');
 
@@ -15,6 +15,7 @@ define('SKIN_DIR', './install/HTML/');
 #Classes
 require './lib/content.php';
 require './lib/config.php';
+require './lib/utils.php';
 require './install/install.php';
 
 #Lang
@@ -42,11 +43,10 @@ if(!$my && !$li) $content->message($lang['noDB']);
 #Only one
 $one = ($li xor $my) ? ($my ? 'mysql' : 'sqlite') : false;
 
-#Check CHMODs
+#Check CHMOD
 if(!$setup->chmods())
 {
-	$content->file = 'chmod';
-	$content->data = array('chmod' => $setup->buildChmodTable());
+	$content->add('chmod', array('chmod' => $setup->buildChmodTable()));
 }
 
 #Installer level
@@ -107,23 +107,21 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		$setup->sample = $data['samp'];
 		$setup->title = $data['title'];
 		$setup->urls = $data['urls'];
-		$setup->loadSQL('./install/SQL/'.$type.'.sql');
+		$setup->load('./install/SQL/'.$type.'.sql');
 		$setup->setupAllLang();
 		$setup->admin($data['login'], $_POST['uPass']);
 		$setup->commit($data);
-		$content->data = null;
 		$content->message($lang['OK'], '..');
 	}
 	catch(Exception $e)
 	{
 		$content->info(nl2br($e->getMessage()));
-		$content->file = 'form';
-		$content->data = array(
+		$content->add('form', array(
 			'data'  => &$data,
 			'host'  => $_SERVER['HTTP_HOST'],
 			'mysql' => $data['type'] == 'mysql',
 			'skins' => $setup->getSkins($data['skin'])
-		);
+		));
 	}
 	break;
 	
@@ -147,19 +145,18 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'path'  => PATH
 	);
 
-	$content->file = 'form';
-	$content->data = array(
+	$content->add('form', array(
 		'host'  => $_SERVER['HTTP_HOST'],
 		'mysql' => $one=='mysql' || ($_POST && $_POST['type']=='mysql'),
 		'data'  => &$data,
 		'skins' => $setup->getSkins($data['skin'])
-	);
+	));
 
 	break;
 
 	#Select database
-	default: $content->file = 'start';
+	default: $content->add('start');
 }
 
 #Main template
-include $content->path('body');
+$content->front('body');

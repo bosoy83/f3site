@@ -2,10 +2,10 @@
 if(iCMSa!=1 || !admit('DB')) exit;
 require LANG_DIR.'admAll.php';
 
-#Tytu³ strony
+#Page title
 $content->title = $lang['dbcopy'];
 
-#Funkcje
+#Supported databases
 switch($db_db)
 {
 	case 'mysql':
@@ -20,13 +20,13 @@ switch($db_db)
 		$content->info('Cannot parse database type.'); return 1;
 }
 
-#Tworzenie
+#Action: tables
 if(isset($_POST['tab']))
 {
 	$n="\n";
 	@set_time_limit(50);
 
-	#Typ + kompresja?
+	#Use gzip
 	if(isset($_POST['gz']))
 	{
 		header('Content-type: application/x-gzip'); $ex='.sql.gz';
@@ -38,21 +38,21 @@ if(isset($_POST['tab']))
 	header('Content-Disposition: attachment; filename='.
 		str_replace( array('?','*',':','\\','/','<','>','|','"'),'',strftime('%Y-%m-%d')).$ex);
 
-	#Kompresja GZ?
+	#Start gzip
 	if(isset($_POST['gz'])) ob_start('ob_gzhandler'); else ob_start();
 
-	#Dodaj gravis do nazw w³asnych (MySQL)
+	#Add gravis to names (MySQL)
 	if($type === 'mysql') $db->exec('SET SQL_QUOTE_SHOW_CREATE=1');
 
-	#Nag³ówek - komentarz
+	#Header - comments
 	echo '#'.$cfg['title'].' - Data Backup ('.strftime('%Y-%m-%d').')'.$n;
 	echo '#Database: '.$db_d.$n;
 	echo '#----------'.$n.$n;
 
-	#Tabele
+	#Tables
 	foreach($_POST['tab'] as $tab)
 	{
-		#Optymalizuj
+		#Optimize first
 		if($type === 'sqlite')
 		{
 			$db->exec('VACUUM '.$tab);
@@ -62,15 +62,15 @@ if(isset($_POST['tab']))
 			$db->query('OPTIMIZE LOCAL TABLE '.$tab)->fetchAll(3);
 		}
 
-		#Tworzenie tabeli
+		#Table creation
 		if(isset($_POST['create']))
 		{
 			echo '#Creating table '.$tab.$n;
 
-			#Usuwanie?
+			#Delete first
 			if(isset($_POST['del'])) echo 'DROP TABLE IF EXISTS `'.$tab.'`;'.$n;
 
-			#Pobierz polecenie
+			#Get SQL code
 			if($type === 'sqlite')
 			{
 				echo $db->query('SELECT sql FROM sqlite_master WHERE name="'.$tab.'"') -> fetchColumn() .';'.$n.$n;
@@ -80,32 +80,32 @@ if(isset($_POST['tab']))
 				echo $db->query('SHOW CREATE TABLE '.$tab)->fetchColumn(1).';'.$n.$n;
 			}
 
-			#Wypu¶æ dane
+			#Flush output
 			ob_flush();
 		}
 
-		#Dane
+		#Get table data
 		$all = $db->query('SELECT * FROM '.$tab);
 		$all -> setFetchMode(3);
 		echo '#Table data for '.$tab.$n;
 
-		#Warto¶ci pól
+		#Field values
 		foreach($all as $row)
 		{
 			echo 'INSERT INTO `'.$tab.'` VALUES ('.join(',',array_map(array($db,'quote'),$row)).');'.$n;
-			ob_flush(); //Zwolnij pamiêæ
+			ob_flush(); //Free memory
 		}
 		unset($ile,$all,$row);
 		echo $n;
-		ob_flush(); //Zwolnij pamiêæ
+		ob_flush(); //Free memory
 	}
 
-	#Zakoñcz
+	#Finish job
 	ob_end_flush();
 	exit;
 }
 
-#TABELE
+#Get tables
 $list = $db->query($show) -> fetchAll(7); //COLUMN
 $tabs = '';
 
@@ -114,9 +114,9 @@ foreach($list as $tab)
 	$tabs .= '<option>'.$tab.'</option>';
 }
 
-#FORM
+#Template
 $content->info($lang['dbInfo']);
-$content->data = array(
+$content->add('db', array(
 	'tables' => $tabs,
 	'gz'     => function_exists('gzopen')
-);
+));

@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('M')) exit;
 require './cfg/mail.php';
 require LANG_DIR.'admMail.php';
 
-#Grupa i poziom
+#Groups and level
 function Prepare($x)
 {
 	if(empty($_POST['lv']))
@@ -16,7 +16,7 @@ function Prepare($x)
 	}
 }
 
-#Emoty zdalne
+#Remote emoticons
 function RemoteEmots($x)
 {
 	include './cfg/emots.php';
@@ -27,37 +27,38 @@ function RemoteEmots($x)
 	return $x;
 }
 
-#E-mail wy³.
+#If E-mail disabled
 if(!isset($cfg['mailon']))
 {
 	$content->info($lang['mailsd']); return 1;
 }
 
-#Wyœlij
+#Send E-mail
 elseif(isset($_POST['txt']))
 {
-	#Biblioteka
+	#Initialize e-mail library
 	require './lib/mail.php';
 	$mail = new Mailer();
 	$mail->setSender($_POST['from'],$cfg['mail']);
 	$mail->topic = clean($_POST['topic']);
 	$mail->text  = $_POST['txt']."\r\n\r\n-----\r\n".$lang['candis'];
 
-	#Emoty
+	#Emoticons
 	if(isset($_POST['emot'])) $mail->text = RemoteEmots($mail->text);
 
 	#HTML
 	if(!isset($_POST['html'])) $mail->html = 0;
 
-	#Lista u¿ytkowników
+	#User list
 	$lv = Prepare(explode(',', $_POST['lv']));
 	$gr = Prepare(explode(',', $_POST['gr']));
 
+	#Get recipients
 	$res = $db->query('SELECT login,mail FROM '.PRE.'users WHERE mails=1');
 	$res ->setFetchMode(3); //NUM
 	$log = array();
 
-	#Osobne
+	#Separate e-mails
 	if(isset($_POST['hard']))
 	{
 		foreach($res as $u)
@@ -79,7 +80,7 @@ elseif(isset($_POST['txt']))
 	$content->info('<ul><li>'.join('</li><li>',$log).'</li></ul>');
 }
 
-#Iloœæ u¿ytkowników
+#Count number of recipients
 elseif(isset($_POST['next']))
 {
 	$ile = 0;
@@ -92,19 +93,19 @@ elseif(isset($_POST['next']))
 	if($ile==0) $content->info($lang['nousnd']);
 }
 
-#Formularz
+#Show form
 if(isset($_POST['next']) && $ile>0)
 {
-	$content->addScript('./lib/editor.js'); //Edytor
-	$content->addScript('./cache/emots.js'); //Emotki
-	$content->addScript(LANG_DIR.'edit.js'); //Jêzyk
-	$content->data = array(
+	$content->script('./lib/editor.js'); //Edytor
+	$content->script('./cache/emots.js'); //Emotki
+	$content->script(LANG_DIR.'edit.js'); //Jêzyk
+	$content->add('mailing', array(
 		'start' => false,
 		'cfg'   => &$cfg,
 		'level' => $lv,
 		'group' => $gr,
 		'title' => $lang['massl'].$ile
-	);
+	));
 }
 
 #START
@@ -112,9 +113,9 @@ if(!$_POST)
 {
 	include './lib/user.php';
 	$content->info($lang['apmm1']);
-	$content->data = array(
+	$content->add('mailing', array(
 		'levels' => LevelList('all',1),
 		'groups' => GroupList('all'),
 		'start'  => true,
-	);
+	));
 }

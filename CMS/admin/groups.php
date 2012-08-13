@@ -1,8 +1,8 @@
 <?php
 if(iCMSa!=1 || !admit('G')) exit;
-require LANG_DIR.'admAll.php'; //Jêzyk
+require LANG_DIR.'admAll.php';
 
-#Usuñ
+#Delete groups
 if($_POST)
 {
 	$x = GetID(true);
@@ -15,14 +15,14 @@ if($_POST)
 	}
 }
 
-#Info
+#Show tips
 $content->info($lang['groupInfo'], array(url('editGroup','','admin')=>$lang['addGroup']));
 
-#Odczyt
+#Get groups - FETCH_NUM
 $res = $db->query('SELECT ID,name,opened FROM '.PRE.'groups');
-$res-> setFetchMode(3); //NUM
+$res-> setFetchMode(3);
 
-#Lista
+#Initialize vars
 $group = array();
 $num = 0;
 
@@ -39,4 +39,4 @@ foreach($res as $g)
 }
 
 $res = null;
-$content->data['group'] = &$group;
+$content->add('groups', array('group' => &$group));

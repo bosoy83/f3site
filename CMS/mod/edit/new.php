@@ -1,29 +1,27 @@
 <?php
 if(EC!=1) exit;
 
-#Zapisz jako nowy
+#Action: save as new
 if(isset($_POST['asNew'])) $id = 0;
 
-#Szablon i tytu³
+#Page title
 $content->title = $id ? $lang['edit5'] : $lang['add5'];
-$content->file  = 'edit_news';
 
-#Funkcja zapisu
+#Action: save
 if($_POST)
 {
-	#Nowe dane
 	$news = array(
 	'opt'  => isset($_POST['br']) + (isset($_POST['emo']) ? 2:0) + (isset($_POST['fn']) ? 4:0),
 	'name' => clean($_POST['name']),
 	'img'  => clean($_POST['img']),
 	'txt'  => &$_POST['txt'],
 	'cat'	 => (int)$_POST['cat'],
+	//'pin'  => isset($_POST['pos']),
 	'access' => isset($_POST['access']));
 
-	#Pe³na treœæ
+	#Full text
 	$full = &$_POST['text'];
 
-	#Start
 	try
 	{
 		$e = new Saver($news,$id,'news');
@@ -31,31 +29,35 @@ if($_POST)
 		#Query
 		if($id)
 		{
-			$q = $db->prepare('UPDATE '.PRE.'news SET cat=:cat, name=:name, txt=:txt,
-				img=:img, access=:access, opt=:opt WHERE ID='.$id);
+			$news['ID'] = $id;
+			$q = $db->prepare('UPDATE '.PRE.'news SET cat=:cat, access=:access,
+			name=:name, txt=:txt, img=:img, opt=:opt WHERE ID=:ID');
 		}
 		else
 		{
-			$q = $db->prepare('INSERT INTO '.PRE.'news (cat,name,txt,date,author,img,access,opt)
-				VALUES (:cat,:name,:txt,"'.gmdate('Y-m-d H:i:s').'",'.UID.',:img,:access,:opt)');
+			$news['author'] = UID;
+			$news['date'] = gmdate('Y-m-d H:i:s');
+			$q = $db->prepare('INSERT INTO '.PRE.'news (cat,access,name,txt,date,author,img,opt)
+				VALUES (:cat,:access,:name,:txt,:date,:author,:img,:opt)');
 		}
 		$q->execute($news);
 
-		#Nowe ID
+		#Get new ID
 		if(!$id) $id = $db->lastInsertId();
 
-		$q = $db->prepare('REPLACE INTO '.PRE.'newstxt (id,cat,text) VALUES ('.$id.',?,?)');
-		$q->bindValue(1, $news['cat'], 1); //INT
-		$q->bindParam(2, $full);
+		$q = $db->prepare('REPLACE INTO '.PRE.'newstxt (id,cat,text) VALUES (?,?,?)');
+		$q->bindValue(1, $id, 1);
+		$q->bindValue(2, $news['cat'], 1); //INT
+		$q->bindParam(3, $full);
 		$q->execute();
 
-		#Aktualizuj RSS
+		#Update RSS channels
 		RSS();
 
-		#ZatwierdŸ
+		#Finish job
 		$e->apply();
 
-		#Przekieruj do newsu
+		#Redirect to news
 		if(isset($_GET['ref']))
 		{
 			if(empty($_GET['ref']))
@@ -68,7 +70,7 @@ if($_POST)
 			}
 		}
 
-		#Info + linki
+		#Info + links
 		$content->info($lang['saved'], array(
 			url('news/'.$id)  => sprintf($lang['see'], $news['name']),
 			url($news['cat']) => $lang['goCat'],
@@ -84,48 +86,47 @@ if($_POST)
 	}
 }
 
-#Formularz
+#Form
 else
 {
-	#Odczyt
 	if($id)
 	{
 		$news = $db->query('SELECT n.*,f.text FROM '.PRE.'news n LEFT JOIN '.
 			PRE.'newstxt f ON n.ID=f.ID WHERE n.ID='.$id) -> fetch(2);
 		$full = &$news['text'];
 
-		#Prawa
+		#Verify privileges
 		if(!$news || !admit($news['cat'],'CAT',$news['author'])) return;
 	}
 	else
 	{
-		$news = array('cat'=>$lastCat,'name'=>'','txt'=>'','access'=>1,'img'=>'','opt'=>3);
+		$news = array('cat'=>$lastCat,'name'=>'','txt'=>'','access'=>1,'img'=>'',/*'pin'=>0,*/'opt'=>3);
 		$full = '';
 	}
 }
 
-#Pola checkbox
+#Checkbox fields
 $news['br']  = $news['opt'] & 1;
 $news['emo'] = $news['opt'] & 2;
 $news['fn']  = $news['opt'] & 4;
 
-#Edytor JS
+#JavaScript editor
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }
 
-#Dane
-$content->data = array(
+#Template
+$content->add('edit_news', array(
 	'news' => &$news,
 	'full' => &$full,
 	'id'   => $id,
 	'cats' => Slaves(5,$news['cat']),
 	'fileman' => admit('FM')
-);
+));

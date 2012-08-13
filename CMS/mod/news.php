@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 require './cfg/content.php';
 
-#Get record
+#Get news from database if enabled
 if(!$news = $db->query('SELECT n.*,c.opt as catOpt FROM '.PRE.'news n LEFT JOIN '.
 PRE.'cats c ON n.cat=c.ID WHERE c.access!=3 AND n.ID='.$id) -> fetch(2)) return;
 
@@ -13,7 +13,7 @@ if(!$news['access'])
 	$content->info(sprintf($lang['NVAL'], $news['name']), null, 'warning');
 }
 
-#Pe³na treœæ
+#Full content
 if($news['opt']&4)
 {
 	$full = $db->query('SELECT text FROM '.PRE.'newstxt WHERE ID='.$id)->fetchColumn();
@@ -23,45 +23,45 @@ else
 	$full = '';
 }
 
-#Tytu³ strony LUB brak newsa?
+#Page title
 $content->title = $news['name'];
 
-#Emoty
+#Emoticons
 if($news['opt']&2)
 {
 	$news['txt'] = emots($news['txt']);
 	if($full) $full = emots($full);
 }
 
-#Linie
+#Line breaks
 if($news['opt']&1)
 {
 	$news['txt'] = nl2br($news['txt']);
 	if($full) $full = nl2br($full);
 }
 
-#Data, autor
+#Date, author
 $news['date']  = genDate($news['date'], true);
 $news['wrote'] = autor($news['author']);
 
-#Do szablonu
-$content->data = array(
+#Assign to template
+$content->add('news', array(
 	'news' => &$news,
 	'full' => &$full,
 	'path' => catPath($news['cat']),
 	'edit' => admit($news['cat'],'CAT') ? url('edit/5/'.$id,'ref') : false,
 	'root' => isset($cfg['allCat']) ? $lang['cats'] : $lang['news'],
 	'cats' => url(isset($cfg['allCat']) ? 'cats' : 'cats/news')
-);
+));
 
-#Tagi
+#Tags
 if(isset($cfg['tags']))
 {
 	include './lib/tags.php';
 	tags($id, 5);
 }
 
-#Komentarze
+#Comments
 if(isset($cfg['ncomm']) && $news['catOpt']&2)
 {
 	require './lib/comm.php';

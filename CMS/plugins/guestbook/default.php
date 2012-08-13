@@ -1,10 +1,10 @@
 <?php
 if(iCMS!=1) exit;
 
-#Konfiguracja
+#Settings
 require './cfg/gb.php';
 
-#Język
+#Language
 if(file_exists('./plugins/guestbook/lang/'.LANG.'.php'))
 {
 	require './plugins/guestbook/lang/'.LANG.'.php';
@@ -14,19 +14,18 @@ else
 	require './plugins/guestbook/lang/en.php';
 }
 
-#Szablony
+#Template path
 $content->dir = './plugins/guestbook/style/';
 $content->cache = './cache/guestbook/';
-$content->file = $cfg['gbSkin'];
 
-#Księga wyłączona
+#Guestbook disabled
 if(!isset($cfg['gbOn']))
 {
 	$content->info($lang['disabled']);
 	return 1;
 }
 
-#Akcja
+#Action
 if(isset($URL[1]))
 {
 	switch($URL[1])

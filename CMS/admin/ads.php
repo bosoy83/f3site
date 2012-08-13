@@ -2,7 +2,7 @@
 if(iCMSa!=1 || !admit('B')) exit;
 require LANG_DIR.'admAll.php';
 
-#Usuñ
+#Action: delete
 if($_POST and $x = GetID(true) and isset($_POST['del']))
 {
 	$db->exec('DELETE FROM '.PRE.'banners WHERE ID IN ('.$x.')');
@@ -11,7 +11,7 @@ if($_POST and $x = GetID(true) and isset($_POST['del']))
 #Info
 $content->info($lang['adInfo'], array(url('editAd','','admin') => $lang['addAd']));
 
-#Odczyt
+#Get ads
 $res = $db->query('SELECT ID,gen,name,ison FROM '.PRE.'banners ORDER BY gen,name');
 $res -> setFetchMode(3);
 $ad  = array();
@@ -29,7 +29,7 @@ foreach($res as $x)
 	);
 }
 
-#Przekieruj, gdy nie ma nic
+#Redirect to editing if empty
 if(empty($ad))
 {
 	header('Location: '.URL.url('editAd','','admin'));
@@ -37,5 +37,5 @@ if(empty($ad))
 }
 else
 {
-	$content->data['ad'] =& $ad;
+	$content->add('ads', array('ad' => &$ad));
 }

@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS `f3_acl`,`f3_admmenu`,`f3_answers`,`f3_arts`,`f3_artstxt`,`f3_banners`,`f3_cats`,`f3_comms`,`f3_confmenu`,`f3_files`,`f3_groups`,`f3_groupuser`,`f3_imgs`,`f3_links`,`f3_log`,`f3_menu`,`f3_mitems`,`f3_news`,`f3_newstxt`,`f3_online`,`f3_pages`,`f3_plugins`,`f3_pms`,`f3_polls`,`f3_pollvotes`,`f3_rates`,`f3_rss`,`f3_tags`,`f3_tmp`,`f3_users`;
+
 CREATE TABLE IF NOT EXISTS `f3_acl` (
 `UID` INT NOT NULL,
 `CatID` INT NOT NULL,
@@ -22,12 +24,12 @@ KEY (IDP)) ENGINE=InnoDB CHARACTER SET='utf8';
 CREATE TABLE IF NOT EXISTS `f3_arts` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` INT NOT NULL,
+`access` BIT(1) NOT NULL,
 `name` VARCHAR(50) NOT NULL,
 `dsc` VARCHAR(255),
 `date` DATETIME,
 `author` VARCHAR(50) NOT NULL,
 `rate` TINYINT,
-`access` TINYINT NOT NULL,
 `priority` TINYINT NOT NULL,
 `pages` TINYINT NOT NULL,
 `ent` INT NOT NULL DEFAULT 0,
@@ -88,13 +90,13 @@ KEY (ID)) ENGINE=InnoDB CHARACTER SET='utf8';
 CREATE TABLE IF NOT EXISTS `f3_files` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` INT NOT NULL,
+`access` BIT(1) NOT NULL,
 `name` VARCHAR(50),
 `author` VARCHAR(50),
 `date` DATETIME,
 `dsc` VARCHAR(255),
 `file` VARCHAR(200),
 `dls` INT NOT NULL DEFAULT 0,
-`access` TINYINT NOT NULL,
 `size` VARCHAR(30),
 `priority` TINYINT NOT NULL,
 `rate` TINYINT,
@@ -120,12 +122,12 @@ PRIMARY KEY (u,g)) ENGINE=InnoDB CHARACTER SET='utf8';
 CREATE TABLE IF NOT EXISTS `f3_imgs` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` INT NOT NULL,
+`access` BIT(1) NOT NULL,
 `name` VARCHAR(50) NOT NULL,
 `dsc` TEXT,
 `type` TINYINT NOT NULL,
 `date` DATETIME,
 `priority` TINYINT NOT NULL,
-`access` TINYINT NOT NULL,
 `rate` TINYINT,
 `author` VARCHAR(50) NOT NULL,
 `filem` VARCHAR(255) NOT NULL,
@@ -136,9 +138,9 @@ KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 CREATE TABLE IF NOT EXISTS `f3_links` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` INT NOT NULL,
+`access` BIT(1) NOT NULL,
 `name` VARCHAR(50) NOT NULL,
 `dsc` TEXT,
-`access` TINYINT NOT NULL,
 `adr` VARCHAR(255) NOT NULL,
 `priority` TINYINT NOT NULL,
 `count` INT NOT NULL DEFAULT 0,
@@ -174,13 +176,14 @@ CREATE TABLE IF NOT EXISTS `f3_mitems` (
 CREATE TABLE IF NOT EXISTS `f3_news` (
 `ID` INT NOT NULL auto_increment PRIMARY KEY,
 `cat` INT NOT NULL,
+`access` BIT(1) NOT NULL,
 `name` VARCHAR(50) NOT NULL,
 `txt` TEXT,
 `date` DATETIME,
+`pin` BIT(1) NOT NULL,
 `author` VARCHAR(50) NOT NULL,
 `img` VARCHAR(255) NOT NULL,
 `comm` INT NOT NULL DEFAULT 0,
-`access` TINYINT NOT NULL,
 `opt` TINYINT NOT NULL DEFAULT 3,
 KEY (cat)) ENGINE=InnoDB CHARACTER SET='utf8';
 

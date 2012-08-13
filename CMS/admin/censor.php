@@ -2,7 +2,7 @@
 if(iCMSa!=1 || !admit('CFG')) exit;
 require LANG_DIR.'admCfg.php';
 
-#Zapis
+#Action: save
 if($_POST)
 {
 	$num = count($_POST['bad']);
@@ -15,7 +15,7 @@ if($_POST)
 		$words2[] = substr($_POST['good'][$i],0,50);
 	}
 
-	#Klasa zapisu do pliku PHP
+	#Load saver class
 	require './lib/config.php';
 	try
 	{
@@ -31,7 +31,7 @@ if($_POST)
 	}
 }
 
-#Odczyt danych
+#Action: edit
 else
 {
 	include './cfg/words.php';
@@ -45,7 +45,7 @@ for($i=0; $i<$num; ++$i)
 	$word[] = array(clean($words1[$i]), clean($words2[$i]));
 }
 
-#Do szablonu
-$content->addScript('lib/forms.js');
+#Template
+$content->script('lib/forms.js');
 $content->info( isset($cfg['censor']) ? $lang['wordInfo'] : $lang['wordOff'] );
-$content->data['word'] =& $word;
+$content->add('censor', array('word' => &$word));

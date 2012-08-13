@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Zapis
+#Action: save
 if($_POST)
 {
 	$opt =& $_POST;
@@ -24,6 +24,5 @@ else
 	require './cfg/bugs.php';
 }
 
-#Szablony
-$content->file = 'adminConfig';
-$content->data = array('cfg'  => &$opt);
+#Template
+$content->add('adminConfig', array('cfg' => &$opt));

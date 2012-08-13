@@ -1,10 +1,10 @@
 <?php
 if(iCMSa!=1 || !admit('GB')) exit;
 
-#Konfiguracja
+#Settings
 require './cfg/gb.php';
 
-#Język
+#Language
 if(file_exists('./plugins/guestbook/lang/'.LANG.'.php'))
 {
 	require './plugins/guestbook/lang/'.LANG.'.php';
@@ -14,13 +14,12 @@ else
 	require './plugins/guestbook/lang/en.php';
 }
 
-#Szablony
+#Template path
 $content->dir = './plugins/guestbook/style/';
 $content->cache = './cache/guestbook/';
-$content->file = 'admin';
 $content->title = $lang['gbAdmin'];
 
-#Usuń stare
+#Delete old
 if(isset($_POST['prune']) && strlen($_POST['prune'])===20)
 {
 	$db->prepare('DELETE FROM '.PRE.'guestbook WHERE date<?')->execute(array(strtotime($_POST['prune'])));
@@ -30,10 +29,10 @@ if(isset($_POST['prune']) && strlen($_POST['prune'])===20)
 $styles = '';
 $opt = null;
 
-#Ustawienia
+#Edit settings
 if(admit('CFG'))
 {
-	#Zapis
+	#Save settings
 	if(isset($_POST['gbSkin']))
 	{
 		$opt =& $_POST;
@@ -54,7 +53,7 @@ if(admit('CFG'))
 	{
 		$opt =& $cfg;
 	}
-	#Style
+	#Styles
 	foreach(scandir('./plugins/guestbook/style') as $x)
 	{
 		if(strpos($x,'.html') && $x != 'admin.html' && $x != 'index.html' && $x != 'posting.html')
@@ -64,8 +63,8 @@ if(admit('CFG'))
 	}
 }
 
-#Dane do szablonu 
-$content->data = array(
+#Template
+$content->add('admin', array(
 	'cfg'    => &$opt,
 	'styles' => $styles,
-);
+));

@@ -43,7 +43,7 @@ $art['author'] = autor($art['author']);
 #Ocena
 if(isset($cfg['arate']) && $art['catOpt'] & 4)
 {
-	$content->addCSS(SKIN_DIR.'rate.css');
+	$content->css(SKIN_DIR.'rate.css');
 	$rates = 'vote.php?type=1&amp;id='.$id;
 }
 else
@@ -73,7 +73,7 @@ else
 }
 
 #Template
-$content->data = array(
+$content->add('art', array(
 	'art'   => &$art,
 	'pages' => &$pages,
 	'path'  => catPath($art['cat']),
@@ -83,7 +83,7 @@ $content->data = array(
 	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['arts'],
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/articles'),
 	'lightbox' => isset($cfg['lightbox'])
-);
+));
 
 #Tags
 if(isset($cfg['tags']))

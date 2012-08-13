@@ -72,6 +72,7 @@ $lang+=Array(
 'guestComm'=>'Let guests posting comments',
 'guest2'=>'It allows unregistered users posting comments.',
 'colorCode'=>'Highlight code in [code] tag',
+'blacklist'=>'Check IP address on blacklist',
 'moderate'=>'Moderate comments',
 'moder2'=>'Comments will be visible for everyone after approving them by moderators.',
 'maxlen'=>'Maximum comment length',

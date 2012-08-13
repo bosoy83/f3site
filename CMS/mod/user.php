@@ -99,7 +99,7 @@ foreach($r as $x)
 
 #Szablon
 $content->title = $u['login'];
-$content->data  = array(
+$content->add('user', array(
 	'u'  => &$u,
 	'pm' => isset($cfg['pmOn']) && UID ? url('pms/edit', 'to='.$u['ID']) : false,
 	'edit' => $may,
@@ -107,7 +107,7 @@ $content->data  = array(
 	'users'  => url('users'),
 	'join_date' => genDate($u['regt'],1), //Data rejestracji
 	'last_visit'=> $u['lvis'] ? genDate($u['lvis'],1) : NA
-);
+));
 
 if(isset($cfg['userComm']) && $u['opt'] & 2)
 {

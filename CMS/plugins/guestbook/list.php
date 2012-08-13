@@ -1,10 +1,13 @@
 <?php
 if(iCMS!=1) exit;
 
-#Może zobaczyć IP?
+#Page title
+$content->title = $lang['guestbook'];
+
+#Show IP
 $right = (IS_ADMIN && admit('GB'));
 
-#Usuń wpisy
+#Delete posts
 if(isset($_POST['del']) && $right && isset($_POST['x']))
 {
 	$del = array();
@@ -15,7 +18,7 @@ if(isset($_POST['del']) && $right && isset($_POST['x']))
 	$db->exec('DELETE FROM '.PRE.'guestbook WHERE ID IN ('.join(',', $del).')');
 }
 
-#Strona
+#Page number
 if(isset($_GET['page']) && $_GET['page'] > 1)
 {
 	$page = $_GET['page'];
@@ -27,24 +30,22 @@ else
 	$st = 0;
 }
 
-#Ilość wpisów
+#Total
 $total = dbCount('guestbook WHERE lang="'.LANG.'"');
 $num = 0;
 $all = array();
 
-#Pobierz wpisy i loginy
+#Get posts
 $query = $db->prepare('SELECT * FROM '.PRE.'guestbook WHERE lang=? ORDER BY ID DESC LIMIT ?,?');
-
-#Podepnij dane do zapytania bezpiecznie
-$query -> bindValue(1, LANG);
-$query -> bindValue(2, $st, 1);
-$query -> bindValue(3, $cfg['gbNum'], 1); //PDO::PARAM_INT
-$query -> execute();
+$query->bindValue(1, LANG);
+$query->bindValue(2, $st, 1);
+$query->bindValue(3, $cfg['gbNum'], 1); //PARAM_INT
+$query->execute();
 
 #BBCode
 if(isset($cfg['bbcode'])) require './lib/bbcode.php';
 
-#Lista
+#Posts
 foreach($query as $x)
 {
 	$all[] = array(
@@ -65,7 +66,7 @@ foreach($query as $x)
 	++$num;
 }
 
-#Strony
+#Pages
 if($total > $num)
 {
 	$pages = pages($page, $total, $cfg['gbNum'], url('guestbook'));
@@ -75,13 +76,12 @@ else
 	$pages = false;
 }
 
-#Szablon
-$content->title = $lang['guestbook'];
-$content->data = array(
+#Template
+$content->add($cfg['gbSkin'], array(
 	'post'    => &$all,
 	'pages'   => &$pages,
 	'intro'   => &$cfg['gbIntro'],
 	'rights'  => $right,
 	'postURL' => ($cfg['gbPost']==1 || (UID && $cfg['gbPost']==2)) &&
 		(stripos($cfg['gbBan'],$_SERVER['REMOTE_ADDR']) === false) ? url('guestbook/post') : false
-);
+));

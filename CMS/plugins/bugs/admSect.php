@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1) exit;
 
-#Zapis sekcji
+#Action: save
 if($_POST)
 {
 	$all = array();
@@ -19,7 +19,7 @@ if($_POST)
 			$add[] = array($seq, clean($title));
 		}
 	}
-	#Usuñ stare
+	#Delete old sections
 	try
 	{
 		$db->beginTransaction();
@@ -32,14 +32,14 @@ if($_POST)
 			$db->exec('DELETE FROM '.PRE.'bugsect');
 		}
 
-		#Zmieñ istniej¹ce
+		#Edit existing
 		if($fix)
 		{
 			$q = $db->prepare('UPDATE '.PRE.'bugsect SET seq=?, title=? WHERE ID=?');
 			foreach($fix as &$x) $q -> execute($x);
 		}
 
-		#Nowe rekordy
+		#New records
 		if($add)
 		{
 			$q = $db->prepare('INSERT INTO '.PRE.'bugsect (seq,title) VALUES (?,?)');
@@ -55,10 +55,9 @@ if($_POST)
 	}
 }
 
-#Pobierz sekcje - FETCH_ASSOC
+#Get sections - FETCH_ASSOC
 $all = $db->query('SELECT * FROM '.PRE.'bugsect ORDER BY seq') -> fetchAll(2);
 
-#Szablon
-$content->addScript('lib/forms.js');
-$content->file = 'adminSect';
-$content->data = array('section' => &$all);
+#Template
+$content->script('lib/forms.js');
+$content->add('adminSect', array('section' => &$all));

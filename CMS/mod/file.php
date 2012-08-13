@@ -45,10 +45,10 @@ else
 	$file['url'] = '#';
 }
 
-#Ocena
+#Mark
 if(isset($cfg['frate']) && $file['opt'] & 4)
 {
-	$content->addCSS(SKIN_DIR.'rate.css');
+	$content->css(SKIN_DIR.'rate.css');
 	$rate = 'vote.php?type=2&amp;id='.$id;
 }
 else
@@ -60,15 +60,17 @@ else
 $file['date'] = genDate($file['date'], true);
 $file['author'] = autor($file['author']);
 
+#
+
 #Template
-$content->data = array(
+$content->add('file', array(
 	'file'  => &$file,
 	'path'  => catPath($file['cat']),
 	'rates' => $rate,
 	'edit'  => admit($file['cat'],'CAT') ? url('edit/2/'.$id, 'ref') : false,
 	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['files'],
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/files')
-);
+));
 
 #Tags
 if(isset($cfg['tags']))

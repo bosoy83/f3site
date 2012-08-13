@@ -12,7 +12,7 @@ $res = $db->query('SELECT n.*,login FROM '.PRE.'news n LEFT JOIN '.PRE.'users u 
 $rights = admit($d,'CAT') ? true : false;
 
 #Komentarze
-$comm = ($cat['opt']&2 && isset($cfg['ncomm'])) ? true : false;
+$comm = $cat['opt']&2 && isset($cfg['ncomm']) ? true : false;
 
 #URL
 $userURL = url('user/');
@@ -70,12 +70,11 @@ else
 }
 
 #Do szablonu
-$content->file[] = 'cat_news';
-$content->data += array(
+$content->add('cat_news', array(
 	'news'  => &$news,
 	'pages' => &$pages,
 	'add'   => $rights ? url('edit/5') : null,
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/news'),
 	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['news']
-);
+));
 unset($res,$comm,$rights,$n);

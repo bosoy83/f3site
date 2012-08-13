@@ -3,11 +3,11 @@ if(iCMS!=1 OR !IS_EDITOR) return;
 require LANG_DIR.'content.php';
 require './lib/categories.php';
 
-#Akcja i ID kategorii
+#Action, category ID
 $act = isset($URL[1]) ? (int)$URL[1] : 5;
 $id  = isset($URL[2]) ? (int)$URL[2] : 0;
 
-#Typ
+#Action
 switch($act)
 {
 	case 5:
@@ -49,10 +49,10 @@ switch($act)
 		unset($data);
 }
 
-#Tytul
+#Page title
 $content->title = $type;
 
-#Masowe zmiany
+#Mass change
 if(isset($_POST['x']) && count($_POST['x'])>0)
 {
 	try
@@ -70,7 +70,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 			if($table2) $db->exec('DELETE FROM '.PRE.$table2.' WHERE ID IN ('.$ids.')'.$q);
 			foreach($_POST['x'] as $x=>$n) UpdateTags((int)$x, $act, array());
 
-			#Usun stare komentarze
+			#Delete old comments
 			$db->exec('DELETE FROM '.PRE.'comms WHERE TYPE='.$act.' AND CID NOT IN (
 				SELECT ID FROM '.PRE.$table.')');
 		}
@@ -94,7 +94,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 	unset($q,$ids,$ch,$x);
 }
 
-#Parametry: ID kategorii
+#Param: category ID
 if($id)
 {
 	$param = array('cat='.$id);
@@ -104,7 +104,7 @@ else
 	$param = array();
 }
 
-#Prawa
+#Rights
 if(admit('+'))
 {
 	$join = '';
@@ -115,7 +115,7 @@ else
 	$param[] = 'a.UID='.UID;
 }
 
-#Strona
+#Page
 if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
@@ -127,17 +127,17 @@ else
 	$st = 0;
 }
 
-#Szukaj
+#Find
 $find = empty($_GET['find']) ? '' : clean($_GET['find'],30);
 if($find) $param[] = 'name LIKE '.$db->quote($find.'%');
 
-#Parametry -> string
+#Params -> string
 $param = $join . ($param ? ' WHERE '.join(' AND ',$param) : '');
 
-#Ilosc wszystkich
+#Count items
 $total = dbCount($table.$param);
 
-#Brak
+#Zero
 if($total == 0 && !$find)
 {
 	header('Location: '.URL.url('edit/'.$act, $id ? 'catid='.$id : null));
@@ -145,17 +145,17 @@ if($total == 0 && !$find)
 	return 1;
 }
 
-#Czesc URL
+#Prepare URL
 $url = url('list/'.$act.'/'.$id);
 
-#Pobierz pozycje
+#Get items
 $res = $db->query('SELECT ID,name,access FROM '.PRE.$table.$param.
 	' ORDER BY ID DESC LIMIT '.$st.',30');
 
 $res -> setFetchMode(3);
 $items = array(); 
 
-#Lista
+#Prepare item
 foreach($res as $i)
 {
 	switch($i[2])
@@ -173,8 +173,8 @@ foreach($res as $i)
 	);
 }
 
-#Do szablonu
-$content->data = array(
+#Template
+$content->add('list', array(
 	'item'  => $items,
 	'act'   => $act,
 	'url'   => $url,
@@ -184,4 +184,4 @@ $content->data = array(
 	'pages' => pages($page,$total,30,$url.'&find='.$find,1),
 	'addURL' => url('edit/'.$act, $id ? 'catid='.$id : null),
 	'catsURL'=> admit('C') ? url('cats/'.$act, null, 'admin') : false,
-);
+));

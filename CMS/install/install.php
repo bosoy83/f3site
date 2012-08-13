@@ -52,34 +52,11 @@ class Installer
 	}
 
 	#Wczytaj plik SQL
-	function loadSQL($file)
+	function load($file)
 	{
-		#Schemat tabel
-		$sql = str_replace('f3_', PRE, file_get_contents($file));
-
-		#Znak nowej linii
-		if(strpos($sql, "\r\n"))
-		{
-			$sql = explode(";\r\n\r\n", $sql); //Win
-		}
-		elseif(strpos($sql, "\r"))
-		{
-			$sql = explode(";\r\r", $sql); //MacOS
-		}
-		else
-		{
-			$sql = explode(";\n\n", $sql); //Unix
-		}
-
 		try
 		{
-			foreach($sql as $q)
-			{
-				if(substr($q, 0, 2) != '--')
-				{
-					$this->db->exec($q);
-				}
-			}
+			execSQL($file,$this->db);
 		}
 		catch(PDOException $e)
 		{
@@ -125,7 +102,6 @@ class Installer
 		#Menu
 		$m->execute(array(1, 'Menu', $x, 1, 3, null));
 		$menuID = $db->lastInsertId();
-		#$m->execute(array(2, $lang['UA'], $x, 2, 2, './mod/panels/user.php'));
 		$m->execute(array(3, $lang['cats'], $x, 1, 2, './mod/panels/cats.php'));
 		$m->execute(array(4, $lang['pages'], 2, 1, 2, './mod/panels/pages.php'));
 		$m->execute(array(5, $lang['new'], $x, 2, 2, './mod/panels/new.php'));

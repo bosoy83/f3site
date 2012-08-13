@@ -3,10 +3,10 @@ if(iCMSa!=1 || !admit('R')) exit;
 require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
-#Tytu³ strony i ID
+#Page title
 $content->title = $id ? $lang['editRss'] : $lang['addRss'];
 
-#Zapisz
+#Save RSS
 if($_POST)
 {
 	$rss = array(
@@ -34,7 +34,7 @@ if($_POST)
 		$q->execute($rss);
 		if(!$id) $id = $db->lastInsertId();
 
-		#Odbuduj RSS
+		#Rebuild RSS
 		RSS($id);
 		header('Location: '.URL.url('rss/update', '', 'admin'));
 		return 1;
@@ -64,9 +64,9 @@ else
 	);
 }
 
-#Szablon
-$content->data = array(
+#Prepare template
+$content->add('editRss', array(
 	'rss'   => $rss,
 	'cats'  => Slaves(5, $rss['cat']),
 	'langs' => listBox('lang', 1, $rss['lang'])
-);
+));

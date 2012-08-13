@@ -2,6 +2,8 @@
 $lang+=Array(
 'list'=>'Show me the list of:',
 'on'=>'Enabled',
+'pin'=>'Always on top',
+'comon'=>'Enable comments',
 'nochg'=>'No changes',
 'publish'=>'Publish',
 'choose'=>'- - - select from list - - -',

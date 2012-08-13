@@ -88,9 +88,12 @@ foreach(scandir('style') as $x)
 if(empty($cfg['pubKey'])) $cfg['pubKey'] = '';
 if(empty($cfg['prvKey'])) $cfg['prvKey'] = '';
 
+#Page title
 $content->title = $lang['main'];
-$content->data = array(
+
+#Template
+$content->add('configMain', array(
 	'cfg' => &$opt,
 	'skinlist' => &$skin,
 	'langlist' => listBox('lang',1,$opt['lang']),
-);
+));

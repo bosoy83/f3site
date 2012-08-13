@@ -1,19 +1,19 @@
 <?php
 if(EC!=1) exit;
 
-#Zapisz jako nowy
+#Action: save as new
 if(isset($_POST['asNew'])) $id = 0;
 
-#Tytul i szablon
+#Page title
 $content->title = $id ? $lang['edit1'] : $lang['add1'];
-$content->file = 'edit_art';
 
+#Action: save
 if($_POST)
 {
 	$num = count($_POST['txt']);
 	$full = array();
 
-	#Strony + encje do PRE i CODE
+	#Pages, pre, code
 	for($i=0; $i<$num; ++$i)
 	{
 		if(empty($_POST['txt'][$i])) continue;
@@ -28,7 +28,7 @@ if($_POST)
 			(isset($_POST['emo'][$i]) ? 2 : 0) + (isset($_POST['code'][$i]) ? 4 : 0));
 	}
 
-	#Nowe dane
+	#Prepare data
 	$art = array(
 	'pages' => count($full),
 	'cat'   => (int)$_POST['cat'],
@@ -42,11 +42,12 @@ if($_POST)
 	{
 		$e = new Saver($art,$id,'arts');
 
-		#Zapytanie
+		#DB query
 		if($id)
 		{
-			$q = $db->prepare('UPDATE '.PRE.'arts SET cat=:cat, name=:name, dsc=:dsc,
-			author=:author, access=:access, priority=:priority, pages=:pages WHERE ID='.$id);
+			$art['ID'] = $id;
+			$q = $db->prepare('UPDATE '.PRE.'arts SET cat=:cat, access=:access, name=:name,
+			dsc=:dsc, author=:author, priority=:priority, pages=:pages WHERE ID=:ID');
 		}
 		else
 		{
@@ -55,30 +56,30 @@ if($_POST)
 		}
 		$q->execute($art);
 
-		#Nowe ID
+		#Get new ID
 		if(!$id) $id = $db->lastInsertId();
 
-		#Pelna tresc
+		#Prepare query for pages
 		$q = $db->prepare('REPLACE INTO '.PRE.'artstxt (id,page,cat,text,opt)
 			VALUES ('.$id.',?,'.$art['cat'].',?,?)');
 
-		#Tresc
+		#Modify article pages
 		foreach($full as &$x) $q->execute($x);
 
-		#Usun inne
+		#Delete other pages
 		$db->exec('DELETE FROM '.PRE.'artstxt WHERE ID='.$id.' AND page>'.count($full));
 
-		#Zatwierdz
+		#Apply changes
 		$e->apply();
 
-		#Przekieruj do artykulu
+		#Redirect to article
 		if(isset($_GET['ref']) && is_numeric($_GET['ref']))
 		{
 			$page = $_GET['ref']>1 && isset($full[$_GET['ref']-1]) ? '/'.$_GET['ref'] : '';
 			header('Location: '.URL.url('art/'.$id.$page));
 		}
 
-		#Info + linki
+		#Info + links
 		$content->info($lang['saved'], array(
 			url('art/'.$id)  => sprintf($lang['see'], $art['name']),
 			url($art['cat']) => $lang['goCat'],
@@ -101,10 +102,10 @@ else
 		$art = $res->fetch(2); //ASSOC
 		$res = null;
 
-		#Prawa
+		#Privileges
 		if(!$art || !admit($art['cat'],'CAT',$art['author'])) return;
 
-		#Pobierz tresc
+		#Get text
 		$res = $db->query('SELECT page,text,opt FROM '.PRE.'artstxt WHERE ID='.$id.' ORDER BY page');
 		$full = $res->fetchAll(3);
 		$res = null;
@@ -119,7 +120,7 @@ else
 	}
 }
 
-#Pola checkbox
+#Checkbox
 foreach($full as $key=>&$val)
 {
 	$full[$key] = array('page'=>$val[0], 'txt'=>$val[1], 'br'=>$val[2]&1, 'emo'=>$val[2]&2, 'code'=>$val[2]&4);
@@ -132,22 +133,22 @@ foreach($full as $key=>&$val)
 	}
 }
 
-#Edytor JS
+#Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }
 
-#Dane + URL + kategorie
-$content->data = array(
+#Template
+$content->add('edit_art', array(
 	'art' => &$art,
 	'id'  => $id,
 	'full' => &$full,
 	'cats' => Slaves(1,$art['cat'])
-);
+));

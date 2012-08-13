@@ -1,26 +1,25 @@
 <?php
 if(iCMS!=1) exit;
 
-#ID wpisu
+#Post ID
 $id = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
 
-#Szablon
+#Page title
 $content->title = $id ? $lang['editPost'] : $lang['sign'];
-$content->file = 'posting';
 
 #Skrypty - BBCode
 if(isset($cfg['bbcode']))
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('cache/emots.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('cache/emots.js');
+	$content->script('lib/editor.js');
 }
 
 #Błędy
 $error = array();
 $preview = null;
 
-#Nie może postować
+#Cannot post
 if($id && !admit('GB'))
 {
 	$error[] = $lang['mayNot'];
@@ -37,7 +36,7 @@ elseif(!$id)
 	}
 }
 
-#System CAPTCHA
+#CAPTCHA
 if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
 {
 	require './lib/spam.php';
@@ -48,10 +47,9 @@ else
 	$noSPAM = false;
 }
 
-#Zapisz
+#Action: save
 if($_POST)
 {
-	#Dane
 	$post = array(
 		'who'   => empty($_POST['who']) ? $lang['gall'] : clean($_POST['who'], 40, 1),
 		'mail'  => filter_input(0, 'mail', 274), //FILTER_VALIDATE_EMAIL
@@ -64,7 +62,7 @@ if($_POST)
 		'txt'   => clean($_POST['txt'], 0, 1)
 	);
 
-	#Gdy goście nie mogą wstawiać linków + antyspam
+	#If guests cannot post links + antispam
 	if(!UID)
 	{
 		if(!isset($cfg['URLs']) && (strpos($post['txt'],'://') OR strpos($post['txt'],'www.')))
@@ -84,7 +82,7 @@ if($_POST)
 		}
 	}
 
-	#Strona WWW
+	#Check WWW
 	if($post['www'] === 'http://')
 	{
 		$post['www'] = '';
@@ -94,7 +92,7 @@ if($_POST)
 		$post['www'] = (strpos($post['www'], 'www.') === 0) ? 'http://'.$post['www'] : '';
 	}
 
-	#Długość tekstu
+	#Post length
 	if(empty($post['txt']))
 	{
 		$error[] = $lang['mustText'];
@@ -104,10 +102,10 @@ if($_POST)
 		$error[] = $lang['tooLong'];
 	}
 
-	#Zapisz
+	#Save
 	if(isset($_POST['save']))
 	{
-		#Blokada czasowa
+		#Time lock
 		if(isset($_SESSION['postTime']) && $_SESSION['postTime'] > $_SERVER['REQUEST_TIME'])
 		{
 			$error[] = $lang['noFlood'];
@@ -117,13 +115,13 @@ if($_POST)
 			$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'] + $cfg['antyFlood'];
 		}
 
-		#Kod z obrazka
+		#Check CAPTCHA
 		if(!UID && isset($cfg['captcha']) && (empty($_POST['code']) || $_POST['code']!=$_SESSION['code']))
 		{
 			$error[] = $lang['badCode'];
 		}
 
-		#Gdy nie ma błędów, dodaj lub zedytuj wpis
+		#If no error, add or edit post
 		if(!$error)
 		{
 			try
@@ -146,13 +144,13 @@ if($_POST)
 				}
 				$q->execute($post);
 
-				#Ustaw blokadę czasową
+				#Set time lock
 				$_SESSION['postTime'] = $_SERVER['REQUEST_TIME'];
 
-				#Przekieruj do księgi
+				#Redirect to guestbook
 				header('Location: '.URL.url('guestbook'));
 
-				#Gdy przekierowanie nie nastąpi
+				#Show OK message
 				$content->message($lang['saved']);
 			}
 			catch(PDOException $e)
@@ -162,7 +160,7 @@ if($_POST)
 		}
 	}
 
-	#Podgląd
+	#Preview
 	elseif(!$error)
 	{
 		$preview = nl2br(emots($post['txt']));
@@ -174,7 +172,7 @@ if($_POST)
 	}
 }
 
-#Odczyt istniejącego wpisu - FETCH_ASSOC
+#Get existing post - FETCH_ASSOC
 elseif($id)
 {
 	if(!$post = $db->query('SELECT * FROM '.PRE.'guestbook WHERE ID='.$id)->fetch(2))
@@ -183,7 +181,7 @@ elseif($id)
 	}
 }
 
-#Nowy wpis
+#New post
 else
 {
 	$post = array(
@@ -199,18 +197,18 @@ else
 	);
 }
 
-#Błędy - zakończ, gdy nie wysłano formularza
+#Show errors
 if($error)
 {
 	$content->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
 	if(!$_POST) return 1;
 }
 
-#Dane do szablonu
-$content->data = array(
+#Template
+$content->add('posting', array(
 	'post'   => &$post,
 	'code'   => $noSPAM,
 	'rules'  => $cfg['gbRules'],
 	'preview'=> $preview,
 	'bbcode' => isset($cfg['bbcode'])
-);
+));

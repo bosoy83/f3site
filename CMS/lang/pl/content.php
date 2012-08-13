@@ -2,6 +2,8 @@
 $lang+=Array(
 'list'=>'Wyświetl listę...',
 'on'=>'Wł.',
+'pin'=>'Zawsze na wierzchu',
+'comon'=>'Zezwól na komentowanie',
 'nochg'=>'Bez zmian',
 'publish'=>'Opublikuj',
 'choose'=>'- - - wybierz z listy - - -',
@@ -9,7 +11,7 @@ $lang+=Array(
 'noCat' =>'Nie wybrałeś kategorii. Obiekt będzie niedostępny. Możesz później powrócić do edycji. Naciśnij OK, aby go zapisać lub Anuluj, aby zostać na tej stronie.',
 
 'see'=>'Wyświetl %s',
-'nor'=>'Nie możesz wykonać tej operacji z powodu ograniczeń.',
+'nor'=>'Nie masz uprawnień do wykonania tej czynności.',
 'fail'=>'Wystąpił błąd podczas zatwierdzania danych.',
 'saved'=>'Zapisano obiekt.',
 'goCat'=>'Przejdź do kategorii',

@@ -9,7 +9,7 @@ $content->title = $lang['groups'];
 $member = UID ? $db->query('SELECT g FROM '.PRE.'groupuser WHERE u='.UID)->fetchAll(7) : array();
 
 #Pobierz
-$res = $db->query('SELECT ID,name,dsc,num FROM '.PRE.'groups WHERE access=1 OR access="'.
+$res = $db->query('SELECT ID,name,dsc,num FROM '.PRE.'groups WHERE access="1" OR access="'.
 	LANG.'" ORDER BY num DESC, name');
 $res -> setFetchMode(3);
 $gro = array();
@@ -42,4 +42,4 @@ if(empty($gro))
 }
 
 #Szablon
-$content->data = array('groups' => &$gro);
+$content->add('groups', array('groups' => &$gro));

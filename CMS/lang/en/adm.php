@@ -29,7 +29,7 @@
 'summary' =>'Summary',
 'admIntro'=>'Welcome to %s admin panel. Select a module from left menu.',
 'skinComp'=>'Apply changes in current skin',
-'official'=>'Get help and extensions for F3Site 2010',
+'official'=>'Get help and extensions for F3Site 2012',
 'setTitle'=>'Set title, skin, date and URL format and more...',
 'notepad' =>'I want to remember or discuss with other administrators:',
 'course'=>'HTML, xHTML, CSS course (PL)',

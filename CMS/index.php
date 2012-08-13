@@ -1,4 +1,4 @@
-<?php //F3Site 3.2 - (C) 2011 COMPMaster
+<?php //F3Site 2012 (C) COMPMaster
 define('iCMS',1);
 require './kernel.php';
 
@@ -13,24 +13,16 @@ if(isset($cfg['MA']) && !IS_EDITOR)
 #Default META description
 $content->desc = $cfg['metaDesc'];
 
-#Load module or display 404 page
+#Load module: built-in module, extension, 404
 if(isset($URL[0]) && !is_numeric($URL[0]) && strpos($URL[0],'/')===false && !isset($URL[0][30]))
 {
-	#Default template
-	$content->file = array($URL[0]);
-
-	#Sequence: built-in module, extension, 404
 	if(file_exists('./mod/'.$URL[0].'.php'))
 	{
-		(include './mod/'.$URL[0].'.php') OR $content->set404();
+		include './mod/'.$URL[0].'.php';
 	}
 	elseif(file_exists('./plugins/'.$URL[0].'/default.php'))
 	{
-		(include './plugins/'.$URL[0].'/default.php') OR $content->set404();
-	}
-	else
-	{
-		$content->set404();
+		include './plugins/'.$URL[0].'/default.php';
 	}
 }
 
@@ -55,9 +47,12 @@ else
 	}
 	require './cache/menu'.LANG.'.php';
 
-	#RSS
-	$channel = empty($cfg['RSS'][LANG]) ? array() : $cfg['RSS'][LANG];
+	#Channels for language
+	if(!empty($cfg['RSS'][LANG]))
+	{
+		$content->rss($cfg['RSS'][LANG]);
+	}
 
 	#Main template
-	include $content->path('body');
+	$content->front();
 }

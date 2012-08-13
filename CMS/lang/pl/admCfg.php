@@ -74,6 +74,7 @@ $lang+=Array(
 'commSort2'=>'Od najstarszego',
 'hideTitle'=>'Ukryj pole Tytuł',
 'colorCode'=>'Koloruj kod w znaczniku [code]',
+'blacklist'=>'Sprawdzaj adres IP na czarnej liście',
 'moderate'=>'Cenzura komentarzy',
 'moder2'=>'Komentarze będą widoczne dla wszystkich po ich zatwierdzeniu przez moderatorów.',
 'maxlen'=>'Limit znaków',

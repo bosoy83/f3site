@@ -47,13 +47,12 @@ else
 }
 
 #Do szablonu
-$content->file[] = 'cat_links';
-$content->data += array(
+$content->add('cat_links', array(
 	'pages' => &$pages,
 	'links' => &$links,
 	'count' => $count,
 	'add'   => admit($d,'CAT') ? url('edit/4') : null,
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/links'),
 	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['links']
-);
+));
 unset($res,$link,$total);

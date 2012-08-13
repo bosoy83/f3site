@@ -2,31 +2,11 @@
 if(iCMSa!=1 || !admit('C')) exit;
 require LANG_DIR.'admAll.php';
 
-#Przelicz ilo¶æ
-if(isset($_GET['count']))
-{
-	try
-	{
-		include './lib/categories.php';
-		$db->beginTransaction(); CountItems(); $db->commit();
-	}
-	catch(PDOException $e)
-	{
-		$content->info($e->getMessage());
-	}
-}
-
-#Informacja
-$content->info($lang['dinfo'], array(
-	url('editCat', '', 'admin') => $lang['addCat'],
-	url('cats','count','admin') => $lang['count']
-) );
-
-#Odczyt
+#Get categories
 $res = $db->query('SELECT ID,name,access,type,num,lft,rgt FROM '.PRE.'cats'
 	.(isset($URL[1]) ? ' WHERE type='.(int)$URL[1] : '').' ORDER BY lft');
 
-#Typy i struktura
+#Initialize types and depth
 $types = array('',$lang['arts'],$lang['files'],$lang['imgs'],$lang['links'],$lang['news']);
 $depth = 0;
 $last = 1;
@@ -34,7 +14,7 @@ $cats = array();
 
 foreach($res as $cat)
 {
-	#Poziom
+	#Depth
 	if($last > $cat['rgt'])
 	{
 		++$depth;
@@ -45,7 +25,7 @@ foreach($res as $cat)
 	}
 	$last = $cat['rgt'];
 
-	#Typ
+	#Type
 	switch($cat['access'])
 	{
 		case '1': $a = $lang['on2']; break;
@@ -66,7 +46,8 @@ foreach($res as $cat)
 	);
 }
 
-$content->data = array(
+#Template
+$content->add('cats', array(
 	'cat' => $cats,
 	'url' => url('editCats', '', 'admin')
-);
+));

@@ -1,14 +1,14 @@
 <?php
 if(iCMS!=1) exit;
 
-#Skórki
+#Skin
 $content->title = 'Chat';
 $content->dir = './plugins/chat/';
 $content->cache = './cache/chat/';
-$content->addCSS('plugins/chat/chat.css');
-$content->addScript('plugins/chat/chat.js');
+$content->css('plugins/chat/chat.css');
+$content->script('plugins/chat/chat.js');
 
-#Konfiguracja
+#Config
 if(file_exists('./cfg/chat.php'))
 {
 	require './cfg/chat.php';
@@ -18,7 +18,7 @@ else
 	$content->message('Chat is NOT installed!');
 }
 
-#Wypowiedzi
+#Messages
 $num = -1;
 $msg = array();
 $res = $db->prepare('SELECT * FROM '.PRE.'chat ORDER BY ID DESC LIMIT ?');
@@ -38,8 +38,9 @@ foreach($res as $x)
 	++$num;
 }
 
-$content->data = array(
+#Template
+$content->add('chat', array(
 	'message' => &$msg,
 	'lastID'  => $msg ? ($_SESSION['chatLast'] = $msg[$num]['id']) : 0,
 	'nick'    => UID ? $user['login'] : 'Guest'
-);
+));

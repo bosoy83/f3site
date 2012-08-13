@@ -2,10 +2,12 @@
 $lang+=Array(
 
 /* FREIE SEITEN */
-'pageTip'  => 'Freie Seiten sind zu Kategorien Wolne strony nie są przypisywane do kategorii. Mogą zawierać kod HTML, JavaScript i PHP.',
+'pageTip'  => 'Freie Seiten',
 'editPage' => 'Freie Seite ändern',
 'addPage'  => 'Neu freie Seite',
 'inside'   => 'Text in den Rind setzen',
+'enable'   => 'on',
+'disable'  => 'off',
 
 /* KATEGORIEN */
 'editCat'=> 'Kategorie ändern',
@@ -81,16 +83,11 @@ $lang+=Array(
 'openNew' => 'im neue Karte öffnen (abgeraten)',
 'saveNew' => 'Als neues Block speichern',
 
-/* BANNERS */
-'addAd'  => 'Neues Banner',
-'editAd' => 'Banner ändern',
-'adInfo' => 'Man kann wahllose Elementen zeigen, z. B. Grafik, Banners, Tips...',
-'genID'  => 'Generator ID',
-'HTML'   => 'HTML Kode',
-
 /* BENUTZER */
-'priv' => 'Privilegen',
+'priv' => 'privilegen',
 'open' => 'offen',
+'privs' => 'Privilegen',
+'addUser' => 'Neu Benutzer',
 'profile' => 'Profil',
 'addGroup'  => 'Neue Gruppe',
 'editGroup' => 'Gruppe ändern',
@@ -104,4 +101,18 @@ $lang+=Array(
 'dbSelect' => 'Tabellen markieren',
 'dbDelete' => 'Existente Tabellen löschen',
 'dbInfo'   => 'Man kann export die Datenbank zum .SQL Format. Es mag viel Zeit nehmen. Um viele Tabellen zu marken, drück CTRL bei Auswahl.',
+
+/* PLUGINS */
+'warn'=>'WARNUNG: Add-ons von unbekannten Quellen mögen Schaden anrichten oder Daten stehlen.',
+'warn2'=>'WARNUNG: Du willst alle Daten verlieren!',
+'store'=>'Mehr Addons holen',
+'uninst'=>'deinstallieren',
+'inst'=>'installieren',
+'conf'=>'bilden',
+'menuItem'=>'Links in Menü einstellen:',
+'noinst'=>'Die Erweiterung arbeitet ohne Installation.',
+'pos'=>'Lage',
+'ver'=>'Version',
+'ready'=>'Installierte Erweiterungen',
+'unready'=>'Noch nicht installiert'
 );

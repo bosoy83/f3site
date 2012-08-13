@@ -1,7 +1,12 @@
-<form action="" method="post">
+<div id="actions">
+	<a href="url(admin:editPage)" class="edit">{lang.addPage}</a>
+	<a href="url(admin:help#pages)" class="help">{lang.help}</a>
+</div>
+
+<form method="post">
 <h1>{lang.ipages}</h1>
 
-<table cellspacing="1" class="tb">
+<table class="tb">
 <tr>
 	<th>{lang.name}</th>
 	<th style="width: 50px">ID</th>
@@ -13,9 +18,9 @@
 <!-- START pages -->
 <tr>
   <td>{num}. <a href="{url}">{title}</a></td>
-  <td align="center">{id}</td>
-  <td align="center">{access}</td>
-  <td align="center"><a href="{edit}">{lang.edit}</a></td>
+  <td style="text-align: center">{id}</td>
+  <td style="text-align: center">{access}</td>
+  <td style="text-align: center"><a href="{edit}">{lang.edit}</a></td>
 	<td><input type="checkbox" name="x[{id}]" /></td>
 </tr>
 <!-- STOP -->

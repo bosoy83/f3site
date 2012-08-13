@@ -23,7 +23,7 @@
 		<!-- END -->
 	</div>
 
-	<!-- IF last -->
+	<!-- IF comment -->
 	<div style="float: left; width: 50%">
 		<div style="margin-top: 7px"><b>{lang.comms}</b></div>
 		<a href="url(moderate)" class="quote">{lang.moderate}</a><br />
@@ -31,20 +31,20 @@
 	</div>
 	<div style="float: right; width: 50%">
 		<div style="margin-top: 7px"><b>{lang.lastComm}</b></div>
-		<span class="quote">{last}</span><br />
-		<span class="quote">{title}</span>
+		<span class="quote">{comment.date}</span><br />
+		<span class="quote">{comment.title}</span>
 	</div>
 	<!-- END -->
 </div>
 
-<!-- IF last -->
+<!-- IF comment -->
 <h1>{lang.lastComm}</h1>
 <div class="box" style="word-wrap: break-word">
-	<h3>{title}</h3>
-	<div style="white-space: pre-line">{text}</div>
+	<h3>{comment.title}</h3>
+	<div style="white-space: pre-line">{comment.text}</div>
 </div>
 
-<!-- IF color -->
+<!-- IF comment.color -->
 <script type="text/javascript">
 include('lib/prettify/prettify.css')
 include('lib/prettify/prettify.js', function() { prettyPrint() })

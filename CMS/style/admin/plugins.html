@@ -1,3 +1,8 @@
+<div id="actions">
+	<a href="http://dhost.info/compmaster" class="web">{lang.store}</a>
+	<a href="url(admin:help#addons)" class="help">{lang.help}</a>
+</div>
+
 <!-- IF setup -->
 
 <form action="" method="post">
@@ -39,31 +44,31 @@
 
 <!-- ELSE -->
 
-<h1>{lang.plugs}</h1>
-<table cellspacing="1" class="tb">
+<h1>{lang.ready}</h1>
+<table class="tb">
 <tr>
 	<th>{lang.name}</th>
 	<th>Folder</th>
 	<th>{lang.opt}</th>
 </tr>
 
-<!-- START plugin -->
-<!-- IF ready -->
+<!-- START ready -->
 <tr>
 	<td style="color: green">{name}</td>
 	<td align="center">{id}</td>
 	<td align="center">
 		<!-- IF config --><a href="{config}">{lang.conf}</a><!-- END -->
-		<!-- IF url -->&nbsp; <a href="{url}">{lang.uninst}</a><!-- END -->
+		<!-- IF setup -->&nbsp; <a href="{setup}">{lang.uninst}</a><!-- END -->
 	</td>
 </tr>
-<!-- ELSE -->
+<!-- STOP -->
+
+<!-- START unready -->
 <tr>
 	<td>{name}</td>
 	<td align="center">{id}</td>
-	<td align="center"><a href="{url}">{lang.inst}</a></td>
+	<td align="center"><a href="{setup}">{lang.inst}</a></td>
 </tr>
-<!-- END -->
 <!-- STOP -->
 
 </table>

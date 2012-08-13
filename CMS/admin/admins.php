@@ -2,13 +2,17 @@
 if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'rights.php';
 
-#Odczyt
+#Get all privileged users - FETCH_NUM
 $res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users WHERE lv>1 OR adm!=""');
-$res->setFetchMode(3); //NUM
+$res->setFetchMode(3);
 
-#Info
+#Info, links
 $content->info($lang['iadms'], array(url('editUser','','admin')=>$lang['addUser']));
 
+#Page title
+$content->title = $lang['admins'];
+
+#Init variables
 $num  = 0;
 $adms = array();
 
@@ -33,5 +37,5 @@ foreach($res as $adm)
 	);
 }
 
-$content->title = $lang['admins'];
-$content->data['admin'] =& $adms;
+#Template
+$content->add('admins', array('admin' => &$adms));

@@ -1,6 +1,6 @@
 <?php if(iCMS!=1) exit;
 
-#Lista pozycji
+#Action: show tagged items
 if(isset($URL[1]) && !isset($URL[1][31]))
 {
 	$q = $db->prepare('SELECT TYPE,ID FROM '.PRE.'tags WHERE tag=?');
@@ -57,14 +57,15 @@ if(isset($URL[1]) && !isset($URL[1][31]))
 		);
 	}
 
+	#Prepare template
 	$content->title = clean($URL[1]);
-	$content->data  = array('item' => &$all, 'tag' => false, 'tags' => url('tags'));
+	$content->add('tags', array('item'=>&$all, 'tag'=>false, 'tags'=>url('tags')));
 }
 else
 {
 	$content->title = $lang['tags'];
 
-	#Mapa tagów - pobierz dane
+	#Action: show tag cloud
 	$res = $db->query('SELECT tag, num FROM '.PRE.'tags GROUP BY tag ORDER BY tag LIMIT 30');
 	$tag = $res->fetchAll(12); //PDO::FETCH_KEY_PAIR
 
@@ -72,20 +73,20 @@ else
 	#12 - min font size [px]
 	if(!$tag) return;
 
-	#Granice tablic
+	#Array edges
 	$all = array_values($tag);
 	$max = max($all);
 	$min = min($all);
 	$all = array();
 
-	#Amplituda wielkoœci
+	#Font size amplitude
 	$spread = $max - $min;
 	if($spread == 0) $spread = 1;
 
-	#Zwiêksz czcionkê o
+	#Font size step
 	$step = 20 / $spread;
 
-	#Zbuduj mapê
+	#Build tag cloud
 	foreach($tag as $key => $num)
 	{
 		$all[] = array(
@@ -95,5 +96,5 @@ else
 			'size'  => round(($num - $min) * $step) + 13
 		);
 	}
-	$content->data = array('tag' => &$all, 'item' => false);
+	$content->add('tags', array('tag' => &$all, 'item' => false));
 }

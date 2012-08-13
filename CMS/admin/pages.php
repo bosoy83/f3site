@@ -2,7 +2,7 @@
 if(iCMSa!=1 || !admit('P')) exit;
 require LANG_DIR.'admAll.php';
 
-#Usuñ / w³¹cz / wy³¹cz
+#Delete / enable / disable
 if($_POST && $x = GetID(true))
 {
 	if(isset($_POST['del']))
@@ -18,10 +18,7 @@ if($_POST && $x = GetID(true))
 	}
 }
 
-#Info
-$content->info($lang['pageTip'], array(url('editPage','','admin')=>$lang['addPage']));
-
-#Odczyt - FETCH_NUM
+#Get pages from database - FETCH_NUM
 $res = $db->query('SELECT ID,name,access FROM '.PRE.'pages ORDER BY ID DESC');
 $res->setFetchMode(3);
 $total = 0;
@@ -39,7 +36,7 @@ foreach($res as $page)
 	);
 }
 
-#Przekieruj, gdy nie ma nic
+#No pages - add new page
 if(empty($pages) && !JS)
 {
 	header('Location: '.URL.url('editPage','','admin'));
@@ -47,5 +44,5 @@ if(empty($pages) && !JS)
 }
 
 $res = null;
-$content->data['pages'] = $pages;
+$content->add('pages', array('pages' => $pages));
 $content->title = $lang['ipages'];

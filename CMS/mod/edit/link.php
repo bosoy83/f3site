@@ -1,17 +1,15 @@
 <?php
 if(EC!=1) exit;
 
-#Zapisz jako nowy
+#Action: save as new
 if(isset($_POST['asNew'])) $id = 0;
 
-#Tytu³ i szablon
+#Page title
 $content->title = $id ? $lang['edit4'] : $lang['add4'];
-$content->file  = 'edit_link';
 
-#Zapisz
+#Action: save
 if($_POST)
 {
-	#Dane
 	$link = array(
 	'cat' => (int)$_POST['cat'],
 	'dsc' => clean($_POST['dsc']),
@@ -21,38 +19,38 @@ if($_POST)
 	'access'=> isset($_POST['access']),
 	'priority'=> (int)$_POST['priority'] );
 
-	#Start
 	try
 	{
 		$e = new Saver($link, $id, 'links', 'cat,access');
 
-		#Zapytanie
+		#Prepare query
 		if($id)
 		{
-			$q = $db->prepare('UPDATE '.PRE.'links SET cat=:cat, name=:name, dsc=:dsc,
-				access=:access, adr=:adr, priority=:priority, nw=:nw WHERE ID='.$id);
+			$link['ID'] = $id;
+			$q = $db->prepare('UPDATE '.PRE.'links SET cat=:cat, access=:access,
+			name=:name, dsc=:dsc,adr=:adr, priority=:priority, nw=:nw WHERE ID=:ID');
 		}
 		else
 		{
-			$q = $db->prepare('INSERT INTO '.PRE.'links (cat,name,dsc,access,adr,priority,nw)
-				VALUES (:cat,:name,:dsc,:access,:adr,:priority,:nw)');
+			$q = $db->prepare('INSERT INTO '.PRE.'links (cat,access,name,dsc,adr,priority,nw)
+				VALUES (:cat,:access,:name,:dsc,:adr,:priority,:nw)');
 		}
 		$q->execute($link);
 		if(!$id) $id = $db->lastInsertId();
 
-		#Zatwierd¼
+		#Apply changes
 		$e->apply();
 
-		#Przekieruj do linku
+		#Redirect to link
 		if(isset($_GET['ref']) && isset($cfg['linkFull']))
 		{
 			header('Location: '.URL.url('link/'.$id));
 		}
 
-		#URL do linku
+		#Link URL
 		$url = isset($cfg['linkFull']) ? url('link/'.$id) : $link['adr'];
 
-		#Info + linki
+		#Info + links
 		$content->info($lang['saved'], array(
 			$url => sprintf($lang['see'], $link['name']),
 			url($link['cat']) => $lang['goCat'],
@@ -68,14 +66,12 @@ if($_POST)
 	}
 }
 
-#Odczyt
+#Action: edit
 else
 {
 	if($id)
 	{
 		$link = $db->query('SELECT * FROM '.PRE.'links WHERE ID='.$id) -> fetch(2); //ASSOC
-
-		#Prawa
 		if(!$link || !admit($link['cat'],'CAT'))
 		{
 			return;
@@ -87,9 +83,9 @@ else
 	}
 }
 
-#Dane
-$content->data = array(
+#Template
+$content->add('edit_link', array(
 	'link' => &$link,
 	'id'   => $id,
 	'cats' => Slaves(4,$link['cat'])
-);
+));

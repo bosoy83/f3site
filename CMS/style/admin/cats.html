@@ -1,7 +1,12 @@
-<form action="{url}" method="post">
+<div id="actions">
+	<a href="url(admin:editCat)" class="edit">{lang.addCat}</a>
+	<a href="url(admin:help#cats)" class="help">{lang.help}</a>
+</div>
+
+<form method="post" action="url(admin:editCats)">
 <h1>{this.title}</h1>
 
-<table cellspacing="1" class="tb" id="cats">
+<table class="tb" id="cats">
 <thead>
 <tr>
 	<th>{lang.name}</th>
@@ -12,11 +17,11 @@
 	<th style="width: 20px"></th>
 </tr>
 </thead>
-<tbody align="center">
+<tbody style="text-align: center">
 
 <!-- START cat -->
 <tr>
-	<td align="left"><a href="{url}" style="margin-left: {depth}em">{name}</a> ({num})</td>
+	<td style="text-align: left"><a href="{url}" style="margin-left: {depth}em">{name}</a> ({num})</td>
 	<td>{id}</td>
 	<td>{disp}</td>
 	<td>{type}</td>
@@ -30,6 +35,7 @@
 <tr>
 	<td class="eth" colspan="6">
 		<input type="submit" name="del" value="{lang.del}" />
+		<input type="submit" name="count" value="{lang.count}" />
 	</td>
 </tr>
 </tfoot>

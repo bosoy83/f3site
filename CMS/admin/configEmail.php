@@ -1,10 +1,10 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Dostêpne opcje
+#Get options
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 
-#Zapisz
+#Save
 if($_POST)
 {
 	require './lib/config.php';
@@ -27,6 +27,6 @@ if($_POST)
 include LANG_DIR.'admCfg.php';
 include './cfg/mail.php';
 
-#Do szablonu
+#Template
 $content->title = 'E-Mail';
-$content->data['cfg'] =& $opt;
+$content->add('configEmail', array('cfg' => &$opt));

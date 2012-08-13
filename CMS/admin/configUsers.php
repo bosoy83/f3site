@@ -1,10 +1,10 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Dostêpne opcje
+#Get options
 if($_POST) { $opt =& $_POST; } else { $opt =& $cfg; }
 
-#Zapisz
+#Action: save
 if($_POST)
 {
 	$opt['mailban'] = empty($opt['mailban']) ? array() : explode("\n",$opt['mailban']);
@@ -27,19 +27,19 @@ if($_POST)
 	$f = null;
 }
 
-#Opcje
+#Include options
 include './cfg/account.php';
 include './cfg/mail.php';
 
-#Jêzyk
+#Include language file
 require LANG_DIR.'admCfg.php';
 
-#Tytu³ strony
+#Page title
 $content->title = $lang['ua'];
 
-#Do szablonu
-$content->data = array(
-	'cfg' => &$cfg,
+#Template
+$content->add('configUsers', array(
+	'cfg'     => &$cfg,
 	'mailBan' => join("\n", $cfg['mailban']),
 	'nickBan' => join("\n", $cfg['nickban'])
-);
+));

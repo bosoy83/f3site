@@ -45,12 +45,11 @@ else
 }
 
 #Do szablonu
-$content->file[] = 'cat_images';
-$content->data += array(
+$content->add('cat_images', array(
 	'pages' => &$pages,
 	'image' => &$img,
 	'add'   => admit($d,'CAT') ? url('edit/3') : null,
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/images'),
 	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['imgs']
-);
+));
 unset($res,$total,$x);

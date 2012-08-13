@@ -30,7 +30,7 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	}
 
 	#Czy oceniany ID istnieje i jest w³±czony
-	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!=3 AND c.opt&4 AND i.ID='.$id))
+	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!="3" AND c.opt&4 AND i.ID='.$id))
 	{
 		if(JS) exit($lang[7]); else $content->message(7, $ref);
 	}

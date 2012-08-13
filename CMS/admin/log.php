@@ -1,14 +1,15 @@
 <?php
 if(iCMSa!=1 || !admit('L')) exit;
+require LANG_DIR.'events.php';
 
-#Usun
+#Delete events
 if($_POST && $x = GetID(true))
 {
 	$db->exec('DELETE FROM '.PRE.'log WHERE ID IN ('.$x.')');
 	event('ERASE');
 }
 
-#Strona
+#Page number
 if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
@@ -20,18 +21,16 @@ else
 	$st = 0;
 }
 
-#Suma
+#Total events
 $total = dbCount('log');
 $event = array();
 
-#Pobierz
+#Get events - FETCH_ASSOC
 $res = $db->query('SELECT l.*,u.login FROM '.PRE.'log l LEFT JOIN '.PRE.'users u
-	ON l.user=u.ID AND l.user!=0 LIMIT '.$st.',30');
-$res->setFetchMode(3); //Assoc
+	ON l.user=u.ID AND l.user!=0 ORDER BY date DESC LIMIT '.$st.',30');
+$res->setFetchMode(3);
 
-require LANG_DIR.'events.php';
-
-#Lista
+#List events
 foreach($res as $i)
 {
 	$event[] = array(
@@ -43,8 +42,10 @@ foreach($res as $i)
 		'user' => $i[4] ? url('user/'.urlencode($i[5])) : false
 	);
 }
-$content->data = array(
+
+#Prepare template
+$content->add('log', array(
 	'event' => &$event,
 	'pages' => pages($page, $total, 30, url('log', '', 'admin'), 1),
 	'url'   => url('log', 'page='.$page, 'admin')
-);
+));

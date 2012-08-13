@@ -1,13 +1,13 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Tytu³
+#Page title
 $content->title = $lang['config'];
 
-#Lista dzia³ów opcji
+#Option categories language file
 require LANG_DIR.'admCfg.php';
 
-#Odczyt opcji wtyczek
+#Addons options
 $items = array();
 $res = $db->query('SELECT ID,name,img FROM '.PRE.'confmenu WHERE lang=1 OR lang="'.LANG.'"');
 foreach($res as $x)
@@ -19,10 +19,9 @@ foreach($res as $x)
 	);
 }
 
-#Do szablonu
-$content->file = 'config';
-$content->addCSS('style/admin/config.css');
-$content->data = array(
+#Template
+$content->css('style/admin/config.css');
+$content->add('config', array(
 	'plugins' => &$items,
 	'censor' => url('censor', null, 'admin'),
 	'latest' => url('configNew', null, 'admin'),
@@ -31,4 +30,4 @@ $content->data = array(
 	'main'  => url('configMain', null, 'admin'),
 	'email' => url('configEmail', null, 'admin'),
 	'users' => url('configUsers', null, 'admin')
-);
+));

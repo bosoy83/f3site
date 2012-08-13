@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'admAll.php';
 require LANG_DIR.'profile.php';
 
-#Usuñ + 2 triggers
+#Delete + 2 triggers
 if(isset($_POST['del']) && !isset($_POST['x'][1]) && $x = GetID(true))
 {
 	$res = $db->query('SELECT ID FROM '.PRE.'users WHERE ID IN('.$x.')'.(UID!=1 ? ' AND lv<'.LEVEL : ''));
@@ -20,7 +20,7 @@ if(isset($_POST['del']) && !isset($_POST['x'][1]) && $x = GetID(true))
 	}
 }
 
-#Strona
+#Page number
 if(isset($_GET['page']) && $_GET['page']>1)
 {
 	$page = $_GET['page'];
@@ -32,7 +32,7 @@ else
 	$st = 0;
 }
 
-#Szukaj
+#Search users
 if(isset($_REQUEST['s']) && $_REQUEST['s'])
 {
 	$s = str_replace(array('"','\'','%'), '', clean($_REQUEST['s'],30));
@@ -43,17 +43,17 @@ else
 	$s = $w = '';
 }
 
-#Wszystkich
+#User number
 $total = dbCount('users'.$w);
 $users = array();
 
-#Pobierz
-$res = $db->query('SELECT ID,login,lv FROM '.PRE.'users'.$w.' ORDER BY lv, ID DESC LIMIT '.$st.',30');
+#Get users
+$res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users'.$w.' ORDER BY lv, ID DESC LIMIT '.$st.',30');
 $res ->setFetchMode(3); //NUM
 
 foreach($res as $u)
 {
-	#Kim jest
+	#User level
 	switch($u[2])
 	{
 		case '0': $lv = $lang['locked']; break;
@@ -68,6 +68,7 @@ foreach($res as $u)
 		'id'    => $u[0],
 		'login' => $u[1],
 		'num'   => ++$st,
+		'privs' => str_replace('|',' ',$u[3]),
 		'url'   => url('user/'.urlencode($u[1])),
 		'level' => $lv,
 		'priv'  => $u[2]<LEVEL || LEVEL==4 ? url('editAdmin/'.$u[0], '', 'admin') : false,
@@ -75,10 +76,9 @@ foreach($res as $u)
 	);
 }
 
-#Szablon
-$content->title = $lang['users'];
-$content->data = array(
+#Template
+$content->add('users', array(
 	'users' => &$users,
 	'search'=> $s,
 	'pages' => pages($page,$total,30,url('users','s='.$s,'admin'),1)
-);
+));

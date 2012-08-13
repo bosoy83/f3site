@@ -29,7 +29,7 @@ form {margin: 0}
 #all {padding: 0 250px; min-width: 460px}
 
 /* TOP */
-#top {
+header {
 	height: 157px;
 	display: block;
 	overflow: hidden;
@@ -73,17 +73,18 @@ a.logoTop {
 }
 
 /* MENU BAR */
-#mainMenu {
+nav {
+	display: block;
 	height: 28px;
 	overflow: hidden;
 	padding: 12px 15px 0;
 	margin: -40px 0 10px
 }
-#mainMenu a {
+nav a {
 	color: #cdcdcd;
 	margin-right: 40px
 }
-#mainMenu a.active {
+nav a.active {
 	color: #fff;
 	font-weight: bold;
 	margin-right: 40px
@@ -93,13 +94,18 @@ a.logoTop {
 	color: #cdcdcd;
 	font-size: 11px
 }
+#actions {
+	float: right
+}
 #flags a {margin: 2px 2px 0}
+#actions a {margin: 0 0 0 15px}
 
 /* CONTENT */
 #main {
 	position: relative;
 	float: left;
 	overflow: hidden;
+	min-height: 1px;
 	width: 100%
 }
 
@@ -121,7 +127,8 @@ a.logoTop {
 }
 
 /* FOOTER */
-#foot {
+footer {
+	display: block;
 	clear: both;
 	height: 65px;
 	background-color: #7e7774;
@@ -129,7 +136,7 @@ a.logoTop {
 	padding: 5px 15px 0
 }
 #online {line-height:18px}
-#foot a {color:#d5d5d5}
+footer a {color:#d5d5d5}
 .links {float:left}
 .copyright {float:right}
 
@@ -203,7 +210,7 @@ a.logoTop {
 }
 
 /* Both round */
-#path, #tags, .info, .error, .warning, .preview, .dialog, pre, blockquote, .pages a {
+#main #path, #tags, .info, .error, .warning, .preview, .dialog, pre, blockquote, .pages a {
 	padding: 5px;
 	overflow: hidden;
 	border-radius: 5px;
@@ -213,7 +220,7 @@ a.logoTop {
 }
 
 /* Small boxes */
-#path, #tags, .info, .error, .warning, .preview {
+#main #path, #tags, .info, .error, .warning, .preview {
 	margin-bottom: 8px;
 	border: 1px solid #cdcdcd;
 }
@@ -221,18 +228,22 @@ a.logoTop {
 	background-color: #ffffb0;
 	border: 1px solid #d9c866
 }
-#path {
-	padding: 5px 3px 4px 28px;
+#main #path {
+	padding-left: 28px;
 	background: url(../../img/icon/cs.png) no-repeat 2px
 }
+nav #path {
+	float: left; margin-right: 50px; color: #cdcdcd
+}
+nav #path a {margin: 0 5px}
 .preview {line-height:18px}
 .addComment {padding-bottom: 8px}
 
 /* PAGES */
 .pages {text-align: center; color: #9a9a9a}
 .pages a {color:#000; padding: 3px 6px}
+.pages a:hover {text-decoration:none; background-color:#858382; color:#FFF}
 .pages .active {background-color:#5f5a5a; color:#fff}
-.pages .active:hover {text-decoration:none; background-color:#858382}
 
 /* LISTS */
 ul,ol {margin: 9px; padding-left: 25px}
@@ -268,14 +279,14 @@ ul.cats li {
 .items h3 {margin: 0}
 
 /* LINKS */
-.edit, .add, .del, .off, .user, .cat, .tags, .quote, .settings, .mail, .cpanel {
+.edit, .add, .del, .off, .user, .cat, .tags, .quote, .settings, .mail, .cpanel, .help, .web {
 	padding-left: 20px;
 	background-repeat: no-repeat;
 	background-position: -1px
 }
 .del, .off {background-image: url(../../img/icon/del.png)}
 .user {background-image: url(../../img/icon/group.png)}
-.edit {background-image: url(../../img/icon/edit.png); display: block; float: right}
+.edit {background-image: url(../../img/icon/edit.png)}
 .add {background-image: url(../../img/icon/add.png)}
 .cat {background-image: url(../../img/icon/folder.png); background-position: 0 -1px}
 .tags {background-image: url(../../img/icon/tag.png); background-position: 1px; padding-top: 1px}
@@ -283,6 +294,9 @@ ul.cats li {
 .settings {background-image: url(../../img/icon/cog.png)}
 .mail {background-image: url(../../img/icon/mail.png)}
 .cpanel {background-image: url(../../img/icon/key.png)}
+.help {background-image: url(../../img/icon/help.png)}
+.web {background-image: url(../../img/icon/www.png)}
+#path .edit {float: right} /*TODO:temporary*/
 
 /* NEWS */ 
 .newsBar {
@@ -337,7 +351,7 @@ ul.cats li {
 .tb tr:nth-child(even)>td {background-color: #F8F8F8 !important}
 
 /* BUTTONS */ 
-.orange, .blue, .brown, .pollView {
+.orange, .blue, .brown, .pollView, .pollArchive, .pollMore {
 	display: inline-block;
 	width: 65px;
 	height: 21px;
@@ -346,8 +360,8 @@ ul.cats li {
 	line-height: 20px;
 	margin: 0 2px
 }
-.orange, .pollView {background:url(img/buttons.png) no-repeat}
-.blue {background:url(img/buttons.png) no-repeat 0 -21px}
+.orange, .pollView, .pollArchive {background:url(img/buttons.png) no-repeat}
+.blue, .pollMore {background:url(img/buttons.png) no-repeat 0 -21px}
 .brown {background:url(img/buttons.png) no-repeat 0 -42px}
 .brown img {margin:3px 0 0 12px; float:left}
 .buttonBlue, .buttonOrange, .pollVote {

@@ -1,23 +1,23 @@
 <?php
 if(iCMSa!=1 || !admit('E')) exit;
-require LANG_DIR.'plugin.php';
+require LANG_DIR.'admAll.php';
 
-#Pobierz zainstalowane
+#Get installed addons
 $setup = array();
-if(file_exists('./cfg/plug.php')) include './cfg/plug.php';
+if(file_exists('cfg/plug.php')) include './cfg/plug.php';
 
-#Tytu³
+#Page title
 $content->title = $lang['plugs'];
 
-#Instalacja
+#Install addon
 if(isset($URL[1]) && ctype_alnum($URL[1]))
 {
 	$name = $URL[1];
-	$data = parse_ini_file('./plugins/'.$name.'/plugin.ini');
+	$data = parse_ini_file('plugins/'.$name.'/plugin.ini');
 
 	if(!isset($data['install']))
 	{
-		$content->info($lang['noinst']); //Nie wymaga instalacji
+		$content->info($lang['noinst']); //Unpack & Play
 	}
 	elseif($_POST)
 	{
@@ -29,10 +29,10 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 		require './plugins/'.$name.'/setup.php';
 		try
 		{
-			#Operacje objête transakcj±
+			#Setup transaction
 			$db->beginTransaction();
 
-			#Usuñ rozszerzenie
+			#Delete addon
 			if(isset($setup[$name]))
 			{
 				unset($setup[$name]);
@@ -44,7 +44,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 					RenderMenu();
 				}
 			}
-			#Zainstaluj rozszerzenie i dodaj pozycje do menu
+			#Install addon and push menu items
 			else
 			{
 				$setup[$name] = (float)$data['version'];
@@ -64,9 +64,9 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 				}
 			}
 			$o = new Config('plug');
-			$o -> add('setup', $setup);
-			$o -> save();
-			$db -> commit();
+			$o->add('setup', $setup);
+			$o->save();
+			$db->commit();
 			unset($_SESSION['admenu']);
 		}
 		catch(Exception $e)
@@ -84,7 +84,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 			$i = 0;
 			foreach(explode('+', $data[$useOpt]) as $o)
 			{
-				$opt['o'.++$i] = clean($o); //Opcje
+				$opt['o'.++$i] = clean($o);
 			}
 		}
 		if(isset($data['link']) && !isset($setup[$name]))
@@ -115,7 +115,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 		{
 			$menus = $langs = false;
 		}
-		$content->data = array(
+		$content->add('plugins', array(
 			'setup' => true,
 			'www'   => isset($data['www']) ? clean($data['www']) : null,
 			'name'  => isset($data[LANG]) ? clean($data[LANG]) : $name,
@@ -123,34 +123,49 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 			'menu'  => $langs,
 			'credits' => isset($data['credits']) ? clean($data['credits']) : 'N/A',
 			'options' => $opt
-		);
+		));
 		$content->info(isset($setup[$name]) ? $lang['warn2'] : $lang['warn']);
 		return 1;
 	}
 }
-else $content->info($lang['api']);
 
-#Utwórz zmienne
-$plugs = array();
+#Initialize array
+$green = array();
+$black = array();
 
-#Niezainstalowane wtyczki
-foreach(scandir('./plugins') as $plug)
+#List addons
+foreach(scandir('plugins') as $plug)
 {
-	if($plug[0] == '.' OR !file_exists('./plugins/'.$plug.'/plugin.ini'))
+	if($plug[0]=='.' || !file_exists('plugins/'.$plug.'/plugin.ini'))
 	{
 		continue;
 	}
-	$data = parse_ini_file('./plugins/'.$plug.'/plugin.ini'); #Dane z pliku INI
+	$data = parse_ini_file('plugins/'.$plug.'/plugin.ini');
+	$name = isset($data[LANG]) ? clean($data[LANG]) : $plug;
+	$url  = isset($data['install']) ? url('plugins/'.$plug,'','admin') : false;
 
-	#Do tablicy
-	$plugs[] = array(
-		'id'    => $plug,
-		'ready' => isset($setup[$plug]) OR empty($data['install']),
-		'name'  => isset($data[LANG]) ? clean($data[LANG]) : $plug,
-		'url'   => isset($data['install']) ? url('plugins/'.$plug, '', 'admin') : false,
-		'config'=> isset($data['config']) ? url($plug, '', 'admin') : false
-	);
+	if(isset($setup[$plug]) OR empty($data['install']))
+	{
+		$green[] = array(
+			'id'    => $plug,
+			'name'  => $name,
+			'config'=> isset($data['config']) ? url($plug,'','admin') : false,
+			'setup' => $url
+		);
+	}
+	else
+	{
+		$black[] = array(
+			'id'    => $plug,
+			'name'  => $name,
+			'setup' => $url
+		);
+	}
 }
 
-#Do szablonu
-$content->data = array('plugin' => &$plugs, 'setup' => false);
+#Prepare template
+$content->add('plugins', array(
+	'ready'   => &$green,
+	'unready' => &$black,
+	'setup'   => false
+));

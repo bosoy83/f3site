@@ -7,12 +7,12 @@ class Saver
 		$old = array(),
 		$old_cat;
 
-	function __construct(&$data, $id, $table, $cols='cat,author,access')
+	function __construct(&$data, $id, $table, $cols='cat,access,author')
 	{
 		//Stare dane
 		if($id)
 		{
-			$this->old = $GLOBALS['db'] -> query('SELECT '.$cols.' FROM '.PRE.$table.' WHERE ID='.$id) -> fetch(2);
+			$this->old = $GLOBALS['db']->query('SELECT '.$cols.' FROM '.PRE.$table.' WHERE ID='.$id)->fetch(2);
 			$this->old_cat = $this->old ? $this->old['cat'] : null;
 		}
 		else

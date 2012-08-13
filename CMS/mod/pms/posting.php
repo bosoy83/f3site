@@ -142,19 +142,16 @@ else
 #Edytor JS
 if(isset($cfg['bbcode']))
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('lib/editor.js');
-	$content->addScript('cache/emots.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('lib/editor.js');
+	$content->script('cache/emots.js');
 }
 
-#Formularz
-$content->file[] = 'pms_posting';
-
-#Do szablonu
-$content->data += array(
+#Szablon formularza
+$content->add('pms_posting', array(
 	'pm' => &$pm,
 	'url' => $url,
 	'color' => $preview && isset($cfg['colorCode']),
 	'bbcode' => isset($cfg['bbcode']),
 	'preview' => isset($preview) ? $preview : null
-);
+));

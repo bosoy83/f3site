@@ -23,7 +23,7 @@ $content->desc  = $link['dsc'] ? $link['dsc'] : $cfg['metaDesc'];
 #Ocena
 if(isset($cfg['lrate']) AND $link['opt'] & 4)
 {
-	$content->addCSS(SKIN_DIR.'rate.css');
+	$content->css(SKIN_DIR.'rate.css');
 	$rate = 'vote.php?type=4&amp;id='.$id;
 }
 else
@@ -32,7 +32,7 @@ else
 }
 
 #Template
-$content->data = array(
+$content->add('link', array(
 	'link'  => &$link,
 	'rates' => &$rate,
 	'count' => isset($cfg['lcnt']),
@@ -41,7 +41,7 @@ $content->data = array(
 	'path'  => catPath($link['cat']),
 	'root'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['links'],
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/links')
-);
+));
 
 #Tags
 if(isset($cfg['tags']))

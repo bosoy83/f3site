@@ -44,12 +44,11 @@ else
 }
 
 #Do szablonu
-$content->file[] = 'cat_arts';
-$content->data += array(
+$content->add('cat_arts', array(
 	'pages' => &$pages,
 	'arts'  => &$arts,
 	'add'   => admit($d,'CAT') ? url('edit/1') : null,
 	'cats'  => url(isset($cfg['allCat']) ? 'cats' : 'cats/articles'),
 	'type'  => isset($cfg['allCat']) ? $lang['cats'] : $lang['arts']
-);
+));
 unset($res,$total,$art);

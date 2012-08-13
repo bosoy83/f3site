@@ -5,6 +5,7 @@ require 'cfg/account.php';
 
 $error = $bad = array();
 $photo = '';
+$noSPAM = false;
 $auto = 0;
 
 #Page title
@@ -34,20 +35,17 @@ if(isset($URL[2]) && $URL[1] == 'key')
 }
 
 #Registration off
-if(!isset($cfg['reg']) && !UID)
+if(!UID)
 {
-	$content->info($lang['regoff']); return 1;
-}
-
-#System CAPTCHA
-if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
-{
-	require './lib/spam.php';
-	$noSPAM = CAPTCHA();
-}
-else
-{
-	$noSPAM = false;
+	require_once './lib/spam.php';
+	if(empty($cfg['reg']) || isset($cfg['blacklist']) && blacklist($_SERVER['REMOTE_ADDR']))
+	{
+		$content->info($lang['regoff']); return 1;
+	}
+	if(!empty($cfg['captcha']) && !isset($_SESSION['human']))
+	{
+		$noSPAM = CAPTCHA();
+	}
 }
 
 #Save
@@ -173,14 +171,14 @@ if($_POST)
 	}
 	else
 	{
-		$u['pass'] = $_POST['pass'];
-		if(!isset($u['pass']) < 3 || strlen($u['pass']) > 50)
+		$u['pass'] = md5($_POST['pass']);
+		if(strlen($_POST['pass']) < 5 || strlen($_POST['pass']) > 50)
 		{
 			$error[] = $lang['badPass'];
 			$bad[] = 'pass';
 		}
 		#Passwords different
-		if($u['pass']!=$_POST['pass2'])
+		if($_POST['pass']!=$_POST['pass2'])
 		{
 			$error[] = $lang['pass2'];
 			$bad[] = 'pass2';
@@ -328,7 +326,7 @@ $u['mvis'] = $u['opt'] & 1;
 $u['comm'] = $u['opt'] & 2;
 
 #Template data
-$content->data = array(
+$content->add('account', array(
 	'u'     => &$u,
 	'width' => $cfg['maxDim1'],
 	'height'=> $cfg['maxDim2'],
@@ -342,4 +340,4 @@ $content->data = array(
 	'pass'  => isset($_POST['pass']) ? clean($_POST['pass']) : '',
 	'pass2' => isset($_POST['pass2']) ? clean($_POST['pass2']) : '',
 	'photo' => (UID && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.png') : false
-);
+));

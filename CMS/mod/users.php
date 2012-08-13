@@ -134,7 +134,7 @@ $res=null;
 $url = $url ? '&'.join('&',$url) : '';
 
 #Dane do szablonu
-$content->data = array(
+$content->add('users', array(
 	'users' => &$users,
 	'total' => $total,
 	'id'    => $id,
@@ -148,7 +148,7 @@ $content->data = array(
 	'find_place' => !empty($pl) ? $pl : '',
 	'find_gg'    => !empty($gg) ? $gg : '',
 	'pages'      => $total > 30 ? pages($page,$total,30,url($toURL,$sortURL.$url)) : false
-);
+));
 
 #Usuñ zbêdne dane
 unset($u,$url,$total,$www,$pl,$sl);

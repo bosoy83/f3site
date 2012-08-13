@@ -3,19 +3,18 @@ if(iCMSa!=1 || !admit('U')) exit;
 require LANG_DIR.'profile.php';
 require './cfg/account.php';
 
-#Tytu³ i JS
+#Page title
 $content->title = $lang['account'];
 
-#User ID
+#No one can edit first user except himself
 if($id==1 && UID!=1) return;
 
-#B³êdy
+#Errors
 $error = array();
 
-#Uaktualnienie
+#Edit user
 if($_POST)
 {
-	#Dane
 	$u = array(
 		'login' => clean($_POST['login']),
 		'about' => clean($_POST['about']),
@@ -56,7 +55,7 @@ if($_POST)
 		$error[] = $lang['badMail'];
 	}
 
-	#Haslo
+	#Password
 	if(!$id && empty($_POST['pass']))
 	{
 		$error[] = $lang['badPass'];
@@ -66,12 +65,11 @@ if($_POST)
 	$u['www'] = str_replace('javascript:', 'java_script', $u['www']);
 	$u['www'] = str_replace('vbscript:', 'vb_script', $u['www']);
 
-	#B³¹d?
+	#Errors
 	if($error)
 	{
 		$content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 	}
-	#Zapis
 	else
 	{
 		try
@@ -101,13 +99,13 @@ if($_POST)
 	}
 }
 
-#Pobierz dane
+#Get user
 elseif($id)
 {
 	if(!$u = $db->query('SELECT * FROM '.PRE.'users WHERE ID='.$id)->fetch(2)) return;
 }
 
-#Nowy user
+#New user
 else
 {
 	$u = array(
@@ -126,11 +124,11 @@ else
 	);
 }
 
-#Do szablonu
-$content->data = array(
+#Prepare template
+$content->add('editUser', array(
 	'u' => &$u,
 	'url' => url('editUser/'.$id, '', 'admin'),
 	'pass' => !$id,
 	'bbcode' => isset($cfg['bbcode']),
 	'fileman'=> admit('FM')
-);
+));

@@ -1,31 +1,35 @@
 <?php
 if(iCMSa!=1 || !admit('B')) exit;
 
-#Zapis
+#Action: save
 if($_POST)
 {
 	$ad = array(
 		'name' => clean($_POST['name']),
 		'code' => $_POST['code'],
 		'ison' => (int)$_POST['ison'],
-		'gen'  => (int)$_POST['gen'] ); //Dane
-
-	#Edytuj
-	if($id)
-	{
-		$q = $db->prepare('UPDATE '.PRE.'banners SET gen=:gen, name=:name,
-			ison=:ison, code=:code WHERE ID='.$id);
-	}
-	#Nowy
-	else
-	{
-		$q = $db->prepare('INSERT INTO '.PRE.'banners (gen,name,ison,code)
-			VALUES (:gen,:name,:ison,:code)');
-	}
-
-	#Zapis
+		'gen'  => (int)$_POST['gen']
+	);
 	try
 	{
+		#Invalid key
+		if(empty($_SESSION['key']) || $_POST['key'] != $_SESSION['key'])
+		{
+			$content->info($lang['again']);
+		}
+		#Update
+		elseif($id)
+		{
+			$q = $db->prepare('UPDATE '.PRE.'banners SET gen=:gen, name=:name,
+			ison=:ison, code=:code WHERE ID='.$id);
+		}
+		#New
+		else
+		{
+			$q = $db->prepare('INSERT INTO '.PRE.'banners (gen,name,ison,code)
+			VALUES (:gen,:name,:ison,:code)');
+		}
+		#Apply changes
 		$q->execute($ad);
 		$content->info($lang['saved']);
 		header('Location: '.URL.url('ads','','admin'));
@@ -33,7 +37,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->errorInfo[0]);
+		$content->info($lang['error'].$e->getMessage(), null, 'error');
 	}
 }
 elseif($id)
@@ -46,13 +50,16 @@ else
 	$ad = array('gen'=>1,'name'=>'','ison'=>1,'code'=>'');
 }
 
-#Jêzyk
+#Language file
 require LANG_DIR.'admAll.php';
 
-#Edytor
-$content->addScript(LANG_DIR.'edit.js');
-$content->addScript('lib/editor.js');
+#Editor
+$content->script(LANG_DIR.'edit.js');
+$content->script('lib/editor.js');
 
-#Tytu³ i dane
+#Page title, template
 $content->title = $id ? $lang['editAd'] : $lang['addAd'];
-$content->data = array('ad' => &$ad);
+$content->add('editAd', array(
+	'ad' => &$ad,
+	'key' => uniqid()
+));

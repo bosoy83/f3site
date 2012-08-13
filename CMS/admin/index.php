@@ -4,7 +4,7 @@ define('iCMS',1);
 define('iCMSa',1);
 require 'kernel.php';
 
-#Niezalogowany?
+#Not logged in
 if(!UID)
 {
 	header('Location: '.URL.'login.php?from=admin');
@@ -12,16 +12,16 @@ if(!UID)
 }
 elseif(!IS_ADMIN)
 {
-	header('Location: '.URL); //Przekieruj na stronê g³ówn±
+	header('Location: '.URL); //Redirect to homepage
 	exit;
 }
 require LANG_DIR.'adm.php';
 
-#Katalog szablonów
+#Templates folder
 $content->dir = './style/admin/';
 $content->cache = './cache/admin/';
 
-#Zazn. ID
+#Function: Get selected ID
 function GetID($toStr=false, $array=null)
 {
 	$x = array();
@@ -34,34 +34,38 @@ function GetID($toStr=false, $array=null)
 	}
 	if(!$x) return false;
 
-	#Zwróæ tablicê / string
+	#Return array or string
 	return $toStr ? join(',', $x) : $x;
 }
 
-#Menu boczne
+#Function: bar menu
 function MI($title,$url,$r,$c='plug')
 {
 	if(admit($r)) return '<li class="a_'.$c.'"><a href="'.url($url,'','admin').'">'.$title.'</a></li>';
 }
 
-#Tryb konserwacji
+#Maintenance mode info
 if(isset($cfg['MA']))
 {
 	$content->info($lang['siteOff'], null, 'warning');
 }
 
-#Modu³
+#Load module
 if(isset($URL[0]))
 {
 	$A = str_replace('/', '', $URL[0]);
 	$A = str_replace('.', '', $A);
 	if(file_exists('./admin/'.$A.'.php'))
 	{
-		(include './admin/'.$A.'.php') or $content->set404();
+		include './admin/'.$A.'.php';
 	}
 	elseif(file_exists('./plugins/'.$A.'/admin.php'))
 	{
-		(include './plugins/'.$A.'/admin.php') or $content->set404();
+		include './plugins/'.$A.'/admin.php';
+	}
+	elseif(file_exists('./style/admin/'.$A.'.html'))
+	{
+		$content->add($A);
 	}
 	else
 	{
@@ -75,7 +79,7 @@ else
 	include './admin/summary.php';
 }
 
-#Wczytaj menu z sesji lub wygeneruj
+#Lod menu from session or generate new
 if(isset($_SESSION['admenu']) && $_SESSION['admenu'] === LANG)
 {
 	$menu = $_SESSION['AdMenu'];
@@ -92,7 +96,6 @@ else
 	'</ul><ul class="adm">'.
 
 	MI($lang['users'],'users','U','user').
-	MI($lang['admins'],'admins','U','user').
 	MI($lang['groups'],'groups','G','user').
 	MI($lang['log'],'log','L','log').
 	MI($lang['mailing'],'mailing','M','mail').
@@ -102,12 +105,11 @@ else
 	MI($lang['config'],'config','CFG','cfg').
 	MI($lang['dbcopy'],'db','DB','db').
 	MI($lang['nav'],'menu','N','menu').
-	MI($lang['ads'],'ads','B','ads').
 	MI($lang['plugs'],'plugins','E').
 
 	'</ul>';
 
-	#Rozszerzenia
+	#Addons
 	$res = $db->query('SELECT ID,text,file FROM '.PRE.'admmenu WHERE menu=1');
 	$ex = '';
 	foreach($res as $x)
@@ -119,14 +121,13 @@ else
 		$menu .= '<ul class="adm">'.$ex.'</ul>';
 	}
 
-	#Zapisz uk³ad menu
+	#Store menu in session
 	$_SESSION['admenu'] = LANG;
 	$_SESSION['AdMenu'] = $menu;
 	unset($ex,$res,$x);
 }
 
-#Szablon i tytu³
-if(!$content->file) $content->file = $A;
+#Default title
 if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
 
 #¯±danie JS czy standardowe
@@ -136,5 +137,5 @@ if(JS)
 }
 else
 {
-	require $content->path('admin', 1);
+	$content->front('admin', array('menu'=>$menu));
 }

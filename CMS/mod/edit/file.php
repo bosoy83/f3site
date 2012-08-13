@@ -1,17 +1,15 @@
 <?php
 if(EC!=1) exit;
 
-#Zapisz jako nowy
+#Action: save as new
 if(isset($_POST['asNew'])) $id = 0;
 
-#Szablon i tytu³
-$content->file  = 'edit_file';
+#Page title
 $content->title = $id ? $lang['edit2'] : $lang['add2'];
 
-#Zapis?
+#Action: save
 if($_POST)
 {
-	#Dane
 	$file = array(
 	'cat'  => (int)$_POST['cat'],
 	'dsc'  => clean($_POST['dsc']),
@@ -27,11 +25,12 @@ if($_POST)
 	{
 		$e = new Saver($file, $id, 'files');
 
-		#Zapytanie
+		#Prepare query
 		if($id)
 		{
-			$q = $db->prepare('UPDATE '.PRE.'files SET cat=:cat, name=:name, author=:author, dsc=:dsc,
-				file=:file, access=:access, size=:size, priority=:priority, fulld=:fulld WHERE ID='.$id);
+			$file['ID'] = $id;
+			$q = $db->prepare('UPDATE '.PRE.'files SET cat=:cat, access=:access, name=:name,
+			author=:author, dsc=:dsc, file=:file, size=:size, priority=:priority, fulld=:fulld WHERE ID=:ID');
 		}
 		else
 		{
@@ -42,13 +41,13 @@ if($_POST)
 		$q->execute($file);
 		if(!$id) $id = $db->lastInsertId();
 
-		#Zatwierd¼
+		#Apply changes
 		$e->apply();
 
-		#Przekieruj do pliku
+		#Redirect to file
 		if(isset($_GET['ref'])) header('Location: '.URL.url('file/'.$id));
 
-		#Informaja + linki
+		#Info + links
 		$content->info($lang['saved'], array(
 			url('file/'.$id)  => sprintf($lang['see'], $file['name']),
 			url($file['cat']) => $lang['goCat'],
@@ -64,10 +63,9 @@ if($_POST)
 	}
 }
 
-#Form
+#Action: form
 else
 {
-	#Odczyt
 	if($id)
 	{
 		$file = $db->query('SELECT * FROM '.PRE.'files WHERE ID='.$id)->fetch(2);
@@ -85,21 +83,21 @@ else
 	}
 }
 
-#Edytor JS
+#Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('lib/editor.js');
 }
 
-#Dane
-$content->data = array(
-	'file' => &$file,
-	'id'   => $id,
-	'cats' => Slaves(2,$file['cat']),
+#Template
+$content->add('edit_file', array(
+	'file'    => &$file,
+	'id'      => $id,
+	'cats'    => Slaves(2,$file['cat']),
 	'fileman' => admit('FM') ? true : false
-);
+));

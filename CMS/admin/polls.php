@@ -10,9 +10,6 @@ if($_POST)
 	isset($_POST['reset']) AND ResetPoll();
 }
 
-#Info
-$content->info($lang['ipoll'], array(url('editPoll','','admin')=>$lang['addPoll']));
-
 #Odczyt
 $res = $db->query('SELECT ID,name,num,access FROM '.PRE.'polls ORDER BY ID DESC');
 $res->setFetchMode(3); //Num
@@ -42,4 +39,4 @@ if(empty($polls))
 }
 
 $res = null;
-$content->data['polls'] = $polls;
+$content->add('polls', array('polls' => $polls));

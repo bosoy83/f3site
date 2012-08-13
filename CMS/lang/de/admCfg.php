@@ -74,6 +74,7 @@ $lang+=Array(
 'commSort2'=>'Ansteigend',
 'hideTitle'=>'Hide Feld Titel',
 'colorCode'=>'Code in [code] highlighten',
+'blacklist'=>'IP-Adresse auf Schwarzeliste prüfen',
 'moderate'=>'Kommentare Moderation',
 'moder2'=>'Kommentare müssen akzieptert werden.',
 'maxlen'=>'Maximale Anzahl der Zeichen',

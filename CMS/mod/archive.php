@@ -40,7 +40,7 @@ if(isset($URL[1]))
 	$res=null;
 
 	#Do szablonu
-	$content->data = array('news' => &$news, 'newslist' => true);
+	$content->add('archive', array('news' => &$news, 'newslist' => true));
 	return 1;
 }
 
@@ -92,4 +92,4 @@ elseif($mon)
 unset($y,$m,$date);
 
 #Do szablonu
-$content->data = array('dates' => &$dates, 'newslist' => false);
+$content->add('archive', array('dates' => &$dates, 'newslist' => false));

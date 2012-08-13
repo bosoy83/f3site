@@ -1,14 +1,14 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Zapisz
+#Action: save
 if($_POST)
 {
 	$opt =& $_POST;
 	require './lib/config.php';
 	try
 	{
-		#Tagi
+		#Tags
 		if(isset($_POST['tags']))
 		{
 			$cfg['tags'] = 1;
@@ -45,10 +45,10 @@ else
 require LANG_DIR.'admCfg.php';
 require './cfg/content.php';
 
-#Zmienna zawiera opcje <select>
+#Variable containing <select> options
 $out = '<optgroup label="'.$lang['cats'].'">';
 
-#Kategorie
+#Get categories
 $res = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE sc=0 AND access!=3 ORDER BY name');
 $res ->setFetchMode(3); //NUM
 
@@ -58,7 +58,7 @@ foreach($res as $cat)
 }
 $res=null;
 
-#Dla ka¿dego jêzyka
+#For each language
 $i = 0;
 $cats = $js = array();
 
@@ -74,12 +74,12 @@ foreach(scandir('./lang') as $dir)
 	}
 }
 
-#Tytu³
+#Page title
 $content->title = $lang['content'];
 
-#Do szablonu
-$content->data = array(
+#Template
+$content->add('configContent', array(
 	'cfg' => &$opt,
 	'cats'=> &$cats,
 	'def' => json_encode($js)
-);
+));

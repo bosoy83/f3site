@@ -1,7 +1,7 @@
 Distribution and license
 ========================
 
-F3Site 3.2 - (C) 2005-2011 COMPMaster - compmaster.prv.pl
+F3Site 2012 - (C) 2005-2012 COMPMaster - compmaster.prv.pl
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License or any later version.
 
@@ -31,7 +31,7 @@ Requirements
 Installation
 ============
 
-1. Load content of SYSTEM directory into server using FTP client or file manager. Delete useless languages and skins (except DEFAULT) before.
+1. Load content of SYSTEM directory into server using FTP client or file manager. Delete useless languages.
 
 2. Set privileges (CHMOD) to files:
 * folders: CFG, CACHE, RSS - 777
@@ -47,9 +47,11 @@ To finish the installation, database user must have full privileges.
 
 5. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
 
-6. After the installation DELETE INSTALL FOLDER!
+6. All tables with the same name prefix will be DROPPED from database.
 
-7. Log in and customize the system in admin panel.
+7. After the installation DELETE INSTALL FOLDER!
+
+8. Log in and customize the system in admin panel.
 
 
 Updates and help

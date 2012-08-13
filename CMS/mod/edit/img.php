@@ -1,14 +1,13 @@
 <?php
 if(EC!=1) exit;
 
-#Zapisz jako nowy
+#Action: save as new
 if(isset($_POST['asNew'])) $id = 0;
 
-#Szablon i tytu³
-$content->file = 'edit_img';
+#Page title
 $content->title = $id ? $lang['edit3'] : $lang['add3'];
 
-#Zapis?
+#Action: save
 if($_POST)
 {
 	$img = array(
@@ -27,31 +26,33 @@ if($_POST)
 	{
 		$e = new Saver($img, $id, 'imgs');
 
-		#Zapytanie
+		#Prepare query
 		if($id)
 		{
-			$q = $db->prepare('UPDATE '.PRE.'imgs SET cat=:cat, name=:name, author=:author,
-				dsc=:dsc, file=:file, filem=:filem, access=:access, priority=:priority,
-				type=:type, size=:size WHERE ID='.$id);
+			$img['ID'] = $id;
+			$q = $db->prepare('UPDATE '.PRE.'imgs SET cat=:cat, access=:access,
+				name=:name, author=:author, dsc=:dsc, file=:file, filem=:filem,
+				priority=:priority, type=:type, size=:size WHERE ID=:ID');
 		}
 		else
 		{
-			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat, name, dsc, type, date,
-				priority, access, author, file, filem, size) VALUES (:cat,:name,:dsc,:type, "'.
-				gmdate('Y-m-d H:i:s').'", :priority, :access, :author, :file, :filem, :size)');
+			$img['date'] = gmdate('Y-m-d H:i:s');
+			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat,access,name,dsc,type,date,
+				priority,author,file,filem,size) VALUES (:cat,:access,:name,:dsc,:type,
+				:date,:priority,:author,:file,:filem,:size)');
 		}
 		$q->execute($img);
 
-		#Nowy ID
+		#New ID
 		if(!$id) $id = $db->lastInsertId();
 
-		#Zatwierd¼
+		#Apply changes
 		$e->apply();
 
-		#Przekieruj do obrazu
+		#Redirect to link
 		if(isset($_GET['ref'])) header('Location: '.URL.url('img/'.$id));
 
-		#Info + linki
+		#Info + links
 		$content->info($lang['saved'], array(
 			url('img/'.$id)  => sprintf($lang['see'], $img['name']),
 			url($img['cat']) => $lang['goCat'],
@@ -67,13 +68,12 @@ if($_POST)
 	}
 }
 
-#Odczyt
+#Action: edit
 else
 {
 	if($id)
 	{
-		$img=$db->query('SELECT * FROM '.PRE.'imgs WHERE ID='.$id)->fetch(2);
-
+		$img = $db->query('SELECT * FROM '.PRE.'imgs WHERE ID='.$id)->fetch(2);
 		if(!$img || !admit($img['cat'],'CAT',$img['author']))
 		{
 			return;
@@ -90,19 +90,19 @@ else
 #Edytor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->addScript('plugins/editor/loader.js');
+	$content->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->addScript(LANG_DIR.'edit.js');
-	$content->addScript('lib/editor.js');
+	$content->script(LANG_DIR.'edit.js');
+	$content->script('lib/editor.js');
 }
 
-#Dane + rozmiar
-$content->data = array(
+#Template
+$content->add('edit_img', array(
 	'img'  => &$img,
 	'id'   => $id,
 	'cats' => Slaves(3,$img['cat']),
 	'size' => $img['size'] ? explode('|',$img['size']) : array('',''),
 	'fileman' => admit('FM') ? true : false
-);
+));

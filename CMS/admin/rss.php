@@ -28,7 +28,7 @@ foreach($res as $x)
 }
 
 #Szablon
-$content->data = array('channel' => &$all);
+$content->add('rss', array('channel' => &$all));
 
 #Zapisz tytuly w opcjach
 if($_POST || isset($URL[1]))

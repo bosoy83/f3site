@@ -73,13 +73,10 @@ foreach($res as $x)
 $res=null;
 
 #Szablon
-$content->file[] = 'pms_list';
-
-#Do szablonu
-$content->data += array(
+$content->add('pms_list', array(
 	'pm'  => $pms,
 	'who' => $id=='drafts' ? $lang['pm13'] : $lang['pm12'],
 	'url' => url('pms/del/'.$id),
 	'total' => $total,
 	'pages' => pages($page, $total, 30, url('pms/'.$id), 1, '/')
-);
+));

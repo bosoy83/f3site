@@ -1,7 +1,7 @@
 <?php
 if(iCMS!=1) exit;
 
-#Prawa
+#Rights
 if(admit('BUGS'))
 {
 	$rights = 1;
@@ -11,17 +11,20 @@ else
 	$rights = 0;
 }
 
-#Pobierz zg³oszenie - FETCH_ASSOC
+#Get issue - FETCH_ASSOC
 $bug = $db->query('SELECT b.*, c.name as catName, c.rate FROM '.PRE.'bugs b INNER JOIN '.PRE.'bugcats c ON b.cat = c.ID WHERE b.ID='.$id.' AND (c.see=1 OR c.see="'.LANG.'")') -> fetch(2);
 
-#Brak
+#Page title
+$content->title = $bug['name'];
+
+#Does not exist
 if(!$bug)
 {
 	$content->set404();
 	return;
 }
 
-#Niemoderowany?
+#Not approved
 if($bug['status']==5 && $bug['who']!=UID && !$rights)
 {
 	header('Location: '.URL.url('bugs'));
@@ -35,25 +38,23 @@ if(isset($cfg['bbcode']))
 	$bug['text'] = BBCode($bug['text']);
 }
 
-#Data, autor
+#Date, author
 $bug['date'] = genDate($bug['date'],1);
 $bug['who']  = $bug['UID'] ? autor($bug['UID']) : $bug['who'];
 $bug['text'] = nl2br(emots($bug['text']));
 $bug['level'] = $lang['L'.$bug['level']];
 $bug['status'] = $lang['S'.$bug['status']];
 
-#Ocena
+#Rate
 if($bug['rate'] == 2)
 {
 	$bug['mark']  = $bug['pos'] ? $bug['pos'] : $lang['lack'];
 	$bug['marks'] = $bug['neg'] ? $bug['neg'] : 0;
-	$content->addCSS(SKIN_DIR.'rate.css');
+	$content->css(SKIN_DIR.'rate.css');
 }
 
-#Szablon
-$content->title = $bug['name'];
-$content->file = 'view';
-$content->data = array(
+#Template
+$content->add('view', array(
 	'bug'   => &$bug,
 	'edit'  => $rights || ($bug['poster']==UID && isset($cfg['bugsEdit'])) ? url('bugs/post/'.$id) : false,
 	'hands' => $bug['rate'] == 1,
@@ -62,4 +63,4 @@ $content->data = array(
 	'mainURL' => url('bugs'),
 	'canVote' => $bug['rate'] && (UID || isset($cfg['bugsVote'])),
 	'editStatus' => $rights
-);
+));

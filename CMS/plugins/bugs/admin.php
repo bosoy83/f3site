@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1 || !admit('BUGADM')) exit;
 
-#Jêzyk
+#Language
 if(file_exists('./plugins/bugs/lang/adm'.LANG.'.php'))
 {
 	require './plugins/bugs/lang/adm'.LANG.'.php';
@@ -11,7 +11,7 @@ else
 	require './plugins/bugs/lang/en.php';
 }
 
-#Katalog szablonów
+#Template folders
 $content->dir = './plugins/bugs/style/';
 $content->cache = './cache/bugs/';
 $content->title = $lang['tracker'];

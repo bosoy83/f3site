@@ -79,10 +79,9 @@ if($read)
 }
 
 #Szablon i dane
-$content->file[] = 'pms_view';
-$content->data += array(
+$content->add('pms_view', array(
 	'pm' => &$pm,
 	'form' => $x['st'] < 3 ? url('pms/edit','th='.$th) : false,
 	'color' => isset($cfg['colorCode']),
 	'bbcode' => isset($cfg['bbcode'])
-);
+));

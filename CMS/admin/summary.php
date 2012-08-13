@@ -24,14 +24,14 @@ else
 $ver = parse_ini_file('cfg/ver.ini');
 
 #Do szablonu
-$content->data = array(
+$content->add('summary', array(
 	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
 	'notes'  => $notes,
 	'version'=> $ver['ver'],
 	'server' => $_SERVER['SERVER_SOFTWARE'],
 	'config' => url('configMain', '', 'admin'),
 	'engine' => isset($db_u) ? 'MySQL' : 'SQLite'
-);
+));
 
 #Katalog INSTALL
 if(IS_OWNER && is_dir('install'))

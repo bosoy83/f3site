@@ -2,6 +2,8 @@
 $lang+=Array(
 'list'=>'Liste zeigen...',
 'on'=>'An?',
+'pin'=>'Immer im Vordergrund',
+'comon'=>'Kommentare aktivieren',
 'nochg'=>'Ohne Änderungen',
 'publish'=>'Publiziert',
 'choose'=>'- - - wählen - - -',

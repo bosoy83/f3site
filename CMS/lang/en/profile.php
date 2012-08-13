@@ -45,6 +45,7 @@
 'vismail'=>'Display your e-mail in profile',
 'getmails'=>'Receive e-mails from administrator',
 'allowComm'=>'Enable comments in my profile',
+'timezone'=>'Timezone',
 
 'avatar'=>'Change your avatar or photo',
 'curPhoto'=>'Current photo',

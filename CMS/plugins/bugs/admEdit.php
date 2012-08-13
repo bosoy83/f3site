@@ -1,10 +1,10 @@
 <?php
 if(iCMSa!=1) exit;
 
-#ID kategorii
+#Category ID
 $id = isset($URL[2]) ? (int)$URL[2] : 0;
 
-#Zapis
+#Action: save
 if($_POST)
 {
 	$cat = array(
@@ -17,7 +17,7 @@ if($_POST)
 		'text' => &$_POST['text']
 	);
 
-	#Zmieñ rekord lub dodaj nowy
+	#Change record or add new
 	try
 	{
 		if($id)
@@ -31,7 +31,7 @@ if($_POST)
 		}
 		$q->execute($cat);
 
-		#Przekieruj do listy kategorii
+		#Redirect to category list
 		header('Location: '.URL.url('bugs','','admin'));
 		$content->message($lang['saved'], url('bugs', '', 'admin'));
 	}
@@ -57,7 +57,7 @@ else
 	);
 }
 
-#Sekcje
+#Sections
 $sect = array();
 $res = $db->query('SELECT ID,title FROM '.PRE.'bugsect ORDER BY seq');
 foreach($res as $x)
@@ -69,11 +69,10 @@ foreach($res as $x)
 	);
 }
 
-#Szablon formularza
-$content->file = 'adminEdit';
-$content->data = array(
+#Form template
+$content->add('adminEdit', array(
 	'cat'   => &$cat,
 	'sect'  => &$sect,
 	'langs' => listBox('lang', 1, $cat['see']),
 	'title' => $id ? $lang['editCat'] : $lang['addCat']
-);
+));

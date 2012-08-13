@@ -94,11 +94,17 @@ if(isset($_POST['del']) && $x = GetID(1))
 				'edit'  => $warn ? url('editCat/'.$x['ID'], '', 'admin') : false
 			);
 		}
-		$content->data = array('cat'=>$cat);
+		$content->add('editCats', array('cat'=>$cat));
 	}
 	$content->title = $lang['delCat'];
 }
 
+elseif(isset($_POST['count']))
+{
+	$db->beginTransaction(); CountItems(); $db->commit();
+	header('Location: '.URL.url('cats','','admin'));
+	exit;
+}
 else
 {
 	header('Location: '.URL.url('cats','','admin'));

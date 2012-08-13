@@ -73,30 +73,32 @@ function comments($id, $type=5, $mayPost=true, $url='')
 		$res = null;
 	}
 
-	#Template
-	$content->file[] = 'comments';
-	$content->data['comment'] =& $comm;
-	$content->data['parts'] =& $CP;
+	#Prepare template
+	$data['comment'] =& $comm;
+	$data['parts'] =& $CP;
 
 	#Highlight code
-	$content->data['color'] = isset($cfg['colorCode']);
+	$data['color'] = isset($cfg['colorCode']);
 
 	#May comment
 	if(UID || isset($cfg['commGuest']))
 	{
 		if(empty($_SESSION['post']) OR $_SESSION['post'] < $_SERVER['REQUEST_TIME'])
 		{
-			$content->data['url'] = $comURL.$id.'/'.$type;
+			$data['url'] = $comURL.$id.'/'.$type;
 			$_SESSION['CV'][$type][$id] = true;
 		}
 		else
 		{
-			$content->data['url'] = null;
+			$data['url'] = null;
 		}
-		$content->data['mustLogin'] = false;
+		$data['mustLogin'] = false;
 	}
 	else
 	{
-		$content->data['mustLogin'] = true;
+		$data['mustLogin'] = true;
 	}
+
+	#Assign to template
+	$content->add('comments', $data);
 }

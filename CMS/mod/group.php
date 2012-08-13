@@ -3,28 +3,28 @@ if(iCMS!=1) exit;
 require './cfg/account.php';
 require LANG_DIR.'profile.php';
 
-#Pobierz grupê
-if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE access!=0 AND ID='.$id)->fetch(2)) return;
+#Get group
+if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE access!="0" AND ID='.$id)->fetch(2)) return;
 
-#Tytu³ strony
+#Page title
 $content->title = $group['name'];
 
-#Jeste¶ cz³onkiem
+#Are you a member
 $member = UID ? dbCount('groupuser WHERE g='.$id.' AND u='.UID) : 0;
 
-#Adres grupy
+#Group URL
 $url = url('group/'.$id);
 
-#Mo¿e do³±czyæ
+#May join
 $mayJoin = UID && !$member && $group['opened']==1;
 $mayLeave = UID && $member;
 $askJoin = sprintf($lang['wantJoin'], $group['name']);
 $askLeave = sprintf($lang['wantLeave'], $group['name']);
 
-#Misje specjalne
+#Special missions
 if(isset($URL[2]))
 {
-	#Do³±cz do grupy
+	#Join group
 	if($mayJoin && $URL[2] == 'join')
 	{
 		if(isset($_POST['yes']))
@@ -47,13 +47,12 @@ if(isset($URL[2]))
 		}
 		elseif(!$_POST)
 		{
-			$content->file = 'ask';
-			$content->data = array('url'=>'', 'query'=>$askJoin);
+			$content->add('ask', array('url'=>'', 'query'=>$askJoin));
 			return 1;
 		}
 	}
 
-	#Wyst±p z szeregów
+	#Exit the ranks
 	if($mayLeave && $URL[2] == 'leave')
 	{
 		if(isset($_POST['yes']))
@@ -76,18 +75,17 @@ if(isset($URL[2]))
 		}
 		elseif(!$_POST)
 		{
-			$content->file = 'ask';
-			$content->data = array('url'=>'', 'query'=>$askLeave);
+			$content->add('ask', array('url'=>'', 'query'=>$askLeave));
 			return 1;
 		}
 	}
 }
 
-#Za³o¿yciel i data
+#Owner, date
 $group['who'] = $group['who']>0 ? autor($group['who']) : false;
 $group['date'] = genDate($group['date']);
 
-#Kto do³±czy³
+#Who joined
 $new = array();
 
 if(UID || empty($cfg['hideUser'])):
@@ -102,8 +100,8 @@ foreach($res as $x)
 }
 endif;
 
-#Tytu³ i dane do szablonu
-$content->data = array(
+#Template
+$content->add('group', array(
 	'group'  => &$group,
 	'user'   => &$new,
 	'edit'   => admit('G') ? url('editGroup/'.$id, 'ref', 'admin') : false,
@@ -113,9 +111,9 @@ $content->data = array(
 	'leave'  => $mayLeave ? $url.'/leave' : false,
 	'query'  => $mayJoin ? $askJoin : ($mayLeave ? $askLeave : false),
 	'all'    => $new ? url('users/'.$id) : false
-);
+));
 
-#Komentarze
+#Comments
 if(true)
 {
 	require './lib/comm.php';

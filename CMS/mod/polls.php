@@ -1,13 +1,14 @@
 <?php
 if(iCMS!=1) exit;
 
-#Tytu³ strony
+#Page title
 $content->title = $lang['archive'];
 
+#Get polls from database
 $res = $db->query('SELECT ID,name,num,date FROM '.PRE.'polls WHERE access="'.LANG.'" ORDER BY ID DESC');
 $res->setFetchMode(3);
 
-#Tu zapisuj
+#Initialize
 $poll = array();
 $num = 0;
 
@@ -22,9 +23,9 @@ foreach($res as $p)
 	);
 }
 
-#Dane LUB brak?
+#Template
 if($num > 0)
-	$content->data = array('poll' => &$poll);
+	$content->add('polls', array('poll' => &$poll));
 else
 	$content->info($lang['noc']);
 

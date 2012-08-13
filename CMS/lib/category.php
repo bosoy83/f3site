@@ -24,7 +24,7 @@ else
 #Load category to ASSOC $cat
 if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE access!=3 AND ID='.$d)->fetch(2))
 {
-	$content->set404(); return;
+	return;
 }
 
 #Set title
@@ -81,9 +81,8 @@ if($cat['num'] == '0' && empty($sc) && admit($d,'CAT'))
 	header('Location: '.URL.url('edit/'.$cat['type']));
 }
 
-#Assign to template
-$content->file = array('cat');
-$content->data = array(
+#Prepare template
+$data = array(
 	'cat'  => &$cat,
 	'edit' => admit('C') ? url('editCat/'.$d, 'ref', 'admin') : null,
 	'add'  => url('edit/'.$cat['type'], 'catid='.$d),
@@ -95,20 +94,24 @@ $content->data = array(
 #Category path
 if($cat['opt'] & 1 && isset($cfg['catStr']))
 {
-	$content->data['path'] = catPath($d,$cat);
+	$content->nav = catPath($d,$cat);
+	$data['path'] = catPath($d,$cat);
 }
 else
 {
-	$content->data['path'] = null;
+	$content->nav = null;
+	$data['path'] = null;
 }
 
-#Load item list generator
+#Load item list generator - TODO: improve
 if($cat['num'])
 {
+	$content->add('cat', $data);
 	include './mod/cat/'.$cat['type'].'.php';
 }
 else
 {
-	$content->data['type'] = $lang['cats'];
-	$content->data['cats'] = url('cats');
+	$data['type'] = $lang['cats'];
+	$data['cats'] = url('cats');
+	$content->add('cat', $data);
 }

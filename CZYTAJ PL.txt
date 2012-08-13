@@ -1,7 +1,7 @@
 Rozpowszechnianie i licencja
 ============================
 
-F3Site 3.2 - (C) 2005-2011 COMPMaster - compmaster.prv.pl
+F3Site 2012 - (C) 2005-2012 COMPMaster - compmaster.prv.pl
 
 Niniejszy program jest wolnym oprogramowaniem - możesz go rozpowszechniać dalej i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU wydanej przez Fundację Wolnego Oprogramowania, według wersji 3 tej Licencji lub dowolnej z późniejszych wersji.
 
@@ -31,7 +31,7 @@ Wymagania
 Instalacja
 ==========
 
-1. Załaduj zawartośc katalogu SYSTEM na serwer za pomocą klienta FTP lub menedżera plików. Usuń niepotrzebne języki i skórki (oprócz DEFAULT), których nie będziesz używał.
+1. Załaduj zawartośc katalogu SYSTEM na serwer za pomocą klienta FTP lub menedżera plików. Usuń niepotrzebne języki z folderu LANG, których nie będziesz używał.
 
 2. Nadaj plikom i folderom uprawnienia (CHMOD):
 * katalogi: CFG, CACHE, RSS - 777
@@ -47,9 +47,11 @@ Aby instalacja przebiegła poprawnie, użytkownik bazy danych musi mieć do niej
 
 5. Instalator wprowadzi rekordy do bazy danych dla WSZYSTKICH dostępnych na serwerze języków.
 
-6. Po instalacji USUŃ KATALOG INSTALL!
+6. Instalator usunie WSZYSTKIE istniejące tabele z bazy danych z tym samym prefiksem nazw.
 
-7. Zaloguj się i dostosuj system w panelu administracyjnym.
+7. Po instalacji USUŃ KATALOG INSTALL!
+
+8. Zaloguj się i dostosuj system w panelu administracyjnym.
 
 
 Aktualizacje i pomoc techniczna

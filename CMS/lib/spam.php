@@ -22,6 +22,17 @@ function CAPTCHA($cfg = null)
 	}
 }
 
+#Check IP in blacklist
+function blacklist($ip)
+{
+	static $list;
+	if(!$list && file_exists('cfg/blacklist.txt'))
+	{
+		$list = file_get_contents('cfg/blacklist.txt');
+	}
+	return strpos($list,"\n".$ip."\n")>0;
+}
+
 #reCAPTCHA™ - recaptcha.net - get your own keys there
 class reCAPTCHA
 {

@@ -104,19 +104,19 @@ class Compiler
 			'{ROBOTS}', '{FOOTER}', '{TODAY}', '{USER PANEL}', "\t", "\n\n");
 
 		$out = array(
-			'<?php $content->display();?>',
+			'<?php $this->display();?>',
 			'<?php newnav(1);?>',
 			'<?php newnav(2);?>',
 			'<?php echo LANG;?>',
 			'<?php echo $menu;?>',
 			'<?php echo url(\'cats\');?>',
 			'<?php echo $cfg[\'title\'];?>',
-			'<?php echo $content->title;?>',
-			'<?php echo $content->desc;?>',
+			'<?php echo $this->title;?>',
+			'<?php echo $this->desc;?>',
 			'<?php echo $cfg[\'robots\'];?>',
 			'<?php echo $cfg[\'footer\'];?>',
 			'<?php echo strftime($cfg[\'now\']);?>',
-			'<?php if(isset($cfg[\'userPanel\'])) include $content->path(\'top\',1);?>',
+			'<?php if(isset($cfg[\'userPanel\'])) include $this->path(\'top\',1);?>',
 			'', "\n"
 		);
 
@@ -124,7 +124,7 @@ class Compiler
 		if($file == 'body.html' || $file == 'admin.html')
 		{
 			$in[] = '</head>';
-			$out[] = '<?php echo $content->head ?></head>';
+			$out[] = '<?php echo $this->head ?></head>';
 		}
 		$this->data = str_ireplace($in, $out, $this->data);
 
@@ -133,7 +133,6 @@ class Compiler
 
 		#Do zamiany
 		$in = array(
-			'/\{BANNER ([0-9]+)\}/',
 			'/\{this\.([A-Za-z0-9:_ ]+)\}/', //Obiekt $this
 			'/\{([A-Za-z0-9_]+)\.([0-9]+)\}/', //Tablice numeryczne
 			'/\{([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/', //Tablice
@@ -147,7 +146,6 @@ class Compiler
 			'/<!-- INCLUDE ([A-Za-z0-9_.]+) -->/');
 
 		$out = array(
-			'<?php echo banner(\\1);?>',
 			'<?php echo $this->\\1;?>',
 			'<?php echo $\\1[\\2];?>',
 			'<?php echo $\\1[\'\\2\'];?>',
