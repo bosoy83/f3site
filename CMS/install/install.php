@@ -197,8 +197,8 @@ class Installer
 		$f->add('db_db', $data['type']);
 		$f->add('db_d', $data['file'] ? $data['file'] : $data['db']);
 		$f->addConst('PRE', PRE);
-		$f->addConst('PATH', PATH);
-		$f->addConst('URL', URL);
+		//$f->addConst('PATH', PATH);
+		//$f->addConst('URL', URL);
 
 		#Tylko dla MySQL
 		if($data['type'] == 'mysql')
