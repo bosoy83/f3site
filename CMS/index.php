@@ -1,4 +1,4 @@
-<?php //F3Site 2012 (C) COMPMaster
+<?php //F3Site 2013 (C) COMPMaster
 define('iCMS',1);
 require './kernel.php';
 

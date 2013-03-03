@@ -98,7 +98,7 @@ nav a.active {
 	float: right
 }
 #flags a {margin: 2px 2px 0}
-#actions a {margin: 0 0 0 15px}
+#actions a {margin: 0 0 0 5px}
 
 /* CONTENT */
 #main {
@@ -154,6 +154,7 @@ footer a {color:#d5d5d5}
 .headerBlue, #left>.mh:first-child, .tb caption {background:url(img/headers.png) #29bbea 0 -35px repeat-x}
 .headerBrown, h1, .mh {background:url(img/headers.png) #5c5a5b repeat-x 0 0}
 .headerOrange, #right>.mh:first-child {background:url(img/headers.png) #f29a00 0 -70px repeat-x}
+.action {float: right; color: white; margin: 8px}
 
 /* MENU */
 .menu {
@@ -210,17 +211,14 @@ footer a {color:#d5d5d5}
 }
 
 /* Both round */
-#main #path, #tags, .info, .error, .warning, .preview, .dialog, pre, blockquote, .pages a {
+/*#main #path, */#tags, .info, .error, .warning, .preview, .dialog, pre, blockquote, .pages a {
 	padding: 5px;
 	overflow: hidden;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-khtml-border-radius: 5px
+	border-radius: 5px
 }
 
 /* Small boxes */
-#main #path, #tags, .info, .error, .warning, .preview {
+/*#main #path,*/ #tags, .info, .error, .warning, .preview {
 	margin-bottom: 8px;
 	border: 1px solid #cdcdcd;
 }
@@ -229,8 +227,9 @@ footer a {color:#d5d5d5}
 	border: 1px solid #d9c866
 }
 #main #path {
-	padding-left: 28px;
-	background: url(../../img/icon/cs.png) no-repeat 2px
+	/*padding-left: 28px;
+	background: url(../../img/icon/cs.png) no-repeat 2px*/
+	padding: 0 0 12px 0
 }
 nav #path {
 	float: left; margin-right: 50px; color: #cdcdcd
@@ -330,9 +329,11 @@ ul.cats li {
 .newsButtons a {float:right}
 
 /* POLL */
-.pollstrip {background-color: #2abaea; height: 10px}
+.pollstrip {background-color: #2abaea; height: 10px; min-width: 2px}
 .pollOptions {margin: 8px 0}
 .pollQuestion, .pollSubmit {text-align: center}
+path {transition: opacity 0.5s ease-out}
+path:hover {opacity: 0.7}
 
 /* TABLE */
 .tb {
@@ -347,7 +348,7 @@ ul.cats li {
 .tb caption {padding: 0}
 .tb th {padding: 5px; background: url(img/boxBg.jpg) repeat-x #FFF}
 .tb td {padding: 5px} /*bg color + important */
-.tb .eth {text-align: center; background-color: #F8F8F8 !important}
+.tb .eth, .tb tfoot {text-align: center; background-color: #F8F8F8 !important}
 .tb tr:nth-child(even)>td {background-color: #F8F8F8 !important}
 
 /* BUTTONS */ 

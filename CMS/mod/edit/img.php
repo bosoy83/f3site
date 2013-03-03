@@ -15,7 +15,7 @@ if($_POST)
 	'name'  => clean($_POST['name']),
 	'author'=> clean($_POST['author']),
 	'file'	=> clean($_POST['file']),
-	'filem' => clean($_POST['fm']),
+	'min'   => clean($_POST['fm']),
 	'access'=> isset($_POST['access']),
 	'priority'=> (int)$_POST['priority'],
 	'type'	=> (int)$_POST['type'],
@@ -31,15 +31,15 @@ if($_POST)
 		{
 			$img['ID'] = $id;
 			$q = $db->prepare('UPDATE '.PRE.'imgs SET cat=:cat, access=:access,
-				name=:name, author=:author, dsc=:dsc, file=:file, filem=:filem,
+				name=:name, author=:author, dsc=:dsc, file=:file, min=:min,
 				priority=:priority, type=:type, size=:size WHERE ID=:ID');
 		}
 		else
 		{
 			$img['date'] = gmdate('Y-m-d H:i:s');
 			$q = $db->prepare('INSERT INTO '.PRE.'imgs (cat,access,name,dsc,type,date,
-				priority,author,file,filem,size) VALUES (:cat,:access,:name,:dsc,:type,
-				:date,:priority,:author,:file,:filem,:size)');
+				priority,author,file,min,size) VALUES (:cat,:access,:name,:dsc,:type,
+				:date,:priority,:author,:file,:min,:size)');
 		}
 		$q->execute($img);
 

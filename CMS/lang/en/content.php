@@ -5,6 +5,7 @@ $lang+=Array(
 'pin'=>'Always on top',
 'comon'=>'Enable comments',
 'nochg'=>'No changes',
+'noname'=>'Untitled',
 'publish'=>'Publish',
 'choose'=>'- - - select from list - - -',
 'noCats'=>'There is no category for this type objects.',
@@ -68,6 +69,13 @@ $lang+=Array(
 'minimgd'=>'Displayed on images list.',
 'isize'=>'Dimentions',
 'isized'=>'Required for Flash and QuickTime.',
+
+'batch'=>'Batch photo upload',
+'upload'=>'Select photos or upload archive',
+'manual'=>'Load photos from server directory',
+'folder'=>'Select directory',
+'noup'=>'Chmod direcory %s to 777. Otherwise thumbnails will NOT be created.',
+'nogd'=>'GD library is disabled on server. Cannot proceed.',
 
 'freePage'=>'Free page',
 'lastComm'=>'Last comment',

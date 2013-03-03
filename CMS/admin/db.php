@@ -115,7 +115,6 @@ foreach($list as $tab)
 }
 
 #Template
-$content->info($lang['dbInfo']);
 $content->add('db', array(
 	'tables' => $tabs,
 	'gz'     => function_exists('gzopen')

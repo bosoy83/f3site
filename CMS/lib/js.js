@@ -99,6 +99,16 @@ function BBC(o, left, right, inside)
 	}
 }
 
+//Zaznacz wszystko
+function selAll(o)
+{
+	var e = o.form.elements;
+	for(var i=0; i<e.length; i++)
+	{
+		if(e[i].name && e[i].name.indexOf('x[')===0) e[i].checked = o.checked;
+	}
+}
+
 //Ustaw cookie
 function setCookie(name, txt, expires, path)
 {

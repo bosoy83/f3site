@@ -1,7 +1,7 @@
 #mid {
-	padding-right: 17px !important
+	padding-right: 17px !important;
 }
-ul.adm  {
+ul.adm,#actions  {
 	background: #F7F7F7;
 	border: 1px solid #C6CDC2;
 	padding: 3px;
@@ -23,5 +23,7 @@ ul.adm li a {display: block} /*color: #0d4439*/
 .a_cfg,.a_db {background: url(../../img/icon/cog.png)}
 .a_plug {background: url(../../img/icon/plugin.png)}
 .a_ads {background: url(../../img/icon/coins.png)}
+
+#actions a {margin-left: 30px}
 
 td>small {display: block}

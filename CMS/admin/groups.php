@@ -15,9 +15,6 @@ if($_POST)
 	}
 }
 
-#Show tips
-$content->info($lang['groupInfo'], array(url('editGroup','','admin')=>$lang['addGroup']));
-
 #Get groups - FETCH_NUM
 $res = $db->query('SELECT ID,name,opened FROM '.PRE.'groups');
 $res-> setFetchMode(3);

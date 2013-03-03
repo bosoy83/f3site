@@ -9,11 +9,11 @@
 <table class="tb" id="polls">
 <thead>
 <tr>
-	<th>{lang.name}</th>
-	<th style="width: 55px">{lang.votes}</th>
-	<th style="width: 60px">{lang.lang}</th>
+	<th class="string">{lang.name}</th>
+	<th class="numeric" style="width: 55px">{lang.votes}</th>
+	<th class="string" style="width: 60px">{lang.lang}</th>
 	<th>{lang.opt}</th>
-	<th style="width: 30px"></th>
+	<th style="width: 30px"><input type="checkbox" onchange="selAll(this)"></th>
 </tr>
 </thead>
 <tbody style="text-align: center">

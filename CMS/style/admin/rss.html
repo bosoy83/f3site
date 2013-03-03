@@ -11,7 +11,7 @@
 	<th style="width: 80px">Auto</th>
 	<th style="width: 80px">{lang.lang}</th>
 	<th>{lang.opt}</th>
-	<th style="width: 20px"></th>
+	<th style="width: 20px"><input type="checkbox" onchange="selAll(this)"></th>
 </tr>
 
 <!-- START channel -->
@@ -26,12 +26,12 @@
 	<td style="text-align: center">{auto}</td>
 	<td style="text-align: center; text-transform: uppercase">{land}</td>
 	<td style="text-align: center"><a href="{edit}">{lang.edit}</a></td>
-	<td><input type="checkbox" name="x[{id}]" /></td>
+	<td><input type="checkbox" name="x[{id}]"></td>
 </tr>
 <!-- STOP -->
 
 <tr>
-	<td colspan="5" class="eth"><input type="submit" name="del" value="{lang.del}" /></td>
+	<td colspan="5" class="eth"><input type="submit" name="del" value="{lang.del}"></td>
 </tr>
 </table>
 </form>

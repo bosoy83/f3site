@@ -9,12 +9,12 @@
 <table class="tb" id="cats">
 <thead>
 <tr>
-	<th>{lang.name}</th>
-	<th style="width: 30px" class="numeric">ID</th>
-	<th style="width: 50px">{lang.disp}</th>
-	<th>{lang.type}</th>
+	<th class="string">{lang.name}</th>
+	<th class="numeric" style="width: 30px">ID</th>
+	<th class="string" style="width: 50px">{lang.disp}</th>
+	<th class="string">{lang.type}</th>
 	<th>{lang.opt}</th>
-	<th style="width: 20px"></th>
+	<th style="width: 20px"><input type="checkbox" onchange="selAll(this)"></th>
 </tr>
 </thead>
 <tbody style="text-align: center">
@@ -26,7 +26,7 @@
 	<td>{disp}</td>
 	<td>{type}</td>
 	<td><a href="{edit}">{lang.edit}</a></td>
-	<td><input type="checkbox" name="x[{id}]" /></td>
+	<td><input type="checkbox" name="x[{id}]"></td>
 </tr>
 <!-- STOP -->
 
@@ -34,8 +34,8 @@
 <tfoot>
 <tr>
 	<td class="eth" colspan="6">
-		<input type="submit" name="del" value="{lang.del}" />
-		<input type="submit" name="count" value="{lang.count}" />
+		<input type="submit" name="del" value="{lang.del}">
+		<input type="submit" name="count" value="{lang.count}">
 	</td>
 </tr>
 </tfoot>

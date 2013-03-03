@@ -29,14 +29,12 @@
 	</object>
 	<!-- END -->
 
-	<!-- IF movie -->
-	<object type="video/quicktime" data="{img.file}" width="{size.0}" height="{size.1}">
-    <param name="movie" value="{img.file}" />
-	</object>
+	<!-- IF audio -->
+	<audio controls preload="auto" src="{img.file}">
 	<!-- END -->
 
 	<!-- IF video -->
-	<video controls="true" width="{size.0}" height="{size.1}" poster="{img.filem}" src="{img.file}">
+	<video controls preload="auto" width="{size.0}" height="{size.1}" poster="{img.filem}" src="{img.file}">
 		<a href="http://opera.com">Install HTML 5 compliant browser</a>
 	</video>
 	<!-- END -->
@@ -49,11 +47,11 @@
 		<!-- IF rates -->
 		<b>{lang.rate}:</b>
 		<form action="{rates}" method="post" class="rate avg{img.rate} by" id="rate">
-		<input type="submit" name="v" value="1" class="r1" />
-		<input type="submit" name="v" value="2" class="r2" />
-		<input type="submit" name="v" value="3" class="r3" />
-		<input type="submit" name="v" value="4" class="r4" />
-		<input type="submit" name="v" value="5" class="r5" />
+		<input type="submit" name="v" value="1" class="r1">
+		<input type="submit" name="v" value="2" class="r2">
+		<input type="submit" name="v" value="3" class="r3">
+		<input type="submit" name="v" value="4" class="r4">
+		<input type="submit" name="v" value="5" class="r5">
 		</form>
 		<script type="text/javascript">rate(document.forms['rate'])</script>
 		<!-- END -->

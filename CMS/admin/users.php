@@ -48,7 +48,7 @@ $total = dbCount('users'.$w);
 $users = array();
 
 #Get users
-$res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users'.$w.' ORDER BY lv, ID DESC LIMIT '.$st.',30');
+$res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users'.$w.' ORDER BY lv DESC, adm DESC, ID DESC LIMIT '.$st.',30');
 $res ->setFetchMode(3); //NUM
 
 foreach($res as $u)

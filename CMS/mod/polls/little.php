@@ -13,7 +13,7 @@ foreach($item as &$o)
 	<td>&nbsp;<b>'.$o['num'].'</b></td>
 </tr>
 <tr>
-  <td><div style="width: '.$o['percent'].'%" class="pollstrip"></div></td>
+  <td><div style="width: '.$o['percent'].'%;background-color:'.$o['color'].'" class="pollstrip"></div></td>
   <td style="width: 20px">&nbsp;'.$o['percent'].'%</td>
 </tr>';
 }

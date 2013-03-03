@@ -45,7 +45,7 @@ $content->add('img', array(
 	'rates' => $rates,
 	'image' => $img['type'] === '1' ? true : false,
 	'flash' => $img['type'] === '2' ? true : false,
-	'movie' => $img['type'] === '3' ? true : false,
+	'audio' => $img['type'] === '3' ? true : false,
 	'video' => $img['type'] === '4' ? true : false,
 	'path'  => catPath($img['cat']),
 	'edit'  => admit($img['cat'],'CAT') ? url('edit/3/'.$id,'ref') : false,

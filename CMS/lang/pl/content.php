@@ -5,6 +5,7 @@ $lang+=Array(
 'pin'=>'Zawsze na wierzchu',
 'comon'=>'Zezwól na komentowanie',
 'nochg'=>'Bez zmian',
+'noname'=>'Bez nazwy',
 'publish'=>'Opublikuj',
 'choose'=>'- - - wybierz z listy - - -',
 'noCats'=>'Nie stworzyłeś jeszcze kategorii dla obiektu tego typu.',
@@ -68,6 +69,13 @@ $lang+=Array(
 'minimgd'=>'Wyświetlana na liście obrazów.',
 'isize'=>'Wymiary',
 'isized'=>'Wymagane dla Flash i QuickTime.',
+
+'batch'=>'Wsadowe dodawanie zdjęć i multimediów',
+'upload'=>'Wybierz zdjęcia lub prześlij archiwum z komputera',
+'manual'=>'Zdjęcia znajdują się już na serwerze',
+'folder'=>'Podaj folder',
+'noup'=>'Nadaj uprawnienia zapisu (777) do katalogu %s. Inaczej miniatury nie zostaną utworzone.',
+'nogd'=>'Biblioteka GD jest wyłączona na serwerze. Nie można kontynuować.',
 
 'freePage'=>'Wolne strony',
 'lastComm'=>'Ostatni komentarz',

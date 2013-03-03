@@ -18,8 +18,11 @@ function Sortable(table, types)
 	}
 	for(var i=0; i<this.head.length; i++)
 	{
-		this.head[i].style.cursor = 'pointer';
-		this.head[i].onclick = function() { self.sort(this.cellIndex+1, this.className) };
+		if(this.head[i].className)
+		{
+			this.head[i].style.cursor = 'pointer';
+			this.head[i].onmousedown = function() { self.sort(this.cellIndex+1, this.className); return false };
+		}
 	}
 	this.table = table;
 	this.rows = table.tBodies[0].rows;

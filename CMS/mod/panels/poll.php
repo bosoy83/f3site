@@ -26,6 +26,7 @@ if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && !UID
 		$item[] = array(
 			'num'  => $o[2],
 			'label' => $o[1],
+			'color' => $o[3],
 			'percent' => round($o[2] / $poll['num'] * 100 ,$cfg['pollRound'])
 		);
 	}

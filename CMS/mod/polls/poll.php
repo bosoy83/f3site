@@ -1,6 +1,6 @@
 <?php
 
-#Usuñ sondy i odbuduj cache
+#UsuÅ„ sondy i odbuduj cache
 function DeletePoll($x = null)
 {
 	global $db;
@@ -60,7 +60,7 @@ function RebuildPoll($only = null, PDO $db = null)
 		}
 		if(in_array($x['access'], $lang))
 		{
-			$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$x['ID'].' ORDER BY seq')->fetchAll(3);
+			$o = $db->query('SELECT ID,a,num,color FROM '.PRE.'answers WHERE IDP='.$x['ID'].' ORDER BY seq')->fetchAll(3);
 			$file = new Config('./cache/poll_'.$x['access'].'.php');
 			$file->add('poll', $x);
 			$file->add('option', $o);
@@ -69,7 +69,7 @@ function RebuildPoll($only = null, PDO $db = null)
 		}
 	}
 
-	//Zbêdne pliki cache
+	//ZbÄ™dne pliki cache
 	foreach($lang as $x)
 	{
 		if(!isset($used[$x]) && file_exists('./cache/poll_'.$x.'.php'))

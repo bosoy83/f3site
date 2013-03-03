@@ -13,7 +13,7 @@
 	<th>{lang.range}</th>
 	<th>{lang.privs}</th>
 	<th>{lang.opt}</th>
-	<th style="width: 20px"></th>
+	<th style="width: 20px"><input type="checkbox" onchange="selAll(this)"></th>
 </tr>
 
 <!-- START users -->
@@ -26,17 +26,17 @@
 		<a href="{edit}">{lang.profile}</a>
 		<!-- END -->
 		<!-- IF priv -->
-		&middot; <a href="{priv}">{lang.priv}</a>
+		<a href="{priv}" style="margin-left: 15px">{lang.priv}</a>
 		<!-- END -->
 	</td>
-	<td><input type="checkbox" name="x[{id}]" /></td>
+	<td><input type="checkbox" name="x[{id}]"></td>
 </tr>
 <!-- STOP -->
 
 <tr class="eth">
-	<td>{lang.search}: <input name="s" value="{search}" style="height: 14px" /></td>
+	<td>{lang.search}: <input name="s" value="{search}" style="height: 14px"></td>
 	<td colspan="2">{lang.page}: {pages}</td>
-	<td colspan="2"><input type="submit" name="del" value="{lang.del}" /></td>
+	<td colspan="2"><input type="submit" name="del" value="{lang.del}"></td>
 </tr>
 </table>
 

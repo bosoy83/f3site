@@ -9,11 +9,11 @@
 <table class="tb" id="groups">
 <thead>
 <tr>
-	<th>{lang.name}</th>
+	<th class="string">{lang.name}</th>
 	<th class="numeric">ID</th>
 	<th>{lang.open}?</th>
 	<th>{lang.opt}</th>
-	<th style="width: 20px"></th>
+	<th style="width: 20px"><input type="checkbox" onchange="selAll(this)"></th>
 </tr>
 </thead>
 <tbody style="text-align: center">
@@ -24,16 +24,19 @@
 	<td>{id}</td>
 	<td>{opened}</td>
 	<td><a href="{edit}">{lang.edit}</a></td>
-	<td><input type="checkbox" name="x[{id}]" /></td>
+	<td><input type="checkbox" name="x[{id}]"></td>
 </tr>
 <!-- STOP -->
 
 </tbody>
+<tfoot>
+	<tr>
+		<td colspan="5">
+			<input type="submit" name="del" value="{lang.del}">
+		</td>
+	</tr>
+</tfoot>
 </table>
-
-<div style="text-align: right">
-	<input type="submit" name="del" value="{lang.del}" />
-</div>
 </form>
 
 <script type="text/javascript">

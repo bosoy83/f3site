@@ -110,9 +110,14 @@ input:focus {background-color: #ffffca}
 #credits a {
 	color: #017e6b
 }
+#actions {
+	overflow:hidden
+}
 * html #left {
 	left: 200px; /* IE hack */
 }
+#actions a {margin: 0 0 0 5px; float: right}
+.action {float: right; color: white; margin: 8px}
 
 /* LISTS */
 ul,ol {margin: 9px; padding-left: 25px}
@@ -169,6 +174,8 @@ ul.cats li {
 .addComment {padding: 7px}
 #online {line-height: 22px}
 #tags {min-height: 18px}
+path {transition: opacity 0.5s ease-out}
+path:hover {opacity: 0.7}
 
 /* BLOCKS */
 th {
@@ -181,7 +188,7 @@ th {
 	width: 100%;
 	margin-bottom: 8px
 }
-.eth, .end {
+.eth, .end, .tb tfoot {
 	color: #236978;
 	background: #F1F3F2 url(1/e.png);
 	text-align: center;
@@ -262,7 +269,7 @@ small {font-size: 11px}
 }
 
 /* LINKI */
-.edit, .add, .del, .user, .cat, .tags, .quote {
+.edit, .add, .del, .user, .cat, .tags, .quote, .help {
 	padding-left: 20px;
 	background-repeat: no-repeat
 }
@@ -273,6 +280,7 @@ small {font-size: 11px}
 .cat {background-image: url(../../img/icon/folder.png); background-position: 0 -1px}
 .tags {background-image: url(../../img/icon/tag.png); background-position: 2px}
 .quote {background-image: url(../../img/icon/quote.png)}
+.help {background-image: url(../../img/icon/help.png)}
 
 /* DIALOG */
 .dialog {

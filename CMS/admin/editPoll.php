@@ -25,11 +25,11 @@ if($_POST)
 	{
 		if(!$id || empty($_POST['id'][$i]))
 		{
-			$an[] = array(null, clean($_POST['an'][$i]));
+			$an[] = array(null, clean($_POST['an'][$i]), clean($_POST['c'][$i]));
 		}
 		else
 		{
-			$an[] = array( (int)$_POST['id'][$i], clean($_POST['an'][$i]) );
+			$an[] = array((int)$_POST['id'][$i], clean($_POST['an'][$i]), clean($_POST['c'][$i]));
 			$keep[] = (int)$_POST['id'][$i];
 		}
 	}
@@ -60,18 +60,18 @@ if($_POST)
 		}
 
 		#Insert answers
-		$q1 = $db->prepare('UPDATE '.PRE.'answers SET a=?, seq=? WHERE ID=? AND IDP=?');
-		$q2 = $db->prepare('INSERT INTO '.PRE.'answers (seq,IDP,a) VALUES (?,?,?)');
+		$q1 = $db->prepare('UPDATE '.PRE.'answers SET a=?, seq=?, color=? WHERE ID=? AND IDP=?');
+		$q2 = $db->prepare('INSERT INTO '.PRE.'answers (seq,IDP,a,color) VALUES (?,?,?,?)');
 
 		for($i=0; $i<$num; $i++)
 		{
 			if($an[$i][0])
 			{
-				$q1->execute( array($an[$i][1], $i, $an[$i][0], $id) );
+				$q1->execute(array($an[$i][1], $i, $an[$i][2], $an[$i][0], $id));
 			}
 			elseif($an[$i][1])
 			{
-				$q2->execute( array($i, $id, $an[$i][1]) );
+				$q2->execute(array($i, $id, $an[$i][1], $an[$i][2]));
 			}
 		}
 
@@ -100,14 +100,14 @@ elseif($id)
 	{
 		return;
 	}
-	$an = $db->query('SELECT ID,a FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
+	$an = $db->query('SELECT ID,a,color FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
 }
 
 #New poll
 else
 {
 	$poll = array('name'=>'', 'q'=>'', 'type'=>1, 'ison'=>1, 'access'=>LANG);
-	$an = array( array(0, ''), array(0, ''), array(0, '') );
+	$an = array(array(0,'','#ed1c24'), array(0,'','#22b14c'), array(0,'','#3f48cc'));
 }
 
 #Prepare template

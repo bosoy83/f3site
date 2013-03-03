@@ -8,9 +8,6 @@ if($_POST && isset($_POST['del']) && $x = GetID(true))
 	$db->exec('DELETE FROM '.PRE.'rss WHERE ID IN ('.$x.')');
 }
 
-#Info
-$content->info($lang['infoRss'], array(url('editRss','','admin') => $lang['addRss']));
-
 #Pobierz kanaly RSS
 $res = $db->query('SELECT ID,auto,name,lang FROM '.PRE.'rss ORDER BY lang,name');
 $all = array();

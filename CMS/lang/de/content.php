@@ -5,6 +5,7 @@ $lang+=Array(
 'pin'=>'Immer im Vordergrund',
 'comon'=>'Kommentare aktivieren',
 'nochg'=>'Ohne Änderungen',
+'noname'=>'Ohne Namen',
 'publish'=>'Publiziert',
 'choose'=>'- - - wählen - - -',
 'noCats'=>'Es gibt keine Kategorie für diese Objekte',
@@ -68,6 +69,13 @@ $lang+=Array(
 'minimgd'=>'Gezeigt auf der Bilderliste.',
 'isize'=>'Format',
 'isized'=>'Nötig für Flash und QuickTime.',
+
+'batch'=>'Fotos hinzufügen',
+'upload'=>'Lade Fotos oder Archiv',
+'manual'=>'Wähl Verzeichnis auf dem Server',
+'folder'=>'Verzeichnispfad',
+'noup'=>'Chmod %s auf 777. Ansonsten Miniaturbilder werden nicht erstellt werden.',
+'nogd'=>'GD auf dem Server deaktiviert. Kann nicht fortgesetzt werden.',
 
 'freePage'=>'Freie Seite',
 'lastComm'=>'Neuester Kommentar',

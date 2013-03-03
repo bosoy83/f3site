@@ -1,6 +1,10 @@
 <?php /* F3Site Kernel */
 if(iCMS!=1) exit;
 
+#Detect path and full URL
+define('PATH',str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
+define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
+
 #Filter against CSRF
 if($_POST && isset($_SERVER['HTTP_REFERER']))
 {
@@ -18,8 +22,8 @@ if(ini_get('register_globals'))
 if(ini_get('magic_quotes_gpc'))
 {
 	$gpc = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-	function xxx(&$x) { $x = stripslashes($x); }
-	array_walk_recursive($gpc, 'xxx');
+	function x(&$x) { $x = stripslashes($x); }
+	array_walk_recursive($gpc, 'x');
 }
 
 #Main arrays
@@ -157,7 +161,7 @@ try
 	else
 	{
 		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
-		$db -> exec('SET NAMES utf8');
+		$db->exec('SET NAMES utf8');
 	}
 	$db->setAttribute(3,2); #ERRMODE: Exceptions
 	$db->setAttribute(19,2); #DefaultFetchMode: ASSOC
