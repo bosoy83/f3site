@@ -65,7 +65,7 @@ $com   = array();
 
 #Get comments from database
 $res = $db->query('SELECT c.*,u.login FROM '.PRE.'comms c LEFT JOIN '.PRE.
-	'users u ON c.author=u.ID AND c.guest!=1'.$q.' ORDER BY c.ID DESC LIMIT '.$st.',20');
+	'users u ON c.UID!=0 AND c.UID=u.ID '.$q.' ORDER BY c.ID DESC LIMIT '.$st.',20');
 
 #BBCode support
 if(isset($cfg['bbcode'])) include_once('./lib/bbcode.php');

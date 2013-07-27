@@ -1,10 +1,6 @@
 <?php /* F3Site Kernel */
 if(iCMS!=1) exit;
 
-#Detect path and full URL
-define('PATH',str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
-define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
-
 #Filter against CSRF
 if($_POST && isset($_SERVER['HTTP_REFERER']))
 {
@@ -47,17 +43,23 @@ if(!empty($cfg['ban']))
 
 #AJAX request
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
-define('NICEURL', $cfg['niceURL']);
+define('PROTO', isset($_SERVER['HTTPS']) ? 'https://' : 'http://');
+//define('NICEURL', $cfg['niceURL']);
 
 #Path based on PATH_INFO or GET param
 if(isset($_SERVER['PATH_INFO'][1]))
 {
 	$URL = explode('/', substr($_SERVER['PATH_INFO'],1));
+	#define('PATH', substr(dirname($_SERVER['PHP_SELF']),0,-9));
 }
 else
 {
 	$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
+	#define('PATH', str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
 }
+
+#Detect full URL - currently preset in cfg/db.php
+#define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
 
 #Skin paths
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
@@ -520,5 +522,6 @@ function event($type, $u = UID, $force = TRUE)
 #Count in database
 function dbCount($table)
 {
-	return (int)$GLOBALS['db']->query('SELECT COUNT(*) FROM '.PRE.$table)->fetchColumn();
+	global $db;
+	return (int)$db->query('SELECT COUNT(*) FROM '.PRE.$table)->fetchColumn();
 }

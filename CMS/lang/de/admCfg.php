@@ -8,6 +8,7 @@ $lang+=Array(
 'latest'=>'Neuesteitemsliste',
 'emots'=>'Emoticons',
 'ua'=>'Benutzerkonten',
+'setup'=>'Setup-Einstellungen',
 
 /* OPTIONEN */
 'defLang'=>'Standard Sprache',
@@ -73,6 +74,9 @@ $lang+=Array(
 'commSort1'=>'Absteigend',
 'commSort2'=>'Ansteigend',
 'hideTitle'=>'Hide Feld Titel',
+'commPhoto'=>'Benutzerprofil Avatare',
+'native'=>'Nur lokale',
+'gravatar'=>'Standard Gravatar Bild',
 'colorCode'=>'Code in [code] highlighten',
 'blacklist'=>'IP-Adresse auf Schwarzeliste prüfen',
 'moderate'=>'Kommentare Moderation',
@@ -149,6 +153,7 @@ $lang+=Array(
 'login1'=>'Nur lateinisches Alphabet, Ziffern, Space, _ -',
 'login2'=>'Jede Letters, Ziffern, Space, _ . - (empfohlen)',
 'login3'=>'Jede Schriftbild ohne: ? / # & = (abgeraten)',
+'nomail'=>'Versteckt E-Mail-Feld',
 
 'photo'=>'Avatars und Fotos',
 'upload'=>'Fotos Upload',
@@ -169,4 +174,8 @@ $lang+=Array(
 'file' =>'File',
 'addemo'=>'Neues Emoticon',
 'emotxt'=>'1. Emoticons befinden sich in <b>img/emo</b>.<br />2. Emoticon Löschung will File aus Server nicht löschen.',
-);
+
+/* SETUP */
+'url'=>'Exakte Adresse der Website',
+'path'=>'Weg zum System',
+'db'=>'Datenbank');

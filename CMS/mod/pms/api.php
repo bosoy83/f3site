@@ -109,13 +109,15 @@ class PM
 	#Czy skrzynka jest pe³na?
 	function inboxFull($user=null)
 	{
+		global $cfg;
 		if(!$user) $user = $this->to;
-		return dbCount('pms WHERE owner='.(int)$user) >= $GLOBALS['cfg']['pmLimit'];
+		return dbCount('pms WHERE owner='.(int)$user) >= $cfg['pmLimit'];
 	}
 
 	#Usuñ wiadomo¶ci
 	function delete($id)
 	{
+		global $db;
 		if(is_array($id))
 		{
 			$in = array();
@@ -127,15 +129,15 @@ class PM
 		}
 		else return false;
 
-		$GLOBALS['db']->exec('DELETE FROM '.PRE.'pms WHERE ID IN ('.join(',', $in).')');
-		return $GLOBALS['db']->rowCount(); //Zwróæ ilo¶æ usuniêtych wiadomo¶ci
+		$db->exec('DELETE FROM '.PRE.'pms WHERE ID IN ('.join(',', $in).')');
+		return $db->rowCount(); //Zwróæ ilo¶æ usuniêtych wiadomo¶ci
 	}
 }
 
 #Pobierz ID u¿ytkownika
 function userID($login)
 {
-	global $db;
+	global $db,$lang;
 
 	if($id = (int)$db->query('SELECT ID FROM '.PRE.'users WHERE login='.$db->quote($login))->fetchColumn())
 	{
@@ -143,6 +145,6 @@ function userID($login)
 	}
 	else
 	{
-		throw new Exception($GLOBALS['lang']['pm20']);
+		throw new Exception($lang['pm20']);
 	}
 }

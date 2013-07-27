@@ -15,6 +15,13 @@ function typeOf($x)
 	}
 }
 
+#Get all users - FETCH_COLUMN
+function authors(PDO $db=null)
+{
+	if(!$db) global $db;
+	return $db->query('SELECT login FROM '.PRE.'users')->fetchAll(7);
+}
+
 #Najnowsze pozycje
 function Latest($lang=array())
 {
@@ -220,6 +227,7 @@ function SetItems($id,$ile)
 #Lista podkategorii
 function Slaves($type=0,$id=0,$o=null)
 {
+	global $db;
 	$where = array();
 	if(is_numeric($o)) $where[]='ID!='.$o;
 
@@ -234,7 +242,7 @@ function Slaves($type=0,$id=0,$o=null)
 	}
 
 	#Odczyt
-	$res = $GLOBALS['db']->query('SELECT ID,name,access,lft,rgt FROM '.PRE.'cats'.
+	$res = $db->query('SELECT ID,name,access,lft,rgt FROM '.PRE.'cats'.
 		(($where)?' WHERE '.join(' AND ',$where):'').' ORDER BY lft');
 	$depth = 0;
 	$last = 1;

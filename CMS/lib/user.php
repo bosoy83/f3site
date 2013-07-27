@@ -1,6 +1,6 @@
-<?php //Funkcje u¿ytkowników
+<?php //User functions
 
-#Lista poziomów
+#Level list
 function LevelList($sel=null,$owner=0,$locked=0)
 {
 	global $lang;
@@ -12,10 +12,11 @@ function LevelList($sel=null,$owner=0,$locked=0)
 	'<option value="4"'.(($sel==4 || $sel=='all')?' selected="selected"':'').'>'.$lang['owner'].'</option>':'');
 }
 
-#Grupy
+#Groups
 function GroupList($sel=null)
 {
-	$res = $GLOBALS['db']->query('SELECT ID,name FROM '.PRE.'groups');
+	global $db;
+	$res = $db->query('SELECT ID,name FROM '.PRE.'groups');
 	$res->setFetchMode(3); //NUM
 	$out = '';
 	foreach($res as $g)

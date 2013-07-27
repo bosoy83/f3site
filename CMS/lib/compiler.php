@@ -1,4 +1,4 @@
-<?php /* Kompilator szablonów */
+<?php //Template compiler
 class Compiler
 {
 	protected
@@ -6,14 +6,14 @@ class Compiler
 		$replace1,
 		$replace2;
 	public
-		$removePHP, //Ustaw na TRUE, aby usuwaæ kod PHP z szablonów
+		$removePHP, //Set TRUE to delete PHP code from templates
 		$src = SKIN_DIR,
 		$cache = VIEW_DIR,
 		$file,
 		$debug,
 		$byteCode;
 
-	#Zbadaj pliki skórki i skompiluj zmodyfikowane
+	#Compile everything at once if modified
 	function examine()
 	{
 		if(!$f = opendir($this->src))
@@ -26,23 +26,23 @@ class Compiler
 			{
 				if(filemtime($this->src.$x) > @filemtime($this->cache.$x))
 				{
-					$this->compile($x); //Kompiluj
+					$this->compile($x);
 				}
 			}
 		}
 	}
 
-	#Kompiluj
+	#Compile template
 	function compile($file, $src=null, $cache=null)
 	{
-		#Katalog ¼ród³owy i cache
+		#Source and cache folder
 		if(!isset($src)) $src = $this->src;
 		if(!isset($cache)) $cache = $this->cache;
 
-		#Rozszerzenie
+		#Add file extension
 		if(!strpos($file, '.html')) $file .= '.html';
 
-		#Katalog cache nie istnieje?
+		#Try to create folder if does not exist
 		if(!is_dir($cache))
 		{
 			if(ini_get('safe_mode'))
@@ -55,7 +55,7 @@ class Compiler
 			}
 		}
 
-		#Prawa zapisu
+		#Check write rights
 		if(!is_writable($cache))
 		{
 			throw new Exception(sprintf('ERROR: You must CHMOD folder %s to 777 via FTP', $cache));
@@ -68,7 +68,7 @@ class Compiler
 		#Debug
 		if($this->debug) echo 'Compiling file: '.$file.'... ';
 
-		#Istnieje?
+		#Find template
 		if(file_exists($src.$file))
 		{
 			$this->data = file_get_contents($src.$file);
@@ -82,10 +82,10 @@ class Compiler
 			throw new Exception('ERROR: Template '.$file.' does not exist!');
 		}
 
-		#Nazwa pliku
+		#Store filename in object
 		$this->file = $file;
 
-		#Wyrzuæ PHP (code stolen from PhpBB 3 - GPL v2 forum)
+		#Remove PHP (code stolen from PhpBB 3)
 		if($this->removePHP)
 		{
 			$this->data = preg_replace( array(
@@ -94,10 +94,10 @@ class Compiler
 				'#<\?php(?:\r\n?|[ \n\t]).*?\?>#s'), '', $this->data);
 		}
 
-		#Gdy istniej± formularze
+		#Process forms
 		if(($pos = strpos($this->data, '<form')) !== false) $this->forms($pos);
 
-		#Sta³e predefiniowane i niepotrzebne znaki
+		#Predefined constants and useless characters
 		$in = array(
 			'{CONTENT}', '{LEFT MENU}', '{RIGHT MENU}', '{LANG}', '{MENU}',
 			'{CATS URL}', '{MAIN TITLE}', '{PAGE TITLE}', '{DESCRIPTION}',
@@ -120,7 +120,7 @@ class Compiler
 			'', "\n"
 		);
 
-		#Automatycznie wstaw dodatkowe tagi do HEAD
+		#Add RSS,CSS,JS tags into HEAD
 		if($file == 'body.html' || $file == 'admin.html')
 		{
 			$in[] = '</head>';
@@ -128,10 +128,10 @@ class Compiler
 		}
 		$this->data = str_ireplace($in, $out, $this->data);
 
-		#Pêtle
+		#Process loops
 		while(($pos = strpos($this->data,'<!-- START')) !== false) $this->checkLoop($pos);
 
-		#Do zamiany
+		#Variables, arrays, objects
 		$in = array(
 			'/\{this\.([A-Za-z0-9:_ ]+)\}/', //Obiekt $this
 			'/\{([A-Za-z0-9_]+)\.([0-9]+)\}/', //Tablice numeryczne
@@ -160,25 +160,25 @@ class Compiler
 
 		$this->data = preg_replace($in, $out, $this->data);
 
-		#Zbadaj IF
+		#Process IFs
 		$pos = 0;
 		if(($pos = strpos($this->data,'<!-- IF')) !== false) $this->checkIF($pos);
 
-		#Zamieñ IF i ELSE
+		#Replace IF and ELSE
 		$this->data = str_replace($this->replace1, $this->replace2, $this->data, $c1);
 		$this->data = str_replace('<!-- END -->', '<?php } ?>', $this->data, $c2);
 		$this->data = str_replace('<!-- ELSE -->', '<?php }else{?>', $this->data, $c3);
 
-		#Tyle samo IF, END i ELSE?
+		#Compare IF and ELSE amount
 		if($c1 != $c2 OR $c3 > $c1) { throw new Exception('IF condition is not closed in '.$this->file); }
 
-		#Optymalizacja otwaræ PHP
+		#Optimize PHP openings
 		$this->data = str_replace( array('?><?php', "?>\n<?php"), array('',''), $this->data);
 
-		#Wyrzuæ komentarze HTML
+		#Drop HTML comments
 		$this->data = preg_replace('#\<!--(.|\s)*?--\>#', '', $this->data);
 
-		#Zapisz
+		#Store as byte code or text
 		if($this->byteCode && extension_loaded('bcompiler'))
 		{
 			if(file_put_contents($cache.'-temp.php', $this->data) !== false)
@@ -206,13 +206,13 @@ class Compiler
 		throw new Exception('ERROR: Cannot save template: '.$file);
 	}
 
-	#Pêtle
+	#Loops
 	protected function checkLoop($pos)
 	{
-		#Poziom zag³êbienia
+		#Depth level
 		static $lv = 1;
 
-		#Dalsze pêtle?
+		#More loops inside?
 		if(($pos2 = strpos($this->data, '<!-- START',$pos+9)) !== false)
 		{
 			if(strpos($this->data,'<!-- STOP',$pos) > $pos2)
@@ -221,20 +221,20 @@ class Compiler
 			}
 		}
 
-		#Zmienna dla pêtli FOREACH (foreach $zmienna as $item)
+		#Find array name and contents
 		$frag = substr($this->data, $pos, strpos($this->data, '<!-- STOP -->')-$pos+13);
 		$len  = strlen($frag);
 		$end  = strpos($frag, ' -->');
 		$var  = substr($frag, 11, $end-11);
 
-		#Poprawno¶æ zmiennej
+		#Check variable correctness
 		if(!ctype_alpha($var[0]) || !ctype_alnum($var))
 		{
 			throw new Exception(sprintf('Wrong variable name %s in START command in %s on line %d!',
 			$var, $this->file, $pos));
 		}
 
-		#Klucz?
+		#KEY and ITEM contants
 		if(strpos($frag, '{KEY}'))
 		{
 			$frag = str_replace('{KEY}', '<?php echo $key;?>', $frag);
@@ -246,7 +246,7 @@ class Compiler
 		}
 		$frag = str_replace('{ITEM}', '<?php echo $i'.$lv.';?>', $frag);
 
-		#Gdy zmienna var jest kluczem tablicy
+		#Array name
 		if($lv > 1)
 		{
 			$lv2 = 2;
@@ -259,13 +259,13 @@ class Compiler
 			$full = $var;
 		}
 
-		#Zamieñ definicjê pêtli
+		#Replace loop definition
 		$frag = str_replace('<!-- START '.$var.' -->', '<?php foreach($'.$full.' as '.$key.$lv.'){?>', $frag);
 
-		#Koniec pêtli
+		#End loop
 		$frag = substr_replace($frag, '<?php } ?>', -13);
 
-		#Zmienne i IF
+		#Simple access to array elements
 		$frag = preg_replace(
 			array(
 				'/\{([A-Za-z0-9_]+)\}/',
@@ -277,11 +277,11 @@ class Compiler
 				'<!-- IF i'.$lv.'.\\1\\2 -->'),
 			$frag);
 
-		#Zaktualizuj zmiany
+		#Update changes
 		$this->data = substr_replace($this->data, $frag, $pos, $len);
 	}
 
-	#Formularze
+	#Forms
 	protected function forms($pos)
 	{
 		$end  = strpos($this->data, '</form>')-$pos+7;
@@ -289,10 +289,10 @@ class Compiler
 		$in  = array();
 		$out = array();
 
-		#Domy¶lna tablica
+		#Default array
 		preg_match('#f3:array="([A-Za-z0-9_].*?)"#i', $form, $array);
 
-		#Tryb isset dla checkbox
+		#Isset mode for checkbox
 		$isset = stripos($form, 'f3:mode="isset"') ? true : false;
 
 		if($array OR strpos($form, 'f3:var'))
@@ -300,7 +300,7 @@ class Compiler
 			if($array) $form = str_replace(array(' '.$array[0], ' f3:mode="isset"'), '', $form);
 			preg_match_all('#<input.*?type="(checkbox|radio)".*?>#i', $form, $inputs);
 
-			#Pobierz atrybuty i z³ó¿ tagi
+			#Get attibutes and join again
 			foreach($inputs[0] as $tag)
 			{
 				preg_match_all('/\s?(\S+)="([^"]*)"/i', $tag, $list);
@@ -316,7 +316,7 @@ class Compiler
 				}
 				else continue;
 
-				#Pola CHECKBOX
+				#Checkbox
 				if($attr['type']==='checkbox' && !$isset)
 				{
 					$out[] = '<input'.join('',$list[0]).'<?php if('.$var.') echo \' checked="checked"\'?> />';
@@ -325,7 +325,7 @@ class Compiler
 				{
 					$out[] = '<input'.join('',$list[0]).'<?php if(isset('.$var.')) echo \' checked="checked"\'?> />';
 				}
-				#Pola RADIO
+				#Radio
 				else
 				{
 					$out[] = '<input'.join('',$list[0]).'<?php if('.$var.'=='.((is_numeric($attr['value'])) ? $attr['value'] : '\''.$attr['value'].'\'').') echo \' checked="checked"\'?> />';
@@ -365,14 +365,20 @@ class Compiler
 		if(($pos = strpos($this->data, '<form', $pos+7)) !== false) $this->forms($pos);
 	}
 
-	#Instrukcje warunkowe
+	#Conditional statements
 	protected function checkIF($pos)
 	{
 		#Fragment
 		$frag = substr($this->data, $pos, strpos($this->data, ' -->', $pos)-$pos+4);
 		$cond = substr($frag, 8, -4);
 
-		/* Wersja bardziej nara¿ona na luki, ale elastyczna: */
+		#Macros
+		$cond = str_replace(
+			array('USER IS LOGGED IN', 'USER LOGGED IN', 'USER NOT LOGGED IN', 'USER IS GUEST', 'NOT '),
+			array('UID', 'UID', '!UID', '!UID', '!'),
+			$cond);
+		
+		#Remove unwanted characters
 		$cond = str_replace( array(')', '(', '`', '@', '/', '\\'), '', $cond);
 		$part = explode(' ', $cond);
 		$cond = array();
@@ -391,16 +397,16 @@ class Compiler
 			}
 		}
 
-		#Dopisz do zamiany
+		#Add to further replace
 		$this->replace1[] = $frag;
 		$this->replace2[] = '<?php if('.join(' ', $cond).'){ ?>';
 
-		#Inne IF?
+		#Other IF
 		if($pos = strpos($this->data, '<!-- IF', $pos+1)) $this->checkIF($pos);
 	}
 }
 
-#Zapisz zmienn± do PHP
+#Format variable name
 function f3var($x)
 {
 	$x = trim($x);

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="{LANG}">
 <head>
-	<title>{PAGE TITLE} @ {MAIN TITLE}</title>
+	<title>{PAGE TITLE} - {MAIN TITLE}</title>
 	<meta name="robots" content="noindex">
-	<base href="{URL}..">
+	<base href="{URL}">
 	<link rel="stylesheet" type="text/css" href="style/system/styles.css">
 	<link rel="stylesheet" type="text/css" href="style/system/admin.css">
 	<script type="text/javascript" src="lib/js.js"></script>
@@ -21,11 +21,15 @@
 	<div id="main" class="admin" style="overflow:visible">{CONTENT}</div>
 	<div id="left">
 		<div class="mh">Menu</div>
-		<div class="menu">{menu}</div>
+		<div class="admenu">
+			<!-- START menu -->
+			<a href="{url}" class="A{class}">{text}</a>
+			<!-- STOP -->
+		</div>
 	</div>
 </div>
 <footer>
-	<div class="copyright">&copy; 2005-2012 COMPMaster</div>
+	<div class="copyright">&copy; 2005-2013 COMPMaster</div>
 	<div class="links"><a href="login.php?logout">{lang.logout}</a></div>
 </footer>
 </body>

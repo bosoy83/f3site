@@ -5,8 +5,8 @@
 <table cellspacing="1" class="tb" style="line-height: 18px">
 <caption>{lang.comms}</caption>
 <colgroup>
-	<col style="width: 130px" />
-	<col />
+	<col style="width: 130px" >
+	<col >
 </colgroup>
 <tbody>
 
@@ -29,20 +29,20 @@
 
 		<!-- IF photo -->
 		<div style="text-align: center; margin: 2px; overflow: hidden">
-			<img src="{photo}" alt="{user}" />
+			<img src="{photo}" alt="{user}" >
 		</div>
 		<!-- END -->
 		
 		<!-- IF del -->
-		<a href="{del}" onclick="return coma('del',this)"><img src="img/icon/del.png" alt="-" /></a>
+		<a href="{del}" onclick="return coma('del',this)"><img src="img/icon/del.png" alt="-" ></a>
 		<!-- END -->
 
 		<!-- IF edit -->
-		<a href="{edit}"><img src="img/icon/edit.png" alt="E" /></a>
+		<a href="{edit}"><img src="img/icon/edit.png" alt="E" ></a>
 		<!-- END -->
 		
 		<!-- IF accept -->
-		<a href="{accept}" onclick="return coma('ok',this)"><img src="img/icon/accept.png" alt="+" /></a>
+		<a href="{accept}" onclick="return coma('ok',this)"><img src="img/icon/accept.png" alt="+" ></a>
 		<!-- END -->
 
 	</td>
@@ -80,7 +80,6 @@
 <script type="text/javascript">
 include('lib/comm.js')
 <!-- IF color -->
-include('lib/prettify/prettify.css')
-include('lib/prettify/prettify.js', function() { prettyPrint() })
+include('lib/prettify/run_prettify.js', function() { prettyPrint() })
 <!-- END -->
 </script>

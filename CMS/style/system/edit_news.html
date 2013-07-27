@@ -9,29 +9,29 @@
 </tr>
 <tr>
 	<td><b>2. {lang.title}:</b></td>
-	<td><input maxlength="50" name="name" value="{news.name}" required="required" /></td>
+	<td><input maxlength="50" name="name" value="{news.name}" required="required" ></td>
 </tr>
 <tr>
 	<td><b>3. {lang.publish}:</b></td>
-	<td><input type="checkbox" name="access" /></td>
+	<td><input type="checkbox" name="access" ></td>
 </tr>
 <tr>
 	<td><b>4. {lang.img}:</b></td>
 	<td>
-		<input name="img" value="{news.img}" />
+		<input name="img" value="{news.img}" >
 		<!-- IF fileman -->
-		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.img)" />
+		<input type="button" value="{lang.images} &raquo;" onclick="fileman('img',this.form.img)" >
 		<!-- END -->
 	</td>
 </tr>
 <tr>
 	<td><b>5. {lang.opt}:</b></td>
 	<td>
-		<label><input type="checkbox" name="br" /> {lang.br}</label><br />
-		<label><input type="checkbox" name="emo" /> {lang.emoon}</label><br />
-		<!--<label><input type="checkbox" name="com" /> {lang.comon}</label><br />-->
-		<!--<label><input type="checkbox" name="pin" /> {lang.pin}</label><br />-->
-		<label><input type="checkbox" name="fn" onclick="FN()" /> {lang.ftxt}</label>
+		<label><input type="checkbox" name="br" > {lang.br}</label><br >
+		<label><input type="checkbox" name="emo" > {lang.emoon}</label><br >
+		<!--<label><input type="checkbox" name="com" > {lang.comon}</label><br >-->
+		<!--<label><input type="checkbox" name="pin" > {lang.pin}</label><br >-->
+		<label><input type="checkbox" name="fn" onclick="FN()" > {lang.ftxt}</label>
 	</td>
 </tr>
 <tr>
@@ -57,10 +57,10 @@
 <tfoot>
 <tr>
 	<td class="eth" colspan="2">
-		<input type="button" value="{lang.preview}" onclick="P()" />
-		<input type="submit" value="{lang.save}" style="font-weight: bold" />
+		<input type="button" value="{lang.preview}" onclick="P()" >
+		<input type="submit" value="{lang.save}" style="font-weight: bold" >
 		<!-- IF id -->
-		<input type="submit" name="asNew" value="{lang.asNew}" />
+		<input type="submit" name="asNew" value="{lang.asNew}" >
 		<!-- END -->
 	</td>
 </tr>
@@ -95,7 +95,7 @@ function FN(x)
 function P()
 {
 	e.preview({NL: f.br.checked, EMOTS: f.emo.checked}, null,
-	(f.img.value && '<img src="'+f.img.value+'" class="newsimg" />')+f.txt.value+'<br /><br />'+f.text.value);
+	(f.img.value && '<img src="'+f.img.value+'" class="newsimg" >')+f.txt.value+'<br ><br >'+f.text.value);
 }
 if(done==1) FN(1);
 include('lib/forms.js')

@@ -3,7 +3,7 @@
 'sex'=>'Gender',
 'male'=>'Male',
 'vague'=>'Not specified',
-'female'=>'Kobieta',
+'female'=>'Female',
 'joined'=>'Joined',
 'lastv'=>'Last visit',
 'isNow'=>'user is online',

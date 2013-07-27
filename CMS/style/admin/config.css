@@ -12,13 +12,15 @@ ul.config li {
 	float: left
 }
 ul.config a {
-	padding: 22px 0 22px 75px;
+	padding: 16px 0 16px 60px;
 	display: block;
 }
-li.c1 {background-image: url(../../img/admin/c1.png)}
-li.c2 {background-image: url(../../img/admin/c2.png)}
-li.c3 {background-image: url(../../img/admin/c3.png)}
-li.c4 {background-image: url(../../img/admin/c4.png)}
-li.c5 {background-image: url(../../img/admin/c6.png)}
-li.c6 {background-image: url(../../img/admin/c5.png)}
-li.c7 {background-image: url(../../img/admin/c7.png)}
+li.c1 {background-image: url(../../img/admin/spanner.png)}
+li.c2 {background-image: url(../../img/admin/paper.png)}
+li.c3 {background-image: url(../../img/admin/mail.png)}
+li.c4 {background-image: url(../../img/admin/users.png)}
+li.c5 {background-image: url(../../img/admin/smile.png)}
+li.c6 {background-image: url(../../img/admin/censor.png)}
+li.c7 {background-image: url(../../img/admin/rss.png); background-position: 2px 3px}
+li.c8 {background-image: url(../../img/admin/latest.png); background-position: 5px 1px}
+li.c9 {background-image: url(../../img/admin/box.png); background-position: 1px -4px}

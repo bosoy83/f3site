@@ -1,4 +1,4 @@
-<form action="" method="post" f3:array="rights" f3:mode="isset">
+<form method="post" f3:array="rights" f3:mode="isset">
 <h1>{this.title}</h1>
 
 <table cellspacing="1" class="tb">
@@ -16,23 +16,23 @@
 		</fieldset>
 		<fieldset>
 		<legend>{lang.global}</legend>
-			<label><input type="checkbox" name="CM" /> {lang.manComm}</label><br />
-			<label><input type="checkbox" name="TAG" /> {lang.manTag}</label><br />
-			<label><input type="checkbox" name="FM" /> {lang.fileMan}</label><br />
-			<label><input type="checkbox" name="UP" /> {lang.fileMan2}</label><br /><br />
-			<label><input type="checkbox" name="C" /> {lang.cats}</label><br />
-			<label><input type="checkbox" name="Q" /> {lang.polls}</label><br />
-			<label><input type="checkbox" name="P" /> {lang.ipages}</label><br />
-			<label><input type="checkbox" name="R" /> RSS</label><br /><br />
-			<label><input type="checkbox" name="U" /> {lang.users} + {lang.admins}</label><br />
-			<label><input type="checkbox" name="G" /> {lang.groups}</label><br />
-			<label><input type="checkbox" name="L" /> {lang.log}</label><br />
-			<label><input type="checkbox" name="M" /> {lang.mailing}</label><br /><br />
-			<label><input type="checkbox" name="CFG" /> {lang.config}</label><br />
-			<label><input type="checkbox" name="DB" /> {lang.dbcopy}</label><br />
-			<label><input type="checkbox" name="N" /> {lang.nav}</label><br />
-			<label><input type="checkbox" name="B" /> {lang.ads}</label><br />
-			<label><input type="checkbox" name="E" /> {lang.plugs}</label>
+			<label><input type="checkbox" name="CM"> {lang.manComm}</label><br>
+			<label><input type="checkbox" name="TAG"> {lang.manTag}</label><br>
+			<label><input type="checkbox" name="FM"> {lang.fileMan}</label><br>
+			<label><input type="checkbox" name="UP"> {lang.fileMan2}</label><br><br>
+			<label><input type="checkbox" name="C"> {lang.cats}</label><br>
+			<label><input type="checkbox" name="Q"> {lang.polls}</label><br>
+			<label><input type="checkbox" name="P"> {lang.ipages}</label><br>
+			<label><input type="checkbox" name="R"> RSS</label><br><br>
+			<label><input type="checkbox" name="U"> {lang.users} + {lang.admins}</label><br>
+			<label><input type="checkbox" name="G"> {lang.groups}</label><br>
+			<label><input type="checkbox" name="L"> {lang.log}</label><br>
+			<label><input type="checkbox" name="M"> {lang.mailing}</label><br><br>
+			<label><input type="checkbox" name="CFG"> {lang.config}</label><br>
+			<label><input type="checkbox" name="DB"> {lang.dbcopy}</label><br>
+			<label><input type="checkbox" name="N"> {lang.nav}</label><br>
+			<label><input type="checkbox" name="B"> {lang.ads}</label><br>
+			<label><input type="checkbox" name="E"> {lang.plugs}</label>
 		</fieldset>
 
 		<!-- IF plugins -->
@@ -45,14 +45,14 @@
 	<td style="width: 50%">
 		<fieldset>
 			<legend>{lang.cats}</legend>
-			<label><input type="checkbox" name="+" /> {lang.global}</label>
+			<label><input type="checkbox" name="+"> {lang.global}</label>
 			<div style="padding: 5px 0 0 3px"><small>{lang.allCat}</small></div>
 		</fieldset>
 		{cats}
 	</td>
 </tr>
 <tr>
-	<td colspan="2" class="eth"><input type="submit" value="{lang.save}" /></td>
+	<td colspan="2" class="eth"><input type="submit" value="{lang.save}"></td>
 </tr>
 </table>
 </form>

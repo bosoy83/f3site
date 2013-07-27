@@ -9,10 +9,10 @@ class Saver
 
 	function __construct(&$data, $id, $table, $cols='cat,access,author')
 	{
-		//Stare dane
-		if($id)
+		global $db,$lang;
+		if($id) //Stare dane
 		{
-			$this->old = $GLOBALS['db']->query('SELECT '.$cols.' FROM '.PRE.$table.' WHERE ID='.$id)->fetch(2);
+			$this->old = $db->query('SELECT '.$cols.' FROM '.PRE.$table.' WHERE ID='.$id)->fetch(2);
 			$this->old_cat = $this->old ? $this->old['cat'] : null;
 		}
 		else
@@ -27,17 +27,17 @@ class Saver
 		//Dane istniej±?
 		if($this->old_cat !== null)
 		{
-			$GLOBALS['db']->beginTransaction();
+			$db->beginTransaction();
 		}
 		else
 		{
-			throw new Exception($GLOBALS['lang']['noex']);
+			throw new Exception($lang['noex']);
 		}
 
 		//Prawa do kategorii
 		if(!admit($this->data['cat'], 'CAT') || ($this->data['cat'] != $this->old_cat && !admit($this->old_cat, 'CAT')))
 		{
-			throw new Exception($GLOBALS['lang']['nor']); //Skoñcz
+			throw new Exception($lang['nor']); //Skoñcz
 		}
 
 		//Autor
@@ -72,7 +72,8 @@ class Saver
 		#OK
 		try
 		{
-			$GLOBALS['db']->commit(); return true;
+			global $db;
+			$db->commit(); return true;
 		}
 		catch(PDOException $e)
 		{

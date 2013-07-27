@@ -4,13 +4,13 @@ function RenderMenu(PDO $db = null)
 	if(!$db) global $db;
 	if(!is_writable('cache')) throw new Exception('ERROR: You must chmod /cache/ directory to 777');
 
-	#Odczyt bloków - ASSOC
+	#Read blocks - ASSOC
 	$block = $db->query('SELECT * FROM '.PRE.'menu WHERE disp!=2 ORDER BY seq')->fetchAll(2);
 
-	#Odczyt linków menu - NUM
+	#Read links - NUM
 	$items = $db->query('SELECT menu,text,type,url,nw FROM '.PRE.'mitems ORDER BY seq')->fetchAll(3);
 
-	#Jêzyki
+	#Languages
 	foreach(scandir('lang') as $dir)
 	{
 		if($dir[0]=='.' || !is_dir('lang/'.$dir)) continue;
@@ -31,10 +31,13 @@ function RenderMenu(PDO $db = null)
 			{
 				case 1: $out[$page] .= $b['value']; break;
 				case 2: $out[$page] .= '<?php include \''.str_replace(array('\'','\\'),array('\\\'','\\\\'),$b['value']).'\'?>'; break;
-				case 4: $got = file_get_contents($b['value']);
-					if(substr_count($got,'<?') > substr_count($got,'?>')) $got .= ' ?>';
-					$out[$page] .= $got;
-					break;
+				case 4: $out[$page] .= s($b['value']); break;
+				case 5: $out[$page] .= s('mod/panels/cats.php'); break;
+				case 6: $out[$page] .= s('mod/panels/new.php'); break;
+				case 7: $out[$page] .= s('mod/panels/online.php'); break;
+				case 8: $out[$page] .= s('mod/panels/pages.php'); break;
+				case 9: $out[$page] .= s('mod/panels/poll.php'); break;
+				case 10: $out[$page].= s('mod/panels/user.php'); break;
 				default:
 
 				$links = '';
@@ -67,4 +70,10 @@ function RenderMenu(PDO $db = null)
 		#Zapisz
 		file_put_contents('./cache/menu'.$dir.'.php', $out, 2); //2 = LOCK_EX
 	}
+}
+function s($x)
+{
+	$got = file_get_contents($x);
+	if(substr_count($got,'<?') > substr_count($got,'?>')) $got .= ' ?>';
+	return $got;
 }

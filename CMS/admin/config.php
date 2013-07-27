@@ -29,5 +29,7 @@ $content->add('config', array(
 	'items' => url('configContent', null, 'admin'),
 	'main'  => url('configMain', null, 'admin'),
 	'email' => url('configEmail', null, 'admin'),
-	'users' => url('configUsers', null, 'admin')
+	'users' => url('configUsers', null, 'admin'),
+	'rss'   => url('rss', null, 'admin'),
+	'setup' => url('setup', null, 'admin')
 ));

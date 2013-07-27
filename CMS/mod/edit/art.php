@@ -150,5 +150,6 @@ $content->add('edit_art', array(
 	'art' => &$art,
 	'id'  => $id,
 	'full' => &$full,
-	'cats' => Slaves(1,$art['cat'])
+	'cats' => Slaves(1,$art['cat']),
+	'author' => authors()
 ));

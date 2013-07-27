@@ -8,6 +8,7 @@ $lang+=Array(
 'latest'=>'Lista najnowszych pozycji',
 'emots'=>'Emotikony',
 'ua'=>'Konta użytkowników',
+'setup'=>'Ustawienia instalacji',
 
 /* OPCJE OGÓLNE */
 'defLang'=>'Domyślny język',
@@ -73,6 +74,9 @@ $lang+=Array(
 'commSort1'=>'Od najnowszego',
 'commSort2'=>'Od najstarszego',
 'hideTitle'=>'Ukryj pole Tytuł',
+'commPhoto'=>'Wyświetlaj zdjęcia profilowe',
+'native'=>'Tylko lokalne',
+'gravatar'=>'Domyślny obrazek Gravatar',
 'colorCode'=>'Koloruj kod w znaczniku [code]',
 'blacklist'=>'Sprawdzaj adres IP na czarnej liście',
 'moderate'=>'Cenzura komentarzy',
@@ -149,6 +153,7 @@ $lang+=Array(
 'login1'=>'Tylko znaki alfabetu łacińskiego, cyfry, odstępy, _ -',
 'login2'=>'Dowolne litery, cyfry, odstępy, _ . - (zalecane)',
 'login3'=>'Dowolne znaki oprócz: ? / # & = (niezalecane)',
+'nomail'=>'Ukryj pole E-mail',
 
 'photo'=>'Zdjęcia i awatary',
 'upload'=>'Wysyłanie zdjęć na serwer',
@@ -169,4 +174,8 @@ $lang+=Array(
 'file' =>'Plik',
 'addemo'=>'Dodaj emotikonę',
 'emotxt'=>'1. Emotikony znajdują się w katalogu <b>img/emo</b>.<br />2. Po wybraniu nazwy pliku, emotikon wyświetli się po lewej stronie.<br />3. Usunięcie emotikony nie skasuje pliku z serwera.',
-);
+
+/* INSTALACJA */
+'url'=>'Pełny adres witryny',
+'path'=>'Ścieżka do systemu',
+'db'=>'Baza danych');

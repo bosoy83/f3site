@@ -1,7 +1,7 @@
 Rozpowszechnianie i licencja
 ============================
 
-F3Site 2012 - (C) 2005-2012 COMPMaster - compmaster.prv.pl
+F3Site 2013 - (C) 2005-2013 COMPMaster - compmaster.prv.pl
 
 Niniejszy program jest wolnym oprogramowaniem - możesz go rozpowszechniać dalej i/lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU wydanej przez Fundację Wolnego Oprogramowania, według wersji 3 tej Licencji lub dowolnej z późniejszych wersji.
 
@@ -40,18 +40,30 @@ Instalacja
 * katalogi: FILES, IMG - 777 (nieobowiązkowo)
 * katalogi: IMG/USER - 777 (wymagane, aby użytkownicy mogli wgrywać zdjęcia)
 
-3. Przejdź do katalogu INSTALL w przeglądarce internetowej, wpisując: http://adres.strony.pl/install/
+3. Przejdź do katalogu INSTALL w przeglądarce internetowej, wpisując: http://adres-strony/install/
 Aby instalacja przebiegła poprawnie, użytkownik bazy danych musi mieć do niej pełne prawa.
 
 4. Jeżeli widzisz tylko białą stronę lub błąd 500, przeczytaj ostatnią sekcję tego pliku dotyczącą .htaccess.
 
-5. Instalator wprowadzi rekordy do bazy danych dla WSZYSTKICH dostępnych na serwerze języków.
+5. Instalator usunie WSZYSTKIE istniejące tabele z bazy danych z tym samym prefiksem nazw.
 
-6. Instalator usunie WSZYSTKIE istniejące tabele z bazy danych z tym samym prefiksem nazw.
+6. Po instalacji USUŃ KATALOG INSTALL!
 
-7. Po instalacji USUŃ KATALOG INSTALL!
+7. Zaloguj się i dostosuj system w panelu administracyjnym.
 
-8. Zaloguj się i dostosuj system w panelu administracyjnym.
+
+Przyjazne adresy
+================
+
+Aby używać przyjaznych adresów, serwer musi obsługiwać mod_rewrite. Odwiedź dział pomocy firmy hostingowej. Jeśli funkcja jest dostępna, a nie działa, dopisz linijkę RewriteBase do pliku .htaccess. Przykład:
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.+) index.php?go=$1 [L,QSA]
+
+Druga opcja uaktywnia przyjazne adresy bez mod_rewrite. Serwer musi obsługiwać PATH_INFO.
 
 
 Aktualizacje i pomoc techniczna
@@ -71,15 +83,15 @@ Możesz zwiększyć możliwości systemu za pomocą rozszerzeń. Przed instalacj
 Bezpieczeństwo
 ==============
 
-1. Co pewien czas utwórz KOPIĘ BAZY DANYCH.
+1. Co pewien czas utwórz kopię bazy danych i przechowuj w poufnym miejscu.
 
 2. Po instalacji nadaj plikowi cfg/db.php prawa 444 (tylko odczyt).
 
 3. NIKOMU NIE PODAWAJ SWOJEGO HASŁA! JEŻELI KORZYSTASZ Z INTERNETU W MIEJSCACH PUBLICZNYCH, ZAWSZE WYLOGUJ SIĘ PO ODEJŚCIU OD KOMPUTERA! JEŻELI TO MOŻLIWE, UAKTYWNIJ TRYB PRYWATNY W PRZEGLĄDARCE.
 
-4. Chroń swój komputer programem antywirusowym z AKTUALNĄ BAZĄ WIRUSÓW! Po sieci krąży koń trojański, który kradnie hasła z programów do obsługi FTP, a następnie dodaje ukryte ramki <iframe> prowadzące do niebezpiecznych witryn i skrypty JavaScript do plików stron na serwerze! Jeżeli zobaczysz jakiekolwiek objawy wskazujące na działalność trojana (np. nowe znaczniki w źródle strony), koniecznie zmień hasła do serwerów FTP, przeskanuj komputer i załaduj ponownie czyste pliki.
+4. Chroń swój komputer programem antywirusowym z aktualną bazą wirusów! Istnieje koń trojański, który kradnie zapisane hasła z klientów FTP, a następnie dodaje ukryte ramki <iframe> i złośliwe skrypty JavaScript do plików na serwerze! Jeżeli zobaczysz jakiekolwiek objawy (ostrzeżenia, nowe znaczniki w źródle strony), koniecznie przeskanuj komputer, zmień hasła do serwerów FTP i załaduj ponownie czyste pliki.
 
-5. Jeżeli używasz bazy danych SQLite, umieść plik .db w folderze prywatnym, np. POZA [www] lub [htdocs].
+5. Jeżeli używasz bazy danych SQLite, umieść plik .db w folderze prywatnym powyżej [www] lub [htdocs].
 
 
 Uwagi
@@ -92,13 +104,13 @@ Uwagi
 Panel administracyjny
 =====================
 
-Po zalogowaniu jest dostępny odnośnik do PA. Widzisz go tylko Ty oraz uprawnieni użytkownicy. Do PA możesz też dostać się, wpisując ręcznie ścieżkę do katalogu ADMIN lub pliku adm.php.
+Po zalogowaniu jest dostępny odnośnik do PA. Widzisz go tylko Ty oraz uprawnieni użytkownicy. Do PA możesz też dostać się, wpisując ręcznie ścieżkę do katalogu ADMIN.
 
 
 Edycja treści
 =============
 
-Tylko użytkownicy z rangą Redaktor, Administrator lub Właściciel mogą edytować zawartość. Po zalogowaniu jest dostępny odnośnik "Zarządzaj treścią". Aby w widoku kategorii dodać nową pozycję, wybierz: Opcje -> Dodaj pozycję (tylko wtedy, gdy wyświetlanie struktury kategorii jest włączone).
+Tylko użytkownicy z rangą Redaktor, Administrator lub Właściciel mogą edytować zawartość. Po zalogowaniu jest dostępny odnośnik "Zarządzaj treścią". Aby w widoku kategorii dodać nową pozycję, kliknij ikonę +.
 
 
 Opcje konfiguracyjne serwera

@@ -1,10 +1,10 @@
-<form action="" method="post" f3:array="menu">
+<form method="post" f3:array="menu">
 <h1>{this.title}</h1>
 
-<table cellspacing="1" class="tb">
+<table class="tb">
 <tr>
 	<td style="width: 230px"><b>1. {lang.title}:</b></td>
-	<td><input name="text" maxlength="50" value="{menu.text}" /></td>
+	<td><input name="text" maxlength="50" value="{menu.text}"></td>
 </tr>
 <tr>
 	<td><b>2. {lang.access}:</b></td>
@@ -20,30 +20,36 @@
 <tr>
 	<td><b>3. {lang.page}:</b></td>
 	<td>
-		<label><input type="radio" name="menu" value="1" /> {lang.left}</label> &nbsp;
-		<label><input type="radio" name="menu" value="2" /> {lang.right}</label>
+		<label><input type="radio" name="menu" value="1"> {lang.left}</label> &nbsp;
+		<label><input type="radio" name="menu" value="2"> {lang.right}</label>
 	</td>
 </tr>
 <tr>
 	<td><b>4. {lang.type}:</b></td>
-	<td>
-		<label><input type="radio" value="1" name="type" /> {lang.plain}</label> &nbsp;
-		<label><input type="radio" value="3" name="type" /> {lang.urls}</label> &nbsp;
-		<label><input type="radio" value="2" name="type" /> {lang.file}</label> &nbsp;
-		<label><input type="radio" value="4" name="type" /> {lang.merged}</label>
-	</td>
+	<td><select name="type">
+		<option value="1">{lang.plain}</option>
+		<option value="3">{lang.urls}</option>
+		<option value="2">{lang.file}</option>
+		<option value="4">{lang.merged}</option>
+		<option value="5">{lang.cats}</option>
+		<option value="6">{lang.latest}</option>
+		<option value="7">{lang.stats}</option>
+		<option value="8">{lang.ipages}</option>
+		<option value="9">{lang.poll}</option>
+		<option value="10">{lang.user}</option>
+	</select></td>
 </tr>
 <tr>
-	<td><b>5. {lang.boxImg}:</b><br /><small>{lang.0off}</small></td>
+	<td><b>5. {lang.boxImg}:</b><br><small>{lang.0off}</small></td>
 	<td>
-		<input name="img" maxlength="200" value="{menu.img}" />
+		<input name="img" maxlength="200" value="{menu.img}">
 		<!-- IF fileman -->
-		<input type="button" value="{lang.files} &raquo;" onclick="fileman('img',this.form.img)" />
+		<input type="button" value="{lang.files} &raquo;" onclick="fileman('img',this.form.img)">
 		<!-- END -->
 	</td>
 </tr>
 <tr>
-	<td><b>6. {lang.txtfile}</b><br /><small>{lang.noLinks}</small></td>
+	<td><b>6. {lang.txtfile}</b><br><small>{lang.noLinks}</small></td>
 	<td>
 		<textarea rows="4" name="value" cols="45">{clean: menu.value}</textarea>
 	</td>
@@ -52,10 +58,10 @@
 	<th colspan="2"><b>{lang.items}</b></th>
 </tr>
 <tr>
-	<td colspan="2" align="center" id="items">
+	<td colspan="2" style="text-align:center" id="items">
 	<!-- START item -->
 		<div>
-		{lang.title}: <input name="txt[]" value="{htmlspecialchars: 0}" />
+		{lang.title}: <input name="txt[]" value="{htmlspecialchars: 0}">
 		{lang.type}: <select name="t[]" style="max-width: 200px" f3:var="i1.1">
 			<option value="1">{lang.mainPage}</option>
 			<option value="2">{lang.mod}</option>
@@ -64,26 +70,26 @@
 			<option value="5">{lang.cat}</option>
 			<option value="6">{lang.fp}</option>
 		</select>
-		<input name="adr[]" value="{2}" />
-		<input type="checkbox" name="nw[{KEY}]" title="{lang.openNew}" style="cursor: help" f3:var="i1.3" />
-		<input type="image" src="img/icon/add.png" alt="+" />
-		<input type="image" src="img/icon/del.png" alt="-" />
-		<input type="image" src="img/icon/up.png" alt="UP" />
-		<input type="image" src="img/icon/down.png" alt="DOWN" />
+		<input name="adr[]" value="{2}">
+		<input type="checkbox" name="nw[{KEY}]" title="{lang.openNew}" style="cursor: help" f3:var="i1.3">
+		<input type="image" src="img/icon/add.png" alt="+">
+		<input type="image" src="img/icon/del.png" alt="-">
+		<input type="image" src="img/icon/up.png" alt="UP">
+		<input type="image" src="img/icon/down.png" alt="DOWN">
 	</div><!-- STOP --></td>
 </tr>
 <tr>
 	<td colspan="2" class="eth">
-		<input type="button" value="{lang.addLink}" onclick="f.addItem()" style="width: 99px" />
-		<input type="submit" value="{lang.save}" style="font-weight: bold" />
-		<input type="submit" value="{lang.saveNew}" name="savenew" style="width: 142px" />
+		<input type="button" value="{lang.addLink}" onclick="f.addItem()" style="width: 99px">
+		<input type="submit" value="{lang.save}" style="font-weight: bold">
+		<input type="submit" value="{lang.saveNew}" name="savenew" style="width: 142px">
 	</td>
 </tr>
 </table>
 </form>
 
 <div id="tpl" style="display: none">
-	{lang.title}: <input name="txt[]" />
+	{lang.title}: <input name="txt[]">
 	{lang.type}: <select name="t[]" onchange="dis(this,1)">
 		<option value="1">{lang.mainPage}</option>
 		<option value="2">{lang.mod}</option>
@@ -92,12 +98,12 @@
 		<option value="5">{lang.cat}</option>
 		<option value="6">{lang.fp}</option>
 	</select>
-	<input name="adr[]" />
-	<input type="checkbox" name="nw[]" />
-	<input type="image" src="img/icon/add.png" alt="+" />
-	<input type="image" src="img/icon/del.png" alt="-" />
-	<input type="image" src="img/icon/up.png" alt="UP" />
-	<input type="image" src="img/icon/down.png" alt="DOWN" />
+	<input name="adr[]">
+	<input type="checkbox" name="nw[]" title="{lang.openNew}">
+	<input type="image" src="img/icon/add.png" alt="+">
+	<input type="image" src="img/icon/del.png" alt="-">
+	<input type="image" src="img/icon/up.png" alt="UP">
+	<input type="image" src="img/icon/down.png" alt="DOWN">
 </div>
 
 <script type="text/javascript">

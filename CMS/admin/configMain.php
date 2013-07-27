@@ -1,30 +1,6 @@
 <?php
 if(iCMSa!=1 || !admit('CFG')) exit;
 
-#Update links
-if(isset($_SESSION['renew']))
-{
-	try
-	{
-		require './lib/mcache.php';
-		require './lib/categories.php';
-		RenderMenu();
-		Latest();
-		RSS();
-		if(function_exists('glob') && $glob = glob('cache/cat*.php'))
-		{
-			foreach($glob as $x) unlink($x);
-		}
-		unset($_SESSION['renew'],$glob,$x);
-		include './admin/config.php';
-		return 1;
-	}
-	catch(Exception $e)
-	{
-		$content->info($lang['saved']);
-	}
-}
-
 if($_POST)
 {
 	$opt =& $_POST;
@@ -50,12 +26,6 @@ if($_POST)
 		$f = new Config('main');
 		$f->add('cfg', $opt);
 		$f->save();
-		if($cfg['niceURL'] != $opt['niceURL'])
-		{
-			$_SESSION['admenu'] = null;
-			$_SESSION['renew'] = 1;
-			$content->message(19, url('configMain','renew','admin'));
-		}
 		$cfg = &$opt;
 		$content->info($lang['saved']);
 		event('CONFIG');

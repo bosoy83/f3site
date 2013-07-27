@@ -122,7 +122,7 @@ if($_POST)
 	{
 		if(UID)
 		{
-			$c['author'] = UID;
+			$c['author'] = $user['login'];
 		}
 		else
 		{
@@ -177,7 +177,7 @@ if($_POST)
 			#Moderowaæ? + IP
 			$c['access'] = !isset($cfg['moderate']) || IS_EDITOR || admit('CM') ? 1 : 0;
 			$c['ip'] = $_SERVER['REMOTE_ADDR'];
-			$c['guest'] = UID ? 0 : 1;
+			$c['UID'] = UID;
 		}
 
 		#START
@@ -188,8 +188,8 @@ if($_POST)
 				$db->beginTransaction();
 				if($type)
 				{
-					$q = $db->prepare('INSERT INTO '.PRE.'comms (TYPE,CID,name,access,author,guest,ip,date,text)
-						VALUES ('.$type.','.$id.',:name,:access,:author,:guest,:ip,'.$_SERVER['REQUEST_TIME'].',:text)');
+					$q = $db->prepare('INSERT INTO '.PRE.'comms (TYPE,CID,name,access,author,UID,ip,date,text)
+						VALUES ('.$type.','.$id.',:name,:access,:author,:UID,:ip,'.$_SERVER['REQUEST_TIME'].',:text)');
 
 					#News?
 					if($type==5) $db->exec('UPDATE '.PRE.'news SET comm=comm+1 WHERE ID='.$id);
@@ -230,7 +230,7 @@ else
 {
 	if($type)
 	{
-		$c = array('name'=>'', 'author'=>'', 'text'=>'', 'guest'=>(UID)?0:1);
+		$c = array('name'=>'', 'author'=>'', 'text'=>'');
 	}
 	else
 	{

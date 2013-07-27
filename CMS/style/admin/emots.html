@@ -2,41 +2,41 @@
 <h1>{this.title}</h1>
 
 <div class="box">
-{lang.emotxt}<br /><br />
+{lang.emotxt}<br ><br >
 
 <div id="items"><!-- START emo --><div align="center" class="item">
-	<img src="img/emo/{1}" alt="?" />
-  {lang.desc}: <input maxlength="30" value="{0}" name="dsc[]" />
-  {lang.txt}: <input maxlength="10" value="{2}" name="txt[]" style="width: 70px" />
+	<img src="img/emo/{1}" alt="?" >
+  {lang.desc}: <input maxlength="30" value="{0}" name="dsc[]" >
+  {lang.txt}: <input maxlength="10" value="{2}" name="txt[]" style="width: 70px" >
   {lang.file}: <select name="file[]" onchange="Pr(this)">
 	{GLOBALS.files}
 	</select>
-	<input type="image" src="img/icon/add.png" alt="+" />
-	<input type="image" src="img/icon/del.png" alt="-" />
-	<input type="image" src="img/icon/up.png" alt="UP" />
-	<input type="image" src="img/icon/down.png" alt="DOWN" />
+	<input type="image" src="img/icon/add.png" alt="+" >
+	<input type="image" src="img/icon/del.png" alt="-" >
+	<input type="image" src="img/icon/up.png" alt="UP" >
+	<input type="image" src="img/icon/down.png" alt="DOWN" >
 </div><!-- STOP --></div>
 
 <div style="text-align: center">
-	<br />
-	<input type="button" value="{lang.addemo}" onclick="f.addItem()" />
-	<input type="submit" value="{lang.save}" />
+	<br >
+	<input type="button" value="{lang.addemo}" onclick="f.addItem()" >
+	<input type="submit" value="{lang.save}" >
 </div>
 
 </div>
 </form>
 
 <div id="tpl" style="display: none; text-align: center">
-	<img src="" alt="E" />
-  {lang.desc}: <input maxlength="30" name="dsc[]" />
-  {lang.txt}: <input maxlength="10" name="txt[]" style="width: 70px" />
+	<img src="" alt="E" >
+  {lang.desc}: <input maxlength="30" name="dsc[]" >
+  {lang.txt}: <input maxlength="10" name="txt[]" style="width: 70px" >
   {lang.file}: <select name="file[]" onchange="Pr(this)">
 	{files}
 	</select>
-	<input type="image" src="img/icon/add.png" alt="+" />
-	<input type="image" src="img/icon/del.png" alt="-" />
-	<input type="image" src="img/icon/up.png" alt="UP" />
-	<input type="image" src="img/icon/down.png" alt="DOWN" />
+	<input type="image" src="img/icon/add.png" alt="+" >
+	<input type="image" src="img/icon/del.png" alt="-" >
+	<input type="image" src="img/icon/up.png" alt="UP" >
+	<input type="image" src="img/icon/down.png" alt="DOWN" >
 </div>
 
 <script type="text/javascript">

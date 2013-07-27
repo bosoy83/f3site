@@ -54,8 +54,8 @@ else
 #Count popularity
 if(isset($cfg['adisp']))
 {
-	register_shutdown_function(array($db,'exec'),'UPDATE '.PRE.'arts SET ent=ent+1 WHERE ID='.$id);
-	++$art['ent'];
+	register_shutdown_function(array($db,'exec'),'UPDATE '.PRE.'arts SET views=views+1 WHERE ID='.$id);
+	++$art['views'];
 }
 else
 {

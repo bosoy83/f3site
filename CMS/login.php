@@ -74,7 +74,6 @@ elseif(!UID && !empty($_POST['u']) && !empty($_POST['p']))
 	}
 	else
 	{
-		sleep(3);
 		$content->message(2);
 	}
 }

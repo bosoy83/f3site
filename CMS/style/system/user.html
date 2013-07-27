@@ -80,7 +80,7 @@
 	<td>
 		<!-- Skype My status button http://www.skype.com/go/skypebuttons -->
 		<a href="skype:{u.skype}?call" onclick="return confirm('{lang.callq}{u.skype}?')">
-			<img src="http://mystatus.skype.com/smallclassic/{u.skype}" alt="My status" />
+			<img src="http://mystatus.skype.com/smallclassic/{u.skype}" alt="My status" >
 		</a>
 	</td>
 </tr>
@@ -91,7 +91,7 @@
 	<td><b>{lang.groups}:</b></td>
 	<td style="padding: 5px">
 		<!-- START group -->
-		<a class="user" href="{url}">{title}</a> ({num})<br />
+		<a class="user" href="{url}">{title}</a> ({num})<br >
 		<!-- STOP -->
 	</td>
 </tr>
@@ -101,7 +101,7 @@
 	<td><b>{lang.opt}:</b></td>
 	<td style="padding: 10px">
 		<!-- IF pm --><a href="{pm}">[ {lang.sendPM} ]</a><!-- END -->
-		<!-- IF edit --><a href="{edit}" class="edit">{lang.edit}</a><!-- END -->
+		<!-- IF edit --><a href="{edit}" class="edit" style="float:right">{lang.edit}</a><!-- END -->
 	</td>
 </tr>
 </tbody>
@@ -112,7 +112,7 @@
 <div class="box">
 
 	<!-- IF u.photo -->
-	<img src="{u.photo}" alt="AVATAR" style="float: right" />
+	<img src="{u.photo}" alt="AVATAR" style="float: right" >
 	<!-- END -->
 	
 	{u.about}

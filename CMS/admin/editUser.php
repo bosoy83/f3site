@@ -50,7 +50,7 @@ if($_POST)
 	}
 
 	#E-mail
-	if(!preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
+	if(isset($u['mail'][0]) && !filter_var($u['mail'], FILTER_VALIDATE_EMAIL))
 	{
 		$error[] = $lang['badMail'];
 	}
@@ -110,7 +110,7 @@ else
 {
 	$u = array(
 		'login' => '',
-		'mail'  => '@',
+		'mail'  => '',
 		'sex'   => 1,
 		'about' => '',
 		'www'   => 'http://',

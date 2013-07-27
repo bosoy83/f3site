@@ -47,5 +47,4 @@ for($i=0; $i<$num; ++$i)
 
 #Template
 $content->script('lib/forms.js');
-$content->info( isset($cfg['censor']) ? $lang['wordInfo'] : $lang['wordOff'] );
 $content->add('censor', array('word' => &$word));

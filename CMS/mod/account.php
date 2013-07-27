@@ -69,7 +69,7 @@ if($_POST)
 	'icq' => is_numeric($_POST['icq']) ? $_POST['icq'] : null,
 	'tlen' => clean($_POST['tlen'],30),
 	'www'  => $www,
-	'mail' => $_POST['mail'],
+	'mail' => empty($_POST['mail']) ? '' : $_POST['mail'],
 	'sex'  => (int)$_POST['sex'],
 	'opt'  => isset($_POST['mvis']) | (isset($_POST['comm']) ? 2 : 0),
 	'mails' => isset($_POST['mails']),
@@ -186,28 +186,31 @@ if($_POST)
 	}
 
 	#E-mail
-	if(preg_match('/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\.-]+\.[a-zA-Z]{2,}$/',$u['mail']))
+	if(empty($cfg['nomail']))
 	{
-		#E-mail already exists
-		if(dbCount('users WHERE mail="'.$u['mail'].'"'.(UID?' AND ID!='.UID:'')))
+		if(filter_var($u['mail'], FILTER_VALIDATE_EMAIL))
 		{
-			$error[] = $lang['mailEx'];
+			#E-mail already exists
+			if(dbCount('users WHERE mail="'.$u['mail'].'"'.(UID?' AND ID!='.UID:'')))
+			{
+				$error[] = $lang['mailEx'];
+				$bad[] = 'mail';
+			}
+		}
+		else
+		{
+			$u['mail'] = clean($u['mail']);
+			$error[] = $lang['badMail'];
 			$bad[] = 'mail';
 		}
-	}
-	else
-	{
-		$u['mail'] = clean($u['mail']);
-		$error[] = $lang['badMail'];
-		$bad[] = 'mail';
-	}
 
-	#Banned E-mail
-	if($cfg['mailban'])
-	{
-		foreach($cfg['mailban'] as $x)
+		#Banned E-mail
+		if($cfg['mailban'])
 		{
-			if(stripos($u['mail'],$x)!==false) $error[] = $lang['mailEx'];
+			foreach($cfg['mailban'] as $x)
+			{
+				if(stripos($u['mail'],$x)!==false) $error[] = $lang['mailEx'];
+			}
 		}
 	}
 
@@ -335,8 +338,8 @@ $content->add('account', array(
 	'bad'   => $bad,
 	'code'  => $noSPAM,
 	'instr' => $noSPAM && $cfg['captcha']>2 ? $lang['badPet'] : $lang['imgcode'],
+	'mail'  => empty($cfg['nomail']),
 	'bbcode'=> isset($cfg['bbcode']),
-	'hide'  => empty($_POST['pass']) || !isset($_POST['curPass']),
 	'pass'  => isset($_POST['pass']) ? clean($_POST['pass']) : '',
 	'pass2' => isset($_POST['pass2']) ? clean($_POST['pass2']) : '',
 	'photo' => (UID && isset($cfg['upload'])) ? ($photo ? $photo : 'img/user/0.png') : false

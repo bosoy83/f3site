@@ -1,21 +1,21 @@
-<div id="path">
-
-	<!-- IF edit -->
-	<a href="{edit}" class="edit">{lang.edit}</a>
-	<!-- END -->
-
-	<a href="{cats}">{root}</a> &raquo; {path}
-</div>
-
 <h1>{news.name}</h1>
 <div class="box">
 
+	<div id="path">
+
+		<!-- IF edit -->
+		<a href="{edit}" class="edit">{lang.edit}</a>
+		<!-- END -->
+
+		<a href="{cats}">{root}</a> &raquo; {path}
+	</div>
+
 	<!-- IF news.img -->
-	<img src="{news.img}" alt="NEWS" class="newsimg" />
+	<img src="{news.img}" alt="{news.name}" class="newsimg">
 	<!-- END -->
 
-	<div>{news.txt}</div><br />
-	<div>{full}</div><br />
+	<div>{news.txt}</div><br>
+	<div>{full}</div><br>
 
 	<div class="newsBar">
 		<div class="date">{news.date}</div>

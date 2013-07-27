@@ -1,19 +1,39 @@
 #all {padding-right: 10px !important}
-.menu ul {margin-bottom: 9px}
-.adm li {background-repeat: no-repeat; background-position: 5px 3px}
-.adm li a {background: none; padding-left: 30px}
-.adm li a:hover {background: none; color: red}
-
-.a_rss {background: url(../../img/icon/rss.png)}
-.a_cat {background: url(../../img/icon/folder.png)}
-.a_poll {background: url(../../img/icon/poll.png)}
-.a_page,.a_menu {background: url(../../img/icon/win.png)}
-.a_user {background: url(../../img/icon/group.png)}
-.a_log {background: url(../../img/icon/flag.png)}
-.a_mail {background: url(../../img/icon/mail.png)}
-.a_cfg,.a_db {background: url(../../img/icon/cog.png)}
-.a_plug {background: url(../../img/icon/plugin.png)}
-.a_ads {background: url(../../img/icon/coins.png)}
+.admenu {
+	border-left: 1px solid #bfbfbf;
+	border-right: 1px solid #bfbfbf;
+	border-bottom: 1px solid #bfbfbf;
+	background: url(img/boxBg.jpg) repeat-x #fff;
+	padding: 9px 0 15px 0;
+	overflow: hidden;
+	margin-bottom: 10px;
+	border-radius: 0 0 5px 5px
+}
+.admenu a {
+	display: block;
+	color: #4d4d4d;
+	text-decoration: none;
+	line-height: 22px;
+	padding: 0 0 0 30px;
+	border-bottom: 1px solid #eaeaea;
+	background-repeat: no-repeat;
+	background-position: 5px 3px;
+}
+.admenu a:hover {
+	background-color: #ededed;
+}
+.Arss {background-image: url(../../img/icon/rss.png)}
+.Acats {background-image: url(../../img/icon/folder.png)}
+.Apolls {background-image: url(../../img/icon/poll.png)}
+.Amenu {background-image: url(../../img/icon/app.png)}
+.Apages {background-image: url(../../img/icon/pages.png)}
+.Ausers {background-image: url(../../img/icon/group.png); margin-top: 8px}
+.Agroups {background-image: url(../../img/icon/group.png)}
+.Alog {background-image: url(../../img/icon/flag.png)}
+.Amailing {background-image: url(../../img/icon/mail.png); margin-bottom: 8px}
+.Aconfig {background-image: url(../../img/icon/cog.png)}
+.Adb {background-image: url(../../img/icon/compress.png)}
+.Aplugins {background-image: url(../../img/icon/plugin.png)}
 
 #actions {position: absolute; top: -38px; right: 5px}
 #actions a {color: #fff; margin-left: 30px; padding-top: 8px; padding-bottom: 8px}

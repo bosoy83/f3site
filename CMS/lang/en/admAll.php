@@ -6,6 +6,8 @@ $lang+=Array(
 'editPage'	=> 'Edit free page',
 'addPage'	=> 'Create free page',
 'inside'	=> 'Put content (HTML) into box',
+'enable'  => 'on',
+'disable' => 'off',
 
 /* CATEGORIES */
 'addCat'	=> 'Add categories',
@@ -63,21 +65,23 @@ $lang+=Array(
 'missing' => 'file missing',
 
 /* MENU */
-'plain'		=> 'text or HTML',
-'file'		=> 'file',
-'urls'		=> 'links',
+'plain'		=> 'Text or HTML',
+'file'		=> 'File',
+'urls'		=> 'Links',
 'left'		=> 'left',
 'right'		=> 'right',
 'mod'     => 'Module',
 'fp'      => 'Free page',
-'merged'	=> 'merged file',
+'stats'   => 'Who is online',
+'latest'  => 'Newest items',
+'merged'	=> 'Merged file',
 'editBox'	=> 'Edit block',
 'addBox'	=> 'Add block',
 'boxImg'	=> 'Background image',
 'addLink'	=> 'Add item',
 'items'		=> 'Links (do not concern file and text types)',
 'txtfile'	=> 'Text / path to file:',
-'noLinks'	=> 'Does not concern: links.<br />Files are stored in <i>mod/panels</i>.',
+'noLinks'	=> 'Does not concern: links.',
 'openNew'	=> 'open in new tab or window (deprecated)',
 'saveNew'	=> 'Save as new block',
 

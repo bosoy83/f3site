@@ -1,75 +1,44 @@
 <h1>{PAGE TITLE}</h1>
-<form method="post">
-<!-- IF stage1 -->
+<form>
 <table class="tb">
 	<tr>
 		<td>{lang.cat}</td>
-		<td><select name="cat"><option value="0">{lang.choose}</option>{cat}</select></td>
+		<td><select name="cat"><option value="0">{lang.choose}</option></select></td>
 	</tr>
 	<tr>
-		<td>Domyślny tytuł</td>
+		<td>{lang.deftitle}</td>
 		<td><input name="title" size="30" style="width: 99%" required></td>
 	</tr>
 	<tr>
-		<td>Domyślny autor</td>
+		<td>{lang.defautor}</td>
 		<td><input name="author" size="30" style="width: 99%" required></td>
 	</tr>
 	<tr>
-		<td>Domyślny opis</td>
+		<td>{lang.defdesc}</td>
 		<td><textarea name="dsc" style="width: 99%" placeholder="opcjonalnie"></textarea></td>
 	</tr>
 	<tr>
-		<td>Zdjęcia</td>
+		<td>{lang.images}</td>
 		<td>
 			<div>
 				<label><input name="up" type="radio" value="1"> {lang.upload}</label>
 			</div>
 			<div style="margin: 8px 0 8px 32px">
-				<label><input name="file" type="file" style="width: 99%"></label>
+				<label><input name="file" type="file" style="width: 99%"></label> 
 			</div>
 			<div>
-		<label><input name="up" type="radio" value="0"> {lang.manual}</label>
-	</div>
-	<div style="margin: 8px 0 8px 32px">
-		<label><input name="folder" placeholder="{lang.folder}" style="width: 68%"></label>
-		<input type="button" value="Przeglądaj..." onclick="fileman('img',this.form.folder)">
-	</div>
+				<label><input name="up" type="radio" value="0"> {lang.manual}</label>
+			</div>
+			<div style="margin: 8px 0 8px 32px">
+				<label><input name="folder" placeholder="{lang.folder}" style="width: 68%"></label>
+				<input type="button" value="Przeglądaj..." onclick="fileman('img',this.form.folder)">
+			</div>
 		</td>
 	</tr>
 	<tr>
-		<td class="eth" colspan="2"><input type="submit" name="stage1" value="Dalej &gt;"></td>
+		<td class="eth" colspan="2"><input type="submit" value="Dalej &gt;"></td>
 	</tr>
 </table>
-<!-- END -->
-<!-- IF stage2 -->
-<table class="tb">
-	<!-- START image -->
-	<tr>
-		<td rowspan="3" style="width: 130px; text-align: center">
-			<img src="{th}" width="120" height="100" alt="Th">
-			<input type="hidden" name="th[]" value="{th}">
-			<input type="hidden" name="file[]" value="{file}">
-		</td>
-		<td>{lang.title}</td>
-		<td><input name="name[]" value="{name}" style="width:98%" required></td>
-	</tr>
-	<tr>
-		<td>{lang.author}</td>
-		<td><input name="author[]" value="{author}" style="width:98%"></td>
-	</tr>
-	<tr>
-		<td>{lang.desc}</td>
-		<td><textarea name="dsc[]" style="width:98%">{dsc}</textarea></td>
-	</tr>
-	<!-- STOP -->
-	<tr>
-		<td class="eth" colspan="3">
-			<input type="submit" value="{lang.save}" name="stage2">
-			<input type="hidden" value="{cat}" name="cat">
-		</td>
-	</tr>
-</table>
-<!-- END -->
 </form>
 
 <!--

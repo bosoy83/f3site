@@ -1,7 +1,7 @@
 body {
 	margin: 0 auto;
 	padding: 0;
-	max-width: 1600px; /* max site width - 1366 optimal */
+	/*max-width: 1600px; max site width - 1366 optimal */
 	font-family: Tahoma,sans-serif;
 	font-size: 12px;
 	color: #313131
@@ -33,7 +33,7 @@ header {
 	height: 157px;
 	display: block;
 	overflow: hidden;
-	background: url(img/headerBg.jpg) repeat-x #fff
+	background: url(img/headerBg.jpg) repeat-x #fff;
 }
 a.logoTop {
 	float: left;

@@ -25,7 +25,7 @@
 <tr style="text-align: center">
 	<td style="text-align: left">{title}</td>
 	<td>
-		<input name="seq[{id}]" onblur="if(value=='') value=0" size="1" value="{seq}" />
+		<input name="seq[{id}]" onblur="if(value=='') value=0" size="1" value="{seq}" >
 	</td>
 	<td>
 		<select name="vis[{id}]" f3:var="i1.disp">
@@ -36,21 +36,21 @@
 		</select>
 	</td>
 	<td>
-		<input type="radio" name="page[{id}]" value="1" f3:var="i1.page" /> &nbsp;
-		<input type="radio" name="page[{id}]" value="2" f3:var="i1.page" />
+		<input type="radio" name="page[{id}]" value="1" f3:var="i1.page" > &nbsp;
+		<input type="radio" name="page[{id}]" value="2" f3:var="i1.page" >
 	</td>
 	<td>
 		<a href="{url}">{lang.edit}</a>
 	</td>
 	<td>
-		<input type="checkbox" name="x[{id}]" />
+		<input type="checkbox" name="x[{id}]" >
 	</td>
 </tr>
 <!-- STOP -->
 
 <tr>
 	<td colspan="6" class="eth">
-		<input type="submit" value="{lang.save}" />
+		<input type="submit" value="{lang.save}" >
 	</td>
 </tr>
 </table>

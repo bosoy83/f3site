@@ -76,6 +76,9 @@ $lang+=Array(
 'folder'=>'Podaj folder',
 'noup'=>'Nadaj uprawnienia zapisu (777) do katalogu %s. Inaczej miniatury nie zostaną utworzone.',
 'nogd'=>'Biblioteka GD jest wyłączona na serwerze. Nie można kontynuować.',
+'deftitle'=>'Domyślny tytuł',
+'defautor'=>'Domyślny autor',
+'defdesc'=>'Domyślny opis',
 
 'freePage'=>'Wolne strony',
 'lastComm'=>'Ostatni komentarz',

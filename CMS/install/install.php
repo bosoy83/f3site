@@ -2,19 +2,19 @@
 class Installer
 {
 	public
-		$sample, //Przykłady
-		$title,  //Tytuł strony
-		$urls,   //Format URL
-		$lang;   //Język instalatora
+		$sample, //Examples
+		$title,  //Page title
+		$urls,   //URL format
+		$lang;   //Installer language
 	static
 		$urlMode;
 	protected
-		$catid = array(), //ID kategorii startowych
+		$catid = array(), //Start category IDs
 		$need = array(),  //Wrong CHMOD
-		$rss = array(),   //Kanały RSS
+		$rss = array(),   //Channels
 		$db;
 
-	#Wybierz obsługiwany język
+	#Select browser language
 	function __construct()
 	{
 		foreach(explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']) as $x)
@@ -32,7 +32,7 @@ class Installer
 		$this->lang = 'en';
 	}
 
-	#Rozpocznij transakcję
+	#Start transaction
 	function connect(&$data)
 	{
 		if($data['type'] == 'sqlite')
@@ -51,26 +51,27 @@ class Installer
 		$this->db->beginTransaction();
 	}
 
-	#Wczytaj plik SQL
+	#Load SQL file - create tables
 	function load($file)
 	{
 		try
 		{
-			execSQL($file,$this->db);
+			execSQL($file,$this->db,PRE);
 		}
 		catch(PDOException $e)
 		{
-			throw new Exception($e->getMessage().'<pre>'.$q.'</pre>');
+			throw new Exception($e->getMessage().'<pre>'.$e.'</pre>');
 		}
 	}
 
-	#Instaluj dane dla języka $x
-	function setupLang($x)
+	#Install language $x
+	function setupLang($x=null)
 	{
 		static $c, $m, $n, $i, $r, $lft, $db;
+		if(!$x) $x = $this->lang;
 		require './install/lang/'.$x.'.php';
 
-		#Przygotuj zapytania
+		#Prepare queries
 		if(!$c)
 		{
 			$lft = 0;
@@ -83,12 +84,12 @@ class Installer
 			VALUES (?,?,?,?,?,?,?,?)');
 		}
 
-		#Strona główna
+		#Set up home page
 		$c->execute(array($lang['main'], $x, 5, 1, 1, 6, ++$lft, ++$lft));
 		$catID = $db->lastInsertId();
 		$this->catid[$x] = $catID;
 
-		#Przykładowe kategorie
+		#Sample categories
 		if($this->sample)
 		{
 			$c->execute(array($lang['arts'], $x, 1, 0, 0, 15, ++$lft, ++$lft));
@@ -108,10 +109,10 @@ class Installer
 		$m->execute(array(6, $lang['poll'], $x, 2, 2, './mod/panels/poll.php'));
 		$m->execute(array(7, $lang['stat'], $x, 2, 2, './mod/panels/online.php'));
 
-		#Pierwszy NEWS
+		#First NEWS
 		$n->execute(array($catID, $lang['1st'], $lang['NEWS'], gmdate('Y-m-d H:i:s'), 1, 1));
 
-		#Pozycje menu
+		#Menu links
 		$i->execute(array($menuID, $lang['main'], 1, '.', 1));
 		$i->execute(array($menuID, $lang['arch'], 2, 'archive', 2));
 		$i->execute(array($menuID, $lang['links'], 2, 'cats/4', 3));
@@ -120,7 +121,7 @@ class Installer
 		$i->execute(array($menuID, $lang['group'], 2, 'groups', 6));
 	}
 
-	#Instaluj dla wszystkich języków
+	#Install all languages
 	function setupAllLang()
 	{
 		foreach(scandir('lang') as $dir)
@@ -132,20 +133,20 @@ class Installer
 		}
 	}
 
-	#Dodaj admina
+	#Create user
 	function admin($login, $pass)
 	{
 		$u = $this->db->prepare('REPLACE INTO '.PRE.'users (ID,login,pass,lv,regt) VALUES (?,?,?,?,?)');
 		$u->execute(array(1, $login, md5($pass), 4, $_SERVER['REQUEST_TIME']));
 	}
 
-	#Zapisz ID startowych kategorii i zakończ
+	#Save home categories IDs and finish
 	function commit(&$data)
 	{
 		$cfg = array();
 		Installer::$urlMode = $this->urls;
 
-		#Opcje zawartości - kategorie startowe
+		#Content options - category IDs
 		foreach($this->catid as $lang => $id)
 		{
 			$cfg['start'][$lang] = $id;
@@ -157,9 +158,8 @@ class Installer
 		$cfg = array();
 		require './cfg/main.php';
 
-		#Tytuł strony i format URL
+		#Main options - page title and URL format
 		$cfg['title'] = $this->title;
-		$cfg['niceURL'] = $this->urls;
 		$cfg['captcha'] = extension_loaded('gd') ? 1 : 0;
 		$cfg['RSS'] = $this->rss;
 
@@ -167,40 +167,41 @@ class Installer
 		$o->add('cfg', $cfg);
 		$o->save();
 
-		#Plik db.php
+		#Database access - db.php
 		$this->buildConfig($data);
 
-		#Ankieta
+		#Rebuild polls
 		if(file_exists('./mod/polls'))
 		{
 			include './mod/polls/poll.php';
 			RebuildPoll(null, $this->db);
 		}
 
-		#Sortuj kategorie
+		#Sort categories
 		include './lib/categories.php';
 		RebuildTree($this->db);
 		RSS(null, $this->db);
 
-		#Zapisz menu do cache
+		#Create menu cache
 		include './lib/mcache.php';
 		RenderMenu($this->db);
 
-		#Nareszcie koniec - akceptujemy zmiany :)
+		#Finish :)
 		$this->db->commit();
 	}
 
-	#Utwórz plik konfiguracyjny
+	#Create database access configuration file
 	function buildConfig(&$data)
 	{
 		$f = new Config('./cfg/db.php');
 		$f->add('db_db', $data['type']);
 		$f->add('db_d', $data['file'] ? $data['file'] : $data['db']);
 		$f->addConst('PRE', PRE);
-		//$f->addConst('PATH', PATH);
-		//$f->addConst('URL', URL);
+		$f->addConst('PATH', PATH);
+		$f->addConst('URL', URL);
+		$f->addConst('NICEURL', $this->urls);
 
-		#Tylko dla MySQL
+		#Only for MySQL
 		if($data['type'] == 'mysql')
 		{
 			$f->add('db_h', $data['host']);
@@ -210,7 +211,7 @@ class Installer
 		return $f->save();
 	}
 
-	#Znajdź skórki
+	#Find skins
 	function getSkins($selected)
 	{
 		$skins = '';
@@ -224,7 +225,21 @@ class Installer
 		return $skins;
 	}
 
-	#Domyślny format URL
+	#Find languages
+	function getLangs()
+	{
+		$data = array();
+		foreach(scandir('lang') as $dir)
+		{
+			if($dir[0]!='.' && file_exists('install/lang/'.$dir.'.php'))
+			{
+				$data[] = $dir;
+			}
+		}
+		return $data;
+	}
+	
+	#Detect default URL format
 	function urls()
 	{
 		if(function_exists('apache_get_modules') && file_exists('.htaccess'))
@@ -237,7 +252,7 @@ class Installer
 		return 3;
 	}
 
-	#Zbadaj CHMOD
+	#Detect CHMOD
 	function chmods()
 	{
 		$table = array(
@@ -293,14 +308,14 @@ class Installer
 		return empty($this->need);
 	}
 
-	#Pobierz tablicę CHMOD-ów
+	#Get CHMOD table
 	function buildChmodTable()
 	{
 		return $this->need;
 	}
 }
 
-#Zbuduj adres URL
+#Build URL address
 function url($x)
 {
 	switch(Installer::$urlMode)

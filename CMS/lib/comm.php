@@ -1,7 +1,7 @@
-<?php /* Show comments */
+<?php #Show comments
 function comments($id, $type=5, $mayPost=true, $url='')
 {
-	global $db,$cfg,$content;
+	global $db,$cfg,$content,$URL;
 
 	#Page division
 	if($cfg['commNum'])
@@ -19,7 +19,7 @@ function comments($id, $type=5, $mayPost=true, $url='')
 		}
 		if(!$url)
 		{
-			$url = url($GLOBALS['URL'][0].'/'.$id);
+			$url = url($URL[0].'/'.$id);
 		}
 		$total = dbCount('comms WHERE TYPE='.$type.' AND CID='.$id);
 		$CP = ($total > $cfg['commNum']) ? pages($page,$total,$cfg['commNum'],$url) : null;
@@ -42,8 +42,8 @@ function comments($id, $type=5, $mayPost=true, $url='')
 	#Get from database
 	if($total !== 0)
 	{
-		$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.text,u.login,u.photo
-			FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.author=u.ID AND c.guest!=1
+		$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.text,u.login,u.photo,u.mail
+			FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.UID!=0 AND c.UID=u.ID
 			WHERE c.TYPE='.$type.' AND c.CID='.$id.
 			(($mayEdit) ? '' : ' AND c.access=1').
 			(($cfg['commSort']==2) ? '' : ' ORDER BY c.ID DESC').
@@ -64,10 +64,13 @@ function comments($id, $type=5, $mayPost=true, $url='')
 				'ip'   => $mayEdit ? $x[4] : null,
 				'edit' => $mayEdit ? $comURL.$x[0] : false,
 				'del'  => $mayDel ? $comURL.$x[0] : false,
-				'photo' => isset($cfg['commPhoto']) && $x[8] ? $x[8] : false,
 				'accept' => $mayEdit && $x[1]!=1 ? $comURL.$x[0] : false,
 				'findIP' => $mayEdit ? $modURL.$x[4] : false,
-				'profile' => $x[7] ? $userURL.urlencode($x[7]) : false
+				'profile' => $x[7] ? $userURL.urlencode($x[7]) : false,
+				'photo' => empty($cfg['commPhoto']) ? false : (
+					$x[8] ? $x[8] : ($x[9] && $cfg['commPhoto']==2 ?
+					PROTO.'www.gravatar.com/avatar/'.md5(strtolower($x[9])).'?d='.$cfg['gdef'] : false
+				))
 			);
 		}
 		$res = null;

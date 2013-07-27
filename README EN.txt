@@ -1,7 +1,7 @@
 Distribution and license
 ========================
 
-F3Site 2012 - (C) 2005-2012 COMPMaster - compmaster.prv.pl
+F3Site 2013 - (C) 2005-2013 COMPMaster - compmaster.prv.pl
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License or any later version.
 
@@ -40,18 +40,30 @@ Installation
 * folders: FILES, IMG - 777 (optional)
 * folders: IMG/USER - 777 (required to let users upload photos)
 
-3. Go to INSTALL directory in your web browser - e.g. http://your.site.pl/install/
+3. Go to INSTALL directory in your web browser - e.g. http://your-site/install/
 To finish the installation, database user must have full privileges.
 
 4. If you see a blank page or 500 Internal Server Error, read the last section of this README file about .htaccess.
 
-5. The installer will insert records into database for all languages. Before you start, keep only languages you will use in your vortal!
+5. All tables with the same name prefix will be DROPPED from database!
 
-6. All tables with the same name prefix will be DROPPED from database.
+6. After the installation DELETE INSTALL FOLDER!
 
-7. After the installation DELETE INSTALL FOLDER!
+7. Log in and customize the system in admin panel.
 
-8. Log in and customize the system in admin panel.
+
+Nice URL
+========
+
+To use nice URLs your server must support mod_rewrite. Read help contents of your hosting company. If module is enabled but doesn't work, add RewriteBase command into .htaccess. Example:
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.+) index.php?go=$1 [L,QSA]
+
+Second option enables nice URLs without mod_rewrite. Server must support PATH_INFO.
 
 
 Updates and help
@@ -71,15 +83,15 @@ You can add new features with extensions. Before you install any add-on, make su
 Security
 ========
 
-1. Create a COPY OF DATABASE at least once a month.
+1. Create database copy at least once a month.
 
 2. Set 444 privilege to cfg/db.php (read only) after installation.
 
 3. KEEP YOUR PASSWORD STRICTLY PRIVATE! IF YOU GO ONLINE ON PUBLIC COMPUTERS, ALWAYS LOG OFF AFTER YOU HAVE FINISHED YOUR WORK! USE PRIVATE MODE IN A WEB BROWSER IF POSSIBLE.
 
-4. Protect your computer with a good ANTIVIRUS SOFTWARE. A dangerous trojan horse is active in the Internet which steals passwords from FTP clients and injects hidden <iframe>s leading to unsafe websites and JavaScript code into your files on the server! If you notice ANY symptom of such activity, CHANGE your passwords to all FTP servers, scan your computer and upload again clean files.
+4. Protect your computer with a good ANTIVIRUS SOFTWARE. A dangerous trojan horse is active in the Internet which steals passwords from FTP clients and injects hidden <iframe>s leading to malicious websites and nasty <script> tags into files on the server! If you notice any symptom, scan your computer, CHANGE your passwords to all FTP servers and upload again clean files.
 
-5. If you use SQLite database, place .db file OUTSIDE the main directory (www, htdocs).
+5. If you use SQLite database, place .db file OUTSIDE the main directory.
 
 
 Notices
@@ -98,7 +110,7 @@ After you have logged in, a link to admin panel should appear. Only you and priv
 Content management
 ==================
 
-Only users who have Editor, Admin or Owner privilege may edit content. After you have logged in, a link "Manage content" should appear. To add new item in category view, select: Options -> Add item (only if displaying category hierarchy is enabled).
+Only users who have Editor, Admin or Owner privilege may edit content. After you have logged in, a link "Manage content" should appear. To add new item in category view, just click + icon.
 
 
 Changing PHP options

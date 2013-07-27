@@ -79,52 +79,34 @@ else
 	include './admin/summary.php';
 }
 
-#Lod menu from session or generate new
-if(isset($_SESSION['admenu']) && $_SESSION['admenu'] === LANG)
+#Build module list
+$modules = array(
+	array($lang['cats'], 'cats', 'C'),
+	array($lang['polls'], 'polls', 'Q'),
+	array($lang['ipages'], 'pages', 'P'),
+	//array($lang['rss'], 'rss', 'R'),
+	array($lang['users'], 'users', 'U'),
+	array($lang['groups'], 'groups', 'G'),
+	array($lang['log'], 'log', 'L'),
+	array($lang['mailing'], 'mailing', 'M'),
+	array($lang['config'], 'config', 'CFG'),
+	array($lang['nav'], 'menu', 'N'),
+	array($lang['dbcopy'], 'db', 'DB'),
+	array($lang['plugs'], 'plugins', 'E')
+);
+
+#Addons
+$res = $db->query('SELECT ID,text,file FROM '.PRE.'admmenu WHERE menu=1');
+foreach($res as $x)
 {
-	$menu = $_SESSION['AdMenu'];
+	$modules[] = array($x['text'],$x['file'],$x['ID']);
 }
-else
+
+#Build menu for admin
+$menu = array();
+foreach($modules as $x)
 {
-	$menu = '<ul class="adm">'.
-
-	MI($lang['cats'],'cats','C','cat').
-	MI($lang['polls'],'polls','Q','poll').
-	MI($lang['ipages'],'pages','P','page').
-	MI($lang['rss'],'rss','R','rss').
-
-	'</ul><ul class="adm">'.
-
-	MI($lang['users'],'users','U','user').
-	MI($lang['groups'],'groups','G','user').
-	MI($lang['log'],'log','L','log').
-	MI($lang['mailing'],'mailing','M','mail').
-
-	'</ul><ul class="adm">'.
-
-	MI($lang['config'],'config','CFG','cfg').
-	MI($lang['dbcopy'],'db','DB','db').
-	MI($lang['nav'],'menu','N','menu').
-	MI($lang['plugs'],'plugins','E').
-
-	'</ul>';
-
-	#Addons
-	$res = $db->query('SELECT ID,text,file FROM '.PRE.'admmenu WHERE menu=1');
-	$ex = '';
-	foreach($res as $x)
-	{
-		$ex .= MI($x['text'],$x['file'],$x['ID']);
-	}
-	if($ex)
-	{
-		$menu .= '<ul class="adm">'.$ex.'</ul>';
-	}
-
-	#Store menu in session
-	$_SESSION['admenu'] = LANG;
-	$_SESSION['AdMenu'] = $menu;
-	unset($ex,$res,$x);
+	if(admit($x[2])) $menu[] = array('text'=>$x[0],'url'=>url($x[1],null,'admin'),'class'=>$x[1]);
 }
 
 #Default title

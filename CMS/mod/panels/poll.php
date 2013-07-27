@@ -3,12 +3,7 @@ if(iCMS!=1) exit;
 
 #Pobierz
 if(file_exists('./cache/poll_'.LANG.'.php')):
-	include('./cache/poll_'.LANG.'.php');
-else:
-	echo '<div style="text-align: center; margin: 5px 0">'.(admit('Q') ?
-	'<a href="'.url('editPoll','ref','admin').'" class="add">'.$lang['add'].'</a>' : $lang['lack']).'</div>';
-	return;
-endif;
+include('./cache/poll_'.LANG.'.php');
 
 #G³osowa³ na...
 $voted = isset($_COOKIE['voted']) ? explode('o',$_COOKIE['voted']) : array();
@@ -17,7 +12,7 @@ $voted = isset($_COOKIE['voted']) ? explode('o',$_COOKIE['voted']) : array();
 if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && !UID))
 {
 	#Brak g³osów?
-	if($poll['num']==0) { echo '<div class="pollQuestion">'.$lang['novotes'].'</div>'; return; }
+	if($poll['num']==0) { echo '<div class="pollQuestion">'.$lang['novotes'].'</div>'; } else {
 
 	#Procenty
 	$item = array();
@@ -30,12 +25,11 @@ if(in_array($poll['ID'],$voted) || $poll['ison']==2 || ($poll['ison']==3 && !UID
 			'percent' => round($o[2] / $poll['num'] * 100 ,$cfg['pollRound'])
 		);
 	}
-
+}
 	#Styl
 	include './mod/polls/little.php'; //Na razie domyœlny styl
 	unset($poll,$item);
-	return;
-}
+} else {
 
 #Formularz do g³osowania
 echo '<form action="vote.php" id="poll" method="post">
@@ -53,4 +47,9 @@ echo '</div><div class="pollSubmit">
 '</div>
 </form>';
 
-unset($poll,$option,$voted,$pollproc);
+unset($poll,$option,$voted,$pollproc); }
+
+else:
+	echo '<div style="text-align: center; margin: 5px 0">'.(admit('Q') ?
+	'<a href="'.url('editPoll','ref','admin').'" class="add">'.$lang['add'].'</a>' : $lang['lack']).'</div>';
+endif;

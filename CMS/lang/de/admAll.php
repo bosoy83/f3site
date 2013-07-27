@@ -37,7 +37,7 @@ $lang+=Array(
 'moveTo' => 'Ziehen nach',
 'subCats'=> 'Unterkategorien',
 'content'=> 'Gehalt',
-'keep'   => 'außen Vorläufer halten',
+'keep'   => 'auüen Vorläufer halten',
 
 /* UMFRAGEN */
 'ipoll'   => 'Umfragen haben 1 Frage und unendlich Antworten.',
@@ -72,7 +72,9 @@ $lang+=Array(
 'right' => 'rechts',
 'mod'   => 'Modul',
 'fp'    => 'Freie Seite',
-'merged'  => 'fusioniert',
+'stats' => 'Statistik',
+'latest' => 'Neuesten Inhalt',
+'merged'  => 'Fusioniert',
 'editBox' => 'Block ändern',
 'addBox'  => 'Neuer Block',
 'boxImg'  => 'Hintergrundbild',
@@ -91,7 +93,7 @@ $lang+=Array(
 'profile' => 'Profil',
 'addGroup'  => 'Neue Gruppe',
 'editGroup' => 'Gruppe ändern',
-'userDel2'  => 'Willst du alle Überreste lössen, z.B. Kommentare?',
+'userDel2'  => 'Willst du alle öberreste lössen, z.B. Kommentare?',
 'groupInfo' => 'Jeder Benutzer gehört zu einer von folgendes Gruppe. Neue Benutzer vereinen vorgegeben Gruppe (ID = 1) automatisch. Registierte Benutzer können offene Gruppe beitreten.',
 
 /* DATENBANK */

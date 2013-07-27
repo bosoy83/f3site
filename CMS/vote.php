@@ -115,7 +115,7 @@ if(isset($_POST['poll']))
 				$db->commit();
 
 				#Pobierz odpowiedzi
-				$o = $db->query('SELECT ID,a,num FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
+				$o = $db->query('SELECT ID,a,num,color FROM '.PRE.'answers WHERE IDP='.$id.' ORDER BY seq')->fetchAll(3);
 				++$poll['num'];
 
 				#Zapisz nowe dane do pliku

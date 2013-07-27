@@ -17,9 +17,7 @@ if(UID)
 	'<li><a href="'.url('pms').'"'.(($user['pms']>0)?' class="newpms"><b>'.$lang['pms'].' ('.$user['pms'].')</b>':'>'.$lang['pms']).'</a></li>':'').
 
 	'<li><a href="'.url('account').'">'.$lang['upanel'].'</a></li><li><a href="login.php?logout">'.$lang['logout'].'</a></li></ul>';
-
-	return;
-}
+} else {
 
 ?><form action="login.php" method="post"><div style="text-align: center">
 	Login:
@@ -34,3 +32,4 @@ if(UID)
 	<input type="submit" value="<?php echo $lang['logme'] ?>" />
 	<input type="submit" value="<?php echo $lang['regme'] ?>" name="reg" />
 </div></form>
+<?php }

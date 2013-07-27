@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td class="eth" colspan="2" align="center">
-		<input type="submit" value="OK &raquo;" name="next" />
+		<input type="submit" value="OK &raquo;" name="next" >
 	</td>
 </tr>
 </table>
@@ -31,22 +31,22 @@
 <table cellspacing="1" class="tb">
 <tr>
 	<td style="width: 25%"><b>1. {lang.sender}:</b></td>
-	<td><input name="from" maxlength="50" size="30" value="{cfg.title}" /></td>
+	<td><input name="from" maxlength="50" size="30" value="{cfg.title}" ></td>
 </tr>
 <tr>
 	<td><b>2. {lang.rcpt}:</b></td>
-	<td><input name="rcpt" maxlength="50" size="30" value="{lang.rcpt2} {cfg.title}" /></td>
+	<td><input name="rcpt" maxlength="50" size="30" value="{lang.rcpt2} {cfg.title}" ></td>
 </tr>
 <tr>
 	<td><b>3. {lang.topic}:</b></td>
-	<td><input name="topic" maxlength="50" size="30" /></td>
+	<td><input name="topic" maxlength="50" size="30" ></td>
 </tr>
 <tr>
 	<td><b>4. {lang.opt}:</b></td>
 	<td>
-		<label><input type="checkbox" name="html" checked="checked" /> HTML</label><br />
-		<label><input type="checkbox" name="emot" /> {lang.emot}</label><br />
-		<label><input type="checkbox" name="hard" onclick="if(this.checked) if(!confirm('{lang.hard2}')) checked=0" /> {lang.hardmode}</label>
+		<label><input type="checkbox" name="html" checked="checked" > HTML</label><br >
+		<label><input type="checkbox" name="emot" > {lang.emot}</label><br >
+		<label><input type="checkbox" name="hard" onclick="if(this.checked) if(!confirm('{lang.hard2}')) checked=0" > {lang.hardmode}</label>
 	</td>
 </tr>
 <tr>
@@ -59,10 +59,10 @@
 </tr>
 <tr>
 	<td colspan="2" class="eth">
-		<input type="hidden" name="lv" value="{level}" />
-		<input type="hidden" name="gr" value="{group}" />
-		<input type="button" value="{lang.preview}" onclick="e.preview({EMOTS:emot.checked})" />
-		<input type="submit" value="OK" />
+		<input type="hidden" name="lv" value="{level}" >
+		<input type="hidden" name="gr" value="{group}" >
+		<input type="button" value="{lang.preview}" onclick="e.preview({EMOTS:emot.checked})" >
+		<input type="submit" value="OK" >
 	</td>
 </tr>
 </table>

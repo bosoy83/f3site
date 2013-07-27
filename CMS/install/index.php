@@ -67,16 +67,13 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'title'=> htmlspecialchars($lang['myPage']),
 		'pre'  => htmlspecialchars($_POST['pre']),
 		'login'=> htmlspecialchars($_POST['login']),
-		'mail' => filter_input(INPUT_POST, 'mail', 274),
-		'samp' => isset($_POST['samp']),
 		'urls' => (int)$_POST['urls'],
-		'url'  => htmlspecialchars($_POST['url']),
-		'path' => htmlspecialchars($_POST['path'])
+		'lng'  => (int)$_POST['lng']
 	);
 
 	#Prefix
 	define('PRE', $data['pre']);
-	if(!preg_match('/^[a-zA-Z0-9_]{0,9}$/', PRE))
+	if(!preg_match('/^[a-zA-Z_]{0,9}$/', PRE))
 	{
 		$error[] = $lang['e1'];
 	}
@@ -91,12 +88,6 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		$error[] = $lang['e3'];
 	}
 
-	#Bad mail
-	if(empty($data['mail']))
-	{
-		$error[] = $lang['e4'];
-	}
-
 	try
 	{
 		#Errors
@@ -104,11 +95,27 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 
 		#Begin
 		$setup->connect($data);
-		$setup->sample = $data['samp'];
+		$setup->sample = true;
 		$setup->title = $data['title'];
 		$setup->urls = $data['urls'];
 		$setup->load('./install/SQL/'.$type.'.sql');
-		$setup->setupAllLang();
+
+		#Setup languages
+		if($_POST['lng']==='1')
+		{
+			$setup->setupAllLang();
+		}
+		elseif($_POST['lng']==='3' && !empty($_POST['l']))
+		{
+			foreach($_POST['l'] as $l)
+			{
+				$setup->setupLang($l);
+			}
+		}
+		else
+		{
+			$setup->setupLang();
+		}
 		$setup->admin($data['login'], $_POST['uPass']);
 		$setup->commit($data);
 		$content->message($lang['OK'], '..');
@@ -124,10 +131,10 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		));
 	}
 	break;
-	
+
 	#Form
 	case 1:
-
+	
 	$data = array(
 		'host'  => 'localhost',
 		'title' => $lang['myPage'],
@@ -137,18 +144,16 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'db'    => '',
 		'pre'   => 'f3_',
 		'login' => 'Admin',
-		'mail'  => '@',
 		'skin'  => 'system',
 		'file'  => is_writable('..') ? '../db.db' : 'cfg/db.db',
-		'samp'  => true,
-		'url'   => URL,
-		'path'  => PATH
+		'lng'   => 2
 	);
 
 	$content->add('form', array(
 		'host'  => $_SERVER['HTTP_HOST'],
 		'mysql' => $one=='mysql' || ($_POST && $_POST['type']=='mysql'),
 		'data'  => &$data,
+		'langs' => $setup->getLangs(),
 		'skins' => $setup->getSkins($data['skin'])
 	));
 

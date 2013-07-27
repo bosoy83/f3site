@@ -1,34 +1,34 @@
-<form action="" method="post" f3:array="cfg" f3:mode="isset">
+<form method="post" f3:array="cfg" f3:mode="isset">
 <h1>{lang.content}</h1>
 
-<table cellspacing="1" class="tb">
+<table class="tb">
 <tr>
 	<td style="width: 290px"><b>{lang.itemNum}:</b><small>{lang.itemNum2}</small></td>
-	<td><input name="np" value="{cfg.np}" size="5" /></td>
+	<td><input name="np" value="{cfg.np}" size="5" min="1" type="number"></td>
 </tr>
 <tr>
 	<td><b>{lang.catStr}:</b></td>
-	<td><input type="checkbox" name="catStr" /></td>
+	<td><input type="checkbox" name="catStr"></td>
 </tr>
 <tr>
 	<td><b>{lang.allCat}:</b></td>
-	<td><input type="checkbox" name="allCat" /></td>
+	<td><input type="checkbox" name="allCat"></td>
 </tr>
 <tr>
 	<td><b>{lang.grate}:</b><small>{lang.grate2}</small></td>
-	<td><input type="checkbox" name="grate" /></td>
+	<td><input type="checkbox" name="grate"></td>
 </tr>
 <tr>
 	<td><b>{lang.goCat}:</b><small>{lang.goCat2}</small></td>
-	<td><input type="checkbox" name="goCat" /></td>
+	<td><input type="checkbox" name="goCat"></td>
 </tr>
 <tr>
 	<td><b>{lang.tags}:</b></td>
-	<td><input type="checkbox" name="tags" /></td>
+	<td><input type="checkbox" name="tags"></td>
 </tr>
 <tr>
 	<td><b>Lightbox</b>:</td>
-	<td><input type="checkbox" name="lightbox" /></td>
+	<td><input type="checkbox" name="lightbox"></td>
 </tr>
 
 <tr>
@@ -36,15 +36,15 @@
 </tr>
 <tr>
 	<td><b>{lang.ratesOn}:</b></td>
-	<td><input type="checkbox" name="arate" /></td>
+	<td><input type="checkbox" name="arate"></td>
 </tr>
 <tr>
 	<td><b>{lang.comms}:</b></td>
-	<td><input type="checkbox" name="acomm" /></td>
+	<td><input type="checkbox" name="acomm"></td>
 </tr>
 <tr>
 	<td><b>{lang.artDisp}:</b></td>
-	<td><input type="checkbox" name="adisp" /></td>
+	<td><input type="checkbox" name="adisp"></td>
 </tr>
 
 <tr>
@@ -52,15 +52,15 @@
 </tr>
 <tr>
 	<td><b>{lang.ratesOn}:</b></td>
-	<td><input type="checkbox" name="frate" /></td>
+	<td><input type="checkbox" name="frate"></td>
 </tr>
 <tr>
 	<td><b>{lang.comms}:</b></td>
-	<td><input type="checkbox" name="fcomm" /></td>
+	<td><input type="checkbox" name="fcomm"></td>
 </tr>
 <tr>
 	<td><b>{lang.downloads}:</b></td>
-	<td><input type="checkbox" name="fgets" /></td>
+	<td><input type="checkbox" name="fgets"></td>
 </tr>
 
 <tr>
@@ -68,19 +68,19 @@
 </tr>
 <tr>
 	<td><b>{lang.comms}:</b></td>
-	<td><input type="checkbox" name="ncomm" /></td>
+	<td><input type="checkbox" name="ncomm"></td>
 </tr>
 <tr>
 	<td><b>{lang.divide}:</b><small>{lang.rest}</small></td>
-	<td><input type="checkbox" name="newsPages" /></td>
+	<td><input type="checkbox" name="newsPages"></td>
 </tr>
 <tr>
 	<td><b>{lang.ay}</b>:<small>{lang.ay2}</small></td>
-	<td><input type="checkbox" name="archYear" /></td>
+	<td><input type="checkbox" name="archYear"></td>
 </tr>
 <tr>
 	<td><b>{lang.recent}:</b></td>
-	<td><input type="number" min="1" name="newsNum" value="{cfg.newsNum}" size="5" /></td>
+	<td><input type="number" min="1" name="newsNum" value="{cfg.newsNum}" size="5"></td>
 </tr>
 
 <tr>
@@ -88,15 +88,15 @@
 </tr>
 <tr>
 	<td><b>{lang.ratesOn}:</b></td>
-	<td><input type="checkbox" name="irate" /></td>
+	<td><input type="checkbox" name="irate"></td>
 </tr>
 <tr>
 	<td><b>{lang.comms}:</b></td>
-	<td><input type="checkbox" name="icomm" /></td>
+	<td><input type="checkbox" name="icomm"></td>
 </tr>
 <tr>
 	<td><b>{lang.min}:</b></td>
-	<td><input type="number" min="1" name="inp" value="{cfg.inp}" size="5" /></td>
+	<td><input type="number" min="1" name="inp" value="{cfg.inp}" size="5"></td>
 </tr>
 
 <tr>
@@ -104,15 +104,15 @@
 </tr>
 <tr>
 	<td><b>{lang.countLinks}:</b></td>
-	<td><input type="checkbox" name="lcnt" /></td>
+	<td><input type="checkbox" name="lcnt"></td>
 </tr>
 <tr>
 	<td><b>{lang.comms}:</b><small>{lang.subpage}</small></td>
-	<td><input type="checkbox" name="linkFull" /></td>
+	<td><input type="checkbox" name="linkFull"></td>
 </tr>
 <tr>
 	<td><b>{lang.ratesOn}:</b></td>
-	<td><input type="checkbox" name="lrate" /></td>
+	<td><input type="checkbox" name="lrate"></td>
 </tr>
 
 <tr>
@@ -128,8 +128,8 @@
 
 <tr>
 	<td class="eth" colspan="2">
-		<input type="submit" value="{lang.save}" />
-		<input type="reset" value="{lang.reset}" />
+		<input type="submit" value="{lang.save}">
+		<input type="reset" value="{lang.reset}">
 	</td>
 </tr>
 </table>

@@ -8,6 +8,7 @@ $lang+=Array(
 'latest'=>'Latest items list',
 'emots'=>'Emotikony',
 'ua'=>'User accounts',
+'setup'=>'System setup',
 
 /* MAIN SETTINGS */
 'defLang'=>'Default language',
@@ -73,6 +74,9 @@ $lang+=Array(
 'guest2'=>'It allows unregistered users posting comments.',
 'colorCode'=>'Highlight code in [code] tag',
 'blacklist'=>'Check IP address on blacklist',
+'commPhoto'=>'Show user avatars',
+'native'=>'Only uploaded',
+'gravatar'=>'Default Gravatar image',
 'moderate'=>'Moderate comments',
 'moder2'=>'Comments will be visible for everyone after approving them by moderators.',
 'maxlen'=>'Maximum comment length',
@@ -149,6 +153,7 @@ $lang+=Array(
 'login1'=>'Only latin characters, digits, spaces, _ -',
 'login2'=>'Any letters, ditigs, spaces, _ . - (recommended)',
 'login3'=>'Any characters except: ? / # & = (not recommended)',
+'nomail'=>'Hide e-mail field',
 
 'photo'=>'Photos and avatars',
 'upload'=>'Uploading photos on server',
@@ -169,4 +174,8 @@ $lang+=Array(
 'file' =>'File',
 'addemo'=>'Add emoticon',
 'emotxt'=>'1. Emoticons are stored in <b>img/emo</b> directory.<br />2. After you select file name, emoticon will be displayed on the left side.<br />3. If you delete emoticon, file will NOT be dropped from server.',
-);
+
+/* SETUP */
+'url'=>'Full site URL',
+'path'=>'Path to script',
+'db'=>'Database');
