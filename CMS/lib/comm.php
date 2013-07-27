@@ -68,7 +68,7 @@ function comments($id, $type=5, $mayPost=true, $url='')
 				'findIP' => $mayEdit ? $modURL.$x[4] : false,
 				'profile' => $x[7] ? $userURL.urlencode($x[7]) : false,
 				'photo' => empty($cfg['commPhoto']) ? false : (
-					$x[8] ? $x[8] : ($x[9] && $cfg['commPhoto']==2 ?
+					$x[8] ? $x[8] : ($cfg['commPhoto']==2 ?
 					PROTO.'www.gravatar.com/avatar/'.md5(strtolower($x[9])).'?d='.$cfg['gdef'] : false
 				))
 			);

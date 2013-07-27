@@ -64,7 +64,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'pass' => $type=='mysql' ? htmlspecialchars($_POST['pass']) : '',
 		'file' => $type=='sqlite' ? htmlspecialchars($_POST['file']) : '',
 		'skin' => htmlspecialchars($_POST['skin']),
-		'title'=> htmlspecialchars($lang['myPage']),
+		'title'=> htmlspecialchars($_POST['title']),
 		'pre'  => htmlspecialchars($_POST['pre']),
 		'login'=> htmlspecialchars($_POST['login']),
 		'urls' => (int)$_POST['urls'],

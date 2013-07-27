@@ -14,7 +14,7 @@ switch($cat['sort'])
 if($st != 0) $st = ($page-1) * $cfg['inp'];
 
 #Odczyt
-$res = $db->query('SELECT ID,name,date,filem FROM '.PRE.'imgs WHERE '.$cats.
+$res = $db->query('SELECT ID,name,date,th FROM '.PRE.'imgs WHERE '.$cats.
 	' AND access=1 ORDER BY priority,'.$sort.' LIMIT '.$st.','.$cfg['inp']);
 
 $res->setFetchMode(3);
