@@ -9,7 +9,7 @@ if($_POST and $x = GetID(true) and isset($_POST['del']))
 }
 
 #Info
-$content->info($lang['adInfo'], array(url('editAd','','admin') => $lang['addAd']));
+$view->info($lang['adInfo'], array(url('editAd','','admin') => $lang['addAd']));
 
 #Get ads
 $res = $db->query('SELECT ID,gen,name,ison FROM '.PRE.'banners ORDER BY gen,name');
@@ -37,5 +37,5 @@ if(empty($ad))
 }
 else
 {
-	$content->add('ads', array('ad' => &$ad));
+	$view->add('ads', array('ad' => &$ad));
 }

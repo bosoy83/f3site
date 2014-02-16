@@ -1,4 +1,4 @@
-<?php #Zamieñ BBCode na HTML
+<?php
 class BBCode
 {
 	private static
@@ -67,7 +67,7 @@ function BBCode($x, $exc=false)
 	$t = str_replace($bbc[0], $bbc[2], $x, $c1);
 	$t = str_replace($bbc[1], $bbc[3], $t, $c2);
 
-	#Znaczniki niedomkniête?
+	#Znaczniki niedomkniÄ™te?
 	if($c1 != $c2)
 	{
 		if($exc) throw new Exception(); else return $x;
@@ -101,7 +101,7 @@ function BBCode($x, $exc=false)
 		'#\[(video)\](https?://[^\s<>"].*?)\[/video\]#i',
 		'#\[(img)\](https?://[^\s<>"].*?)\[/img\]#i'), 'bbimg', $t);
 
-	#Usuñ JS i zwróæ gotowy tekst
+	#UsuÅ„ JS i zwrÃ³Ä‡ gotowy tekst
 	return preg_replace_callback('#\<a(.*?)\>#si', 'bbcode_js', $t);
 }
 
@@ -114,12 +114,12 @@ function bbimg($t)
 		{
 			return '<video controls src="'.$t[2].'"><a href="'.$t[2].'">video</a></video>';
 		}
-		return '<img src="'.$t[2].'" alt="" style="max-width: 100%" />';
+		return '<img src="'.$t[2].'" alt="Image" style="max-width: 100%">';
 	}
 	return 'bad '.$t[1];
 }
 
-#Zabezpiecz URL i skróæ link
+#Zabezpiecz URL i skrÃ³Ä‡ link
 function bburl($t)
 {
 	$link = trim(str_replace(' ', '%20', $t[1]), '.,');

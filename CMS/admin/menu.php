@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('N')) exit;
 require LANG_DIR.'admAll.php';
 
 #Page title
-$content->title = $lang['nav'];
+$view->title = $lang['nav'];
 
 #Save and delete menu blocks
 if($_POST)
@@ -33,7 +33,7 @@ if($_POST)
 			$db->exec('DELETE FROM '.PRE.'mitems WHERE menu NOT IN (SELECT ID FROM '.PRE.'menu)');
 		}
 		$db->commit();
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		unset($q,$seq,$_POST);
 
 		#Rebuild menu cache
@@ -42,7 +42,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e); return 1;
+		$view->info($lang['error'].$e); return 1;
 	}
 }
 
@@ -77,7 +77,7 @@ foreach($res as $m)
 }
 
 #Do szablonu
-$content->add('menu', array(
+$view->add('menu', array(
 	'blocks' => $blocks,
 	'newURL' => url('editMenu', '', 'admin')
 ));

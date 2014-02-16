@@ -2,7 +2,7 @@
 if(iCMSa!=1 || !admit('CFG')) exit;
 
 #Page title
-$content->title = $lang['config'];
+$view->title = $lang['config'];
 
 #Option categories language file
 require LANG_DIR.'admCfg.php';
@@ -20,8 +20,8 @@ foreach($res as $x)
 }
 
 #Template
-$content->css('style/admin/config.css');
-$content->add('config', array(
+$view->css('style/admin/config.css');
+$view->add('config', array(
 	'plugins' => &$items,
 	'censor' => url('censor', null, 'admin'),
 	'latest' => url('configNew', null, 'admin'),

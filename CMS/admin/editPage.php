@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('P')) exit;
 require LANG_DIR.'admAll.php';
 
 #Page title
-$content->title = $id ? $lang['editPage'] : $lang['addPage'];
+$view->title = $id ? $lang['editPage'] : $lang['addPage'];
 
 #Action: save
 if($_POST)
@@ -53,7 +53,7 @@ if($_POST)
 		if(isset($_GET['ref'])) header('Location: '.URL.url('page/'.$id));
 
 		#Show info
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('page/'.$id) => sprintf($lang['goto'], $page['name']),
 			url('editPage/'.$id, '', 'admin') => $lang['edit'],
 			url('editPage', '', 'admin') => $lang['addPage'] ));
@@ -61,7 +61,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e);
+		$view->info($e);
 	}
 }
 
@@ -79,17 +79,17 @@ else
 #Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('editPage', array(
+$view->add('editPage', array(
 	'page' => &$page,
 	'o1'   => $page['opt']&1,
 	'o2'   => $page['opt']&2,

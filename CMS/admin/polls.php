@@ -39,4 +39,4 @@ if(empty($polls))
 }
 
 $res = null;
-$content->add('polls', array('polls' => $polls));
+$view->add('polls', array('polls' => $polls));

@@ -15,14 +15,14 @@ if($_POST)
 	{
 		$f = new Config('account');
 		$f->save($opt);
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		event('CONFIG');
 		include './admin/config.php';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 	$f = null;
 }
@@ -35,10 +35,10 @@ include './cfg/mail.php';
 require LANG_DIR.'admCfg.php';
 
 #Page title
-$content->title = $lang['ua'];
+$view->title = $lang['ua'];
 
 #Template
-$content->add('configUsers', array(
+$view->add('configUsers', array(
 	'cfg'     => &$cfg,
 	'mailBan' => join("\n", $cfg['mailban']),
 	'nickBan' => join("\n", $cfg['nickban'])

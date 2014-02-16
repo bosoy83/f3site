@@ -82,14 +82,14 @@ else
 }
 
 #Info + links
-$content->info($lang['bugsInfo'], array(
+$view->info($lang['bugsInfo'], array(
 	url('bugs/edit','','admin')     => $lang['addCat'],
 	url('bugs/sections','','admin') => $lang['manSect'],
 	url('bugs/config','','admin')   => $lang['opt']
 ));
 
 #Template
-$content->add('adminCats', array(
+$view->add('adminCats', array(
 	'cat' => &$cat,
 	'langs' => &$lng,
 	'section' => &$sect

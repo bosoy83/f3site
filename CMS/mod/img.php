@@ -10,7 +10,7 @@ PRE.'cats c ON i.cat=c.ID WHERE c.access!=3 AND i.ID='.$id)->fetch(2)) return;
 if(!$img['access'])
 {
 	if(!admit($img['cat'],'CAT')) return;
-	$content->info(sprintf($lang['NVAL'], $img['name']), null, 'warning');
+	$view->info(sprintf($lang['NVAL'], $img['name']), null, 'warning');
 }
 
 #Dimensions
@@ -23,7 +23,7 @@ $img['author'] = autor($img['author']);
 #Ocena
 if(isset($cfg['irate']) AND $img['opt'] & 4)
 {
-	$content->css(SKIN_DIR.'rate.css');
+	$view->css(SKIN_DIR.'rate.css');
 	$rates = 'vote.php?type=3&amp;id='.$id;
 }
 else
@@ -32,14 +32,14 @@ else
 }
 
 #Tag title and meta description - clean temporary
-$content->title = $img['name'];
-$content->desc  = $img['dsc'] ? clean(substr($img['dsc'], 0, 150)) : $cfg['metaDesc'];
+$view->title = $img['name'];
+$view->desc  = $img['dsc'] ? clean(substr($img['dsc'], 0, 150)) : $cfg['metaDesc'];
 
 #Description
 $img['dsc'] = nl2br($img['dsc']);
 
 #Template
-$content->add('img', array(
+$view->add('img', array(
 	'img'   => &$img,
 	'size'  => &$size,
 	'rates' => $rates,

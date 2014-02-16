@@ -5,7 +5,7 @@ if(EC!=1) exit;
 if(isset($_POST['asNew'])) $id = 0;
 
 #Page title
-$content->title = $id ? $lang['edit4'] : $lang['add4'];
+$view->title = $id ? $lang['edit4'] : $lang['add4'];
 
 #Action: save
 if($_POST)
@@ -51,7 +51,7 @@ if($_POST)
 		$url = isset($cfg['linkFull']) ? url('link/'.$id) : $link['adr'];
 
 		#Info + links
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			$url => sprintf($lang['see'], $link['name']),
 			url($link['cat']) => $lang['goCat'],
 			url('edit/4') => $lang['add4'],
@@ -62,7 +62,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 }
 
@@ -84,7 +84,7 @@ else
 }
 
 #Template
-$content->add('edit_link', array(
+$view->add('edit_link', array(
 	'link' => &$link,
 	'id'   => $id,
 	'cats' => Slaves(4,$link['cat'])

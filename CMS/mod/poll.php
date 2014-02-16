@@ -13,14 +13,14 @@ elseif(file_exists('./cache/poll_'.LANG))
 else return;
 
 #Page title and description
-$content->title = $poll['name'];
-$content->desc  = $poll['q'];
+$view->title = $poll['name'];
+$view->desc  = $poll['q'];
 $id = $poll['ID'];
 
 #No votes
 if($poll['num'] == 0)
 {
-	$content->info($lang['novotes'], array(url('polls') => $lang['archive']));
+	$view->info($lang['novotes'], array(url('polls') => $lang['archive']));
 	return 1;
 }
 
@@ -91,7 +91,7 @@ else
 }
 
 #Template
-$content->add($file, array(
+$view->add($file, array(
 	'poll' => &$poll,
 	'item' => &$item,
 	'archive' => url('polls')

@@ -47,7 +47,7 @@ foreach($res as $cat)
 }
 
 #Template
-$content->add('cats', array(
+$view->add('cats', array(
 	'cat' => $cats,
 	'url' => url('editCats', '', 'admin')
 ));

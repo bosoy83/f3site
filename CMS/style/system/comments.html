@@ -1,20 +1,20 @@
+<!-- NOTICE: Do not change id and class attributes! -->
 <div id="comments">
 
 <!-- IF comment -->
-
-<table cellspacing="1" class="tb" style="line-height: 18px">
+<table class="tb" style="line-height: 18px">
 <caption>{lang.comms}</caption>
 <colgroup>
-	<col style="width: 130px" >
-	<col >
+	<col style="width: 130px">
+	<col>
 </colgroup>
 <tbody>
 
 <!-- START comment -->
 <tr>
-	<td align="center" valign="top">
+	<td style="vertical-align: top; text-align: center" title="{agent}">
 		<div><b>
-		
+
 		<!-- IF profile -->
 		<a href="{profile}">{user}</a>
 		<!-- ELSE -->
@@ -29,25 +29,22 @@
 
 		<!-- IF photo -->
 		<div style="text-align: center; margin: 2px; overflow: hidden">
-			<img src="{photo}" alt="{user}" >
+			<img src="{photo}" alt="{user}">
 		</div>
-		<!-- END -->
-		
-		<!-- IF del -->
-		<a href="{del}" onclick="return coma('del',this)"><img src="img/icon/del.png" alt="-" ></a>
-		<!-- END -->
-
-		<!-- IF edit -->
-		<a href="{edit}"><img src="img/icon/edit.png" alt="E" ></a>
-		<!-- END -->
-		
-		<!-- IF accept -->
-		<a href="{accept}" onclick="return coma('ok',this)"><img src="img/icon/accept.png" alt="+" ></a>
 		<!-- END -->
 
 	</td>
-	<td valign="top" style="max-width: 406px; word-wrap: break-word">
-		<small style="float: right">{date}</small>
+	<td style="max-width: 406px; word-wrap: break-word; vertical-align: top">
+		<div class="comDate">{date}</div>
+		<!-- IF del -->
+		<a href="{del}" style="float: right"><img src="img/icon/x.png" alt="-" title="{lang.del}"></a>
+		<!-- END -->
+		<!-- IF accept -->
+		<a href="{accept}" style="float: right"><img src="img/icon/accept.png" alt="+" title="{lang.accept}"></a>
+		<!-- END -->
+		<!-- IF edit -->
+		<a href="{edit}" style="float: right"><img src="img/icon/edit.png" alt="E" title="{lang.edit}"></a>
+		<!-- END -->
 		<h3 style="clear: left">{title}</h3>{text}
 	</td>
 </tr>
@@ -65,11 +62,7 @@
 <!-- END -->
 
 <!-- IF url -->
-<div id="com">
-<div class="addComment" style="width: 150px; margin: auto; text-align: center">
-	<a href="{url}" onclick="return comment(this)" class="add">{lang.addComm}</a>
-</div>
-</div>
+<a href="{url}" class="addComment">{lang.addComm}</a>
 <!-- END -->
 
 <!-- IF mustLogin -->
@@ -80,6 +73,6 @@
 <script type="text/javascript">
 include('lib/comm.js')
 <!-- IF color -->
-include('lib/prettify/run_prettify.js', function() { prettyPrint() })
+include('lib/prettify/run_prettify.js')
 <!-- END -->
 </script>

@@ -44,5 +44,5 @@ if(empty($pages) && !JS)
 }
 
 $res = null;
-$content->add('pages', array('pages' => $pages));
-$content->title = $lang['ipages'];
+$view->add('pages', array('pages' => $pages));
+$view->title = $lang['ipages'];

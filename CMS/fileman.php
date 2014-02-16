@@ -61,4 +61,4 @@ $_SESSION['FM'] = 1;
 if(isset($dir[50])) $dir = substr($dir, -40);
 
 #Szablon
-include $content->path('fileman');
+include $view->path('fileman');

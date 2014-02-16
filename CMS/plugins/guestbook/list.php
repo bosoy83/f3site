@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Page title
-$content->title = $lang['guestbook'];
+$view->title = $lang['guestbook'];
 
 #Show IP
 $right = (IS_ADMIN && admit('GB'));
@@ -77,7 +77,7 @@ else
 }
 
 #Template
-$content->add($cfg['gbSkin'], array(
+$view->add($cfg['gbSkin'], array(
 	'post'    => &$all,
 	'pages'   => &$pages,
 	'intro'   => &$cfg['gbIntro'],

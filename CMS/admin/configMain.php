@@ -19,6 +19,10 @@ if($_POST)
 		if(empty($opt['pubKey'])) unset($opt['pubKey']);
 		if(empty($opt['prvKey'])) unset($opt['prvKey']);
 	}
+	if($opt['captcha'] != 1)
+	{
+		if(empty($opt['sbKey'])) unset($opt['sbKey']);
+	}
 
 	require './lib/config.php';
 	try
@@ -27,14 +31,14 @@ if($_POST)
 		$f->add('cfg', $opt);
 		$f->save();
 		$cfg = &$opt;
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		event('CONFIG');
 		include './admin/config.php';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		$content->info($e);
+		$view->info($e);
 	}
 }
 else
@@ -57,12 +61,13 @@ foreach(scandir('style') as $x)
 #API keys
 if(empty($cfg['pubKey'])) $cfg['pubKey'] = '';
 if(empty($cfg['prvKey'])) $cfg['prvKey'] = '';
+if(empty($cfg['sbKey'])) $cfg['sbKey'] = '';
 
 #Page title
-$content->title = $lang['main'];
+$view->title = $lang['main'];
 
 #Template
-$content->add('configMain', array(
+$view->add('configMain', array(
 	'cfg' => &$opt,
 	'skinlist' => &$skin,
 	'langlist' => listBox('lang',1,$opt['lang']),

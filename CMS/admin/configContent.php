@@ -26,14 +26,14 @@ if($_POST)
 		}
 		$f = new Config('content');
 		$f->save($opt);
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		event('CONFIG');
 		include './admin/config.php';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 	unset($f);
 }
@@ -75,10 +75,10 @@ foreach(scandir('./lang') as $dir)
 }
 
 #Page title
-$content->title = $lang['content'];
+$view->title = $lang['content'];
 
 #Template
-$content->add('configContent', array(
+$view->add('configContent', array(
 	'cfg' => &$opt,
 	'cats'=> &$cats,
 	'def' => json_encode($js)

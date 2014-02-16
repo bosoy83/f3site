@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Tytu³ strony
-$content->title = $lang['cats'];
+$view->title = $lang['cats'];
 
 #Typ kategorii - domyœlnie: news
 if(isset($URL[1]))
@@ -42,7 +42,7 @@ foreach($res as $x)
 #Brak kategorii?
 if($total === 0)
 {
-	$content -> info($lang['nocats']); return 1;
+	$view -> info($lang['nocats']); return 1;
 }
 #Tylko 1 - przekierowaæ?
 elseif($total === 1)
@@ -57,5 +57,5 @@ elseif($total === 1)
 }
 else
 {
-	$content->add('cats', array('cat' => &$cat));
+	$view->add('cats', array('cat' => &$cat));
 }

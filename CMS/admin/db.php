@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('DB')) exit;
 require LANG_DIR.'admAll.php';
 
 #Page title
-$content->title = $lang['dbcopy'];
+$view->title = $lang['dbcopy'];
 
 #Supported databases
 switch($db_db)
@@ -17,7 +17,7 @@ switch($db_db)
 		$show = 'SELECT name FROM sqlite_master WHERE type="table" ORDER BY name';
 		break;
 	default:
-		$content->info('Cannot parse database type.'); return 1;
+		$view->info('Cannot parse database type.'); return 1;
 }
 
 #Action: tables
@@ -115,7 +115,7 @@ foreach($list as $tab)
 }
 
 #Template
-$content->add('db', array(
+$view->add('db', array(
 	'tables' => $tabs,
 	'gz'     => function_exists('gzopen')
 ));

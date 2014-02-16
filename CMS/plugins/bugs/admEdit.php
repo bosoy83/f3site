@@ -33,11 +33,11 @@ if($_POST)
 
 		#Redirect to category list
 		header('Location: '.URL.url('bugs','','admin'));
-		$content->message($lang['saved'], url('bugs', '', 'admin'));
+		$view->message($lang['saved'], url('bugs', '', 'admin'));
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e);
+		$view->info($e);
 	}
 }
 elseif($id)
@@ -70,7 +70,7 @@ foreach($res as $x)
 }
 
 #Form template
-$content->add('adminEdit', array(
+$view->add('adminEdit', array(
 	'cat'   => &$cat,
 	'sect'  => &$sect,
 	'langs' => listBox('lang', 1, $cat['see']),

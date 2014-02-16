@@ -10,7 +10,7 @@ PRE.'cats c ON n.cat=c.ID WHERE c.access!=3 AND n.ID='.$id) -> fetch(2)) return;
 if(!$news['access'])
 {
 	if(!admit($news['cat'],'CAT')) return;
-	$content->info(sprintf($lang['NVAL'], $news['name']), null, 'warning');
+	$view->info(sprintf($lang['NVAL'], $news['name']), null, 'warning');
 }
 
 #Full content
@@ -24,7 +24,7 @@ else
 }
 
 #Page title
-$content->title = $news['name'];
+$view->title = $news['name'];
 
 #Emoticons
 if($news['opt']&2)
@@ -45,7 +45,7 @@ $news['date']  = genDate($news['date'], true);
 $news['wrote'] = autor($news['author']);
 
 #Assign to template
-$content->add('news', array(
+$view->add('news', array(
 	'news' => &$news,
 	'full' => &$full,
 	'path' => catPath($news['cat']),

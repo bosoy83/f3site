@@ -3,7 +3,7 @@ if(iCMS!=1) exit;
 include './cfg/content.php';
 
 #Tytu³
-$content->title = $lang['archive'];
+$view->title = $lang['archive'];
 
 #Lista nowo¶ci
 if(isset($URL[1]))
@@ -40,7 +40,7 @@ if(isset($URL[1]))
 	$res=null;
 
 	#Do szablonu
-	$content->add('archive', array('news' => &$news, 'newslist' => true));
+	$view->add('archive', array('news' => &$news, 'newslist' => true));
 	return 1;
 }
 
@@ -92,4 +92,4 @@ elseif($mon)
 unset($y,$m,$date);
 
 #Do szablonu
-$content->add('archive', array('dates' => &$dates, 'newslist' => false));
+$view->add('archive', array('dates' => &$dates, 'newslist' => false));

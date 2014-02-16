@@ -4,7 +4,7 @@ if(iCMS!=1) exit;
 $error = $cat = $bug = array();
 $right = admit('BUGS');
 $id = isset($URL[2]) ? (int)$URL[2] : 0;
-$content->title = $id ? $lang['editBug'] : $lang['postBug'];
+$view->title = $id ? $lang['editBug'] : $lang['postBug'];
 
 #Edit issue
 if($id)
@@ -127,17 +127,17 @@ if($_POST)
 			#Need approving or not
 			if(!$id && isset($cfg['bugsMod']))
 			{
-				$content->message($lang['queued'], url('bugs/'.$id));
+				$view->message($lang['queued'], url('bugs/'.$id));
 			}
 			else
 			{
 				header('Location: '.URL.url('bugs/'.$id));
-				$content->message($lang['saved'], url('bugs/'.$id));
+				$view->message($lang['saved'], url('bugs/'.$id));
 			}
 		}
 		catch(PDOException $e)
 		{
-			$content->info($lang['error'].$e->getMessage());
+			$view->info($lang['error'].$e->getMessage());
 		}
 	}
 }
@@ -149,24 +149,24 @@ elseif(!$id)
 #Show errors
 if($error)
 {
-	$content->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
+	$view->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
 	if(!$_POST) return 1;
 }
 elseif(isset($cfg['bugsWhile']) && $cat[3])
 {
-	$content->info(nl2br($cat[3]));
+	$view->info(nl2br($cat[3]));
 }
 
 #BBCode
 if(isset($cfg['bbcode']))
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('edit', array(
+$view->add('edit', array(
 	'bug'    => &$bug,
 	'code'   => $noSPAM,
 	'who'    => !$id && !UID,

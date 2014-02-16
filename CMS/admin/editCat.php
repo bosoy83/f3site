@@ -4,7 +4,7 @@ require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
 #Page title
-$content->title = $id ? $lang['editCat'] : $lang['addCat'];
+$view->title = $id ? $lang['editCat'] : $lang['addCat'];
 
 #Action: save
 if($_POST)
@@ -93,7 +93,7 @@ if($_POST)
 		if(isset($_GET['ref'])) header('Location: '.URL.url($id));
 
 		#Info + links
-		$content->info($lang['saved'].' ID: '.$id, array(
+		$view->info($lang['saved'].' ID: '.$id, array(
 			url($id) => $lang['goCat'],
 			url('editCat', '', 'admin') => $lang['addCat'],
 			url('editCat/'.$id, '', 'admin') => $lang['editCat'],
@@ -104,7 +104,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e->getMessage()); //Errors
+		$view->info($e->getMessage()); //Errors
 	}
 }
 
@@ -130,16 +130,16 @@ else
 #Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('lib/editor.js');
 }
 
 #Prepare template
-$content->add('editCat', array(
+$view->add('editCat', array(
 	'cat'  => &$cat,
 	'o1'   => $cat['opt'] & 1,
 	'o2'   => $cat['opt'] & 2,

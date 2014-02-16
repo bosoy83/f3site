@@ -9,7 +9,7 @@ $noSPAM = false;
 $auto = 0;
 
 #Page title
-$content->title = $lang['account'];
+$view->title = $lang['account'];
 
 #Activation
 if(isset($URL[2]) && $URL[1] == 'key')
@@ -22,15 +22,15 @@ if(isset($URL[2]) && $URL[1] == 'key')
 		{
 			$db->exec('UPDATE '.PRE.'users SET lv=1 WHERE ID='.$id);
 			$db->exec('DELETE FROM '.PRE.'tmp WHERE type="ACT" AND UID='.$id);
-			$content->info($lang['act']);
+			$view->info($lang['act']);
 		}
 		else
 		{
-			$content->info($lang['badKey']);
+			$view->info($lang['badKey']);
 		}
 		unset($id,$res);
 	}
-	else $content->info($lang['badKey']);
+	else $view->info($lang['badKey']);
 	return 1;
 }
 
@@ -40,7 +40,7 @@ if(!UID)
 	require_once './lib/spam.php';
 	if(empty($cfg['reg']) || isset($cfg['blacklist']) && blacklist($_SERVER['REMOTE_ADDR']))
 	{
-		$content->info($lang['regoff']); return 1;
+		$view->info($lang['regoff']); return 1;
 	}
 	if(!empty($cfg['captcha']) && !isset($_SESSION['human']))
 	{
@@ -90,7 +90,6 @@ if($_POST)
 		if(isset($u['login'][31]) || !isset($u['login'][2]))
 		{
 			$error[] = $lang['badLogin'];
-			$bad[] = 'login';
 		}
 		switch($cfg['logins'])
 		{
@@ -101,7 +100,6 @@ if($_POST)
 		if(!preg_match($re, $u['login']))
 		{
 			$error[] = $lang['loginChar'];
-			$bad[] = 'login';
 		}
 
 		#Login already exists
@@ -109,7 +107,6 @@ if($_POST)
 		if($res->fetchColumn() > 0)
 		{
 			$error[] = $lang['loginEx'];
-			$bad[] = 'login';
 		}
 		$res=null;
 
@@ -123,17 +120,16 @@ if($_POST)
 			unset($x,$nicks);
 		}
 		
-		#Antispam code
-		if($noSPAM)
+		#Antispam code if no other errors
+		if($noSPAM && !$error)
 		{
-			if($noSPAM->verify())
+			if($noSPAM->verify(array('about','login','mail','www')))
 			{
 				$noSPAM = false;
 			}
 			else
 			{
 				$error[] = $lang[$noSPAM->errorId];
-				if($cfg['captcha']==1) $bad[] = 'code';
 			}
 		}
 	}
@@ -160,7 +156,6 @@ if($_POST)
 		else
 		{
 			$error[] = $lang['mustPass'];
-			$bad[] = 'curPass';
 		}
 	}
 
@@ -175,13 +170,11 @@ if($_POST)
 		if(strlen($_POST['pass']) < 5 || strlen($_POST['pass']) > 50)
 		{
 			$error[] = $lang['badPass'];
-			$bad[] = 'pass';
 		}
 		#Passwords different
 		if($_POST['pass']!=$_POST['pass2'])
 		{
 			$error[] = $lang['pass2'];
-			$bad[] = 'pass2';
 		}
 	}
 
@@ -194,14 +187,12 @@ if($_POST)
 			if(dbCount('users WHERE mail="'.$u['mail'].'"'.(UID?' AND ID!='.UID:'')))
 			{
 				$error[] = $lang['mailEx'];
-				$bad[] = 'mail';
 			}
 		}
 		else
 		{
 			$u['mail'] = clean($u['mail']);
 			$error[] = $lang['badMail'];
-			$bad[] = 'mail';
 		}
 
 		#Banned E-mail
@@ -217,7 +208,7 @@ if($_POST)
 	#Errors
 	if($error)
 	{
-		$content->info(join('<br/><br/>',$error), null, 'error');
+		$view->info(join('<br/><br/>',$error), null, 'error');
 		if(UID && !$photo)
 		$photo = $db->query('SELECT photo FROM '.PRE.'users WHERE ID='.UID)->fetchColumn();
 	}
@@ -259,13 +250,13 @@ if($_POST)
 				if($m->sendTo($u['login'],$u['mail']))
 				{
 					$q->execute($u);
-					$content->info($lang['byMail'].$u['login'].'<br /><br />'.$lang['noMail']);
+					$view->info($lang['byMail'].$u['login'].'<br /><br />'.$lang['noMail']);
 					$db->exec('INSERT INTO '.PRE.'tmp VALUES ("'.$key.'",'.$db->lastInsertId().',"ACT")');
 					return 1;
 				}
 				else
 				{
-					$content->info($lang['mailFail'], 'error');
+					$view->info($lang['mailFail'], 'error');
 				}
 				unset($m,$key);
 			}
@@ -276,11 +267,11 @@ if($_POST)
 			}
 			elseif($cfg['actmeth']!=1)
 			{
-				$q->execute($u); $content->info($lang['noAuto'].$u['login']);
+				$q->execute($u); $view->info($lang['noAuto'].$u['login']);
 			}
 			else
 			{
-				$q->execute($u); $content->info($lang['auto'].$u['login']);
+				$q->execute($u); $view->info($lang['auto'].$u['login']);
 			}
 			#Update user cookie
 			if($auto)
@@ -292,7 +283,7 @@ if($_POST)
 		}
 		catch(Exception $e)
 		{
-			$content->info($lang['error'].$e->getMessage(), 'error');
+			$view->info($lang['error'].$e->getMessage(), 'error');
 		}
 	}
 }
@@ -329,15 +320,15 @@ $u['mvis'] = $u['opt'] & 1;
 $u['comm'] = $u['opt'] & 2;
 
 #Template data
-$content->add('account', array(
+$view->add('account', array(
 	'u'     => &$u,
 	'width' => $cfg['maxDim1'],
 	'height'=> $cfg['maxDim2'],
 	'size'  => $cfg['maxSize'],
 	'del'   => $photo,
-	'bad'   => $bad,
-	'code'  => $noSPAM,
+	'code'  => $noSPAM && $cfg['captcha']>1,
 	'instr' => $noSPAM && $cfg['captcha']>2 ? $lang['badPet'] : $lang['imgcode'],
+	'sblam' => $noSPAM && $cfg['captcha']===1,
 	'mail'  => empty($cfg['nomail']),
 	'bbcode'=> isset($cfg['bbcode']),
 	'pass'  => isset($_POST['pass']) ? clean($_POST['pass']) : '',

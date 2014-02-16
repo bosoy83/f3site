@@ -10,14 +10,14 @@ PRE.'cats c ON f.cat=c.ID WHERE c.access!=3 AND f.ID='.$id)->fetch(2)) return;
 if(!$file['access'])
 {
 	if(!admit($file['cat'],'CAT')) return;
-	$content->info(sprintf($lang['NVAL'], $file['name']), null, 'warning');
+	$view->info(sprintf($lang['NVAL'], $file['name']), null, 'warning');
 }
 
 #Tag title
-$content->title = $file['name'];
+$view->title = $file['name'];
 
 #Meta description
-if($file['dsc']) $content->desc = $file['dsc'];
+if($file['dsc']) $view->desc = $file['dsc'];
 
 #Remote file
 $remote = strpos($file['file'], ':');
@@ -25,7 +25,7 @@ $remote = strpos($file['file'], ':');
 #Size and URL
 if($remote OR file_exists('./'.$file['file']))
 {
-	$file['url']  = isset($cfg['fgets']) ? 'go.php?file='.$id : $file['file'];
+	$file['url']  = isset($cfg['fgets']) ? url('get/'.$id) : $file['file'];
 	if(!$file['size'] && !$remote)
 	{
 		$size = filesize($file['file']);
@@ -48,7 +48,7 @@ else
 #Mark
 if(isset($cfg['frate']) && $file['opt'] & 4)
 {
-	$content->css(SKIN_DIR.'rate.css');
+	$view->css(SKIN_DIR.'rate.css');
 	$rate = 'vote.php?type=2&amp;id='.$id;
 }
 else
@@ -60,10 +60,8 @@ else
 $file['date'] = genDate($file['date'], true);
 $file['author'] = autor($file['author']);
 
-#
-
 #Template
-$content->add('file', array(
+$view->add('file', array(
 	'file'  => &$file,
 	'path'  => catPath($file['cat']),
 	'rates' => $rate,

@@ -2,10 +2,10 @@
 if(iCMS!=1) exit;
 
 #Welcome text
-if($cfg['bugsIntro']) $content->info($cfg['bugsIntro']);
+if($cfg['bugsIntro']) $view->info($cfg['bugsIntro']);
 
 #Page title
-$content->title = $lang['BUGS'];
+$view->title = $lang['BUGS'];
 
 #Get categories
 $res = $db->query('SELECT c.ID,c.name,c.dsc,c.post,c.num,c.last,s.title FROM '.PRE.'bugcats c LEFT JOIN '.PRE.'bugsect s ON c.sect = s.ID WHERE c.see=1 OR c.see="'.LANG.'" ORDER BY s.seq,c.name');
@@ -41,10 +41,10 @@ foreach($res as $x)
 #No category
 if(!$num)
 {
-	$content->info($lang['nocats']);
+	$view->info($lang['nocats']);
 }
 else
 {
-	$content->css('plugins/bugs/style/bugs.css');
-	$content->add('cats', array('cat' => &$cat));
+	$view->css('plugins/bugs/style/bugs.css');
+	$view->add('cats', array('cat' => &$cat));
 }

@@ -5,7 +5,7 @@ if(iCMS!=1) exit;
 require LANG_DIR.'pms.php';
 
 #Tytu³ strony
-$content->title = $lang['pm3'];
+$view->title = $lang['pm3'];
 
 #Jest dostêp?
 if(isset($cfg['pmOn']) && UID)
@@ -14,7 +14,7 @@ if(isset($cfg['pmOn']) && UID)
 	$size = $db->query('SELECT COUNT(*) FROM '.PRE.'pms WHERE owner='.UID)->fetch(7);
 
 	#Dane do szablonu
-	$content->add('pms', array(
+	$view->add('pms', array(
 		'new'   => $user['pms'],
 		'limit' => $cfg['pmLimit'],
 		'size'  => $size,
@@ -35,9 +35,9 @@ if(isset($cfg['pmOn']) && UID)
 }
 elseif(!UID)
 {
-	$content->info($lang['pm2']);
+	$view->info($lang['pm2']);
 }
 else
 {
-	$content->info($lang['pm1']);
+	$view->info($lang['pm1']);
 }

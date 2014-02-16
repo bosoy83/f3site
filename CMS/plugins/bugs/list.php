@@ -12,10 +12,10 @@ if(isset($URL[2]) && is_numeric($URL[2]))
 else return;
 
 #Page title
-$content->title = $cat['name'];
+$view->title = $cat['name'];
 
 #Category text
-if($cat['text'] && isset($cfg['bugsUp'])) $content->info(nl2br($cat['text']));
+if($cat['text'] && isset($cfg['bugsUp'])) $view->info(nl2br($cat['text']));
 
 #Page number
 if(isset($URL[3]) && is_numeric($URL[3]) && $URL[3]>1)
@@ -59,7 +59,7 @@ foreach($res as $x)
 #Pages
 if(!$num)
 {
-	$content->info($lang['noc']);
+	$view->info($lang['noc']);
 }
 elseif($cat['num'] > $num)
 {
@@ -71,7 +71,7 @@ else
 }
 
 #template
-$content->add('bugs', array(
+$view->add('bugs', array(
 	'issue'   => &$all,
 	'postURL' => BugRights($cat['post']) ? url('bugs/post', 'f='.$id) : false
 ));

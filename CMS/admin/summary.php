@@ -24,7 +24,7 @@ else
 $ver = parse_ini_file('cfg/ver.ini');
 
 #Do szablonu
-$content->add('summary', array(
+$view->add('summary', array(
 	'intro'  => sprintf($lang['admIntro'], $cfg['title']),
 	'notes'  => $notes,
 	'version'=> $ver['ver'],
@@ -36,7 +36,7 @@ $content->add('summary', array(
 #Katalog INSTALL
 if(IS_OWNER && is_dir('install'))
 {
-	$content->info('<b>'.$lang['INSTALL'].'</b>', null, 'error');
+	$view->info('<b>'.$lang['INSTALL'].'</b>', null, 'error');
 }
 
 #Kompiluj szablony
@@ -53,6 +53,6 @@ if(isset($_GET['compile']))
 	}
 	catch(Exception $e)
 	{
-		$content->message($e->getMessage());
+		$view->message($e->getMessage());
 	}
 }

@@ -11,11 +11,11 @@ if($_POST)
 		$f = new Config('bugs');
 		$f -> save($_POST);
 		header('Location: '.URL.url('bugs', '', 'admin'));
-		$content->message($lang['saved'], url('bugs', '', 'admin'));
+		$view->message($lang['saved'], url('bugs', '', 'admin'));
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 }
 else
@@ -25,4 +25,4 @@ else
 }
 
 #Template
-$content->add('adminConfig', array('cfg' => &$opt));
+$view->add('adminConfig', array('cfg' => &$opt));

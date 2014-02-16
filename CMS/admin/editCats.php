@@ -94,9 +94,9 @@ if(isset($_POST['del']) && $x = GetID(1))
 				'edit'  => $warn ? url('editCat/'.$x['ID'], '', 'admin') : false
 			);
 		}
-		$content->add('editCats', array('cat'=>$cat));
+		$view->add('editCats', array('cat'=>$cat));
 	}
-	$content->title = $lang['delCat'];
+	$view->title = $lang['delCat'];
 }
 
 elseif(isset($_POST['count']))
@@ -108,8 +108,8 @@ elseif(isset($_POST['count']))
 else
 {
 	header('Location: '.URL.url('cats','','admin'));
-	$content->info($lang['nocats']);
+	$view->info($lang['nocats']);
 }
 
 }
-catch(PDOException $e) { $content->info($e); }
+catch(PDOException $e) { $view->info($e); }

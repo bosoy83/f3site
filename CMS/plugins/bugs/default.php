@@ -42,14 +42,14 @@ function BugIsNew($d1,$d2)
 }
 
 #Katalog szablonów
-$content->dir = './plugins/bugs/style/';
-$content->cache = './cache/bugs/';
-$content->css('plugins/bugs/style/bugs.css');
+$view->dir = './plugins/bugs/style/';
+$view->cache = './cache/bugs/';
+$view->css('plugins/bugs/style/bugs.css');
 
 #Modu³
 if(!isset($cfg['bugsOn']))
 {
-	$content->info($lang['bugsOff']);
+	$view->info($lang['bugsOff']);
 	return 1;
 }
 

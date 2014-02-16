@@ -1,7 +1,7 @@
 <?php
 function tags($id, $type, $mayTag=false)
 {
-	global $db,$cfg,$content;
+	global $db,$cfg,$view;
 
 	$may = admit('TAG');
 	$url = url('tags/');
@@ -21,7 +21,7 @@ function tags($id, $type, $mayTag=false)
 
 	if($tag || $may):
 
-	$content->add('tag', array(
+	$view->add('tag', array(
 		'tag'      => $tag,
 		'editTags' => $may,
 		'urls'     => "['$url','request.php?go=tags&type=$type&id=$id']"

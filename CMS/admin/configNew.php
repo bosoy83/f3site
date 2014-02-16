@@ -32,7 +32,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 }
 else
@@ -51,5 +51,5 @@ foreach($data as $num => &$x)
 }
 
 #Template
-$content->title = $lang['latest'];
-$content->add('configNew', array('cfg'=>$opt, 'type'=>$type));
+$view->title = $lang['latest'];
+$view->add('configNew', array('cfg'=>$opt, 'type'=>$type));

@@ -13,7 +13,7 @@ define('VIEW_DIR', './cache/install/');
 define('SKIN_DIR', './install/HTML/');
 
 #Classes
-require './lib/content.php';
+require './lib/view.php';
 require './lib/config.php';
 require './lib/utils.php';
 require './install/install.php';
@@ -26,11 +26,11 @@ $error = array();
 require './install/lang/'.$setup->lang.'.php';
 
 #Templates
-$content = new Content;
-$content->title = $lang['installer'];
+$view = new View;
+$view->title = $lang['installer'];
 
 #Already done
-if(file_exists('./cfg/db.php') && filesize('./cfg/db.php')>43) $content->message($lang['ban']);
+if(file_exists('./cfg/db.php') && filesize('./cfg/db.php')>43) $view->message($lang['ban']);
 
 #PDO drivers
 $dr = PDO::getAvailableDrivers();
@@ -38,7 +38,7 @@ $my = in_array('mysql', $dr);
 $li = in_array('sqlite',$dr);
 
 #No driver
-if(!$my && !$li) $content->message($lang['noDB']);
+if(!$my && !$li) $view->message($lang['noDB']);
 
 #Only one
 $one = ($li xor $my) ? ($my ? 'mysql' : 'sqlite') : false;
@@ -46,7 +46,7 @@ $one = ($li xor $my) ? ($my ? 'mysql' : 'sqlite') : false;
 #Check CHMOD
 if(!$setup->chmods())
 {
-	$content->add('chmod', array('chmod' => $setup->buildChmodTable()));
+	$view->add('chmod', array('chmod' => $setup->buildChmodTable()));
 }
 
 #Installer level
@@ -118,12 +118,12 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		}
 		$setup->admin($data['login'], $_POST['uPass']);
 		$setup->commit($data);
-		$content->message($lang['OK'], '..');
+		$view->message($lang['OK'], '..');
 	}
 	catch(Exception $e)
 	{
-		$content->info(nl2br($e->getMessage()));
-		$content->add('form', array(
+		$view->info(nl2br($e->getMessage()));
+		$view->add('form', array(
 			'data'  => &$data,
 			'host'  => $_SERVER['HTTP_HOST'],
 			'mysql' => $data['type'] == 'mysql',
@@ -149,7 +149,7 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 		'lng'   => 2
 	);
 
-	$content->add('form', array(
+	$view->add('form', array(
 		'host'  => $_SERVER['HTTP_HOST'],
 		'mysql' => $one=='mysql' || ($_POST && $_POST['type']=='mysql'),
 		'data'  => &$data,
@@ -160,8 +160,8 @@ else switch(isset($_POST['stage']) ? $_POST['stage'] : ($one ? 1 : 0))
 	break;
 
 	#Select database
-	default: $content->add('start');
+	default: $view->add('start');
 }
 
 #Main template
-$content->front('body');
+$view->front('body');

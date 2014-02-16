@@ -3,7 +3,7 @@ if(iCMSa!=1) exit;
 require LANG_DIR.'admAll.php';
 
 #Page title
-$content->title = $id ? $lang['editPoll'] : $lang['addPoll'];
+$view->title = $id ? $lang['editPoll'] : $lang['addPoll'];
 
 #Save poll
 if($_POST)
@@ -81,7 +81,7 @@ if($_POST)
 
 		#Apply changes
 		$db->commit();
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('editPoll', '', 'admin') => $lang['addPoll'],
 			url('editPoll/'.$id, '', 'admin') => $lang['editPoll'],
 			url('poll/'.$id) => $poll['name']));
@@ -89,7 +89,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 }
 
@@ -111,8 +111,8 @@ else
 }
 
 #Prepare template
-$content->script('lib/forms.js');
-$content->add('editPoll', array(
+$view->script('lib/forms.js');
+$view->add('editPoll', array(
 	'langs' => listBox('lang', 1, $id ? $poll['access'] : LANG),
 	'poll'  => &$poll,
 	'item'  => &$an

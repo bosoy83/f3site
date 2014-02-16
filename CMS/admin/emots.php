@@ -16,7 +16,7 @@ if($_POST)
 		$f->var = 'emodata';
 		if($f->save($emodata) && file_put_contents('cache/emots.js','var emots='.json_encode($emodata),2))
 		{
-			$content->info($lang['saved']);
+			$view->info($lang['saved']);
 		}
 		unset($ile,$emodata,$f); $_POST = null;
 	}
@@ -37,5 +37,5 @@ foreach(scandir('./img/emo') as $file)
 if(!$_POST) include_once 'cfg/emots.php';
 
 #Prepare template
-$content->script('lib/forms.js');
-$content->add('emots', array('emo' => &$emodata, 'files' => &$files));
+$view->script('lib/forms.js');
+$view->add('emots', array('emo' => &$emodata, 'files' => &$files));

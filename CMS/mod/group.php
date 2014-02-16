@@ -7,7 +7,7 @@ require LANG_DIR.'profile.php';
 if(!$group = $db->query('SELECT * FROM '.PRE.'groups WHERE access!="0" AND ID='.$id)->fetch(2)) return;
 
 #Page title
-$content->title = $group['name'];
+$view->title = $group['name'];
 
 #Are you a member
 $member = UID ? dbCount('groupuser WHERE g='.$id.' AND u='.UID) : 0;
@@ -42,12 +42,12 @@ if(isset($URL[2]))
 			}
 			catch(Exception $e)
 			{
-				$content->info($e);
+				$view->info($e);
 			}
 		}
 		elseif(!$_POST)
 		{
-			$content->add('ask', array('url'=>'', 'query'=>$askJoin));
+			$view->add('ask', array('url'=>'', 'query'=>$askJoin));
 			return 1;
 		}
 	}
@@ -70,12 +70,12 @@ if(isset($URL[2]))
 			}
 			catch(Exception $e)
 			{
-				$content->info($e);
+				$view->info($e);
 			}
 		}
 		elseif(!$_POST)
 		{
-			$content->add('ask', array('url'=>'', 'query'=>$askLeave));
+			$view->add('ask', array('url'=>'', 'query'=>$askLeave));
 			return 1;
 		}
 	}
@@ -101,7 +101,7 @@ foreach($res as $x)
 endif;
 
 #Template
-$content->add('group', array(
+$view->add('group', array(
 	'group'  => &$group,
 	'user'   => &$new,
 	'edit'   => admit('G') ? url('editGroup/'.$id, 'ref', 'admin') : false,

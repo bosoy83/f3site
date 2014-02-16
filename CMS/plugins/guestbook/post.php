@@ -5,14 +5,14 @@ if(iCMS!=1) exit;
 $id = isset($URL[2]) && is_numeric($URL[2]) ? $URL[2] : 0;
 
 #Page title
-$content->title = $id ? $lang['editPost'] : $lang['sign'];
+$view->title = $id ? $lang['editPost'] : $lang['sign'];
 
 #Skrypty - BBCode
 if(isset($cfg['bbcode']))
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }
 
 #Błędy
@@ -151,11 +151,11 @@ if($_POST)
 				header('Location: '.URL.url('guestbook'));
 
 				#Show OK message
-				$content->message($lang['saved']);
+				$view->message($lang['saved']);
 			}
 			catch(PDOException $e)
 			{
-				$content->info($lang['error'].$e);
+				$view->info($lang['error'].$e);
 			}
 		}
 	}
@@ -200,12 +200,12 @@ else
 #Show errors
 if($error)
 {
-	$content->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
+	$view->info('<ul><li>'.join('</li><li>', $error).'</li></ul>');
 	if(!$_POST) return 1;
 }
 
 #Template
-$content->add('posting', array(
+$view->add('posting', array(
 	'post'   => &$post,
 	'code'   => $noSPAM,
 	'rules'  => $cfg['gbRules'],

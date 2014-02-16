@@ -44,7 +44,7 @@ $cats1 = $db->query('SELECT ID,name,c.type,CatID FROM '.PRE.'cats c LEFT JOIN '.
 	ON c.ID=a.CatID AND a.type="CAT" AND a.UID='.$id.' ORDER BY c.type') -> fetchAll(3);
 
 #Page title
-$content->title = sprintf('%s - %s', $lang['editAdm'], $adm[0]);
+$view->title = sprintf('%s - %s', $lang['editAdm'], $adm[0]);
 
 #Action: save
 if($_POST)
@@ -86,12 +86,12 @@ if($_POST)
 
 		#Apply changes
 		$db->commit();
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		header('Location: '.URL.url('admins','','admin'));
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 	return 1;
 }
@@ -137,7 +137,7 @@ foreach($cats1 as &$x)
 if($cats!='') $cats.='</fieldset>';
 
 #Template
-$content->add('editAdmin', array(
+$view->add('editAdmin', array(
 	'owner'   => IS_OWNER,
 	'lv'      => $lv,
 	'cats'    => &$cats,

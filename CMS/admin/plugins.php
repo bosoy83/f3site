@@ -7,7 +7,7 @@ $setup = array();
 if(file_exists('cfg/plug.php')) include './cfg/plug.php';
 
 #Page title
-$content->title = $lang['plugs'];
+$view->title = $lang['plugs'];
 
 #Install addon
 if(isset($URL[1]) && ctype_alnum($URL[1]))
@@ -17,7 +17,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 
 	if(!isset($data['install']))
 	{
-		$content->info($lang['noinst']); //Unpack & Play
+		$view->info($lang['noinst']); //Unpack & Play
 	}
 	elseif($_POST)
 	{
@@ -71,7 +71,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 		}
 		catch(Exception $e)
 		{
-			$content->info($e->getMessage()); return 1;
+			$view->info($e->getMessage()); return 1;
 		}
 	}
 	else
@@ -115,7 +115,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 		{
 			$menus = $langs = false;
 		}
-		$content->add('plugins', array(
+		$view->add('plugins', array(
 			'setup' => true,
 			'www'   => isset($data['www']) ? clean($data['www']) : null,
 			'name'  => isset($data[LANG]) ? clean($data[LANG]) : $name,
@@ -124,7 +124,7 @@ if(isset($URL[1]) && ctype_alnum($URL[1]))
 			'credits' => isset($data['credits']) ? clean($data['credits']) : 'N/A',
 			'options' => $opt
 		));
-		$content->info(isset($setup[$name]) ? $lang['warn2'] : $lang['warn']);
+		$view->info(isset($setup[$name]) ? $lang['warn2'] : $lang['warn']);
 		return 1;
 	}
 }
@@ -164,7 +164,7 @@ foreach(scandir('plugins') as $plug)
 }
 
 #Prepare template
-$content->add('plugins', array(
+$view->add('plugins', array(
 	'ready'   => &$green,
 	'unready' => &$black,
 	'setup'   => false

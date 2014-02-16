@@ -50,7 +50,7 @@ switch($act)
 }
 
 #Page title
-$content->title = $type;
+$view->title = $type;
 
 #Mass change
 if(isset($_POST['x']) && count($_POST['x'])>0)
@@ -89,7 +89,7 @@ if(isset($_POST['x']) && count($_POST['x'])>0)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 	unset($q,$ids,$ch,$x);
 }
@@ -141,7 +141,7 @@ $total = dbCount($table.$param);
 if($total == 0 && !$find)
 {
 	header('Location: '.URL.url('edit/'.$act, $id ? 'catid='.$id : null));
-	$content->info($lang['noc']);
+	$view->info($lang['noc']);
 	return 1;
 }
 
@@ -174,7 +174,7 @@ foreach($res as $i)
 }
 
 #Template
-$content->add('list', array(
+$view->add('list', array(
 	'item'  => $items,
 	'act'   => $act,
 	'url'   => $url,

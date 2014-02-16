@@ -44,7 +44,7 @@ foreach($res as $i)
 }
 
 #Prepare template
-$content->add('log', array(
+$view->add('log', array(
 	'event' => &$event,
 	'pages' => pages($page, $total, 30, url('log', '', 'admin'), 1),
 	'url'   => url('log', 'page='.$page, 'admin')

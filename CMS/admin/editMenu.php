@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('N')) exit;
 require LANG_DIR.'admAll.php';
 
 #Page title
-$content->title = $id ? $lang['editBox'] : $lang['addBox'];
+$view->title = $id ? $lang['editBox'] : $lang['addBox'];
 
 #Action: save
 if($_POST)
@@ -80,11 +80,11 @@ if($_POST)
 
 		#Redirect
 		header('Location: '.URL.url('menu', '', 'admin'));
-		$content->message($lang['saved'], url('menu', '', 'admin'));
+		$view->message($lang['saved'], url('menu', '', 'admin'));
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 }
 
@@ -110,8 +110,8 @@ else
 $cats = $db->query('SELECT ID,name FROM '.PRE.'cats WHERE access!=3 ORDER BY name')->fetchAll(12);
 $free = $db->query('SELECT ID,name FROM '.PRE.'pages WHERE access!=0 ORDER BY name')->fetchAll(12);
 
-$content->script('lib/forms.js');
-$content->add('editMenu', array(
+$view->script('lib/forms.js');
+$view->add('editMenu', array(
 	'menu' => &$m,
 	'item' => &$o,
 	'cats' => json_encode($cats),

@@ -12,9 +12,9 @@ else
 }
 
 #Template folders
-$content->dir = './plugins/bugs/style/';
-$content->cache = './cache/bugs/';
-$content->title = $lang['tracker'];
+$view->dir = './plugins/bugs/style/';
+$view->cache = './cache/bugs/';
+$view->title = $lang['tracker'];
 
 if(isset($URL[1]))
 {

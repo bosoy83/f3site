@@ -4,7 +4,7 @@ require LANG_DIR.'profile.php';
 require './cfg/account.php';
 
 #Page title
-$content->title = $lang['account'];
+$view->title = $lang['account'];
 
 #No one can edit first user except himself
 if($id==1 && UID!=1) return;
@@ -68,7 +68,7 @@ if($_POST)
 	#Errors
 	if($error)
 	{
-		$content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
+		$view->info('<ul><li>'.join('</li><li>',$error).'</li></ul>');
 	}
 	else
 	{
@@ -89,12 +89,12 @@ if($_POST)
 				(:login,:pass,:mail,:sex,:regt,:about,:www,:city,:icq,:skype,:tlen,:jabber,:gg,:photo)');
 			}
 			$q->execute($u);
-			$content->info($lang['upd'], array(url('user/'.urlencode($u['login'])) => $u['login']));
+			$view->info($lang['upd'], array(url('user/'.urlencode($u['login'])) => $u['login']));
 			return 1;
 		}
 		catch(PDOException $e)
 		{
-			$content->info($lang['error'].$e);
+			$view->info($lang['error'].$e);
 		}
 	}
 }
@@ -125,7 +125,7 @@ else
 }
 
 #Prepare template
-$content->add('editUser', array(
+$view->add('editUser', array(
 	'u' => &$u,
 	'url' => url('editUser/'.$id, '', 'admin'),
 	'pass' => !$id,

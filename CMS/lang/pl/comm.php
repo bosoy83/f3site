@@ -3,6 +3,7 @@ $lang+=Array(
 'c1'=>'Edytuj komentarz',
 'badCode'=>'Kod z obrazka został przepisany niepoprawnie.',
 'badPet'=>'Zaznacz tylko koty!',
+'badSb'=>'Ten post jest podejrzany. Popraw tekst i wyślij ponownie.',
 'c3'=>'Nie możesz wysłać drugiego komentarza tak szybko po poprzednim. Spróbuj ponownie za chwilę.',
 'c4'=>'Pola "treść" i "autor" muszą być uzupełnione.',
 'c5'=>'Treść jest zbyt długa.',

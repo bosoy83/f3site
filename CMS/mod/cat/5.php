@@ -70,7 +70,7 @@ else
 }
 
 #Do szablonu
-$content->add('cat_news', array(
+$view->add('cat_news', array(
 	'news'  => &$news,
 	'pages' => &$pages,
 	'add'   => $rights ? url('edit/5') : null,

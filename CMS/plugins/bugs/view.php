@@ -15,12 +15,12 @@ else
 $bug = $db->query('SELECT b.*, c.name as catName, c.rate FROM '.PRE.'bugs b INNER JOIN '.PRE.'bugcats c ON b.cat = c.ID WHERE b.ID='.$id.' AND (c.see=1 OR c.see="'.LANG.'")') -> fetch(2);
 
 #Page title
-$content->title = $bug['name'];
+$view->title = $bug['name'];
 
 #Does not exist
 if(!$bug)
 {
-	$content->set404();
+	$view->set404();
 	return;
 }
 
@@ -50,11 +50,11 @@ if($bug['rate'] == 2)
 {
 	$bug['mark']  = $bug['pos'] ? $bug['pos'] : $lang['lack'];
 	$bug['marks'] = $bug['neg'] ? $bug['neg'] : 0;
-	$content->css(SKIN_DIR.'rate.css');
+	$view->css(SKIN_DIR.'rate.css');
 }
 
 #Template
-$content->add('view', array(
+$view->add('view', array(
 	'bug'   => &$bug,
 	'edit'  => $rights || ($bug['poster']==UID && isset($cfg['bugsEdit'])) ? url('bugs/post/'.$id) : false,
 	'hands' => $bug['rate'] == 1,

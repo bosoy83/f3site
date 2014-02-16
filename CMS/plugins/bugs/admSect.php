@@ -51,7 +51,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($e);
+		$view->info($e);
 	}
 }
 
@@ -59,5 +59,5 @@ if($_POST)
 $all = $db->query('SELECT * FROM '.PRE.'bugsect ORDER BY seq') -> fetchAll(2);
 
 #Template
-$content->script('lib/forms.js');
-$content->add('adminSect', array('section' => &$all));
+$view->script('lib/forms.js');
+$view->add('adminSect', array('section' => &$all));

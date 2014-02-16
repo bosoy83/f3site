@@ -92,6 +92,7 @@
 'loginEx'=>'Wpisany login jest już zajęty.',
 'badCode'=>'Kod z obrazka został przepisany niepoprawnie.',
 'badPet'=>'Zaznacz poprawnie tylko zdjęcia kotów!',
+'badSb'=>'System bezpieczeństwa odrzucił konto. Popraw błędy i wyślij formularz ponownie.',
 'tooLong'=>'Zawartość pola O SOBIE jest za długa.',
 'badPass'=>'Podane hasło jest za krótkie.',
 'mustPass'=>'Musisz podać swoje aktualne hasło!',

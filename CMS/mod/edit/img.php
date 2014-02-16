@@ -5,7 +5,7 @@ if(EC!=1) exit;
 if(isset($_POST['asNew'])) $id = 0;
 
 #Page title
-$content->title = $id ? $lang['edit3'] : $lang['add3'];
+$view->title = $id ? $lang['edit3'] : $lang['add3'];
 
 #Action: save
 if($_POST)
@@ -53,7 +53,7 @@ if($_POST)
 		if(isset($_GET['ref'])) header('Location: '.URL.url('img/'.$id));
 
 		#Info + links
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('img/'.$id)  => sprintf($lang['see'], $img['name']),
 			url($img['cat']) => $lang['goCat'],
 			url('edit/3')    => $lang['add3'],
@@ -64,7 +64,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 }
 
@@ -83,23 +83,23 @@ else
 	{
 		$img = array(
 			'cat' => $lastCat, 'name' => '', 'dsc' => '', 'priority' => 2, 'file'=> 'img/',
-			'filem' => 'img/', 'size' => '', 'author' => $user['login'], 'access' => 1, 'type' => 1);
+			'th' => 'img/', 'size' => '', 'author' => $user['login'], 'access' => 1, 'type' => 1);
 	}
 }
 
 #Edytor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('edit_img', array(
+$view->add('edit_img', array(
 	'img'  => &$img,
 	'id'   => $id,
 	'cats' => Slaves(3,$img['cat']),

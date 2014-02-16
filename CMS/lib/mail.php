@@ -1,4 +1,4 @@
-<?php #Send E-mails only when really needed!
+<?php
 if(iCMS!=1) exit;
 if(!isset($cfg['mailh'])) require './cfg/mail.php';
 

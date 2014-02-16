@@ -5,7 +5,7 @@ if(EC!=1) exit;
 if(isset($_POST['asNew'])) $id = 0;
 
 #Page title
-$content->title = $id ? $lang['edit2'] : $lang['add2'];
+$view->title = $id ? $lang['edit2'] : $lang['add2'];
 
 #Action: save
 if($_POST)
@@ -48,7 +48,7 @@ if($_POST)
 		if(isset($_GET['ref'])) header('Location: '.URL.url('file/'.$id));
 
 		#Info + links
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('file/'.$id)  => sprintf($lang['see'], $file['name']),
 			url($file['cat']) => $lang['goCat'],
 			url('edit/2')     => $lang['add2'],
@@ -59,7 +59,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 }
 
@@ -86,16 +86,16 @@ else
 #Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('edit_file', array(
+$view->add('edit_file', array(
 	'file'    => &$file,
 	'id'      => $id,
 	'cats'    => Slaves(2,$file['cat']),

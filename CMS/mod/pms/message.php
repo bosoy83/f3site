@@ -11,7 +11,7 @@ if(isset($URL[2]) && is_numeric($URL[2]))
 }
 else
 {
-	$content->set404();
+	$view->set404();
 	return;
 }
 
@@ -56,14 +56,14 @@ foreach($q as $x)
 	#Tytu³ strony
 	if($x['ID'] == $URL[2])
 	{
-		$content->title = $x['topic'];
+		$view->title = $x['topic'];
 	}
 }
 
 #Brak?
 if(!$pm)
 {
-	$content->info($lang['noex']);
+	$view->info($lang['noex']);
 	return 1;
 }
 
@@ -79,7 +79,7 @@ if($read)
 }
 
 #Szablon i dane
-$content->add('pms_view', array(
+$view->add('pms_view', array(
 	'pm' => &$pm,
 	'form' => $x['st'] < 3 ? url('pms/edit','th='.$th) : false,
 	'color' => isset($cfg['colorCode']),

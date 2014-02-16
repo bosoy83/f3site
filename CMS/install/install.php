@@ -158,9 +158,21 @@ class Installer
 		$cfg = array();
 		require './cfg/main.php';
 
+		#Get Sblam! key
+		if(function_exists('fsockopen'))
+		{
+			$key = @file_get_contents('http://sblam.com/keygen.html');
+			$cfg['captcha'] = 1;
+			$cfg['sbKey'] = $key ? $key : NULL;
+		}
+		else
+		{
+			$cfg['captcha'] = 0;
+			$cfg['sbKey'] = NULL;
+		}
+
 		#Main options - page title and URL format
 		$cfg['title'] = $this->title;
-		$cfg['captcha'] = extension_loaded('gd') ? 1 : 0;
 		$cfg['RSS'] = $this->rss;
 
 		$o = new Config('main');

@@ -44,7 +44,7 @@
 'no'=>'Nie',
 'noc'=>'Brak zawartości w tym folderze.',
 'nocats'=>'Brak folderów.',
-'noex'=>'Błąd podczas odczytu danych. Prawdopodobnie link nie jest już aktualny.',
+'noex'=>'Nie odnaleziono strony. Podany adres jest już nieaktualny.',
 'NVAL'=>'%s nie jest opublikowany! Kliknij EDYTUJ, aby zmienić ustawienia.',
 'nonews'=>'Aktualnie brak nowości.',
 'loginComm'=>'Zaloguj się, aby móc wysłać komentarz.',

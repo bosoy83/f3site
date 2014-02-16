@@ -23,11 +23,11 @@ if($_POST)
 		$f->add('words1', $words1);
 		$f->add('words2', $words2);
 		$f->save();
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 }
 
@@ -46,5 +46,5 @@ for($i=0; $i<$num; ++$i)
 }
 
 #Template
-$content->script('lib/forms.js');
-$content->add('censor', array('word' => &$word));
+$view->script('lib/forms.js');
+$view->add('censor', array('word' => &$word));

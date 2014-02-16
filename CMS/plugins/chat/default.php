@@ -2,11 +2,11 @@
 if(iCMS!=1) exit;
 
 #Skin
-$content->title = 'Chat';
-$content->dir = './plugins/chat/';
-$content->cache = './cache/chat/';
-$content->css('plugins/chat/chat.css');
-$content->script('plugins/chat/chat.js');
+$view->title = 'Chat';
+$view->dir = './plugins/chat/';
+$view->cache = './cache/chat/';
+$view->css('plugins/chat/chat.css');
+$view->script('plugins/chat/chat.js');
 
 #Config
 if(file_exists('./cfg/chat.php'))
@@ -15,7 +15,7 @@ if(file_exists('./cfg/chat.php'))
 }
 else
 {
-	$content->message('Chat is NOT installed!');
+	$view->message('Chat is NOT installed!');
 }
 
 #Messages
@@ -39,7 +39,7 @@ foreach($res as $x)
 }
 
 #Template
-$content->add('chat', array(
+$view->add('chat', array(
 	'message' => &$msg,
 	'lastID'  => $msg ? ($_SESSION['chatLast'] = $msg[$num]['id']) : 0,
 	'nick'    => UID ? $user['login'] : 'Guest'

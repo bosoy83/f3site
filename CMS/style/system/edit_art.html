@@ -1,7 +1,7 @@
-<form action="" id="art" method="post" f3:array="art">
+<form id="art" method="post" f3:array="art">
 <h1>{this.title}</h1>
 
-<table cellspacing="1" class="tb" id="at">
+<table class="tb" id="at">
 <tbody>
 <tr>
 	<td style="width: 30%"><b>1. {lang.cat}:</b></td>
@@ -9,11 +9,11 @@
 </tr>
 <tr>
 	<td><b>2. {lang.title}:</b></td>
-	<td><input maxlength="50" size="40" name="name" value="{art.name}" ></td>
+	<td><input maxlength="50" size="40" name="name" value="{art.name}"></td>
 </tr>
 <tr>
 	<td><b>3. {lang.publish}:</b></td>
-	<td><input type="checkbox" name="access" ></td>
+	<td><input type="checkbox" name="access"></td>
 </tr>
 <tr>
   <td><b>4. {lang.priot}:</b></td>
@@ -28,8 +28,8 @@
 	<td><textarea name="dsc" cols="40" rows="2">{art.dsc}</textarea></td>
 </tr>
 <tr>
-	<td><b>6. {lang.author}:</b><br ><small>{lang.nameid}</small></td>
-	<td><input name="author" value="{art.author}" maxlength="30" list="authors" ></td>
+	<td><b>6. {lang.author}:</b><br><small>{lang.nameid}</small></td>
+	<td><input name="author" value="{art.author}" maxlength="30" list="authors"></td>
 </tr>
 </tbody>
 
@@ -42,9 +42,9 @@
 	<td align="center" colspan="2">
 	<textarea name="txt[]" style="width: 100%" cols="50" rows="25">{clean: txt}</textarea>
 	<fieldset>
-		<label><input type="checkbox" name="emo[{KEY}]" f3:var="i1.emo" > {lang.emo}</label>
-		<label><input type="checkbox" name="br[{KEY}]" f3:var="i1.br" > {lang.br}</label>
-		<label><input type="checkbox" name="code[{KEY}]" f3:var="i1.code" > {lang.hl}</label>
+		<label><input type="checkbox" name="emo[{KEY}]" f3:var="i1.emo"> {lang.emo}</label>
+		<label><input type="checkbox" name="br[{KEY}]" f3:var="i1.br"> {lang.br}</label>
+		<label><input type="checkbox" name="code[{KEY}]" f3:var="i1.code"> {lang.hl}</label>
 	</fieldset>
 	</td>
 </tr>
@@ -54,11 +54,11 @@
 <tfoot>
 <tr>
 	<td class="eth" colspan="2">
-		<input type="button" value="{lang.addPage}" name="N" >
-		<input type="button" value="{lang.preview}" name="P" >
-		<input type="submit" value="{lang.save}" style="font-weight: bold" >
+		<input type="button" value="+" name="N">
+		<input type="button" value="{lang.preview}" name="P">
+		<input type="submit" value="{lang.save}" style="font-weight: bold">
 		<!-- IF id -->
-		<input type="submit" name="asNew" value="{lang.asNew}" >
+		<input type="submit" name="asNew" value="{lang.asNew}">
 		<!-- END -->
 	</td>
 </tr>
@@ -82,7 +82,7 @@ C = function(a,b,c,d)
 {
 	d = d.replace(/&/g, '&amp;');
 	d = d.replace(/</g, '&lt;');
-	return '<'+b+c+'>'+d.replace(>/g, '&gt;')+'</'+b+'>';
+	return '<'+b+c+'>'+d.replace(/>/g, '&gt;')+'</'+b+'>';
 };
 f.onsubmit = function()
 {

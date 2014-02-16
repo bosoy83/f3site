@@ -57,7 +57,7 @@
 </tr>
 <tr>
 	<td><b>Gadu-Gadu:</b></td>
-	<td><input name="gg" maxlength="15" value="{u.gg}"></td>
+	<td><input name="gg" maxlength="15" value="{u.gg}" inputmode="numeric"></td>
 </tr>
 <tr>
 	<td><b>Tlen.pl:</b><br><small>{lang.tlenwot}</small></td>
@@ -65,7 +65,7 @@
 </tr>
 <tr>
 	<td><b>ICQ:</b></td>
-	<td><input name="icq" maxlength="20" value="{u.icq}"></td>
+	<td><input name="icq" maxlength="20" value="{u.icq}" inputmode="numeric"></td>
 </tr>
 <tr>
 	<td><b>Skype:</b></td>
@@ -77,7 +77,7 @@
 </tr>
 <tr>
 	<td><b>{lang.wwwp}:</b></td>
-	<td><input type="url" name="www" size="40" maxlength="120" value="{u.www}"></td>
+	<td><input name="www" size="40" maxlength="120" value="{u.www}"></td>
 </tr>
 <tr>
 	<td><b>{lang.opt}:</b></td>
@@ -168,16 +168,18 @@
 </table>
 </form>
 
+<!-- IF sblam -->
+<script src="lib/sblam/sblam.js.php"></script>
+<!-- END -->
+
 <script type="text/javascript">
 f = document.forms['eu'];
 if(f.login) f.login.focus(); else f.sex.focus()
-<!-- START bad -->
-f['{ITEM}'].style.borderColor = 'red';
-<!-- STOP -->
 <!-- IF bbcode -->
 include('lang/' + document.documentElement.lang + '/edit.js')
 include('lib/editor.js')
 include('cache/emots.js')
 f['about'].onfocus = function() { new Editor(this,1).emots(); this.onfocus = null }
+f['pass2'].oninput = function() { f.pass2.className = f.pass.value==f.pass2.value ? '' : 'bad' }
 <!-- END -->
 </script>

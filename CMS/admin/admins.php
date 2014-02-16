@@ -7,10 +7,10 @@ $res = $db->query('SELECT ID,login,lv,adm FROM '.PRE.'users WHERE lv>1 OR adm!="
 $res->setFetchMode(3);
 
 #Info, links
-$content->info($lang['iadms'], array(url('editUser','','admin')=>$lang['addUser']));
+$view->info($lang['iadms'], array(url('editUser','','admin')=>$lang['addUser']));
 
 #Page title
-$content->title = $lang['admins'];
+$view->title = $lang['admins'];
 
 #Init variables
 $num  = 0;
@@ -38,4 +38,4 @@ foreach($res as $adm)
 }
 
 #Template
-$content->add('admins', array('admin' => &$adms));
+$view->add('admins', array('admin' => &$adms));

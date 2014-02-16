@@ -1,4 +1,4 @@
-//Kolejność: Położenie ikony [px], BBCode, koniec BBCode, HTML, koniec HTML
+//Icon position, BBCode, end BBCode, HTML, end HTML
 var tags = [
 	[0, '[b]', '[/b]', '<b>', '</b>'],
 	[-22, '[i]', '[/i]', '<i>', '</i>'],
@@ -17,12 +17,9 @@ var tags = [
 	[-308],
 	[-330],
 	[-352],
-	[-374],
 ],
 
-tagNum = 17, //Liczba wszystkich tagów
-
-//Znaki specjalne
+//Special character table
 symbol = [
 	'°', '§', '¤', '÷', '×', '&frac12;',
 	'Ä', 'Ö', 'Ü', 'ä', 'ö', 'ü',
@@ -32,13 +29,12 @@ symbol = [
 	'€', '&hearts;', '‰', '&#9835;', '†'
 ],
 
-//Kolory
+//Colors
 color = [
 	'white', '#c9c9c9', 'yellow', 'orange', 'red', '#9de9f9', '#7eebaa', 'teal',
 	'black', 'gray', 'olive', 'gold', 'brown', 'blue', 'green', 'navy'
 ],
 
-//Dla paneli znaki + kolory występujących 1 raz
 eO, eCurBBC, eColors, eChars;
 
 //Konstruktor
@@ -49,7 +45,7 @@ function Editor(o, usebbcode)
 	this.create();
 }
 
-//Utwórz edytor
+//Create editor
 Editor.prototype.create = function()
 {
 	var that = this, IE,
@@ -62,7 +58,7 @@ Editor.prototype.create = function()
 		IE = (indexOf('MSIE') > 0 && charAt(indexOf('MSIE')+5) < 8)
 	}
 
-	for(var i=0; i<tagNum; i++)
+	for(var i=0; i<tags.length; i++)
 	{
 		if(this.bbcode && tags[i] && tags[i][1] === false) continue;
 		var b = document.createElement('span');
@@ -76,7 +72,7 @@ Editor.prototype.create = function()
 	}
 	this.o.parentNode.insertBefore(out,this.o);
 
-	//Skróty klawiszowe
+	//Keyboard shortcuts
 	this.o.onkeydown = function(e)
 	{
 		if(e == undefined) e = event;
@@ -99,7 +95,7 @@ Editor.prototype.create = function()
 	};
 };
 
-//Chroń przed wyjściem
+//Protect against exit
 Editor.prototype.protect = function(text)
 {
 	var self = this;
@@ -114,10 +110,9 @@ Editor.prototype.protect = function(text)
 	addEvent('submit', function() { onbeforeunload = null }, this.o.form)
 };
 
-//Wstaw znacznik
+//Insert tag
 Editor.prototype.format = function(i)
 {
-	//Standardowe tagi
 	if(tags[i][1])
 	{
 		if(this.bbcode)
@@ -125,7 +120,6 @@ Editor.prototype.format = function(i)
 		else
 			BBC(this.o, tags[i][3], tags[i][4]);
 	}
-	//Nieopisane w tablicy `tags`
 	else switch(i)
 	{
 		case 13:
@@ -151,17 +145,14 @@ Editor.prototype.format = function(i)
 				if(this.bbcode)
 					BBC(this.o, '[img]', '[/img]\n', a);
 				else
-					BBC(this.o,'<img src="','" />');
+					BBC(this.o,'<img src="','">');
 	}
 };
 
-//Emoty
+//Show emoticons
 Editor.prototype.emots = function(x)
 {
-	//Wykryj
 	var exist = this.emo ? 1 : 0;
-
-	//Usuń
 	if(this.emo)
 	{
 		if(x == false)
@@ -176,7 +167,7 @@ Editor.prototype.emots = function(x)
 	}
 	else if(x && x==0) return;
 
-	//Wstaw
+	//Build emoticon table
 	var that = this.o,
 	num = emots.length,
 	out = document.createElement('div');
@@ -195,7 +186,7 @@ Editor.prototype.emots = function(x)
 	this.emo = this.o.parentNode.insertBefore(out, this.o.nextSibling)
 };
 
-//Zbuduj tabelę symboli
+//Build symbol table
 Editor.prototype.make = function(buildChars)
 {
 	var out = document.createElement('div');
@@ -209,7 +200,6 @@ Editor.prototype.make = function(buildChars)
 	tb = document.createElement('tbody');
 	tb.align = 'center';
 
-	//Kolory
 	if(buildChars)
 	{
 		var num = symbol.length;
@@ -227,7 +217,7 @@ Editor.prototype.make = function(buildChars)
 			if(y==6) { tb.appendChild(tr); y=1 } else { ++y }
 		}
 
-		//Cudzysłowy
+		//Quotes
 		var td = document.createElement('td');
 		td.onclick = function() { BBC(eO, '„', '”') };
 		td.innerHTML = '„ ”';
@@ -320,7 +310,7 @@ Editor.prototype.mail = function()
 	else this.o.focus()
 };
 
-//Podgląd
+//Show preview
 Editor.prototype.preview = function(opt,where,text)
 {
 	//Tekst
@@ -346,10 +336,57 @@ Editor.prototype.preview = function(opt,where,text)
 		text = text.replace(/&/g, '&amp;');
 		text = text.replace(/</g, '&lt;');
 		text = text.replace(/>/g, '&gt;')
+		for(var re,i=0; i<12; i++)
+		{
+			re = (tags[i][1]+'(.*?)'+tags[i][2]).replace(/[\[\]]+/g,'\\$&');
+			text = text.replace(RegExp(re,'gi'), tags[i][3]+'$1'+tags[i][4])
+		}
+		var furl = function(match,txt)
+		{
+			var url = txt;
+			if(url.indexOf('www.')===0) url = 'http://'+url;
+			if(txt.length>30) txt = txt.substr(0,21)+'...'+txt.substr(-8);
+			return txt.link(url)
+		};
+		var fsurl = function(match,space,text)
+		{
+			var last = text.slice(-1), post = '';
+			while(last==='.' || last===',')
+			{
+				post += last;
+				text = text.slice(0,-1);
+				last = text.slice(-1);
+			}
+			return space + furl(match,text) + post
+		};
+		var ffurl = function(match,url,txt)
+		{
+			if(url.indexOf('www.')===0) url = 'http://'+url;
+			return txt.link(url)
+		};
+		var fimg = function(match,tag,url)
+		{
+			if(url.indexOf(document.baseURI)===-1 && url.indexOf('.php')===-1)
+			{
+				if(tag==='video')
+				{
+					return '<video controls src="'+url+'" style="width: 100%"><a href="'+url+'">video</a></video>'
+				}
+				return '<img src="'+url+'" alt="Image" style="max-width: 100%">'
+			}
+			return 'Bad '+tag
+		};
+		text = text.replace(/\[color=([A-Za-z0-9#].*?)\](.*?)\[\/color\]/gi, '<span style="color:$1">$2</span>');
+		text = text.replace(/\[url]([^\]].*?)\[\/url\]/gi, furl);
+		text = text.replace(/\[url=([^\]]+)\](.*?)\[\/url\]/gi, ffurl);
+		text = text.replace(/(^|[\n ])(www\.[a-z0-9\-]+\.[\w\#$%\&~\/.\-;:=,?@\[\]+]*)/gim, fsurl);
+		text = text.replace(/(^|[\n ])([\w]+?:\/\/[\w\#$%\&~\/.\-;:=,?@\[\]+]*)/gim, fsurl);
+		text = text.replace(/\[(video)\](https?:\/\/[^\s<>"].*?)\[\/video\]/gi, fimg);
+		text = text.replace(/\[(img)\](https?:\/\/[^\s<>"].*?)\[\/img\]/gi, fimg);
 	}
 
 	//Emotikony
-	if(opt.EMOTS)
+	if(opt.EMOTS || this.bbcode)
 	{
 		for(var i in emots)
 		{

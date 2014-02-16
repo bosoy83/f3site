@@ -21,19 +21,19 @@ switch($id)
 {
 	case 'sent':
 		$q = 'p.st<3 AND p.usr='.UID; #Wys³ane
-		$content->title = $lang['sent'];
+		$view->title = $lang['sent'];
 		break;
 	case 'topics':
 		$q = 'p.th=0 AND st<3 AND (p.owner='.UID.' OR p.usr='.UID.')'; #W¹tki
-		$content->title = $lang['topics'];
+		$view->title = $lang['topics'];
 		break;
 	case 'drafts':
 		$q = 'p.st=3 AND p.owner='.UID; #Kopie robocze
-		$content->title = $lang['drafts'];
+		$view->title = $lang['drafts'];
 		break;
 	default:
 		$q = 'p.st<3 AND p.owner='.UID; #Odebrane
-		$content->title = $user['pms'] ? sprintf('%s (%d)',$lang['inbox'],$user['pms']) : $lang['inbox'];
+		$view->title = $user['pms'] ? sprintf('%s (%d)',$lang['inbox'],$user['pms']) : $lang['inbox'];
 		$id = 'inbox';
 }
 
@@ -43,7 +43,7 @@ $total = dbCount('pms p WHERE p.del!='.UID.' AND '.$q);
 #Brak?
 if($total < 1)
 {
-	$content->info($content->title.'<br /><br />'.$lang['pm11']);
+	$view->info($view->title.'<br /><br />'.$lang['pm11']);
 	return 1;
 }
 
@@ -73,7 +73,7 @@ foreach($res as $x)
 $res=null;
 
 #Szablon
-$content->add('pms_list', array(
+$view->add('pms_list', array(
 	'pm'  => $pms,
 	'who' => $id=='drafts' ? $lang['pm13'] : $lang['pm12'],
 	'url' => url('pms/del/'.$id),

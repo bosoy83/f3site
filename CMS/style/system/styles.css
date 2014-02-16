@@ -321,10 +321,24 @@ ul.cats li {
 	padding-left: 22px;
 	background: url(img/comments.png) no-repeat
 }
+#comments a img {
+	padding: 0 2px;
+	opacity: 0.2
+}
+#comments td:hover a img {
+	opacity: 1
+}
+.comDate {
+	float: left;
+	background: url(../../img/icon/comment.png) no-repeat 0 2px;
+	padding-left: 20px;
+	color: gray
+}
 .newsButtons {
 	margin: 9px 0;
 	height: 22px;
-	text-align: right
+	text-align: right;
+	opacity: 0.5
 }
 .newsButtons a {float:right}
 
@@ -436,6 +450,9 @@ path:hover {opacity: 0.7}
 	background-color: #fffdd9;
 	border-color: #dedbc0
 }
+
+/* BAD FIELD */
+.bad {color: red}
 
 /* IE6 Fix - right sidebar width */
 * html #left { left: 250px }

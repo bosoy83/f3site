@@ -7,11 +7,11 @@ if(isset($cfg['MA']) && !IS_EDITOR)
 {
 	header('Service Unavailable', true, 503);
 	header('Retry-After: 7200');
-	$content->message(10, UID ? null : 'login.php');
+	$view->message(10, UID ? null : 'login.php');
 }
 
 #Default META description
-$content->desc = $cfg['metaDesc'];
+$view->desc = $cfg['metaDesc'];
 
 #Load module: built-in module, extension, 404
 if(isset($URL[0]) && !is_numeric($URL[0]) && strpos($URL[0],'/')===false && !isset($URL[0][30]))
@@ -35,7 +35,7 @@ else
 #AJAX
 if(JS)
 {
-	$content->display();
+	$view->display();
 }
 else
 {
@@ -50,9 +50,9 @@ else
 	#Channels for language
 	if(!empty($cfg['RSS'][LANG]))
 	{
-		$content->rss($cfg['RSS'][LANG]);
+		$view->rss($cfg['RSS'][LANG]);
 	}
 
 	#Main template
-	$content->front();
+	$view->front();
 }

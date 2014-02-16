@@ -36,4 +36,4 @@ foreach($res as $g)
 }
 
 $res = null;
-$content->add('groups', array('group' => &$group));
+$view->add('groups', array('group' => &$group));

@@ -1,7 +1,7 @@
 <?php
 if(iCMSa!=1) exit;
 
-$content->title = 'Chat';
-$content->dir = './plugins/chat/';
-$content->cache = './cache/chat/';
-$content->add('admin', array('cfg' => &$cfg));
+$view->title = 'Chat';
+$view->dir = './plugins/chat/';
+$view->cache = './cache/chat/';
+$view->add('admin', array('cfg' => &$cfg));

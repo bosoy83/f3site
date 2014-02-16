@@ -33,21 +33,21 @@ if($TYPE)
 {
 	switch($TYPE)
 	{
-		case '5': (require './mod/edit/new.php') or $content->set404(); break;
-		case '1': (require './mod/edit/art.php') or $content->set404(); break;
-		case '2': (require './mod/edit/file.php') or $content->set404(); break;
-		case '3': (require './mod/edit/img.php') or $content->set404(); break;
-		case '4': (require './mod/edit/link.php') or $content->set404(); break;
-		case 'gallery': (require './mod/edit/photos.php') or $content->set404(); break;
+		case '5': (require './mod/edit/new.php') or $view->set404(); break;
+		case '1': (require './mod/edit/art.php') or $view->set404(); break;
+		case '2': (require './mod/edit/file.php') or $view->set404(); break;
+		case '3': (require './mod/edit/img.php') or $view->set404(); break;
+		case '4': (require './mod/edit/link.php') or $view->set404(); break;
+		case 'gallery': (require './mod/edit/photos.php') or $view->set404(); break;
 		default: if(file_exists('./mod/edit/'.$TYPE.'.php')) {
-			(require './mod/edit/'.$TYPE.'.php') or $content->set404();
+			(require './mod/edit/'.$TYPE.'.php') or $view->set404();
 		} else return;
 	}
 	unset($_POST); return 1;
 }
 
 #Tytul
-$content->title = $lang['mantxt'];
+$view->title = $lang['mantxt'];
 
 #Ostatni komentarz
 if(admit('CM') && $c = $db->query('SELECT name,date,text FROM '.PRE.'comms ORDER BY ID DESC LIMIT 1')->fetch(3))
@@ -70,7 +70,7 @@ else
 }
 
 #Wolne strony
-$content->add('content', array(
+$view->add('content', array(
 	'comment' => &$last,
 	'page'    => admit('P') ? url('editPage','','admin') : null,
 	'pages'   => admit('P') ? url('pages','','admin') : null));

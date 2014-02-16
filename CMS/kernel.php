@@ -31,16 +31,6 @@ $user = null;
 require './cfg/main.php';
 require './cfg/db.php';
 
-#Bans
-if(!empty($cfg['ban']))
-{
-	$ban = explode("\n", $cfg['ban']);
-	if(in_array($_SERVER['REMOTE_ADDR'], $ban))
-	{
-		exit;
-	}
-}
-
 #AJAX request
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 define('PROTO', isset($_SERVER['HTTPS']) ? 'https://' : 'http://');
@@ -79,13 +69,6 @@ else
 	$id = 0;
 }
 
-#Redirect old URL to new
-if(isset($_GET['co']) && ctype_alnum($_GET['co']))
-{
-	header('Moved Permanently', true, 301);
-	header('Location: ' . URL . url($_GET['co'] . ($id ? '/'.$id : '')));
-}
-
 #Session
 session_start();
 
@@ -95,9 +78,8 @@ $nlang = $cfg['lang'];
 #Lang: set
 if(isset($URL[0][1]) && empty($URL[0][2]) && file_exists('lang/'.$URL[0].'/main.php'))
 {
-	$nlang = $_SESSION['LANG'] = $URL[0];
+	$nlang = $_SESSION['LANG'] = array_shift($URL);
 	setcookie('lang', $nlang, time()+23328000); //9 months
-	array_shift($URL);
 }
 #Lang: session
 elseif(isset($_SESSION['LANG']))
@@ -134,8 +116,8 @@ define('LANG_DIR', './lang/'.LANG.'/');
 require LANG_DIR.'main.php';
 
 #Include skin class and create object
-require './lib/content.php';
-$content = new Content;
+require './lib/view.php';
+$view = new View;
 
 #Stylesheet
 if(isset($_COOKIE['CSS']) && ctype_alnum($_COOKIE['CSS']))
@@ -170,7 +152,7 @@ try
 }
 catch(PDOException $e)
 {
-	$content->message(23);
+	$view->message(23);
 }
 
 $xuid=false;
@@ -365,7 +347,7 @@ function pages($page,$ile,$max,$url='',$type=0,$p='')
 		return $out.'</select> '.$lang['of'].$all;
 	}
 	else
-	{ 
+	{
 		for($i=1; $i<=$all; ++$i)
 		{
 			if($all > 9 && $i > 1)

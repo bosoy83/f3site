@@ -15,13 +15,13 @@ else
 }
 
 #Template path
-$content->dir = './plugins/guestbook/style/';
-$content->cache = './cache/guestbook/';
+$view->dir = './plugins/guestbook/style/';
+$view->cache = './cache/guestbook/';
 
 #Guestbook disabled
 if(!isset($cfg['gbOn']))
 {
-	$content->info($lang['disabled']);
+	$view->info($lang['disabled']);
 	return 1;
 }
 

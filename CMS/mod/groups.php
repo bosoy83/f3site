@@ -3,7 +3,7 @@ if(iCMS!=1) exit;
 require LANG_DIR.'profile.php';
 
 #Tytu³ strony
-$content->title = $lang['groups'];
+$view->title = $lang['groups'];
 
 #Grupy u¿ytkownika
 $member = UID ? $db->query('SELECT g FROM '.PRE.'groupuser WHERE u='.UID)->fetchAll(7) : array();
@@ -30,16 +30,16 @@ if(empty($gro))
 {
 	if(admit('G'))
 	{
-		$content->info($lang['noGroup'], array(
+		$view->info($lang['noGroup'], array(
 			url('editGroup', '', 'admin') => $lang['addGroup'],
 			url('groups', '', 'admin')    => $lang['groups']));
 	}
 	else
 	{
-		$content->info($lang['noGroup']);
+		$view->info($lang['noGroup']);
 	}
 	return 1;
 }
 
 #Szablon
-$content->add('groups', array('groups' => &$gro));
+$view->add('groups', array('groups' => &$gro));

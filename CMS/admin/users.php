@@ -77,7 +77,7 @@ foreach($res as $u)
 }
 
 #Template
-$content->add('users', array(
+$view->add('users', array(
 	'users' => &$users,
 	'search'=> $s,
 	'pages' => pages($page,$total,30,url('users','s='.$s,'admin'),1)

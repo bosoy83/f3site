@@ -5,7 +5,7 @@ if(EC!=1) exit;
 if(isset($_POST['asNew'])) $id = 0;
 
 #Page title
-$content->title = $id ? $lang['edit1'] : $lang['add1'];
+$view->title = $id ? $lang['edit1'] : $lang['add1'];
 
 #Action: save
 if($_POST)
@@ -80,7 +80,7 @@ if($_POST)
 		}
 
 		#Info + links
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('art/'.$id)  => sprintf($lang['see'], $art['name']),
 			url($art['cat']) => $lang['goCat'],
 			url('edit/1')    => $lang['add1'],
@@ -91,7 +91,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 }
 else
@@ -136,17 +136,17 @@ foreach($full as $key=>&$val)
 #Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('edit_art', array(
+$view->add('edit_art', array(
 	'art' => &$art,
 	'id'  => $id,
 	'full' => &$full,

@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Tytu³ strony
-$content->title = $lang['write'];
+$view->title = $lang['write'];
 $preview = null;
 
 #ID i w±tek
@@ -69,7 +69,7 @@ if($_POST)
 		}
 		catch(Exception $e)
 		{
-			$content->info($e->getMessage());
+			$view->info($e->getMessage());
 		}
 	}
 	#Podgl±d
@@ -142,13 +142,13 @@ else
 #Edytor JS
 if(isset($cfg['bbcode']))
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('lib/editor.js');
-	$content->script('cache/emots.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('lib/editor.js');
+	$view->script('cache/emots.js');
 }
 
 #Szablon formularza
-$content->add('pms_posting', array(
+$view->add('pms_posting', array(
 	'pm' => &$pm,
 	'url' => $url,
 	'color' => $preview && isset($cfg['colorCode']),

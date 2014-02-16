@@ -15,15 +15,15 @@ else
 }
 
 #Template path
-$content->dir = './plugins/guestbook/style/';
-$content->cache = './cache/guestbook/';
-$content->title = $lang['gbAdmin'];
+$view->dir = './plugins/guestbook/style/';
+$view->cache = './cache/guestbook/';
+$view->title = $lang['gbAdmin'];
 
 #Delete old
 if(isset($_POST['prune']) && strlen($_POST['prune'])===20)
 {
 	$db->prepare('DELETE FROM '.PRE.'guestbook WHERE date<?')->execute(array(strtotime($_POST['prune'])));
-	$content->info($lang['gbPruned']);
+	$view->info($lang['gbPruned']);
 }
 
 $styles = '';
@@ -42,11 +42,11 @@ if(admit('CFG'))
 		try
 		{
 			$f->save($opt);
-			$content->info($lang['saved']);
+			$view->info($lang['saved']);
 		}
 		catch(Exception $e)
 		{
-			$content->info($lang['error'].$e);
+			$view->info($lang['error'].$e);
 		}
 	}
 	else
@@ -64,7 +64,7 @@ if(admit('CFG'))
 }
 
 #Template
-$content->add('admin', array(
+$view->add('admin', array(
 	'cfg'    => &$opt,
 	'styles' => $styles,
 ));

@@ -44,7 +44,7 @@ else
 }
 
 #Do szablonu
-$content->add('cat_arts', array(
+$view->add('cat_arts', array(
 	'pages' => &$pages,
 	'arts'  => &$arts,
 	'add'   => admit($d,'CAT') ? url('edit/1') : null,

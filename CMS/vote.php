@@ -26,13 +26,13 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	#Zalogowany?
 	if(!UID && !isset($cfg['grate']))
 	{
-		if(JS) exit($lang[9]); else $content->message(9, $ref);
+		if(JS) exit($lang[9]); else $view->message(9, $ref);
 	}
 
 	#Czy oceniany ID istnieje i jest w³±czony
 	if(!isset($data[$t]['rate']) OR !dbCount($data[$t]['table'].' i INNER JOIN '.PRE.'cats c ON i.cat=c.ID WHERE i.access=1 AND c.access!="3" AND c.opt&4 AND i.ID='.$id))
 	{
-		if(JS) exit($lang[7]); else $content->message(7, $ref);
+		if(JS) exit($lang[7]); else $view->message(7, $ref);
 	}
 
 	#Co ocenia³?
@@ -41,7 +41,7 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	#Gdy ocenia³ - zakoñcz
 	if(in_array($t.'.'.$id, $rated))
 	{
-		if(JS) exit($lang[6]); else $content->message(6, $ref);
+		if(JS) exit($lang[6]); else $view->message(6, $ref);
 	}
 
 	#Je¿eli brak wpisu w bazie, ¿e ocenia³...
@@ -67,7 +67,7 @@ if(isset($_POST['v']) && isset($_GET['type']) && $id && $_POST['v'] > 0 && $_POS
 	setcookie('rated', join('o',$rated), time()+7776000, $_SERVER['PHP_SELF']);
 
 	#OK
-	if(JS) echo $lang[5]; else $content->message(5, $ref);
+	if(JS) echo $lang[5]; else $view->message(5, $ref);
 }
 
 #Ankieta
@@ -78,7 +78,7 @@ if(isset($_POST['poll']))
 		.LANG.'" ORDER BY ID DESC LIMIT 1') -> fetch(2);
 
 	#Istnieje? + ID
-	if($poll) { $id = $poll['ID']; } else { $content->message(22); exit; }
+	if($poll) { $id = $poll['ID']; } else { $view->message(22); exit; }
 
 	#G³osowa³ na...
 	$voted = isset($_COOKIE['voted']) ? explode('o', $_COOKIE['voted']) : array();
@@ -127,7 +127,7 @@ if(isset($_POST['poll']))
 			}
 			catch(Exception $e)
 			{
-				$content->message(22); exit;
+				$view->message(22); exit;
 			}
 		}
 	}
@@ -142,6 +142,6 @@ if(isset($_POST['poll']))
 	}
 	else
 	{
-		$content->message(5, url('poll/'.$id));
+		$view->message(5, url('poll/'.$id));
 	}
 }

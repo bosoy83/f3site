@@ -3,7 +3,7 @@ if(iCMS!=1 OR !admit('CM')) exit;
 require LANG_DIR.'comm.php';
 
 #Page title
-$content->title = $lang['comms'];
+$view->title = $lang['comms'];
 
 #Commit action
 if(isset($_POST['a']))
@@ -25,7 +25,7 @@ if(isset($_POST['a']))
 		}
 		catch(PDOException $e)
 		{
-			$content->info('ERROR: '.$e);
+			$view->info('ERROR: '.$e);
 		}
 	}
 }
@@ -99,7 +99,7 @@ foreach($res as $x)
 }
 
 #Prepare template
-$content->add('moderate', array(
+$view->add('moderate', array(
 	'comment' => $com,
 	'total'   => $total,
 	'url'     => url('moderate'),

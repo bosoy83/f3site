@@ -15,7 +15,7 @@ if($_POST)
 		#Invalid key
 		if(empty($_SESSION['key']) || $_POST['key'] != $_SESSION['key'])
 		{
-			$content->info($lang['again']);
+			$view->info($lang['again']);
 		}
 		#Update
 		elseif($id)
@@ -31,13 +31,13 @@ if($_POST)
 		}
 		#Apply changes
 		$q->execute($ad);
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		header('Location: '.URL.url('ads','','admin'));
 		return 1;
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->getMessage(), null, 'error');
+		$view->info($lang['error'].$e->getMessage(), null, 'error');
 	}
 }
 elseif($id)
@@ -54,12 +54,12 @@ else
 require LANG_DIR.'admAll.php';
 
 #Editor
-$content->script(LANG_DIR.'edit.js');
-$content->script('lib/editor.js');
+$view->script(LANG_DIR.'edit.js');
+$view->script('lib/editor.js');
 
 #Page title, template
-$content->title = $id ? $lang['editAd'] : $lang['addAd'];
-$content->add('editAd', array(
+$view->title = $id ? $lang['editAd'] : $lang['addAd'];
+$view->add('editAd', array(
 	'ad' => &$ad,
 	'key' => uniqid()
 ));

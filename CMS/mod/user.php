@@ -5,7 +5,7 @@ require LANG_DIR.'profile.php';
 #Tylko dla zalogowanych
 if(isset($cfg['hideUser']) && !UID)
 {
-	$content->info($lang['mustLogin'], null, 'error');
+	$view->info($lang['mustLogin'], null, 'error');
 	return 1;
 }
 
@@ -98,8 +98,8 @@ foreach($r as $x)
 }
 
 #Szablon
-$content->title = $u['login'];
-$content->add('user', array(
+$view->title = $u['login'];
+$view->add('user', array(
 	'u'  => &$u,
 	'pm' => isset($cfg['pmOn']) && UID ? url('pms/edit', 'to='.$u['ID']) : false,
 	'edit' => $may,

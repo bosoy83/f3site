@@ -19,7 +19,7 @@ switch($URL[0])
 
 	#Pliki CSS
 	case 'css':
-		$content->file = 'css';
+		$view->file = 'css';
 		break;
 
 	#Edytuj tagi
@@ -31,8 +31,8 @@ switch($URL[0])
 	#Rozszerzenia
 	default:
 		if(file_exists('./plugins/'.$URL[0].'/js.php'))
-			(include './plugins/'.$URL[0].'/js.php') or $content->set404();
+			(include './plugins/'.$URL[0].'/js.php') or $view->set404();
 }
 
 #Wy¶wietl szablon
-#if($content->file) $content->display();
+#if($view->file) $view->display();

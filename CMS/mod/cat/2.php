@@ -30,7 +30,7 @@ foreach($res as $file)
 		'url'   => $url.$file[0],
 		'num'   => ++$st,
 		'date'  => genDate($file[2]),
-		'file_url' => isset($cfg['fcdl']) ? 'go.php?file='.$file[0] : $file[4]
+		'file_url' => isset($cfg['fcdl']) ? url('get/'.$file[0]) : $file[4]
 	);
 	++$total;
 }
@@ -46,7 +46,7 @@ else
 }
 
 #Do szablonu
-$content->add('cat_files', array(
+$view->add('cat_files', array(
 	'files' => &$files,
 	'pages' => &$pages,
 	'add'   => admit($d,'CAT') ? url('edit/2') : null,

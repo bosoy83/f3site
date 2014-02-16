@@ -3,7 +3,7 @@ if(iCMSa!=1 || !admit('G')) exit;
 require LANG_DIR.'admAll.php';
 
 #Page title
-$content->title = $id ? $lang['editGroup'] : $lang['addGroup'];
+$view->title = $id ? $lang['editGroup'] : $lang['addGroup'];
 
 #Action: save
 if($_POST)
@@ -37,7 +37,7 @@ if($_POST)
 		#Redirect
 		if(isset($_GET['ref'])) header('Location: '.URL.url('group/'.$id));
 
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('group/'.$id) => $group['name'],
 			url('editGroup/'.$id, '', 'admin') => $lang['editGroup'],
 			url('editGroup', '', 'admin') => $lang['addGroup']));
@@ -45,7 +45,7 @@ if($_POST)
 	}
 	catch(PDOException $e)
 	{
-		$content->info($lang['error'].$e->getMessage());
+		$view->info($lang['error'].$e->getMessage());
 	}
 }
 
@@ -63,17 +63,17 @@ else
 #Editor JS
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('editGroup', array(
+$view->add('editGroup', array(
 	'group' => &$group,
 	'langs' => listBox('lang', 1, $id ? $group['access'] : null)
 ));

@@ -26,7 +26,7 @@ foreach($res as $link)
 {
 	$links[] = array(
 		'title' => $link[1],
-		'url'   => $url ? $url.$link[0] : ($count ? 'go.php?link='.$link[0] : $link[3]),
+		'url'   => $url ? $url.$link[0] : ($count ? url('go/'.$link[0]) : $link[3]),
 		'site'  => $link[3],
 		'views' => $count ? $link[4] : null,
 		'nw'    => $link[5],
@@ -47,7 +47,7 @@ else
 }
 
 #Do szablonu
-$content->add('cat_links', array(
+$view->add('cat_links', array(
 	'pages' => &$pages,
 	'links' => &$links,
 	'count' => $count,

@@ -138,7 +138,7 @@ class Compiler
 			'/\{([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/', //Tablice
 			'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\.([A-Za-z0-9:_ ]+)\}/',
 			'/\{([A-Za-z0-9_]+)\-\>([A-Za-z0-9_]+)\}/', //Obiekty
-			'/\{([A-Z0-9_]+)\}/', //Sta³e
+			'/\{([A-Z0-9_]+)\}/', //StaÅ‚e
 			'/\{([A-Za-z0-9_]+)\}/',
 			'/\{(nl2br|clean|htmlspecialchars|autor|genDate): ([A-Za-z0-9_]+)\}/',
 			'#"url\(([\S]+):([\S]+)\)"#',
@@ -173,10 +173,10 @@ class Compiler
 		if($c1 != $c2 OR $c3 > $c1) { throw new Exception('IF condition is not closed in '.$this->file); }
 
 		#Optimize PHP openings
-		$this->data = str_replace( array('?><?php', "?>\n<?php"), array('',''), $this->data);
+		$this->data = str_replace( array('?><?php', "?>\n<?php"), '', $this->data);
 
 		#Drop HTML comments
-		$this->data = preg_replace('#\<!--(.|\s)*?--\>#', '', $this->data);
+		$this->data = preg_replace('#\<!--(.*)--\>#Uis', '', $this->data);
 
 		#Store as byte code or text
 		if($this->byteCode && extension_loaded('bcompiler'))

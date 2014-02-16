@@ -13,7 +13,7 @@ if($page['access'] != 1)
 	if(!$page['access'])
 	{
 		if(!$edit) return;
-		$content->info(sprintf($lang['NVAL'], $page['name']), null, 'warning');
+		$view->info(sprintf($lang['NVAL'], $page['name']), null, 'warning');
 	}
 	elseif(!UID) return;
 }
@@ -39,8 +39,8 @@ if($page['opt'] & 1)
 }
 
 #Page title, template
-$content->title = $page['name'];
-$content->add('page', array(
+$view->title = $page['name'];
+$view->add('page', array(
 	'page' => &$page,
 	'box'  => $page['opt'] & 4,
 	'all'  => $edit ? url('pages','','admin') : false,

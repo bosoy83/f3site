@@ -16,7 +16,7 @@ if(isset($_GET['logout']) && UID)
 	session_destroy();
 	if(isset($_COOKIE[PRE.'login'])) setcookie(PRE.'login','',time()-31104000);
 	header('Location: '.URL);
-	$content->message(4, URL);
+	$view->message(4, URL);
 	exit;
 }
 
@@ -43,7 +43,7 @@ elseif(!UID && !empty($_POST['u']) && !empty($_POST['p']))
 	#Inactive
 	if($u['lv']=='0')
 	{
-		$content->message(16);
+		$view->message(16);
 	}
 
 	#Check login and password
@@ -70,14 +70,14 @@ elseif(!UID && !empty($_POST['u']) && !empty($_POST['p']))
 			unset($_SESSION['online']);
 		}
 		header('Location: '.$to.$from);
-		$content->message(1, $from ? $from : $to);
+		$view->message(1, $from ? $from : $to);
 	}
 	else
 	{
-		$content->message(2);
+		$view->message(2);
 	}
 }
 
 #Show form
-$content->add('login', array('url' => 'login.php?from='.$from));
-$content->display();
+$view->add('login', array('url' => 'login.php?from='.$from));
+$view->display();

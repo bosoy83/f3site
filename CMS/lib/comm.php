@@ -1,7 +1,7 @@
 <?php #Show comments
 function comments($id, $type=5, $mayPost=true, $url='')
 {
-	global $db,$cfg,$content,$URL;
+	global $db,$cfg,$view,$URL;
 
 	#Page division
 	if($cfg['commNum'])
@@ -42,7 +42,7 @@ function comments($id, $type=5, $mayPost=true, $url='')
 	#Get from database
 	if($total !== 0)
 	{
-		$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.text,u.login,u.photo,u.mail
+		$res = $db->query('SELECT c.ID,c.access,c.name,c.author,c.ip,c.date,c.UA,c.text,u.login,u.photo,u.mail
 			FROM '.PRE.'comms c LEFT JOIN '.PRE.'users u ON c.UID!=0 AND c.UID=u.ID
 			WHERE c.TYPE='.$type.' AND c.CID='.$id.
 			(($mayEdit) ? '' : ' AND c.access=1').
@@ -57,19 +57,20 @@ function comments($id, $type=5, $mayPost=true, $url='')
 		foreach($res as $x)
 		{
 			$comm[] = array(
-				'text' => nl2br(emots( isset($cfg['bbcode']) ? BBCode($x[6]) : $x[6] )),
+				'text' => nl2br(emots( isset($cfg['bbcode']) ? BBCode($x[7]) : $x[7] )),
 				'date' => genDate($x[5],1),
 				'title'=> $x[2],
-				'user' => $x[7] ? $x[7] : $x[3],
+				'user' => $x[8] ? $x[8] : $x[3],
 				'ip'   => $mayEdit ? $x[4] : null,
 				'edit' => $mayEdit ? $comURL.$x[0] : false,
 				'del'  => $mayDel ? $comURL.$x[0] : false,
+				'agent' => $x[6],
 				'accept' => $mayEdit && $x[1]!=1 ? $comURL.$x[0] : false,
 				'findIP' => $mayEdit ? $modURL.$x[4] : false,
-				'profile' => $x[7] ? $userURL.urlencode($x[7]) : false,
+				'profile' => $x[8] ? $userURL.urlencode($x[8]) : false,
 				'photo' => empty($cfg['commPhoto']) ? false : (
-					$x[8] ? $x[8] : ($cfg['commPhoto']==2 ?
-					PROTO.'www.gravatar.com/avatar/'.md5(strtolower($x[9])).'?d='.$cfg['gdef'] : false
+					$x[9] ? $x[9] : ($cfg['commPhoto']==2 ?
+					PROTO.'www.gravatar.com/avatar/'.md5(strtolower($x[10])).'?d='.$cfg['gdef'] : false
 				))
 			);
 		}
@@ -103,5 +104,5 @@ function comments($id, $type=5, $mayPost=true, $url='')
 	}
 
 	#Assign to template
-	$content->add('comments', $data);
+	$view->add('comments', $data);
 }

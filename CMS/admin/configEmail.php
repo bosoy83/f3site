@@ -12,14 +12,14 @@ if($_POST)
 	try
 	{
 		$f->save($opt);
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		event('CONFIG');
 		include './admin/config.php';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 	$f = null;
 }
@@ -28,5 +28,5 @@ include LANG_DIR.'admCfg.php';
 include './cfg/mail.php';
 
 #Template
-$content->title = 'E-Mail';
-$content->add('configEmail', array('cfg' => &$opt));
+$view->title = 'E-Mail';
+$view->add('configEmail', array('cfg' => &$opt));

@@ -2,7 +2,7 @@
 if(iCMS!=1) exit;
 
 #Page title
-$content->title = $lang['archive'];
+$view->title = $lang['archive'];
 
 #Get polls from database
 $res = $db->query('SELECT ID,name,num,date FROM '.PRE.'polls WHERE access="'.LANG.'" ORDER BY ID DESC');
@@ -25,8 +25,8 @@ foreach($res as $p)
 
 #Template
 if($num > 0)
-	$content->add('polls', array('poll' => &$poll));
+	$view->add('polls', array('poll' => &$poll));
 else
-	$content->info($lang['noc']);
+	$view->info($lang['noc']);
 
 unset($res,$poll,$lp);

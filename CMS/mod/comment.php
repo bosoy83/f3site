@@ -2,25 +2,25 @@
 if(iCMS!=1) return;
 require LANG_DIR.'comm.php';
 
-#Brak ID
+#No ID
 if(!$id) return;
 
-#B³êdy
+#Error list
 $error = array();
 $preview = null;
 
-#Czarna lista
+#Blacklist
 if(isset($cfg['blacklist']))
 {
 	require_once './lib/spam.php';
 	if(blacklist($_SERVER['REMOTE_ADDR']))
 	{
-		echo $content->info($lang['c11']);
+		echo $view->info($lang['c11']);
 		return 1;
 	}
 }
 
-#Akceptuj, usuñ
+#Accept or delete
 if(isset($_POST['act']) && $id)
 {
 	switch($_POST['act'])
@@ -44,16 +44,16 @@ if(isset($_POST['act']) && $id)
 	exit;
 }
 
-#Je¶li jest typ w URL, dodaj nowy komentarz
+#If type specified, add new comment
 if(isset($URL[2]))
 {
-	#Go¶æ nie mo¿e pisaæ lub ma blokadê
+	#Guest cannot post if not allowed
 	if(!UID && !isset($cfg['commGuest'])) $error[] = $lang['c11'];
 
-	#TYP JEST LICZB¡
+	#TYPE MUST BE A NUMBER
 	$type = (int)$URL[2];
 
-	#Sprawd¼, czy pozycja jest w³±czona
+	#Check if commented object is enabled
 	if(!isset($_SESSION['CV'][$type][$id]))
 	{
 		switch($type)
@@ -76,29 +76,27 @@ else
 {
 	if(!admit('CM'))
 	{
-		$error[] = $lang['c11']; #Edycja komentarza - brak praw
+		$error[] = $lang['c11']; #No right to edit comment
 	}
 	$type = null;
 }
 
-#Tytu³ strony
-$content->title = $type ? $lang['addComm'] : $lang['c1'];
+#Page title
+$view->title = $type ? $lang['addComm'] : $lang['c1'];
 
-#System CAPTCHA
-if(!UID && !empty($cfg['captcha']) && !isset($_SESSION['human']))
+#Init CAPTCHA system
+if(UID || empty($cfg['captcha']) || isset($_SESSION['human']))
+{
+	$noSPAM = false;
+}
+else
 {
 	require_once './lib/spam.php';
 	$noSPAM = CAPTCHA();
 }
-else
-{
-	$noSPAM = false;
-}
 
-#Dane POST
 if($_POST)
 {
-	#Dane
 	$c = array(
 		'name' => empty($cfg['noTitle']) ? clean($_POST['name'], 30, 1) : '',
 		'text' => clean($_POST['text'], 0, 1)
@@ -117,7 +115,7 @@ if($_POST)
 		$error[] = $lang['c4'];
 	}
 
-	#Autor i linki w tre¶ci + z³y kod z obrazka
+	#Check author and links in content
 	if($type)
 	{
 		if(UID)
@@ -148,7 +146,7 @@ if($_POST)
 		}
 	}
 
-	#Podgl±d
+	#Preview
 	if(isset($_POST['prev']) && !$error)
 	{
 		$preview = nl2br(Emots($c['text']));
@@ -166,7 +164,7 @@ if($_POST)
 		}
 	} 
 
-	#Zapis
+	#Save comment
 	elseif(isset($_POST['save']))
 	{
 		if($type)
@@ -174,13 +172,17 @@ if($_POST)
 			#Anty-flood
 			if(isset($_SESSION['post']) && $_SESSION['post']>time()) $error[] = $lang['c3'];
 
-			#Moderowaæ? + IP
+			#ModerowaÄ‡? + IP
 			$c['access'] = !isset($cfg['moderate']) || IS_EDITOR || admit('CM') ? 1 : 0;
-			$c['ip'] = $_SERVER['REMOTE_ADDR'];
+			$c['IP'] = $_SERVER['REMOTE_ADDR'];
+			$c['UA'] = clean($_SERVER['HTTP_USER_AGENT']);
+			$c['date'] = $_SERVER['REQUEST_TIME'];
+			$c['TYPE'] = $type;
+			$c['CID'] = $id;
 			$c['UID'] = UID;
 		}
 
-		#START
+		#If no error, save comment
 		if(!$error)
 		{
 			try
@@ -188,24 +190,23 @@ if($_POST)
 				$db->beginTransaction();
 				if($type)
 				{
-					$q = $db->prepare('INSERT INTO '.PRE.'comms (TYPE,CID,name,access,author,UID,ip,date,text)
-						VALUES ('.$type.','.$id.',:name,:access,:author,:UID,:ip,'.$_SERVER['REQUEST_TIME'].',:text)');
+					$q = $db->prepare('INSERT INTO '.PRE.'comms (TYPE,CID,name,access,author,UID,IP,UA,date,text)
+						VALUES (:TYPE,:CID,:name,:access,:author,:UID,:IP,:UA,:date,:text)');
 
-					#News?
+					#In case of news
 					if($type==5) $db->exec('UPDATE '.PRE.'news SET comm=comm+1 WHERE ID='.$id);
 				}
 				else
 				{
-					#Zapytanie
 					$q = $db->prepare('UPDATE '.PRE.'comms SET name=:name, text=:text WHERE ID='.$id);
 				}
 				$q->execute($c);
 				$db->commit();
 
-				#Ustaw anty-flood
+				#Set anti-flood
 				$_SESSION['post'] = time() + $cfg['antyFlood'];
 
-				#Info lub komentarze (AJAX)
+				#If AJAX, send all comments
 				if(JS)
 				{
 					include './lib/comm.php';
@@ -214,18 +215,16 @@ if($_POST)
 				}
 				else
 				{
-					$content->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7']);
+					$view->message(($type && $c['access']!=1) ? $lang['c6'] : $lang['c7']);
 				}
 			}
 			catch(PDOException $e)
 			{
-				$content->info($lang['c10'].$e->getMessage());
+				$view->info($lang['c10'].$e->getMessage());
 			}
 		}
 	}
 }
-
-#Nowy lub edycja
 else
 {
 	if($type)
@@ -238,23 +237,24 @@ else
 	}
 }
 
-#B³±d?
-if($error) $content->info('<ul><li>'.join('</li><li>',$error).'</li></ul>',null,'error');
+#Show errors
+if($error) $view->info('<ul><li>'.join('</li><li>',$error).'</li></ul>',null,'error');
 
-#Szablon
-$content->add('comment', array(
+#Template
+$view->add('comment', array(
 	'comment' => $c,
-	'code'    => $noSPAM,
+	'code'    => $noSPAM && $cfg['captcha']>1,
+	'sblam'   => $noSPAM && $cfg['captcha']===1,
 	'author'  => $type && !UID ? true : false,
 	'preview' => $preview,
 	'title'   => empty($cfg['noTitle']),
 	'url'     => url('comment/'.$id.($type ? '/'.$type : ''))
 ));
 
-#JS
+#Include JS editor
 if(isset($cfg['bbcode']))
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }

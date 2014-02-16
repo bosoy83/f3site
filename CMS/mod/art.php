@@ -16,14 +16,14 @@ if(!$art) return;
 if(!$art['access'])
 {
 	if(!admit($art['cat'],'CAT')) return;
-	$content->info(sprintf($lang['NVAL'], $art['name']), null, 'warning');
+	$view->info(sprintf($lang['NVAL'], $art['name']), null, 'warning');
 }
 
 #Art title
-$content->title = $art['name'];
+$view->title = $art['name'];
 
 #Art description - clean [temporary]
-if($art['dsc']) $content->desc = clean($art['dsc']);
+if($art['dsc']) $view->desc = clean($art['dsc']);
 
 #Emots
 if($art['opt']&2)
@@ -43,7 +43,7 @@ $art['author'] = autor($art['author']);
 #Ocena
 if(isset($cfg['arate']) && $art['catOpt'] & 4)
 {
-	$content->css(SKIN_DIR.'rate.css');
+	$view->css(SKIN_DIR.'rate.css');
 	$rates = 'vote.php?type=1&amp;id='.$id;
 }
 else
@@ -73,7 +73,7 @@ else
 }
 
 #Template
-$content->add('art', array(
+$view->add('art', array(
 	'art'   => &$art,
 	'pages' => &$pages,
 	'path'  => catPath($art['cat']),

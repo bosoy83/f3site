@@ -18,8 +18,8 @@ elseif(!IS_ADMIN)
 require LANG_DIR.'adm.php';
 
 #Templates folder
-$content->dir = './style/admin/';
-$content->cache = './cache/admin/';
+$view->dir = './style/admin/';
+$view->cache = './cache/admin/';
 
 #Function: Get selected ID
 function GetID($toStr=false, $array=null)
@@ -38,16 +38,10 @@ function GetID($toStr=false, $array=null)
 	return $toStr ? join(',', $x) : $x;
 }
 
-#Function: bar menu
-function MI($title,$url,$r,$c='plug')
-{
-	if(admit($r)) return '<li class="a_'.$c.'"><a href="'.url($url,'','admin').'">'.$title.'</a></li>';
-}
-
 #Maintenance mode info
 if(isset($cfg['MA']))
 {
-	$content->info($lang['siteOff'], null, 'warning');
+	$view->info($lang['siteOff'], null, 'warning');
 }
 
 #Load module
@@ -65,7 +59,7 @@ if(isset($URL[0]))
 	}
 	elseif(file_exists('./style/admin/'.$A.'.html'))
 	{
-		$content->add($A);
+		$view->add($A);
 	}
 	else
 	{
@@ -110,14 +104,14 @@ foreach($modules as $x)
 }
 
 #Default title
-if(!$content->title && isset($lang[$A])) $content->title = $lang[$A];
+if(!$view->title && isset($lang[$A])) $view->title = $lang[$A];
 
 #¯±danie JS czy standardowe
 if(JS)
 {
-	$content->display();
+	$view->display();
 }
 else
 {
-	$content->front('admin', array('menu'=>$menu));
+	$view->front('admin', array('menu'=>$menu));
 }

@@ -21,7 +21,7 @@ if(isset($_SESSION['renew']))
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 	}
 }
 
@@ -64,17 +64,17 @@ if($_POST)
 		if(NICEURL != $opt['nice'])
 		{
 			$_SESSION['renew'] = 1;
-			$content->message(19, url('setup','renew','admin'));
+			$view->message(19, url('setup','renew','admin'));
 		}
 
 		#Otherwise redirect to config menu
-		$content->info($lang['saved']);
+		$view->info($lang['saved']);
 		include './admin/config.php';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		$content->info($lang['error'].$e);
+		$view->info($lang['error'].$e);
 	}
 	$f = null;
 }
@@ -95,8 +95,8 @@ $prefpath = str_replace(array('//','admin/'), array('/',''), dirname($_SERVER['P
 $prefurl  = PROTO.$_SERVER['SERVER_NAME'].$prefpath;
 
 #Template
-$content->title = $lang['setup'];
-$content->add('setup', array(
+$view->title = $lang['setup'];
+$view->add('setup', array(
 	'db'  => $db_db=='sqlite' ? 'SQLite' : 'MySQL',
 	'cfg' => &$opt,
 	'prefurl' => $prefurl,

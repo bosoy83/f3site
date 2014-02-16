@@ -75,6 +75,13 @@
 		<option value="3">{lang.asirra}</option>
 	</select></td>
 </tr>
+<tr id="SC">
+	<td><b>{lang.sbkey}</b></td>
+	<td>
+		<div style="float: right"><a href="http://sblam.com/key.html" target="_blank">{lang.getKey}</a></div>
+		<input name="sbKey" value="{cfg.sbKey}" size="30" placeholder="{lang.sbwhy}">
+	</td>
+</tr>
 <tr id="RC">
 	<td><b>{lang.API}:</b></td>
 	<td>
@@ -216,6 +223,8 @@ f = document.forms[0]
 function RCF()
 {
 	$('RC').style.display = (f.captcha.selectedIndex==2) ? '' : 'none'
+	$('SC').style.display = (f.captcha.selectedIndex==1) ? '' : 'none'
+	f.prvKey.required = f.pubKey.required = f.captcha.selectedIndex==2
 }
 f.captcha.onchange = RCF
 RCF()

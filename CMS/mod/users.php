@@ -5,12 +5,12 @@ require(LANG_DIR.'profile.php');
 #Tylko dla zalogowanych
 if(isset($cfg['hideUser']) && !UID)
 {
-	$content->info($lang['mustLogin'], null, 'error');
+	$view->info($lang['mustLogin'], null, 'error');
 	return 1;
 }
 
 #Tytu³ strony
-$content->title = $lang['users'];
+$view->title = $lang['users'];
 
 #Strona
 if(isset($_GET['page']) && $_GET['page']>1)
@@ -66,7 +66,7 @@ $total = dbCount('users'.($param ? ' WHERE '.join(' AND ',$param) : ''));
 #Brak?
 if($total < 1)
 {
-	$content->info($lang['nousers']);
+	$view->info($lang['nousers']);
 	return 1;
 }
 
@@ -134,7 +134,7 @@ $res=null;
 $url = $url ? '&'.join('&',$url) : '';
 
 #Dane do szablonu
-$content->add('users', array(
+$view->add('users', array(
 	'users' => &$users,
 	'total' => $total,
 	'id'    => $id,

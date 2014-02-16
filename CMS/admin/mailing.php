@@ -30,7 +30,7 @@ function RemoteEmots($x)
 #If E-mail disabled
 if(!isset($cfg['mailon']))
 {
-	$content->info($lang['mailsd']); return 1;
+	$view->info($lang['mailsd']); return 1;
 }
 
 #Send E-mail
@@ -77,7 +77,7 @@ elseif(isset($_POST['txt']))
 		if($mail->sendTo($_POST['rcpt'],$cfg['mail'])) $log[] = $lang['msent'];
 		else $log[] = $lang['mnsent'];
 	}
-	$content->info('<ul><li>'.join('</li><li>',$log).'</li></ul>');
+	$view->info('<ul><li>'.join('</li><li>',$log).'</li></ul>');
 }
 
 #Count number of recipients
@@ -90,16 +90,16 @@ elseif(isset($_POST['next']))
 	{
 		$ile = dbCount('users WHERE mails=1 AND lv IN('.$lv.') AND ID IN (SELECT u FROM '.PRE.'groupuser WHERE g IN('.$gr.'))');
 	}
-	if($ile==0) $content->info($lang['nousnd']);
+	if($ile==0) $view->info($lang['nousnd']);
 }
 
 #Show form
 if(isset($_POST['next']) && $ile>0)
 {
-	$content->script('./lib/editor.js'); //Edytor
-	$content->script('./cache/emots.js'); //Emotki
-	$content->script(LANG_DIR.'edit.js'); //Jêzyk
-	$content->add('mailing', array(
+	$view->script('./lib/editor.js'); //Edytor
+	$view->script('./cache/emots.js'); //Emotki
+	$view->script(LANG_DIR.'edit.js'); //Jêzyk
+	$view->add('mailing', array(
 		'start' => false,
 		'cfg'   => &$cfg,
 		'level' => $lv,
@@ -112,8 +112,8 @@ if(isset($_POST['next']) && $ile>0)
 if(!$_POST)
 {
 	include './lib/user.php';
-	$content->info($lang['apmm1']);
-	$content->add('mailing', array(
+	$view->info($lang['apmm1']);
+	$view->add('mailing', array(
 		'levels' => LevelList('all',1),
 		'groups' => GroupList('all'),
 		'start'  => true,

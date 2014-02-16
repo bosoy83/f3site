@@ -5,7 +5,7 @@ if(EC!=1) exit;
 if(isset($_POST['asNew'])) $id = 0;
 
 #Page title
-$content->title = $id ? $lang['edit5'] : $lang['add5'];
+$view->title = $id ? $lang['edit5'] : $lang['add5'];
 
 #Action: save
 if($_POST)
@@ -71,7 +71,7 @@ if($_POST)
 		}
 
 		#Info + links
-		$content->info($lang['saved'], array(
+		$view->info($lang['saved'], array(
 			url('news/'.$id)  => sprintf($lang['see'], $news['name']),
 			url($news['cat']) => $lang['goCat'],
 			url('edit/5')     => $lang['add5'],
@@ -82,7 +82,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e->getMessage());
+		$view->info($e->getMessage());
 	}
 }
 
@@ -113,17 +113,17 @@ $news['fn']  = $news['opt'] & 4;
 #JavaScript editor
 if(isset($cfg['wysiwyg']) && is_dir('plugins/editor'))
 {
-	$content->script('plugins/editor/loader.js');
+	$view->script('plugins/editor/loader.js');
 }
 else
 {
-	$content->script(LANG_DIR.'edit.js');
-	$content->script('cache/emots.js');
-	$content->script('lib/editor.js');
+	$view->script(LANG_DIR.'edit.js');
+	$view->script('cache/emots.js');
+	$view->script('lib/editor.js');
 }
 
 #Template
-$content->add('edit_news', array(
+$view->add('edit_news', array(
 	'news' => &$news,
 	'full' => &$full,
 	'id'   => $id,

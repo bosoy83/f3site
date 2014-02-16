@@ -1,5 +1,5 @@
 <?php /* Template system */
-class Content
+class View
 {
 	public
 		$title,
@@ -84,13 +84,13 @@ class Content
 		{
 			$file = SKIN_DIR.$file;
 		}
-		$this->head .= '<link rel="stylesheet" type="text/css" href="'.$file.'" />';
+		$this->head .= '<link rel="stylesheet" type="text/css" href="'.$file.'">';
 	}
 
 	#Add JavaScript file
-	function script($file, $type='text/javascript')
+	function script($file)
 	{
-		$this->head .= '<script type="'.$type.'" src="'.$file.'"></script>';
+		$this->head .= '<script src="'.$file.'"></script>';
 	}
 
 	#Add RSS channel
@@ -102,7 +102,7 @@ class Content
 		}
 		foreach($file as $f=>$t)
 		{
-			$this->head .= '<link rel="alternate" type="application/rss+xml" href="'.$f.'" title="'.$t.'" />';
+			$this->head .= '<link rel="alternate" type="application/rss+xml" href="'.$f.'" title="'.$t.'">';
 		}
 	}
 

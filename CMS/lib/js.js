@@ -1,13 +1,13 @@
-//Plik przeznaczony do edycji
-//Skompresuj go: http://dean.edwards.name/packe0
+//File for edit
+//Compress it: http://dean.edwards.name/packe0
 
-//Otwórz okno na œrodku ekranu
+//Open centered window
 function okno(url, width, height)
 {
 	return open(url, '', 'scrollbars=yes,width='+width+',height='+height+',top='+(screen.height-height)/2+',left='+(screen.width-width)/2)
 }
 
-//Zmieñ CSS
+//Change main CSS
 function CSS(x)
 {
 	if(x)
@@ -18,7 +18,7 @@ function CSS(x)
 	}
 }
 
-//Do³¹cz plik JS - loaded opcjonalny
+//Include JS file async - loaded event optional
 function include(file, loaded)
 {
 	if(file.indexOf('.css') > 0)
@@ -34,8 +34,6 @@ function include(file, loaded)
 		js.type = 'text/javascript';
 		js.src = file;
 	}
-
-	//Wywo³aj funkcjê, gdy plik zostanie za³adowany
 	if(loaded)
 	{
 		if(js.readyState)
@@ -53,7 +51,7 @@ function include(file, loaded)
 	document.getElementsByTagName('head')[0].appendChild(js)
 }
 
-//Dodaj zdarzenie - IE i W3
+//Add event - IE and W3
 function addEvent(type, f, o, capture)
 {
 	if(window.addEventListener)
@@ -70,10 +68,10 @@ function addEvent(type, f, o, capture)
 	}
 }
 
-//Szybki dostêp do elementów po ID
+//Fast access to element by ID - may be extended in the future
 function $(x) { return x.nodeType ? x : document.getElementById(x) }
 
-//Wstaw kod
+//Insert code
 function BBC(o, left, right, inside)
 {
 	if(o.selectionStart != undefined)
@@ -99,7 +97,7 @@ function BBC(o, left, right, inside)
 	}
 }
 
-//Zaznacz wszystko
+//Select all checkboxes
 function selAll(o)
 {
 	var e = o.form.elements;
@@ -109,7 +107,7 @@ function selAll(o)
 	}
 }
 
-//Ustaw cookie
+//Set cookie
 function setCookie(name, txt, expires, path)
 {
 	var date = new Date();
@@ -122,7 +120,7 @@ function setCookie(name, txt, expires, path)
 	document.cookie = name + '=' + escape(txt) + ';path=' + path + ';expires=' + date.toGMTString();
 }
 
-//Poka¿ lub ukryj
+//Show or hide element
 function show(o, once)
 {
 	if(typeof o == 'string') o = $(o);
@@ -130,10 +128,10 @@ function show(o, once)
 	if(x.display=='none') x.display=''; else if(once==undefined) x.display='none'
 }
 
-//Kursor
+//Cursor coords
 var cx,cy,toHide = [];
 
-//Mysz
+//Get mouse coords
 document.onmousedown = function(e)
 {
 	if(e)
@@ -158,7 +156,7 @@ document.onclick = function()
 	}
 };
 
-//Hint
+//Show hint next to cursor or at given position
 function hint(o, left, top, autoHide)
 {
 	if(typeof o == 'string')
@@ -178,7 +176,7 @@ function hint(o, left, top, autoHide)
 	else o.style.visibility = 'hidden';
 }
 
-//JSON
+//Parse JSON
 function getJSON(x)
 {
 	if(window.JSON)
@@ -196,44 +194,44 @@ function getJSON(x)
 //
 function Request(url, box, opt)
 {
-	//Opcje
+	//Options
 	opt = opt || {};
 
-	//Gdzie wstawiæ odpowiedŸ?
+	//Output element - by default middle panel
 	this.o = box || $('main');
 
-	//Adres docelowy
+	//Location URL
 	this.url = url;
 
-	//Wykonaj skrypty JS - domyœlnie NIE
+	//Parse script tags - disabled by default
 	this.scripts = opt.scripts || false;
 
-	//Gdy odpowiedŸ jest pobierana
+	//While response is downloaded event
 	this.loading = opt.loading || null;
 
-	//Gdy ¿¹danie nie powiedzie siê
+	//If request fails event
 	this.fail = opt.fail || function(x) { alert(x) };
 
-	//Gdy ¿¹danie zakoñczone sukcesem
+	//When request done successfully event
 	this.done = opt.done || function(x) { this.o.innerHTML = x };
 
-	//Czas oczekiwania na odpowiedŸ
+	//Maximum request time
 	this.timeout = opt.timeout || 50000;
 }
 
-//Wyœlij ¿¹danie metod¹ GET
+//Send request with GET
 Request.prototype.get = function(list)
 {
 	this.send(list, false);
 };
 
-//Wyœlij ¿¹danie metod¹ POST
+//Send request with POST
 Request.prototype.post = function(list)
 {
 	this.send(list, true);
 };
 
-//Wyœlij ¿¹danie
+//Send request
 Request.prototype.send = function(list, post)
 {
 	if(!this.http)
@@ -263,10 +261,10 @@ Request.prototype.send = function(list, post)
 		}
 		if(!this.http) throw new Exception('Cannot create AJAX object!');
 
-		//Odnoœnik do THIS
+		//Reference to THIS
 		var self = this;
 
-		//Gdy zmienia siê status ¿¹dania...
+		//When request state changes
 		this.http.onreadystatechange = function()
 		{
 			if(self.http.readyState == 4)
@@ -275,10 +273,10 @@ Request.prototype.send = function(list, post)
 				{
 					if(self.http.status == 200 || self.http.status == 0)
 					{
-						//Wstaw odpowiedŸ
+						//Fire done event with response text
 						self.done(self.http.responseText);
 
-						//Wykonaj znaczniki <script>
+						//Parse <script> tags
 						if(self.scripts)
 						{
 							var script = self.o.getElementsByTagName('script');
@@ -307,26 +305,26 @@ Request.prototype.send = function(list, post)
 			}
 		};
 	}
-	//Gdy nie zdefiniowano URL
+	//When URL not defined assume current location
 	if(this.url == '') this.url = location.href;
 
-	//Gdy odpowiedŸ jest pobierana
+	//Fire loading event
 	if(this.loading) this.loading();
 
-	//Kursor
+	//Change cursor to progress
 	document.body.style.cursor = 'progress';
 
-	//Otwórz po³¹czenie
+	//Open connection
 	this.http.open(post ? 'POST' : 'GET', this.url, true);
 
-	//Typ POST
+	//Determine POST method
 	if(post)
 	{
 		this.http.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 	}
 	this.http.setRequestHeader('X-Requested-With','XMLHttpRequest');
 
-	//Parametry
+	//Send request with or without POST data
 	if(typeof list == 'object')
 	{
 		var name,param = [];
@@ -340,17 +338,17 @@ Request.prototype.send = function(list, post)
 };
 
 //
-// *** WYŒLIJ FORMULARZ ZA POMOC¥ AJAX ***
+// *** SEND FORM WITH AJAX ***
 //
 
-//Utwórz tymczasowy obiekt Request i wyœlij formularz
+//Send form with temporary Request object
 function send(o,id,opt)
 {
 	new Request(o.form.action, id, opt).sendForm(o);
 	return false
 }
 
-//Przechwyæ kontrolê nad gwiazdkami
+//Take control over stars
 function rate(o)
 {
 	for(var i=0; i<o.v.length; i++)
@@ -363,8 +361,8 @@ function rate(o)
 	}
 }
 
-//Wyœlij formularz za pomoc¹ istniej¹cego obiektu Request
-//Argumentem jest pole SUBMIT - w zdarzeniu onclick: [obiektRequest].sendForm(this)
+//Send form with existing Request object
+//Pass SUBMIT field as argument
 Request.prototype.sendForm = function(o)
 {
 	var el = o.form.elements, x, param = {};

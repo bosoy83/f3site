@@ -28,10 +28,10 @@ if(!$cat = $db->query('SELECT * FROM '.PRE.'cats WHERE access!=3 AND ID='.$d)->f
 }
 
 #Set title
-$content->title = $cat['name'];
+$view->title = $cat['name'];
 
 #Set description
-if($cat['dsc']) $content->desc = $cat['dsc'];
+if($cat['dsc']) $view->desc = $cat['dsc'];
 
 #Page
 if(isset($URL[1]) && is_numeric($URL[1]) && $URL[1] > 1)
@@ -94,24 +94,24 @@ $data = array(
 #Category path
 if($cat['opt'] & 1 && isset($cfg['catStr']))
 {
-	$content->nav = catPath($d,$cat);
+	$view->nav = catPath($d,$cat);
 	$data['path'] = catPath($d,$cat);
 }
 else
 {
-	$content->nav = null;
+	$view->nav = null;
 	$data['path'] = null;
 }
 
 #Load item list generator - TODO: improve
 if($cat['num'])
 {
-	$content->add('cat', $data);
+	$view->add('cat', $data);
 	include './mod/cat/'.$cat['type'].'.php';
 }
 else
 {
 	$data['type'] = $lang['cats'];
 	$data['cats'] = url('cats');
-	$content->add('cat', $data);
+	$view->add('cat', $data);
 }

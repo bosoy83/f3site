@@ -18,7 +18,9 @@ function CAPTCHA($cfg = null)
 			$x->prvKey = $cfg['prvKey'];
 			return $x;
 		default:
-			return new ImgCode;
+			$x = new Sblam;
+			$x->key = $cfg['sbKey'];
+			return $x;
 	}
 }
 
@@ -33,7 +35,28 @@ function blacklist($ip)
 	return strpos($list,"\n".$ip."\n")>0;
 }
 
-#reCAPTCHA™ - recaptcha.net - get your own keys there
+#Sblam!
+class Sblam
+{
+	public $key;
+	function verify($fields=null)
+	{
+		require_once './lib/sblam/sblamtest.php';
+		if(sblamtestpost($fields,$this->key)<0)
+		{
+			$_SESSION['human'] = 1;
+			return 1;
+		}
+		$this->errorId = 'badSb';
+		return 0;
+	}
+	function __toString()
+	{
+		echo '<script src="lib/sblam/sblam.js.php"></script>';
+	}
+}
+
+#reCAPTCHAâ„¢ - recaptcha.net - get your own keys there
 class reCAPTCHA
 {
 	public
@@ -105,26 +128,6 @@ class Asirra
 			Asirra_CheckIfHuman(function(x) { if(x) ASF.submit(); else alert(ASE) })
 			if(e.preventDefault) e.preventDefault(); return false}, ASF)
 		</script>';
-	}
-}
-
-#Lightweight solution - digits on image
-class ImgCode
-{
-	function verify()
-	{
-		if(empty($_POST['code']) || $_POST['code']!=$_SESSION['code'])
-		{
-			$this->errorId = 'badCode';
-			return 0;
-		}
-		$_SESSION['human'] = 1;
-		return 1;
-	}
-	function __toString()
-	{
-		return '<img src="code.php" style="border: 1px solid gray; vertical-align: top" />
-		<input name="code" style="height: 21px" />';
 	}
 }
 

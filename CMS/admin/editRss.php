@@ -4,7 +4,7 @@ require LANG_DIR.'admAll.php';
 require './lib/categories.php';
 
 #Page title
-$content->title = $id ? $lang['editRss'] : $lang['addRss'];
+$view->title = $id ? $lang['editRss'] : $lang['addRss'];
 
 #Save RSS
 if($_POST)
@@ -41,7 +41,7 @@ if($_POST)
 	}
 	catch(Exception $e)
 	{
-		$content->info($e);
+		$view->info($e);
 	}
 }
 elseif($id)
@@ -65,7 +65,7 @@ else
 }
 
 #Prepare template
-$content->add('editRss', array(
+$view->add('editRss', array(
 	'rss'   => $rss,
 	'cats'  => Slaves(5, $rss['cat']),
 	'langs' => listBox('lang', 1, $rss['lang'])

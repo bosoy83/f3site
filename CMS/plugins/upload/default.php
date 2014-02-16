@@ -3,10 +3,10 @@ require './lib/categories.php';
 require LANG_DIR.'content.php';
 
 #Template
-$content->title = $lang['batch'];
-$content->dir = './plugins/upload/';
-$content->cache = './cache/upload/';
-$content->add('upload', array(
+$view->title = $lang['batch'];
+$view->dir = './plugins/upload/';
+$view->cache = './cache/upload/';
+$view->add('upload', array(
 	'cat' => Slaves(1, 0)
 ));
 

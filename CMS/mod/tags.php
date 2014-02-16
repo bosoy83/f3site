@@ -58,12 +58,12 @@ if(isset($URL[1]) && !isset($URL[1][31]))
 	}
 
 	#Prepare template
-	$content->title = clean($URL[1]);
-	$content->add('tags', array('item'=>&$all, 'tag'=>false, 'tags'=>url('tags')));
+	$view->title = clean($URL[1]);
+	$view->add('tags', array('item'=>&$all, 'tag'=>false, 'tags'=>url('tags')));
 }
 else
 {
-	$content->title = $lang['tags'];
+	$view->title = $lang['tags'];
 
 	#Action: show tag cloud
 	$res = $db->query('SELECT tag, num FROM '.PRE.'tags GROUP BY tag ORDER BY tag LIMIT 30');
@@ -96,5 +96,5 @@ else
 			'size'  => round(($num - $min) * $step) + 13
 		);
 	}
-	$content->add('tags', array('tag' => &$all, 'item' => false));
+	$view->add('tags', array('tag' => &$all, 'item' => false));
 }
