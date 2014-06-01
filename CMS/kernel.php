@@ -18,8 +18,7 @@ if(ini_get('register_globals'))
 if(ini_get('magic_quotes_gpc'))
 {
 	$gpc = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-	function x(&$x) { $x = stripslashes($x); }
-	array_walk_recursive($gpc, 'x');
+	array_walk_recursive($gpc, function(&$x) { $x = stripslashes($x); });
 }
 
 #Main arrays
@@ -54,20 +53,6 @@ else
 #Skin paths
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
-
-#Extract ID: $id always exist
-if(isset($_GET['id']))
-{
-	$id = (int)$_GET['id'];
-}
-elseif(isset($URL[1]))
-{
-	$id = (int)$URL[1];
-}
-else
-{
-	$id = 0;
-}
 
 #Session
 session_start();
@@ -136,12 +121,10 @@ header('Content-type: text/html; charset=utf-8');
 #Connect to database
 try
 {
-	#SQLite
 	if($db_db=='sqlite')
 	{
 		$db = new PDO('sqlite:'.$db_d);
 	}
-	#MySQL
 	else
 	{
 		$db = new PDO('mysql:host='.$db_h.';dbname='.$db_d,$db_u,$db_p);
@@ -228,7 +211,7 @@ else
 	define('IS_OWNER',0);
 }
 
-#Prawa - admit user
+#Check if user is allowed to...
 function admit($id,$type=null)
 {
 	if(!UID) return false;
