@@ -30,31 +30,31 @@ $user = null;
 require './cfg/main.php';
 require './cfg/db.php';
 
-#AJAX request
+#AJAX request, protocol
 define('JS', isset($_SERVER['HTTP_X_REQUESTED_WITH']));
 define('PROTO', isset($_SERVER['HTTPS']) ? 'https://' : 'http://');
-//define('NICEURL', $cfg['niceURL']);
+define('NICEURL', $cfg['niceURL']);
 
 #Path based on PATH_INFO or GET param
 if(isset($_SERVER['PATH_INFO'][1]))
 {
 	$URL = explode('/', substr($_SERVER['PATH_INFO'],1));
-	#define('PATH', substr(dirname($_SERVER['PHP_SELF']),0,-9));
+	define('PATH', substr(dirname($_SERVER['PHP_SELF']),0,-9));
 }
 else
 {
 	$URL = isset($_GET['go']) ? explode('/', $_GET['go']) : array();
-	#define('PATH', str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
+	define('PATH', str_replace('//','/',dirname($_SERVER['PHP_SELF']).'/'));
 }
 
-#Detect full URL - currently preset in cfg/db.php
-#define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
+#Detect full URL
+define('URL','http://'.$_SERVER['SERVER_NAME'].PATH);
+define('ID', isset($URL[1]) ? (int)$URL[1] : 0);
 
-#Skin paths
+#Skin paths TODO:remove
 define('SKIN_DIR', './style/'.$cfg['skin'].'/');
 define('VIEW_DIR', './cache/'.$cfg['skin'].'/');
 
-#Session
 session_start();
 
 #Default language
